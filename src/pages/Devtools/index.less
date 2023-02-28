@@ -1,0 +1,131 @@
+.pgae-spy-devtools {
+  height: 100%;
+  &__sider {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    .circle-badge {
+      @size: 6px;
+      display: inline-block;
+      width: @size;
+      height: @size;
+      border-radius: @size;
+      background-color: red;
+      position: relative;
+      left: 4px;
+      top: -6px;
+      transform: scale(0);
+      transition: transform ease-out 0.3s;
+      &.show {
+        transform: scale(1);
+      }
+    }
+    &-bottom {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+  }
+  &__panel {
+    height: 100%;
+    padding: 20px;
+    > div {
+      height: 100%;
+      overflow: auto;
+    }
+  }
+}
+.client-info {
+  padding: 8px;
+  &__logo {
+    width: 46px;
+    height: 46px;
+    transition: all ease-in-out 0.3s;
+    &:hover {
+      filter: drop-shadow(0 0.1em 0.3em #646cffaa);
+    }
+  }
+  .page-spy-id {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 5px,
+      #e9e9e9,
+      #e9e9e9 10px
+    );
+    background-repeat: repeat;
+    b {
+      font-family: 'Monaco';
+      letter-spacing: 8px;
+      font-size: 24px;
+    }
+  }
+}
+
+.sider-rooms {
+  margin-bottom: 15px;
+  padding: 8px;
+  &.collapsed {
+    .trigger-icon {
+      transform: rotateZ(0deg);
+    }
+    .sider-rooms__content {
+      height: 0;
+    }
+  }
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    .trigger-icon {
+      transform: rotateZ(180deg);
+      transition: transform ease-out 0.2s;
+    }
+  }
+  &__content {
+    height: 25vh;
+    transition: height ease-out 0.2s;
+    overflow: hidden;
+  }
+  .room-list {
+    height: 25vh;
+    overflow: hidden auto;
+    .room-item {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 8px;
+      // border-bottom: 1px solid #d9d9d9;
+      transition: all ease-out 0.3s;
+      background-color: #fff;
+      opacity: 0.5;
+      &:last-child {
+        border-bottom: none;
+      }
+      &:hover {
+        opacity: 1;
+        transform: translateX(5px);
+      }
+      .client-icon {
+        width: 30px;
+        height: 30px;
+      }
+      .room-item__address {
+        padding: 0 4px;
+        font-family: 'Monaco';
+        color: @text-primary;
+        letter-spacing: 2px;
+        background-image: repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 2px,
+          #e9e9e9,
+          #e9e9e9 4px
+        );
+      }
+    }
+  }
+}

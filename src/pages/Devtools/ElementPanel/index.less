@@ -1,0 +1,43 @@
+@controllerBtnSize: 14px;
+.element-panel {
+  @import (less) 'highlight.js/styles/stackoverflow-light.css';
+  .element-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    &.plain-text {
+      margin-left: @controllerBtnSize;
+      display: block;
+      white-space: pre-wrap;
+    }
+  }
+  .element-controller {
+    width: @controllerBtnSize;
+    height: @controllerBtnSize;
+    &__btn {
+      margin-top: 4px;
+    }
+  }
+  .element-content {
+    font-size: 14px;
+    word-break: break-all;
+    &__header,
+    &__footer {
+      color: #9b8a9b;
+    }
+    .tag-name {
+      color: #731f72;
+    }
+  }
+  .element-attrs {
+    .attrs-item {
+      color: #9b8a9b;
+      &__name {
+        color: #864114;
+      }
+      &__value {
+        color: #181997;
+      }
+    }
+  }
+}

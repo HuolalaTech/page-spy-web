@@ -1,0 +1,54 @@
+.object-node {
+  font-size: 13px;
+  line-height: 1.3;
+  &__property {
+    margin-left: 12px;
+    &-key {
+      color: #731e72;
+    }
+  }
+  &__title {
+    cursor: default;
+    .spread-controller {
+      transform: rotateZ(0);
+      transition: transform linear 0.1s;
+      &.spread {
+        transform: rotateZ(90deg);
+      }
+    }
+  }
+}
+.type-node {
+  font-size: 13px;
+  &.number {
+    color: #181997;
+  }
+  &.string {
+    position: relative;
+    color: #be3c31;
+    &::before {
+      content: '"';
+    }
+    &::after {
+      content: '"';
+    }
+    .copyable-icon {
+      position: absolute;
+      right: -15px;
+      bottom: -2px;
+    }
+  }
+  &.boolean {
+    color: #181997;
+  }
+  &.symbol {
+    color: #be3c31;
+  }
+  &.function {
+    color: #4e360e;
+  }
+  &.null,
+  &.undefined {
+    color: #767b7f;
+  }
+}

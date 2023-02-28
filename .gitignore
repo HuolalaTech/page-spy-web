@@ -1,0 +1,29 @@
+page-spy
+
+# dependencies
+node_modules/
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# production
+/dist
+
+# misc
+.DS_Store
+
+# local env files
+.env.local
+.env.*.local
+
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*

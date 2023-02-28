@@ -1,0 +1,27 @@
+.storage-panel {
+  position: relative;
+  &__layout {
+    height: 100%;
+  }
+  &__sider {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    border-right: 1px solid #d9d9d9;
+  }
+  &__menu {
+    height: 100%;
+    border-right: none;
+  }
+  &__content {
+    margin-left: 200px;
+    height: 100%;
+    overflow: auto;
+    background-color: #fff;
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+  }
+}

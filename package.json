@@ -1,0 +1,68 @@
+{
+  "name": "@hll/page-spy-web",
+  "version": "0.0.1",
+  "description": "Out-of-box debugger client for page-spy.",
+  "license": "MIT",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src"
+  },
+  "devDependencies": {
+    "eslint-config-react-app": "^2.1.0",
+    "@huolala-tech/page-spy": "file:./page-spy",
+    "@types/node": "^17.0.16",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
+    "@types/react-transition-group": "^4.4.5",
+    "@vitejs/plugin-react": "^1.2.0",
+    "autoprefixer": "^10.4.2",
+    "eslint": "^8.34.0",
+    "less": "^4.1.2",
+    "lint-staged": "^12.3.3",
+    "prettier": "^2.5.1",
+    "typescript": "^4.7.4",
+    "vite": "^3.0.4",
+    "vite-plugin-svgr": "^1.0.1",
+    "yorkie": "^2.0.0"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "ahooks": "^3.1.9",
+    "antd": "^5.2.1",
+    "clsx": "^1.2.1",
+    "highlight.js": "^11.7.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.1",
+    "react-transition-group": "^4.4.5",
+    "rehype-dom-parse": "^4.0.2",
+    "rehype-dom-stringify": "^3.0.1",
+    "umi-request": "^1.4.0",
+    "unified": "^10.1.2"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

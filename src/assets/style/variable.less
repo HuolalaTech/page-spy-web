@@ -1,0 +1,19 @@
+@primary-color: #301e67;
+
+// Text Color
+@text-primary: #313233;
+@text-regulary: #626466;
+@text-secondary: #939699;
+@text-placeholder: #c4c8cc;
+
+// Box-Shadow
+@box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.05);
+@gradient: linear-gradient(45deg, #b6eada, #5b8fb9, #301e67 50%, #18122b);
+
+#compose {
+  .gradient-text() {
+    background: @gradient;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}

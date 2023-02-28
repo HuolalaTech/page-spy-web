@@ -1,0 +1,71 @@
+.console-node {
+  margin-right: 7px;
+  word-break: break-word;
+  &.origin {
+    color: #323941;
+  }
+  &.number {
+    color: #181997;
+  }
+  &.string {
+    color: #be3c31;
+  }
+  &.boolean {
+    color: #181997;
+  }
+  &.symbol {
+    color: #be3c31;
+  }
+  &.error {
+    color: #ec301d;
+  }
+  &.function {
+    color: #4e360e;
+  }
+  &.object {
+    color: #6a6b6d;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  &.null,
+  &.undefined {
+    color: #767b7f;
+  }
+  &.bigint {
+    color: #396b2f;
+  }
+  .right-mustache {
+    margin-left: -6px;
+  }
+}
+
+.atom-node {
+  cursor: default;
+  .spread-controller {
+    transform: rotateZ(0);
+    transition: transform linear 0.1s;
+    &.spread {
+      transform: rotateZ(90deg);
+    }
+  }
+}
+
+.property-panel {
+  margin-left: 12px;
+  .property-key {
+    color: #8f198d;
+    font-weight: 700;
+  }
+  .property-value {
+    &.ellipsis {
+      font-style: normal;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .copyable-content:hover {
+      background-color: #eee;
+    }
+  }
+}

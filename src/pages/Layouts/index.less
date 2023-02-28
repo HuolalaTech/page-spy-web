@@ -1,0 +1,31 @@
+.layouts {
+  .header {
+    padding-inline: 24px;
+    box-shadow: @box-shadow;
+    background-color: rgba(255, 255, 255, 1);
+    &.dark-bg {
+      background-color: rgba(0, 0, 0, 1);
+      .logo-icon {
+        fill: #fff;
+      }
+    }
+  }
+  .logo {
+    height: 64px;
+    > a {
+      height: 100%;
+      display: inline-flex;
+      place-items: center;
+    }
+    &-icon {
+      width: 36px;
+      height: 36px;
+      fill: #000;
+    }
+    &-name {
+      margin-left: 12px;
+      margin-bottom: 0;
+      #compose.gradient-text();
+    }
+  }
+}
