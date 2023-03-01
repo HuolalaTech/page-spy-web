@@ -91,7 +91,7 @@ const PagePanel = () => {
             height="100%"
             sandbox="allow-same-origin"
             referrerPolicy="strict-origin-when-cross-origin"
-          ></iframe>
+          />
         </FrameWrapper>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { message, Tooltip } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
-import { useCallback, useMemo } from 'react';
+import { Fragment, useCallback, useMemo } from 'react';
 import copy from 'copy-to-clipboard';
 import React from 'react';
 import './index.less';
@@ -33,7 +33,8 @@ const CopyContent: React.FC<Props> = ({ content, rows = 3, length = 120 }) => {
     }
   }, [content]);
 
-  if (computedContent === content) return <>{content}</>;
+  if (computedContent === content)
+    return React.createElement(Fragment, null, content);
 
   return (
     <span className="copyable">

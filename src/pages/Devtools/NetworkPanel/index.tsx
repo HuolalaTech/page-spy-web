@@ -245,11 +245,7 @@ const NetworkPanel = () => {
               <thead>
                 <tr>
                   {networkTitle.map((t) => {
-                    return (
-                      <td key={t} data-i18n-skip>
-                        {t}
-                      </td>
-                    );
+                    return <td key={t}>{t}</td>;
                   })}
                 </tr>
               </thead>
@@ -261,21 +257,19 @@ const NetworkPanel = () => {
                     return (
                       <Dropdown
                         key={row.id}
-                        overlay={
-                          <Menu
-                            onClick={({ key }) => {
-                              onMenuClick(key, row);
-                            }}
-                          >
-                            <Menu.Item key="open-in-new-tab">
-                              Open in new tab
-                            </Menu.Item>
-                            <Menu.Item key="copy-link">
-                              Copy link address
-                            </Menu.Item>
-                            <Menu.Item key="copy-cURL">Copy as cURL</Menu.Item>
-                          </Menu>
-                        }
+                        menu={{
+                          items: [
+                            {
+                              key: 'open-in-new-tab',
+                              label: 'Open in new tab',
+                            },
+                            { key: 'copy-link', label: 'Copy link address' },
+                            { key: 'copy-cURL', label: 'Copy as cURL' },
+                          ],
+                          onClick: ({ key }) => {
+                            onMenuClick(key, row);
+                          },
+                        }}
                         trigger={['contextMenu']}
                       >
                         <tr

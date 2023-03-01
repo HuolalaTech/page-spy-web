@@ -1,3 +1,4 @@
+import React from 'react';
 import { unified } from 'unified';
 import domParse from 'rehype-dom-parse';
 import domStringify from 'rehype-dom-stringify';

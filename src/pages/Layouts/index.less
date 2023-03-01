@@ -1,9 +1,12 @@
 .layouts {
+  height: 100%;
   .header {
     padding-inline: 24px;
     box-shadow: @box-shadow;
     background-color: rgba(255, 255, 255, 1);
-    &.dark-bg {
+    z-index: 1;
+    &.is-home {
+      box-shadow: none;
       background-color: rgba(0, 0, 0, 1);
       .logo-icon {
         fill: #fff;

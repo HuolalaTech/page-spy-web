@@ -61,18 +61,10 @@ function GetterNode({
 
   const PropertyValueContent = useMemo(() => {
     if (descriptor.value) {
-      return (
-        <span data-i18n-skip className="property-value">
-          {descriptor.value}
-        </span>
-      );
+      return <span className="property-value">{descriptor.value}</span>;
     }
     return (
-      <span
-        data-i18n-skip
-        className="property-value ellipsis"
-        onClick={getPropertyValue}
-      >
+      <span className="property-value ellipsis" onClick={getPropertyValue}>
         (...)
       </span>
     );
@@ -140,13 +132,12 @@ function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
               content = (
                 <>
                   <span
-                    data-i18n-skip
                     className="property-key"
                     style={{ fontStyle: 'normal' }}
                   >
                     {key}:{' '}
                   </span>
-                  <span data-i18n-skip className="property-value">
+                  <span className="property-value">
                     <CopyContent content={propertyContent} />
                   </span>
                 </>
@@ -178,13 +169,12 @@ function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
                       value: (
                         <>
                           <span
-                            data-i18n-skip
                             className="property-key"
                             style={{ fontStyle: 'normal' }}
                           >
                             {key}:{' '}
                           </span>
-                          <span data-i18n-skip className="property-value">
+                          <span className="property-value">
                             <CopyContent
                               content={
                                 propertyContent.value.value ||
@@ -212,10 +202,10 @@ function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
           return (
             <div key={key}>
               <code>
-                <span data-i18n-skip className="property-key">
+                <span className="property-key">
                   {key === '___proto___' ? '__proto__' : key}:{' '}
                 </span>
-                <span data-i18n-skip className="property-value">
+                <span className="property-value">
                   <ConsoleNode data={{ ...propVal }} />
                 </span>
               </code>
@@ -245,7 +235,7 @@ function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
             className={clsx(['spread-controller', spread && 'spread'])}
           />
         )}
-        <i data-i18n-skip>{value}</i>
+        <i>{value}</i>
       </code>
       <PropertyPanel />
     </div>
@@ -268,7 +258,7 @@ function ConsoleNode({ data }: ConsoleNodeProps) {
     return (
       <code className="console-node object">
         <CaretRightOutlined />
-        <i data-i18n-skip>
+        <i>
           {`${superName} {`}
           <ConsoleNode
             data={{
@@ -297,11 +287,7 @@ function ConsoleNode({ data }: ConsoleNodeProps) {
     }
   }
 
-  return (
-    <code data-i18n-skip className={`console-node ${className}`}>
-      {node || '""'}
-    </code>
-  );
+  return <code className={`console-node ${className}`}>{node || '""'}</code>;
 }
 
 export default ConsoleNode;

@@ -50,7 +50,6 @@ const SystemPanel = () => {
                 <Col className="system-info__value">{system.ua}</Col>
               </Row>
             </Col>
-            <Col></Col>
           </Row>
         </Card>
       </div>

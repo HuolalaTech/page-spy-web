@@ -5,7 +5,6 @@ import { Page404, To404 } from '@/404';
 import Devtools from '@/pages/Devtools';
 import { Layouts } from '@/pages/Layouts';
 import { Home } from '@/pages/Home';
-import { Search } from '@/pages/Search';
 
 export interface RouteInfo {
   icon?: any;
@@ -25,14 +24,10 @@ const routes: RouteObject[] = [
         element: <Home />,
       },
       {
-        path: 'search',
-        element: <Search />,
+        path: '/devtools',
+        element: <Devtools />,
       },
     ],
-  },
-  {
-    path: '/devtools',
-    element: <Devtools />,
   },
   {
     path: '/404',

@@ -1,5 +1,5 @@
 import clsx from 'classnames';
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import './index.less';
 import CopyContent from '../ConsolePanel/components/CopyContent';
@@ -60,11 +60,7 @@ export const TypeNode: React.FC<TypeNodeProps> = ({
 
   const labelContent = useMemo(() => {
     if (label) {
-      return (
-        <code className="object-node__property-key" data-i18n-skip>
-          {label}:{' '}
-        </code>
-      );
+      return <code className="object-node__property-key">{label}: </code>;
     }
     return null;
   }, [label]);
@@ -88,7 +84,7 @@ export const TypeNode: React.FC<TypeNodeProps> = ({
             {labelContent}
           </>
         )}
-        <span data-i18n-skip className={clsx('type-node', className)}>
+        <span className={clsx('type-node', className)}>
           <CopyContent content={`${data}`} rows={3} length={150} />
         </span>
       </code>
@@ -107,7 +103,7 @@ export const TypeNode: React.FC<TypeNodeProps> = ({
             {labelContent}
           </>
         )}
-        <span data-i18n-skip className={clsx('type-node', type)}>
+        <span className={clsx('type-node', type)}>
           <CopyContent content={text} />
         </span>
       </code>

@@ -65,6 +65,7 @@ const ConsolePanel = () => {
   }, [code, socket]);
 
   const onTextareaKeyDown = useCallback(
+    // eslint-disable-next-line complexity
     (evt: KeyboardEvent<HTMLTextAreaElement>) => {
       evt.stopPropagation();
       const { key, keyCode, shiftKey, metaKey, ctrlKey, target: ta } = evt;

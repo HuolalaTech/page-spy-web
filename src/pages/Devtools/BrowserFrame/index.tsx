@@ -12,9 +12,9 @@ import { ElementPanel } from '../ElementPanel';
 function getTime() {
   const date = new Date();
   let hours = String(date.getHours());
-  hours = +hours >= 10 ? hours : `0${hours}`;
+  hours = Number(hours) >= 10 ? hours : `0${hours}`;
   let mins = String(date.getMinutes());
-  mins = +mins >= 10 ? mins : `0${mins}`;
+  mins = Number(mins) >= 10 ? mins : `0${mins}`;
   return [hours, mins].join(':');
 }
 
@@ -66,7 +66,9 @@ export const PCFrame = ({
     function move(e: MouseEvent) {
       e.preventDefault();
       const { clientX } = e;
-      const diffX = +(rightWidth - (clientX - xAxisRef.current)).toFixed(2);
+      const diffX = Number(
+        (rightWidth - (clientX - xAxisRef.current)).toFixed(2),
+      );
       if (diffX > MAX_SIZE || diffX < MIN_SIZE) return;
       setWidth(diffX);
     }
@@ -90,9 +92,9 @@ export const PCFrame = ({
       <div className="pc-frame__top">
         <div className="pc-frame__top-left">
           <Space>
-            <div className="function-circle close"></div>
-            <div className="function-circle mini"></div>
-            <div className="function-circle fullscreen"></div>
+            <div className="function-circle close" />
+            <div className="function-circle mini" />
+            <div className="function-circle fullscreen" />
           </Space>
         </div>
         <div className="pc-frame__top-right">
@@ -144,16 +146,16 @@ const IOSFrame = ({ children }: PropsWithChildren<unknown>) => {
       <div className="ios-frame__top">
         <p className="ios-frame__top-left">{time}</p>
         <p className="ios-frame__top-hair">
-          <p className="ios-frame__top-forehead"></p>
+          <p className="ios-frame__top-forehead" />
         </p>
         <p className="ios-frame__top-right">
-          <Icon component={CellularSVG}></Icon>
-          <Icon component={BatterySVG} className="ios-battery"></Icon>
+          <Icon component={CellularSVG} />
+          <Icon component={BatterySVG} className="ios-battery" />
         </p>
       </div>
       <div className="ios-frame__content">{children}</div>
       <div className="ios-frame__bottom">
-        <div className="ios-home"></div>
+        <div className="ios-home" />
       </div>
     </div>
   );
@@ -163,17 +165,17 @@ const AndroidFrame = ({ children }: PropsWithChildren<unknown>) => {
   const time = getTime();
   return (
     <div className="android-frame">
-      <div className="android-frame__camera"></div>
+      <div className="android-frame__camera" />
       <div className="android-frame__top">
         <p className="android-frame__top-left">{time}</p>
         <p className="android-frame__top-right">
-          <Icon component={CellularSVG}></Icon>
-          <Icon component={BatterySVG} className="android-battery"></Icon>
+          <Icon component={CellularSVG} />
+          <Icon component={BatterySVG} className="android-battery" />
         </p>
       </div>
       <div className="android-frame__content">{children}</div>
       <div className="android-frame__bottom">
-        <div className="android-home"></div>
+        <div className="android-home" />
       </div>
     </div>
   );

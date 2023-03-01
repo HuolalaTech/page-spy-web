@@ -10,13 +10,13 @@ const { Title } = Typography;
 
 export const Layouts = () => {
   const { pathname } = useLocation();
-  const useDarkBg = useMemo(() => {
+  const isHome = useMemo(() => {
     return pathname === '/';
   }, [pathname]);
 
   return (
     <Layout className="layouts">
-      <Header className={clsx('header', useDarkBg && 'dark-bg')}>
+      <Header className={clsx('header', isHome && 'is-home')}>
         <Row justify="space-between">
           <Col>
             <div className="logo">

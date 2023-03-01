@@ -3,7 +3,8 @@
   padding: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -14,4 +15,13 @@ body {
 #root {
   height: 100%;
   min-width: 1200px;
+}
+
+pre,
+code,
+kbd,
+samp {
+  font-size: 1em;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+    monospace;
 }

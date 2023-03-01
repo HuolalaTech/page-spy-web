@@ -83,7 +83,11 @@ export const Introduction = () => {
             }}
           >
             {tabs.map(({ label, key }) => {
-              return <Radio.Button key={key} value={key} children={label} />;
+              return (
+                <Radio.Button key={key} value={key}>
+                  {label}
+                </Radio.Button>
+              );
             })}
           </Radio.Group>
         </Col>

@@ -26,9 +26,7 @@ export const FeatureItem: React.FC<SpySystem.FeatureDescriptor> = ({
   return (
     <Tooltip title={TitleOverlay} color="#fff" placement="topLeft">
       <div className="feature-item">
-        <div className="feature-item__label" data-i18n-skip>
-          {title}
-        </div>
+        <div className="feature-item__label">{title}</div>
         <div className="feature-item__value">
           <Icon component={icon} style={{ fontSize: 14, fontWeight: 700 }} />
         </div>

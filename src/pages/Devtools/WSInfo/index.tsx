@@ -86,9 +86,8 @@ export const WSProvider = ({ room, children }: PropsWithChildren<Props>) => {
   const [socket, setSocket] = useState<SocketStore | null>(null);
 
   useEffect(() => {
-    const userName = localStorage.getItem('page-spy-user');
-    if (!room || !userName || !!socket) return;
-    const url = `wss://${API_BASE_URL}/ws/room/join?address=${room}&name=${userName}&userId=${USER_ID}`;
+    if (!room || !!socket) return;
+    const url = `wss://${API_BASE_URL}/ws/room/join?address=${room}&userId=${USER_ID}`;
     const ws = new SocketStore(url);
     setSocket(ws);
   }, [room, socket]);
@@ -185,6 +184,7 @@ export const WSProvider = ({ room, children }: PropsWithChildren<Props>) => {
 
   return (
     <WSContext.Provider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         socket,
         consoleMsg,

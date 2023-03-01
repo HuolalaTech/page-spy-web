@@ -184,6 +184,8 @@ export class SocketStore extends EventTarget {
     );
     if (client) {
       this.clientConnection = client;
+    } else {
+      message.error('The room is invalid');
     }
   }
   handleNotification(

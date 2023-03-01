@@ -17,16 +17,6 @@ import { WSProvider } from './WSInfo';
 import { useNavigate, useLocation } from 'react-router-dom';
 import PagePanel from './PagePanel';
 import { DownOutlined } from '@ant-design/icons';
-// os
-import PCSvg from '@/assets/image/pc.svg';
-import IOSSvg from '@/assets/image/apple.svg';
-import AndroidSvg from '@/assets/image/android.svg';
-// browser
-import GoogleSvg from '@/assets/image/google.svg';
-import SafariSvg from '@/assets/image/safari.svg';
-import FirefoxSvg from '@/assets/image/firefox.svg';
-import WechatSvg from '@/assets/image/wechat.svg';
-import BrowserSvg from '@/assets/image/browser.svg';
 import { useRequest } from 'ahooks';
 import { getSpyRoom } from '@/apis';
 import clsx from 'classnames';
@@ -35,6 +25,7 @@ import { StoragePanel } from './StoragePanel';
 import useSearch from '@/utils/useSearch';
 import { useEventListener } from '@/utils/useEventListener';
 import classNames from 'classnames';
+import { resolveClientInfo } from '@/utils/brand';
 
 const { Sider, Content } = Layout;
 const { Title } = Typography;
@@ -47,30 +38,6 @@ const MENUS = {
   Storage: StoragePanel,
 };
 type MenuKeys = keyof typeof MENUS;
-
-const LOGO = {
-  // os
-  IOS: IOSSvg,
-  Android: AndroidSvg,
-  // browser
-  Chrome: GoogleSvg,
-  Firefox: FirefoxSvg,
-  Safari: SafariSvg,
-  Weixin: WechatSvg,
-};
-type LogoBrand = keyof typeof LOGO;
-
-function resolveClientInfo(data: string) {
-  const [os, browser] = data.split('-');
-  const [name, ver = 'Unknown'] = browser.split(':');
-  return {
-    osName: os,
-    osLogo: LOGO[os as LogoBrand] || PCSvg,
-    browserLogo: LOGO[name as LogoBrand] || BrowserSvg,
-    browserName: name,
-    browserVersion: ver,
-  };
-}
 
 interface BadgeMenuProps {
   active: MenuKeys;
@@ -105,25 +72,30 @@ const BadgeMenu = ({ active }: BadgeMenuProps) => {
     }));
   }, [active]);
 
-  return (
-    <Menu mode="inline" selectedKeys={[active]}>
-      {Object.keys(MENUS).map((item) => (
-        <Menu.Item
-          key={item}
-          onClick={() => {
-            navigate({ search, hash: item });
-          }}
-        >
-          <span data-i18n-skip>{item}</span>
+  const menuItems = useMemo(() => {
+    return Object.keys(MENUS).map((item) => {
+      return {
+        key: item,
+        label: (
           <div
-            className={classNames('circle-badge', {
-              show: badge[item as MenuKeys],
-            })}
-          />
-        </Menu.Item>
-      ))}
-    </Menu>
-  );
+            className="sider-menu__item"
+            onClick={() => {
+              navigate({ search, hash: item });
+            }}
+          >
+            <span>{item}</span>
+            <div
+              className={classNames('circle-badge', {
+                show: badge[item as MenuKeys],
+              })}
+            />
+          </div>
+        ),
+      };
+    });
+  }, [badge, navigate, search]);
+
+  return <Menu mode="inline" selectedKeys={[active]} items={menuItems} />;
 };
 
 interface SiderRoomProps {
@@ -173,7 +145,7 @@ const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
       <a
         key={item.address}
         className="room-item"
-        href={`${window.location.origin}/debug?version=${item.name}&address=${item.address}&group=${item.group}`}
+        href={`${window.location.origin}/devtools?version=${item.name}&address=${item.address}&group=${item.group}`}
       >
         <div className="room-item__os">
           <img src={item.osLogo} className="client-icon" />
@@ -272,7 +244,7 @@ export default function Devtools() {
                   </Col>
                 </Tooltip>
               </Row>
-              <Divider type="horizontal" style={{ margin: '8px 0' }}></Divider>
+              <Divider type="horizontal" style={{ margin: '8px 0' }} />
               <Tooltip title="PageSpy ID">
                 <Row justify="center" className="page-spy-id">
                   <Col>
