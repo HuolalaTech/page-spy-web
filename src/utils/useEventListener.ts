@@ -25,7 +25,9 @@ export const useEventListener = (
   },
 ) => {
   const { target = window, capture = false, passive = true } = options || {};
-  const handler = useRef(listener);
+  const handler = useRef<Listener<Event>>();
+  handler.current = listener;
+
   const fn = useCallback((evt: Event) => {
     if (!handler.current) return;
     handler.current(evt);
