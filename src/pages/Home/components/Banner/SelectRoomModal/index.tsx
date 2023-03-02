@@ -1,7 +1,7 @@
 import { SyncOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
 import { Button, Col, Form, message, Modal, Row, Select, Space } from 'antd';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { withPopup } from '@/utils/withPopup';
 import { resolveClientInfo } from '@/utils/brand';
 import { getSpyRoom } from '@/apis';
@@ -10,27 +10,32 @@ import './index.less';
 const { Option } = Select;
 
 export const SelectRoomModal = withPopup(({ resolve, visible }) => {
-  const [group, setGroup] = useState<string>();
-  const { data: groupList = [], refresh: refreshGroups } = useRequest(() =>
-    Promise.resolve([
-      {
-        label: 'page-spy-dev',
-        value: 'page-spy-dev',
-      },
-    ]),
-  );
-
   const [connection, setConnection] = useState<string>();
-  const { data: connectionList = [], refresh: refreshConnections } = useRequest(
+  const {
+    data: connectionList = [],
+    refresh: refreshConnections,
+    cancel: cancelPolling,
+  } = useRequest(
     async () => {
-      const res = await getSpyRoom(group!);
+      const defaultGroup = 'default';
+      const res = await getSpyRoom(defaultGroup);
       return res.data;
     },
     {
-      ready: !!group,
-      refreshDeps: [group],
+      manual: true,
+      pollingInterval: 3000,
+      pollingWhenHidden: false,
     },
   );
+
+  useEffect(() => {
+    if (visible) {
+      refreshConnections();
+    } else {
+      cancelPolling();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible]);
 
   const onJoinRoom = useCallback(() => {
     const room = connectionList.find((i) => i.address === connection);
@@ -38,10 +43,8 @@ export const SelectRoomModal = withPopup(({ resolve, visible }) => {
       message.error('No room matched error');
       return;
     }
-    window.open(
-      `/devtools?group=${group}&version=${room.name}&address=${room.address}`,
-    );
-  }, [connection, connectionList, group]);
+    window.open(`/devtools?version=${room.name}&address=${room.address}`);
+  }, [connection, connectionList]);
 
   return (
     <Modal
@@ -60,26 +63,6 @@ export const SelectRoomModal = withPopup(({ resolve, visible }) => {
           span: 6,
         }}
       >
-        <Form.Item label="Group">
-          <Row gutter={12}>
-            <Col flex={1}>
-              <Select
-                value={group}
-                onChange={(v) => {
-                  setGroup(v);
-                  setConnection('');
-                }}
-                placeholder="Select the group"
-                options={groupList}
-              />
-            </Col>
-            <Col>
-              <Button onClick={refreshGroups}>
-                <SyncOutlined />
-              </Button>
-            </Col>
-          </Row>
-        </Form.Item>
         <Form.Item label="Connections">
           <Row gutter={12}>
             <Col flex={1}>
@@ -99,23 +82,23 @@ export const SelectRoomModal = withPopup(({ resolve, visible }) => {
                           <code className="address-info">{simpleAddress}</code>
                         </Col>
                         <Col>
-                          <Space className="connection">
+                          <div className="system-info">
                             <img
                               src={info.osLogo}
                               alt={info.osName}
-                              height={26}
+                              height={28}
                             />
                             <div className="browser-info">
                               <img
                                 src={info.browserLogo}
                                 alt={info.browserName}
-                                height={40}
+                                height={28}
                               />
-                              <span className="browser-info-version">
+                              <p className="browser-info-version">
                                 {info.browserVersion}
-                              </span>
+                              </p>
                             </div>
-                          </Space>
+                          </div>
                         </Col>
                       </Row>
                     </Option>

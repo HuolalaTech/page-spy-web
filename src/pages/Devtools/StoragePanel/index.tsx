@@ -27,11 +27,12 @@ export const StoragePanel = () => {
             mode="inline"
             selectedKeys={[activeTab]}
             onSelect={({ key }) => setActiveTab(key as SpyStorage.DataType)}
-          >
-            <Menu.Item key="local">Local Storage</Menu.Item>
-            <Menu.Item key="session">Session Storage</Menu.Item>
-            <Menu.Item key="cookie">Cookie</Menu.Item>
-          </Menu>
+            items={[
+              { key: 'local', label: 'Local Storage' },
+              { key: 'session', label: 'Session Storage' },
+              { key: 'cookie', label: 'Cookie' },
+            ]}
+          />
         </Sider>
         <Content className="storage-panel__content">
           <Table dataSource={data} pagination={false} tableLayout="fixed">

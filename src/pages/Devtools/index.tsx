@@ -254,9 +254,9 @@ export default function Devtools() {
               </Tooltip>
             </div>
             <BadgeMenu active={hashKey} />
-            <div className="page-spy-devtools__sider-bottom">
+            {/* <div className="page-spy-devtools__sider-bottom">
               <SiderRooms exclude={address} />
-            </div>
+            </div> */}
           </div>
         </Sider>
         <Content>

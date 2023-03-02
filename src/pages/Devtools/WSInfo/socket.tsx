@@ -185,7 +185,7 @@ export class SocketStore extends EventTarget {
     if (client) {
       this.clientConnection = client;
     } else {
-      message.error('The room is invalid');
+      message.warning('No client in the current room');
     }
   }
   handleNotification(

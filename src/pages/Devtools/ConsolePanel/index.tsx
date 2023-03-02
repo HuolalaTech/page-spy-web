@@ -12,6 +12,7 @@ import LogType from './components/LogType';
 import ConsoleNode from './components/ConsoleNode';
 import './index.less';
 import type { TextAreaRef } from 'antd/lib/input/TextArea';
+import { Shortcuts } from './components/Shortcuts';
 
 const EXECUTE_HISTORY_ID = 'page_spy_execute_history';
 const EXECUTE_HISTORY_MAX_SIZE = 100;
@@ -260,6 +261,7 @@ const ConsolePanel = () => {
           >
             Run
           </Button>
+          <Shortcuts />
         </div>
       </div>
     </div>

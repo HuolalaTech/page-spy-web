@@ -10,7 +10,8 @@ export const App = () => {
         <ConfigProvider
           theme={{
             token: {
-              colorPrimary: '#301E67',
+              colorPrimary: 'rgb(48, 30, 103)',
+              colorPrimaryBg: 'rgba(160, 156, 166, 0.5)',
             },
           }}
         >

@@ -1,20 +1,24 @@
-.connection {
-  img {
-    display: block;
-  }
-}
 .address-info {
   font-size: 22px;
   color: #333;
 }
+.system-info {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  img {
+    display: block;
+  }
+}
 .browser-info {
   position: relative;
+  margin-right: 20px;
   &-version {
     position: absolute;
-    right: 0;
+    left: 100%;
     top: 0;
-    transform: scale(0.9);
     font-size: 12px;
     color: #666;
+    transform: translateY(-20%) scale(0.9);
   }
 }
