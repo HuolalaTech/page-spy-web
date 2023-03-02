@@ -1,5 +1,1 @@
-<svg width="1204" height="806" viewBox="0 0 1204 806" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="602" cy="403" r="300" fill="#1E1E1E"/>
-<path d="M512.147 322.607C513.841 316.901 517.968 312.247 523.412 309.905L751.192 211.9C766.463 205.33 782.561 219.315 778.317 235.465L716.327 471.376C714.83 477.077 710.913 481.826 705.62 484.36L464.629 599.768C449.025 607.241 432.002 592.576 436.946 575.921L512.147 322.607Z" fill="white"/>
-<ellipse cx="605.419" cy="406.438" rx="51.2821" ry="51.5759" fill="#1E1E1E"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 48 48"><mask id="ipSBrowser0"><g fill="none"><path stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M42 18v22a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V18"/><path fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="4" d="M6 8a2 2 0 0 1 2-2h32a2 2 0 0 1 2 2v10H6V8Z"/><path fill="#000" fill-rule="evenodd" d="M12 14a2 2 0 1 0 0-4a2 2 0 0 0 0 4Zm6 0a2 2 0 1 0 0-4a2 2 0 0 0 0 4Zm6 0a2 2 0 1 0 0-4a2 2 0 0 0 0 4Z" clip-rule="evenodd"/></g></mask><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSBrowser0)"/></svg>
