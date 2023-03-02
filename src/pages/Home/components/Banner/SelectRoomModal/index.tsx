@@ -82,7 +82,7 @@ export const SelectRoomModal = withPopup(({ resolve, visible }) => {
                           <code className="address-info">{simpleAddress}</code>
                         </Col>
                         <Col>
-                          <div className="system-info">
+                          <div className="device-system">
                             <img
                               src={info.osLogo}
                               alt={info.osName}
