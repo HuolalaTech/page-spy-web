@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { ReactComponent as SupportSvg } from '@/assets/image/support.svg';
-import { ReactComponent as NoSupportSvg } from '@/assets/image/no-support.svg';
+import { ReactComponent as UnsupportSvg } from '@/assets/image/unsupport.svg';
 import Icon from '@ant-design/icons';
 import './index.less';
 import { Tooltip } from 'antd';
@@ -12,7 +12,7 @@ export const FeatureItem: React.FC<SpySystem.FeatureDescriptor> = ({
   keyPath = '',
   customTest = '',
 }) => {
-  const icon = supported ? SupportSvg : NoSupportSvg;
+  const icon = supported ? SupportSvg : UnsupportSvg;
   const TitleOverlay = useMemo(() => {
     if (keyPath) {
       return (
