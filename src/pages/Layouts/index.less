@@ -11,6 +11,12 @@
       .logo-icon {
         fill: #fff;
       }
+      .lang {
+        color: #ddd;
+        &:hover {
+          background-color: rgba(55, 55, 55, 0.8);
+        }
+      }
     }
   }
   .logo {
@@ -29,6 +35,19 @@
       margin-left: 12px;
       margin-bottom: 0;
       #compose.gradient-text();
+    }
+  }
+  .lang {
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: #333;
+    font-size: 14px;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: all ease-out 0.3s;
+    &:hover {
+      background-color: rgba(148, 148, 148, 0.8);
+      color: #fff;
     }
   }
 }

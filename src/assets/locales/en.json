@@ -1,0 +1,23 @@
+{
+  "common": {
+    "cancel": "cancel",
+    "OK": "OK"
+  },
+  "banner": {
+    "title": "Online Debug<br />Remote Web",
+    "desc": "Clear bugs easily with tools whick like function panels in devtool.",
+    "goStart": "Start debugging",
+    "goGithub": "View on Github"
+  },
+  "intro": {
+    "title": "Out-of-box<br />SDK & Client",
+    "first": "First, load PageSpy SDK in to-be-debuged project",
+    "then": "Then, init instance",
+    "result": "The page-spy widget element will mount at here"
+  },
+  "selConn": {
+    "title": "Select the connection",
+    "label": "Connections",
+    "placeholder": "Select the connection"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "common": {
+    "cancel": "取消",
+    "OK": "好的"
+  },
+  "banner": {
+    "title": "在线调试<br />远程网页",
+    "desc": "使用类似控制台面板上的工具轻松修复问题。",
+    "goStart": "开始调试",
+    "goGithub": "Github 仓库"
+  },
+  "intro": {
+    "title": "开箱即用的<br />SDK 和 客户端",
+    "first": "首先，在待调试的项目中引入 PageSpy SDK",
+    "then": "接着实例化",
+    "result": "PageSpy 控件将在这里挂载"
+  },
+  "selConn": {
+    "title": "选择连接",
+    "label": "连接",
+    "placeholder": "选择连接"
+  }
+}

@@ -1,39 +1,44 @@
 import { Col, Radio, Row } from 'antd';
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import './index.less';
 import hljs from 'highlight.js';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { ReactComponent as ClientSvg } from '@/assets/image/client.svg';
-
-const SDK_CONTENT = hljs.highlightAuto(
-  `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  ...
-  <!-- First, load page-spy SDK in to-be-debuged project -->
-  <script src="https://your-cdn.com/page-spy/dist/index.min.js"></script>
-
-  <!-- Then, init instance -->
-  <script>
-    window.$pageSpy = new PageSpy({
-      api: 'your-api-base.com',
-      project: 'your-project-name'
-    })
-  </script>
-</head>
-<body>
-  ...
-</body>
-<!-- The page-spy widget element will mount at here -->
-<div id="__pageSpy">
-...
-</div>
-</html>
-`,
-);
+import { Trans, useTranslation } from 'react-i18next';
 
 const SDKPanel = () => {
+  const { t } = useTranslation();
+
+  const SDK_CONTENT = useMemo(() => {
+    return hljs.highlightAuto(
+      `
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    ...
+    <!-- ${t('intro.first')} -->
+    <script src="https://your-cdn.com/page-spy/dist/index.min.js"></script>
+
+    <!-- ${t('intro.then')} -->
+    <script>
+      window.$pageSpy = new PageSpy({
+        api: 'your-api-base.com',
+        project: 'your-project-name'
+      })
+    </script>
+  </head>
+  <body>
+    ...
+  </body>
+  <!-- ${t('intro.result')} -->
+  <div id="__pageSpy">
+  ...
+  </div>
+  </html>
+  `,
+    );
+  }, [t]);
+
   return (
     <div className="sdk-panel">
       <pre>
@@ -69,9 +74,11 @@ export const Introduction = () => {
   return (
     <div className="introduction">
       <h2 className="introduction-title">
-        Out-of-box
-        <br />
-        SDK & Client
+        <Trans i18nKey="intro.title">
+          Out-of-box
+          <br />
+          SDK & Client
+        </Trans>
       </h2>
       <Row justify="center">
         <Col>

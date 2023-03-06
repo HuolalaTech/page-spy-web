@@ -5,6 +5,7 @@ import './index.less';
 import { usePopupRef, withPopup } from '@/utils/withPopup';
 import { SelectRoomModal } from './SelectRoomModal';
 import { useCallback } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 
 const Waves = () => {
   return (
@@ -65,6 +66,7 @@ const Waves = () => {
 };
 
 export const Banner = () => {
+  const { t } = useTranslation();
   const selectRoomRef = usePopupRef<void, string>();
 
   const onJoinRoom = useCallback(async () => {
@@ -79,9 +81,11 @@ export const Banner = () => {
             <div className="slogan">
               <p>PageSpy</p>
               <p>
-                Online Debug
-                <br />
-                Remote Web
+                <Trans i18nKey="banner.title">
+                  Online Debug
+                  <br />
+                  Remote Web
+                </Trans>
               </p>
             </div>
           </Col>
@@ -94,10 +98,7 @@ export const Banner = () => {
           </Col>
         </Row>
 
-        <p className="slogan-desc text-center">
-          Clear bugs easily with @huolala-tech/page-spy tools whick like
-          function panels in devtool.
-        </p>
+        <p className="slogan-desc text-center">{t('banner.desc')}</p>
 
         <Row justify="center" align="middle" className="banner-actions">
           <Col>
@@ -108,7 +109,7 @@ export const Banner = () => {
               onClick={onJoinRoom}
             >
               <Space>
-                Start debugging
+                {t('banner.goStart')}
                 <ArrowRightOutlined />
               </Space>
             </Button>
@@ -120,7 +121,7 @@ export const Banner = () => {
           >
             <Button size="large" shape="round">
               <Space>
-                View on GitHub
+                {t('banner.goGithub')}
                 <GithubOutlined style={{ fontSize: 18 }} />
               </Space>
             </Button>

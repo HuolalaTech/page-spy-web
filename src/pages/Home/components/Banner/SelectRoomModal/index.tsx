@@ -6,10 +6,12 @@ import { withPopup } from '@/utils/withPopup';
 import { resolveClientInfo } from '@/utils/brand';
 import { getSpyRoom } from '@/apis';
 import './index.less';
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 
 export const SelectRoomModal = withPopup(({ resolve, visible }) => {
+  const { t } = useTranslation();
   const [connection, setConnection] = useState<string>();
   const {
     data: connectionList = [],
@@ -49,7 +51,7 @@ export const SelectRoomModal = withPopup(({ resolve, visible }) => {
   return (
     <Modal
       open={visible}
-      title="Select the connection"
+      title={t('selConn.title')}
       maskClosable
       bodyStyle={{
         paddingTop: 24,
@@ -63,11 +65,11 @@ export const SelectRoomModal = withPopup(({ resolve, visible }) => {
           span: 6,
         }}
       >
-        <Form.Item label="Connections">
+        <Form.Item label={t('selConn.label')}>
           <Row gutter={12}>
             <Col flex={1}>
               <Select
-                placeholder="Select the connection"
+                placeholder={t('selConn.placeholder')}
                 value={connection}
                 onChange={setConnection}
                 optionLabelProp="label"
