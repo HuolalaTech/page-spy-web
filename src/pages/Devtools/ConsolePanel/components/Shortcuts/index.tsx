@@ -46,8 +46,6 @@ const ShortcutsModal = withPopup(({ resolve, visible }) => {
     ];
   }, [t]);
 
-  console.log({ shortcuts });
-
   return (
     <Modal open={visible} title={t('title')} onCancel={resolve} onOk={resolve}>
       {shortcuts.map(({ keys, relation = 'intersection', description }) => {

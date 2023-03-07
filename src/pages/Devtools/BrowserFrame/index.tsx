@@ -190,6 +190,8 @@ export const MobileFrame = ({
   loading,
   onRefresh,
 }: PropsWithChildren<FrameWrapperProps>) => {
+  const { t: ct } = useTranslation();
+
   const { pageMsg, refresh } = useWSInfo();
   const PhoneFrame = os === 'IOS' ? IOSFrame : AndroidFrame;
   return (
@@ -207,7 +209,7 @@ export const MobileFrame = ({
               refresh('page');
             }}
           >
-            Refresh
+            {ct('refresh')}
           </Button>
         </Space>
       </div>

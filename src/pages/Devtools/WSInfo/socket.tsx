@@ -27,6 +27,7 @@ export class SocketStore extends EventTarget {
   init(url: string) {
     this.socket = new WebSocket(url);
     this.socket.addEventListener('open', () => {
+      this.reconnectTimes = 3;
       this.keepConnect();
       this.socket!.addEventListener('message', (evt: MessageEvent) => {
         const { data } = evt;
@@ -70,11 +71,14 @@ export class SocketStore extends EventTarget {
         }
       });
     });
-    this.socket.addEventListener('close', () => {
-      if (this.timer) {
-        window.clearInterval(this.timer);
-      }
-      this.tryReconnect();
+    ['close', 'error'].forEach((i) => {
+      this.socket?.addEventListener(i, () => {
+        this.socketConnection = null;
+        if (this.timer) {
+          window.clearInterval(this.timer);
+        }
+        this.tryReconnect();
+      });
     });
   }
 
