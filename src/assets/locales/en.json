@@ -1,7 +1,9 @@
 {
   "common": {
     "cancel": "cancel",
-    "OK": "OK"
+    "OK": "OK",
+    "clear": "Clear",
+    "refresh": "Refresh"
   },
   "banner": {
     "title": "Online Debug<br />Remote Web",
@@ -19,5 +21,40 @@
     "title": "Select the connection",
     "label": "Connections",
     "placeholder": "Select the connection"
-  }
+  },
+  "devtool": {
+    "current": "Current",
+    "browser": "Browser",
+    "version": "Version",
+    "menu": {
+      "Console": "Console",
+      "Network": "Network",
+      "System": "System",
+      "Page": "Page",
+      "Storage": "Storage"
+    }
+  },
+  "shortcuts": {
+    "title": "Keyboard shortcuts",
+    "enter": "Run code",
+    "tab": "Insert a tab (2 spaces)",
+    "shift+enter": "New line",
+    "cmd+k": "Clear panel",
+    "ctrl+l": "Clear panel",
+    "updown": "Toggle history"
+  },
+  "console": {
+    "run": "Run",
+    "placeholder": "Executable code",
+    "newContent": "New content"
+  },
+  "network": {},
+  "system": {
+    "dashboard": "Dashboard",
+    "unsupport": "Unsupport list"
+  },
+  "page": {
+    "element": "Element"
+  },
+  "storage": {}
 }

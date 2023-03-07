@@ -13,11 +13,14 @@ import ConsoleNode from './components/ConsoleNode';
 import './index.less';
 import type { TextAreaRef } from 'antd/lib/input/TextArea';
 import { Shortcuts } from './components/Shortcuts';
+import { useTranslation } from 'react-i18next';
 
 const EXECUTE_HISTORY_ID = 'page_spy_execute_history';
 const EXECUTE_HISTORY_MAX_SIZE = 100;
 
 const ConsolePanel = () => {
+  const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
+  const { t } = useTranslation('translation', { keyPrefix: 'console' });
   const { socket, consoleMsg: data, clearRecord } = useWSInfo();
   const inputRef = useRef<TextAreaRef | null>(null);
   const [code, setCode] = useState<string>('');
@@ -207,7 +210,7 @@ const ConsolePanel = () => {
     <div className="console-panel">
       <Row justify="end">
         <Col>
-          <Tooltip title="Clear">
+          <Tooltip title={ct('clear')}>
             <Button onClick={clear}>
               <ClearOutlined />
             </Button>
@@ -235,7 +238,7 @@ const ConsolePanel = () => {
             <div className="console-list__new" onClick={scrollToBottom}>
               <Button shape="round" type="primary">
                 <DoubleRightOutlined rotate={90} />
-                <span>new content</span>
+                <span>{t('newContent')}</span>
               </Button>
             </div>
           )}
@@ -245,7 +248,7 @@ const ConsolePanel = () => {
           <code style={{ flex: 1 }}>
             <Input.TextArea
               ref={inputRef}
-              placeholder="Executable code"
+              placeholder={t('placeholder')!}
               bordered={false}
               autoSize
               value={code}
@@ -259,7 +262,7 @@ const ConsolePanel = () => {
             style={{ marginTop: 4 }}
             onClick={handleDebugCode}
           >
-            Run
+            {t('run')}
           </Button>
           <Shortcuts />
         </div>

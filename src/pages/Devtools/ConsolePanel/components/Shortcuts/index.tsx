@@ -2,59 +2,61 @@ import { usePopupRef, withPopup } from '@/utils/withPopup';
 import { ReactComponent as KeyboardSvg } from '@/assets/image/keyboard.svg';
 import Icon from '@ant-design/icons';
 import { Col, Modal, Row, Space } from 'antd';
-import { Fragment } from 'react';
+import { Fragment, useMemo } from 'react';
 import './index.less';
-
-const shortcuts: {
-  keys: string[];
-  description: string;
-  relation?: 'union' | 'intersection';
-}[] = [
-  {
-    keys: ['Enter'],
-    description: 'Run code',
-  },
-  {
-    keys: ['Tabs'],
-    description: 'Insert a tab (2 spaces)',
-  },
-  {
-    keys: ['Shift', 'Enter'],
-    relation: 'intersection',
-    description: 'New line',
-  },
-  {
-    keys: ['⌘', 'K'],
-    relation: 'intersection',
-    description: 'Clear panel',
-  },
-  {
-    keys: ['Ctrl', 'L'],
-    relation: 'intersection',
-    description: 'Clear panel',
-  },
-  {
-    keys: ['↑', '↓'],
-    relation: 'union',
-    description: 'Toggle history',
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 const ShortcutsModal = withPopup(({ resolve, visible }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'shortcuts' });
+
+  const shortcuts: {
+    keys: string[];
+    description: string;
+    relation?: 'union' | 'intersection';
+  }[] = useMemo(() => {
+    return [
+      {
+        keys: ['Enter'],
+        description: t('enter'),
+      },
+      {
+        keys: ['Tabs'],
+        description: t('tab'),
+      },
+      {
+        keys: ['Shift', 'Enter'],
+        relation: 'intersection',
+        description: t('shift+enter'),
+      },
+      {
+        keys: ['⌘', 'K'],
+        relation: 'intersection',
+        description: t('cmd+k'),
+      },
+      {
+        keys: ['Ctrl', 'L'],
+        relation: 'intersection',
+        description: t('ctrl+l'),
+      },
+      {
+        keys: ['↑', '↓'],
+        relation: 'union',
+        description: t('updown'),
+      },
+    ];
+  }, [t]);
+
+  console.log({ shortcuts });
+
   return (
-    <Modal
-      open={visible}
-      title="Keyboard shortcuts"
-      onCancel={resolve}
-      onOk={resolve}
-    >
+    <Modal open={visible} title={t('title')} onCancel={resolve} onOk={resolve}>
       {shortcuts.map(({ keys, relation = 'intersection', description }) => {
         const relationSymbol = relation === 'union' ? 'or' : '+';
         const keySize = keys.length;
         return (
           <Row
             align="middle"
-            key={description}
+            key={keys.join('')}
             gutter={20}
             wrap={false}
             className="shortcuts-item"
@@ -82,12 +84,13 @@ const ShortcutsModal = withPopup(({ resolve, visible }) => {
 });
 
 export const Shortcuts = () => {
+  const { t } = useTranslation('translation', { keyPrefix: 'shortcuts' });
   const modalRef = usePopupRef();
 
   return (
     <div className="console-keyboard-shortcuts">
       <Icon
-        title="Keyboard shortcuts"
+        title={t('title')!}
         component={KeyboardSvg}
         style={{ fontSize: 24, color: '#666' }}
         onClick={() => {

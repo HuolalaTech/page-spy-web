@@ -1,11 +1,13 @@
 {
   "common": {
     "cancel": "取消",
-    "OK": "好的"
+    "OK": "好的",
+    "clear": "清空",
+    "refresh": "刷新"
   },
   "banner": {
     "title": "在线调试<br />远程网页",
-    "desc": "使用类似控制台面板上的工具轻松修复问题。",
+    "desc": "像使用控制台面板上的工具一样轻松修复问题。",
     "goStart": "开始调试",
     "goGithub": "Github 仓库"
   },
@@ -19,5 +21,40 @@
     "title": "选择连接",
     "label": "连接",
     "placeholder": "选择连接"
-  }
+  },
+  "devtool": {
+    "current": "当前",
+    "browser": "浏览器",
+    "version": "版本",
+    "menu": {
+      "Console": "输出",
+      "Network": "网络",
+      "System": "系统",
+      "Page": "页面",
+      "Storage": "缓存"
+    }
+  },
+  "shortcuts": {
+    "title": "快捷键",
+    "enter": "运行代码",
+    "tab": "插入tab（2个空格）",
+    "shift+enter": "换行",
+    "cmd+k": "清空面板",
+    "ctrl+l": "清空面板",
+    "updown": "切换历史输入"
+  },
+  "console": {
+    "run": "执行",
+    "placeholder": "可执行代码",
+    "newContent": "新消息"
+  },
+  "network": {},
+  "system": {
+    "dashboard": "概览",
+    "unsupport": "不支持列表"
+  },
+  "page": {
+    "element": "元素"
+  },
+  "storage": {}
 }

@@ -8,6 +8,7 @@ import './index.less';
 import { Button, Space, Spin } from 'antd';
 import { useWSInfo } from '../WSInfo';
 import { ElementPanel } from '../ElementPanel';
+import { useTranslation } from 'react-i18next';
 
 function getTime() {
   const date = new Date();
@@ -29,6 +30,8 @@ export const PCFrame = ({
   loading,
   onRefresh,
 }: PropsWithChildren<FrameWrapperProps>) => {
+  const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
+  const { t } = useTranslation('translation', { keyPrefix: 'page' });
   const { pageMsg, refresh } = useWSInfo();
   const [elementVisible, setElementVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -105,14 +108,14 @@ export const PCFrame = ({
                 refresh('page');
               }}
             >
-              Refresh
+              {ct('refresh')}
             </Button>
             <Button
               onClick={() => {
                 setElementVisible(!elementVisible);
               }}
             >
-              Element
+              {t('element')}
             </Button>
           </Space>
         </div>

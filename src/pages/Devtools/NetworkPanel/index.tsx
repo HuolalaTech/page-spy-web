@@ -24,6 +24,7 @@ import {
 } from './comps';
 import type { SpyNetwork } from '@huolala-tech/page-spy';
 import copy from 'copy-to-clipboard';
+import { useTranslation } from 'react-i18next';
 
 const networkTitle = ['Name', 'Path', 'Method', 'Status', 'Type', 'Time(≈)'];
 const generalFieldMap = {
@@ -32,6 +33,8 @@ const generalFieldMap = {
 } as const;
 
 const NetworkPanel = () => {
+  const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
+
   const { networkMsg: data, storageMsg, clearRecord } = useWSInfo();
   const detailClicked = useRef<boolean>(false);
   const [showDetail, setShowDetail] = useState(false);
@@ -231,7 +234,7 @@ const NetworkPanel = () => {
     <div className="network-panel">
       <Row justify="end">
         <Col>
-          <Tooltip title="Clear">
+          <Tooltip title={ct('clear')}>
             <Button onClick={() => clearRecord('network')}>
               <ClearOutlined />
             </Button>

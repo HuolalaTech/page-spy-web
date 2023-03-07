@@ -3,10 +3,12 @@ import { Card, Col, Empty, Row, Typography } from 'antd';
 import { useWSInfo } from '../WSInfo';
 import './index.less';
 import { FeatureItem } from './FeatureItem';
+import { useTranslation } from 'react-i18next';
 
 const { Title } = Typography;
 
 const SystemPanel = () => {
+  const { t } = useTranslation('translation', { keyPrefix: 'system' });
   const { systemMsg } = useWSInfo();
   const { features, system } = systemMsg[0] || {};
   const noSupport = useMemo(() => {
@@ -27,7 +29,7 @@ const SystemPanel = () => {
   return (
     <div className="system-panel">
       <div className="system-info">
-        <Title level={5}>Dashboard</Title>
+        <Title level={5}>{t('dashboard')}</Title>
         <Card>
           <Row>
             <Col span={18}>
@@ -55,7 +57,7 @@ const SystemPanel = () => {
       </div>
       <div className="system-info">
         <Title level={5} style={{ color: 'rgb(216, 30, 6)' }}>
-          😭 <span>Unsupport list</span>
+          😭 <span>{t('unsupport')}</span>
         </Title>
         <Card
           style={{

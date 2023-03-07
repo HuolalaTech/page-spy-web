@@ -26,6 +26,7 @@ import useSearch from '@/utils/useSearch';
 import { useEventListener } from '@/utils/useEventListener';
 import classNames from 'classnames';
 import { resolveClientInfo } from '@/utils/brand';
+import { useTranslation } from 'react-i18next';
 
 const { Sider, Content } = Layout;
 const { Title } = Typography;
@@ -43,6 +44,7 @@ interface BadgeMenuProps {
   active: MenuKeys;
 }
 const BadgeMenu = ({ active }: BadgeMenuProps) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
   const navigate = useNavigate();
   const { search } = useLocation();
   const [badge, setBadge] = useState<Record<MenuKeys, boolean>>({
@@ -83,7 +85,7 @@ const BadgeMenu = ({ active }: BadgeMenuProps) => {
               navigate({ search, hash: item });
             }}
           >
-            <span>{item}</span>
+            <span>{t(`menu.${item}`)}</span>
             <div
               className={classNames('circle-badge', {
                 show: badge[item as MenuKeys],
@@ -93,7 +95,7 @@ const BadgeMenu = ({ active }: BadgeMenuProps) => {
         ),
       };
     });
-  }, [badge, navigate, search]);
+  }, [badge, navigate, search, t]);
 
   return <Menu mode="inline" selectedKeys={[active]} items={menuItems} />;
 };
@@ -183,6 +185,7 @@ const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
 };
 
 export default function Devtools() {
+  const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
   const { hash = '#Console' } = useLocation();
   const { version = '', address = '' } = useSearch();
 
@@ -216,7 +219,7 @@ export default function Devtools() {
         <Sider theme="light">
           <div className="page-spy-devtools__sider">
             <div className="client-info">
-              <Title level={4}>Current</Title>
+              <Title level={4}>{t('current')}</Title>
               <Row wrap={false} align="middle" style={{ textAlign: 'center' }}>
                 <Tooltip title={clientInfo?.osName}>
                   <Col span={11}>
@@ -230,9 +233,13 @@ export default function Devtools() {
                 <Tooltip
                   title={
                     <>
-                      <span>Browser: {clientInfo?.browserName}</span>
+                      <span>
+                        {t('browser')}: {clientInfo?.browserName}
+                      </span>
                       <br />
-                      <span>Version: {clientInfo?.browserVersion}</span>
+                      <span>
+                        {t('version')}: {clientInfo?.browserVersion}
+                      </span>
                     </>
                   }
                 >
