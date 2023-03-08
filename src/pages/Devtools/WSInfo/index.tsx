@@ -89,7 +89,6 @@ export const WSProvider = ({ room, children }: PropsWithChildren<Props>) => {
     if (!room || !!socket) return;
     const url = `wss://${API_BASE_URL}/ws/room/join?address=${room}&userId=${USER_ID}`;
     const ws = new SocketStore(url);
-    console.log({ ws });
     setSocket(ws);
   }, [room, socket]);
 

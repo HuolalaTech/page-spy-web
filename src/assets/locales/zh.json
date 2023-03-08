@@ -56,5 +56,16 @@
   "page": {
     "element": "元素"
   },
-  "storage": {}
+  "storage": {},
+  "socket": {
+    "client-name": "客户端",
+    "client-not-in-connection": "当前连接不存在客户端",
+    "client-not-found": "未找到客户端",
+    "client-offline": "客户端已离线",
+    "client-fail": "客户端的连接已断开，请联系相关测试人员。",
+    "debug-name": "你",
+    "debug-offline": "您已离线",
+    "debug-fail": "您的连接已断开",
+    "debug-fail-desc": "重连失败，您的连接已断开。请刷新页面或者重新选择。"
+  }
 }

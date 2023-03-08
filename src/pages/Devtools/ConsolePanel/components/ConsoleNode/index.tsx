@@ -189,7 +189,6 @@ function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
                 </div>
               );
             }
-            // console.log(key, { ...propVal });
             return (
               <AtomNode
                 key={key}

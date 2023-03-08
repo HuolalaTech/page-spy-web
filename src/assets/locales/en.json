@@ -56,5 +56,16 @@
   "page": {
     "element": "Element"
   },
-  "storage": {}
+  "storage": {},
+  "socket": {
+    "client-name": "Client",
+    "client-not-in-connection": "No client in the current connection",
+    "client-not-found": "Client not found",
+    "client-offline": "Client is offline",
+    "client-fail": "Client has lost the connection, please contact the relevant tester.",
+    "debug-name": "You",
+    "debug-offline": "You're offline",
+    "debug-fail": "Connection closed",
+    "debug-fail-desc": "Reconnect failed, you have lost the connection. Please refresh the page or select another."
+  }
 }

@@ -57,7 +57,7 @@ const SystemPanel = () => {
       </div>
       <div className="system-info">
         <Title level={5} style={{ color: 'rgb(216, 30, 6)' }}>
-          😭 <span>{t('unsupport')}</span>
+          <span>{t('unsupport')}</span>
         </Title>
         <Card
           style={{

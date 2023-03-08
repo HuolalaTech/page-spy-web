@@ -27,6 +27,7 @@ import { useEventListener } from '@/utils/useEventListener';
 import classNames from 'classnames';
 import { resolveClientInfo } from '@/utils/brand';
 import { useTranslation } from 'react-i18next';
+import { ConnectStatus } from './ConnectStatus';
 
 const { Sider, Content } = Layout;
 const { Title } = Typography;
@@ -266,7 +267,8 @@ export default function Devtools() {
             </div> */}
           </div>
         </Sider>
-        <Content>
+        <Content className="page-spy-devtools__content">
+          <ConnectStatus />
           <div className="page-spy-devtools__panel">
             <ActiveContent />
           </div>
