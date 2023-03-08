@@ -5,6 +5,7 @@ import { useWSInfo } from '../WSInfo';
 import './index.less';
 import { ReactComponent as UserSvg } from '@/assets/image/user-1.svg';
 import Icon from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 interface ConnectionStatus {
   client: SpySocket.Connection | null;
@@ -16,6 +17,7 @@ const statusColor = (online: boolean) => {
 };
 
 export const ConnectStatus = () => {
+  const { t } = useTranslation();
   const { socket } = useWSInfo();
   const [connections, setConnections] = useState<ConnectionStatus>({
     client: null,
@@ -47,7 +49,7 @@ export const ConnectStatus = () => {
                   fontSize: 16,
                 }}
               />
-              You
+              {t('socket.debug-name')}
             </Space>
             <Divider type="vertical" />
             <Space>
@@ -58,7 +60,7 @@ export const ConnectStatus = () => {
                   fontSize: 16,
                 }}
               />
-              SDK
+              {t('socket.client-name')}
             </Space>
           </Space>
         </div>
