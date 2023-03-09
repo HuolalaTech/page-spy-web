@@ -3,11 +3,13 @@
     "cancel": "取消",
     "OK": "好的",
     "clear": "清空",
-    "refresh": "刷新"
+    "refresh": "刷新",
+    "lang": "中文",
+    "doc": "文档"
   },
   "banner": {
-    "title": "一站式在线<br />调试远程网页",
-    "desc": "像使用控制台面板上的工具一样轻松修复问题。",
+    "title": "All-In-One<br />远程调试工具",
+    "desc": "像使用谷歌浏览器的控制台一样简单地开始远程调试。",
     "goStart": "开始调试",
     "goGithub": "Github 仓库"
   },

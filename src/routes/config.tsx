@@ -2,9 +2,12 @@ import { RouteObject } from 'react-router-dom';
 import { useRoutes } from 'react-router-dom';
 
 import { Page404, To404 } from '@/404';
-import Devtools from '@/pages/Devtools';
+// import Devtools from '@/pages/Devtools';
 import { Layouts } from '@/pages/Layouts';
 import { Home } from '@/pages/Home';
+import React from 'react';
+
+const Devtools = React.lazy(() => import('@/pages/Devtools'));
 
 export interface RouteInfo {
   icon?: any;

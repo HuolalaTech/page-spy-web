@@ -11,10 +11,9 @@
       .logo-name {
         color: #fff;
       }
-      .lang {
-        color: #ddd;
-        &:hover {
-          background-color: rgba(55, 55, 55, 0.8);
+      .menu {
+        .menu-item {
+          color: #ddd;
         }
       }
     }
@@ -36,17 +35,21 @@
       color: #000;
     }
   }
-  .lang {
-    padding: 8px 12px;
-    border-radius: 8px;
-    color: #333;
-    font-size: 14px;
-    line-height: 1.4;
-    cursor: pointer;
-    transition: all ease-out 0.3s;
-    &:hover {
-      background-color: rgba(148, 148, 148, 0.8);
-      color: #fff;
+  .menu {
+    .menu-item {
+      padding: 8px 12px;
+      border-radius: 8px;
+      color: #333;
+      font-size: 14px;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: all ease-out 0.3s;
+      &:hover {
+        color: @primary-color !important;
+      }
     }
+  }
+  .divider-bg {
+    background: rgb(150, 150, 150);
   }
 }

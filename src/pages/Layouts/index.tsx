@@ -1,27 +1,20 @@
-import { Col, Layout, Row, Typography } from 'antd';
+import { Col, Divider, Layout, Row, Space, Typography } from 'antd';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { ReactComponent as LogoSvg } from '@/assets/image/logo.svg';
 import './index.less';
 import clsx from 'clsx';
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { langType, useLanguage } from '@/utils/useLanguage';
+import { useLanguage } from '@/utils/useLanguage';
 import i18n from '@/assets/locales';
+import { LoadingFallback } from '@/components/LoadingFallback';
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
 
-const languages: Record<langType, { title: string }> = {
-  zh: {
-    title: '中文',
-  },
-  en: {
-    title: 'English',
-  },
-};
-
 export const Layouts = () => {
   const [lang, setLang] = useLanguage();
+  const { t } = useTranslation();
 
   const { pathname } = useLocation();
   const isHome = useMemo(() => {
@@ -43,21 +36,27 @@ export const Layouts = () => {
             </div>
           </Col>
           <Col>
-            <p
-              className="lang"
-              onClick={() => {
-                const newLang = lang === 'en' ? 'zh' : 'en';
-                setLang(newLang);
-                i18n.changeLanguage(newLang);
-              }}
-            >
-              {languages[lang].title}
-            </p>
+            <Space className="menu">
+              <p className="menu-item doc">{t('common.doc')}</p>
+              <Divider type="vertical" className="divider-bg" />
+              <p
+                className="menu-item lang"
+                onClick={() => {
+                  const newLang = lang === 'en' ? 'zh' : 'en';
+                  setLang(newLang);
+                  i18n.changeLanguage(newLang);
+                }}
+              >
+                {t('common.lang')}
+              </p>
+            </Space>
           </Col>
         </Row>
       </Header>
       <Content>
-        <Outlet />
+        <Suspense fallback={<LoadingFallback />}>
+          <Outlet />
+        </Suspense>
       </Content>
     </Layout>
   );

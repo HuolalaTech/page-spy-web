@@ -3,11 +3,13 @@
     "cancel": "cancel",
     "OK": "OK",
     "clear": "Clear",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "lang": "English",
+    "doc": "Doc"
   },
   "banner": {
-    "title": "One-Stop Online<br />Debug Remote Webpages",
-    "desc": "Clear bugs easily with tools whick like function panels in devtool.",
+    "title": "All-In-One<br />Remote Debugging Tool",
+    "desc": "Debug remotely and easily with a range of features like chrome devtool.",
     "goStart": "Start debugging",
     "goGithub": "View on Github"
   },
