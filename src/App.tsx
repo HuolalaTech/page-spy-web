@@ -16,7 +16,7 @@ export const App = () => {
           locale={lang === 'zh' ? zh : en}
           theme={{
             token: {
-              colorPrimary: 'rgb(48, 30, 103)',
+              colorPrimary: 'rgb(61, 12, 124)',
               colorPrimaryBg: 'rgba(160, 156, 166, 0.5)',
             },
           }}

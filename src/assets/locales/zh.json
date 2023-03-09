@@ -6,7 +6,7 @@
     "refresh": "刷新"
   },
   "banner": {
-    "title": "在线调试<br />远程网页",
+    "title": "一站式在线<br />调试远程网页",
     "desc": "像使用控制台面板上的工具一样轻松修复问题。",
     "goStart": "开始调试",
     "goGithub": "Github 仓库"

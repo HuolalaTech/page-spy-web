@@ -79,22 +79,14 @@ export const Banner = () => {
         <Row justify="center" align="middle">
           <Col>
             <div className="slogan">
-              <p>PageSpy</p>
               <p>
                 <Trans i18nKey="banner.title">
-                  Online Debug
+                  One-Stop Online
                   <br />
-                  Remote Web
+                  Debug Remote Webpages
                 </Trans>
               </p>
             </div>
-          </Col>
-          <Col
-            style={{
-              marginLeft: 120,
-            }}
-          >
-            <LogoSvg className="big-logo" />
           </Col>
         </Row>
 

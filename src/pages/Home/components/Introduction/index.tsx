@@ -56,7 +56,7 @@ const SDKPanel = () => {
 const ClientPanel = () => {
   return (
     <div className="client-panel">
-      <ClientSvg style={{ width: 700 }} />
+      <ClientSvg style={{ width: 700, height: 467 }} />
     </div>
   );
 };

@@ -6,7 +6,7 @@
     "refresh": "Refresh"
   },
   "banner": {
-    "title": "Online Debug<br />Remote Web",
+    "title": "One-Stop Online<br />Debug Remote Webpages",
     "desc": "Clear bugs easily with tools whick like function panels in devtool.",
     "goStart": "Start debugging",
     "goGithub": "View on Github"
