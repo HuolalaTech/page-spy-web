@@ -1,7 +1,7 @@
 {
   "name": "@hll/page-spy-web",
   "version": "0.0.1",
-  "description": "Out-of-box debugger client for page-spy.",
+  "description": "All-In-One Remote Debugging Tool",
   "license": "MIT",
   "scripts": {
     "start": "vite",

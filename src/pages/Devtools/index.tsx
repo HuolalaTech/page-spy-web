@@ -35,9 +35,9 @@ const { Title } = Typography;
 const MENUS = {
   Console: ConsolePanel,
   Network: NetworkPanel,
-  System: SystemPanel,
   Page: PagePanel,
   Storage: StoragePanel,
+  System: SystemPanel,
 };
 type MenuKeys = keyof typeof MENUS;
 

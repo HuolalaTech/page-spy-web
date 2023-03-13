@@ -176,10 +176,7 @@ function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
                           </span>
                           <span className="property-value">
                             <CopyContent
-                              content={
-                                propertyContent.value.value ||
-                                String(propertyContent.value.value)
-                              }
+                              content={String(propertyContent.value.value)}
                             />
                           </span>
                         </>
