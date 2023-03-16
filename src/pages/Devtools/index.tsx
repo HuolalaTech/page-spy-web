@@ -220,7 +220,9 @@ export default function Devtools() {
         <Sider theme="light">
           <div className="page-spy-devtools__sider">
             <div className="client-info">
-              <Title level={4}>{t('current')}</Title>
+              <Title level={4} style={{ marginBlock: 12 }}>
+                {t('current')}
+              </Title>
               <Row wrap={false} align="middle" style={{ textAlign: 'center' }}>
                 <Tooltip title={clientInfo?.osName}>
                   <Col span={11}>

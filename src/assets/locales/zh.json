@@ -52,7 +52,8 @@
   },
   "network": {},
   "system": {
-    "dashboard": "概览",
+    "overview": "概览",
+    "feature": "特性",
     "unsupport": "不支持列表"
   },
   "page": {

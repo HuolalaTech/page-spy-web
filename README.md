@@ -1,3 +1,3 @@
 # PageSpy Web
 
-Out-of-box debugger client for page-spy.
+> All-In-One Remote Debugging Tool.

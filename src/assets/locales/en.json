@@ -52,7 +52,8 @@
   },
   "network": {},
   "system": {
-    "dashboard": "Dashboard",
+    "overview": "Overview",
+    "feature": "Feature",
     "unsupport": "Unsupport list"
   },
   "page": {

@@ -29,7 +29,7 @@ const SystemPanel = () => {
   return (
     <div className="system-panel">
       <div className="system-info">
-        <Title level={5}>{t('dashboard')}</Title>
+        <Title level={3}>{t('overview')}</Title>
         <Card>
           <Row>
             <Col span={18}>
@@ -55,7 +55,9 @@ const SystemPanel = () => {
           </Row>
         </Card>
       </div>
+
       <div className="system-info">
+        <Title level={3}>{t('feature')}</Title>
         <Title level={5} style={{ color: 'rgb(216, 30, 6)' }}>
           <span>{t('unsupport')}</span>
         </Title>

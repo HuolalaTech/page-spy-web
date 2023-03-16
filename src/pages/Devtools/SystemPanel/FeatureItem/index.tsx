@@ -28,7 +28,7 @@ export const FeatureItem: React.FC<SpySystem.FeatureDescriptor> = ({
       <div className="feature-item">
         <div className="feature-item__label">{title}</div>
         <div className="feature-item__value">
-          <Icon component={icon} style={{ fontSize: 14, fontWeight: 700 }} />
+          <Icon component={icon} style={{ fontSize: 16, fontWeight: 700 }} />
         </div>
       </div>
     </Tooltip>
