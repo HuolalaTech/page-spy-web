@@ -76,6 +76,7 @@ export const SelectRoomModal = withPopup(({ resolve, visible }) => {
               >
                 {connectionList.map(({ name, address }) => {
                   const info = resolveClientInfo(name);
+
                   const simpleAddress = address.slice(0, 4);
                   return (
                     <Option key={address} value={address} label={simpleAddress}>
@@ -86,18 +87,20 @@ export const SelectRoomModal = withPopup(({ resolve, visible }) => {
                         <Col>
                           <div className="device-system">
                             <img
-                              src={info.osLogo}
                               alt={info.osName}
+                              title={info.osName}
+                              src={info.osLogo}
                               height={28}
                             />
                             <div className="browser-info">
                               <img
-                                src={info.browserLogo}
                                 alt={info.browserName}
+                                title={info.browserName}
+                                src={info.browserLogo}
                                 height={28}
                               />
                               <p className="browser-info-version">
-                                {info.browserVersion}
+                                {info.browserVersion.split('.')[0]}
                               </p>
                             </div>
                           </div>

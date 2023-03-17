@@ -1,16 +1,19 @@
 export interface InitConfig {
   /**
-   * The server base url.
-   * - Create room: `${api}/room/create`
-   * - Filter romm: `${api}/room/list`
+   * The server base url. For example, "example.com".
+   * - Create room: `https://${api}/room/create`
+   * - Filter room: `https://${api}/room/list`
+   * - Join WebSocket room: `wss://${api}/ws/room/join`
    */
   api?: string;
+
   /**
-   * String literal which group connections by.
+   * Client host. Form example, "https://example.com".
    */
-  project?: string;
+  clientOrigin?: string;
 }
 
+export * as SpyDevice from './lib/device';
 export * as SpySocket from './lib/socket-event';
 export * as SpyMessage from './lib/message-type';
 export * as SpyAtom from './lib/atom';
@@ -20,3 +23,7 @@ export * as SpySystem from './lib/system';
 export * as SpyNetwork from './lib/network';
 export * as SpyStorage from './lib/storage';
 export * as SpyPage from './lib/page';
+
+class PageSpy {}
+
+export default PageSpy;

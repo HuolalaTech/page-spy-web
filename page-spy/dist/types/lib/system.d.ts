@@ -1,3 +1,5 @@
+import { Browser, OS } from './device';
+
 export type Category =
   | 'Element'
   | 'Javascript'
@@ -15,9 +17,11 @@ export type Feature = Record<Category, Record<string, FeatureDescriptor>>;
 export interface DataItem {
   id: string;
   system: {
-    os: string;
     ua: string;
-    browser: string;
+    osName: OS;
+    osVersion: string;
+    browserName: Browser;
+    browserVersion: string;
   };
   features: Record<Category, FeatureDescriptor[]>;
 }

@@ -19,7 +19,8 @@ export type InteractiveType =
   | 'debug'
   | 'refresh'
   | 'atom-detail'
-  | 'atom-getter';
+  | 'atom-getter'
+  | 'debugger-online';
 
 export interface MessageItem {
   role: 'client' | 'debugger';

@@ -1,35 +1,78 @@
 // os
-import PCSvg from '@/assets/image/pc.svg';
-import IOSSvg from '@/assets/image/apple.svg';
-import AndroidSvg from '@/assets/image/android.svg';
+import windowsSvg from '@/assets/image/windows.svg';
+import iOSSvg from '@/assets/image/apple.svg';
+import androidSvg from '@/assets/image/android.svg';
+import linuxSvg from '@/assets/image/linux.svg';
+import pcSvg from '@/assets/image/pc.svg';
 // browser
-import GoogleSvg from '@/assets/image/google.svg';
-import SafariSvg from '@/assets/image/safari.svg';
-import FirefoxSvg from '@/assets/image/firefox.svg';
-import WechatSvg from '@/assets/image/wechat.svg';
-import BrowserSvg from '@/assets/image/browser.svg';
+import wechatSvg from '@/assets/image/wechat.svg';
+import qqSvg from '@/assets/image/qq.svg';
+import ucSvg from '@/assets/image/uc.svg';
+import baiduSvg from '@/assets/image/baidu.svg';
+import edgeSvg from '@/assets/image/edge.svg';
+import chromeSvg from '@/assets/image/chrome.svg';
+import firefoxSvg from '@/assets/image/firefox.svg';
+import safariSvg from '@/assets/image/safari.svg';
+import browserSvg from '@/assets/image/browser.svg';
+import { SpyDevice } from '@huolala-tech/page-spy';
 
-export const LOGO = {
+interface DeviceInfo {
+  osName: SpyDevice.OS | 'Unknown';
+  osVersion: string;
+  browserName: SpyDevice.Browser | 'Unknown';
+  browserVersion: string;
+}
+
+export const parseDeviceInfo = (device: string): DeviceInfo => {
+  const reg = /(.*)\/(.*)\s(.*)\/(.*)/;
+  const result = device.match(reg);
+  if (result === null)
+    return {
+      osName: 'Unknown',
+      osVersion: 'Unknown',
+      browserName: 'Unknown',
+      browserVersion: 'Unknown',
+    };
+
+  const [_, osName, osVersion, browserName, browserVersion] = result;
+  return {
+    osName,
+    osVersion,
+    browserName,
+    browserVersion,
+  } as DeviceInfo;
+};
+
+export const LOGO: Record<SpyDevice.OS | SpyDevice.Browser, string> = {
   // os
-  IOS: IOSSvg,
-  Android: AndroidSvg,
+  Windows: windowsSvg,
+  iPad: iOSSvg,
+  iPhone: iOSSvg,
+  Mac: iOSSvg,
+  Android: androidSvg,
+  Linux: linuxSvg,
   // browser
-  Chrome: GoogleSvg,
-  Firefox: FirefoxSvg,
-  Safari: SafariSvg,
-  Weixin: WechatSvg,
+  WeChat: wechatSvg,
+  QQ: qqSvg,
+  UC: ucSvg,
+  Baidu: baiduSvg,
+  Edge: edgeSvg,
+  Chrome: chromeSvg,
+  Firefox: firefoxSvg,
+  Safari: safariSvg,
 };
 
 export type LogoBrand = keyof typeof LOGO;
 
-export function resolveClientInfo(data: string) {
-  const [os, browser] = data.split('-');
-  const [name, ver = 'Unknown'] = browser.split(':');
+export function resolveClientInfo(name: string) {
+  const { osName, osVersion, browserName, browserVersion } =
+    parseDeviceInfo(name);
   return {
-    osName: os,
-    osLogo: LOGO[os as LogoBrand] || PCSvg,
-    browserLogo: LOGO[name as LogoBrand] || BrowserSvg,
-    browserName: name,
-    browserVersion: ver,
+    osName,
+    osVersion,
+    osLogo: LOGO[osName as LogoBrand] || pcSvg,
+    browserName,
+    browserVersion,
+    browserLogo: LOGO[browserName as LogoBrand] || browserSvg,
   };
 }

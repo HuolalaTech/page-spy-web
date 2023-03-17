@@ -35,15 +35,15 @@ const SystemPanel = () => {
             <Col span={18}>
               <Row>
                 <Col span={5} className="system-info__label">
-                  OS:
+                  System:
                 </Col>
-                <Col className="system-info__value">{system.os}</Col>
+                <Col className="system-info__value">{`${system.osName}/${system.osVersion}`}</Col>
               </Row>
               <Row>
                 <Col span={5} className="system-info__label">
                   Browser:
                 </Col>
-                <Col className="system-info__value">{system.browser}</Col>
+                <Col className="system-info__value">{`${system.browserName}/${system.browserVersion}`}</Col>
               </Row>
               <Row wrap={false}>
                 <Col span={5} className="system-info__label">
