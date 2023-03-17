@@ -5,8 +5,7 @@ import { useWSInfo } from '../WSInfo';
 import './index.less';
 import React from 'react';
 import useSearch from '@/utils/useSearch';
-
-const OS = ['IOS', 'Android'];
+import { resolveClientInfo } from '@/utils/brand';
 
 function insertStyle(doc: Document, text: string) {
   const style = doc.createElement('style');
@@ -21,12 +20,12 @@ const PagePanel = () => {
   const frameRef = useRef<HTMLIFrameElement | null>(null);
   const { version } = useSearch();
   const os = useMemo(() => {
-    const data = version!.split('-')[0];
-    if (OS.indexOf(data) > -1) {
-      return data;
-    }
+    const { osName } = resolveClientInfo(version);
+    if (['iPhone', 'iPad'].indexOf(osName) >= 0) return 'iOS';
+    if (osName === 'Android') return 'Android';
     return 'PC';
   }, [version]);
+
   useEffect(() => {
     setLoading(true);
     refresh('page');
@@ -34,7 +33,7 @@ const PagePanel = () => {
   }, []);
   const FrameWrapper = useMemo(() => {
     switch (os) {
-      case 'IOS':
+      case 'iOS':
       case 'Android':
         return ({ children, ...props }: any) =>
           React.createElement(MobileFrame, { ...props, os }, children);

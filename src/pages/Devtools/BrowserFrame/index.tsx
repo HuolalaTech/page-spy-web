@@ -20,7 +20,7 @@ function getTime() {
 }
 
 interface FrameWrapperProps {
-  os?: 'IOS' | 'Android';
+  os?: 'iOS' | 'Android';
   loading: boolean;
   onRefresh: () => void;
 }
@@ -193,7 +193,7 @@ export const MobileFrame = ({
   const { t: ct } = useTranslation();
 
   const { pageMsg, refresh } = useWSInfo();
-  const PhoneFrame = os === 'IOS' ? IOSFrame : AndroidFrame;
+  const PhoneFrame = os === 'iOS' ? IOSFrame : AndroidFrame;
   return (
     <div className="mobile-frame">
       <div className="mobile-frame__left spin-container">
