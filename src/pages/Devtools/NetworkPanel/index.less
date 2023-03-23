@@ -111,10 +111,12 @@
       &__label {
         color: #1d1e20;
         font-weight: 700;
+        line-height: 2;
       }
       &__content {
         color: #5a5d62;
         padding-left: 12px;
+        white-space: pre-wrap;
         margin-bottom: 20px;
       }
       .response-blob-image {
@@ -128,15 +130,13 @@
       }
     }
     .content-item {
-      display: flex;
-      align-items: flex-start;
+      line-height: 1.7;
       &__label {
-        font-weight: 700;
         white-space: nowrap;
       }
-    }
-    .pre-wrap {
-      white-space: pre-wrap;
+      &__value {
+        word-break: break-all;
+      }
     }
   }
 

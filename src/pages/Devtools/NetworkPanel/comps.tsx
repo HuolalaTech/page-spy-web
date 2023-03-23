@@ -102,10 +102,10 @@ export const QueryParamsBlock: React.FC<Record<string, any>> = ({ data }) => {
         {Object.keys(decodedData).map((labelKey: any) => {
           return (
             <div className="content-item" key={labelKey}>
-              <div className="content-item__label">{labelKey}: &nbsp;</div>
-              <div className="content-item__value">
+              <b className="content-item__label">{labelKey}: &nbsp;</b>
+              <span className="content-item__value">
                 <code>{decodedData[labelKey]}</code>
-              </div>
+              </span>
             </div>
           );
         })}
@@ -233,38 +233,32 @@ const MediaWidget = ({ dataUrl }: MediaWidgetProps) => {
   }
   return (
     <div className="media-widget">
-      <Row gutter={12}>
-        <Col>
-          <b>File type:</b>
-        </Col>
-        <Col>
-          <span>{mime}</span>
-        </Col>
-      </Row>
-      <Row gutter={12}>
-        <Col>
-          <b>File size:</b>
-        </Col>
-        <Col>
-          <span>{semanticSize(blob.size)}</span>
-        </Col>
-      </Row>
-      <Row gutter={12}>
-        <Col>
-          <b>Save as:</b>
-        </Col>
-        <Col>
-          <Button
-            type="primary"
-            onClick={showModal}
-            size="small"
-            icon={<DownloadOutlined />}
-            style={{ marginLeft: 12 }}
-          >
-            Download
-          </Button>
-        </Col>
-      </Row>
+      {[
+        { label: 'File type: ', content: mime },
+        {
+          label: 'File size: ',
+          content: semanticSize(blob.size),
+        },
+        {
+          label: 'Save as: ',
+          content: (
+            <Button
+              type="primary"
+              onClick={showModal}
+              size="small"
+              icon={<DownloadOutlined />}
+              style={{ marginLeft: 12 }}
+            >
+              Download
+            </Button>
+          ),
+        },
+      ].map(({ label, content }) => (
+        <div className="content-item" key={label}>
+          <b className="content-item__label">{label}</b>
+          <span className="content-item__value">{content}</span>
+        </div>
+      ))}
       <FilenameModal ref={popupRef} />
     </div>
   );

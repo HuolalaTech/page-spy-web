@@ -160,21 +160,21 @@ const NetworkPanel = () => {
                 const field = generalFieldMap[label];
                 return (
                   <div className="content-item" key={label}>
-                    <div className="content-item__label">{label}: &nbsp;</div>
-                    <div className="content-item__value">
+                    <b className="content-item__label">{label}: &nbsp;</b>
+                    <span className="content-item__value">
                       <code>{detailData[field]}</code>
-                    </div>
+                    </span>
                   </div>
                 );
               })}
 
               <div className="content-item">
-                <div className="content-item__label">Status Code: &nbsp;</div>
-                <div className="content-item__value">
+                <b className="content-item__label">Status Code: &nbsp;</b>
+                <span className="content-item__value">
                   <code>
                     <StatusCode data={detailData} />
                   </code>
-                </div>
+                </span>
               </div>
             </div>
           </div>
@@ -191,12 +191,12 @@ const NetworkPanel = () => {
                     ? Object.keys(item.data).map((label) => {
                         return (
                           <div className="content-item" key={label}>
-                            <div className="content-item__label">
+                            <b className="content-item__label">
                               {label}: &nbsp;
-                            </div>
-                            <div className="content-item__value">
+                            </b>
+                            <span className="content-item__value">
                               <code>{item.data[label]}</code>
-                            </div>
+                            </span>
                           </div>
                         );
                       })
@@ -211,17 +211,17 @@ const NetworkPanel = () => {
           {/* Request Payload */}
           {validValues(postData) && (
             <div className="detail-block">
-              <div className="detail-block__label">Request Payload</div>
-              <div className="detail-block__content pre-wrap">
+              <b className="detail-block__label">Request Payload</b>
+              <span className="detail-block__content">
                 <TypeNode source={JSON.stringify(postData)} spread />
-              </div>
+              </span>
             </div>
           )}
 
           {/* Response Body */}
           <div className="detail-block">
             <div className="detail-block__label">Response</div>
-            <div className="detail-block__content pre-wrap">
+            <div className="detail-block__content">
               <ResponseBody data={detailData} />
             </div>
           </div>
