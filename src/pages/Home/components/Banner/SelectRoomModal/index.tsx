@@ -61,18 +61,21 @@ export const SelectRoomModal = withPopup(({ resolve, visible }) => {
       onOk={onJoinRoom}
     >
       <Form
+        size="large"
         labelCol={{
           span: 6,
         }}
       >
         <Form.Item label={t('selConn.label')}>
-          <Row gutter={12}>
+          <Row gutter={12} align="middle">
             <Col flex={1}>
               <Select
+                showSearch
+                size="large"
                 placeholder={t('selConn.placeholder')}
                 value={connection}
                 onChange={setConnection}
-                optionLabelProp="label"
+                optionFilterProp="label"
               >
                 {connectionList.map(({ name, address }) => {
                   const info = resolveClientInfo(name);
@@ -112,7 +115,7 @@ export const SelectRoomModal = withPopup(({ resolve, visible }) => {
               </Select>
             </Col>
             <Col>
-              <Button onClick={refreshConnections}>
+              <Button size="large" onClick={refreshConnections}>
                 <SyncOutlined />
               </Button>
             </Col>
