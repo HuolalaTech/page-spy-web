@@ -15,6 +15,7 @@ body {
 #root {
   height: 100%;
   min-width: 1200px;
+  overflow: hidden auto;
 }
 
 pre,

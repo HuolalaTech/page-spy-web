@@ -1,0 +1,31 @@
+.code-block {
+  position: relative;
+  overflow: hidden;
+  @import (less) 'highlight.js/styles/base16/dracula.css';
+  pre code {
+    padding: 32px 20px 24px !important;
+    font-size: 16px;
+    line-height: 1.2;
+    font-family: Cascadia Code, Menlo, Courier, monospace;
+    border-radius: 12px;
+  }
+
+  .copy-code {
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 8px 16px;
+    border-bottom-left-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+  }
+  &:hover {
+    .copy-code {
+      visibility: visible;
+    }
+  }
+}

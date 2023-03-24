@@ -1,50 +1,18 @@
 .introduction {
-  height: 100vh;
-  min-height: 800px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  .introduction-title {
-    font-size: 52px;
-    text-align: center;
-    color: @text-primary;
+  padding-inline: 12vw;
+  background-color: #fff;
+  > div {
+    padding-block: 80px;
+    // margin-block: 12px;
   }
-  .introduction-content {
-    height: 500px;
-    .sdk-panel {
-      @import (less) 'highlight.js/styles/base16/dracula.css';
-      pre code {
-        padding: 24px;
-        padding-top: 0;
-        font-size: 16px;
-        line-height: 1.2;
-        font-family: Cascadia Code, Menlo, Courier, monospace;
-        border-radius: 12px;
-      }
-    }
-    .client-panel {
-    }
+  .small-title {
+    margin-top: 100px;
+    color: @primary-color;
+    font-size: 16px;
+    font-weight: 600;
   }
-}
-
-.fade-enter-active,
-.fade-exit-active {
-  transition: all ease-out 300ms;
-}
-.fade-enter {
-  opacity: 0;
-  transform: translate3d(100px, 0, 0);
-}
-.fade-enter-active {
-  opacity: 1;
-  transform: translate3d(0px, 0, 0);
-}
-.fade-exit {
-  opacity: 1;
-  transform: translate3d(0px, 0, 0);
-}
-.fade-exit-active {
-  opacity: 0;
-  transform: translate3d(-50px, 0, 0);
+  .big-title {
+    font-size: 42px;
+    font-weight: 800;
+  }
 }
