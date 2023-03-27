@@ -1,4 +1,4 @@
-[page-spy]: https://github.com/HuolalaTech/page-spy.git 'page-spy repo'
+[page-spy]: https://github.com/HuolalaTech/page-spy.git 'page-spy'
 
 English | [中文](./README_CN.md)
 
@@ -8,7 +8,7 @@ English | [中文](./README_CN.md)
 
 ## What's this
 
-This repo and [Huolala-Tech/page-spy](page-spy) work together, where `page-spy` collects information and `page-spy-web` consumes and filters, organizes, and converts information into a standardized format, which is then showed on the page.
+This repo and [Huolala-Tech/page-spy][page-spy] work together, where `page-spy` collects information and `page-spy-web` consumes and filters, organizes, and converts information into a standardized format, which is then showed on the page.
 
 ## Feature Overview
 

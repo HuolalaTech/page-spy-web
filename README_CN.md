@@ -1,4 +1,4 @@
-[page-spy]: https://github.com/HuolalaTech/page-spy.git 'page-spy 仓库'
+[page-spy]: https://github.com/HuolalaTech/page-spy.git 'page-spy'
 
 [English](./README.md) | 中文
 
@@ -8,7 +8,7 @@
 
 ## 简介
 
-这个仓库和 [Huolala-Tech/page-spy](page-spy) 相互配合，具体而言 `page-spy` 负责收集页面信息；`page-spy-web` 消费收集的信息，对数据进行过滤和整理，并将其转换成一种标准格式，最后在页面上呈现。
+这个仓库和 [Huolala-Tech/page-spy][page-spy] 相互配合，具体而言 `page-spy` 负责收集页面信息；`page-spy-web` 消费收集的信息，对数据进行过滤和整理，并将其转换成一种标准格式，最后在页面上呈现。
 
 ## 功能概览
 
