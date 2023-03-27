@@ -1,16 +1,17 @@
 import { SyncOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
-import { Button, Col, Form, message, Modal, Row, Select, Space } from 'antd';
-import { useCallback, useEffect, useState } from 'react';
-import { withPopup } from '@/utils/withPopup';
+import { Button, Col, Form, message, Modal, Row, Select } from 'antd';
+import { ComponentType, useCallback, useEffect, useState } from 'react';
+import { usePopupRef, withPopup } from '@/utils/withPopup';
 import { resolveClientInfo } from '@/utils/brand';
 import { getSpyRoom } from '@/apis';
 import './index.less';
 import { useTranslation } from 'react-i18next';
+import React from 'react';
 
 const { Option } = Select;
 
-export const SelectRoomModal = withPopup(({ resolve, visible }) => {
+const SelectRoomModal = withPopup(({ resolve, visible }) => {
   const { t } = useTranslation();
   const [connection, setConnection] = useState<string>();
   const {
@@ -125,3 +126,22 @@ export const SelectRoomModal = withPopup(({ resolve, visible }) => {
     </Modal>
   );
 });
+
+export const SelectRoom = ({
+  children,
+}: {
+  children: ComponentType<{ onPopup: () => void }>;
+}) => {
+  const selectRoomRef = usePopupRef<void, string>();
+
+  const onJoinRoom = useCallback(async () => {
+    const room = await selectRoomRef.current?.popup();
+  }, [selectRoomRef]);
+
+  return (
+    <>
+      {React.createElement(children, { onPopup: onJoinRoom })}
+      <SelectRoomModal ref={selectRoomRef} />
+    </>
+  );
+};

@@ -221,7 +221,7 @@ export default function Devtools() {
           <div className="page-spy-devtools__sider">
             <div className="client-info">
               <Title level={4} style={{ marginBlock: 12 }}>
-                {t('current')}
+                {t('device')}
               </Title>
               <Row wrap={false} align="middle" style={{ textAlign: 'center' }}>
                 <Tooltip title={clientInfo?.osName}>

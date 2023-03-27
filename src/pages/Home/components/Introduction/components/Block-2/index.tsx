@@ -1,10 +1,11 @@
 import { Row, Col, Typography } from 'antd';
 import debugImg from '@/assets/image/debugger.png';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
-import { PropsWithChildren, useRef, useState } from 'react';
+import { PropsWithChildren, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import './index.less';
 import { CodeBlock } from '@/components/CodeBlock';
+import { Trans, useTranslation } from 'react-i18next';
 
 const { Title } = Typography;
 
@@ -26,25 +27,28 @@ const ToggleKey = ({
 };
 
 const SDKPanel = () => {
-  const steps = [
-    {
-      title: '1. Import script in the testing project',
-      code: '<script src="https://your-cdn.com/path/to/page-spy.js"></script>',
-    },
-    {
-      title: '2. Then, config PageSpy and init',
-      code: `<script>
-  new PageSpy({
-    api: '<api-base-host>', // for example, "example.com"
-    clientOrigin: '<debugger-ui-client-origin>' // for example, "https://example.com"
-  })
-</script>`,
-    },
-    {
-      title: "3. That's ALL!",
-      code: '',
-    },
-  ];
+  const { t } = useTranslation('translation');
+  const steps = useMemo(() => {
+    return [
+      {
+        title: `1. ${t('intro.loadStep1')}`,
+        code: '<script src="https://unpkg.com/@huolala-tech/page-spy/dist/index.min.js"></script>',
+      },
+      {
+        title: `2. ${t('intro.loadStep2')}`,
+        code: `<script>
+    new PageSpy({
+      api: '<api-base-host>', // for example, "example.com"
+      clientOrigin: '<debugger-ui-client-origin>' // for example, "https://example.com"
+    })
+  </script>`,
+      },
+      {
+        title: `3. ${t('intro.loadStep3')}`,
+        code: '',
+      },
+    ];
+  }, [t]);
 
   return (
     <div className="sdk-panel">
@@ -69,28 +73,31 @@ const ClientPanel = () => {
 };
 
 export const IntroBlock2 = () => {
+  const { t } = useTranslation();
   const nodeRef = useRef<HTMLDivElement | null>(null);
   const [activeKey, setActiveKey] = useState('sdk');
 
   return (
     <Row justify="center" gutter={80}>
       <Col>
-        <p className="small-title">What we provide</p>
+        <p className="small-title">{t('intro.provides')}</p>
         <Title level={1} className="big-title">
-          Out-of-box{' '}
-          <ToggleKey
-            isActive={activeKey === 'sdk'}
-            onClick={() => setActiveKey('sdk')}
-          >
-            SDK
-          </ToggleKey>{' '}
-          and <br />
-          <ToggleKey
-            isActive={activeKey === 'debugger'}
-            onClick={() => setActiveKey('debugger')}
-          >
-            debugger client
-          </ToggleKey>
+          <Trans i18nKey="intro.providesTitle">
+            Out-of-box
+            <ToggleKey
+              isActive={activeKey === 'sdk'}
+              onClick={() => setActiveKey('sdk')}
+            >
+              SDK
+            </ToggleKey>
+            and <br />
+            <ToggleKey
+              isActive={activeKey === 'debugger'}
+              onClick={() => setActiveKey('debugger')}
+            >
+              debugger client
+            </ToggleKey>
+          </Trans>
         </Title>
       </Col>
       <Col>

@@ -14,10 +14,15 @@
     "goGithub": "View on Github"
   },
   "intro": {
-    "title": "Out-of-box<br />SDK & Client",
-    "first": "First, load PageSpy SDK in to-be-debuged project",
-    "then": "Then, init instance",
-    "result": "The page-spy widget element will mount at here"
+    "does": "What PageSpy does",
+    "doesTitle": "Inpect Runtime,<br/>Remote!",
+    "provides": "What we provide",
+    "providesTitle": "Out-of-box <1>SDK</1> and<br /> <4>debugger client</4>",
+    "loadStep1": "Load a <script> in the testing project",
+    "loadStep2": "Then, config PageSpy and init",
+    "loadStep3": "That's ALL!",
+    "welcome": "Welcome to use PageSpy",
+    "goStart": "Get Started"
   },
   "selConn": {
     "title": "Select the connection",
@@ -25,7 +30,7 @@
     "placeholder": "Select the connection"
   },
   "devtool": {
-    "current": "Current",
+    "device": "Device",
     "browser": "Browser",
     "version": "Version",
     "menu": {

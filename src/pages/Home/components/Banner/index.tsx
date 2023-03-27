@@ -1,10 +1,7 @@
 import { ArrowRightOutlined, GithubOutlined } from '@ant-design/icons';
 import { Row, Col, Button, Space } from 'antd';
-import { ReactComponent as LogoSvg } from '@/assets/image/logo.svg';
 import './index.less';
-import { usePopupRef, withPopup } from '@/utils/withPopup';
-import { SelectRoomModal } from './SelectRoomModal';
-import { useCallback } from 'react';
+import { SelectRoom } from '@/components/SelectRoom';
 import { Trans, useTranslation } from 'react-i18next';
 
 const Waves = () => {
@@ -67,11 +64,6 @@ const Waves = () => {
 
 export const Banner = () => {
   const { t } = useTranslation();
-  const selectRoomRef = usePopupRef<void, string>();
-
-  const onJoinRoom = useCallback(async () => {
-    const room = await selectRoomRef.current?.popup();
-  }, [selectRoomRef]);
 
   return (
     <section className="banner flex-center">
@@ -94,17 +86,23 @@ export const Banner = () => {
 
         <Row justify="center" align="middle" className="banner-actions">
           <Col>
-            <Button
-              type="primary"
-              size="large"
-              shape="round"
-              onClick={onJoinRoom}
-            >
-              <Space>
-                {t('banner.goStart')}
-                <ArrowRightOutlined />
-              </Space>
-            </Button>
+            <SelectRoom>
+              {({ onPopup }) => {
+                return (
+                  <Button
+                    type="primary"
+                    size="large"
+                    shape="round"
+                    onClick={onPopup}
+                  >
+                    <Space>
+                      {t('banner.goStart')}
+                      <ArrowRightOutlined />
+                    </Space>
+                  </Button>
+                );
+              }}
+            </SelectRoom>
           </Col>
           <Col
             style={{
@@ -121,7 +119,6 @@ export const Banner = () => {
         </Row>
         <Waves />
       </div>
-      <SelectRoomModal ref={selectRoomRef} />
     </section>
   );
 };
