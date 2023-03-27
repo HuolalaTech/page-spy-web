@@ -2,7 +2,11 @@
 
 English | [中文](./README_CN.md)
 
-# PageSpy Web
+<p align="center">
+  <img src="./logo.svg" height="120" />
+</p>
+
+<h1 align="center">PageSpyWeb</h1>
 
 > All-In-One Remote Debugging Tool.
 

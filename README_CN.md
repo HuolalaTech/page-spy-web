@@ -2,7 +2,11 @@
 
 [English](./README.md) | 中文
 
-# PageSpyWeb
+<p align="center">
+  <img src="./logo.svg" height="120" />
+</p>
+
+<h1 align="center">PageSpyWeb</h1>
 
 > 一站式远程调试工具。
 
