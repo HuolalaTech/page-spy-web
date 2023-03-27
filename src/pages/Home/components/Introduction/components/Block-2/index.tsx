@@ -63,7 +63,7 @@ const SDKPanel = () => {
 const ClientPanel = () => {
   return (
     <div className="client-panle">
-      <img width={500} src={debugImg} alt="" />
+      <img width={400} src={debugImg} alt="" />
     </div>
   );
 };
@@ -73,7 +73,7 @@ export const IntroBlock2 = () => {
   const [activeKey, setActiveKey] = useState('sdk');
 
   return (
-    <Row gutter={120} justify="center">
+    <Row justify="center" gutter={80}>
       <Col>
         <p className="small-title">What we provide</p>
         <Title level={1} className="big-title">
@@ -101,7 +101,7 @@ export const IntroBlock2 = () => {
             classNames="fade"
             timeout={300}
           >
-            <div ref={nodeRef} style={{ width: 500, height: 500 }}>
+            <div ref={nodeRef} style={{ width: 400, height: 400 }}>
               {activeKey === 'sdk' ? <SDKPanel /> : <ClientPanel />}
             </div>
           </CSSTransition>

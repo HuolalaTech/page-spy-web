@@ -1,13 +1,13 @@
 import { Row, Col, Typography } from 'antd';
-import debugImg from '@/assets/image/debugger.png';
+import debugImg from '@/assets/image/inspect.png';
 
 const { Title } = Typography;
 
 export const IntroBlock1 = () => {
   return (
-    <Row gutter={60}>
+    <Row gutter={80} justify="center">
       <Col>
-        <img width="500" src={debugImg} alt="" />
+        <img width="400" src={debugImg} alt="" />
       </Col>
       <Col style={{ textAlign: 'right' }}>
         <p className="small-title">What PageSpy do</p>
