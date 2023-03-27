@@ -44,7 +44,7 @@ yarn install
 yarn start
 ```
 
-4. 生产构建，在 `.env` 确认环境变量的配置，然后运行：
+4. 生产构建
 
 ```bash
 yarn build

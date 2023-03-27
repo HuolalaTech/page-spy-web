@@ -1,6 +1,7 @@
 import { extend } from 'umi-request';
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE;
+export const API_BASE_URL =
+  import.meta.env.VITE_API_BASE || window.location.host;
 
 export const request = extend({
   prefix: `https://${API_BASE_URL}`,

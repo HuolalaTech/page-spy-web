@@ -44,7 +44,7 @@ yarn install
 yarn start
 ```
 
-4. Build for production, confirm the env variable in `.env`, then run:
+4. Build for production
 
 ```bash
 yarn build
