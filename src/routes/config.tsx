@@ -6,6 +6,7 @@ import { Page404, To404 } from '@/404';
 import { Layouts } from '@/pages/Layouts';
 import { Home } from '@/pages/Home';
 import React from 'react';
+import { RoomList } from '@/pages/RoomList';
 
 const Devtools = React.lazy(() => import('@/pages/Devtools'));
 
@@ -29,6 +30,10 @@ const routes: RouteObject[] = [
       {
         path: '/devtools',
         element: <Devtools />,
+      },
+      {
+        path: '/room-list',
+        element: <RoomList />,
       },
     ],
   },

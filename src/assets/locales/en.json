@@ -5,7 +5,8 @@
     "clear": "Clear",
     "refresh": "Refresh",
     "lang": "English",
-    "doc": "Doc"
+    "doc": "Doc",
+    "connections": "Connections"
   },
   "banner": {
     "title": "All-In-One<br />Remote Debugging Tool",

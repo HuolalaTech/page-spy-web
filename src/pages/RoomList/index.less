@@ -1,0 +1,30 @@
+.room-list {
+  .connection-item {
+    margin-bottom: 24px;
+    padding: 12px 24px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    transition: all ease-out 0.3s;
+    cursor: pointer;
+    &.no-client {
+      filter: opacity(0.5);
+      cursor: not-allowed;
+    }
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.1);
+    }
+    &__system {
+      > div {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 6px;
+        &:first-child {
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+}

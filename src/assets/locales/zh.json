@@ -5,7 +5,8 @@
     "clear": "清空",
     "refresh": "刷新",
     "lang": "中文",
-    "doc": "文档"
+    "doc": "文档",
+    "connections": "房间列表"
   },
   "banner": {
     "title": "All-In-One<br />远程调试工具",
