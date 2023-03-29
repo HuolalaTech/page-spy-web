@@ -20,7 +20,7 @@
     "provides": "What we provide",
     "providesTitle": "Out-of-box <1>SDK</1> and<br /> <4>debugger client</4>",
     "loadStep1": "Load a <script> in the testing project",
-    "loadStep2": "Then, config PageSpy and init",
+    "loadStep2": "Then, <1>config (optional)</1> and init",
     "loadStep3": "That's ALL!",
     "welcome": "Welcome to use PageSpy",
     "goStart": "Get Started"

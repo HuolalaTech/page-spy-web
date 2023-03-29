@@ -6,6 +6,8 @@ import clsx from 'clsx';
 import './index.less';
 import { CodeBlock } from '@/components/CodeBlock';
 import { Trans, useTranslation } from 'react-i18next';
+import { version as sdkVersion } from '@huolala-tech/page-spy/package.json';
+import { Link } from 'react-router-dom';
 
 const { Title } = Typography;
 
@@ -32,16 +34,20 @@ const SDKPanel = () => {
     return [
       {
         title: `1. ${t('intro.loadStep1')}`,
-        code: '<script src="https://unpkg.com/@huolala-tech/page-spy/dist/index.min.js"></script>',
+        code: `<script crossorgin="anonymous" src="${window.location.origin}/page-spy@${sdkVersion}/index.min.js"></script>`,
       },
       {
-        title: `2. ${t('intro.loadStep2')}`,
+        title: (
+          <span>
+            2.{' '}
+            <Trans i18nKey="intro.loadStep2">
+              Then, <Link to="/docs">config (optional)</Link> and init
+            </Trans>
+          </span>
+        ),
         code: `<script>
-    new PageSpy({
-      api: '<api-base-host>', // for example, "example.com"
-      clientOrigin: '<debugger-ui-client-origin>' // for example, "https://example.com"
-    })
-  </script>`,
+  new PageSpy([config]);
+</script>`,
       },
       {
         title: `3. ${t('intro.loadStep3')}`,
@@ -52,9 +58,9 @@ const SDKPanel = () => {
 
   return (
     <div className="sdk-panel">
-      {steps.map(({ title, code }) => {
+      {steps.map(({ title, code }, index) => {
         return (
-          <div className="sdk-step" key={title}>
+          <div className="sdk-step" key={index}>
             <p className="sdk-step__title">{title}</p>
             <CodeBlock code={code} codeType="language-javascript" />
           </div>

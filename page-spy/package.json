@@ -55,6 +55,7 @@
     "git-cz": "^4.7.6",
     "jest": "^27.5.1",
     "jest-canvas-mock": "^2.4.0",
+    "jest-websocket-mock": "^2.4.0",
     "jsdom": "^21.1.1",
     "less": "^4.1.1",
     "lint-staged": "^10.5.4",

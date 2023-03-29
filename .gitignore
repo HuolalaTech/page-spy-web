@@ -9,6 +9,7 @@ yarn-error.log*
 
 # production
 /dist
+sdk.sh
 
 # misc
 .DS_Store

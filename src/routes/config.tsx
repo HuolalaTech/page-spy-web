@@ -7,6 +7,7 @@ import { Layouts } from '@/pages/Layouts';
 import { Home } from '@/pages/Home';
 import React from 'react';
 import { RoomList } from '@/pages/RoomList';
+import { Docs } from '@/pages/Docs';
 
 const Devtools = React.lazy(() => import('@/pages/Devtools'));
 
@@ -34,6 +35,10 @@ const routes: RouteObject[] = [
       {
         path: '/room-list',
         element: <RoomList />,
+      },
+      {
+        path: '/docs',
+        element: <Docs />,
       },
     ],
   },

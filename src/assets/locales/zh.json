@@ -20,7 +20,7 @@
     "provides": "我们提供",
     "providesTitle": "开箱即用的 <1>SDK</1> 和<br /> <4>调试的客户端</4>",
     "loadStep1": "在测试项目中加载一个 <script>",
-    "loadStep2": "然后，配置并初始化",
+    "loadStep2": "然后，<1>配置（可选的）</1> 并初始化",
     "loadStep3": "以上就是全部！",
     "welcome": "欢迎使用 PageSpy",
     "goStart": "开始使用"
