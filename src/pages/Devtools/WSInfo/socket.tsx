@@ -1,6 +1,7 @@
 import type { SpyMessage, SpySocket } from '@huolala-tech/page-spy';
 import { message, notification } from 'antd';
 import i18n from '@/assets/locales';
+import * as SERVER_MESSAGE_TYPE from './server-type';
 
 const CLIENT_ID = 'Client';
 const MESSAGE_TYPE: SpyMessage.MessageType[] = [
@@ -45,6 +46,8 @@ export class SocketStore extends EventTarget {
     this.socket = new WebSocket(this.socketUrl);
     this.socket.addEventListener('open', () => {
       this.connectOnline();
+      const { MESSAGE, BROADCAST, CONNECT, LEAVE, JOIN, ERROR, CLOSE, PING } =
+        SERVER_MESSAGE_TYPE;
       this.socket!.addEventListener('message', (evt: MessageEvent) => {
         const { data } = evt;
         let result = null;
@@ -57,38 +60,38 @@ export class SocketStore extends EventTarget {
         // eslint-disable-next-line default-case
         switch (type) {
           // some message types that front-end cares about and handled
-          case 'message':
-          case 'send':
+          case MESSAGE:
+          case BROADCAST:
             this.latestId = content.data.data.id;
             if (
-              type === 'send' &&
+              type === MESSAGE &&
               content.to.address !== this.socketConnection?.address
             )
               return;
             this.dispatchEvents(content.data.type, content.data);
             break;
           // other message type like `join` / `close`, etc.
-          case 'connect':
+          case CONNECT:
             this.socketConnection = content.selfConnection;
             this.filterClient(content);
             this.disapatchConnectStatus();
             break;
-          case 'leave':
+          case LEAVE:
             this.handleNotification(content, 'leave');
             break;
-          case 'join':
+          case JOIN:
             if (content.connection.userId === CLIENT_ID) {
               this.clientConnection = content.connection;
               this.getCacheQueueMessage();
               this.disapatchConnectStatus();
             }
             break;
-          case 'error':
+          case ERROR:
             this.reconnectable = false;
             message.error(content.message);
             break;
-          case 'close':
-          case 'ping':
+          case CLOSE:
+          case PING:
             break;
         }
       });
@@ -158,7 +161,7 @@ export class SocketStore extends EventTarget {
       if (this.socket?.readyState !== WebSocket.OPEN) return;
       this.socket!.send(
         JSON.stringify({
-          type: 'ping',
+          type: SERVER_MESSAGE_TYPE.PING,
           content: null,
         }),
       );
@@ -232,7 +235,7 @@ export class SocketStore extends EventTarget {
 
   makeUnicastMessage(data: any) {
     return {
-      type: 'send',
+      type: SERVER_MESSAGE_TYPE.MESSAGE,
       content: {
         data,
         from: this.socketConnection,

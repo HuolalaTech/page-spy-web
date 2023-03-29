@@ -17,6 +17,7 @@ import type {
   SpyStorage,
   SpySystem,
 } from '@huolala-tech/page-spy';
+import { resolveProtocol } from '@/utils';
 
 interface WSContextInfo {
   socket: SocketStore | null;
@@ -87,7 +88,9 @@ export const WSProvider = ({ room, children }: PropsWithChildren<Props>) => {
 
   useEffect(() => {
     if (!room || !!socket) return;
-    const url = `wss://${API_BASE_URL}/ws/room/join?address=${room}&userId=${USER_ID}`;
+    const url = `${
+      resolveProtocol()[1]
+    }${API_BASE_URL}/api/v1/ws/room/join?address=${room}&userId=${USER_ID}`;
     const ws = new SocketStore(url);
     setSocket(ws);
   }, [room, socket]);

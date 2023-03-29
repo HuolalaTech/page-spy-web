@@ -5,6 +5,7 @@ import { useRequest } from 'ahooks';
 import { Typography, Row, Col, message, Empty, Button, Tooltip } from 'antd';
 import clsx from 'clsx';
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import './index.less';
 
 const { Title } = Typography;
@@ -25,6 +26,8 @@ const sortConnections = (data: I.SpyRoom[]) => {
 };
 
 export const RoomList = () => {
+  const { t } = useTranslation();
+
   const {
     data: connectionList = [],
     error,
@@ -67,7 +70,9 @@ export const RoomList = () => {
 
             return (
               <Col key={address} span={8}>
-                <Tooltip title={!client && 'No client in the connection'}>
+                <Tooltip
+                  title={!client && t('socket.client-not-in-connection')}
+                >
                   <Row
                     justify="space-between"
                     align="middle"

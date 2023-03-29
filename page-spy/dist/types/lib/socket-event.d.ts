@@ -5,8 +5,8 @@ export type EventType =
   | 'join'
   | 'leave'
   | 'close'
+  | 'broadcast'
   | 'message'
-  | 'send'
   | 'error'
   | 'ping';
 
@@ -48,13 +48,13 @@ export type CloseEvent = EventConstructor<
   }
 >;
 export type BrodcastEvent = EventConstructor<
-  'message',
+  'broadcast',
   {
     data: MessageItem;
   }
 >;
 export type UnicastEvent = EventConstructor<
-  'send',
+  'message',
   {
     data: MessageItem;
     from: Connection;
