@@ -16,7 +16,7 @@
   },
   "intro": {
     "does": "What PageSpy does",
-    "doesTitle": "Inpect Runtime,<br/>Remote!",
+    "doesTitle": "Inspect Runtime,<br/>Remote!",
     "provides": "What we provide",
     "providesTitle": "Out-of-box <1>SDK</1> and<br /> <4>debugger client</4>",
     "loadStep1": "Load a <script> in the testing project",

@@ -12,7 +12,7 @@
     "sourceMap": true,
     "baseUrl": "./",
     "strict": true,
-    "types": ["vite-plugin-svgr/client"],
+    "types": ["vite-plugin-svgr/client", "mdx"],
     "paths": {
       "@/*": ["src/*"]
     },

@@ -11,6 +11,10 @@ export interface InitConfig {
    * Client host. Form example, "https://example.com".
    */
   clientOrigin?: string;
+  /**
+   * Project name, used for group connections
+   */
+  project?: string;
 }
 
 export * as SpyDevice from './lib/device';

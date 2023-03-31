@@ -22,13 +22,13 @@ export const Layouts = () => {
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const isHome = useMemo(() => {
-    return pathname === '/';
+  const isDark = useMemo(() => {
+    return ['/', '/docs'].includes(pathname);
   }, [pathname]);
 
   return (
     <Layout className="layouts">
-      <Header className={clsx('header', isHome && 'is-home')}>
+      <Header className={clsx('header', isDark && 'is-dark')}>
         <Row justify="space-between" align="middle">
           <Col>
             <div className="logo">
@@ -42,24 +42,28 @@ export const Layouts = () => {
           </Col>
           <Col>
             <Space className="menu">
-              <p
-                className="menu-item online"
-                onClick={() => {
-                  navigate('/room-list');
-                }}
-              >
-                <Space align="center">
-                  <Icon component={OnlineSvg} style={{ fontSize: 18 }} />
-                  <span>{t('common.connections')}</span>
-                </Space>
-              </p>
+              <Link to="/room-list">
+                <p
+                  className="menu-item online"
+                  onClick={() => {
+                    navigate('/room-list');
+                  }}
+                >
+                  <Space align="center">
+                    <Icon component={OnlineSvg} style={{ fontSize: 18 }} />
+                    <span>{t('common.connections')}</span>
+                  </Space>
+                </p>
+              </Link>
               <Divider type="vertical" className="divider-bg" />
-              <p className="menu-item doc">
-                <Space align="center">
-                  <Icon component={DocsSvg} style={{ fontSize: 18 }} />
-                  <span>{t('common.doc')}</span>
-                </Space>
-              </p>
+              <Link to="/docs">
+                <p className="menu-item doc">
+                  <Space align="center">
+                    <Icon component={DocsSvg} style={{ fontSize: 18 }} />
+                    <span>{t('common.doc')}</span>
+                  </Space>
+                </p>
+              </Link>
               <Divider type="vertical" className="divider-bg" />
               <p
                 className="menu-item lang"

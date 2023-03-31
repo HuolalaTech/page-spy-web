@@ -3,6 +3,7 @@ import path from 'path';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import ssl from '@vitejs/plugin-basic-ssl';
+import mdx from '@mdx-js/rollup';
 
 export default ({ mode }) => {
   const isProd = mode === 'production';
@@ -25,6 +26,16 @@ export default ({ mode }) => {
         },
       },
     },
-    plugins: [react(), svgr(), ssl()],
+    plugins: [
+      {
+        enforce: 'pre',
+        ...mdx(),
+      },
+      react({
+        jsxRuntime: 'classic',
+      }),
+      svgr(),
+      ssl(),
+    ],
   });
 };
