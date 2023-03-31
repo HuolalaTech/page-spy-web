@@ -9,9 +9,14 @@ import { CheckOutlined } from '@ant-design/icons';
 interface Props {
   code: string;
   codeType?: string;
+  showCopy?: boolean;
 }
 
-export const CodeBlock = ({ code, codeType = 'language-html' }: Props) => {
+export const CodeBlock = ({
+  code,
+  codeType = 'language-html',
+  showCopy = true,
+}: Props) => {
   const codeContent = useMemo(() => {
     return hljs.highlightAuto(code).value;
   }, [code]);
@@ -37,16 +42,18 @@ export const CodeBlock = ({ code, codeType = 'language-html' }: Props) => {
 
   return (
     <div className="code-block">
-      <button className="copy-code" onClick={onCopy}>
-        {copyStatus ? (
-          <Space>
-            <span>Copied</span>
-            <CheckOutlined />
-          </Space>
-        ) : (
-          'COPY'
-        )}
-      </button>
+      {showCopy && (
+        <button className="copy-code" onClick={onCopy}>
+          {copyStatus ? (
+            <Space>
+              <span>Copied</span>
+              <CheckOutlined />
+            </Space>
+          ) : (
+            'COPY'
+          )}
+        </button>
+      )}
       <pre>
         <code
           className={clsx('hljs', codeType)}

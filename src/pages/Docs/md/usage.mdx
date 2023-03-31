@@ -1,4 +1,7 @@
+import {CodeBlock} from '@/components/CodeBlock'
+
 [Github]: https://github.com/HuolalaTech/page-spy-web 'PageSpy'
+[how-to-deploy]: https://github.com/HuolalaTech/page-spy-web '本地部署'
 
 ## 介绍
 
@@ -7,7 +10,7 @@
 
 ## 何时使用
 
-<u>任何无法使用本地控制台调试的时候</u>，都是 PageSpy 大显身手的机会！一起来看下面的两个例子：
+<u>任何无法在本地使用控制台调试的场景，都是 PageSpy 可以大显身手的时候</u>！一起来看下面的两个例子：
 
 在现代远程工作和跨地区合作变得越来越普遍的背景下，技术人员和测试人员之间的有效协同变得异常重要。然而，
 传统的沟通方式如邮件、电话、视频会议等存在沟通效率不高、故障信息不全面、误解误判等。PageSpy 提供项目运行现场供技术人员在调试端查看，测试人员不用再频繁
@@ -22,7 +25,18 @@
 
 # 如何使用
 
-为了方便您的使用，我们提供完整的、开箱即用的本地化部署方案。
+为了数据安全和方便您的使用，我们提供完整的、开箱即用的本地化部署方案，[点击查看如何部署][how-to-deploy]。
+
+部署完成后，按如下顺序在待调试的项目中集成：
+
+1. 在项目中引入 `page-spy` 脚本文件，完整的路径可以在部署成功后的调试端主页查看:
+
+<CodeBlock
+  code={`<script crossorgin="anonymous" src="https://{domain}/page-spy@{version}/index.min.js"></script>`}
+  codeType="language-javascript"
+/>
+
+2.
 
 
 ## 功能概览

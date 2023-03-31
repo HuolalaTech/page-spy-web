@@ -1,14 +1,17 @@
 .docs {
   min-height: calc(100vh - 64px);
+  padding-block: 20px 100px;
+  /* 整体样式 */
   background-color: #1a1a1a;
   color: #c4c4c4;
-  padding-block: 20px 100px;
   letter-spacing: 0.8px;
   * {
     font-size: 16px;
     font-weight: 400;
     line-height: 1.65;
   }
+
+  /* 元素样式 */
   blockquote {
     padding: 8px 16px;
     border-left: 4px solid @primary-color;
@@ -43,7 +46,8 @@
   code {
     color: rgb(182, 124, 255);
   }
-  ul {
+  ul,
+  ol {
     padding-left: 20px;
     margin-block: 4px;
   }
