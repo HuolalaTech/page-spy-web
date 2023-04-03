@@ -41,18 +41,17 @@ export const RoomList = () => {
     {
       pollingInterval: 5000,
       pollingWhenHidden: false,
+      pollingErrorRetryCount: 0,
+      onError(e) {
+        message.error(e.message);
+      },
     },
   );
 
   const mainContent = useMemo(() => {
-    if (error) {
-      message.error(error.message);
-      return null;
-    }
-    if (connectionList.length === 0)
+    if (error || connectionList.length === 0)
       return (
         <Empty
-          description="No connections"
           style={{
             marginTop: 60,
           }}
@@ -118,7 +117,7 @@ export const RoomList = () => {
         )}
       </Row>
     );
-  }, [connectionList, error]);
+  }, [connectionList, error, t]);
 
   return (
     <div className="room-list">
@@ -131,13 +130,13 @@ export const RoomList = () => {
           >
             <Col>
               <Title level={3} style={{ margin: 0 }}>
-                Connections
+                {t('common.connections')}
               </Title>
             </Col>
             <Col>
               <Button onClick={refreshConnections}>
                 <ReloadOutlined />
-                Refresh
+                {t('common.refresh')}
               </Button>
             </Col>
           </Row>

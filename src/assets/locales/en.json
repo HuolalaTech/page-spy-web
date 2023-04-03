@@ -6,7 +6,15 @@
     "refresh": "Refresh",
     "lang": "English",
     "doc": "Doc",
-    "connections": "Connections"
+    "connections": "Connections",
+    "inject-sdk": "Inject SDK"
+  },
+  "inject": {
+    "load-script": "Load a <script> in the testing project;",
+    "init-instance": "Then, config (optional) and init;",
+    "pass-config": "The configuration you passed will override the default value;",
+    "end": "That's ALL.",
+    "start-debug": "Start debugging by clicking the <1>Connections</1> menu at the top!"
   },
   "banner": {
     "title": "All-In-One<br />Remote Debugging Tool",
@@ -19,9 +27,6 @@
     "doesTitle": "Inspect Runtime,<br/>Remote!",
     "provides": "What we provide",
     "providesTitle": "Out-of-box <1>SDK</1> and<br /> <4>debugger client</4>",
-    "loadStep1": "Load a <script> in the testing project",
-    "loadStep2": "Then, <1>config (optional)</1> and init",
-    "loadStep3": "That's ALL!",
     "welcome": "Welcome to use PageSpy",
     "goStart": "Get Started"
   },

@@ -6,7 +6,15 @@
     "refresh": "刷新",
     "lang": "中文",
     "doc": "文档",
-    "connections": "房间列表"
+    "connections": "房间列表",
+    "inject-sdk": "接入 SDK"
+  },
+  "inject": {
+    "load-script": "在测试项目中加载一个 <script>；",
+    "init-instance": "紧接着，配置（可选的）并初始化；",
+    "pass-config": "也可以传递配置，这将覆盖默认的值；",
+    "end": "以上就是全部。",
+    "start-debug": "从顶部的 <1>房间列表</1> 菜单进入并开始调试！"
   },
   "banner": {
     "title": "All-In-One<br />远程调试工具",
@@ -19,9 +27,6 @@
     "doesTitle": "检测运行时，<br />远程操作！",
     "provides": "我们提供",
     "providesTitle": "开箱即用的 <1>SDK</1> 和<br /> <4>调试的客户端</4>",
-    "loadStep1": "在测试项目中加载一个 <script>",
-    "loadStep2": "然后，<1>配置（可选的）</1> 并初始化",
-    "loadStep3": "以上就是全部！",
     "welcome": "欢迎使用 PageSpy",
     "goStart": "开始使用"
   },

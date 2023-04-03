@@ -3,6 +3,7 @@ import { Row, Col, Button, Space } from 'antd';
 import './index.less';
 import { SelectRoom } from '@/components/SelectRoom';
 import { Trans, useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const Waves = () => {
   return (
@@ -86,35 +87,28 @@ export const Banner = () => {
 
         <Row justify="center" align="middle" className="banner-actions">
           <Col>
-            <SelectRoom>
-              {({ onPopup }) => {
-                return (
-                  <Button
-                    type="primary"
-                    size="large"
-                    shape="round"
-                    onClick={onPopup}
-                  >
-                    <Space>
-                      {t('banner.goStart')}
-                      <ArrowRightOutlined />
-                    </Space>
-                  </Button>
-                );
-              }}
-            </SelectRoom>
+            <Link to="/docs">
+              <Button type="primary" size="large" shape="round">
+                <Space>
+                  {t('banner.goStart')}
+                  <ArrowRightOutlined />
+                </Space>
+              </Button>
+            </Link>
           </Col>
           <Col
             style={{
               marginLeft: 40,
             }}
           >
-            <Button size="large" shape="round">
-              <Space>
-                {t('banner.goGithub')}
-                <GithubOutlined style={{ fontSize: 18 }} />
-              </Space>
-            </Button>
+            <a href={import.meta.env.VITE_GITHUB_REPO} target="_blank">
+              <Button size="large" shape="round">
+                <Space>
+                  {t('banner.goGithub')}
+                  <GithubOutlined style={{ fontSize: 18 }} />
+                </Space>
+              </Button>
+            </a>
           </Col>
         </Row>
         <Waves />

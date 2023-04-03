@@ -5,6 +5,7 @@ declare module '*.png';
 
 interface ImportMetaEnv {
   readonly VITE_API_BASE: string;
+  readonly VITE_GITHUB_REPO: string;
 }
 
 interface ImportMeta {

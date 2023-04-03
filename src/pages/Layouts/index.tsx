@@ -1,8 +1,9 @@
 import { Col, Divider, Layout, Row, Space, Typography } from 'antd';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { ReactComponent as LogoSvg } from '@/assets/image/logo.svg';
 import { ReactComponent as DocsSvg } from '@/assets/image/docs.svg';
 import { ReactComponent as I18nSvg } from '@/assets/image/i18n.svg';
+import { ReactComponent as InjectSdkSvg } from '@/assets/image/inject-sdk.svg';
 import { ReactComponent as OnlineSvg } from '@/assets/image/online.svg';
 import './index.less';
 import clsx from 'clsx';
@@ -12,6 +13,8 @@ import { useLanguage } from '@/utils/useLanguage';
 import i18n from '@/assets/locales';
 import { LoadingFallback } from '@/components/LoadingFallback';
 import Icon from '@ant-design/icons';
+import { isClient } from '@/utils/constants';
+import { InjectSDKModal } from '@/components/InjectSDK';
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -19,8 +22,6 @@ const { Title } = Typography;
 export const Layouts = () => {
   const [lang, setLang] = useLanguage();
   const { t } = useTranslation();
-
-  const navigate = useNavigate();
   const { pathname } = useLocation();
   const isDark = useMemo(() => {
     return ['/', '/docs'].includes(pathname);
@@ -42,20 +43,36 @@ export const Layouts = () => {
           </Col>
           <Col>
             <Space className="menu">
-              <Link to="/room-list">
-                <p
-                  className="menu-item online"
-                  onClick={() => {
-                    navigate('/room-list');
-                  }}
-                >
-                  <Space align="center">
-                    <Icon component={OnlineSvg} style={{ fontSize: 18 }} />
-                    <span>{t('common.connections')}</span>
-                  </Space>
-                </p>
-              </Link>
-              <Divider type="vertical" className="divider-bg" />
+              {isClient && (
+                <>
+                  {/* Inject */}
+                  <InjectSDKModal>
+                    {({ onPopup }) => {
+                      return (
+                        <p className="menu-item inject" onClick={onPopup}>
+                          <Space align="center">
+                            <Icon
+                              component={InjectSdkSvg}
+                              style={{ fontSize: 18 }}
+                            />
+                            <span>{t('common.inject-sdk')}</span>
+                          </Space>
+                        </p>
+                      );
+                    }}
+                  </InjectSDKModal>
+                  <Divider type="vertical" className="divider-bg" />
+                  <Link to="/room-list">
+                    <p className="menu-item online">
+                      <Space align="center">
+                        <Icon component={OnlineSvg} style={{ fontSize: 18 }} />
+                        <span>{t('common.connections')}</span>
+                      </Space>
+                    </p>
+                  </Link>
+                  <Divider type="vertical" className="divider-bg" />
+                </>
+              )}
               <Link to="/docs">
                 <p className="menu-item doc">
                   <Space align="center">

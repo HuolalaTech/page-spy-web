@@ -1,52 +1,54 @@
-import {CodeBlock} from '@/components/CodeBlock'
+import { CodeBlock } from '@/components/CodeBlock';
+import bannerImg from '@/assets/image/doc-banner.png';
 
-[Github]: https://github.com/HuolalaTech/page-spy-web 'PageSpy'
-[how-to-deploy]: https://github.com/HuolalaTech/page-spy-web '本地部署'
+export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
+
+<img src={bannerImg} style={{ width: '100%' }} />
 
 ## 介绍
 
 > <b>PageSpy</b> 是一款用来调试远程 Web 项目的工具。基于对原生 API 的封装，它将调用原生方法时的参数进行过滤、转化，
-整理成格式规范的消息供调试端消费；调试端收到消息数据，提供类控制台可交互式的功能界面将数据呈现出来。
+> 整理成格式规范的消息供调试端消费；调试端收到消息数据，提供类控制台可交互式的功能界面将数据呈现出来。
 
-## 何时使用
+## 何时使用？
 
-<u>任何无法在本地使用控制台调试的场景，都是 PageSpy 可以大显身手的时候</u>！一起来看下面的两个例子：
+<u>任何无法在本地使用控制台调试的场景，都是 PageSpy 可以大显身手的时候</u>
+！一起来看下面的两个例子：
 
 在现代远程工作和跨地区合作变得越来越普遍的背景下，技术人员和测试人员之间的有效协同变得异常重要。然而，
 传统的沟通方式如邮件、电话、视频会议等存在沟通效率不高、故障信息不全面、误解误判等。PageSpy 提供项目运行现场供技术人员在调试端查看，测试人员不用再频繁
 的通过文字、截图、录屏等方式向技术人员提供故障信息。
-<div style={{textAlign: 'right', marginBottom: 24}}><strong>—— 节省沟通成本，提升协同效率</strong></div>
+
+<div style={{ textAlign: 'right', marginBottom: 24 }}>
+  <strong>—— 节省沟通成本，提升协同效率</strong>
+</div>
 
 当应用在用户的终端上出现白屏或其他类似致命问题时，快速定位、精准排障并修复问题一直是技术人员面临的难题。
 传统定位问题的方式包括数据监控、日志分析等，这些方式不仅会耗费大量的时间和精力来分析和诊断问题，还极度依赖排障人员非常理解业务需求场景、技术实现。PageSpy 将
 错误信息直接呈现给技术人员，排除一切信息干扰，show the code!
-<div style={{textAlign: 'right', marginBottom: 24}}><strong>—— 精准高效排障，避免大海捞针</strong></div>
 
+<div style={{ textAlign: 'right', marginBottom: 24 }}>
+  <strong>—— 精准高效排障，避免大海捞针</strong>
+</div>
 
-# 如何使用
+# 如何使用？
 
-为了数据安全和方便您的使用，我们提供完整的、开箱即用的本地化部署方案，[点击查看如何部署][how-to-deploy]。
+为了数据安全和方便您的使用，我们提供完整的、开箱即用的本地化部署方案。
 
-部署完成后，按如下顺序在待调试的项目中集成：
+1. ...
 
-1. 在项目中引入 `page-spy` 脚本文件，完整的路径可以在部署成功后的调试端主页查看:
-
-<CodeBlock
-  code={`<script crossorgin="anonymous" src="https://{domain}/page-spy@{version}/index.min.js"></script>`}
-  codeType="language-javascript"
-/>
-
-2.
-
+本地化部署完成后，从顶部的 `接入SDK` 菜单可以查看如何在业务项目中配置并集成。
 
 ## 功能概览
 
 - Console 面板: 显示 `console.<log | info | warn | error>` 日志信息，可以执行代码；
 - Network 面板: 显示 `fetch` | `XMLHttpRequest` | `navigator.sendBeacon` 的网络请求；
-- Element 面板: 查看 HTML 节点树；
+- Element 面板: 显示当前页面，查看 HTML 节点树；
 - Storage 面板: 查看 `localStorage` | `sessionStorage` | `cookie` 缓存数据；
 - Systems 面板: 显示 userAgent 信息，查看 api 兼容性。
 
-除此之外，当数据发生变化的时候会实时的收到通知。
+除此之外，当有新的数据或者数据发生变化的时候会实时的收到通知。
 
-<p style={{marginTop: 28}}>欢迎在 [Github][Github] 上提交 PR 或 issue。</p>
+<p style={{ marginTop: 28 }}>
+  欢迎在 <a href={githubUrl}>Github</a> 上提交 PR 或 issue。
+</p>

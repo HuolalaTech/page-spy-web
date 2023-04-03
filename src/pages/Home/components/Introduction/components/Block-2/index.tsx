@@ -33,24 +33,21 @@ const SDKPanel = () => {
   const steps = useMemo(() => {
     return [
       {
-        title: `1. ${t('intro.loadStep1')}`,
-        code: `<script crossorgin="anonymous" src="${window.location.origin}/page-spy@${sdkVersion}/index.min.js"></script>`,
+        title: t('inject.load-script'),
+        code: `<script crossorgin="anonymous" src="https://{domain}/page-spy@{version}/index.min.js"></script>`,
       },
       {
         title: (
-          <span>
-            2.{' '}
-            <Trans i18nKey="intro.loadStep2">
-              Then, <Link to="/docs">config (optional)</Link> and init
-            </Trans>
-          </span>
+          <Trans i18nKey="inject.init-instance">
+            Then, config (optional) and init
+          </Trans>
         ),
         code: `<script>
-  new PageSpy([config]);
+  new PageSpy();
 </script>`,
       },
       {
-        title: `3. ${t('intro.loadStep3')}`,
+        title: t('inject.end'),
         code: '',
       },
     ];
@@ -61,7 +58,9 @@ const SDKPanel = () => {
       {steps.map(({ title, code }, index) => {
         return (
           <div className="sdk-step" key={index}>
-            <p className="sdk-step__title">{title}</p>
+            <p className="sdk-step__title">
+              {index + 1}. {title}
+            </p>
             <CodeBlock code={code} codeType="language-javascript" />
           </div>
         );
