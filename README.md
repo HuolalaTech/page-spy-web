@@ -16,35 +16,23 @@ English | [中文](./README_CN.md)
 
 ## When should I use?
 
-<u>
-  It's **PageSpy** show time whenever you can't debug code with local devtools!
-</u>
+<u>It's **PageSpy** show time whenever you can't debug code with local devtools!</u>
 Let's see the following instances:
 
-Telecommuting and cross-regional collaboration becoming more and more common,effective collaboration
+**Save communication time, improve collaboration efficiency**: Telecommuting and cross-regional collaboration becoming more and more common,effective collaboration
 between programmers and testers become extremely important. However, traditional communication such as
 email, telephone, and video conferencing suffer from inefficient communication, incomplete issue information,
 and misunderstanding or misjudgment, etc. PageSpy provides project runtime info for technicians to view
 at the debugger client, and testers no longer need to provide issue information to technicians frequently
 by text, screenshot, and recording screen.
 
-<div style="text-align: right;">
-  <strong>-- Save communication time, improve collaboration efficiency</strong>
-</div>
-
-When an application has a white screen or other similar fatal problems on the user's device,
+**Accurately troubleshoot to avoid looking a needle in the ocean**: When an application has a white screen or other similar fatal problems on the user's device,
 it has always been a difficult problem for technicians to quickly locate the error,
 accurately troubleshoot and fix it. Traditional methods of locating problems include
 data monitoring and log analysis, which not only consume a lot of time and energy
 to analyze and diagnose problems, but also rely heavily on technicians to understand business
 scenarios and code implementation.PageSpy presents the error message directly to the technician,
 eliminates other interference, just shows the code!
-
-<div style="text-align: right;">
-  <strong>
-    -- Accurately troubleshoot to avoid looking a needle in the ocean
-  </strong>
-</div>
 
 ## How to use?
 
