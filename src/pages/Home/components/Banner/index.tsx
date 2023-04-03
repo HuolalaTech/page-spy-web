@@ -85,32 +85,24 @@ export const Banner = () => {
 
         <p className="slogan-desc text-center">{t('banner.desc')}</p>
 
-        <Row justify="center" align="middle" className="banner-actions">
-          <Col>
-            <Link to="/docs">
-              <Button type="primary" size="large" shape="round">
-                <Space>
-                  {t('banner.goStart')}
-                  <ArrowRightOutlined />
-                </Space>
-              </Button>
-            </Link>
-          </Col>
-          <Col
-            style={{
-              marginLeft: 40,
-            }}
-          >
-            <a href={import.meta.env.VITE_GITHUB_REPO} target="_blank">
-              <Button size="large" shape="round">
-                <Space>
-                  {t('banner.goGithub')}
-                  <GithubOutlined style={{ fontSize: 18 }} />
-                </Space>
-              </Button>
-            </a>
-          </Col>
-        </Row>
+        <div className="banner-actions">
+          <Link to="/docs">
+            <Button type="primary" size="large" shape="round">
+              <Space>
+                {t('banner.goStart')}
+                <ArrowRightOutlined />
+              </Space>
+            </Button>
+          </Link>
+          <a href={import.meta.env.VITE_GITHUB_REPO} target="_blank">
+            <Button size="large" shape="round">
+              <Space>
+                {t('banner.goGithub')}
+                <GithubOutlined style={{ fontSize: 18 }} />
+              </Space>
+            </Button>
+          </a>
+        </div>
         <Waves />
       </div>
     </section>

@@ -1,4 +1,4 @@
-import { Row, Col, Typography } from 'antd';
+import { Typography } from 'antd';
 import debugImg from '@/assets/image/debugger.png';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { PropsWithChildren, useMemo, useRef, useState } from 'react';
@@ -6,8 +6,6 @@ import clsx from 'clsx';
 import './index.less';
 import { CodeBlock } from '@/components/CodeBlock';
 import { Trans, useTranslation } from 'react-i18next';
-import { version as sdkVersion } from '@huolala-tech/page-spy/package.json';
-import { Link } from 'react-router-dom';
 
 const { Title } = Typography;
 
@@ -83,8 +81,8 @@ export const IntroBlock2 = () => {
   const [activeKey, setActiveKey] = useState('sdk');
 
   return (
-    <Row justify="center" gutter={80}>
-      <Col>
+    <div className="intro-block">
+      <div className="intro-block__title">
         <p className="small-title">{t('intro.provides')}</p>
         <Title level={1} className="big-title">
           <Trans i18nKey="intro.providesTitle">
@@ -104,21 +102,19 @@ export const IntroBlock2 = () => {
             </ToggleKey>
           </Trans>
         </Title>
-      </Col>
-      <Col>
-        <SwitchTransition mode="out-in">
-          <CSSTransition
-            nodeRef={nodeRef}
-            key={activeKey}
-            classNames="fade"
-            timeout={300}
-          >
-            <div ref={nodeRef} style={{ width: 400, height: 400 }}>
-              {activeKey === 'sdk' ? <SDKPanel /> : <ClientPanel />}
-            </div>
-          </CSSTransition>
-        </SwitchTransition>
-      </Col>
-    </Row>
+      </div>
+      <SwitchTransition mode="out-in">
+        <CSSTransition
+          nodeRef={nodeRef}
+          key={activeKey}
+          classNames="fade"
+          timeout={300}
+        >
+          <div ref={nodeRef} style={{ width: 400, height: 400 }}>
+            {activeKey === 'sdk' ? <SDKPanel /> : <ClientPanel />}
+          </div>
+        </CSSTransition>
+      </SwitchTransition>
+    </div>
   );
 };

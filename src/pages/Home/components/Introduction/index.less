@@ -1,8 +1,16 @@
 .introduction {
   // padding-inline: 12vw;
   background-color: #fff;
-  > div {
+  .intro-block {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 80px;
     padding-block: 80px;
+    &.block-3 {
+      background-color: rgba(@primary-color, 0.06);
+      align-items: center;
+    }
   }
   .small-title {
     margin-top: 100px;
@@ -13,5 +21,23 @@
   .big-title {
     font-size: 42px;
     font-weight: 800;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .introduction {
+    .intro-block {
+      padding-inline: 12px;
+      align-items: flex-end;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .block-1 .intro-block__title {
+      order: -1;
+      text-align: right;
+    }
+    .small-title {
+      margin-top: 0;
+    }
   }
 }

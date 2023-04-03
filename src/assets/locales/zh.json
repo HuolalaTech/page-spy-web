@@ -17,7 +17,7 @@
     "start-debug": "从顶部的 <1>房间列表</1> 菜单进入并开始调试！"
   },
   "banner": {
-    "title": "All-In-One<br />远程调试工具",
+    "title": "多功能<br />远程调试工具",
     "desc": "像使用谷歌浏览器的控制台一样简单地开始远程调试。",
     "goStart": "开始调试",
     "goGithub": "Github 仓库"

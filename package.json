@@ -4,7 +4,7 @@
   "description": "All-In-One Remote Debugging Tool",
   "license": "MIT",
   "scripts": {
-    "start": "vite --mode doc",
+    "start": "vite",
     "build:doc": "vite build --mode doc",
     "build:client": "vite build --mode client",
     "preview": "vite preview",

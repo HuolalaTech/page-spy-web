@@ -10,9 +10,9 @@ export const Docs = () => {
 
   return (
     <div className="docs">
-      <Row justify="center">
-        <Col span={14}>{lang === 'zh' ? <UsageZh /> : <UsageEn />}</Col>
-      </Row>
+      <div className="docs-content">
+        {lang === 'zh' ? <UsageZh /> : <UsageEn />}
+      </div>
     </div>
   );
 };
