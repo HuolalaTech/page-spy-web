@@ -1,25 +1,30 @@
 .layouts {
   height: 100%;
+  --header-height: 64px;
+  --light-background: rgba(255, 255, 255, 1);
+  --dark-background: rgba(26, 26, 26, 1);
+  .ant-layout-header {
+    position: relative;
+    padding-inline: 0;
+    z-index: 10;
+  }
   .header {
+    position: relative;
     padding-inline: 48px;
+    height: var(--header-height);
     box-shadow: @box-shadow;
-    background-color: rgba(255, 255, 255, 1);
-    z-index: 1;
+    background-color: var(--light-background);
+    z-index: 10;
     &.is-dark {
-      // box-shadow: none;
-      background-color: #1a1a1a;
+      box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.85);
+      background-color: var(--dark-background);
       .logo-name {
         color: #ddd;
-      }
-      .menu {
-        .menu-item {
-          color: #ddd;
-        }
       }
     }
   }
   .logo {
-    height: 64px;
+    height: var(--header-height);
     > a {
       height: 100%;
       display: inline-flex;
@@ -34,32 +39,12 @@
       color: #000;
     }
   }
-  .menu {
-    .menu-item {
-      padding: 8px 12px;
-      border-radius: 8px;
-      color: #666;
-      font-size: 14px;
-      line-height: 1.4;
-      cursor: pointer;
-      transition: all ease-out 0.3s;
-      &:hover {
-        color: @primary-color !important;
-      }
-    }
-  }
-  .divider-bg {
-    background: rgb(150, 150, 150);
-  }
 }
 
 @media screen and (max-width: 768px) {
   .layouts {
     .header {
       padding-inline: 24px;
-    }
-    .menu-item {
-      padding: 8px 4px !important;
     }
   }
 }

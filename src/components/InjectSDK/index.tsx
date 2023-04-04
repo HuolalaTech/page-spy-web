@@ -77,9 +77,11 @@ export const InjectSDKModal = ({
         maskClosable
         onOk={() => setVisible(false)}
         onCancel={() => setVisible(false)}
-        width="50vw"
+        style={{
+          maxWidth: '90%',
+        }}
         bodyStyle={{
-          padding: '12px 24px',
+          padding: 12,
           maxHeight: '70vh',
           overflowY: 'auto',
         }}
