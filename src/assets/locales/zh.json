@@ -7,7 +7,12 @@
     "lang": "中文",
     "doc": "文档",
     "connections": "房间列表",
-    "inject-sdk": "接入 SDK"
+    "inject-sdk": "接入 SDK",
+    "submit": "提交",
+    "reset": "重置",
+    "device-id": "设备 ID",
+    "os": "系统",
+    "browser": "浏览器"
   },
   "inject": {
     "load-script": "在测试项目中加载一个 <script>；",
@@ -81,5 +86,9 @@
     "debug-offline": "您已离线",
     "debug-fail": "您的连接已断开",
     "debug-fail-desc": "重连失败，您的连接已断开。请刷新页面或者重新选择。"
+  },
+  "connections": {
+    "select-os": "选择系统",
+    "select-browser": "选择浏览器"
   }
 }

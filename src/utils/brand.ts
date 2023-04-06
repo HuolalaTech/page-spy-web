@@ -42,27 +42,26 @@ export const parseDeviceInfo = (device: string): DeviceInfo => {
     browserVersion,
   } as DeviceInfo;
 };
-
-export const LOGO: Record<SpyDevice.OS | SpyDevice.Browser, string> = {
+export const OS_LOGO: Record<SpyDevice.OS, string> = {
   // os
-  Windows: windowsSvg,
+  Mac: iOSSvg,
   iPad: iOSSvg,
   iPhone: iOSSvg,
-  Mac: iOSSvg,
+  Windows: windowsSvg,
   Android: androidSvg,
   Linux: linuxSvg,
+};
+export const BROWSER_LOGO: Record<SpyDevice.Browser, string> = {
   // browser
+  Chrome: chromeSvg,
+  Firefox: firefoxSvg,
+  Safari: safariSvg,
+  Edge: edgeSvg,
   WeChat: wechatSvg,
   QQ: qqSvg,
   UC: ucSvg,
   Baidu: baiduSvg,
-  Edge: edgeSvg,
-  Chrome: chromeSvg,
-  Firefox: firefoxSvg,
-  Safari: safariSvg,
 };
-
-export type LogoBrand = keyof typeof LOGO;
 
 export function resolveClientInfo(name: string) {
   const { osName, osVersion, browserName, browserVersion } =
@@ -70,9 +69,10 @@ export function resolveClientInfo(name: string) {
   return {
     osName,
     osVersion,
-    osLogo: LOGO[osName as LogoBrand] || pcSvg,
+    osLogo: OS_LOGO[osName as keyof typeof OS_LOGO] || pcSvg,
     browserName,
     browserVersion,
-    browserLogo: LOGO[browserName as LogoBrand] || browserSvg,
+    browserLogo:
+      BROWSER_LOGO[browserName as keyof typeof BROWSER_LOGO] || browserSvg,
   };
 }

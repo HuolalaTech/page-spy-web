@@ -7,7 +7,12 @@
     "lang": "English",
     "doc": "Doc",
     "connections": "Connections",
-    "inject-sdk": "Inject SDK"
+    "inject-sdk": "Inject SDK",
+    "submit": "Submit",
+    "reset": "Reset",
+    "device-id": "Device ID",
+    "os": "OS",
+    "browser": "Browser"
   },
   "inject": {
     "load-script": "Load a <script> in the testing project;",
@@ -81,5 +86,9 @@
     "debug-offline": "You're offline",
     "debug-fail": "Connection closed",
     "debug-fail-desc": "Reconnect failed, you have lost the connection. Please refresh the page or select another."
+  },
+  "connections": {
+    "select-os": "Select OS",
+    "select-browser": "Select browser"
   }
 }
