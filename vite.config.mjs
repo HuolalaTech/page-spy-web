@@ -14,7 +14,13 @@ export default ({ mode }) => {
       sourcemap: isProd ? 'hidden' : true,
     },
     resolve: {
-      alias: [{ find: '@', replacement: path.join(__dirname, './src') }],
+      alias: [
+        { find: '@', replacement: path.join(__dirname, './src') },
+        {
+          find: 'react/jsx-runtime',
+          replacement: 'react/jsx-runtime.js',
+        },
+      ],
     },
     css: {
       preprocessorOptions: {
@@ -31,9 +37,7 @@ export default ({ mode }) => {
         enforce: 'pre',
         ...mdx(),
       },
-      react({
-        jsxRuntime: 'classic',
-      }),
+      react(),
       svgr(),
       ssl(),
     ],
