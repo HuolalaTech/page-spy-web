@@ -1,16 +1,17 @@
 import React from 'react';
 import bannerImg from '@/assets/image/doc-banner.png';
+import { HeaderLink } from '../components/HeaderLink';
 
 export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
 <img src={bannerImg} style={{ width: '100%' }} />
 
-## 介绍
+<HeaderLink level={2} slug="introduction" children="介绍" />
 
 > <b>PageSpy</b> 是一款用来调试远程 Web 项目的工具。基于对原生 API 的封装，它将调用原生方法时的参数进行过滤、转化，
 > 整理成格式规范的消息供调试端消费；调试端收到消息数据，提供类控制台可交互式的功能界面将数据呈现出来。
 
-## 何时使用？
+<HeaderLink level={2} slug="when-to-use" children="何时使用？" />
 
 <u>*任何无法在本地使用控制台调试的场景，都是 **PageSpy** 可以大显身手的时候*</u>
 ！一起来看下面的两个例子：
@@ -31,13 +32,13 @@ export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
   <strong>—— 精准高效排障，避免大海捞针</strong>
 </div>
 
-## 如何使用？
+<HeaderLink level={2} slug="how-to-use" children="如何使用？" />
 
 为了数据安全和方便您的使用，我们提供完整的、开箱即用的<a href={`${githubUrl}#deploy`} target="\_blank">部署方案</a>。
 
 本地化部署完成后，顶部会出现 `接入SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
 
-## 功能概览
+<HeaderLink level={2} slug="feature-overview" children="功能概览" />
 
 - Console 面板: 显示 `console.<log | info | warn | error>` 日志信息，可以执行代码；
 - Network 面板: 显示 `fetch` | `XMLHttpRequest` | `navigator.sendBeacon` 的网络请求；

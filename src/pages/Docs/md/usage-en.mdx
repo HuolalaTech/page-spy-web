@@ -1,11 +1,12 @@
 import React from 'react';
 import bannerImg from '@/assets/image/doc-banner.png';
+import { HeaderLink } from '../components/HeaderLink';
 
 export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
 <img src={bannerImg} style={{ width: '100%' }} />
 
-## Introduction
+<HeaderLink level={2} slug="introduction" children="Introduction" />
 
 > <b>PageSpy</b> is a remote debugging tool for web project. Based on encapsulation
 > of native web APIs, it filters and transforms the parameters of native methods
@@ -13,10 +14,11 @@ export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 > the debugger client. The debugger presents ui in an interactive devtools-like for
 > easy viewing after receives the message data.
 
-## When should I use?
+<HeaderLink level={2} slug="when-to-use" children="When to use?" />
 
 <u>
-  *It's **PageSpy** show time whenever you can't debug code with local devtools!*
+  *It's **PageSpy** show time whenever you can't debug code with local
+  devtools!*
 </u>
 Let's see the following instances:
 
@@ -43,7 +45,7 @@ eliminates other interference, just shows the code!
   <strong>-- Accurately troubleshoot to avoid looking a needle in the ocean</strong>
 </div>
 
-## How to use?
+<HeaderLink level={2} slug="how-to-use" children="How to use?" />
 
 For data security and your convenience, we provide a complete and
 out-of-box <a href={`${githubUrl}#deploy`} target="\_blank">deployment solution</a>.
@@ -51,7 +53,7 @@ out-of-box <a href={`${githubUrl}#deploy`} target="\_blank">deployment solution<
 Once the deployment is successful, the `Inject SDK` menu will be at the top, and you can view how to
 configure and integrate in the business project by click the menu.
 
-## Feature overview
+<HeaderLink level={2} slug="feature-overview" children="Feature overview" />
 
 - Console Panel: show the `console.<log | info | warn | error>` log data, support execute code；
 - Network Panel: show the request of `fetch` | `XMLHttpRequest` | `navigator.sendBeacon`;

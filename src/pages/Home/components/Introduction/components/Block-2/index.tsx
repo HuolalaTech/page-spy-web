@@ -81,7 +81,7 @@ export const IntroBlock2 = () => {
   const [activeKey, setActiveKey] = useState('sdk');
 
   return (
-    <div className="intro-block">
+    <div className="intro-block block-2">
       <div className="intro-block__title">
         <p className="small-title">{t('intro.provides')}</p>
         <Title level={1} className="big-title">
