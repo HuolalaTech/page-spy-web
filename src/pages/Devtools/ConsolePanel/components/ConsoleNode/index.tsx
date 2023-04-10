@@ -247,7 +247,7 @@ function ConsoleNode({ data }: ConsoleNodeProps) {
     return <AtomNode id={__atomId} value={value} />;
   }
   // new Boolean/String/Number...
-  // { type: 'object', value: false }
+  // e.g. new Boolean() => { type: 'object', value: false }
   if (type === 'object') {
     const superName = value.constructor.name;
 

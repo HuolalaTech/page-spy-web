@@ -17,7 +17,7 @@ export const App = () => {
           theme={{
             token: {
               colorPrimary: 'rgb(132, 52, 233)',
-              colorPrimaryBg: 'rgba(160, 156, 166, 0.5)',
+              colorPrimaryBg: 'rgb(247, 241, 255)',
             },
           }}
         >
