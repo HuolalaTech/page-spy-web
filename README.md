@@ -46,11 +46,78 @@ configure and integrate in the business project by click the menu.
 
 ## Feature overview
 
-- Console Panel: show the `console.<log | info | warn | error>` log data, support execute code；
-- Network Panel: show the request of `fetch` | `XMLHttpRequest` | `navigator.sendBeacon`;
-- Element Panel: show the current pageview and HTML node tree；
-- Storage Panel: show the cache of `localStorage` | `sessionStorage` | `cookie`；
-- Systems Panel: show the userAgent info and some APIs compatibility.
+### Console Panel
+
+> Show the `console.<log | info | warn | error>` log data, support execute code；
+
+<details>
+  <summary>
+    Screenshot
+  </summary>
+
+![](./doc/screenshot/console-panel.png)
+
+</details>
+
+---
+
+### Network Panel
+
+> Show the request of `fetch` | `XMLHttpRequest` | `navigator.sendBeacon`;
+
+<details>
+  <summary>
+    Screenshot
+  </summary>
+
+![](./doc/screenshot/network-panel.png)
+
+</details>
+
+---
+
+### Page Panel
+
+> Show the current pageview and HTML node tree；
+
+<details>
+  <summary>
+    Screenshot
+  </summary>
+
+![](./doc/screenshot/page-panel.png)
+
+</details>
+
+---
+
+### Storage Panel
+
+> Show the cache of `localStorage` | `sessionStorage` | `cookie`；
+
+<details>
+  <summary>
+    Screenshot
+  </summary>
+
+![](./doc/screenshot/storage-panel.png)
+
+</details>
+
+---
+
+### Systems Panel
+
+> Show the userAgent info and some APIs compatibility;
+
+<details>
+  <summary>
+    Screenshot
+  </summary>
+
+![](./doc/screenshot/system-panel.png)
+
+</details>
 
 Besides of above, you will get the realtime notification when there have new data or data changed.
 

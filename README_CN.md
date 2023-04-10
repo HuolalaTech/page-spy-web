@@ -34,11 +34,70 @@ TODO
 
 ## 功能概览
 
-- Console 面板: 显示 `console.<log | info | warn | error>` 日志信息，可以执行代码；
-- Network 面板: 显示 `fetch` | `XMLHttpRequest` | `navigator.sendBeacon` 的网络请求；
-- Element 面板: 显示当前页面，查看 HTML 节点树；
-- Storage 面板: 查看 `localStorage` | `sessionStorage` | `cookie` 缓存数据；
-- Systems 面板: 显示 userAgent 信息，查看 api 兼容性。
+### Console 面板
+
+> 显示 `console.<log | info | warn | error>` 日志信息，可以执行代码；
+
+<details>
+  <summary>Screenshot</summary>
+
+![](./doc/screenshot/console-panel.png)
+
+</details>
+
+---
+
+### Network 面板
+
+> 显示 `fetch` | `XMLHttpRequest` | `navigator.sendBeacon` 的网络请求；
+
+<details>
+  <summary>Screenshot</summary>
+
+![](./doc/screenshot/network-panel.png)
+
+</details>
+
+---
+
+### Page 面板
+
+> 显示当前页面，查看 HTML 节点树；
+
+<details>
+  <summary>Screenshot</summary>
+
+![](./doc/screenshot/page-panel.png)
+
+</details>
+
+---
+
+### Storage 面板
+
+> 查看 `localStorage` | `sessionStorage` | `cookie` 缓存数据；
+
+<details>
+  <summary>Screenshot</summary>
+
+![](./doc/screenshot/storage-panel.png)
+
+</details>
+
+---
+
+### Systems 面板
+
+> 显示 userAgent 信息，查看 api 兼容性;
+
+<details>
+  <summary>Screenshot</summary>
+
+![](./doc/screenshot/system-panel.png)
+
+</details>
+
+---
 
 除此之外，当有新的数据或者数据发生变化的时候会实时的收到通知。
 
