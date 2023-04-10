@@ -1,6 +1,12 @@
 import React from 'react';
 import bannerImg from '@/assets/image/doc-banner.png';
 import { HeaderLink } from '../components/HeaderLink';
+import { Image } from 'antd';
+import consoleImg from '@/assets/image/screenshot/console-panel.png';
+import networkImg from '@/assets/image/screenshot/network-panel.png';
+import pageImg from '@/assets/image/screenshot/page-panel.png';
+import storageImg from '@/assets/image/screenshot/storage-panel.png';
+import systemImg from '@/assets/image/screenshot/system-panel.png';
 
 export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
@@ -42,7 +48,9 @@ scenarios and code implementation.PageSpy presents the error message directly to
 eliminates other interference, just shows the code!
 
 <div style={{ textAlign: 'right', marginBottom: 24 }}>
-  <strong>-- Accurately troubleshoot to avoid looking a needle in the ocean</strong>
+  <strong>
+    -- Accurately troubleshoot to avoid looking a needle in the ocean
+  </strong>
 </div>
 
 <HeaderLink level={2} slug="how-to-use" children="How to use?" />
@@ -56,10 +64,25 @@ configure and integrate in the business project by click the menu.
 <HeaderLink level={2} slug="feature-overview" children="Feature overview" />
 
 - Console Panel: show the `console.<log | info | warn | error>` log data, support execute code；
+
+<Image width="90%" style={{margin: '0 auto'}} src={consoleImg} />
+
 - Network Panel: show the request of `fetch` | `XMLHttpRequest` | `navigator.sendBeacon`;
-- Element Panel: show the current pageview and HTML node tree；
+
+<Image width="90%" style={{margin: '0 auto'}} src={networkImg} />
+
+- Page Panel: show the current pageview and HTML node tree；
+
+<Image width="90%" style={{margin: '0 auto'}} src={pageImg} />
+
 - Storage Panel: show the cache of `localStorage` | `sessionStorage` | `cookie`；
+
+<Image width="90%" style={{margin: '0 auto'}} src={storageImg} />
+
 - Systems Panel: show the userAgent info and some APIs compatibility.
+
+<Image width="90%" style={{margin: '0 auto'}} src={systemImg} />
+
 
 Besides of above, you will get the realtime notification when there have new data or data changed.
 

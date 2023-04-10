@@ -1,6 +1,12 @@
 import React from 'react';
 import bannerImg from '@/assets/image/doc-banner.png';
 import { HeaderLink } from '../components/HeaderLink';
+import { Image } from 'antd';
+import consoleImg from '@/assets/image/screenshot/console-panel.png';
+import networkImg from '@/assets/image/screenshot/network-panel.png';
+import pageImg from '@/assets/image/screenshot/page-panel.png';
+import storageImg from '@/assets/image/screenshot/storage-panel.png';
+import systemImg from '@/assets/image/screenshot/system-panel.png';
 
 export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
@@ -41,10 +47,24 @@ export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 <HeaderLink level={2} slug="feature-overview" children="功能概览" />
 
 - Console 面板: 显示 `console.<log | info | warn | error>` 日志信息，可以执行代码；
+
+<Image width="90%" style={{ margin: '0 auto' }} src={consoleImg} />
+
 - Network 面板: 显示 `fetch` | `XMLHttpRequest` | `navigator.sendBeacon` 的网络请求；
+
+<Image width="90%" style={{ margin: '0 auto' }} src={networkImg} />
+
 - Element 面板: 显示当前页面，查看 HTML 节点树；
+
+<Image width="90%" style={{ margin: '0 auto' }} src={pageImg} />
+
 - Storage 面板: 查看 `localStorage` | `sessionStorage` | `cookie` 缓存数据；
+
+<Image width="90%" style={{ margin: '0 auto' }} src={storageImg} />
+
 - Systems 面板: 显示 userAgent 信息，查看 api 兼容性。
+
+<Image width="90%" style={{ margin: '0 auto' }} src={systemImg} />
 
 除此之外，当有新的数据或者数据发生变化的时候会实时的收到通知。
 

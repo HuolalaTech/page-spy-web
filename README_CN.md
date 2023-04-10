@@ -41,7 +41,7 @@ TODO
 <details>
   <summary>Screenshot</summary>
 
-![](./doc/screenshot/console-panel.png)
+![](./src/assets/image/screenshot/console-panel.png)
 
 </details>
 
@@ -54,7 +54,7 @@ TODO
 <details>
   <summary>Screenshot</summary>
 
-![](./doc/screenshot/network-panel.png)
+![](./src/assets/image/screenshot/network-panel.png)
 
 </details>
 
@@ -67,7 +67,7 @@ TODO
 <details>
   <summary>Screenshot</summary>
 
-![](./doc/screenshot/page-panel.png)
+![](./src/assets/image/screenshot/page-panel.png)
 
 </details>
 
@@ -80,7 +80,7 @@ TODO
 <details>
   <summary>Screenshot</summary>
 
-![](./doc/screenshot/storage-panel.png)
+![](./src/assets/image/screenshot/storage-panel.png)
 
 </details>
 
@@ -93,7 +93,7 @@ TODO
 <details>
   <summary>Screenshot</summary>
 
-![](./doc/screenshot/system-panel.png)
+![](./src/assets/image/screenshot/system-panel.png)
 
 </details>
 
