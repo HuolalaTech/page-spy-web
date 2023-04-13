@@ -9,6 +9,7 @@ yarn-error.log*
 
 # production
 /dist
+/docs-dist
 sdk.sh
 
 # misc

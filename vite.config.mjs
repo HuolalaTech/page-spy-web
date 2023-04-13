@@ -5,13 +5,16 @@ import svgr from 'vite-plugin-svgr';
 import ssl from '@vitejs/plugin-basic-ssl';
 import mdx from '@mdx-js/rollup';
 
-export default ({ mode }) => {
-  const isProd = mode === 'production';
+export default ({ mode, command }) => {
+  const buildDoc = mode === 'doc';
+  const isProd = command === 'build';
 
   return defineConfig({
+    base: buildDoc ? '/page-spy-web/' : '/',
     build: {
       target: ['chrome88', 'firefox86', 'safari14', 'edge89', 'ios14'],
       sourcemap: isProd ? 'hidden' : true,
+      outDir: buildDoc ? 'docs-dist' : 'dist',
     },
     resolve: {
       alias: [

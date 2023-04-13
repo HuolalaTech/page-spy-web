@@ -1,17 +1,20 @@
 import { ConfigProvider } from 'antd';
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter } from 'react-router-dom';
 import RouteConfing from './routes/config';
 import zh from 'antd/es/locale/zh_CN';
 import en from 'antd/es/locale/en_US';
 import { useLanguage } from './utils/useLanguage';
+
+const isDoc = import.meta.env.mode === 'doc';
+const Router = isDoc ? HashRouter : BrowserRouter;
 
 export const App = () => {
   const [lang] = useLanguage();
 
   return (
     <React.StrictMode>
-      <BrowserRouter>
+      <Router>
         <ConfigProvider
           locale={lang === 'zh' ? zh : en}
           theme={{
@@ -23,7 +26,7 @@ export const App = () => {
         >
           <RouteConfing />
         </ConfigProvider>
-      </BrowserRouter>
+      </Router>
     </React.StrictMode>
   );
 };

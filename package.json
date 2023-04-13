@@ -2,6 +2,7 @@
   "name": "@huolala-tech/page-spy-web",
   "version": "0.0.1",
   "description": "All-In-One Remote Debugging Tool",
+  "homepage": "https://huolalatech.github.io/page-spy-web",
   "license": "MIT",
   "scripts": {
     "start": "vite",
