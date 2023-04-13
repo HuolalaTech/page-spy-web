@@ -28,7 +28,11 @@
 
 为了数据安全和方便您的使用，我们提供完整的、开箱即用的部署方案。
 
-TODO
+### Docker 部署
+
+```bash
+docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
+```
 
 部署完成后，页面顶部会出现 `接入SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
 
@@ -118,6 +122,8 @@ yarn install
 3. 本地开发:
 
 ```bash
+cd backend/bin
+go run local.go
 yarn start
 ```
 
