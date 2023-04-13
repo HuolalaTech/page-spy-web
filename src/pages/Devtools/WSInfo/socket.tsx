@@ -1,7 +1,7 @@
 import type { SpyMessage, SpySocket } from '@huolala-tech/page-spy';
 import { message, notification } from 'antd';
-import i18n from '@/assets/locales';
 import * as SERVER_MESSAGE_TYPE from './server-type';
+import { getTranslation } from '@/assets/locales';
 
 const CLIENT_ID = 'Client';
 const MESSAGE_TYPE: SpyMessage.MessageType[] = [
@@ -12,12 +12,6 @@ const MESSAGE_TYPE: SpyMessage.MessageType[] = [
   'page',
   'storage',
 ];
-
-const getI18n = (key: string) => {
-  const lang = i18n.resolvedLanguage;
-  const res = i18n.getResource(lang, 'translation', key);
-  return res || key;
-};
 
 export class SocketStore extends EventTarget {
   socket: WebSocket | null = null;
@@ -151,8 +145,8 @@ export class SocketStore extends EventTarget {
       this.init(true);
     } else {
       notification.warning({
-        message: getI18n('socket.debug-fail'),
-        description: getI18n('socket.debug-fail-desc'),
+        message: getTranslation('socket.debug-fail'),
+        description: getTranslation('socket.debug-fail-desc'),
       });
     }
   }
@@ -222,11 +216,11 @@ export class SocketStore extends EventTarget {
 
   unicastMessage(data: any) {
     if (!this.clientConnection) {
-      message.warning(getI18n('socket.client-not-found'));
+      message.warning(getTranslation('socket.client-not-found'));
       return;
     }
     if (!this.socket) {
-      message.error(getI18n('socket.debug-offline'));
+      message.error(getTranslation('socket.debug-offline'));
       return;
     }
     const msg = this.makeUnicastMessage(data);
@@ -251,7 +245,7 @@ export class SocketStore extends EventTarget {
       this.clientConnection = client;
       this.getCacheQueueMessage();
     } else {
-      message.warning(getI18n('socket.client-not-in-connection'));
+      message.warning(getTranslation('socket.client-not-in-connection'));
     }
   }
   handleNotification(
@@ -271,8 +265,8 @@ export class SocketStore extends EventTarget {
           if (!this.clientConnection) {
             // the message won't notify if the client reconnect successfully
             notification.warning({
-              message: getI18n('socket.client-offline'),
-              description: getI18n('socket.client-fail'),
+              message: getTranslation('socket.client-offline'),
+              description: getTranslation('socket.client-fail'),
             });
           }
         }, 3000);

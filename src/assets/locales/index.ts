@@ -26,4 +26,10 @@ i18next
     },
   });
 
+export const getTranslation = (key: string) => {
+  const lang = i18next.resolvedLanguage;
+  const res = i18next.getResource(lang, 'translation', key);
+  return res || key;
+};
+
 export default i18next;

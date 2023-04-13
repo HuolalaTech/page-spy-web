@@ -5,17 +5,16 @@ import RouteConfing from './routes/config';
 import zh from 'antd/es/locale/zh_CN';
 import en from 'antd/es/locale/en_US';
 import { useLanguage } from './utils/useLanguage';
+import { isDoc } from './utils/constants';
 
-const isDoc = import.meta.env.MODE === 'doc';
 const basename = isDoc ? '/page-spy-web' : '/';
-const Router = BrowserRouter;
 
 export const App = () => {
   const [lang] = useLanguage();
 
   return (
     <React.StrictMode>
-      <Router basename={basename}>
+      <BrowserRouter basename={basename}>
         <ConfigProvider
           locale={lang === 'zh' ? zh : en}
           theme={{
@@ -27,7 +26,7 @@ export const App = () => {
         >
           <RouteConfing />
         </ConfigProvider>
-      </Router>
+      </BrowserRouter>
     </React.StrictMode>
   );
 };
