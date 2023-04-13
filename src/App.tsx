@@ -6,7 +6,7 @@ import zh from 'antd/es/locale/zh_CN';
 import en from 'antd/es/locale/en_US';
 import { useLanguage } from './utils/useLanguage';
 
-const isDoc = import.meta.env.mode === 'doc';
+const isDoc = import.meta.env.MODE === 'doc';
 const Router = isDoc ? HashRouter : BrowserRouter;
 
 export const App = () => {
