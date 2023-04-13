@@ -2,6 +2,8 @@
 # dependencies
 node_modules/
 
+backend/dist
+backend/*.json
 # Log files
 npm-debug.log*
 yarn-debug.log*
