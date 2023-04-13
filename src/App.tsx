@@ -7,14 +7,15 @@ import en from 'antd/es/locale/en_US';
 import { useLanguage } from './utils/useLanguage';
 
 const isDoc = import.meta.env.MODE === 'doc';
-const Router = isDoc ? HashRouter : BrowserRouter;
+const basename = isDoc ? '/page-spy-web' : '/';
+const Router = BrowserRouter;
 
 export const App = () => {
   const [lang] = useLanguage();
 
   return (
     <React.StrictMode>
-      <Router>
+      <Router basename={basename}>
         <ConfigProvider
           locale={lang === 'zh' ? zh : en}
           theme={{
