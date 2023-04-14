@@ -122,9 +122,12 @@ yarn install
 3. 本地开发:
 
 ```bash
+# 前端
+yarn start
+
+# 后端
 cd backend/bin
 go run local.go
-yarn start
 ```
 
 4. 生产构建
