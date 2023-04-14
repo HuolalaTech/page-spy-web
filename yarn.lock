@@ -487,8 +487,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@huolala-tech/page-spy@file:./page-spy":
-  version "0.0.1"
+"@huolala-tech/page-spy@latest":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy/-/page-spy-1.0.1.tgz#0e6b5f7d268056295726defa73b4ff3da4b0bb7a"
+  integrity sha512-Osjqf0+OXFdkYOcJ8n/0hOPS27CsEg6waSg7/v6qKqGIGoDgnAH3NCg+wvVmw62ewmF5xn9EJnYRohuBWu8Ybw==
   dependencies:
     "@babel/runtime" "^7.13.0"
     copy-to-clipboard "^3.3.1"
