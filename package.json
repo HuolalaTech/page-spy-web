@@ -7,13 +7,14 @@
   "scripts": {
     "start": "vite",
     "build:doc": "vite build --mode doc",
+    "prebuild:client": "node scripts/mv-sdk.js",
     "build:client": "vite build --mode client",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
-    "@huolala-tech/page-spy": "file:./page-spy",
+    "@huolala-tech/page-spy": "latest",
     "@mdx-js/rollup": "^2.3.0",
     "@types/mdx": "^2.0.4",
     "@types/node": "^17.0.16",
