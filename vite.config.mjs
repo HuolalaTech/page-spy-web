@@ -4,17 +4,18 @@ import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import ssl from '@vitejs/plugin-basic-ssl';
 import mdx from '@mdx-js/rollup';
+import { ViteEjsPlugin } from 'vite-plugin-ejs';
 
 export default ({ mode, command }) => {
-  const buildDoc = mode === 'doc';
+  const isDoc = mode === 'doc';
   const isProd = command === 'build';
 
   return defineConfig({
-    base: buildDoc ? '/page-spy-web/' : '/',
+    base: isDoc ? '/page-spy-web/' : '/',
     build: {
       target: ['chrome88', 'firefox86', 'safari14', 'edge89', 'ios14'],
       sourcemap: isProd ? 'hidden' : true,
-      outDir: buildDoc ? 'docs-dist' : 'dist',
+      outDir: isDoc ? 'docs-dist' : 'dist',
     },
     resolve: {
       alias: [
@@ -43,6 +44,9 @@ export default ({ mode, command }) => {
       react(),
       svgr(),
       ssl(),
+      ViteEjsPlugin({
+        isDoc,
+      }),
     ],
   });
 };
