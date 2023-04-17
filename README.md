@@ -142,9 +142,12 @@ yarn install
 3. Local development:
 
 ```bash
+# frontend
+yarn start
+
+# backend
 cd backend/bin
 go run local.go
-yarn start
 ```
 
 4. Build for production
