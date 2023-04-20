@@ -36,7 +36,7 @@ export const InjectSDKModal = ({
         code: `<script>
   new PageSpy({
     api: string, // the server base url. For example, "example.com".
-    clientOrigin: string, // the client host. Form example, "https://example.com".
+    clientOrigin: string, // the client host. For example, "https://example.com".
   });
 </script>
 `,
