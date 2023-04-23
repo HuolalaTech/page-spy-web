@@ -7,6 +7,7 @@ import clsx from 'classnames';
 import CopyContent from '../CopyContent';
 import { useWSInfo } from '../../../WSInfo';
 import type { SpyAtom } from '@huolala-tech/page-spy';
+import { LoadMore } from './LoadMore';
 
 function isAtomNode(data: SpyAtom.Overview) {
   return data && data.type === 'atom' && data.__atomId !== undefined;
@@ -17,34 +18,28 @@ interface GetterNodeProps {
   parentId: string;
   instanceId: string;
   keyName: string;
-  descriptor: PropertyDescriptor;
-  onChangeData: (key: string, data: SpyAtom.Overview) => void;
 }
-function GetterNode({
-  id,
-  parentId,
-  instanceId,
-  keyName,
-  descriptor,
-  onChangeData,
-}: GetterNodeProps) {
+function GetterNode({ id, parentId, instanceId, keyName }: GetterNodeProps) {
   const { socket } = useWSInfo();
+  const [nodeData, setNodeData] = useState<SpyAtom.Overview>();
+
   useEffect(() => {
     if (socket) {
       socket.addListener(`atom-getter-${id}`, (data: SpyAtom.Overview) => {
-        onChangeData(keyName, data);
+        console.log(data);
+        setNodeData(data);
       });
     }
     return () => {
       socket?.removeListener(`atom-getter-${id}`);
     };
-  }, [id, keyName, onChangeData, socket]);
+  }, [id, keyName, socket]);
 
   const getPropertyValue = useCallback(
     (evt) => {
       if (!id) return;
       evt.stopPropagation();
-      if (socket && descriptor.get) {
+      if (socket) {
         socket.unicastMessage({
           type: 'atom-getter',
           data: {
@@ -56,29 +51,104 @@ function GetterNode({
         });
       }
     },
-    [id, socket, descriptor, keyName, parentId, instanceId],
+    [id, socket, keyName, parentId, instanceId],
   );
 
-  const PropertyValueContent = useMemo(() => {
-    if (descriptor.value) {
-      return <span className="property-value">{descriptor.value}</span>;
-    }
+  if (nodeData) {
     return (
-      <span className="property-value ellipsis" onClick={getPropertyValue}>
-        (...)
-      </span>
+      <PropertyItem
+        id={nodeData.__atomId || ''}
+        keyName={keyName}
+        propVal={nodeData}
+      />
     );
-  }, [descriptor.value, getPropertyValue]);
+  }
 
   return (
-    <>
-      <span className="property-key" style={{ fontStyle: 'normal' }}>
-        {keyName}:{' '}
-      </span>
-      {PropertyValueContent}
-    </>
+    <div className="atom-node">
+      <code className="console-node">
+        <span className="property-key" style={{ fontStyle: 'normal' }}>
+          {keyName}:{' '}
+        </span>
+        <span className="property-value ellipsis" onClick={getPropertyValue}>
+          (...)
+        </span>
+      </code>
+    </div>
   );
 }
+
+const PropertyItem = React.memo<{
+  id: string;
+  keyName: string;
+  propVal: SpyAtom.Overview;
+}>(({ id, keyName, propVal }) => {
+  // 区分 getOwnPropertyDescriptors 和 手动添加的 [[Prototype]] / length 等属性
+  if (isAtomNode(propVal)) {
+    const { value: propertyContent } = propVal;
+    let content = null;
+    // 判断深层的对象
+    if (typeof propertyContent === 'string') {
+      content = (
+        <>
+          <span className="property-key" style={{ fontStyle: 'normal' }}>
+            {keyName}:{' '}
+          </span>
+          <span className="property-value">
+            <CopyContent content={propertyContent} />
+          </span>
+        </>
+      );
+    } else if (!propertyContent.value && propertyContent.get) {
+      return (
+        <GetterNode
+          keyName={keyName}
+          id={propVal.__atomId!}
+          parentId={id}
+          instanceId={propVal.instanceId!}
+        />
+      );
+    } else {
+      return (
+        <div className="nested-console-node">
+          <ConsoleNode
+            data={{
+              ...propertyContent.value,
+              value: (
+                <>
+                  <span
+                    className="property-key"
+                    style={{ fontStyle: 'normal' }}
+                  >
+                    {keyName}:{' '}
+                  </span>
+                  <span className="property-value">
+                    <CopyContent
+                      content={String(propertyContent.value.value)}
+                    />
+                  </span>
+                </>
+              ),
+            }}
+          />
+        </div>
+      );
+    }
+    return <AtomNode id={propVal.__atomId!} value={content} />;
+  }
+  return (
+    <div key={keyName}>
+      <code>
+        <span className="property-key">
+          {keyName === '___proto___' ? '__proto__' : keyName}:{' '}
+        </span>
+        <span className="property-value">
+          <ConsoleNode data={{ ...propVal }} />
+        </span>
+      </code>
+    </div>
+  );
+});
 
 const PrototypeKey = '[[Prototype]]';
 interface AtomNodeProps {
@@ -120,94 +190,17 @@ function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
 
     return (
       <div className="property-panel">
-        {propertyKeys.map((key) => {
-          const propVal = property[key];
-          // 区分 getOwnPropertyDescriptors 和 手动添加的 [[Prototype]] / length 等属性
-          if (isAtomNode(propVal)) {
-            const { value: propertyContent } = propVal;
-            let arrow = true;
-            let content = null;
-            // 判断深层的对象
-            if (typeof propertyContent === 'string') {
-              content = (
-                <>
-                  <span
-                    className="property-key"
-                    style={{ fontStyle: 'normal' }}
-                  >
-                    {key}:{' '}
-                  </span>
-                  <span className="property-value">
-                    <CopyContent content={propertyContent} />
-                  </span>
-                </>
-              );
-            } else if (!propertyContent.value && propertyContent.get) {
-              arrow = false;
-              content = (
-                <GetterNode
-                  key={key}
-                  keyName={key}
-                  id={propVal.__atomId!}
-                  parentId={id}
-                  instanceId={propVal.instanceId!}
-                  descriptor={propVal.value as PropertyDescriptor}
-                  onChangeData={(changedKey, changedData) => {
-                    setProperty({
-                      ...property,
-                      [changedKey]: changedData,
-                    });
-                  }}
-                />
-              );
-            } else {
-              return (
-                <div key={key} className="nested-console-node">
-                  <ConsoleNode
-                    data={{
-                      ...propertyContent.value,
-                      value: (
-                        <>
-                          <span
-                            className="property-key"
-                            style={{ fontStyle: 'normal' }}
-                          >
-                            {key}:{' '}
-                          </span>
-                          <span className="property-value">
-                            <CopyContent
-                              content={String(propertyContent.value.value)}
-                            />
-                          </span>
-                        </>
-                      ),
-                    }}
-                  />
-                </div>
-              );
-            }
-            return (
-              <AtomNode
-                key={key}
-                id={propVal.__atomId!}
-                value={content}
-                showArrow={arrow}
-              />
-            );
-          }
-          return (
-            <div key={key}>
-              <code>
-                <span className="property-key">
-                  {key === '___proto___' ? '__proto__' : key}:{' '}
-                </span>
-                <span className="property-value">
-                  <ConsoleNode data={{ ...propVal }} />
-                </span>
-              </code>
-            </div>
-          );
-        })}
+        <LoadMore
+          list={propertyKeys}
+          render={(key) => (
+            <PropertyItem
+              key={key}
+              id={id}
+              keyName={key}
+              propVal={property[key]}
+            />
+          )}
+        />
       </div>
     );
   }, [id, property, spread]);
