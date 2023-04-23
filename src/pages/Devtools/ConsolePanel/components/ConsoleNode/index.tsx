@@ -26,7 +26,6 @@ function GetterNode({ id, parentId, instanceId, keyName }: GetterNodeProps) {
   useEffect(() => {
     if (socket) {
       socket.addListener(`atom-getter-${id}`, (data: SpyAtom.Overview) => {
-        console.log(data);
         setNodeData(data);
       });
     }
@@ -234,7 +233,7 @@ function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
 interface ConsoleNodeProps {
   data: SpyAtom.Overview;
 }
-function ConsoleNode({ data }: ConsoleNodeProps) {
+const ConsoleNode = React.memo<ConsoleNodeProps>(({ data }) => {
   const { __atomId = '', type, value } = data;
   if (type === 'atom' && !!__atomId) {
     return <AtomNode id={__atomId} value={value} />;
@@ -243,7 +242,6 @@ function ConsoleNode({ data }: ConsoleNodeProps) {
   // e.g. new Boolean() => { type: 'object', value: false }
   if (type === 'object') {
     const superName = value.constructor.name;
-
     return (
       <code className="console-node object">
         <CaretRightOutlined />
@@ -277,6 +275,6 @@ function ConsoleNode({ data }: ConsoleNodeProps) {
   }
 
   return <code className={`console-node ${className}`}>{node || '""'}</code>;
-}
+});
 
 export default ConsoleNode;
