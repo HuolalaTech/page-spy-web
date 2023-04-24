@@ -83,9 +83,12 @@
     "client-offline": "客户端已离线",
     "client-fail": "客户端的连接已断开，请联系相关测试人员。",
     "debug-name": "你",
-    "debug-offline": "您已离线",
-    "debug-fail": "您的连接已断开",
-    "debug-fail-desc": "重连失败，您的连接已断开。请刷新页面或者重新选择。"
+    "debug-offline": "你已离线",
+    "reconnect-fail": "您的连接已断开",
+    "reconnect-fail-desc": "重连失败，您的连接已断开。请刷新页面或者重新选择。",
+    "room-not-found": "房间不存在",
+    "network-timeout": "网络故障，连接超时",
+    "server-down": "服务出错"
   },
   "connections": {
     "select-os": "选择系统",
