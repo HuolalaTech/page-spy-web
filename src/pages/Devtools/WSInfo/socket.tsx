@@ -12,18 +12,28 @@ const MESSAGE_TYPE: SpyMessage.MessageType[] = [
   'page',
   'storage',
 ];
+const ERROR_CODE = {
+  Unknown: 'UnknownError',
+  RoomNotFound: 'RoomNotFoundError',
+  RoomClose: 'RoomCloseError',
+  NetWorkTimeout: 'NetWorkTimeoutError',
+  MessageContent: 'MessageContentError',
+  Serve: 'ServeError',
+};
 
 export class SocketStore extends EventTarget {
   socket: WebSocket | null = null;
   socketUrl: string = '';
   timer: number | null = null;
-  reconnectTimes = 3;
   socketConnection: SpySocket.Connection | null = null;
   clientConnection: SpySocket.Connection | null = null;
   listenerStore = new Map();
   // WebSocket connect status
   connectionStatus = false;
-  // Don't try to reconnect if error occupied
+  // Indicate whether need try to reconnect or not
+  retryTimes = 0;
+  maxTimes = 4;
+  maxDelay = (1 << this.maxTimes) * 1000;
   reconnectable = true;
   // To ensure that the SDK can retrive the message
   // index correctly which in cache queue, it's necessary
@@ -33,16 +43,30 @@ export class SocketStore extends EventTarget {
   constructor(url: string) {
     super();
     this.socketUrl = url;
+    this.init.bind(this);
     this.init();
   }
 
-  init(isReconnect: boolean = false) {
+  init() {
     this.socket = new WebSocket(this.socketUrl);
     this.socket.addEventListener('open', () => {
       this.connectOnline();
+      this.peelMessage();
+    });
+    this.socket.addEventListener('close', (e) => {
+      this.connectOffline();
+    });
+
+    this.socket.addEventListener('error', (e) => {
+      this.connectOffline();
+    });
+  }
+
+  peelMessage() {
+    if (this.socket) {
       const { MESSAGE, BROADCAST, CONNECT, LEAVE, JOIN, ERROR, CLOSE, PING } =
         SERVER_MESSAGE_TYPE;
-      this.socket!.addEventListener('message', (evt: MessageEvent) => {
+      this.socket.addEventListener('message', (evt: MessageEvent) => {
         const { data } = evt;
         let result = null;
         try {
@@ -81,30 +105,39 @@ export class SocketStore extends EventTarget {
             }
             break;
           case ERROR:
-            this.reconnectable = false;
-            message.error(content.message);
+            this.handleErrorMessage(content.code);
             break;
           case CLOSE:
           case PING:
             break;
         }
       });
-    });
-    this.socket?.addEventListener('close', (e) => {
-      this.connectOffline();
-    });
-
-    this.socket?.addEventListener('error', (e) => {
-      this.reconnectable = false;
-      this.connectOffline();
-    });
+    }
   }
 
-  connectOnline() {
-    this.connectionStatus = true;
-    this.reconnectTimes = 3;
-    this.pingConnect();
-    this.disapatchConnectStatus();
+  handleErrorMessage(code: string) {
+    let i18nKey = '';
+    switch (code) {
+      case ERROR_CODE.RoomClose:
+      case ERROR_CODE.RoomNotFound:
+        this.reconnectable = false;
+        i18nKey = 'socket.room-not-found';
+        message.error(getTranslation(i18nKey));
+        return;
+      case ERROR_CODE.NetWorkTimeout:
+        i18nKey = 'socket.network-timeout';
+        break;
+      // keep quiet
+      case ERROR_CODE.Serve:
+        i18nKey = 'socket.server-down';
+        break;
+      case ERROR_CODE.Unknown:
+      case ERROR_CODE.MessageContent:
+        break;
+    }
+    if (i18nKey) {
+      message.warning(getTranslation(i18nKey));
+    }
   }
 
   getCacheQueueMessage() {
@@ -114,6 +147,12 @@ export class SocketStore extends EventTarget {
         latestId: this.latestId,
       },
     });
+  }
+
+  connectOnline() {
+    this.connectionStatus = true;
+    this.pingConnect();
+    this.disapatchConnectStatus();
   }
 
   connectOffline() {
@@ -140,16 +179,29 @@ export class SocketStore extends EventTarget {
   }
 
   tryReconnect() {
-    if (this.reconnectTimes > 0) {
-      this.reconnectTimes -= 1;
-      this.init(true);
-    } else {
+    if (this.retryTimes > this.maxTimes) {
       notification.warning({
-        message: getTranslation('socket.debug-fail'),
-        description: getTranslation('socket.debug-fail-desc'),
+        message: getTranslation('socket.reconnect-fail'),
+        description: getTranslation('socket.reconnect-fail-desc'),
       });
+    } else {
+      const delay = Math.min(this.maxDelay, (1 << this.retryTimes) * 1000);
+      this.retryTimes += 1;
+
+      setTimeout(() => {
+        this.init();
+      }, delay);
     }
   }
+
+  // Close socket manually
+  close(code = 1000, reason = 'Close websocket') {
+    if (this.socket) {
+      this.reconnectable = false;
+      this.socket.close(code, reason);
+    }
+  }
+
   pingConnect() {
     this.timer = window.setInterval(() => {
       if (this.socket?.readyState !== WebSocket.OPEN) return;
@@ -202,15 +254,6 @@ export class SocketStore extends EventTarget {
     if (callback) {
       this.listenerStore.delete(type);
       this.removeEventListener(type, callback);
-    }
-  }
-
-  close(code = 1000, reason = 'Close websocket') {
-    if (this.timer) {
-      window.clearInterval(this.timer);
-    }
-    if (this.socket) {
-      this.socket.close(code, reason);
     }
   }
 
