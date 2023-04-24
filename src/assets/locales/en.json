@@ -84,8 +84,11 @@
     "client-fail": "Client has lost the connection, please contact the relevant tester.",
     "debug-name": "You",
     "debug-offline": "You're offline",
-    "debug-fail": "Connection closed",
-    "debug-fail-desc": "Reconnect failed, you have lost the connection. Please refresh the page or select another."
+    "reconnect-fail": "Connection closed",
+    "reconnect-fail-desc": "Reconnect failed, you have lost the connection. Please refresh the page or select another.",
+    "room-not-found": "Room is not found",
+    "network-timeout": "Network timeout",
+    "server-down": "Server error"
   },
   "connections": {
     "select-os": "Select OS",

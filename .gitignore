@@ -13,7 +13,7 @@ yarn-error.log*
 # production
 /dist
 /docs-dist
-sdk.sh
+test.ts
 
 # misc
 .DS_Store
