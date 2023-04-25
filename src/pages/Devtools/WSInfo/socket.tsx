@@ -2,6 +2,7 @@ import type { SpyMessage, SpySocket } from '@huolala-tech/page-spy';
 import { message, notification } from 'antd';
 import * as SERVER_MESSAGE_TYPE from './server-type';
 import { getTranslation } from '@/assets/locales';
+import { MessageInstance } from 'antd/es/message/interface';
 
 const CLIENT_ID = 'Client';
 const MESSAGE_TYPE: SpyMessage.MessageType[] = [
@@ -117,13 +118,14 @@ export class SocketStore extends EventTarget {
 
   handleErrorMessage(code: string) {
     let i18nKey = '';
+    let messageType: keyof MessageInstance = 'warning';
     switch (code) {
       case ERROR_CODE.RoomClose:
       case ERROR_CODE.RoomNotFound:
         this.reconnectable = false;
         i18nKey = 'socket.room-not-found';
-        message.error(getTranslation(i18nKey));
-        return;
+        messageType = 'error';
+        break;
       case ERROR_CODE.NetWorkTimeout:
         i18nKey = 'socket.network-timeout';
         break;
@@ -136,7 +138,11 @@ export class SocketStore extends EventTarget {
         break;
     }
     if (i18nKey) {
-      message.warning(getTranslation(i18nKey));
+      message.destroy(i18nKey);
+      message[messageType]({
+        content: getTranslation(i18nKey),
+        key: i18nKey,
+      });
     }
   }
 
