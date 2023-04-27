@@ -12,7 +12,7 @@ export default ({ mode, command }) => {
   return defineConfig({
     base: buildDoc ? '/page-spy-web/' : '/',
     build: {
-      target: ['chrome88', 'firefox86', 'safari14', 'edge89', 'ios14'],
+      target: ['last 2 versions', 'not dead', 'not op_mini all'],
       sourcemap: isProd ? 'hidden' : true,
       outDir: buildDoc ? 'docs-dist' : 'dist',
     },
