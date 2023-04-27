@@ -2,14 +2,14 @@ import type { SpyStorage } from '@huolala-tech/page-spy';
 import { Layout, Menu, Table } from 'antd';
 import { useMemo, useState } from 'react';
 import { TypeNode } from '../TypeNode';
-import { useWSInfo } from '../WSInfo';
 import './index.less';
+import { useSocketMessageStore } from '@/store/socket-message';
 
 const { Sider, Content } = Layout;
 const { Column } = Table;
 
 export const StoragePanel = () => {
-  const { storageMsg } = useWSInfo();
+  const storageMsg = useSocketMessageStore((state) => state.storageMsg);
   const [activeTab, setActiveTab] = useState<SpyStorage.DataType>('local');
   const data = useMemo(() => {
     const msgCache = storageMsg[activeTab];

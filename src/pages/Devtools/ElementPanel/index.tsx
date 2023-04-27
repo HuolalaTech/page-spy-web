@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { unified } from 'unified';
 import domParse from 'rehype-dom-parse';
 import domStringify from 'rehype-dom-stringify';
@@ -140,7 +140,7 @@ function ElementNode({ ast }: { ast: ElementContent[] }) {
   );
 }
 
-export const ElementPanel: React.FC<{ html: string }> = ({ html }) => {
+export const ElementPanel = memo<{ html: string }>(({ html }) => {
   const [ast, setAst] = useState<ElementContent[]>([]);
   useEffect(() => {
     if (!html) return;
@@ -156,4 +156,4 @@ export const ElementPanel: React.FC<{ html: string }> = ({ html }) => {
       <ElementNode ast={ast} />
     </div>
   );
-};
+});

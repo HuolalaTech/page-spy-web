@@ -6,9 +6,9 @@ import { ReactComponent as CellularSVG } from '@/assets/image/cellular.svg';
 import { ReactComponent as BatterySVG } from '@/assets/image/battery.svg';
 import './index.less';
 import { Button, Space, Spin } from 'antd';
-import { useWSInfo } from '../WSInfo';
 import { ElementPanel } from '../ElementPanel';
 import { useTranslation } from 'react-i18next';
+import { useSocketMessageStore } from '@/store/socket-message';
 
 function getTime() {
   const date = new Date();
@@ -32,7 +32,10 @@ export const PCFrame = ({
 }: PropsWithChildren<FrameWrapperProps>) => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
   const { t } = useTranslation('translation', { keyPrefix: 'page' });
-  const { pageMsg, refresh } = useWSInfo();
+  const [pageMsg, refresh] = useSocketMessageStore((state) => [
+    state.pageMsg,
+    state.refresh,
+  ]);
   const [elementVisible, setElementVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const dividerRef = useRef<HTMLDivElement | null>(null);
@@ -192,7 +195,10 @@ export const MobileFrame = ({
 }: PropsWithChildren<FrameWrapperProps>) => {
   const { t: ct } = useTranslation();
 
-  const { pageMsg, refresh } = useWSInfo();
+  const [pageMsg, refresh] = useSocketMessageStore((state) => [
+    state.pageMsg,
+    state.refresh,
+  ]);
   const PhoneFrame = os === 'iOS' ? IOSFrame : AndroidFrame;
   return (
     <div className="mobile-frame">

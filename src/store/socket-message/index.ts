@@ -9,7 +9,10 @@ import {
   SpyStorage,
   SpyMessage,
 } from '@huolala-tech/page-spy';
+import { API_BASE_URL } from '@/apis/request';
+import { resolveProtocol } from '@/utils';
 
+const USER_ID = 'Debugger';
 interface SocketMessage {
   socket: SocketStore | null;
   consoleMsg: SpyConsole.DataItem[];
@@ -18,6 +21,7 @@ interface SocketMessage {
   connectMsg: string[];
   pageMsg: SpyPage.DataItem[];
   storageMsg: Record<SpyStorage.DataType, Record<string, string>>;
+  initSocket: (url: string) => void;
   clearRecord: (key: SpyMessage.MessageType) => void;
   refresh: (key: SpyMessage.MessageType) => void;
 }
@@ -34,7 +38,11 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     session: {},
     cookie: {},
   },
-  initSocket: (url: string) => {
+  initSocket: (room: string) => {
+    if (!room) return;
+    const [, protocol] = resolveProtocol();
+    const url = `${protocol}${API_BASE_URL}/api/v1/ws/room/join?address=${room}&userId=${USER_ID}`;
+
     const socket = new SocketStore(url);
     set({ socket });
     socket.addListener('console', (data: SpyConsole.DataItem) => {
@@ -59,7 +67,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       if (index !== -1) {
         set(
           produce((state) => {
-            state.splice(index, 1, data);
+            state.networkMsg.splice(index, 1, data);
           }),
         );
       } else {
@@ -141,8 +149,3 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     });
   },
 }));
-
-export const useConsoleStore = () => {
-  const state = useSocketMessageStore((state) => state.consoleMsg);
-  return state;
-};

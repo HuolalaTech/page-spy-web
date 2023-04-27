@@ -10,7 +10,6 @@ import React, {
 } from 'react';
 import { ClearOutlined } from '@ant-design/icons';
 import clsx from 'classnames';
-import { useWSInfo } from '../WSInfo';
 import './index.less';
 import { TypeNode } from '../TypeNode';
 import {
@@ -25,6 +24,7 @@ import {
 import type { SpyNetwork } from '@huolala-tech/page-spy';
 import copy from 'copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
+import { useSocketMessageStore } from '@/store/socket-message';
 
 const networkTitle = ['Name', 'Path', 'Method', 'Status', 'Type', 'Time(≈)'];
 const generalFieldMap = {
@@ -35,7 +35,11 @@ const generalFieldMap = {
 const NetworkPanel = () => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
 
-  const { networkMsg: data, storageMsg, clearRecord } = useWSInfo();
+  const [data, storageMsg, clearRecord] = useSocketMessageStore((state) => [
+    state.networkMsg,
+    state.storageMsg,
+    state.clearRecord,
+  ]);
   const detailClicked = useRef<boolean>(false);
   const [showDetail, setShowDetail] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -279,7 +283,7 @@ const NetworkPanel = () => {
                           className={clsx({
                             error:
                               row.readyState === 4 &&
-                              (row.status === 0 || row.status >= 400),
+                              (row.status === 0 || Number(row.status) >= 400),
                           })}
                         >
                           <td
