@@ -15,8 +15,8 @@ function insertStyle(doc: Document, text: string) {
 }
 
 const PagePanel = () => {
-  const [data, refresh] = useSocketMessageStore((state) => [
-    state.pageMsg,
+  const [html, refresh] = useSocketMessageStore((state) => [
+    state.pageMsg.html,
     state.refresh,
   ]);
   const [loading, setLoading] = useState(false);
@@ -47,9 +47,9 @@ const PagePanel = () => {
   }, [os]);
 
   useEffect(() => {
-    if (data.length) {
+    if (html) {
       const frameDocument = frameRef.current!.contentDocument;
-      frameDocument!.documentElement.innerHTML = data[0].html;
+      frameDocument!.documentElement.innerHTML = html;
 
       insertStyle(frameDocument!, `a { pointer-events: none} `);
       const frameBody = frameDocument!.querySelector('body');
@@ -71,9 +71,9 @@ const PagePanel = () => {
         setLoading(false);
       }, 0);
     }
-  }, [data]);
+  }, [html]);
 
-  if (data.length === 0) {
+  if (!html) {
     return <Empty description={false} />;
   }
 

@@ -11,15 +11,18 @@ import {
 } from '@huolala-tech/page-spy';
 import { API_BASE_URL } from '@/apis/request';
 import { resolveProtocol } from '@/utils';
+import { ElementContent } from 'hast';
+import { getFixedPageMsg } from './utils';
 
 const USER_ID = 'Debugger';
+
 interface SocketMessage {
   socket: SocketStore | null;
   consoleMsg: SpyConsole.DataItem[];
   networkMsg: SpyNetwork.RequestInfo[];
   systemMsg: SpySystem.DataItem[];
   connectMsg: string[];
-  pageMsg: SpyPage.DataItem[];
+  pageMsg: { html: string; tree: ElementContent[] | null };
   storageMsg: Record<SpyStorage.DataType, Record<string, string>>;
   initSocket: (url: string) => void;
   clearRecord: (key: SpyMessage.MessageType) => void;
@@ -32,7 +35,10 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
   networkMsg: [],
   systemMsg: [],
   connectMsg: [],
-  pageMsg: [],
+  pageMsg: {
+    html: '',
+    tree: null,
+  },
   storageMsg: {
     local: {},
     session: {},
@@ -83,15 +89,22 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     });
     socket.addListener('connect', (data: string) => {
       set(
-        produce((state) => {
+        produce<SocketMessage>((state) => {
           state.connectMsg.push(data);
         }),
       );
     });
-    socket.addListener('page', (data: SpyPage.DataItem) => {
+    socket.addListener('page', async (data: SpyPage.DataItem) => {
+      const { tree, html } = await getFixedPageMsg(
+        data.html,
+        data.location.href,
+      );
       set(
-        produce((state) => {
-          state.pageMsg = [data];
+        produce<SocketMessage>((state) => {
+          state.pageMsg = {
+            html,
+            tree,
+          };
         }),
       );
     });

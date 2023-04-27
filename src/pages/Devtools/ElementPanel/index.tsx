@@ -1,21 +1,13 @@
 import React, { memo } from 'react';
-import { unified } from 'unified';
-import domParse from 'rehype-dom-parse';
-import domStringify from 'rehype-dom-stringify';
 import { CaretRightOutlined } from '@ant-design/icons';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import hljs from 'highlight.js';
 import javascript from 'highlight.js/lib/languages/javascript';
 import css from 'highlight.js/lib/languages/css';
 import './index.less';
-import type { VFile } from 'vfile';
 import type { ElementContent, Element, Text } from 'hast';
 import { camelcaseToHypen, replaceProperties } from './utils';
-
-const processor = unified()
-  .use(domParse)
-  .use(domStringify)
-  .data('settings', { fragment: false });
+import { useSocketMessageStore } from '@/store/socket-message';
 
 type BlockContent = Text & {
   lang: string;
@@ -23,11 +15,6 @@ type BlockContent = Text & {
 
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('css', css);
-
-const tag2lang = {
-  style: 'css',
-  script: 'javascript',
-};
 
 function hasMemebers(data: any) {
   return !!data && Object.keys(data).length > 0;
@@ -120,17 +107,6 @@ function ElementNode({ ast }: { ast: ElementContent[] }) {
   return (
     <div className="element-node">
       {ast.map((item, index) => {
-        if (item.type === 'element') {
-          if (
-            (item.tagName === 'style' || item.tagName === 'script') &&
-            item.children.length === 1
-          ) {
-            (item.children as BlockContent[]).forEach((textItem) => {
-              // eslint-disable-next-line no-param-reassign
-              textItem.lang = tag2lang[item.tagName as keyof typeof tag2lang];
-            });
-          }
-        }
         return (
           // eslint-disable-next-line react/no-array-index-key
           <ElementItem ast={item} key={index} />
@@ -140,17 +116,10 @@ function ElementNode({ ast }: { ast: ElementContent[] }) {
   );
 }
 
-export const ElementPanel = memo<{ html: string }>(({ html }) => {
-  const [ast, setAst] = useState<ElementContent[]>([]);
-  useEffect(() => {
-    if (!html) return;
-    processor.process(html).then((file: VFile) => {
-      const data = processor.parse(file);
-      if (data.type === 'root') {
-        setAst(data.children as ElementContent[]);
-      }
-    });
-  }, [html]);
+export const ElementPanel = memo(() => {
+  const ast = useSocketMessageStore((state) => state.pageMsg.tree);
+
+  if (!ast) return null;
   return (
     <div className="element-panel">
       <ElementNode ast={ast} />

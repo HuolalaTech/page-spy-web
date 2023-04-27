@@ -487,10 +487,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@huolala-tech/page-spy@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy/-/page-spy-1.0.3.tgz#ad009571ecef17b7fb06c3b5e446d1ad371cea09"
-  integrity sha512-+sOHGt3tWU6rFYhqOJwcbjfy4Diz2c/FsClVAMc9TednMzSKOuUWPu8OW1GvOencypJPtZLCkHDBUYgn/8Gyhw==
+"@huolala-tech/page-spy@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy/-/page-spy-1.0.4.tgz#7c0ea49f724bc69d2d3f831300fd671831246842"
+  integrity sha512-tZjEzVRYgLBDHFXjH9EhYdPSnPfoLoZizgkO49ZgsX0fDW21pdB4l7eSqPUb3JOkQZbR4qVdEqmOt3Ssetin3w==
   dependencies:
     "@babel/runtime" "^7.13.0"
     copy-to-clipboard "^3.3.1"
@@ -4584,7 +4584,7 @@ unist-util-visit-parents@^5.1.1:
     "@types/unist" "^2.0.0"
     unist-util-is "^5.0.0"
 
-unist-util-visit@^4.0.0:
+unist-util-visit@^4.0.0, unist-util-visit@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-4.1.2.tgz#125a42d1eb876283715a3cb5cceaa531828c72e2"
   integrity sha512-MSd8OUGISqHdVvfY9TPhyK2VdUrPgxkUtWSuMHF6XAAFuL4LokseigBnZtPnJMu+FbynTkFNnFlyjxpVKujMRg==

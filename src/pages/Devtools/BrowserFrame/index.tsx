@@ -32,10 +32,7 @@ export const PCFrame = ({
 }: PropsWithChildren<FrameWrapperProps>) => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
   const { t } = useTranslation('translation', { keyPrefix: 'page' });
-  const [pageMsg, refresh] = useSocketMessageStore((state) => [
-    state.pageMsg,
-    state.refresh,
-  ]);
+  const [refresh] = useSocketMessageStore((state) => [state.refresh]);
   const [elementVisible, setElementVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const dividerRef = useRef<HTMLDivElement | null>(null);
@@ -135,7 +132,7 @@ export const PCFrame = ({
               style={{ width }}
             >
               <div>
-                <ElementPanel html={pageMsg[0].html} />
+                <ElementPanel />
               </div>
             </div>
           </>
@@ -221,7 +218,7 @@ export const MobileFrame = ({
       </div>
       <div className="mobile-frame__right spin-container">
         <Spin spinning={loading} className="spin-controller" />
-        <ElementPanel html={pageMsg[0].html} />
+        <ElementPanel />
       </div>
     </div>
   );
