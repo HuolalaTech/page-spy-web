@@ -32,7 +32,10 @@ export const PCFrame = ({
 }: PropsWithChildren<FrameWrapperProps>) => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
   const { t } = useTranslation('translation', { keyPrefix: 'page' });
-  const [refresh] = useSocketMessageStore((state) => [state.refresh]);
+  const [pageLocation, refresh] = useSocketMessageStore((state) => [
+    state.pageMsg.location,
+    state.refresh,
+  ]);
   const [elementVisible, setElementVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const dividerRef = useRef<HTMLDivElement | null>(null);
@@ -100,10 +103,14 @@ export const PCFrame = ({
             <div className="function-circle fullscreen" />
           </Space>
         </div>
+        <div className="pc-frame__top-center" title={pageLocation?.href}>
+          {pageLocation?.href || ''}
+        </div>
         <div className="pc-frame__top-right">
           <Space>
             <Button
               onClick={() => {
+                if (loading) return;
                 onRefresh();
                 refresh('page');
               }}
@@ -144,17 +151,25 @@ export const PCFrame = ({
 
 const IOSFrame = ({ children }: PropsWithChildren<unknown>) => {
   const time = getTime();
+  const pageLocation = useSocketMessageStore((state) => state.pageMsg.location);
   return (
     <div className="ios-frame">
-      <div className="ios-frame__top">
-        <p className="ios-frame__top-left">{time}</p>
-        <p className="ios-frame__top-hair">
-          <p className="ios-frame__top-forehead" />
-        </p>
-        <p className="ios-frame__top-right">
-          <Icon component={CellularSVG} />
-          <Icon component={BatterySVG} className="ios-battery" />
-        </p>
+      <div className="ios-frame__hair">
+        <div className="ios-top">
+          <p className="ios-top-left">{time}</p>
+          <p className="ios-top-center">
+            <p className="ios-top-forehead" />
+          </p>
+          <p className="ios-top-right">
+            <Icon component={CellularSVG} />
+            <Icon component={BatterySVG} className="ios-battery" />
+          </p>
+        </div>
+        <div className="ios-url">
+          <div className="ios-url-input" title={pageLocation?.href}>
+            {pageLocation?.href}
+          </div>
+        </div>
       </div>
       <div className="ios-frame__content">{children}</div>
       <div className="ios-frame__bottom">
@@ -166,6 +181,8 @@ const IOSFrame = ({ children }: PropsWithChildren<unknown>) => {
 
 const AndroidFrame = ({ children }: PropsWithChildren<unknown>) => {
   const time = getTime();
+  const pageLocation = useSocketMessageStore((state) => state.pageMsg.location);
+
   return (
     <div className="android-frame">
       <div className="android-frame__camera" />
@@ -175,6 +192,12 @@ const AndroidFrame = ({ children }: PropsWithChildren<unknown>) => {
           <Icon component={CellularSVG} />
           <Icon component={BatterySVG} className="android-battery" />
         </p>
+      </div>
+
+      <div className="android-url">
+        <div className="android-url-input" title={pageLocation?.href}>
+          {pageLocation?.href}
+        </div>
       </div>
       <div className="android-frame__content">{children}</div>
       <div className="android-frame__bottom">
@@ -192,10 +215,7 @@ export const MobileFrame = ({
 }: PropsWithChildren<FrameWrapperProps>) => {
   const { t: ct } = useTranslation();
 
-  const [pageMsg, refresh] = useSocketMessageStore((state) => [
-    state.pageMsg,
-    state.refresh,
-  ]);
+  const [refresh] = useSocketMessageStore((state) => [state.refresh]);
   const PhoneFrame = os === 'iOS' ? IOSFrame : AndroidFrame;
   return (
     <div className="mobile-frame">
@@ -208,6 +228,7 @@ export const MobileFrame = ({
           <Button
             style={{ position: 'relative', zIndex: 10 }}
             onClick={() => {
+              if (loading) return;
               onRefresh();
               refresh('page');
             }}

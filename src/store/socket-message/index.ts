@@ -22,7 +22,11 @@ interface SocketMessage {
   networkMsg: SpyNetwork.RequestInfo[];
   systemMsg: SpySystem.DataItem[];
   connectMsg: string[];
-  pageMsg: { html: string; tree: ElementContent[] | null };
+  pageMsg: {
+    html: string;
+    tree: ElementContent[] | null;
+    location: SpyPage.DataItem['location'] | null;
+  };
   storageMsg: Record<SpyStorage.DataType, Record<string, string>>;
   initSocket: (url: string) => void;
   clearRecord: (key: SpyMessage.MessageType) => void;
@@ -38,6 +42,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
   pageMsg: {
     html: '',
     tree: null,
+    location: null,
   },
   storageMsg: {
     local: {},
@@ -104,6 +109,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
           state.pageMsg = {
             html,
             tree,
+            location: data.location,
           };
         }),
       );
