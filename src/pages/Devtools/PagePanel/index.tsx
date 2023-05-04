@@ -49,7 +49,7 @@ const PagePanel = () => {
   useEffect(() => {
     if (html) {
       const frameDocument = frameRef.current!.contentDocument;
-      frameDocument!.documentElement.innerHTML = html;
+      frameDocument!.documentElement.innerHTML = html.toString();
 
       insertStyle(frameDocument!, `a { pointer-events: none} `);
       const frameBody = frameDocument!.querySelector('body');
@@ -84,6 +84,7 @@ const PagePanel = () => {
           loading={loading}
           onRefresh={() => {
             setLoading(true);
+            refresh('page');
           }}
         >
           <iframe

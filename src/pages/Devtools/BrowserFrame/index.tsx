@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from 'react';
 import { useEffect, useRef } from 'react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Icon from '@ant-design/icons';
 import { ReactComponent as CellularSVG } from '@/assets/image/cellular.svg';
 import { ReactComponent as BatterySVG } from '@/assets/image/battery.svg';
@@ -32,9 +32,8 @@ export const PCFrame = ({
 }: PropsWithChildren<FrameWrapperProps>) => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
   const { t } = useTranslation('translation', { keyPrefix: 'page' });
-  const [pageLocation, refresh] = useSocketMessageStore((state) => [
+  const [pageLocation] = useSocketMessageStore((state) => [
     state.pageMsg.location,
-    state.refresh,
   ]);
   const [elementVisible, setElementVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -112,7 +111,6 @@ export const PCFrame = ({
               onClick={() => {
                 if (loading) return;
                 onRefresh();
-                refresh('page');
               }}
             >
               {ct('refresh')}
@@ -215,7 +213,6 @@ export const MobileFrame = ({
 }: PropsWithChildren<FrameWrapperProps>) => {
   const { t: ct } = useTranslation();
 
-  const [refresh] = useSocketMessageStore((state) => [state.refresh]);
   const PhoneFrame = os === 'iOS' ? IOSFrame : AndroidFrame;
   return (
     <div className="mobile-frame">
@@ -230,7 +227,6 @@ export const MobileFrame = ({
             onClick={() => {
               if (loading) return;
               onRefresh();
-              refresh('page');
             }}
           >
             {ct('refresh')}

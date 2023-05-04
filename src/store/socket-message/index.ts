@@ -23,7 +23,7 @@ interface SocketMessage {
   systemMsg: SpySystem.DataItem[];
   connectMsg: string[];
   pageMsg: {
-    html: string;
+    html: String;
     tree: ElementContent[] | null;
     location: SpyPage.DataItem['location'] | null;
   };
@@ -107,7 +107,8 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       set(
         produce<SocketMessage>((state) => {
           state.pageMsg = {
-            html,
+            // eslint-disable-next-line no-new-wrappers
+            html: new String(html),
             tree,
             location: data.location,
           };
@@ -115,7 +116,6 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       );
     });
     socket.addListener('storage', (data: SpyStorage.DataItem) => {
-      const cache = get().storageMsg;
       const { type, action, key, value } = data;
       switch (action) {
         case 'get':
