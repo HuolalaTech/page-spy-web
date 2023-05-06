@@ -1,6 +1,6 @@
 {
   "name": "@huolala-tech/page-spy-web",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "All-In-One Remote Debugging Tool",
   "homepage": "https://huolalatech.github.io/page-spy-web",
   "license": "MIT",
@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
-    "@huolala-tech/page-spy": "latest",
+    "@huolala-tech/page-spy": "^1.0.4",
     "@mdx-js/rollup": "^2.3.0",
     "@types/mdx": "^2.0.4",
     "@types/node": "^17.0.16",
@@ -48,6 +48,7 @@
     "highlight.js": "^11.7.0",
     "i18next": "^22.4.10",
     "i18next-browser-languagedetector": "^7.0.1",
+    "immer": "^10.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-i18next": "^12.2.0",
@@ -56,7 +57,9 @@
     "rehype-dom-parse": "^4.0.2",
     "rehype-dom-stringify": "^3.0.1",
     "umi-request": "^1.4.0",
-    "unified": "^10.1.2"
+    "unified": "^10.1.2",
+    "unist-util-visit": "^4.1.2",
+    "zustand": "^4.3.7"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"

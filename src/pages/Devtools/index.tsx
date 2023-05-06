@@ -9,11 +9,10 @@ import {
   Tooltip,
   Typography,
 } from 'antd';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import ConsolePanel from './ConsolePanel';
 import NetworkPanel from './NetworkPanel';
 import SystemPanel from './SystemPanel';
-import { WSProvider } from './WSInfo';
 import { useNavigate, useLocation } from 'react-router-dom';
 import PagePanel from './PagePanel';
 import { DownOutlined } from '@ant-design/icons';
@@ -28,6 +27,7 @@ import classNames from 'classnames';
 import { resolveClientInfo } from '@/utils/brand';
 import { useTranslation } from 'react-i18next';
 import { ConnectStatus } from './ConnectStatus';
+import { useSocketMessageStore } from '@/store/socket-message';
 
 const { Sider, Content } = Layout;
 const { Title } = Typography;
@@ -44,7 +44,7 @@ type MenuKeys = keyof typeof MENUS;
 interface BadgeMenuProps {
   active: MenuKeys;
 }
-const BadgeMenu = ({ active }: BadgeMenuProps) => {
+const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -99,7 +99,7 @@ const BadgeMenu = ({ active }: BadgeMenuProps) => {
   }, [badge, navigate, search, t]);
 
   return <Menu mode="inline" selectedKeys={[active]} items={menuItems} />;
-};
+});
 
 interface SiderRoomProps {
   exclude: string;
@@ -185,15 +185,67 @@ const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
   );
 };
 
-export default function Devtools() {
+const ClientInfo = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
-  const { hash = '#Console' } = useLocation();
   const { version = '', address = '' } = useSearch();
-
   const clientInfo = useMemo(() => {
     if (!version) return null;
     return resolveClientInfo(version);
   }, [version]);
+
+  return (
+    <div className="client-info">
+      <Title level={4} style={{ marginBlock: 12 }}>
+        {t('device')}
+      </Title>
+      <Row wrap={false} align="middle" style={{ textAlign: 'center' }}>
+        <Tooltip title={clientInfo?.osName}>
+          <Col span={11}>
+            <img className="client-info__logo" src={clientInfo?.osLogo} />
+          </Col>
+        </Tooltip>
+        <Divider type="vertical" />
+        <Tooltip
+          title={
+            <>
+              <span>
+                {t('browser')}: {clientInfo?.browserName}
+              </span>
+              <br />
+              <span>
+                {t('version')}: {clientInfo?.browserVersion}
+              </span>
+            </>
+          }
+        >
+          <Col span={11}>
+            <img className="client-info__logo" src={clientInfo?.browserLogo} />
+          </Col>
+        </Tooltip>
+      </Row>
+      <Divider type="horizontal" style={{ margin: '8px 0' }} />
+      <Tooltip title="PageSpy ID">
+        <Row justify="center" className="page-spy-id">
+          <Col>
+            <b>{address.slice(0, 4)}</b>
+          </Col>
+        </Row>
+      </Tooltip>
+    </div>
+  );
+});
+
+export default function Devtools() {
+  const { hash = '#Console' } = useLocation();
+  const { version = '', address = '' } = useSearch();
+  const [socket, initSocket] = useSocketMessageStore((state) => [
+    state.socket,
+    state.initSocket,
+  ]);
+  useEffect(() => {
+    if (socket) return;
+    initSocket(address);
+  }, [address, initSocket, socket]);
 
   const hashKey = useMemo<MenuKeys>(() => {
     const value = hash.slice(1);
@@ -215,67 +267,22 @@ export default function Devtools() {
 
   // eslint-disable-next-line consistent-return
   return (
-    <WSProvider room={address}>
-      <Layout className="page-spy-devtools">
-        <Sider theme="light">
-          <div className="page-spy-devtools__sider">
-            <div className="client-info">
-              <Title level={4} style={{ marginBlock: 12 }}>
-                {t('device')}
-              </Title>
-              <Row wrap={false} align="middle" style={{ textAlign: 'center' }}>
-                <Tooltip title={clientInfo?.osName}>
-                  <Col span={11}>
-                    <img
-                      className="client-info__logo"
-                      src={clientInfo?.osLogo}
-                    />
-                  </Col>
-                </Tooltip>
-                <Divider type="vertical" />
-                <Tooltip
-                  title={
-                    <>
-                      <span>
-                        {t('browser')}: {clientInfo?.browserName}
-                      </span>
-                      <br />
-                      <span>
-                        {t('version')}: {clientInfo?.browserVersion}
-                      </span>
-                    </>
-                  }
-                >
-                  <Col span={11}>
-                    <img
-                      className="client-info__logo"
-                      src={clientInfo?.browserLogo}
-                    />
-                  </Col>
-                </Tooltip>
-              </Row>
-              <Divider type="horizontal" style={{ margin: '8px 0' }} />
-              <Tooltip title="PageSpy ID">
-                <Row justify="center" className="page-spy-id">
-                  <Col>
-                    <b>{address.slice(0, 4)}</b>
-                  </Col>
-                </Row>
-              </Tooltip>
-            </div>
-            <BadgeMenu active={hashKey} />
-            {/* <div className="page-spy-devtools__sider-bottom">
-              <SiderRooms exclude={address} />
-            </div> */}
-          </div>
-        </Sider>
-        <Content className="page-spy-devtools__content">
-          <ConnectStatus />
-          <div className="page-spy-devtools__panel">
-            <ActiveContent />
-          </div>
-        </Content>
-      </Layout>
-    </WSProvider>
+    <Layout className="page-spy-devtools">
+      <Sider theme="light">
+        <div className="page-spy-devtools__sider">
+          <ClientInfo />
+          <BadgeMenu active={hashKey} />
+          {/* <div className="page-spy-devtools__sider-bottom">
+            <SiderRooms exclude={address} />
+          </div> */}
+        </div>
+      </Sider>
+      <Content className="page-spy-devtools__content">
+        <ConnectStatus />
+        <div className="page-spy-devtools__panel">
+          <ActiveContent />
+        </div>
+      </Content>
+    </Layout>
   );
 }

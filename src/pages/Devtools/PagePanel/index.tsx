@@ -1,11 +1,11 @@
 import { Empty } from 'antd';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { PCFrame, MobileFrame } from '../BrowserFrame';
-import { useWSInfo } from '../WSInfo';
 import './index.less';
 import React from 'react';
 import useSearch from '@/utils/useSearch';
 import { resolveClientInfo } from '@/utils/brand';
+import { useSocketMessageStore } from '@/store/socket-message';
 
 function insertStyle(doc: Document, text: string) {
   const style = doc.createElement('style');
@@ -15,7 +15,10 @@ function insertStyle(doc: Document, text: string) {
 }
 
 const PagePanel = () => {
-  const { pageMsg, refresh } = useWSInfo();
+  const [html, refresh] = useSocketMessageStore((state) => [
+    state.pageMsg.html,
+    state.refresh,
+  ]);
   const [loading, setLoading] = useState(false);
   const frameRef = useRef<HTMLIFrameElement | null>(null);
   const { version } = useSearch();
@@ -44,9 +47,9 @@ const PagePanel = () => {
   }, [os]);
 
   useEffect(() => {
-    if (pageMsg.length) {
+    if (html) {
       const frameDocument = frameRef.current!.contentDocument;
-      frameDocument!.documentElement.innerHTML = pageMsg[0].html;
+      frameDocument!.documentElement.innerHTML = html.toString();
 
       insertStyle(frameDocument!, `a { pointer-events: none} `);
       const frameBody = frameDocument!.querySelector('body');
@@ -68,9 +71,9 @@ const PagePanel = () => {
         setLoading(false);
       }, 0);
     }
-  }, [pageMsg]);
+  }, [html]);
 
-  if (pageMsg.length === 0) {
+  if (!html) {
     return <Empty description={false} />;
   }
 
@@ -81,6 +84,7 @@ const PagePanel = () => {
           loading={loading}
           onRefresh={() => {
             setLoading(true);
+            refresh('page');
           }}
         >
           <iframe

@@ -33,40 +33,36 @@ export const NavMenuOnPc = () => {
           <InjectSDKModal>
             {({ onPopup }) => {
               return (
-                <p className="menu-item inject" onClick={onPopup}>
+                <div className="menu-item inject" onClick={onPopup}>
                   <Space align="center">
                     <Icon component={InjectSdkSvg} style={{ fontSize: 18 }} />
                     <span>{t('common.inject-sdk')}</span>
                   </Space>
-                </p>
+                </div>
               );
             }}
           </InjectSDKModal>
           <Divider type="vertical" className="divider-bg" />
           {/* Connections */}
-          <Link to="/room-list">
-            <p className="menu-item online">
-              <Space align="center">
-                <Icon component={OnlineSvg} style={{ fontSize: 18 }} />
-                <span>{t('common.connections')}</span>
-              </Space>
-            </p>
+          <Link to="/room-list" className="menu-item online">
+            <Space align="center">
+              <Icon component={OnlineSvg} style={{ fontSize: 18 }} />
+              <span>{t('common.connections')}</span>
+            </Space>
           </Link>
           <Divider type="vertical" className="divider-bg" />
         </>
       )}
       {/* Docs */}
-      <Link to="/docs">
-        <p className="menu-item doc">
-          <Space align="center">
-            <Icon component={DocsSvg} style={{ fontSize: 18 }} />
-            <span>{t('common.doc')}</span>
-          </Space>
-        </p>
+      <Link to="/docs" className="menu-item doc">
+        <Space align="center">
+          <Icon component={DocsSvg} style={{ fontSize: 18 }} />
+          <span>{t('common.doc')}</span>
+        </Space>
       </Link>
       <Divider type="vertical" className="divider-bg" />
       {/* i18n */}
-      <p
+      <div
         className="menu-item lang"
         onClick={() => {
           const newLang = lang === 'en' ? 'zh' : 'en';
@@ -78,7 +74,7 @@ export const NavMenuOnPc = () => {
           <Icon component={I18nSvg} style={{ fontSize: 18 }} />
           <span>{t('common.lang')}</span>
         </Space>
-      </p>
+      </div>
     </div>
   );
 };
@@ -132,7 +128,7 @@ export const NavMenuOnMobile = () => {
                 <InjectSDKModal>
                   {({ onPopup }) => {
                     return (
-                      <p className="menu-item inject" onClick={onPopup}>
+                      <div className="menu-item inject" onClick={onPopup}>
                         <Space align="center">
                           <Icon
                             component={InjectSdkSvg}
@@ -140,42 +136,40 @@ export const NavMenuOnMobile = () => {
                           />
                           <span>{t('common.inject-sdk')}</span>
                         </Space>
-                      </p>
+                      </div>
                     );
                   }}
                 </InjectSDKModal>
                 {/* Connections */}
                 <Link
                   to="/room-list"
+                  className="menu-item online"
                   onClick={() => {
                     setExpand(false);
                   }}
                 >
-                  <p className="menu-item online">
-                    <Space align="center">
-                      <Icon component={OnlineSvg} style={{ fontSize: 18 }} />
-                      <span>{t('common.connections')}</span>
-                    </Space>
-                  </p>
+                  <Space align="center">
+                    <Icon component={OnlineSvg} style={{ fontSize: 18 }} />
+                    <span>{t('common.connections')}</span>
+                  </Space>
                 </Link>
               </>
             )}
             {/* Docs */}
             <Link
               to="/docs"
+              className="menu-item doc"
               onClick={() => {
                 setExpand(false);
               }}
             >
-              <p className="menu-item doc">
-                <Space align="center">
-                  <Icon component={DocsSvg} style={{ fontSize: 18 }} />
-                  <span>{t('common.doc')}</span>
-                </Space>
-              </p>
+              <Space align="center">
+                <Icon component={DocsSvg} style={{ fontSize: 18 }} />
+                <span>{t('common.doc')}</span>
+              </Space>
             </Link>
             {/* i18n */}
-            <p
+            <div
               className="menu-item lang"
               onClick={() => {
                 const newLang = lang === 'en' ? 'zh' : 'en';
@@ -188,7 +182,7 @@ export const NavMenuOnMobile = () => {
                 <Icon component={I18nSvg} style={{ fontSize: 18 }} />
                 <span>{t('common.lang')}</span>
               </Space>
-            </p>
+            </div>
           </div>
         </CSSTransition>,
         document.querySelector('header') || document.body,

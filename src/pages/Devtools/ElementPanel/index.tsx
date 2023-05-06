@@ -1,25 +1,13 @@
-import React from 'react';
-import { unified } from 'unified';
-import domParse from 'rehype-dom-parse';
-import domStringify from 'rehype-dom-stringify';
+import React, { memo } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import hljs from 'highlight.js';
 import javascript from 'highlight.js/lib/languages/javascript';
 import css from 'highlight.js/lib/languages/css';
 import './index.less';
-import type { VFile } from 'vfile';
-import type { ElementContent, Element, Text } from 'hast';
+import type { ElementContent, Element } from 'hast';
 import { camelcaseToHypen, replaceProperties } from './utils';
-
-const processor = unified()
-  .use(domParse)
-  .use(domStringify)
-  .data('settings', { fragment: false });
-
-type BlockContent = Text & {
-  lang: string;
-};
+import { useSocketMessageStore } from '@/store/socket-message';
 
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('css', css);
@@ -27,6 +15,16 @@ hljs.registerLanguage('css', css);
 const tag2lang = {
   style: 'css',
   script: 'javascript',
+} as const;
+
+const getTextBlockLang = (parentNode: Element) => {
+  const { tagName, children } = parentNode;
+  if (['script', 'style'].includes(tagName)) {
+    if (children && children.length === 1) {
+      return tag2lang[tagName as keyof typeof tag2lang];
+    }
+  }
+  return 'text';
 };
 
 function hasMemebers(data: any) {
@@ -58,11 +56,18 @@ const ElementAttrs: React.FC<{ data?: Record<string, any> }> = ({
   return <span className="element-attrs">{attrs}</span>;
 };
 
-function ElementItem({ ast }: { ast: ElementContent }) {
+function ElementItem({
+  ast,
+  lang = 'text',
+}: {
+  ast: ElementContent;
+  lang: string;
+}) {
   const [spread, setSpread] = useState(false);
   const { type } = ast;
   if (type === 'element') {
     const { tagName, properties, children } = ast as Element;
+
     return (
       <code className="element-item">
         <div className="element-controller">
@@ -85,7 +90,11 @@ function ElementItem({ ast }: { ast: ElementContent }) {
           </span>
           {children.length > 0 ? (
             <span className="element-content__body">
-              {spread ? <ElementNode ast={children} /> : '...'}
+              {spread ? (
+                <ElementNode ast={children} lang={getTextBlockLang(ast)} />
+              ) : (
+                '...'
+              )}
             </span>
           ) : (
             ''
@@ -100,7 +109,7 @@ function ElementItem({ ast }: { ast: ElementContent }) {
     );
   }
   if (type === 'text') {
-    const { value, lang = 'text' } = ast as BlockContent;
+    const { value } = ast;
     const content = value.trim();
     if (!content) return null;
     const htmlString = hljs.highlight(content, {
@@ -113,47 +122,41 @@ function ElementItem({ ast }: { ast: ElementContent }) {
       />
     );
   }
+
+  if (type === 'comment') {
+    return (
+      <code className="element-item comment">{`<!-- ${ast.value} -->`}</code>
+    );
+  }
   return null;
 }
 
-function ElementNode({ ast }: { ast: ElementContent[] }) {
+function ElementNode({
+  ast,
+  lang = 'text',
+}: {
+  ast: ElementContent[];
+  lang?: string;
+}) {
   return (
     <div className="element-node">
       {ast.map((item, index) => {
-        if (item.type === 'element') {
-          if (
-            (item.tagName === 'style' || item.tagName === 'script') &&
-            item.children.length === 1
-          ) {
-            (item.children as BlockContent[]).forEach((textItem) => {
-              // eslint-disable-next-line no-param-reassign
-              textItem.lang = tag2lang[item.tagName as keyof typeof tag2lang];
-            });
-          }
-        }
         return (
           // eslint-disable-next-line react/no-array-index-key
-          <ElementItem ast={item} key={index} />
+          <ElementItem ast={item} lang={lang} key={index} />
         );
       })}
     </div>
   );
 }
 
-export const ElementPanel: React.FC<{ html: string }> = ({ html }) => {
-  const [ast, setAst] = useState<ElementContent[]>([]);
-  useEffect(() => {
-    if (!html) return;
-    processor.process(html).then((file: VFile) => {
-      const data = processor.parse(file);
-      if (data.type === 'root') {
-        setAst(data.children as ElementContent[]);
-      }
-    });
-  }, [html]);
+export const ElementPanel = memo(() => {
+  const ast = useSocketMessageStore((state) => state.pageMsg.tree);
+
+  if (!ast) return null;
   return (
     <div className="element-panel">
       <ElementNode ast={ast} />
     </div>
   );
-};
+});

@@ -2,7 +2,7 @@ import { usePopupRef, withPopup } from '@/utils/withPopup';
 import { ReactComponent as KeyboardSvg } from '@/assets/image/keyboard.svg';
 import Icon from '@ant-design/icons';
 import { Col, Modal, Row, Space } from 'antd';
-import { Fragment, useMemo } from 'react';
+import { Fragment, memo, useMemo } from 'react';
 import './index.less';
 import { useTranslation } from 'react-i18next';
 
@@ -81,7 +81,7 @@ const ShortcutsModal = withPopup(({ resolve, visible }) => {
   );
 });
 
-export const Shortcuts = () => {
+export const Shortcuts = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'shortcuts' });
   const modalRef = usePopupRef();
 
@@ -98,4 +98,4 @@ export const Shortcuts = () => {
       <ShortcutsModal ref={modalRef} />
     </div>
   );
-};
+});

@@ -19,5 +19,6 @@ module.exports = {
     '@typescript-eslint/no-invalid-void-type': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/explicit-member-accessibility': 'off',
+    'max-nested-callbacks': ['error', 5],
   },
 };

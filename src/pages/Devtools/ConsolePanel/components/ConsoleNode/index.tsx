@@ -1,13 +1,13 @@
 /* eslint-disable no-underscore-dangle */
 import type { ReactNode } from 'react';
-import React, { useCallback, useEffect, useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import './index.less';
 import clsx from 'classnames';
 import CopyContent from '../CopyContent';
-import { useWSInfo } from '../../../WSInfo';
 import type { SpyAtom } from '@huolala-tech/page-spy';
 import { LoadMore } from './LoadMore';
+import { useSocketMessageStore } from '@/store/socket-message';
 
 function isAtomNode(data: SpyAtom.Overview) {
   return data && data.type === 'atom' && data.__atomId !== undefined;
@@ -20,7 +20,7 @@ interface GetterNodeProps {
   keyName: string;
 }
 function GetterNode({ id, parentId, instanceId, keyName }: GetterNodeProps) {
-  const { socket } = useWSInfo();
+  const socket = useSocketMessageStore((state) => state.socket);
   const [nodeData, setNodeData] = useState<SpyAtom.Overview>();
 
   useEffect(() => {
@@ -156,7 +156,7 @@ interface AtomNodeProps {
   showArrow?: boolean;
 }
 function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
-  const { socket } = useWSInfo();
+  const socket = useSocketMessageStore((state) => state.socket);
   const [spread, setSpread] = useState(false);
   const [property, setProperty] = useState<Record<string, SpyAtom.Overview>>(
     {},

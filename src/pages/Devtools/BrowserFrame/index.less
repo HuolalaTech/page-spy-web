@@ -30,6 +30,13 @@
     padding: 12px 20px;
     background-color: #211d21;
     border-radius: 6px 6px 0 0;
+    &-center {
+      padding-inline: 12px;
+      color: #fff;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
   &__body {
     flex: 1;
@@ -143,38 +150,53 @@
 }
 .ios-frame {
   border: 10px solid #202020;
-  &__top {
-    display: flex;
-    align-items: center;
-    height: 34px;
-    border-bottom: 1px solid #efefef;
-    > p {
-      margin: 0;
-      text-align: center;
-    }
-    &-left {
-      flex-basis: 25%;
-      font-size: 12px;
-      font-weight: 700;
-    }
-    &-hair {
-      flex-basis: 50%;
-      height: 100%;
-      .ios-frame__top-forehead {
+  &__hair {
+    .ios-top {
+      display: flex;
+      align-items: center;
+      height: 34px;
+      border-bottom: 1px solid #efefef;
+      > p {
+        margin: 0;
+        text-align: center;
+      }
+      &-left {
+        flex-basis: 25%;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      &-center {
+        flex-basis: 50%;
+        height: 100%;
+      }
+      &-forehead {
         height: 24px;
         background-color: #202020;
         border-radius: 0 0 18px 18px;
       }
+      &-right {
+        flex-basis: 25%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .ios-battery {
+          margin-left: 8px;
+          font-size: 17px;
+        }
+      }
     }
-    &-right {
-      flex-basis: 25%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      .ios-battery {
-        margin-left: 8px;
-        font-size: 17px;
+    .ios-url {
+      padding: 4px;
+      &-input {
+        padding: 8px;
+        border-radius: 8px;
+        background-color: #666;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: #fff;
+        font-size: 12px;
       }
     }
   }
@@ -247,6 +269,19 @@
         margin-left: 8px;
         font-size: 17px;
       }
+    }
+  }
+  .android-url {
+    padding: 4px;
+    &-input {
+      padding: 8px;
+      border-radius: 8px;
+      background-color: #ddd;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: #333;
+      font-size: 12px;
     }
   }
   &__content {

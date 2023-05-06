@@ -1,15 +1,15 @@
-import React, { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { Card, Col, Empty, Row, Typography } from 'antd';
-import { useWSInfo } from '../WSInfo';
 import './index.less';
 import { FeatureItem } from './FeatureItem';
 import { useTranslation } from 'react-i18next';
+import { useSocketMessageStore } from '@/store/socket-message';
 
 const { Title } = Typography;
 
-const SystemPanel = () => {
+const SystemPanel = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'system' });
-  const { systemMsg } = useWSInfo();
+  const systemMsg = useSocketMessageStore((state) => state.systemMsg);
   const { features, system } = systemMsg[0] || {};
   const noSupport = useMemo(() => {
     if (!features) return [];
@@ -94,6 +94,6 @@ const SystemPanel = () => {
       })}
     </div>
   );
-};
+});
 
 export default SystemPanel;

@@ -1,11 +1,11 @@
 import { SpySocket } from '@huolala-tech/page-spy';
 import { Row, Col, Space, Divider } from 'antd';
-import { useEffect, useState } from 'react';
-import { useWSInfo } from '../WSInfo';
+import { memo, useEffect, useState } from 'react';
 import './index.less';
 import { ReactComponent as UserSvg } from '@/assets/image/user-1.svg';
 import Icon from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import { useSocketMessageStore } from '@/store/socket-message';
 
 interface ConnectionStatus {
   client: SpySocket.Connection | null;
@@ -16,9 +16,9 @@ const statusColor = (online: boolean) => {
   return online ? '#2fbf2f' : '#aaa';
 };
 
-export const ConnectStatus = () => {
+export const ConnectStatus = memo(() => {
   const { t } = useTranslation();
-  const { socket } = useWSInfo();
+  const socket = useSocketMessageStore((state) => state.socket);
   const [connections, setConnections] = useState<ConnectionStatus>({
     client: null,
     debug: null,
@@ -67,4 +67,4 @@ export const ConnectStatus = () => {
       </Col>
     </Row>
   );
-};
+});

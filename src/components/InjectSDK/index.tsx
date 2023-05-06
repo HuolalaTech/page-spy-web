@@ -2,7 +2,6 @@ import { Modal } from 'antd';
 import { ComponentType, useCallback, useMemo, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import { CodeBlock } from '../CodeBlock';
-import { version as sdkVersion } from '@huolala-tech/page-spy/package.json';
 import React from 'react';
 import './index.less';
 import { Link } from 'react-router-dom';

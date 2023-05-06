@@ -2,7 +2,7 @@ module github.com/HuolalaTech/page-spy-web/backend
 
 go 1.19
 
-require github.com/HuolalaTech/page-spy-api v0.0.0-20230413061707-5f0d5ec83fdd
+require github.com/HuolalaTech/page-spy-api v0.0.0-20230423101254-f0682a128133
 
 require (
 	github.com/cheekybits/genny v1.0.0 // indirect

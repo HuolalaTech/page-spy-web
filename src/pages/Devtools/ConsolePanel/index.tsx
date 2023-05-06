@@ -7,13 +7,13 @@ import {
 import { Button, Col, Input, Row, Tooltip } from 'antd';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
-import { useWSInfo } from '../WSInfo';
 import LogType from './components/LogType';
 import ConsoleNode from './components/ConsoleNode';
 import './index.less';
 import type { TextAreaRef } from 'antd/lib/input/TextArea';
 import { Shortcuts } from './components/Shortcuts';
 import { useTranslation } from 'react-i18next';
+import { useSocketMessageStore } from '@/store/socket-message';
 
 const EXECUTE_HISTORY_ID = 'page_spy_execute_history';
 const EXECUTE_HISTORY_MAX_SIZE = 100;
@@ -21,7 +21,11 @@ const EXECUTE_HISTORY_MAX_SIZE = 100;
 const ConsolePanel = () => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
   const { t } = useTranslation('translation', { keyPrefix: 'console' });
-  const { socket, consoleMsg: data, clearRecord } = useWSInfo();
+  const [socket, data, clearRecord] = useSocketMessageStore((state) => [
+    state.socket,
+    state.consoleMsg,
+    state.clearRecord,
+  ]);
   const inputRef = useRef<TextAreaRef | null>(null);
   const [code, setCode] = useState<string>('');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
