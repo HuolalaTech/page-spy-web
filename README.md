@@ -8,11 +8,9 @@ English | [中文](./README_CN.md)
 
 <h1 align="center">PageSpyWeb</h1>
 
-> **PageSpy** is a remote debugging tool for web project. Based on encapsulation
-> of native web APIs, it filters and transforms the parameters of native methods
-> when called, and converts into messages with specific format for consumption by
-> the debugger client. The debugger presents ui in an interactive devtools-like for
-> easy viewing after receives the message data.
+**PageSpy** is a remote debugging tool for web project.
+
+Based on encapsulation of native web APIs, it filters and transforms the parameters of native methods when called, and converts into messages with specific format for consumption by the debugger client. The debugger presents ui in an interactive devtools-like for easy viewing after receives the message data.
 
 ## When should I use?
 
