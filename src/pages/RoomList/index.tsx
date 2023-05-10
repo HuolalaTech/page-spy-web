@@ -121,7 +121,15 @@ export const RoomList = () => {
     return (
       <Row gutter={24}>
         {list.map(({ address, name, connections, group }) => {
-          const { osLogo, browserLogo } = resolveClientInfo(name);
+          const simpleAddress = address.slice(0, 4);
+          const {
+            osName,
+            osVersion,
+            osLogo,
+            browserName,
+            browserVersion,
+            browserLogo,
+          } = resolveClientInfo(name);
           const client = connections.find(({ userId }) => userId === 'Client');
 
           return (
@@ -129,8 +137,11 @@ export const RoomList = () => {
               <div className={clsx('connection-item')}>
                 <Row style={{ height: 70 }} justify="center" align="middle">
                   <Col>
-                    <code style={{ fontSize: 36 }}>
-                      <b>{address.slice(0, 4)}</b>
+                    <code
+                      style={{ fontSize: 36 }}
+                      title={`Device ID: ${simpleAddress}`}
+                    >
+                      <b>{simpleAddress}</b>
                     </code>
                   </Col>
                 </Row>
@@ -144,12 +155,20 @@ export const RoomList = () => {
                   </Col>
                   <Col flex={1}>
                     <ConnDetailItem title="OS">
-                      <img src={osLogo} width="24" alt="os logo" />
+                      <img
+                        src={osLogo}
+                        title={`${osName} ${osVersion}`}
+                        alt="os logo"
+                      />
                     </ConnDetailItem>
                   </Col>
                   <Col flex={1}>
                     <ConnDetailItem title="Browser">
-                      <img src={browserLogo} width="24" alt="browser logo" />
+                      <img
+                        src={browserLogo}
+                        title={`${browserName} ${browserVersion}`}
+                        alt="browser logo"
+                      />
                     </ConnDetailItem>
                   </Col>
                 </Row>
