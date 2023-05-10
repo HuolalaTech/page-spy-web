@@ -57,11 +57,10 @@ export const RoomList = () => {
   const {
     data: connectionList = [],
     error,
-    refresh: refreshConnections,
+    runAsync: requestConnections,
   } = useRequest(
-    async () => {
-      const defaultGroup = 'default';
-      const res = await getSpyRoom(defaultGroup);
+    async (group = 'default') => {
+      const res = await getSpyRoom(group);
       return res.data;
     },
     {
@@ -79,13 +78,21 @@ export const RoomList = () => {
     os: '',
     browser: '',
   });
-  const onFormFinish = useCallback((value) => {
-    setConditions({
-      address: value.address || '',
-      os: value.os || '',
-      browser: value.browser || '',
-    });
-  }, []);
+  const onFormFinish = useCallback(
+    async (value) => {
+      try {
+        await requestConnections(value.project || 'default');
+
+        setConditions((state) => ({
+          ...state,
+          ...value,
+        }));
+      } catch (e: any) {
+        message.error(e.message);
+      }
+    },
+    [requestConnections],
+  );
 
   const mainContent = useMemo(() => {
     if (error || connectionList.length === 0)
@@ -154,8 +161,19 @@ export const RoomList = () => {
         <Title level={3} style={{ marginBottom: 12 }}>
           {t('common.connections')}
         </Title>
-        <Form form={form} onFinish={onFormFinish}>
-          <Row gutter={24}>
+        <Form
+          form={form}
+          onFinish={onFormFinish}
+          labelCol={{
+            span: 6,
+          }}
+        >
+          <Row gutter={24} wrap>
+            <Col span={8}>
+              <Form.Item label={t('common.project')} name="project">
+                <Input placeholder={t('common.project')!} />
+              </Form.Item>
+            </Col>
             <Col span={8}>
               <Form.Item label={t('common.device-id')} name="address">
                 <Input placeholder={t('common.device-id')!} />

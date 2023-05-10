@@ -12,7 +12,8 @@
     "reset": "Reset",
     "device-id": "Device ID",
     "os": "OS",
-    "browser": "Browser"
+    "browser": "Browser",
+    "project": "Project"
   },
   "inject": {
     "load-script": "Load a <script> in the testing project;",
