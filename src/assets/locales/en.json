@@ -13,7 +13,8 @@
     "device-id": "Device ID",
     "os": "OS",
     "browser": "Browser",
-    "project": "Project"
+    "project": "Project",
+    "debug": "Debug"
   },
   "inject": {
     "load-script": "Load a <script> in the testing project;",

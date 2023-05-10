@@ -1,5 +1,6 @@
 .layouts {
   height: 100%;
+  overflow: hidden;
   --header-height: 64px;
   --light-background: rgba(255, 255, 255, 1);
   --dark-background: rgba(26, 26, 26, 1);
@@ -7,6 +8,9 @@
     position: relative;
     padding-inline: 0;
     z-index: 10;
+  }
+  .ant-layout-content {
+    overflow: auto;
   }
   .header {
     position: relative;
