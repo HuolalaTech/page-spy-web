@@ -15,7 +15,7 @@ import {
   Space,
 } from 'antd';
 import clsx from 'clsx';
-import { useCallback, useMemo, useState } from 'react';
+import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 
@@ -50,6 +50,18 @@ const filterConnections = (
     });
 };
 
+const ConnDetailItem = ({
+  title,
+  children,
+}: PropsWithChildren<{ title: string }>) => {
+  return (
+    <div className="conn-detail">
+      <p className="conn-detail__title">{title}</p>
+      <div className="conn-detail__value">{children}</div>
+    </div>
+  );
+};
+
 export const RoomList = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
@@ -57,11 +69,10 @@ export const RoomList = () => {
   const {
     data: connectionList = [],
     error,
-    refresh: refreshConnections,
+    runAsync: requestConnections,
   } = useRequest(
-    async () => {
-      const defaultGroup = 'default';
-      const res = await getSpyRoom(defaultGroup);
+    async (group = '') => {
+      const res = await getSpyRoom(group);
       return res.data;
     },
     {
@@ -79,13 +90,21 @@ export const RoomList = () => {
     os: '',
     browser: '',
   });
-  const onFormFinish = useCallback((value) => {
-    setConditions({
-      address: value.address || '',
-      os: value.os || '',
-      browser: value.browser || '',
-    });
-  }, []);
+  const onFormFinish = useCallback(
+    async (value) => {
+      try {
+        await requestConnections(value.project);
+
+        setConditions((state) => ({
+          ...state,
+          ...value,
+        }));
+      } catch (e: any) {
+        message.error(e.message);
+      }
+    },
+    [requestConnections],
+  );
 
   const mainContent = useMemo(() => {
     if (error || connectionList.length === 0)
@@ -101,46 +120,82 @@ export const RoomList = () => {
 
     return (
       <Row gutter={24}>
-        {list.map(({ address, name, connections }) => {
-          const { osLogo, browserLogo } = resolveClientInfo(name);
+        {list.map(({ address, name, connections, group }) => {
+          const simpleAddress = address.slice(0, 4);
+          const {
+            osName,
+            osVersion,
+            osLogo,
+            browserName,
+            browserVersion,
+            browserLogo,
+          } = resolveClientInfo(name);
           const client = connections.find(({ userId }) => userId === 'Client');
 
           return (
-            <Col key={address} span={8}>
-              <Tooltip title={!client && t('socket.client-not-in-connection')}>
-                <Row
-                  justify="space-between"
-                  align="middle"
-                  className={clsx('connection-item', {
-                    'no-client': !client,
-                  })}
-                  onClick={() => {
-                    if (!client) return;
-
-                    window.open(`/devtools?version=${name}&address=${address}`);
-                  }}
-                >
+            <Col key={address} span={6}>
+              <div className={clsx('connection-item')}>
+                <Row style={{ height: 70 }} justify="center" align="middle">
                   <Col>
-                    <Tooltip title={t('common.device-id')}>
-                      <Title level={3} style={{ marginBottom: 0 }}>
-                        {address.slice(0, 4)}
-                      </Title>
-                    </Tooltip>
-                  </Col>
-                  <Col>
-                    <div className="connection-item__system">
-                      <div>
-                        <span>OS:</span>
-                        <img src={osLogo} width="24" alt="os logo" />
-                      </div>
-                      <div>
-                        <span>Browser: </span>
-                        <img src={browserLogo} width="24" alt="browser logo" />
-                      </div>
-                    </div>
+                    <code
+                      style={{ fontSize: 36 }}
+                      title={`Device ID: ${simpleAddress}`}
+                    >
+                      <b>{simpleAddress}</b>
+                    </code>
                   </Col>
                 </Row>
-              </Tooltip>
+                <Row wrap={false} style={{ marginBlock: 8 }}>
+                  <Col flex={1}>
+                    <ConnDetailItem title="Project">
+                      <p style={{ fontSize: 16 }} title={group}>
+                        {group}
+                      </p>
+                    </ConnDetailItem>
+                  </Col>
+                  <Col flex={1}>
+                    <ConnDetailItem title="OS">
+                      <img
+                        src={osLogo}
+                        title={`${osName} ${osVersion}`}
+                        alt="os logo"
+                      />
+                    </ConnDetailItem>
+                  </Col>
+                  <Col flex={1}>
+                    <ConnDetailItem title="Browser">
+                      <img
+                        src={browserLogo}
+                        title={`${browserName} ${browserVersion}`}
+                        alt="browser logo"
+                      />
+                    </ConnDetailItem>
+                  </Col>
+                </Row>
+                <Tooltip
+                  title={!client && t('socket.client-not-in-connection')}
+                >
+                  <div>
+                    <Button
+                      type="primary"
+                      disabled={!client}
+                      style={{
+                        width: '100%',
+                        pointerEvents: !client ? 'none' : 'auto',
+                      }}
+                      shape="round"
+                      onClick={() => {
+                        if (!client) return;
+                        window.open(
+                          `/devtools?version=${name}&address=${address}`,
+                        );
+                      }}
+                    >
+                      {t('common.debug')}
+                    </Button>
+                  </div>
+                </Tooltip>
+              </div>
             </Col>
           );
         })}
@@ -154,11 +209,22 @@ export const RoomList = () => {
         <Title level={3} style={{ marginBottom: 12 }}>
           {t('common.connections')}
         </Title>
-        <Form form={form} onFinish={onFormFinish}>
-          <Row gutter={24}>
+        <Form
+          form={form}
+          onFinish={onFormFinish}
+          labelCol={{
+            span: 6,
+          }}
+        >
+          <Row gutter={24} wrap>
+            <Col span={8}>
+              <Form.Item label={t('common.project')} name="project">
+                <Input placeholder={t('common.project')!} allowClear />
+              </Form.Item>
+            </Col>
             <Col span={8}>
               <Form.Item label={t('common.device-id')} name="address">
-                <Input placeholder={t('common.device-id')!} />
+                <Input placeholder={t('common.device-id')!} allowClear />
               </Form.Item>
             </Col>
             <Col span={8}>
