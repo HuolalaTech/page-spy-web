@@ -34,8 +34,18 @@ export const InjectSDKModal = ({
         title: t('inject.pass-config'),
         code: `<script>
   new PageSpy({
-    api: string, // the server base url. For example, "example.com".
-    clientOrigin: string, // the client host. For example, "https://example.com".
+    /**
+     * @desc the server base url. For example, "example.com".
+     */
+    api: string,
+    /**
+     * @desc the debugger client host. For example, "https://example.com".
+     */
+    clientOrigin: string,
+    /**
+     * @desc the project name used for grouping connections
+     */
+    project: string,
   });
 </script>
 `,
