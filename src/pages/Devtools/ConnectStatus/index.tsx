@@ -8,8 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
 
 interface ConnectionStatus {
-  client: SpySocket.Connection | null;
-  debug: SpySocket.Connection | null;
+  client?: SpySocket.Connection | null;
+  debug?: SpySocket.Connection | null;
 }
 
 const statusColor = (online: boolean) => {
@@ -19,10 +19,10 @@ const statusColor = (online: boolean) => {
 export const ConnectStatus = memo(() => {
   const { t } = useTranslation();
   const socket = useSocketMessageStore((state) => state.socket);
-  const [connections, setConnections] = useState<ConnectionStatus>({
-    client: null,
-    debug: null,
-  });
+  const [connections, setConnections] = useState<ConnectionStatus>(() => ({
+    client: socket?.clientConnection,
+    debug: socket?.socketConnection,
+  }));
 
   useEffect(() => {
     if (!socket) return;
