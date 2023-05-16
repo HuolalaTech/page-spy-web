@@ -77,7 +77,9 @@
   "page": {
     "element": "元素"
   },
-  "storage": {},
+  "storage": {
+    "empty-detail": "选择查看其中一项的值"
+  },
   "socket": {
     "client-name": "客户端",
     "client-not-in-connection": "当前连接不存在客户端",

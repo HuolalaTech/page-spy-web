@@ -77,7 +77,9 @@
   "page": {
     "element": "Element"
   },
-  "storage": {},
+  "storage": {
+    "empty-detail": "Select one to preview its value"
+  },
   "socket": {
     "client-name": "Client",
     "client-not-in-connection": "No client in the current connection",

@@ -27,7 +27,10 @@ interface SocketMessage {
     tree: ElementContent[] | null;
     location: SpyPage.DataItem['location'] | null;
   };
-  storageMsg: Record<SpyStorage.DataType, Record<string, string>>;
+  storageMsg: Record<
+    SpyStorage.DataType,
+    Record<string, Omit<SpyStorage.DataItem, 'type' | 'action'>>
+  >;
   initSocket: (url: string) => void;
   clearRecord: (key: SpyMessage.MessageType) => void;
   refresh: (key: SpyMessage.MessageType) => void;
@@ -116,14 +119,17 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       );
     });
     socket.addListener('storage', (data: SpyStorage.DataItem) => {
-      const { type, action, key, value } = data;
+      const { type, action, name, ...restData } = data;
       switch (action) {
         case 'get':
         case 'set':
-          if (key && value) {
+          if (name) {
             set(
               produce<SocketMessage>((state) => {
-                state.storageMsg[type][key] = value;
+                state.storageMsg[type][name] = {
+                  name,
+                  ...restData,
+                };
               }),
             );
           }
@@ -138,7 +144,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         case 'remove':
           set(
             produce<SocketMessage>((state) => {
-              delete state.storageMsg[type][key!];
+              delete state.storageMsg[type][name!];
             }),
           );
           break;
