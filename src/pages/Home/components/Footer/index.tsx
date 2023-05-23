@@ -6,7 +6,7 @@ export const Footer = () => {
       <div className="text-center">
         <p>Open-source MIT Licensed.</p>
         <p>
-          Copyright &copy; 2023
+          Copyright &copy; 2023{' '}
           <a href="https://github.com/HuolalaTech" target="_blank">
             Huolala-Tech
           </a>
