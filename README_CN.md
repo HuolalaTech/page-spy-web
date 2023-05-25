@@ -106,6 +106,12 @@ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech
 
 除此之外，当有新的数据或者数据发生变化的时候会实时的收到通知。
 
+## 技术支持
+
+有问题可以使用微信扫码进群。
+
+<img src="./src/assets/image/wechat-group-1.jpg" alt="微信群" />
+
 ## 开发
 
 1. 克隆仓库:
