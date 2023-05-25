@@ -52,10 +52,10 @@ const routes: RouteObject[] = [
   },
 ];
 
-const RouteConfing = () => {
+const RouteConfig = () => {
   const routeContent = useRoutes(routes);
 
   return routeContent;
 };
 
-export default RouteConfing;
+export default RouteConfig;
