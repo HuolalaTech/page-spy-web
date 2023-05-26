@@ -1,5 +1,5 @@
-import clsx from 'classnames';
-import React, { memo, useMemo, useState } from 'react';
+import clsx from 'clsx';
+import { memo, useMemo, useState } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import './index.less';
 import CopyContent from '../ConsolePanel/components/CopyContent';

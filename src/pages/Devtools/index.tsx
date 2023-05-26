@@ -18,12 +18,11 @@ import PagePanel from './PagePanel';
 import { DownOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
 import { getSpyRoom } from '@/apis';
-import clsx from 'classnames';
+import clsx from 'clsx';
 import './index.less';
 import { StoragePanel } from './StoragePanel';
 import useSearch from '@/utils/useSearch';
 import { useEventListener } from '@/utils/useEventListener';
-import classNames from 'classnames';
 import { resolveClientInfo } from '@/utils/brand';
 import { useTranslation } from 'react-i18next';
 import { ConnectStatus } from './ConnectStatus';
@@ -88,7 +87,7 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
           >
             <span>{t(`menu.${item}`)}</span>
             <div
-              className={classNames('circle-badge', {
+              className={clsx('circle-badge', {
                 show: badge[item as MenuKeys],
               })}
             />
