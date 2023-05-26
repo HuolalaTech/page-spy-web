@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import './index.less';
-import clsx from 'classnames';
+import clsx from 'clsx';
 import CopyContent from '../CopyContent';
 import type { SpyAtom } from '@huolala-tech/page-spy';
 import { LoadMore } from './LoadMore';

@@ -17,7 +17,7 @@ import { useState, useMemo } from 'react';
 import { getObjectKeys } from '@/utils';
 import { usePopupRef, withPopup } from '@/utils/withPopup';
 import type { SpyNetwork } from '@huolala-tech/page-spy';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 export function getStatusText(row: SpyNetwork.RequestInfo) {
   if (row.readyState === 0 || row.readyState === 1) return 'Pending';
@@ -31,7 +31,8 @@ export const StatusCode = ({ data }: { data: SpyNetwork.RequestInfo }) => {
   const { readyState, status } = data;
   let statusClass = '';
   let statusText = status;
-  if (status < 200) {
+  const code = Number(status);
+  if (code < 200) {
     if (readyState <= 1) {
       statusClass = 'pending';
       statusText = 'Pending';
@@ -39,16 +40,16 @@ export const StatusCode = ({ data }: { data: SpyNetwork.RequestInfo }) => {
       statusClass = 'error';
       statusText = 'Failed';
     }
-  } else if (status < 300) {
+  } else if (code < 300) {
     statusClass = 'success';
-  } else if (status < 400) {
+  } else if (code < 400) {
     statusClass = 'redirect';
   } else {
     statusClass = 'error';
   }
   return (
     <Space>
-      <div className={classNames(['status-code-circle', statusClass])} />
+      <div className={clsx(['status-code-circle', statusClass])} />
       <b>{statusText}</b>
     </Space>
   );
