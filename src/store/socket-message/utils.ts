@@ -1,6 +1,6 @@
 import { ElementContent, Root } from 'hast';
-import rehypeDomParse from 'rehype-dom-parse';
-import rehypeDomStrigify from 'rehype-dom-stringify';
+import rehypeParse from 'rehype-parse';
+import rehypeStrigify from 'rehype-stringify';
 import { Plugin, unified } from 'unified';
 import { visit } from 'unist-util-visit';
 
@@ -26,13 +26,14 @@ const fixHtmlSourceUriPlugin: Plugin<[{ base: string }], Root, Root> =
 export const getFixedPageMsg = async (htmlText: string, base: string) => {
   try {
     const processor = unified()
-      .use(rehypeDomParse)
+      .use(rehypeParse)
       .use(fixHtmlSourceUriPlugin, { base })
-      .use(rehypeDomStrigify)
+      .use(rehypeStrigify)
       .data('settings', { fragment: false });
 
     const file = await processor.process(htmlText);
     const html = file.toString();
+
     const tree = processor.parse(file).children as ElementContent[];
     return {
       tree,
