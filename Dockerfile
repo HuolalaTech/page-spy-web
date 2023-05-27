@@ -1,7 +1,7 @@
 FROM node:19-buster AS frontend
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+COPY package.json yarn.lock ./
+RUN yarn install
 COPY . .
 RUN npm run build:client
 
