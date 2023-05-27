@@ -9,7 +9,7 @@ import React, {
   useState,
 } from 'react';
 import { ClearOutlined } from '@ant-design/icons';
-import clsx from 'classnames';
+import clsx from 'clsx';
 import './index.less';
 import { TypeNode } from '../TypeNode';
 import {
