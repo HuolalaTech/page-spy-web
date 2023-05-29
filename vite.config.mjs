@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import path from 'path';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
-import ssl from '@vitejs/plugin-basic-ssl';
 import mdx from '@mdx-js/rollup';
 
 export default ({ mode, command }) => {
@@ -42,7 +41,6 @@ export default ({ mode, command }) => {
       },
       react(),
       svgr(),
-      ssl(),
     ],
   });
 };

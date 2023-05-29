@@ -121,17 +121,19 @@ export const StoragePanel = () => {
               setDetailSize(height);
             }}
           >
-            <div
-              className="storage-panel__detail"
-              style={{ flexBasis: detailSize }}
-            >
-              {detailInfo ? (
-                <TypeNode source={detailInfo} />
-              ) : (
-                <div className="empty-detail-info">
-                  {t('storage.empty-detail')}
-                </div>
-              )}
+            <div className="storage-panel__detail">
+              <div
+                className="storage-item-detail"
+                style={{ height: detailSize, overflowY: 'auto' }}
+              >
+                {detailInfo ? (
+                  <TypeNode source={detailInfo} />
+                ) : (
+                  <div className="empty-detail-info">
+                    {t('storage.empty-detail')}
+                  </div>
+                )}
+              </div>
             </div>
           </Resizable>
         </Layout>
