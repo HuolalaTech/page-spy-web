@@ -27,8 +27,11 @@
   &__detail {
     flex-shrink: 0;
     position: relative;
-    padding: (@controllerSize + 8px) 12px 8px;
     background-color: #fff;
+    padding-top: @controllerSize;
+    .storage-item-detail {
+      padding: 8px;
+    }
   }
   .height-controller {
     position: absolute;
