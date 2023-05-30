@@ -23,11 +23,24 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set Node.js 19.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19.x
+
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+
       - name: Build
         run: |
+          yarn run build:client
+          cp -r dist backend/dist
+          cd backend
           bash build.sh
 
       - name: Upload assets
         uses: softprops/action-gh-release@v1
         with:
-          files: build/compress/*
+          files: backend/build/compress/*
