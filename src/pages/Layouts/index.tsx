@@ -7,6 +7,8 @@ import { Suspense } from 'react';
 import { LoadingFallback } from '@/components/LoadingFallback';
 import { NavMenuOnPc, NavMenuOnMobile } from './NavMenu';
 import { useDarkTheme } from '@/utils/useDarkTheme';
+import { version } from '../../../package.json';
+import { isClient } from '@/utils/constants';
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -28,6 +30,9 @@ export const Layouts = () => {
                 <LogoSvg className="logo-icon" />
                 <Title level={4} className="logo-name">
                   PageSpy
+                  {isClient && (
+                    <span className="page-spy-version">v{version}</span>
+                  )}
                 </Title>
               </Link>
             </div>

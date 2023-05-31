@@ -1,30 +1,23 @@
 /* eslint-disable no-case-declarations */
 import { getObjectKeys } from '@/utils';
-import { Button, Col, Dropdown, Empty, Menu, Row, Space, Tooltip } from 'antd';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { Button, Col, Dropdown, Empty, Row, Space, Tooltip } from 'antd';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ClearOutlined } from '@ant-design/icons';
 import clsx from 'clsx';
 import './index.less';
-import { TypeNode } from '../TypeNode';
 import {
-  getStatusText,
-  getTime,
+  EntriesBody,
   PartOfHeader,
   QueryParamsBlock,
+  RequestPayloadBlock,
   ResponseBody,
   StatusCode,
-  validValues,
 } from './comps';
 import type { SpyNetwork } from '@huolala-tech/page-spy';
 import copy from 'copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
+import { getStatusText, getTime, validEntries } from './utils';
 
 const networkTitle = ['Name', 'Path', 'Method', 'Status', 'Type', 'Time(≈)'];
 const generalFieldMap = {
@@ -109,7 +102,7 @@ const NetworkPanel = () => {
           let result = `curl '${row.url}'`;
           let headers = '';
           if (row.requestHeader) {
-            headers = Object.entries(row.requestHeader)
+            headers = row.requestHeader
               .map(([k, v]) => {
                 return `-H '${k}: ${v}'`;
               })
@@ -143,15 +136,16 @@ const NetworkPanel = () => {
           imageStyle={{ height: 30 }}
         />
       );
-      const { getData, postData, requestHeader, responseHeader } = detailData;
+      const { getData, requestPayload, requestHeader, responseHeader } =
+        detailData;
       const headerContent = [
         {
           label: 'Request Header',
-          data: validValues(requestHeader),
+          data: validEntries(requestHeader) ? requestHeader : [],
         },
         {
           label: 'Response Header',
-          data: validValues(responseHeader),
+          data: validEntries(responseHeader) ? responseHeader : [],
         },
       ];
       return (
@@ -191,36 +185,16 @@ const NetworkPanel = () => {
                   <PartOfHeader />
                 </Space>
                 <div className="detail-block__content">
-                  {item.data
-                    ? Object.keys(item.data).map((label) => {
-                        return (
-                          <div className="content-item" key={label}>
-                            <b className="content-item__label">
-                              {label}: &nbsp;
-                            </b>
-                            <span className="content-item__value">
-                              <code>{item.data[label]}</code>
-                            </span>
-                          </div>
-                        );
-                      })
-                    : emptyContent}
+                  {item.data ? <EntriesBody data={item.data} /> : emptyContent}
                 </div>
               </div>
             );
           })}
           {/* Query String Parametes */}
-          {validValues(getData) && <QueryParamsBlock data={getData} />}
+          {validEntries(getData) && <QueryParamsBlock data={getData} />}
 
           {/* Request Payload */}
-          {validValues(postData) && (
-            <div className="detail-block">
-              <b className="detail-block__label">Request Payload</b>
-              <span className="detail-block__content">
-                <TypeNode source={JSON.stringify(postData)} spread />
-              </span>
-            </div>
-          )}
+          {requestPayload && <RequestPayloadBlock data={requestPayload} />}
 
           {/* Response Body */}
           <div className="detail-block">
