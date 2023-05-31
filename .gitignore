@@ -5,6 +5,8 @@ node_modules/
 backend/dist
 backend/*.json
 backend/*/*.json
+backend/vendor
+backend/build
 # Log files
 npm-debug.log*
 yarn-debug.log*

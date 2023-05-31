@@ -5,7 +5,7 @@ RUN yarn install
 COPY . .
 RUN npm run build:client
 
-FROM golang:1.19-buster AS backend
+FROM golang:1.20-buster AS backend
 WORKDIR /app
 COPY backend/go.mod backend/go.sum ./
 RUN go mod download

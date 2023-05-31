@@ -42,7 +42,7 @@ export const parseDeviceInfo = (device: string): DeviceInfo => {
     browserVersion,
   } as DeviceInfo;
 };
-export const OS_LOGO: Record<SpyDevice.OS, string> = {
+export const OS_LOGO: Record<Exclude<SpyDevice.OS, 'Unknown'>, string> = {
   // os
   Mac: iOSSvg,
   iPad: iOSSvg,
@@ -51,7 +51,10 @@ export const OS_LOGO: Record<SpyDevice.OS, string> = {
   Android: androidSvg,
   Linux: linuxSvg,
 };
-export const BROWSER_LOGO: Record<SpyDevice.Browser, string> = {
+export const BROWSER_LOGO: Record<
+  Exclude<SpyDevice.Browser, 'Unknown'>,
+  string
+> = {
   // browser
   Chrome: chromeSvg,
   Firefox: firefoxSvg,
