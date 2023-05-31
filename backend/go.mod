@@ -2,7 +2,7 @@ module github.com/HuolalaTech/page-spy-web/backend
 
 go 1.20
 
-require github.com/HuolalaTech/page-spy-api v0.0.0-20230529070408-69b8e8b2f851
+require github.com/HuolalaTech/page-spy-api v1.1.0
 
 require (
 	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
