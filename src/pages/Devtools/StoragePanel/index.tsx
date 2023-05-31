@@ -69,7 +69,9 @@ export const StoragePanel = () => {
                     dataIndex="expires"
                     ellipsis
                     render={(value) => {
-                      const time = value ? new Date(value).toISOString() : '--';
+                      const time = value
+                        ? new Date(value).toISOString()
+                        : 'Session';
                       return (
                         <Tooltip placement="topLeft" title={time}>
                           {time}
