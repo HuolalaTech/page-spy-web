@@ -28,6 +28,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Set Node.js 19.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19.x
+
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+
+      - name: Build
+        run: |
+          yarn run build:client
+          cp -r dist backend/dist
+
       - name: Log in to the Container registry
         uses: docker/login-action@v2
         with:
