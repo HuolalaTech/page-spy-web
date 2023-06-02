@@ -5,7 +5,9 @@
   "homepage": "https://huolalatech.github.io/page-spy-web",
   "license": "MIT",
   "scripts": {
-    "start": "vite",
+    "start:doc": "vite --mode doc",
+    "prestart:client": "node scripts/mv-sdk.js",
+    "start:client": "vite --mode client",
     "build:doc": "vite build --mode doc",
     "prebuild:client": "node scripts/mv-sdk.js",
     "build:client": "vite build --mode client",

@@ -141,7 +141,7 @@ yarn install
 
 ```bash
 # frontend
-yarn start
+yarn start:client
 
 # backend
 cd backend/bin

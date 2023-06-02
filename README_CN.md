@@ -130,7 +130,7 @@ yarn install
 
 ```bash
 # 前端
-yarn start
+yarn start:client
 
 # 后端
 cd backend/bin
