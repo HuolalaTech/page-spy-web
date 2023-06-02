@@ -4,7 +4,7 @@
 [install-go]: https://go.dev/doc/install 'Go Download'
 [github-release]: https://github.com/HuolalaTech/page-spy-web/releases/tag/v1.2.0 'PageSpy Release'
 
-## PageSpy Contributing Guide
+# PageSpy Contributing Guide
 
 你好！感谢你拿出时间来为 PageSpy 贡献，对此我们感到非常高兴。任何贡献都可以让 PageSpy 越来越好！在正式提交你的贡献之前，请阅读以下指引文档。
 
@@ -18,7 +18,7 @@ PageSpy 主要由三个仓库组成：
 
 ## Repo Setup
 
-> 请注意：不是每个仓库都需要在本地搭建开发环境，你可以只专注于一个仓库，请点击 [分情景调试][#分情景调试] 查看详情。
+> 请注意：不是每个仓库都需要在本地搭建开发环境，你可以只专注于一个仓库，请点击 [分情景调试](#分情景调试) 查看详情。
 
 ### 搭建服务器端
 
