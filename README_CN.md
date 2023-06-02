@@ -110,7 +110,7 @@ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech
 
 有问题可以使用微信扫码进群。
 
-<img src="./src/assets/image/wechat-group-1.jpg" alt="微信群" width="300" />
+<img src="https://public-assets-v.huolala.cn/images/page-spy-wechat-group.jpg" alt="微信群" width="300" />
 
 ## 开发
 
