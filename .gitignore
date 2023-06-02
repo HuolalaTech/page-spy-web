@@ -6,6 +6,7 @@ backend/dist
 backend/*.json
 backend/*/*.json
 backend/vendor
+backend/npm
 backend/build
 # Log files
 npm-debug.log*
