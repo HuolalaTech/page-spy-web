@@ -14,9 +14,11 @@ PageSpy 主要由三个仓库组成：
 - 服务器端代码在 [HuolalaTech/page-spy-api][page-spy-api] 仓库维护；
 - 需要在客户端引入的 SDK 代码在 [HuolalaTech/page-spy][page-spy-sdk] 仓库维护；
 
-提供服务的方式是托管在 Github Package 中的 Docker 镜像。
+提供服务的方式是托管在 Github Package 中的 Docker 镜像（推荐）或者使用 [Release][github-release] 托管的可执行文件。
 
 ## Repo Setup
+
+> 请注意：不是每个仓库都需要在本地搭建开发环境，你可以只专注于一个仓库，请点击 [分情景调试][#分情景调试] 查看详情。
 
 ### 搭建服务器端
 
@@ -26,7 +28,7 @@ Fork [HuolalaTech/page-spy-api][page-spy-api] 仓库并 clone 到本地，然后
 
 1. 在 `VSCode` 或者你偏好的编辑器中打开 page-spy-api 项目；
 
-2. 在 page-spy-api 目录下执行以下命令安装依赖：
+2. 在 page-spy-api 目录下执行命令安装依赖：
 
    ```bash
    $ go mod tidy
@@ -89,7 +91,7 @@ Fork [HuolalaTech/page-spy-api][page-spy-api] 仓库并 clone 到本地，然后
    $ curl http://localhost:6752/api/v1/room/list
    ```
 
-   不出意外的话，应该会返回类似下方的内容：
+   不出意外的话，应该会返回类似下方的内容，代表服务器端环境搭建成功：
 
    ```bash
    {"code":"success","data":[],"success":true,"message":""}
@@ -97,7 +99,7 @@ Fork [HuolalaTech/page-spy-api][page-spy-api] 仓库并 clone 到本地，然后
 
 ### 搭建调试端
 
-Fork [HuolalaTech/page-spy-web][page-spy-web] 仓库并 clone 到本地，page-spy-web 使用 `yarn` 作为包管理器，包管理器用于安装项目依赖。按照如下步骤执行：
+Fork [HuolalaTech/page-spy-web][page-spy-web] 仓库并 clone 到本地，page-spy-web 推荐使用 `yarn` 作为包管理器，包管理器用于安装项目依赖。按照如下步骤执行：
 
 1. 在 `VSCode` 或者你偏好的编辑器中打开 page-spy-web 项目；
 
@@ -129,7 +131,7 @@ Fork [HuolalaTech/page-spy-web][page-spy-web] 仓库并 clone 到本地，page-s
      ➜  press h to show help
    ```
 
-5. 在浏览器中访问 http://localhost:5173/，如果是首次打开请稍微等一会儿，之后你应该能看到调试端在浏览器上显示。
+5. 在浏览器中访问 http://localhost:5173/ ，如果是首次打开请稍微等一会儿，之后你应该能看到调试端在浏览器上显示。
 
 ### 搭建 SDK
 
@@ -155,7 +157,7 @@ Fork [HuolalaTech/page-spy][page-spy-sdk] 仓库并 clone 到本地，page-spy-w
 
 ### 准备工作
 
-PageSpy 对外提供的使用方式有下面几种，这些方式打包上面三个仓库的实现细节，支持一键使用。选择任意你偏好的方式在本地或者线上部署：
+PageSpy 对外提供的使用方式有下面几种，它们打包了上面三个仓库的实现细节，支持一键使用。选择任意你偏好的方式在本地或者线上部署：
 
 1. 使用 Docker 镜像的方式启动服务:
 
@@ -163,13 +165,11 @@ PageSpy 对外提供的使用方式有下面几种，这些方式打包上面三
    $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
    ```
 
-2. 使用在 Release 页面托管的二进制可执行文件；
+2. 使用在 [Release][github-release] 页面托管的二进制可执行文件；
 
 当你操作完成后，下文假设您的服务部署在 https://example.com ，现在调试端、服务端、SDK 都已经准备就绪。
 
-### 创建测试项目
-
-创建一个测试项目或者直接使用你已有的项目，测试项目用于引入 SDK 并连接我们的服务。
+3. 创建测试项目。创建一个测试项目或者直接使用你已有的项目，测试项目用于引入 SDK 并连接我们的服务。
 
 <img src="./src/assets/image/relation.png" alt="Relation" height="180" />
 
@@ -182,9 +182,9 @@ PageSpy 对外提供的使用方式有下面几种，这些方式打包上面三
 VITE_API_BASE=example.com
 ```
 
-（注意："example.com" 只是假设你将服务部署在 https://example.com，你应该替换为实际部署地址。）
+（注意："example.com" 只是假设你将服务部署在 https://example.com ，你应该替换为实际部署地址。）
 
-等待服务启动后，在浏览器打开调试端地址 http://localhost:5173 ，端口可能不一样，请按照你本地服务打印的地址内容访问。点击顶部「接入 SDK」菜单，按照指引在测试项目中接入，其中实例化需要传入配置：
+等待服务启动后，在浏览器打开调试端地址 http://localhost:5173 ，端口可能不一样，请按照你本地服务打印的地址访问。点击顶部「接入 SDK」菜单，按照指引在测试项目中接入，其中实例化需要传入配置：
 
 ```ts
 new PageSpy({
@@ -194,11 +194,11 @@ new PageSpy({
 });
 ```
 
-之后启动测试项目，测试项目的页面左下角应该出现了 PageSpy 的标志（白色圆形容器，中间包含了 PageSpy logo）。通过 https://localhost:5173 访问调试端顶部菜单「房间列表」，测试项目的调试房间应该出现在列表上了。现在你可以修改调试端代码，开始为调试端代码贡献。
+之后启动测试项目，测试项目的页面左下角应该出现了 PageSpy 的标志（白色圆形容器，中间包含了 PageSpy logo）。通过 https://localhost:5173 访问调试端顶部菜单「房间列表」，测试项目的调试房间应该出现在列表上了。现在你可以修改调试端代码，开始为调试端仓库贡献。
 
 ### 专注 SDK
 
-如果你想只专注与为 SDK 提交贡献，按照 [搭建 SDK][#搭建-sdk] 的步骤在本地搭建服务。
+如果你想只专注于为 SDK 提交贡献，按照 [搭建 SDK](#搭建-sdk) 的步骤在本地搭建服务。
 
 建议执行终端命令，当发生变更时即可执行构建：
 
@@ -216,4 +216,4 @@ new PageSpy({
 });
 ```
 
-之后启动测试项目，测试项目的页面左下角应该出现了 PageSpy 的标志（白色圆形容器，中间包含了 PageSpy logo）。通过 https://example.com 访问调试端顶部菜单「房间列表」，测试项目的调试房间应该出现在列表上了。现在你可以修改 SDK 代码，开始为 SDK 代码贡献。
+之后启动测试项目，测试项目的页面左下角应该出现了 PageSpy 的标志（白色圆形容器，中间包含了 PageSpy logo）。通过 https://example.com 访问调试端顶部菜单「房间列表」，测试项目的调试房间应该出现在列表上了。现在你可以修改 SDK 代码，开始为 SDK 仓库贡献。
