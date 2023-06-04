@@ -135,11 +135,11 @@ Fork [HuolalaTech/page-spy-web][page-spy-web] 仓库并 clone 到本地，page-s
 
 ### 搭建 SDK
 
-Fork [HuolalaTech/page-spy][page-spy-sdk] 仓库并 clone 到本地，page-spy-web 推荐使用 `yarn` 作为包管理器。按照如下步骤执行：
+Fork [HuolalaTech/page-spy][page-spy-sdk] 仓库并 clone 到本地，page-spy 推荐使用 `yarn` 作为包管理器。按照如下步骤执行：
 
-1. 在 `VSCode` 或者你偏好的编辑器中打开 page-spy-web 项目；
+1. 在 `VSCode` 或者你偏好的编辑器中打开 page-spy 项目；
 
-2. 在 page-spy-web 目录下执行以下命令安装依赖：
+2. 在 page-spy 目录下执行以下命令安装依赖：
 
    ```bash
    $ yarn install
@@ -171,7 +171,7 @@ PageSpy 对外提供的使用方式有下面几种，它们打包了上面三个
 
 3. 创建测试项目。创建一个测试项目或者直接使用你已有的项目，测试项目用于引入 SDK 并连接我们的服务。
 
-<img src="./src/assets/image/relation.png" alt="Relation" height="180" />
+<img src="./src/assets/image/relation.png" alt="Relation" width="90%" />
 
 ### 专注调试端
 
