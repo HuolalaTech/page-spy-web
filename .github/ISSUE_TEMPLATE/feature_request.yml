@@ -1,0 +1,47 @@
+name: "\U0001F680 New feature proposal"
+description: Propose a new feature to be added to PageSpy
+labels: ['enhancement']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your interest in the project and taking the time to fill out this feature report!
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Description
+      description: 'Clear and concise description of the problem. Please make the reason and usecases as detailed as possible. If you intend to submit a PR for this issue, tell us in the description. Thanks!'
+      placeholder: As a developer using PageSpy I want [goal / wish] so that [benefit].
+    validations:
+      required: true
+  - type: textarea
+    id: suggested-solution
+    attributes:
+      label: Suggested solution
+      description: 'In module [xy] we could provide following implementation...'
+    validations:
+      required: true
+  - type: textarea
+    id: alternative
+    attributes:
+      label: Alternative
+      description: Clear and concise description of any alternative solutions or features you've considered.
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Any other context or screenshots about the feature request here.
+  - type: checkboxes
+    id: checkboxes
+    attributes:
+      label: Validations
+      description: Before submitting the issue, please make sure you do the following
+      options:
+        - label: Read the [docs](https://huolalatech.github.io/page-spy-web/docs).
+          required: true
+        - label: Read the [Contributing Guidelines](https://github.com/HuolalaTech/page-spy-web/blob/main/CONTRIBUTING.md).
+          required: true
+        - label: Check that there isn't [already an issue](https://github.com/HuolalaTech/page-spy-web/issues) that reports the same bug to avoid creating a duplicate.
+          required: true
+        - label: The provided reproduction is a [minimal reproducible example](https://stackoverflow.com/help/minimal-reproducible-example) of the bug.
+          required: true
