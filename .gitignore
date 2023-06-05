@@ -8,6 +8,8 @@ backend/*/*.json
 backend/vendor
 backend/npm
 backend/build
+config.json
+
 # Log files
 npm-debug.log*
 yarn-debug.log*

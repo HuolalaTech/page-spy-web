@@ -2,7 +2,8 @@ name: release
 
 on:
   push:
-    branches: ["feat/page-spy-api-package"]
+    tags:
+      - "v*.*.*"
 
 jobs:
   release:
@@ -43,7 +44,7 @@ jobs:
           cd backend
           bash build.sh
 
-      # - name: Upload assets
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     files: backend/build/compress/*
+      - name: Upload assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: backend/build/compress/*

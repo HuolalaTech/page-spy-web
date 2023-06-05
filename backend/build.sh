@@ -1,19 +1,19 @@
 #!/usr/bin/bash
 
 git_repository="https://github.com/HuolalaTech/page-spy-web"
-git_version=$(git describe --tags --abbrev=0)
+git_version=$(git describe --tags $(git rev-list --tags --max-count=1))
 npm_version=$(echo "$git_version" | sed 's/^v//')
 project_name="page-spy-api"
-organization="huolala-tech"
+organization="@huolala-tech"
 
 
 GenerateMainPackageJson() {
-  echo "generator @${organization}/${project_name}"
+  echo "generator ${organization}/${project_name}"
   mkdir -p ./npm/${project_name}
 
   cat <<EOF > "./npm/${project_name}/package.json"
 {
-  "name":"@${organization}/${project_name}",
+  "name":"${organization}/${project_name}",
   "version": "$npm_version",
   "description": "The binary runner for ${project_name}.",
   "repository": "${git_repository}",
@@ -30,21 +30,21 @@ GenerateMainPackageJson() {
     "${project_name}": "bin/${project_name}"
   },
   "optionalDependencies": {
-    "@${organization}/${project_name}-linux-amd64": "${npm_version}",
-    "@${organization}/${project_name}-linux-arm": "${npm_version}",
-    "@${organization}/${project_name}-linux-arm64": "${npm_version}",
-    "@${organization}/${project_name}-linux-mips": "${npm_version}",
-    "@${organization}/${project_name}-linux-mips64": "${npm_version}",
-    "@${organization}/${project_name}-linux-mips64le": "${npm_version}",
-    "@${organization}/${project_name}-linux-mipsle": "${npm_version}",
-    "@${organization}/${project_name}-linux-ppc64le": "${npm_version}",
-    "@${organization}/${project_name}-linux-ppc64": "${npm_version}",
-    "@${organization}/${project_name}-linux-s390x": "${npm_version}",
-    "@${organization}/${project_name}-win32-amd64": "${npm_version}",
-    "@${organization}/${project_name}-win32-arm": "${npm_version}",
-    "@${organization}/${project_name}-win32-arm64": "${npm_version}",
-    "@${organization}/${project_name}-darwin-amd64": "${npm_version}",
-    "@${organization}/${project_name}-darwin-arm64": "${npm_version}"
+    "${organization}/${project_name}-linux-amd64": "${npm_version}",
+    "${organization}/${project_name}-linux-arm": "${npm_version}",
+    "${organization}/${project_name}-linux-arm64": "${npm_version}",
+    "${organization}/${project_name}-linux-mips": "${npm_version}",
+    "${organization}/${project_name}-linux-mips64": "${npm_version}",
+    "${organization}/${project_name}-linux-mips64le": "${npm_version}",
+    "${organization}/${project_name}-linux-mipsle": "${npm_version}",
+    "${organization}/${project_name}-linux-ppc64le": "${npm_version}",
+    "${organization}/${project_name}-linux-ppc64": "${npm_version}",
+    "${organization}/${project_name}-linux-s390x": "${npm_version}",
+    "${organization}/${project_name}-win32-amd64": "${npm_version}",
+    "${organization}/${project_name}-win32-arm": "${npm_version}",
+    "${organization}/${project_name}-win32-arm64": "${npm_version}",
+    "${organization}/${project_name}-darwin-amd64": "${npm_version}",
+    "${organization}/${project_name}-darwin-arm64": "${npm_version}"
   },
   "license": "MIT"
 }
@@ -106,11 +106,11 @@ PublishAndGeneratePackageJson() {
   local arch="$2"
   local save_path="$3"
 
-  echo "@${organization}/${project_name}-${os}-${arch}"
+  echo "${organization}/${project_name}-${os}-${arch}"
   cpu=$(convertArch "$arch")
   cat <<EOF > "$save_path/package.json"
 {
-  "name": "@${organization}/${project_name}-${os}-${arch}",
+  "name": "${organization}/${project_name}-${os}-${arch}",
   "version": "$npm_version",
   "description": "The ${os} ${arch} binary for ${project_name}.",
   "repository": "${git_repository}",
