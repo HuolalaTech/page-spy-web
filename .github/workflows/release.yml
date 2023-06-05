@@ -29,6 +29,8 @@ jobs:
 
       - name: Set Node.js 19.x
         uses: actions/setup-node@v3
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
           node-version: 19.x
 
@@ -38,8 +40,6 @@ jobs:
           cmd: install
 
       - name: Build
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           yarn run build:client
           cp -r dist backend/dist
