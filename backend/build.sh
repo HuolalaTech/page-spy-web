@@ -1,8 +1,7 @@
 #!/usr/bin/bash
 
 git_repository="https://github.com/HuolalaTech/page-spy-web"
-# git_version=$(git describe --tags --abbrev=0)
-git_version="v0.0.6"
+git_version=$(git describe --tags --abbrev=0)
 npm_version=$(echo "$git_version" | sed 's/^v//')
 project_name="page-spy-api"
 organization="huolala-tech"
