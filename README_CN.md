@@ -133,8 +133,7 @@ yarn install
 yarn start:client
 
 # 后端
-cd backend/bin
-go run local.go
+yarn start:server
 ```
 
 4. 生产构建
