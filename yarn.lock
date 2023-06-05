@@ -499,6 +499,11 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@huolala-tech/custom-error@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/custom-error/-/custom-error-1.0.0.tgz#962726e0427753e4ebe637d79e69393dca70ed50"
+  integrity sha512-VdDs0EWLK/kXUCcYX7kD0ol0tMnjGrTlELl/GG+rrYJVr1wzad7+J4/t71zkvPWp54YAqhCnkq0+Tl6TqJkGgg==
+
 "@huolala-tech/page-spy@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy/-/page-spy-1.2.0.tgz#a88afcad06fac8b313b3cb4ae5aefd3743dfb7e0"
@@ -506,6 +511,13 @@
   dependencies:
     "@babel/runtime" "^7.13.0"
     copy-to-clipboard "^3.3.1"
+
+"@huolala-tech/request@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/request/-/request-1.1.2.tgz#28bd1ad3816e7cfc2b622a7a3883f4b276a0ee54"
+  integrity sha512-6mIVX36oaIKXZW4e9ui200hldbAjw24Qj+kYeoMfs57zzPLWRK3J77yJsQr+4v4s8D1qjuExOsAg07e1jngnkg==
+  dependencies:
+    "@huolala-tech/custom-error" "^1.0.0"
 
 "@jridgewell/gen-mapping@^0.3.0", "@jridgewell/gen-mapping@^0.3.2":
   version "0.3.3"
