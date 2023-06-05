@@ -2,14 +2,14 @@
 
 git_repository="https://github.com/HuolalaTech/page-spy-web"
 # git_version=$(git describe --tags --abbrev=0)
-git_version="v0.0.1"
+git_version="v0.0.4"
 npm_version=$(echo "$git_version" | sed 's/^v//')
-project_name="page-spy"
+project_name="page-spy-api"
 organization="huolala-tech"
 
 
-Generate_main_package_json() {
-  echo "@${organization}/${project_name}-${os}-${arch}"
+GenerateMainPackageJson() {
+  echo "generator @${organization}/${project_name}"
   mkdir -p ./npm/${project_name}
 
   cat <<EOF > "./npm/${project_name}/package.json"
@@ -19,6 +19,10 @@ Generate_main_package_json() {
   "description": "The binary runner for ${project_name}.",
   "repository": "${git_repository}",
   "scripts": {
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   },
   "engines": {
     "node": ">=17"
@@ -37,10 +41,10 @@ Generate_main_package_json() {
     "@${organization}/${project_name}-linux-ppc64le": "${npm_version}",
     "@${organization}/${project_name}-linux-ppc64": "${npm_version}",
     "@${organization}/${project_name}-linux-s390x": "${npm_version}",
-    "@${organization}/${project_name}-windows-386": "${npm_version}",
-    "@${organization}/${project_name}-windows-amd64": "${npm_version}",
-    "@${organization}/${project_name}-windows-arm": "${npm_version}",
-    "@${organization}/${project_name}-windows-arm64": "${npm_version}",
+    "@${organization}/${project_name}-win32-386": "${npm_version}",
+    "@${organization}/${project_name}-win32-amd64": "${npm_version}",
+    "@${organization}/${project_name}-win32-arm": "${npm_version}",
+    "@${organization}/${project_name}-win32-arm64": "${npm_version}",
     "@${organization}/${project_name}-darwin-amd64": "${npm_version}",
     "@${organization}/${project_name}-darwin-arm64": "${npm_version}"
   },
@@ -54,21 +58,68 @@ EOF
 
   mkdir -p npm/${project_name}/bin
   cp -r publish/${project_name}.js npm/${project_name}/bin/${project_name}
+  cp -r publish/${project_name}.js npm/${project_name}/index.js
+  cp -r publish/install.js npm/${project_name}/install.js
+  cd npm/${project_name}
+  npm publish
+  cd ../..
 }
 
-generate_package_json() {
+convertArch() {
+  case $1 in
+    amd64)
+      echo "x64"
+      ;;
+    arm)
+      echo "arm"
+      ;;
+    arm64)
+      echo "arm64"
+      ;;
+    mips)
+      echo "mips"
+      ;;
+    mips64)
+      echo "mips64"
+      ;;
+    mips64le)
+      echo "mips64le"
+      ;;
+    mipsle)
+      echo "mipsle"
+      ;;
+    ppc64le)
+      echo "ppc64le"
+      ;;
+    ppc64)
+      echo "ppc"
+      ;;
+    s390x)
+      echo "s390"
+      ;;
+    *)
+      echo "Unknown architecture: $1"
+      ;;
+  esac
+}
+
+PublishAndGeneratePackageJson() {
   local os="$1"
   local arch="$2"
   local save_path="$3"
 
   echo "@${organization}/${project_name}-${os}-${arch}"
-
+  cpu=$(convertArch "$arch")
   cat <<EOF > "$save_path/package.json"
 {
   "name": "@${organization}/${project_name}-${os}-${arch}",
   "version": "$npm_version",
   "description": "The ${os} ${arch} binary for ${project_name}.",
   "repository": "${git_repository}",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
   "license": "MIT",
   "preferUnplugged": true,
   "engines": {
@@ -78,7 +129,7 @@ generate_package_json() {
     "${os}"
   ],
   "cpu": [
-    "${arch}"
+    "${cpu}"
   ]
 }
 EOF
@@ -86,6 +137,9 @@ EOF
   The ${os} ${arch} binary for ${project_name}.
   visit ${git_repository} for detail
 EOF
+cd $save_path
+npm publish
+cd ../..
 }
 
 BuildRelease() {
@@ -98,17 +152,17 @@ BuildRelease() {
 		env GOOS=linux GOARCH=${arch} go build -o ./build/${project_name}-linux-${arch}
     mkdir -p npm/linux-${arch}/bin
     cp -r ./build/${project_name}-linux-${arch} npm/linux-${arch}/bin/${project_name}
-    generate_package_json "linux" "${arch}" "npm/linux-${arch}"
+    PublishAndGeneratePackageJson "linux" "${arch}" "npm/linux-${arch}"
 	done
 
 	win_archs=(amd64 arm arm64)
 
 	for arch in ${win_archs[@]}
 	do
-		env GOOS=windows GOARCH=${arch} go build -o ./build/${project_name}-windows-${arch}.exe
-    mkdir -p npm/windows-${arch}
-    cp -r ./build/${project_name}-windows-${arch}.exe npm/windows-${arch}/${project_name}.exe
-    generate_package_json "win32" "${arch}" "npm/windows-${arch}"
+		env GOOS=windows GOARCH=${arch} go build -o ./build/${project_name}-win32-${arch}.exe
+    mkdir -p npm/win32-${arch}
+    cp -r ./build/${project_name}-win32-${arch}.exe npm/win32-${arch}/${project_name}.exe
+    PublishAndGeneratePackageJson "win32" "${arch}" "npm/win32-${arch}"
 	done
 
 	mac_archs=(amd64 arm64)
@@ -118,7 +172,7 @@ BuildRelease() {
 		env GOOS=darwin GOARCH=${arch} go build -o ./build/${project_name}-darwin-${arch}
     mkdir -p npm/darwin-${arch}/bin
     cp -r ./build/${project_name}-darwin-${arch} npm/darwin-${arch}/bin/${project_name}
-    generate_package_json "darwin" "${arch}" "npm/darwin-${arch}"
+    PublishAndGeneratePackageJson "darwin" "${arch}" "npm/darwin-${arch}"
 	done
 }
 
@@ -148,6 +202,12 @@ MakeRelease() {
   cd ../..
 }
 
-# BuildRelease
-# MakeRelease
-Generate_main_package_json
+Clean() {
+  rm -rf build
+  rm -rf npm
+}
+
+Clean
+BuildRelease
+MakeRelease
+GenerateMainPackageJson
