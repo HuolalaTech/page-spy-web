@@ -8,6 +8,7 @@
     "start:doc": "vite --mode doc",
     "prestart:client": "node scripts/mv-sdk.js",
     "start:client": "vite --mode client",
+    "start:server": "page-spy-api",
     "build:doc": "vite build --mode doc",
     "prebuild:client": "node scripts/mv-sdk.js",
     "build:client": "vite build --mode client",
@@ -17,6 +18,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
     "@huolala-tech/page-spy": "1.2.0",
+    "@huolala-tech/page-spy-api": "^1.0.0",
     "@mdx-js/rollup": "^2.3.0",
     "@types/lodash-es": "^4.17.7",
     "@types/mdx": "^2.0.4",
