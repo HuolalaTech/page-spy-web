@@ -39,7 +39,7 @@ jobs:
 
       - name: Build
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           yarn run build:client
           cp -r dist backend/dist
