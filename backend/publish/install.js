@@ -1,34 +1,4 @@
 'use strict';
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __copyProps = (to, from, except, desc) => {
-  if ((from && typeof from === 'object') || typeof from === 'function') {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, {
-          get: () => from[key],
-          enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable,
-        });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (
-  (target = mod != null ? __create(__getProtoOf(mod)) : {}),
-  __copyProps(
-    // If the importer is in node compatibility mode or this is not an ESM
-    // file that has been converted to a CommonJS file using a Babel-
-    // compatible transform (i.e. "__esModule" has not been set), then set
-    // "default" to the CommonJS "module.exports" for node compatibility.
-    isNodeMode || !mod || !mod.__esModule
-      ? __defProp(target, 'default', { value: mod, enumerable: true })
-      : target,
-    mod,
-  )
-);
 const projectName = 'page-spy-api';
 const organization = '@huolala-tech';
 const mainPackage = `${organization}/${projectName}`;
@@ -41,7 +11,7 @@ var knownWindowsPackages = {
   'win32 arm64 LE': `${organization}/${projectName}-win32-arm64`,
   'win32 x64 LE': `${organization}/${projectName}-win32-amd64`,
 };
-var knownUnixlikePackages = {
+var knownUnixLikePackages = {
   'darwin arm64 LE': `${organization}/${projectName}-darwin-arm64`,
   'darwin x64 LE': `${organization}/${projectName}-darwin-amd64`,
   'linux arm LE': `${organization}/${projectName}-linux-arm`,
@@ -56,8 +26,8 @@ function pkgAndSubpathForCurrentPlatform() {
   if (platformKey in knownWindowsPackages) {
     pkg = knownWindowsPackages[platformKey];
     subpath = `${projectName}.exe`;
-  } else if (platformKey in knownUnixlikePackages) {
-    pkg = knownUnixlikePackages[platformKey];
+  } else if (platformKey in knownUnixLikePackages) {
+    pkg = knownUnixLikePackages[platformKey];
     subpath = `bin/${projectName}`;
   } else {
     throw new Error(`Unsupported platform: ${platformKey}`);
@@ -83,8 +53,7 @@ var versionFromPackageJSON = require(path2.join(
   __dirname,
   'package.json',
 )).version;
-var toPath = path2.join(__dirname, 'bin', `${projectName}`);
-var isToPathJS = true;
+
 function fetch(url) {
   return new Promise((resolve, reject) => {
     https
@@ -126,17 +95,24 @@ function extractFileFromTarGzip(buffer, subpath) {
   }
   throw new Error(`Could not find ${JSON.stringify(subpath)} in archive`);
 }
-function installUsingNPM(pkg, subpath, binPath) {
+
+function installUsingNPM(pkg, subpath, binPath, isCn) {
   const env = { ...process.env, npm_config_global: void 0 };
   const packageLibDir = path2.dirname(require.resolve(mainPackage));
   const installDir = path2.join(packageLibDir, 'npm-install');
   fs2.mkdirSync(installDir);
   try {
+    let installCmd = `npm install --loglevel=error --prefer-offline --no-audit --progress=false`;
+    if (isCn) {
+      installCmd = installCmd + ' --registry=https://registry.npmmirror.com';
+      console.log(
+        `[${projectName}] 使用中文语言，将从 https://registry.npmmirror.com npm源安装依赖包`,
+      );
+    }
+
+    installCmd = installCmd + ` ${pkg}@${versionFromPackageJSON}`;
     fs2.writeFileSync(path2.join(installDir, 'package.json'), '{}');
-    child_process.execSync(
-      `npm install --loglevel=error --prefer-offline --no-audit --progress=false ${pkg}@${versionFromPackageJSON}`,
-      { cwd: installDir, stdio: 'pipe', env },
-    );
+    child_process.execSync(installCmd, { cwd: installDir, stdio: 'pipe', env });
     const installedBinPath = path2.join(
       installDir,
       'node_modules',
@@ -165,8 +141,16 @@ function removeRecursive(dir) {
   fs2.rmdirSync(dir);
 }
 
-async function downloadDirectlyFromNPM(pkg, subpath, binPath) {
-  const url = `https://registry.npmjs.org/${pkg}/-/${pkg.replace(
+async function downloadDirectlyFromNPM(pkg, subpath, binPath, isCn) {
+  let baseUrl = 'https://registry.npmjs.org';
+  if (isCn) {
+    baseUrl = 'https://registry.npmmirror.com';
+    console.log(
+      `[${projectName}] 使用中文语言，将从 https://registry.npmmirror.com 下载安装包`,
+    );
+  }
+
+  const url = `${baseUrl}/${pkg}/-/${pkg.replace(
     `${organization}/`,
     '',
   )}-${versionFromPackageJSON}.tgz`;
@@ -186,7 +170,7 @@ async function downloadDirectlyFromNPM(pkg, subpath, binPath) {
     throw e;
   }
 }
-async function checkAndPreparePackage() {
+async function checkAndPreparePackage(isCn) {
   const { pkg, subpath } = pkgAndSubpathForCurrentPlatform();
   let binPath;
   try {
@@ -204,7 +188,7 @@ this. If that fails, you need to remove the "--no-optional" flag to use ${projec
       console.error(
         `[${projectName}] Trying to install package "${pkg}" using npm`,
       );
-      installUsingNPM(pkg, subpath, binPath);
+      installUsingNPM(pkg, subpath, binPath, isCn);
     } catch (e2) {
       console.error(
         `[${projectName}] Failed to install package "${pkg}" using npm: ${
@@ -212,7 +196,7 @@ this. If that fails, you need to remove the "--no-optional" flag to use ${projec
         }`,
       );
       try {
-        await downloadDirectlyFromNPM(pkg, subpath, binPath);
+        await downloadDirectlyFromNPM(pkg, subpath, binPath, isCn);
       } catch (e3) {
         throw new Error(`Failed to install package "${pkg}"`);
       }
@@ -220,4 +204,15 @@ this. If that fails, you need to remove the "--no-optional" flag to use ${projec
   }
 }
 
-checkAndPreparePackage();
+if (process.env.LANG.startsWith('zh_CN')) {
+  try {
+    checkAndPreparePackage(true);
+  } catch (error) {
+    console.error(
+      `[${projectName}] 从 npmmirror.com 源安装依赖失败，继续从 npmjs.com 安装, 错误信息\n ${error.message}`,
+    );
+    checkAndPreparePackage(false);
+  }
+} else {
+  checkAndPreparePackage(false);
+}

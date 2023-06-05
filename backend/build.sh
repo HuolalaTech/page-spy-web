@@ -2,7 +2,7 @@
 
 git_repository="https://github.com/HuolalaTech/page-spy-web"
 # git_version=$(git describe --tags --abbrev=0)
-git_version="v0.0.4"
+git_version="v0.0.6"
 npm_version=$(echo "$git_version" | sed 's/^v//')
 project_name="page-spy-api"
 organization="huolala-tech"
@@ -41,7 +41,6 @@ GenerateMainPackageJson() {
     "@${organization}/${project_name}-linux-ppc64le": "${npm_version}",
     "@${organization}/${project_name}-linux-ppc64": "${npm_version}",
     "@${organization}/${project_name}-linux-s390x": "${npm_version}",
-    "@${organization}/${project_name}-win32-386": "${npm_version}",
     "@${organization}/${project_name}-win32-amd64": "${npm_version}",
     "@${organization}/${project_name}-win32-arm": "${npm_version}",
     "@${organization}/${project_name}-win32-arm64": "${npm_version}",
@@ -52,7 +51,7 @@ GenerateMainPackageJson() {
 }
 EOF
   cat <<EOF > "./npm/${project_name}/README.md"
-  The ${os} ${arch} binary for ${project_name}.
+  The binary for ${project_name}.
   visit ${git_repository} for detail
 EOF
 
