@@ -27,6 +27,7 @@ import { resolveClientInfo } from '@/utils/brand';
 import { useTranslation } from 'react-i18next';
 import { ConnectStatus } from './ConnectStatus';
 import { useSocketMessageStore } from '@/store/socket-message';
+import '@huolala-tech/react-json-view/dist/style.css';
 
 const { Sider, Content } = Layout;
 const { Title } = Typography;
