@@ -18,7 +18,7 @@ PageSpy is served as a Docker image hosted on Github Package (recommended) or as
 
 ## Repo Setup
 
-> HINT: Not every repo needs to setup a development environment locally. You can only focus on one of all. Click [Debugging in Different Scenarios](#debugging-in-different-scenarios) to view the details.
+> HINT: It is not necessary to set up the development environment locally for every repository. You can focus on contributing to just one repository. Click on [Debugging in Different Scenarios](#debugging-in-different-scenarios) for more details.
 
 ### Server Setup
 
