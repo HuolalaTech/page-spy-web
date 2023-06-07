@@ -93,7 +93,7 @@ export class SocketStore extends EventTarget {
           case CONNECT:
             this.socketConnection = content.selfConnection;
             this.filterClient(content);
-            this.disapatchConnectStatus();
+            this.dispatchConnectStatus();
             break;
           case LEAVE:
             this.handleNotification(content, 'leave');
@@ -102,7 +102,7 @@ export class SocketStore extends EventTarget {
             if (content.connection.userId === CLIENT_ID) {
               this.clientConnection = content.connection;
               this.getCacheQueueMessage();
-              this.disapatchConnectStatus();
+              this.dispatchConnectStatus();
             }
             break;
           case ERROR:
@@ -158,7 +158,7 @@ export class SocketStore extends EventTarget {
   connectOnline() {
     this.connectionStatus = true;
     this.pingConnect();
-    this.disapatchConnectStatus();
+    this.dispatchConnectStatus();
   }
 
   connectOffline() {
@@ -166,14 +166,14 @@ export class SocketStore extends EventTarget {
     this.connectionStatus = false;
     this.socketConnection = null;
     this.clearPing();
-    this.disapatchConnectStatus();
+    this.dispatchConnectStatus();
     if (!this.reconnectable) {
       return;
     }
     this.tryReconnect();
   }
 
-  disapatchConnectStatus() {
+  dispatchConnectStatus() {
     this.dispatchEvent(
       new CustomEvent('connect-status', {
         detail: {
@@ -309,7 +309,7 @@ export class SocketStore extends EventTarget {
         this.connectOffline();
       } else if (address === clientAddress) {
         this.clientConnection = null;
-        this.disapatchConnectStatus();
+        this.dispatchConnectStatus();
         setTimeout(() => {
           if (!this.clientConnection) {
             // the message won't notify if the client reconnect successfully

@@ -141,11 +141,10 @@ yarn install
 
 ```bash
 # frontend
-yarn start
+yarn start:client
 
 # backend
-cd backend/bin
-go run local.go
+yarn start:server
 ```
 
 4. Build for production

@@ -1,7 +1,7 @@
 import { ConfigProvider } from 'antd';
 import React from 'react';
 import { BrowserRouter, HashRouter } from 'react-router-dom';
-import RouteConfing from './routes/config';
+import RouteConfig from './routes/config';
 import zh from 'antd/es/locale/zh_CN';
 import en from 'antd/es/locale/en_US';
 import { useLanguage } from './utils/useLanguage';
@@ -24,7 +24,7 @@ export const App = () => {
             },
           }}
         >
-          <RouteConfing />
+          <RouteConfig />
         </ConfigProvider>
       </BrowserRouter>
     </React.StrictMode>

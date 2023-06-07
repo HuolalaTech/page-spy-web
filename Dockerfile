@@ -1,16 +1,8 @@
-FROM node:19-buster AS frontend
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build:client
-
-FROM golang:1.19-buster AS backend
+FROM golang:1.20-buster AS backend
 WORKDIR /app
 COPY backend/go.mod backend/go.sum ./
 RUN go mod download
 COPY backend/. .
-COPY --from=frontend /app/dist /app/dist
 RUN go build -o main .
 
 FROM debian:bullseye-slim

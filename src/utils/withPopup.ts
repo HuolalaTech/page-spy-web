@@ -4,7 +4,7 @@ import type { ComponentType, Dispatch, SetStateAction, ReactNode } from 'react';
 export class PopupInstance<I = any, O = any> {
   constructor(private update: Dispatch<SetStateAction<PProps<I, O>>>) {}
   /**
-   * Popup the Modal and return a promise object that will be pendding until Modal closed.
+   * Popup the Modal and return a promise object that will be pending until Modal closed.
    * @param {I} params Custom params that will pass to Modal component
    * @returns {Promise<>}
    */
@@ -36,7 +36,7 @@ interface EmptyObject {
 
 /**
  * To wrap a Modal component, PProps will be injected into the props,
- * wrapped comopnent can use ref as PopupInstance.
+ * wrapped component can use ref as PopupInstance.
  * @param Component A Modal component
  * @see PProps
  * @see PopupInstance

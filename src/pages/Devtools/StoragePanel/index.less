@@ -23,4 +23,37 @@
       z-index: 10;
     }
   }
+  @controllerSize: 16px;
+  &__detail {
+    flex-shrink: 0;
+    position: relative;
+    background-color: #fff;
+    padding-top: @controllerSize;
+    .storage-item-detail {
+      padding: 8px;
+    }
+  }
+  .height-controller {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: @controllerSize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f3f3f3;
+    transition: all ease-out 0.3s;
+    cursor: ns-resize;
+    &:hover {
+      box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.05);
+    }
+  }
+  .empty-detail-info {
+    margin-top: 24px;
+    font-size: 24px;
+    color: #ccc;
+    text-align: center;
+    letter-spacing: 1.5px;
+  }
 }

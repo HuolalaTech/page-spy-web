@@ -26,26 +26,32 @@ export const InjectSDKModal = ({
           </Trans>
         ),
         code: `<script>
-  new PageSpy();
+  window.$pageSpy = new PageSpy();
 </script>
 `,
       },
       {
         title: t('inject.pass-config'),
         code: `<script>
-  new PageSpy({
+  window.$pageSpy = new PageSpy({
     /**
-     * @desc the server base url. For example, "example.com".
+     * The server base url. For example, "example.com".
      */
     api: string,
     /**
-     * @desc the debugger client host. For example, "https://example.com".
+     * The debugger client host. For example, "https://example.com".
      */
     clientOrigin: string,
     /**
-     * @desc the project name used for grouping connections
+     * The project name used for grouping connections
      */
     project: string,
+    /**
+     * Indicate whether auto render. You can manually render later
+     * by calling "window.$pageSpy.render()".
+     * @default true
+     */
+    autoRender: boolean
   });
 </script>
 `,

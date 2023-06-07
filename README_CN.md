@@ -106,6 +106,12 @@ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech
 
 除此之外，当有新的数据或者数据发生变化的时候会实时的收到通知。
 
+## 技术支持
+
+有问题可以使用微信扫码进群。
+
+<img src="https://public-assets-v.huolala.cn/images/page-spy-wechat-group.jpg" alt="微信群" width="300" />
+
 ## 开发
 
 1. 克隆仓库:
@@ -124,11 +130,10 @@ yarn install
 
 ```bash
 # 前端
-yarn start
+yarn start:client
 
 # 后端
-cd backend/bin
-go run local.go
+yarn start:server
 ```
 
 4. 生产构建

@@ -1,37 +1,46 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
   Alert,
   Button,
-  Col,
   Form,
   Input,
   message,
   Modal,
-  Row,
   Space,
   Tooltip,
 } from 'antd';
 import { InfoCircleFilled, DownloadOutlined } from '@ant-design/icons';
-import { TypeNode } from '../TypeNode';
+import ReactJsonView from '@huolala-tech/react-json-view';
 import { useState, useMemo } from 'react';
-import { getObjectKeys } from '@/utils';
 import { usePopupRef, withPopup } from '@/utils/withPopup';
 import type { SpyNetwork } from '@huolala-tech/page-spy';
-import classNames from 'classnames';
+import clsx from 'clsx';
+import { dataUrlToBlob, downloadFile, semanticSize } from './utils';
+import { isString } from 'lodash-es';
 
-export function getStatusText(row: SpyNetwork.RequestInfo) {
-  if (row.readyState === 0 || row.readyState === 1) return 'Pending';
-  if (row.readyState === 4) {
-    if (row.status === 0) return 'Failed';
-  }
-  return row.status;
-}
+export const EntriesBody: FC<{ data: [string, string][] }> = ({ data }) => {
+  return (
+    <div className="entries-body">
+      {data.map(([label, value]) => {
+        return (
+          <div className="entries-item" key={label + value}>
+            <b className="entries-item__label">{label}: &nbsp;</b>
+            <span className="entries-item__value">
+              <code>{value}</code>
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 export const StatusCode = ({ data }: { data: SpyNetwork.RequestInfo }) => {
   const { readyState, status } = data;
   let statusClass = '';
   let statusText = status;
-  if (status < 200) {
+  const code = Number(status);
+  if (code < 200) {
     if (readyState <= 1) {
       statusClass = 'pending';
       statusText = 'Pending';
@@ -39,31 +48,20 @@ export const StatusCode = ({ data }: { data: SpyNetwork.RequestInfo }) => {
       statusClass = 'error';
       statusText = 'Failed';
     }
-  } else if (status < 300) {
+  } else if (code < 300) {
     statusClass = 'success';
-  } else if (status < 400) {
+  } else if (code < 400) {
     statusClass = 'redirect';
   } else {
     statusClass = 'error';
   }
   return (
     <Space>
-      <div className={classNames(['status-code-circle', statusClass])} />
+      <div className={clsx(['status-code-circle', statusClass])} />
       <b>{statusText}</b>
     </Space>
   );
 };
-
-export function getTime(time: number) {
-  if (time > 1000) {
-    return `${(time / 1000).toFixed(1)} s`;
-  }
-  return `${time} ms`;
-}
-
-export function validValues(value: any) {
-  return value !== null && getObjectKeys(value).length > 0 ? value : null;
-}
 
 export const PartOfHeader = () => (
   <Tooltip title="CAUTION: just part of headers are shown.">
@@ -71,14 +69,16 @@ export const PartOfHeader = () => (
   </Tooltip>
 );
 
-export const QueryParamsBlock: React.FC<Record<string, any>> = ({ data }) => {
+export const QueryParamsBlock: React.FC<{ data: [string, string][] }> = ({
+  data,
+}) => {
   const [decoded, setDecoded] = useState(true);
   const decodedData = useMemo(() => {
     if (!decoded) {
-      return Object.keys(data).reduce((acc, cur) => {
-        acc[cur] = encodeURIComponent(data[cur]);
+      return data.reduce((acc, [key, value]) => {
+        acc.push([key, encodeURIComponent(value)]);
         return acc;
-      }, {} as Record<string, string>);
+      }, [] as [string, string][]);
     }
     return data;
   }, [data, decoded]);
@@ -99,17 +99,25 @@ export const QueryParamsBlock: React.FC<Record<string, any>> = ({ data }) => {
         </span>
       </Space>
       <div className="detail-block__content">
-        {Object.keys(decodedData).map((labelKey: any) => {
-          return (
-            <div className="content-item" key={labelKey}>
-              <b className="content-item__label">{labelKey}: &nbsp;</b>
-              <span className="content-item__value">
-                <code>{decodedData[labelKey]}</code>
-              </span>
-            </div>
-          );
-        })}
+        <EntriesBody data={decodedData} />
       </div>
+    </div>
+  );
+};
+
+export const RequestPayloadBlock: React.FC<{
+  data: string | [string, string][];
+}> = ({ data }) => {
+  const content = useMemo(() => {
+    if (isString(data)) {
+      return <ReactJsonView source={data} defaultExpand />;
+    }
+    return <EntriesBody data={data} />;
+  }, [data]);
+  return (
+    <div className="detail-block">
+      <b className="detail-block__label">Request Payload</b>
+      <div className="detail-block__content">{content}</div>
     </div>
   );
 };
@@ -155,44 +163,6 @@ const FilenameModal = withPopup<void, string | false>(
     );
   },
 );
-
-function downloadFile(filename: string, url: string) {
-  const aTag = document.createElement('a');
-  aTag.download = filename;
-  aTag.href = url;
-  document.body.append(aTag);
-  aTag.click();
-  aTag.remove();
-}
-function dataUrlToBlob(data: string) {
-  try {
-    const arr = data.split(',');
-    const mime = arr[0].match(/:(.*?);/)![1];
-    const rest = atob(arr[1]);
-    let restLen = rest.length;
-    const uint8List = new Uint8Array(restLen);
-    // eslint-disable-next-line no-plusplus
-    while (restLen--) {
-      uint8List[restLen] = rest.charCodeAt(restLen);
-    }
-    return {
-      blob: new Blob([uint8List], { type: mime }),
-      mime,
-    };
-  } catch (e) {
-    return {
-      blob: null,
-      mime: null,
-      data,
-    };
-  }
-}
-function semanticSize(size: number) {
-  if (size < 1024) return `${size} Byte`;
-  const oneMB = 1024 * 1024;
-  if (size < oneMB) return `${(size / 1024).toFixed(1)} KB`;
-  return `${(size / oneMB).toFixed(1)} MB`;
-}
 
 interface MediaWidgetProps {
   dataUrl: string;
@@ -276,7 +246,8 @@ export const ResponseBody = ({ data }: { data: SpyNetwork.RequestInfo }) => {
       }
       return <MediaWidget dataUrl={response} />;
     }
-    return <TypeNode source={JSON.stringify(response)} spread />;
+
+    return <ReactJsonView source={response} defaultExpand={1} />;
   }, [data]);
 
   return <div className="response-body">{bodyContent}</div>;
