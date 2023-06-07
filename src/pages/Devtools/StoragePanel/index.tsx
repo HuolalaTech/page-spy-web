@@ -1,7 +1,7 @@
 import type { SpyStorage } from '@huolala-tech/page-spy';
 import { Layout, Menu, Table, Tooltip } from 'antd';
 import { useMemo, useRef, useState } from 'react';
-import { TypeNode } from '../TypeNode';
+import ReactJsonView from '@huolala-tech/react-json-view';
 import './index.less';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { Resizable } from 'react-resizable';
@@ -129,7 +129,7 @@ export const StoragePanel = () => {
                 style={{ height: detailSize, overflowY: 'auto' }}
               >
                 {detailInfo ? (
-                  <TypeNode source={detailInfo} />
+                  <ReactJsonView source={detailInfo} defaultExpand />
                 ) : (
                   <div className="empty-detail-info">
                     {t('storage.empty-detail')}

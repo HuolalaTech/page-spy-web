@@ -10,7 +10,7 @@ import {
   Tooltip,
 } from 'antd';
 import { InfoCircleFilled, DownloadOutlined } from '@ant-design/icons';
-import { TypeNode } from '../TypeNode';
+import ReactJsonView from '@huolala-tech/react-json-view';
 import { useState, useMemo } from 'react';
 import { usePopupRef, withPopup } from '@/utils/withPopup';
 import type { SpyNetwork } from '@huolala-tech/page-spy';
@@ -110,7 +110,7 @@ export const RequestPayloadBlock: React.FC<{
 }> = ({ data }) => {
   const content = useMemo(() => {
     if (isString(data)) {
-      return <TypeNode source={data} spread />;
+      return <ReactJsonView source={data} defaultExpand />;
     }
     return <EntriesBody data={data} />;
   }, [data]);
@@ -246,7 +246,8 @@ export const ResponseBody = ({ data }: { data: SpyNetwork.RequestInfo }) => {
       }
       return <MediaWidget dataUrl={response} />;
     }
-    return <TypeNode source={JSON.stringify(response)} spread />;
+
+    return <ReactJsonView source={response} defaultExpand={1} />;
   }, [data]);
 
   return <div className="response-body">{bodyContent}</div>;

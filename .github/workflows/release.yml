@@ -26,8 +26,11 @@ jobs:
 
       - name: Set Node.js 19.x
         uses: actions/setup-node@v3
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
           node-version: 19.x
+          registry-url: "https://registry.npmjs.org"
 
       - name: Run install
         uses: borales/actions-yarn@v4
