@@ -42,6 +42,9 @@ export default ({ mode, command }) => {
       },
       react(),
       svgr(),
+      ViteEjsPlugin({
+        isDoc,
+      }),
     ],
   });
 };
