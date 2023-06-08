@@ -9,7 +9,6 @@ function getLocalTime(nS: number) {
 }
 
 const Timestamp = (props: TimestampTypes) => {
-  console.log(props.time);
   const { time = Date.now() } = props;
   return <span className="timestamp">{getLocalTime(time)}</span>;
 };
