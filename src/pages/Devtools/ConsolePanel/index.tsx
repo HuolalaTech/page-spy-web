@@ -230,10 +230,16 @@ const ConsolePanel = () => {
                 <LogType type={item.logType} />
               </div>
               <div className="console-item__content">
-                <Timestamp time={item.time} />
-                {item.logs?.map((log) => {
-                  return <ConsoleNode data={log} key={log.id} />;
-                })}
+                <Row gutter={12}>
+                  <Col>
+                    <Timestamp time={item.time} />
+                  </Col>
+                  <Col flex={1}>
+                    {item.logs?.map((log) => {
+                      return <ConsoleNode data={log} key={log.id} />;
+                    })}
+                  </Col>
+                </Row>
               </div>
               <div className="console-item__url" title={item.url}>
                 {item.url?.substring(new URL(item.url).origin.length)}

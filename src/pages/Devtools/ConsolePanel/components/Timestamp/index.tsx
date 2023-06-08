@@ -1,15 +1,16 @@
 import './index.less';
 
 interface TimestampTypes {
-  time: Date;
+  time?: number;
 }
 
-function getLocalTime(nS: number | any) {
-  return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/, ' ');
+function getLocalTime(nS: number) {
+  return new Date(nS).toLocaleString().replace(/:\d{1,2}$/, ' ');
 }
 
 const Timestamp = (props: TimestampTypes) => {
-  const { time } = props;
+  console.log(props.time);
+  const { time = Date.now() } = props;
   return <span className="timestamp">{getLocalTime(time)}</span>;
 };
 
