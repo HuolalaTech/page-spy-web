@@ -36,9 +36,14 @@ export class SocketStore extends EventTarget {
   maxTimes = 4;
   maxDelay = (1 << this.maxTimes) * 1000;
   reconnectable = true;
-  // To ensure that the SDK can retrive the message
-  // index correctly which in cache queue, it's necessary
-  // to store the latest message id and send to sdk when reconnect.
+  // The `latestId` is designed to retrieve data correctly from the SDK message cache.
+  // It is effective in the following two scenarios:
+  // - the first is when the debugger reconnects after disconnection,`latestId` value
+  //   represents the last data obtained by the debugger;
+  // - the second is when some data was not broadcasted in time after the SDK
+  //   disconnects (but the recording behavior has not stopped), and the missing
+  //   data can be retrieved through `latestId` after the SDK reconnects.
+  // Both scenarios retrieve only the necessary and missing data rather than the full amount of data.
   latestId = '';
 
   constructor(url: string) {
