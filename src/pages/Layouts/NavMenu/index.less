@@ -4,13 +4,19 @@
     color: #666;
     line-height: 1.4;
     cursor: pointer;
-    transition: all ease-out 0.3s;
+    transition: all ease-out 0.1s;
     &:hover {
       color: @primary-color !important;
     }
   }
-  .is-dark .menu-item {
-    color: #ddd;
+  a {
+    color: #666;
+  }
+  .is-dark {
+    .menu-item,
+    a {
+      color: #ddd;
+    }
   }
 }
 .nav-menu {
