@@ -35,7 +35,7 @@ jobs:
       - name: Run install
         uses: borales/actions-yarn@v4
         with:
-          cmd: install
+          cmd: install --ignore-optional
 
       - name: Build
         run: |
