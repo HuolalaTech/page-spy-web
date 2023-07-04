@@ -503,6 +503,7 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@huolala-tech/custom-error/-/custom-error-1.0.0.tgz#962726e0427753e4ebe637d79e69393dca70ed50"
   integrity sha512-VdDs0EWLK/kXUCcYX7kD0ol0tMnjGrTlELl/GG+rrYJVr1wzad7+J4/t71zkvPWp54YAqhCnkq0+Tl6TqJkGgg==
+
 "@huolala-tech/page-spy-api-darwin-amd64@1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@huolala-tech/page-spy-api-darwin-amd64/-/page-spy-api-darwin-amd64-1.0.0.tgz#3500c4214d52e8dd1d075e684d946b37c58b62c9"
@@ -599,13 +600,20 @@
     "@huolala-tech/page-spy-api-win32-arm" "1.0.0"
     "@huolala-tech/page-spy-api-win32-arm64" "1.0.0"
 
-"@huolala-tech/page-spy@1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy/-/page-spy-1.2.1.tgz#be817ebc74edffee7aa7a0daab3ed4adb4c71b4a"
-  integrity sha512-gHozFch515NcCt69XmjP76Z4Cx985IfLvmphlld26MbIRzwLdCdQqAcssgFDdluxvEaUB/DDVZCEJaTqWB8N3w==
+"@huolala-tech/page-spy@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy/-/page-spy-1.2.2.tgz#70873c6545238b913bda8121a1250823f69fc763"
+  integrity sha512-Re497SWOfT9a+DGWxginXchutbuGD/dlU6sD6HK4g7g0wSPPf/L185iTa1vki+HWqj7NUSWuWm5sF1s2MQjk/g==
   dependencies:
     "@babel/runtime" "^7.13.0"
     copy-to-clipboard "^3.3.1"
+
+"@huolala-tech/react-json-view@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/react-json-view/-/react-json-view-0.1.3.tgz#a5039ece0ecabce53c05b06e8925f7c8461504b4"
+  integrity sha512-OSkjq/8PI/lpHzB8GYd2RcuQBVossr0dhTwl7JAsEU+v8xG6OeFSHB6VlEsbhttwFZu89REX8Ge1fSQCVb2Z6A==
+  dependencies:
+    copy-to-clipboard "^3.3.3"
 
 "@huolala-tech/request@^1.1.2":
   version "1.1.2"
@@ -613,12 +621,6 @@
   integrity sha512-6mIVX36oaIKXZW4e9ui200hldbAjw24Qj+kYeoMfs57zzPLWRK3J77yJsQr+4v4s8D1qjuExOsAg07e1jngnkg==
   dependencies:
     "@huolala-tech/custom-error" "^1.0.0"
-"@huolala-tech/react-json-view@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/react-json-view/-/react-json-view-0.1.3.tgz#a5039ece0ecabce53c05b06e8925f7c8461504b4"
-  integrity sha512-OSkjq/8PI/lpHzB8GYd2RcuQBVossr0dhTwl7JAsEU+v8xG6OeFSHB6VlEsbhttwFZu89REX8Ge1fSQCVb2Z6A==
-  dependencies:
-    copy-to-clipboard "^3.3.3"
 
 "@jridgewell/gen-mapping@^0.3.0", "@jridgewell/gen-mapping@^0.3.2":
   version "0.3.3"

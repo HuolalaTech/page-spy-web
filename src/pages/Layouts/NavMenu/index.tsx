@@ -1,7 +1,7 @@
 import { InjectSDKModal } from '@/components/InjectSDK';
 import { isClient } from '@/utils/constants';
 import { useLanguage } from '@/utils/useLanguage';
-import Icon from '@ant-design/icons';
+import Icon, { GithubOutlined } from '@ant-design/icons';
 import { Space, Divider } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -75,6 +75,17 @@ export const NavMenuOnPc = () => {
           <span>{t('common.lang')}</span>
         </Space>
       </div>
+      <Divider type="vertical" className="divider-bg" />
+      <a
+        href={import.meta.env.VITE_GITHUB_REPO}
+        target="_blank"
+        className="menu-item"
+      >
+        <Space>
+          <GithubOutlined style={{ fontSize: 16 }} />
+          <span>Github</span>
+        </Space>
+      </a>
     </div>
   );
 };
@@ -182,6 +193,15 @@ export const NavMenuOnMobile = () => {
                 <Icon component={I18nSvg} style={{ fontSize: 18 }} />
                 <span>{t('common.lang')}</span>
               </Space>
+            </div>
+            {/* Github */}
+            <div className="menu-item">
+              <a href={import.meta.env.VITE_GITHUB_REPO} target="_blank">
+                <Space>
+                  <GithubOutlined style={{ fontSize: 16 }} />
+                  <span>Github</span>
+                </Space>
+              </a>
             </div>
           </div>
         </CSSTransition>,

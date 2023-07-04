@@ -32,7 +32,7 @@ const SDKPanel = () => {
     return [
       {
         title: t('inject.load-script'),
-        code: `<script crossorgin="anonymous" src="https://{domain}/page-spy/index.min.js"></script>`,
+        code: `<script crossorigin="anonymous" src="https://{domain}/page-spy/index.min.js"></script>`,
       },
       {
         title: (

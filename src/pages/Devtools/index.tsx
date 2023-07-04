@@ -199,7 +199,19 @@ const ClientInfo = memo(() => {
         {t('device')}
       </Title>
       <Row wrap={false} align="middle" style={{ textAlign: 'center' }}>
-        <Tooltip title={clientInfo?.osName}>
+        <Tooltip
+          title={
+            <>
+              <span>
+                {t('system')}: {clientInfo?.osName}
+              </span>
+              <br />
+              <span>
+                {t('version')}: {clientInfo?.osVersion}
+              </span>
+            </>
+          }
+        >
           <Col span={11}>
             <img className="client-info__logo" src={clientInfo?.osLogo} />
           </Col>

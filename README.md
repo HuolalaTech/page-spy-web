@@ -14,37 +14,37 @@ Based on encapsulation of native web APIs, it filters and transforms the paramet
 
 ## When should I use?
 
-<u>It's **PageSpy** show time whenever you can't debug code with local devtools!</u>
-Let's see the following instances:
+<u>It's **PageSpy** show time whenever you can't debug code with local devtools!</u> Let's see the following instances:
 
-**Save communication time, improve collaboration efficiency**: Telecommuting and cross-regional collaboration becoming more and more common,effective collaboration
-between programmers and testers become extremely important. However, traditional communication such as
-email, telephone, and video conferencing suffer from inefficient communication, incomplete issue information,
-and misunderstanding or misjudgment, etc. PageSpy provides project runtime info for technicians to view
-at the debugger client, and testers no longer need to provide issue information to technicians frequently
-by text, screenshot, and recording screen.
+**Save communication time, improve collaboration efficiency**: Telecommuting and cross-regional collaboration becoming more and more common,effective collaboration between programmers and testers become extremely important. However, traditional communication such as email, telephone, and video conferencing suffer from inefficient communication, incomplete issue information, and misunderstanding or misjudgment, etc. PageSpy provides project runtime info for technicians to view at the debugger client, and testers no longer need to provide issue information to technicians frequently by text, screenshot, and recording screen.
 
-**Accurately troubleshoot to avoid looking a needle in the ocean**: When an application has a white screen or other similar fatal problems on the user's device,
-it has always been a difficult problem for technicians to quickly locate the error,
-accurately troubleshoot and fix it. Traditional methods of locating problems include
-data monitoring and log analysis, which not only consume a lot of time and energy
-to analyze and diagnose problems, but also rely heavily on technicians to understand business
-scenarios and code implementation.PageSpy presents the error message directly to the technician,
-eliminates other interference, just shows the code!
+**Accurately troubleshoot to avoid looking a needle in the ocean**: When an application has a white screen or other similar fatal problems on the user's device, it has always been a difficult problem for technicians to quickly locate the error, accurately troubleshoot and fix it. Traditional methods of locating problems include data monitoring and log analysis, which not only consume a lot of time and energy to analyze and diagnose problems, but also rely heavily on technicians to understand business scenarios and code implementation.PageSpy presents the error message directly to the technician, eliminates other interference, just shows the code!
 
 ## How to use?
 
-For data security and your convenience, we provide a complete and
-out-of-box deployment solution.
+For data security and your convenience, we provide a complete and out-of-box deployment solution.
 
-### Docker
+### Docker 👍
 
 ```bash
-docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
+$ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
 ```
 
-Once the deployment is successful, the `Inject SDK` menu will be at the top, and you can view how to
-configure and integrate in the business project by click the menu.
+### Node
+
+> HINT: This will download the corresponding binary file based on the platform, which contains all the necessary content, so the download may take some time, please be patient.
+
+```bash
+$ yarn global add @huolala-tech/page-spy-api
+
+# if you use npm
+
+$ npm install -g @huolala-tech/page-spy-api
+```
+
+After the download is complete, you can directly execute `page-spy-api` in the command line to start the service.
+
+Once the deployment is successful, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
 
 ## Feature overview
 
