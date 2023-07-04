@@ -72,7 +72,8 @@
   "system": {
     "overview": "Overview",
     "feature": "Feature",
-    "unsupport": "Unsupport list"
+    "unsupport": "Unsupport list",
+    "reference": "See detection rule"
   },
   "page": {
     "element": "Element"

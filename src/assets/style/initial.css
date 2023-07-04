@@ -26,6 +26,11 @@ samp {
     monospace;
 }
 
+.mono-code {
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+    monospace;
+}
+
 ::selection {
   background-color: rgba(132, 52, 233, 0.5);
   color: #fff;
