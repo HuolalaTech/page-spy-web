@@ -17,7 +17,7 @@ export const InjectSDKModal = ({
     return [
       {
         title: t('inject.load-script'),
-        code: `<script crossorgin="anonymous" src="${window.location.origin}/page-spy/index.min.js"></script>`,
+        code: `<script crossorigin="anonymous" src="${window.location.origin}/page-spy/index.min.js"></script>`,
       },
       {
         title: (

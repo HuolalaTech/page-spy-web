@@ -44,6 +44,7 @@
   },
   "devtool": {
     "device": "设备",
+    "system": "系统",
     "browser": "浏览器",
     "version": "版本",
     "menu": {
