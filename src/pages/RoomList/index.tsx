@@ -137,12 +137,11 @@ export const RoomList = () => {
               <div className={clsx('connection-item')}>
                 <Row style={{ height: 70 }} justify="center" align="middle">
                   <Col>
-                    <code
-                      style={{ fontSize: 36 }}
-                      title={`Device ID: ${simpleAddress}`}
-                    >
-                      <b>{simpleAddress}</b>
-                    </code>
+                    <Tooltip title={`Device ID: ${simpleAddress}`}>
+                      <code style={{ fontSize: 36 }}>
+                        <b>{simpleAddress}</b>
+                      </code>
+                    </Tooltip>
                   </Col>
                 </Row>
                 <Row wrap={false} style={{ marginBlock: 8 }}>
@@ -155,20 +154,16 @@ export const RoomList = () => {
                   </Col>
                   <Col flex={1}>
                     <ConnDetailItem title="OS">
-                      <img
-                        src={osLogo}
-                        title={`${osName} ${osVersion}`}
-                        alt="os logo"
-                      />
+                      <Tooltip title={`${osName} ${osVersion}`}>
+                        <img src={osLogo} alt="os logo" />
+                      </Tooltip>
                     </ConnDetailItem>
                   </Col>
                   <Col flex={1}>
                     <ConnDetailItem title="Browser">
-                      <img
-                        src={browserLogo}
-                        title={`${browserName} ${browserVersion}`}
-                        alt="browser logo"
-                      />
+                      <Tooltip title={`${browserName} ${browserVersion}`}>
+                        <img src={browserLogo} alt="browser logo" />
+                      </Tooltip>
                     </ConnDetailItem>
                   </Col>
                 </Row>
