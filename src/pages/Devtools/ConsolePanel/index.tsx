@@ -9,6 +9,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import LogType from './components/LogType';
 import ConsoleNode from './components/ConsoleNode';
+import Timestamp from './components/Timestamp';
 import './index.less';
 import type { TextAreaRef } from 'antd/lib/input/TextArea';
 import { Shortcuts } from './components/Shortcuts';
@@ -229,9 +230,16 @@ const ConsolePanel = () => {
                 <LogType type={item.logType} />
               </div>
               <div className="console-item__content">
-                {item.logs?.map((log) => {
-                  return <ConsoleNode data={log} key={log.id} />;
-                })}
+                <Row gutter={12}>
+                  <Col>
+                    <Timestamp time={item.time} />
+                  </Col>
+                  <Col flex={1}>
+                    {item.logs?.map((log) => {
+                      return <ConsoleNode data={log} key={log.id} />;
+                    })}
+                  </Col>
+                </Row>
               </div>
               <div className="console-item__url" title={item.url}>
                 {item.url?.substring(new URL(item.url).origin.length)}

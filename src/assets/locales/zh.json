@@ -44,6 +44,7 @@
   },
   "devtool": {
     "device": "设备",
+    "system": "系统",
     "browser": "浏览器",
     "version": "版本",
     "menu": {
@@ -72,7 +73,8 @@
   "system": {
     "overview": "概览",
     "feature": "特性",
-    "unsupport": "不支持列表"
+    "unsupport": "不支持列表",
+    "reference": "查看检测规则"
   },
   "page": {
     "element": "元素"

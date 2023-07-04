@@ -5,6 +5,8 @@ import Icon from '@ant-design/icons';
 import './index.less';
 import { Tooltip } from 'antd';
 import type { SpySystem } from '@huolala-tech/page-spy';
+import CopyContent from '@/pages/Devtools/ConsolePanel/components/CopyContent';
+import { useTranslation } from 'react-i18next';
 
 export const FeatureItem: React.FC<SpySystem.FeatureDescriptor> = ({
   title,
@@ -12,17 +14,22 @@ export const FeatureItem: React.FC<SpySystem.FeatureDescriptor> = ({
   keyPath = '',
   customTest = '',
 }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'system' });
   const icon = supported ? SupportSvg : UnsupportSvg;
   const TitleOverlay = useMemo(() => {
     if (keyPath) {
       return (
         <a href={keyPath} target="_blank">
-          See detection rule
+          {t('reference')}
         </a>
       );
     }
-    return <code style={{ color: '#333' }}>{customTest}</code>;
-  }, [keyPath, customTest]);
+    return (
+      <code style={{ color: '#333' }}>
+        <CopyContent content={customTest} />
+      </code>
+    );
+  }, [keyPath, customTest, t]);
   return (
     <Tooltip title={TitleOverlay} color="#fff" placement="topLeft">
       <div className="feature-item">
