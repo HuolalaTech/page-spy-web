@@ -4,7 +4,7 @@ on:
   push:
     branches: ["fix/build_without_c_lib"]
 
-# jobs:
+jobs:
 #   test-build:
 #     strategy:
 #       matrix:
