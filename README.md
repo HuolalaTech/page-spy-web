@@ -43,6 +43,13 @@ $ npm install -g @huolala-tech/page-spy-api
 ```
 
 After the download is complete, you can directly execute `page-spy-api` in the command line to start the service.
+It will also generate a configuration file called config.json in the running directory, and modifying this file allows you to change the running port.
+
+```json
+{
+  "port": "6752"
+}
+```
 
 Once the deployment is successful, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
 
