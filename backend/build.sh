@@ -189,7 +189,7 @@ MakeRelease() {
     tar -czvf compress/"$i".tar.gz  ${project_name}
     rm -f  ${project_name}
   done
-  for i in $(find . -type f -name "${project_name}-windows-*"); do
+  for i in $(find . -type f -name "${project_name}-win32-*"); do
     cp "$i"  ${project_name}.exe
     zip compress/$(echo $i | sed 's/\.[^.]*$//').zip  ${project_name}.exe
     rm -f  ${project_name}.exe
