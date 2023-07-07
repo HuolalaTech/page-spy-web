@@ -23,9 +23,6 @@ GenerateMainPackageJson() {
     "registry": "https://registry.npmjs.org",
     "access": "public"
   },
-  "engines": {
-    "node": ">=17"
-  },
   "bin": {
     "${project_name}": "bin/${project_name}"
   },
@@ -120,9 +117,6 @@ PublishAndGeneratePackageJson() {
   },
   "license": "MIT",
   "preferUnplugged": true,
-  "engines": {
-    "node": ">=17"
-  },
   "os": [
     "${os}"
   ],
