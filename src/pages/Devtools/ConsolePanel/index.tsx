@@ -15,6 +15,10 @@ import type { TextAreaRef } from 'antd/lib/input/TextArea';
 import { Shortcuts } from './components/Shortcuts';
 import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
+import {
+  PlaceholderNode,
+  isPlaceholderNode,
+} from './components/ConsoleNode/PlaceholderNode';
 
 const EXECUTE_HISTORY_ID = 'page_spy_execute_history';
 const EXECUTE_HISTORY_MAX_SIZE = 100;
@@ -230,14 +234,18 @@ const ConsolePanel = () => {
                 <LogType type={item.logType} />
               </div>
               <div className="console-item__content">
-                <Row gutter={12}>
-                  <Col>
+                <Row gutter={12} wrap={false}>
+                  <Col style={{ flexShrink: 0 }}>
                     <Timestamp time={item.time} />
                   </Col>
                   <Col flex={1}>
-                    {item.logs?.map((log) => {
-                      return <ConsoleNode data={log} key={log.id} />;
-                    })}
+                    {isPlaceholderNode(item) ? (
+                      <PlaceholderNode data={item.logs} />
+                    ) : (
+                      item.logs?.map((log) => {
+                        return <ConsoleNode data={log} key={log.id} />;
+                      })
+                    )}
                   </Col>
                 </Row>
               </div>
