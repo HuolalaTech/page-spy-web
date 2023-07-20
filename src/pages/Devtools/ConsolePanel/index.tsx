@@ -234,8 +234,8 @@ const ConsolePanel = () => {
                 <LogType type={item.logType} />
               </div>
               <div className="console-item__content">
-                <Row gutter={12}>
-                  <Col>
+                <Row gutter={12} wrap={false}>
+                  <Col style={{ flexShrink: 0 }}>
                     <Timestamp time={item.time} />
                   </Col>
                   <Col flex={1}>
