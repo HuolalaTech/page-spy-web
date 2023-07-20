@@ -37,22 +37,6 @@ const convertTypeValue = (value: unknown, placeholder: string) => {
 };
 
 /**
- * Replace the string from the start index and excluding the end index.
- * Return a new string without modifying the origin string.
- */
-export const replaceByIndex = (
-  origin: string,
-  start: number,
-  end: number,
-  replace: string,
-  // eslint-disable-next-line max-params
-) => {
-  return (
-    origin.substring(0, start) + replace + origin.substring(end, origin.length)
-  );
-};
-
-/**
  * console.log(
  *   "I have %i %cpen%c, he has %d %capples%c. So the data expression is %O",
  *   1,
