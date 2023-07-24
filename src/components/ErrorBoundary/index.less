@@ -1,0 +1,48 @@
+.error-boundary {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .logo {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    filter: grayscale(0.4);
+    &::before,
+    &::after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      inset: 0;
+      background: url('../../assets/image/logo.svg') no-repeat;
+      background-size: 80px 80px;
+    }
+    &::before {
+      clip-path: path(
+        'M 0 0 L 30 30 h 12 v 4 h 6 v 16 h 12 v 10 L 80 80 L 0 80'
+      );
+      transform: translate(-2px, 2px);
+    }
+    &::after {
+      clip-path: path(
+        'M 0 0 L 30 30 h 12 v 4 h 6 v 16 h 12 v 10 L 80 80 L 80 0'
+      );
+      transform: translate(2px, -2px);
+    }
+  }
+  .error-actions {
+    color: #999;
+  }
+  .error-detail {
+    max-width: 55vw;
+    max-height: 400px;
+    padding: 12px;
+    border: 2px solid #efefef;
+    border-radius: 8px;
+    margin-top: 32px;
+    overflow: auto;
+    color: rgb(226, 73, 73);
+    font-size: 14px;
+  }
+}

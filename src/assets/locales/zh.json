@@ -16,6 +16,12 @@
     "project": "项目",
     "debug": "调试"
   },
+  "error": {
+    "oops": " 哎呀！发生错误～",
+    "actions": "你可以尝试 <1>刷新一下</1> 或者 <3><0>报告</0></3> 这个问题。",
+    "try-again": "刷新一下",
+    "report": "报告"
+  },
   "inject": {
     "load-script": "在测试项目中加载一个 <script>；",
     "init-instance": "紧接着，配置（可选的）并初始化；",
