@@ -91,7 +91,7 @@ export const RoomList = () => {
     browser: '',
   });
   const onFormFinish = useCallback(
-    async (value) => {
+    async (value: any) => {
       try {
         await requestConnections(value.project);
 

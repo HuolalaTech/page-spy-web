@@ -31,7 +31,10 @@ const ErrorElement = ({ error }: { error: Error }) => {
                 </Button>
                 or
                 <Button size="middle" icon={<GithubOutlined />}>
-                  <Link href={import.meta.env.VITE_GITHUB_REPO} target="_blank">
+                  <Link
+                    href={`${import.meta.env.VITE_GITHUB_REPO}/issues`}
+                    target="_blank"
+                  >
                     Report
                   </Link>
                 </Button>
