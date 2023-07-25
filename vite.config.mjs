@@ -16,13 +16,7 @@ export default ({ mode, command }) => {
       outDir: buildDoc ? 'docs-dist' : 'dist',
     },
     resolve: {
-      alias: [
-        { find: '@', replacement: path.join(__dirname, './src') },
-        {
-          find: 'react/jsx-runtime',
-          replacement: 'react/jsx-runtime.js',
-        },
-      ],
+      alias: [{ find: '@', replacement: path.join(__dirname, './src') }],
     },
     css: {
       preprocessorOptions: {
