@@ -120,7 +120,7 @@ export const RoomList = () => {
 
     return (
       <Row gutter={24}>
-        {list.map(({ address, name, connections, group }) => {
+        {list.map(({ address, name, connections, group, tags }) => {
           const simpleAddress = address.slice(0, 4);
           const {
             osName,
@@ -135,21 +135,25 @@ export const RoomList = () => {
           return (
             <Col key={address} span={6}>
               <div className={clsx('connection-item')}>
-                <Row style={{ height: 70 }} justify="center" align="middle">
-                  <Col>
-                    <Tooltip title={`Device ID: ${simpleAddress}`}>
-                      <code style={{ fontSize: 36 }}>
-                        <b>{simpleAddress}</b>
-                      </code>
-                    </Tooltip>
-                  </Col>
-                </Row>
+                <div className="connection-item__title">
+                  <code style={{ fontSize: 36 }}>
+                    <b>{simpleAddress}</b>
+                  </code>
+                  <Tooltip
+                    title={`Title: ${tags.title?.toString() || '--'}`}
+                    placement="right"
+                  >
+                    <div className="custom-title">
+                      {tags.title?.toString() || '--'}
+                    </div>
+                  </Tooltip>
+                </div>
                 <Row wrap={false} style={{ marginBlock: 8 }}>
                   <Col flex={1}>
                     <ConnDetailItem title="Project">
-                      <p style={{ fontSize: 16 }} title={group}>
-                        {group}
-                      </p>
+                      <Tooltip title={group}>
+                        <p style={{ fontSize: 16 }}>{group}</p>
+                      </Tooltip>
                     </ConnDetailItem>
                   </Col>
                   <Col flex={1}>

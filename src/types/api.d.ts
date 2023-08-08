@@ -12,7 +12,7 @@ declare namespace I {
     group: string;
     name: string;
     password: string;
-    tag: Record<string, any>;
+    tags: Record<string, any>;
   }
 
   export interface SpyRoomList {

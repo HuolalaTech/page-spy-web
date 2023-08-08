@@ -1,6 +1,6 @@
 {
   "name": "@huolala-tech/page-spy-web",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "All-In-One Remote Debugging Tool",
   "homepage": "https://huolalatech.github.io/page-spy-web",
   "license": "MIT",
@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
-    "@huolala-tech/page-spy": "^1.2.4",
+    "@huolala-tech/page-spy": "^1.2.5",
     "@mdx-js/rollup": "^2.3.0",
     "@types/lodash-es": "^4.17.7",
     "@types/mdx": "^2.0.4",

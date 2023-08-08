@@ -1,7 +1,7 @@
 .room-list {
   .room-list-content {
-    width: 80%;
-    max-width: 1024px;
+    width: 90%;
+    max-width: 1200px;
     margin: 32px auto;
   }
   .connection-item {
@@ -14,6 +14,27 @@
     &:hover {
       transform: translateY(-4px);
       box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.1);
+    }
+    &__title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 4px;
+      padding-block: 8px;
+      text-align: center;
+    }
+    .custom-title {
+      padding-inline: 8px;
+      font-size: 12px;
+      line-height: 18px;
+      color: #fff;
+      background-color: fade(@primary-color, 50%);
+      border-radius: 999px;
+      max-width: 80%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
     &__info {
       > div {
