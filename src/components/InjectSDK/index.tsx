@@ -43,15 +43,22 @@ export const InjectSDKModal = ({
      */
     clientOrigin: string,
     /**
-     * The project name used for grouping connections
+     * The project name used for grouping connections.
      */
     project: string,
     /**
-     * Indicate whether auto render. You can manually render later
-     * by calling "window.$pageSpy.render()".
+     * Indicate whether auto render the widget on the bottom-left
+     * corner. You can manually render later by calling
+     * "window.$pageSpy.render()" if passed false.
      * @default true
      */
-    autoRender: boolean
+    autoRender: boolean,
+    /**
+     * Custom title for displaying some data like user info to
+     * help you to distinguish the client. The title value will
+     * show in the room-list route page.
+     */
+    title: string;
   });
 </script>
 `,

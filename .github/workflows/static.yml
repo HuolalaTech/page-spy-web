@@ -36,7 +36,7 @@ jobs:
         with:
           node-version: 18
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: yarn --frozen-lockfile --ignore-optional
       - name: Build
         run: yarn build:doc
       - name: try_files using 404.html
