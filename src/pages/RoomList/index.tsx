@@ -136,11 +136,9 @@ export const RoomList = () => {
             <Col key={address} span={6}>
               <div className={clsx('connection-item')}>
                 <div className="connection-item__title">
-                  <Tooltip title={`Device ID: ${simpleAddress}`}>
-                    <code style={{ fontSize: 36 }}>
-                      <b>{simpleAddress}</b>
-                    </code>
-                  </Tooltip>
+                  <code style={{ fontSize: 36 }}>
+                    <b>{simpleAddress}</b>
+                  </code>
                   <Tooltip
                     title={`Title: ${tags.title?.toString() || '--'}`}
                     placement="right"
@@ -153,9 +151,9 @@ export const RoomList = () => {
                 <Row wrap={false} style={{ marginBlock: 8 }}>
                   <Col flex={1}>
                     <ConnDetailItem title="Project">
-                      <p style={{ fontSize: 16 }} title={group}>
-                        {group}
-                      </p>
+                      <Tooltip title={group}>
+                        <p style={{ fontSize: 16 }}>{group}</p>
+                      </Tooltip>
                     </ConnDetailItem>
                   </Col>
                   <Col flex={1}>
