@@ -73,7 +73,13 @@
   "console": {
     "run": "执行",
     "placeholder": "可执行代码",
-    "newContent": "新消息"
+    "newContent": "新消息",
+    "error-drawer": {
+      "title": "错误详情",
+      "fetch-minify-fail": "获取源文件失败",
+      "none-sourcemap": "未找到 SourceMap",
+      "fetch-sourcemap-fail": "获取 SourceMap 失败"
+    }
   },
   "network": {},
   "system": {

@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import type { ReactNode } from 'react';
+import type { MouseEventHandler, ReactNode } from 'react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import './index.less';
@@ -34,7 +34,7 @@ function GetterNode({ id, parentId, instanceId, keyName }: GetterNodeProps) {
     };
   }, [id, keyName, socket]);
 
-  const getPropertyValue = useCallback(
+  const getPropertyValue: MouseEventHandler = useCallback(
     (evt) => {
       if (!id) return;
       evt.stopPropagation();
@@ -152,7 +152,7 @@ const PropertyItem = React.memo<{
 const PrototypeKey = '[[Prototype]]';
 interface AtomNodeProps {
   id: string;
-  value: string | PropertyDescriptor | ReactNode;
+  value: string | ReactNode;
   showArrow?: boolean;
 }
 function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
@@ -236,7 +236,7 @@ interface ConsoleNodeProps {
 const ConsoleNode = React.memo<ConsoleNodeProps>(({ data }) => {
   const { __atomId = '', type, value } = data;
   if (type === 'atom' && !!__atomId) {
-    return <AtomNode id={__atomId} value={value} />;
+    return <AtomNode id={__atomId} value={value as string} />;
   }
   // new Boolean/String/Number...
   // e.g. new Boolean() => { type: 'object', value: false }

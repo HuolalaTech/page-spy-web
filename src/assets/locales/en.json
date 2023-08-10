@@ -73,7 +73,13 @@
   "console": {
     "run": "Run",
     "placeholder": "Executable code",
-    "newContent": "New content"
+    "newContent": "New content",
+    "error-drawer": {
+      "title": "Error stack detail",
+      "fetch-minify-fail": "Fail to fetch origin file",
+      "none-sourcemap": "No sourcemap file founded",
+      "fetch-sourcemap-fail": "Fail to fetch sourcemap file"
+    }
   },
   "network": {},
   "system": {

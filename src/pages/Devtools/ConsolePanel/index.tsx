@@ -19,6 +19,7 @@ import {
   PlaceholderNode,
   isPlaceholderNode,
 } from './components/ConsoleNode/PlaceholderNode';
+import { ErrorTraceNode, isErrorTraceNode } from './components/ErrorTrace';
 
 const EXECUTE_HISTORY_ID = 'page_spy_execute_history';
 const EXECUTE_HISTORY_MAX_SIZE = 100;
@@ -241,6 +242,8 @@ const ConsolePanel = () => {
                   <Col flex={1}>
                     {isPlaceholderNode(item) ? (
                       <PlaceholderNode data={item.logs} />
+                    ) : isErrorTraceNode(item) ? (
+                      <ErrorTraceNode data={item} />
                     ) : (
                       item.logs?.map((log) => {
                         return <ConsoleNode data={log} key={log.id} />;
