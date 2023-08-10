@@ -3,16 +3,30 @@ const fs = require('fs');
 const path = require('path');
 
 const root = process.cwd();
-const targetDir = path.resolve(root, `public/page-spy`);
+const pageSpy = require.resolve('@huolala-tech/page-spy');
+const sourceMap = require.resolve('source-map');
+
+const moveList = [
+  {
+    from: pageSpy,
+    to: path.resolve(root, 'public/page-spy/index.min.js'),
+  },
+  {
+    from: path.resolve(path.dirname(sourceMap), './dist/source-map.js'),
+    to: path.resolve(root, 'public/source-map/source-map.min.js'),
+  },
+  {
+    from: path.resolve(path.dirname(sourceMap), './lib/mappings.wasm'),
+    to: path.resolve(root, 'public/source-map/mappings.wasm'),
+  },
+];
 
 try {
-  fs.mkdirSync(targetDir, { recursive: true });
-
-  const src = require.resolve('@huolala-tech/page-spy');
-  const dest = path.resolve(targetDir, 'index.min.js');
-  fs.copyFileSync(src, dest);
+  moveList.forEach(({ from, to }) => {
+    fs.mkdirSync(path.dirname(to), { recursive: true });
+    fs.copyFileSync(from, to);
+  });
 } catch (e) {
-  console.error('PageSpy sdk copy failed.');
   console.error(e);
   process.exit(1);
 }

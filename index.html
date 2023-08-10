@@ -8,6 +8,13 @@
   <title>PageSpy</title>
   <link rel="icon" href="/favicon.ico">
   <link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg">
+  <script src="/source-map/source-map.min.js"></script>
+  <script>
+    const mappingWasmUrl = new URL('/source-map/mappings.wasm', window.location.href).toString()
+    sourceMap.SourceMapConsumer.initialize({
+      "lib/mappings.wasm": mappingWasmUrl
+    });
+  </script>
 </head>
 
 <body>
