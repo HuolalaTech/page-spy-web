@@ -1,0 +1,81 @@
+import { getTranslation } from '@/assets/locales';
+
+const getI18nText = (k: string) => getTranslation(`console.error-trace.${k}`);
+
+const fileCache = new Map<string, string>();
+const readFile = async (url: string) => {
+  if (!url.trim()) return null;
+
+  const cache = fileCache.get(url);
+  if (!cache) {
+    const content = await (await fetch(url)).text();
+    fileCache.set(url, content);
+  }
+  return fileCache.get(url);
+};
+
+const parseSourceMap = (data: {
+  sourcemap: string;
+  lineNumber: number;
+  columnNumber: number;
+}) => {
+  const { sourcemap, lineNumber, columnNumber } = data;
+  return new Promise((resolve) => {
+    window.sourceMap.SourceMapConsumer.with(sourcemap, null, (consumer) => {
+      const { line, source } = consumer.originalPositionFor({
+        line: lineNumber,
+        column: columnNumber,
+      });
+      if (source === null || line === null) {
+        resolve([]);
+        return;
+      }
+      const start = Math.max(line - 5, 0);
+      const end = line + 5;
+      const contentList = consumer
+        .sourceContentFor(source)
+        ?.split('\n')
+        .slice(start, end)
+        .map((content, index) => {
+          return {
+            line: start + index + 1,
+            content,
+          };
+        });
+      resolve(contentList || []);
+    });
+  });
+};
+
+/**
+ * @description 从报错堆栈的文件、行、列反查源码，返回源码片段
+ */
+export const getOriginFragments = async (data: {
+  fileName: string;
+  lineNumber: number;
+  columnNumber: number;
+}) => {
+  const { fileName, lineNumber, columnNumber } = data;
+  const minified = await readFile(fileName);
+  if (!minified) {
+    throw new Error(getI18nText('fetch-minify-fail')!);
+  }
+  const sourceMapUrl = minified.match(/(?<=\/\/#\s+sourceMappingURL=).*/);
+  if (!sourceMapUrl) {
+    throw new Error(getI18nText('none-sourcemap')!);
+  }
+  const sourcemap = await readFile(
+    new URL(sourceMapUrl[0], fileName).toString(),
+  );
+  if (!sourcemap) {
+    throw new Error(getI18nText('fetch-sourcemap-fail')!);
+  }
+
+  const fragments = await parseSourceMap({
+    sourcemap,
+    lineNumber,
+    columnNumber,
+  });
+
+  return fragments;
+};
