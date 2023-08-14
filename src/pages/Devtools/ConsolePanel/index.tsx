@@ -3,7 +3,7 @@ import './index.less';
 import { HeaderActions } from './components/HeaderActions';
 import { MainContent } from './components/MainContent';
 import { FooterInput } from './components/FooterInput';
-import { SourceCodeDetail } from './components/SourceCodeDetail';
+import { ErrorDetailDrawer } from './components/ErrorDetailDrawer';
 
 const ConsolePanel = () => {
   return (
@@ -13,7 +13,7 @@ const ConsolePanel = () => {
         <MainContent />
         <FooterInput />
       </div>
-      <SourceCodeDetail />
+      <ErrorDetailDrawer />
     </div>
   );
 };

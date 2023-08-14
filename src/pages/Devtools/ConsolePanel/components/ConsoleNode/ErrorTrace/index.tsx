@@ -31,13 +31,13 @@ export const ErrorTraceNode = ({
       return;
     }
 
-    const err = new Error();
+    const error = new Error();
 
     const { name, message, stack } = data.errorDetail;
-    err.name = name;
-    err.message = message;
-    err.stack = stack;
-    const frames = ErrorStackParser.parse(err).filter(
+    error.name = name;
+    error.message = message;
+    error.stack = stack;
+    const frames = ErrorStackParser.parse(error).filter(
       ({ fileName, lineNumber, columnNumber }) => {
         return [fileName, lineNumber, columnNumber].every(Boolean);
       },
@@ -47,6 +47,7 @@ export const ErrorTraceNode = ({
     window.dispatchEvent(
       new CustomEvent('source-code-detail', {
         detail: {
+          error,
           frames,
         },
       }),

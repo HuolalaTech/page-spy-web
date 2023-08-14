@@ -6,11 +6,11 @@
   "license": "MIT",
   "scripts": {
     "start:doc": "vite --mode doc",
-    "prestart:client": "node scripts/mv-sdk.js",
+    "prestart:client": "bash scripts/public-files.sh",
     "start:client": "vite --mode client",
     "start:server": "page-spy-api",
     "build:doc": "vite build --mode doc",
-    "prebuild:client": "node scripts/mv-sdk.js",
+    "prebuild:client": "bash scripts/public-files.sh",
     "build:client": "vite build --mode client",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src"

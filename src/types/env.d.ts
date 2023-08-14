@@ -14,4 +14,5 @@ interface ImportMeta {
 
 interface Window {
   sourceMap: typeof import('source-map');
+  shiki: typeof import('shiki');
 }

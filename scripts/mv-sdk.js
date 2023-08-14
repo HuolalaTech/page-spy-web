@@ -3,10 +3,10 @@ const fs = require('fs');
 const path = require('path');
 
 const root = process.cwd();
+
 const pageSpy = require.resolve('@huolala-tech/page-spy');
 const sourceMap = require.resolve('source-map');
-
-const moveList = [
+const fileList = [
   {
     from: pageSpy,
     to: path.resolve(root, 'public/page-spy/index.min.js'),
@@ -22,7 +22,7 @@ const moveList = [
 ];
 
 try {
-  moveList.forEach(({ from, to }) => {
+  fileList.forEach(({ from, to }) => {
     fs.mkdirSync(path.dirname(to), { recursive: true });
     fs.copyFileSync(from, to);
   });

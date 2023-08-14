@@ -1,0 +1,56 @@
+.error-message-box {
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: #eb3223;
+  background-color: #fdeeee;
+  overflow: auto;
+}
+.error-stack-item {
+  .source-code-fragments {
+    position: relative;
+    .origin-filename {
+      position: absolute;
+      left: 12px;
+      top: 0;
+      font-size: 14px;
+      line-height: 32px;
+      color: #fff;
+    }
+    pre {
+      padding: 32px 12px 8px;
+      border-radius: 4px;
+      overflow: auto;
+    }
+    code {
+      counter-reset: step;
+      counter-increment: step calc(var(--start, 1) - 1);
+    }
+    code .line::before {
+      content: counter(step);
+      counter-increment: step;
+      width: 1rem;
+      margin-right: 1rem;
+      display: inline-block;
+      text-align: right;
+      color: rgba(233, 249, 254, 0.4);
+    }
+    code .line:nth-child(5) {
+      text-decoration: rgb(219, 89, 89) wavy underline;
+    }
+  }
+  @keyframes fade {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.3;
+    }
+  }
+  .locate-icon {
+    font-size: 18px;
+    color: @primary-color;
+    &.loading {
+      animation: fade 1s linear infinite alternate;
+    }
+  }
+}

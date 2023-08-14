@@ -15,6 +15,11 @@
       "lib/mappings.wasm": mappingWasmUrl
     });
   </script>
+  <script src="/shiki/dist/index.jsdelivr.iife.js"></script>
+  <script>
+    const shikiURL = new URL('/shiki', window.location.origin).toString()
+    window.shiki.setCDN(shikiURL)
+  </script>
 </head>
 
 <body>

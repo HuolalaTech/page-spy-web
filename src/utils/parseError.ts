@@ -1,4 +1,5 @@
 import { getTranslation } from '@/assets/locales';
+import { getFileExtension } from '.';
 
 const getI18nText = (k: string) => getTranslation(`console.error-trace.${k}`);
 
@@ -14,36 +15,74 @@ const readFile = async (url: string) => {
   return fileCache.get(url);
 };
 
-const parseSourceMap = (data: {
+export interface Fragments {
+  line: number | null;
+  column: number | null;
+  start: number | null;
+  end: number | null;
+  sourceFile: string | null;
+  sourceHTML: string | null;
+}
+
+const locateSourceCode = (data: {
   sourcemap: string;
   lineNumber: number;
   columnNumber: number;
-}) => {
+}): Promise<Fragments> => {
   const { sourcemap, lineNumber, columnNumber } = data;
   return new Promise((resolve) => {
-    window.sourceMap.SourceMapConsumer.with(sourcemap, null, (consumer) => {
-      const { line, source } = consumer.originalPositionFor({
-        line: lineNumber,
-        column: columnNumber,
-      });
-      if (source === null || line === null) {
-        resolve([]);
-        return;
-      }
-      const start = Math.max(line - 5, 0);
-      const end = line + 5;
-      const contentList = consumer
-        .sourceContentFor(source)
-        ?.split('\n')
-        .slice(start, end)
-        .map((content, index) => {
+    window.sourceMap.SourceMapConsumer.with(
+      sourcemap,
+      null,
+      async (consumer) => {
+        const { line, column, source } = consumer.originalPositionFor({
+          line: lineNumber,
+          column: columnNumber,
+        });
+        if (source === null || line === null || column === null) {
+          resolve({
+            line,
+            column,
+            start: null,
+            end: null,
+            sourceFile: source,
+            sourceHTML: null,
+          });
+          return;
+        }
+        const start = Math.max(line - 5, 0);
+        const end = line + 5;
+        const list =
+          consumer.sourceContentFor(source)?.split('\n').slice(start, end) ||
+          [];
+        const sourceContent = list.join('\n');
+        const highlighter = await window.shiki.getHighlighter({
+          theme: 'github-dark',
+          langs: ['js', 'jsx', 'ts', 'tsx', 'mdx', 'vue', 'html'],
+        });
+        const lang = getFileExtension(source) || 'js';
+        const sourceHTML = highlighter.codeToHtml(sourceContent, {
+          lang,
+        });
+        const fragments = list.map((content, index) => {
           return {
             line: start + index + 1,
             content,
+            html: highlighter.codeToHtml(content, {
+              lang,
+            }),
           };
         });
-      resolve(contentList || []);
-    });
+        resolve({
+          line,
+          column,
+          start: start + 1,
+          end: end + 1,
+          sourceFile: source,
+          sourceHTML,
+        });
+      },
+    );
   });
 };
 
@@ -71,7 +110,7 @@ export const getOriginFragments = async (data: {
     throw new Error(getI18nText('fetch-sourcemap-fail')!);
   }
 
-  const fragments = await parseSourceMap({
+  const fragments = await locateSourceCode({
     sourcemap,
     lineNumber,
     columnNumber,
