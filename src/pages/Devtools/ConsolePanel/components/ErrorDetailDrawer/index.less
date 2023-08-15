@@ -1,11 +1,15 @@
 .error-message-box {
   padding: 8px 12px;
+  overflow: auto;
   border-radius: 4px;
   color: #eb3223;
   background-color: #fdeeee;
-  overflow: auto;
+  line-height: 1.4;
 }
 .error-stack-item {
+  & ~ & {
+    margin-top: 12px;
+  }
   .source-code-fragments {
     position: relative;
     .origin-filename {
