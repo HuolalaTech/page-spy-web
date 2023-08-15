@@ -1,5 +1,7 @@
 import { getTranslation } from '@/assets/locales';
 import { getFileExtension } from '.';
+import sh from './shiki-highlighter';
+import type { Lang } from 'shiki';
 
 const getI18nText = (k: string) => getTranslation(`console.error-trace.${k}`);
 
@@ -56,22 +58,10 @@ const locateSourceCode = (data: {
           consumer.sourceContentFor(source)?.split('\n').slice(start, end) ||
           [];
         const sourceContent = list.join('\n');
-        const highlighter = await window.shiki.getHighlighter({
-          theme: 'github-dark',
-          langs: ['js', 'jsx', 'ts', 'tsx', 'mdx', 'vue', 'html'],
-        });
         const lang = getFileExtension(source) || 'js';
+        const highlighter = await sh.get(lang as Lang);
         const sourceHTML = highlighter.codeToHtml(sourceContent, {
           lang,
-        });
-        const fragments = list.map((content, index) => {
-          return {
-            line: start + index + 1,
-            content,
-            html: highlighter.codeToHtml(content, {
-              lang,
-            }),
-          };
         });
         resolve({
           line,

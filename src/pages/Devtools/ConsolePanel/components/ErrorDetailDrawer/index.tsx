@@ -41,9 +41,6 @@ const ErrorStackItem = ({ frame }: { frame: Required<StackFrame> }) => {
       onError(e) {
         message.error(e.message);
       },
-      onSuccess(res) {
-        console.log(res);
-      },
     },
   );
 
@@ -84,8 +81,8 @@ const ErrorStackItem = ({ frame }: { frame: Required<StackFrame> }) => {
     return (
       <div className="source-code-fragments">
         <code className="origin-filename">
-          <span style={{ color: '#aaa' }}>{t('source-filename')}:</span>{' '}
-          {data.sourceFile}({data.line}:{data.column})
+          <span>{t('source-filename')}:</span> {data.sourceFile}({data.line}:
+          {data.column})
         </code>
         <div
           style={{
@@ -145,6 +142,7 @@ export const ErrorDetailDrawer = memo(() => {
     <Drawer
       width="50%"
       open={open}
+      destroyOnClose
       onClose={() => setOpen(false)}
       title={t('title')}
       footer={

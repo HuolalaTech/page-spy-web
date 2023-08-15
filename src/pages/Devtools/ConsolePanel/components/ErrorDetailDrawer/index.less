@@ -18,7 +18,7 @@
       top: 0;
       font-size: 14px;
       line-height: 32px;
-      color: #fff;
+      color: #aaa;
     }
     pre {
       padding: 32px 12px 8px;
@@ -36,10 +36,13 @@
       margin-right: 1rem;
       display: inline-block;
       text-align: right;
-      color: rgba(233, 249, 254, 0.4);
+      color: rgba(182, 196, 200, 0.507);
     }
     code .line:nth-child(5) {
-      text-decoration: rgb(219, 89, 89) wavy underline;
+      &::before {
+        color: #eee;
+        font-weight: 700;
+      }
     }
   }
   @keyframes fade {
