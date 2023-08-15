@@ -61,10 +61,10 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
       1,
     )}` as MenuKeys;
     if (type !== active) {
-      setBadge({
-        ...badge,
+      setBadge((prev) => ({
+        ...prev,
         [type]: true,
-      });
+      }));
     }
   });
 

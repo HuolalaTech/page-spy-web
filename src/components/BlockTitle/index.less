@@ -1,0 +1,18 @@
+.block-title {
+  position: relative;
+  padding-left: 16px;
+  &::before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 4px;
+    height: 60%;
+    transform: translateY(-50%);
+    background-color: @primary-color;
+  }
+  ~ .block-title {
+    margin-top: 32px;
+  }
+}

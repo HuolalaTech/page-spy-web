@@ -6,11 +6,11 @@
   "license": "MIT",
   "scripts": {
     "start:doc": "vite --mode doc",
-    "prestart:client": "node scripts/mv-sdk.js",
+    "prestart:client": "bash scripts/public-files.sh",
     "start:client": "vite --mode client",
     "start:server": "page-spy-api",
     "build:doc": "vite build --mode doc",
-    "prebuild:client": "node scripts/mv-sdk.js",
+    "prebuild:client": "bash scripts/public-files.sh",
     "build:client": "vite build --mode client",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src"
@@ -51,6 +51,7 @@
     "antd": "^5.2.1",
     "clsx": "^1.2.1",
     "copy-to-clipboard": "^3.3.3",
+    "error-stack-parser": "^2.1.4",
     "highlight.js": "^11.7.0",
     "i18next": "^22.4.10",
     "i18next-browser-languagedetector": "^7.0.1",
@@ -64,6 +65,8 @@
     "react-transition-group": "^4.4.5",
     "rehype-parse": "^8.0.4",
     "rehype-stringify": "^9.0.3",
+    "shiki": "^0.14.3",
+    "source-map": "^0.7.4",
     "unified": "^10.1.2",
     "unist-util-visit": "^4.1.2",
     "zustand": "^4.3.7"

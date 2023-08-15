@@ -1,0 +1,63 @@
+.error-message-box {
+  padding: 8px 12px;
+  overflow: auto;
+  border-radius: 4px;
+  color: #eb3223;
+  background-color: #fdeeee;
+  line-height: 1.4;
+}
+.error-stack-item {
+  & ~ & {
+    margin-top: 12px;
+  }
+  .source-code-fragments {
+    position: relative;
+    .origin-filename {
+      position: absolute;
+      left: 12px;
+      top: 0;
+      font-size: 14px;
+      line-height: 32px;
+      color: #aaa;
+    }
+    pre {
+      padding: 32px 12px 8px;
+      border-radius: 4px;
+      overflow: auto;
+    }
+    code {
+      counter-reset: step;
+      counter-increment: step calc(var(--start, 1) - 1);
+    }
+    code .line::before {
+      content: counter(step);
+      counter-increment: step;
+      width: 1rem;
+      margin-right: 1rem;
+      display: inline-block;
+      text-align: right;
+      color: rgba(182, 196, 200, 0.507);
+    }
+    code .line:nth-child(5) {
+      &::before {
+        color: #eee;
+        font-weight: 700;
+      }
+    }
+  }
+  @keyframes fade {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.3;
+    }
+  }
+  .locate-icon {
+    font-size: 18px;
+    color: @primary-color;
+    &.loading {
+      animation: fade 1s linear infinite alternate;
+    }
+  }
+}

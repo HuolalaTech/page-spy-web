@@ -22,3 +22,12 @@ declare namespace I {
     data: SpyRoom[];
   }
 }
+
+// Recursive Required
+type RRequired<T> = {
+  [K in keyof T]-?: T[K] extends Array<infer U>
+    ? Array<RRequired<U>>
+    : T[K] extends object
+    ? RRequired<T[K]>
+    : Required<T[K]>;
+};

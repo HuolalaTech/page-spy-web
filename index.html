@@ -8,6 +8,18 @@
   <title>PageSpy</title>
   <link rel="icon" href="/favicon.ico">
   <link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg">
+  <script src="/source-map/source-map.min.js"></script>
+  <script>
+    const mappingWasmUrl = new URL('/source-map/mappings.wasm', window.location.href).toString()
+    sourceMap.SourceMapConsumer.initialize({
+      "lib/mappings.wasm": mappingWasmUrl
+    });
+  </script>
+  <script src="/shiki/dist/index.jsdelivr.iife.js"></script>
+  <script>
+    const shikiURL = new URL('/shiki', window.location.origin).toString()
+    window.shiki.setCDN(shikiURL)
+  </script>
 </head>
 
 <body>
