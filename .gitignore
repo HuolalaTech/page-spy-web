@@ -19,7 +19,8 @@ yarn-error.log*
 /dist
 /docs-dist
 test.ts
-public/page-spy/index.min.js
+public/*
+!public/favicon*
 
 # misc
 .DS_Store

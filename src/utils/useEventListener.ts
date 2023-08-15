@@ -33,13 +33,11 @@ export const useEventListener = (
     handler.current(evt);
   }, []);
 
-  useMemo(() => {
+  useEffect(() => {
     target.addEventListener(type, fn, {
       capture,
       passive,
     });
-  }, [target, type, fn, capture, passive]);
-  useEffect(() => {
     return () => {
       target.removeEventListener(type, fn);
     };

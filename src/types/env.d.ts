@@ -11,3 +11,8 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+interface Window {
+  sourceMap: typeof import('source-map');
+  shiki: typeof import('shiki');
+}

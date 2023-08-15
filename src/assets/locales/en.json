@@ -73,7 +73,21 @@
   "console": {
     "run": "Run",
     "placeholder": "Executable code",
-    "newContent": "New content"
+    "newContent": "New content",
+    "error-trace": {
+      "title": "Error detail",
+      "hints": "HINTS",
+      "message-title": "Error message",
+      "stack-title": "Error stack",
+      "source-filename": "Source filename",
+      "fetch-minify-fail": "Fail to fetch origin file",
+      "none-sourcemap": "No sourcemap file founded",
+      "fetch-sourcemap-fail": "Fail to fetch sourcemap file",
+      "failed-title": "There are some issues with locating the source code",
+      "failed-advice": "Here are some suggestions to fix and improve the situation:",
+      "fix-suggestion-1": "<0>1. Ensure file existence: When locating the source code for each error stack, two files need to be requested - the compressed file and the sourcemap file. The rule for obtaining the sourcemap file is based on the address indicated by</0> <1>//# sourceMappingURL=*</1> <2>in the contents of the compressed file;</2>",
+      "fix-suggestion-2": "2. Troubleshoot network issues: If there are access restrictions on the server where your source files are located, it may lead to failed requests when trying to access the resources. You can open the devtool to check if the network is working properly."
+    }
   },
   "network": {},
   "system": {
