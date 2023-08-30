@@ -9,7 +9,10 @@ export const useLanguage = () => {
 
   useEffect(() => {
     const { languages, resolvedLanguage } = i18n;
-    const lng = languages.includes(resolvedLanguage) ? resolvedLanguage : 'en';
+    const lng =
+      resolvedLanguage && languages.includes(resolvedLanguage)
+        ? resolvedLanguage
+        : 'en';
     setLang(lng as langType);
   }, [i18n, i18n.languages, i18n.resolvedLanguage]);
 

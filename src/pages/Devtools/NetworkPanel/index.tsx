@@ -110,9 +110,9 @@ const NetworkPanel = () => {
           }
           if (row.withCredentials) {
             const cookie = Object.entries(storageMsg.cookie)
-              .map(([k, v]) => `${k}=${v}`)
-              .join('; ');
-            headers = `${headers && `${headers} \\\r\n`}-H 'cookie: ${cookie}'`;
+              .map(([k, { value }]) => `${k}=${value}`)
+              .join(';');
+            headers = `${headers && `${headers} \\\r\n`}-H 'cookie:${cookie}'`;
           }
           if (headers) {
             result = `${result} \\\r\n${headers}`;
