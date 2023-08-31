@@ -28,6 +28,7 @@ import { useTranslation } from 'react-i18next';
 import { ConnectStatus } from './ConnectStatus';
 import { useSocketMessageStore } from '@/store/socket-message';
 import '@huolala-tech/react-json-view/dist/style.css';
+import { throttle } from 'lodash-es';
 
 const { Sider, Content } = Layout;
 const { Title } = Typography;
@@ -55,18 +56,21 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
     Storage: false,
     System: false,
   });
-  useEventListener('page-spy-updated', (evt) => {
-    const { detail } = evt as CustomEvent;
-    const type = `${(detail as string)[0].toUpperCase()}${detail.slice(
-      1,
-    )}` as MenuKeys;
-    if (type !== active) {
-      setBadge((prev) => ({
-        ...prev,
-        [type]: true,
-      }));
-    }
-  });
+  useEventListener(
+    'page-spy-updated',
+    throttle((evt) => {
+      const { detail } = evt as CustomEvent;
+      const type = `${(detail as string)[0].toUpperCase()}${detail.slice(
+        1,
+      )}` as MenuKeys;
+      if (type !== active) {
+        setBadge((prev) => ({
+          ...prev,
+          [type]: true,
+        }));
+      }
+    }, 100),
+  );
 
   useEffect(() => {
     setBadge((prev) => ({
