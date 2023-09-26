@@ -7,14 +7,22 @@ const getI18nText = (k: string) => getTranslation(`console.error-trace.${k}`);
 
 const fileCache = new Map<string, string>();
 const readFile = async (url: string) => {
-  if (!url.trim()) return null;
+  try {
+    if (!url.trim()) return null;
 
-  const cache = fileCache.get(url);
-  if (!cache) {
-    const content = await (await fetch(url)).text();
-    fileCache.set(url, content);
+    const cache = fileCache.get(url);
+    if (!cache) {
+      const res = await fetch(url);
+      if (!res.ok) {
+        return null;
+      }
+      const content = await res.text();
+      fileCache.set(url, content);
+    }
+    return fileCache.get(url)!;
+  } catch (e) {
+    return null;
   }
-  return fileCache.get(url);
 };
 
 export interface Fragments {
@@ -76,6 +84,35 @@ const locateSourceCode = (data: {
   });
 };
 
+const loadSourceMap = async (filename: string) => {
+  let result: string | null = null;
+
+  // hidden sourcemap
+  const fakeSourcemapFilename = filename + '.map';
+  result = await readFile(fakeSourcemapFilename);
+  if (result) return result;
+
+  // inline sourcemap OR standalone sourcemap
+  const originFileContent = await readFile(filename);
+  if (!originFileContent) {
+    throw new Error(getI18nText('fetch-minify-fail')!);
+  }
+  const inlineContent = originFileContent.match(
+    /(?<=\/\/#\s+sourceMappingURL=).*/,
+  );
+  if (!inlineContent) {
+    throw new Error(getI18nText('none-sourcemap')!);
+  }
+  // inline sourcemap
+  let targetUrl = inlineContent[0];
+  if (!targetUrl.startsWith('data:application/json;')) {
+    // standalone sourcemap
+    targetUrl = new URL(targetUrl, filename).toString();
+  }
+  result = await readFile(targetUrl);
+  return result;
+};
+
 /**
  * @description 从报错堆栈的文件、行、列反查源码，返回源码片段
  */
@@ -85,19 +122,10 @@ export const getOriginFragments = async (data: {
   columnNumber: number;
 }) => {
   const { fileName, lineNumber, columnNumber } = data;
-  const minified = await readFile(fileName);
-  if (!minified) {
-    throw new Error(getI18nText('fetch-minify-fail')!);
-  }
-  const sourceMapUrl = minified.match(/(?<=\/\/#\s+sourceMappingURL=).*/);
-  if (!sourceMapUrl) {
-    throw new Error(getI18nText('none-sourcemap')!);
-  }
-  const sourcemap = await readFile(
-    new URL(sourceMapUrl[0], fileName).toString(),
-  );
+  const sourcemap = await loadSourceMap(fileName);
+
   if (!sourcemap) {
-    throw new Error(getI18nText('fetch-sourcemap-fail')!);
+    throw new Error(getI18nText('fetch-sourcemap-fail'));
   }
 
   const fragments = await locateSourceCode({

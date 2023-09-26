@@ -171,8 +171,8 @@ export const ErrorDetailDrawer = memo(() => {
         <Empty description={false} />
       )}
       <BlockTitle title={t('stack-title')} />
-      {frames?.map((f) => (
-        <ErrorStackItem key={f.fileName} frame={f} />
+      {frames?.map((f, index) => (
+        <ErrorStackItem key={f.fileName + index} frame={f} />
       ))}
     </Drawer>
   );
