@@ -27,7 +27,7 @@ export const ErrorTraceNode = ({
   data: RRequired<SpyConsole.DataItem>;
 }) => {
   const onPopupDetail = useCallback(() => {
-    if (!data.errorDetail.stack) {
+    if (!data.errorDetail?.stack) {
       return;
     }
 
@@ -62,7 +62,7 @@ export const ErrorTraceNode = ({
         onClick={onPopupDetail}
       />
       <div className="error-trace-node">
-        <code>{data.errorDetail.stack}</code>
+        <code>{data.errorDetail?.stack}</code>
       </div>
     </div>
   );
