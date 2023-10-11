@@ -204,18 +204,18 @@ const NetworkPanel = () => {
               {getObjectKeys(generalFieldMap).map((label) => {
                 const field = generalFieldMap[label];
                 return (
-                  <div className="content-item" key={label}>
-                    <b className="content-item__label">{label}: &nbsp;</b>
-                    <span className="content-item__value">
+                  <div className="entries-item" key={label}>
+                    <b className="entries-item__label">{label}: &nbsp;</b>
+                    <span className="entries-item__value">
                       <code>{detailData[field]}</code>
                     </span>
                   </div>
                 );
               })}
 
-              <div className="content-item">
-                <b className="content-item__label">Status Code: &nbsp;</b>
-                <span className="content-item__value">
+              <div className="entries-item">
+                <b className="entries-item__label">Status Code: &nbsp;</b>
+                <span className="entries-item__value">
                   <code>
                     <StatusCode data={detailData} />
                   </code>
