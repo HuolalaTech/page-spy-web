@@ -16,7 +16,7 @@ class ShikiHighlighter {
   private async init() {
     this.highlighter = await window.shiki.getHighlighter({
       theme: 'github-dark',
-      langs: ['js', 'jsx', 'ts', 'tsx', 'mdx', 'vue', 'html', 'css'],
+      langs: ['js', 'jsx', 'ts', 'tsx'],
     });
   }
 
