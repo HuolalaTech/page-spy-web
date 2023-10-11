@@ -27,8 +27,7 @@ export const InjectSDKModal = ({
         ),
         code: `<script>
   window.$pageSpy = new PageSpy();
-</script>
-`,
+</script>`,
       },
       {
         title: t('inject.pass-config'),

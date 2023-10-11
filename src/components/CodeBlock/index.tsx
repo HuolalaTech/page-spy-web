@@ -1,10 +1,10 @@
-import clsx from 'clsx';
-import hljs from 'highlight.js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './index.less';
 import copy from 'copy-to-clipboard';
 import { Space } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
+import sh from '@/utils/shiki-highlighter';
+import { useAsyncEffect } from 'ahooks';
 
 interface Props {
   code: string;
@@ -17,8 +17,13 @@ export const CodeBlock = ({
   codeType = 'language-html',
   showCopy = true,
 }: Props) => {
-  const codeContent = useMemo(() => {
-    return hljs.highlightAuto(code).value;
+  const [codeContent, setCodeContent] = useState('');
+  useAsyncEffect(async () => {
+    const highlighter = await sh.get();
+    const content = highlighter.codeToHtml(code, {
+      lang: 'html',
+    });
+    setCodeContent(content);
   }, [code]);
 
   const [copyStatus, setCopyStatus] = useState(false);
@@ -54,14 +59,11 @@ export const CodeBlock = ({
           )}
         </button>
       )}
-      <pre>
-        <code
-          className={clsx('hljs', codeType)}
-          dangerouslySetInnerHTML={{
-            __html: codeContent,
-          }}
-        />
-      </pre>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: codeContent,
+        }}
+      />
     </div>
   );
 };
