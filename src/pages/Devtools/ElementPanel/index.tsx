@@ -66,7 +66,6 @@ function ElementItem({
   const [textContent, setTextContent] = useState('');
   useAsyncEffect(async () => {
     if (type !== 'text') return;
-    console.log({ ast });
 
     const { value } = ast;
     const content = value.trim();

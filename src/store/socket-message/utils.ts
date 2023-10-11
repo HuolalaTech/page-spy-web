@@ -35,7 +35,6 @@ export const getFixedPageMsg = async (htmlText: string, base: string) => {
     const html = file.toString();
 
     const tree = processor.parse(file).children as ElementContent[];
-    console.log(tree);
     return {
       tree,
       html,
