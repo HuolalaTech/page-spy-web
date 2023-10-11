@@ -67,9 +67,10 @@ const locateSourceCode = (data: {
           [];
         const sourceContent = list.join('\n');
         const lang = getFileExtension(source) || 'js';
-        const highlighter = await sh.get(lang as Lang);
+        const highlighter = await sh.get();
         const sourceHTML = highlighter.codeToHtml(sourceContent, {
           lang,
+          theme: 'github-dark',
         });
         resolve({
           line,
