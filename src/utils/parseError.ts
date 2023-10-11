@@ -67,10 +67,25 @@ const locateSourceCode = (data: {
           [];
         const sourceContent = list.join('\n');
         const lang = getFileExtension(source) || 'js';
-        const highlighter = await sh.get();
-        const sourceHTML = highlighter.codeToHtml(sourceContent, {
+        const highlighter = await sh.get({
+          lang: lang as Lang,
+        });
+        const tokens = highlighter.codeToThemedTokens(
+          sourceContent,
           lang,
-          theme: 'github-dark',
+          'github-dark',
+        );
+        let index = 0;
+        const sourceHTML = window.shiki.renderToHtml(tokens, {
+          bg: highlighter.getBackgroundColor('github-dark'),
+          elements: {
+            line({ className, children }) {
+              if (index++ === 4) {
+                return `<span class="${className} error-line" style="--position: ${column}">${children}</span>`;
+              }
+              return `<span class="${className}">${children}</span>`;
+            },
+          },
         });
         resolve({
           line,
