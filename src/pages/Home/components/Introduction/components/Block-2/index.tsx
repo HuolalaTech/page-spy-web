@@ -59,7 +59,7 @@ const SDKPanel = () => {
             <p className="sdk-step__title">
               {index + 1}. {title}
             </p>
-            <CodeBlock code={code} codeType="language-javascript" />
+            <CodeBlock code={code} />
           </div>
         );
       })}

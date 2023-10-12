@@ -115,7 +115,7 @@ export const InjectSDKModal = ({
                 <p className="inject-steps__title">
                   {index + 1}. {title}
                 </p>
-                <CodeBlock code={code} codeType="language-javascript" />
+                <CodeBlock code={code} />
               </div>
             );
           })}

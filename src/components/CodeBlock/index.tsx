@@ -8,18 +8,15 @@ import { useAsyncEffect } from 'ahooks';
 
 interface Props {
   code: string;
-  codeType?: string;
   showCopy?: boolean;
 }
 
-export const CodeBlock = ({
-  code,
-  codeType = 'language-html',
-  showCopy = true,
-}: Props) => {
+export const CodeBlock = ({ code, showCopy = true }: Props) => {
   const [codeContent, setCodeContent] = useState('');
   useAsyncEffect(async () => {
-    const highlighter = await sh.get();
+    const highlighter = await sh.get({
+      lang: 'html',
+    });
     const content = highlighter.codeToHtml(code, {
       lang: 'html',
     });
