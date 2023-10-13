@@ -73,7 +73,21 @@
   "console": {
     "run": "执行",
     "placeholder": "可执行代码",
-    "newContent": "新消息"
+    "newContent": "新消息",
+    "error-trace": {
+      "title": "错误详情",
+      "hints": "使用须知",
+      "message-title": " 错误信息",
+      "stack-title": "错误栈",
+      "source-filename": "源文件",
+      "fetch-minify-fail": "获取源文件失败",
+      "none-sourcemap": "未找到 SourceMap",
+      "fetch-sourcemap-fail": "获取 SourceMap 失败",
+      "failed-title": "定位源码时出现一些故障",
+      "failed-advice": "以下是修复和改进的建议：",
+      "fix-suggestion-1": "<0>1. 确保文件存在：每个错误栈定位源码时都需要请求两个文件，分别是压缩文件和 sourcemap 文件，sourcemap 文件的获取规则是根据压缩文件内容中的</0><1>//# sourceMappingURL=*</1><2>所指向的地址；</2>",
+      "fix-suggestion-2": "2. 排除网络故障：如果你的源文件所在服务器有限制访问规则，则可能导致请求资源时出现失败，你可以打开控制台查看网络请求是否正常。"
+    }
   },
   "network": {},
   "system": {

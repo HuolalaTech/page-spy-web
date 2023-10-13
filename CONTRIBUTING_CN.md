@@ -3,6 +3,7 @@
 [page-spy-sdk]: https://github.com/HuolalaTech/page-spy 'SDK repo'
 [install-go]: https://go.dev/doc/install 'Go Download'
 [github-release]: https://github.com/HuolalaTech/page-spy-web/releases/tag/v1.2.0 'PageSpy Release'
+[npm-package]: https://www.npmjs.com/package/@huolala-tech/page-spy-api 'NPM package'
 
 # PageSpy Contributing Guide
 
@@ -14,7 +15,7 @@ PageSpy 主要由三个仓库组成：
 - 服务器端代码在 [HuolalaTech/page-spy-api][page-spy-api] 仓库维护；
 - 需要在客户端引入的 SDK 代码在 [HuolalaTech/page-spy][page-spy-sdk] 仓库维护；
 
-提供服务的方式是托管在 Github Package 中的 Docker 镜像（推荐）或者使用 [Release][github-release] 托管的可执行文件。
+提供服务的方式是托管在 Github Package 中的 Docker 镜像（推荐）、[NPM package][npm-package] 或者使用 [Release][github-release] 托管的可执行文件。
 
 ## Repo Setup
 
@@ -165,11 +166,18 @@ PageSpy 对外提供的使用方式有下面几种，它们打包了上面三个
    $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
    ```
 
-2. 使用在 [Release][github-release] 页面托管的二进制可执行文件；
+2. 使用 NPM package 的方式启动服务：
+
+   ```bash
+   $ yarn global add pm2 @huolala-tech/page-spy-api
+   $ pm2 start page-spy-api
+   ```
+
+3. 使用在 [Release][github-release] 页面托管的二进制可执行文件；
 
 当你操作完成后，下文假设您的服务部署在 https://example.com ，现在调试端、服务端、SDK 都已经准备就绪。
 
-3. 创建测试项目。创建一个测试项目或者直接使用你已有的项目，测试项目用于引入 SDK 并连接我们的服务。
+创建测试项目。创建一个测试项目或者直接使用你已有的项目，测试项目用于引入 SDK 并连接我们的服务。
 
 <img src="./src/assets/image/relation.png" alt="Relation" width="90%" />
 
@@ -182,15 +190,16 @@ PageSpy 对外提供的使用方式有下面几种，它们打包了上面三个
 VITE_API_BASE=example.com
 ```
 
-（注意："example.com" 只是假设你将服务部署在 https://example.com ，你应该替换为实际部署地址。）
+> 请注意：这里的 "example.com" 只是假设你将服务部署在 https://example.com ，你应该替换为实际部署地址。
 
 等待服务启动后，在浏览器打开调试端地址 http://localhost:5173 ，端口可能不一样，请按照你本地服务打印的地址访问。点击顶部「接入 SDK」菜单，按照指引在测试项目中接入，其中实例化需要传入配置：
 
 ```ts
 new PageSpy({
   api: 'example.com',
-  clientOrigin: 'http://localhost:<port>',
+  clientOrigin: 'http://localhost:5173',
   project: '<任意名称>',
+  ......
 });
 ```
 
@@ -213,6 +222,7 @@ new PageSpy({
   api: 'example.com',
   clientOrigin: 'http://example.com',
   project: '<任意名称>',
+  ......
 });
 ```
 

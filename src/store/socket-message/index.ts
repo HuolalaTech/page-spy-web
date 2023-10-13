@@ -13,6 +13,7 @@ import { API_BASE_URL } from '@/apis/request';
 import { resolveProtocol } from '@/utils';
 import { ElementContent } from 'hast';
 import { getFixedPageMsg } from './utils';
+import { isEqual, omit } from 'lodash-es';
 
 const USER_ID = 'Debugger';
 
@@ -54,6 +55,9 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
   },
   initSocket: (room: string) => {
     if (!room) return;
+    const _socket = get().socket;
+    if (_socket) return;
+
     const [, protocol] = resolveProtocol();
     const url = `${protocol}${API_BASE_URL}/api/v1/ws/room/join?address=${room}&userId=${USER_ID}`;
 
@@ -124,6 +128,10 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         case 'get':
         case 'set':
           if (name) {
+            const state = omit(get().storageMsg[type][name], 'id');
+            const newState = omit({ name, ...restData }, 'id');
+            const skipUpdate = isEqual(state, newState);
+            if (skipUpdate) return;
             set(
               produce<SocketMessage>((state) => {
                 state.storageMsg[type][name] = {

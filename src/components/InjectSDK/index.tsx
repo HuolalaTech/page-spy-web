@@ -27,8 +27,7 @@ export const InjectSDKModal = ({
         ),
         code: `<script>
   window.$pageSpy = new PageSpy();
-</script>
-`,
+</script>`,
       },
       {
         title: t('inject.pass-config'),
@@ -116,7 +115,7 @@ export const InjectSDKModal = ({
                 <p className="inject-steps__title">
                   {index + 1}. {title}
                 </p>
-                <CodeBlock code={code} codeType="language-javascript" />
+                <CodeBlock code={code} />
               </div>
             );
           })}

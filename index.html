@@ -19,6 +19,18 @@
       gtag('config', 'G-TFP524RRV2');
     </script>
   <% } %>
+  <script src="/source-map/source-map.min.js"></script>
+  <script>
+    const mappingWasmUrl = new URL('/source-map/mappings.wasm', window.location.href).toString()
+    sourceMap.SourceMapConsumer.initialize({
+      "lib/mappings.wasm": mappingWasmUrl
+    });
+  </script>
+  <script src="/shiki/dist/index.jsdelivr.iife.js"></script>
+  <script>
+    const shikiURL = new URL('/shiki', window.location.origin).toString()
+    window.shiki.setCDN(shikiURL)
+  </script>
 </head>
 
 <body>
