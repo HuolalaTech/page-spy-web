@@ -33,8 +33,8 @@ interface SocketMessage {
     Record<string, Omit<SpyStorage.DataItem, 'type' | 'action'>>
   >;
   initSocket: (url: string) => void;
-  clearRecord: (key: SpyMessage.MessageType) => void;
-  refresh: (key: SpyMessage.MessageType) => void;
+  clearRecord: (key: string) => void;
+  refresh: (key: string) => void;
 }
 
 export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
@@ -49,8 +49,8 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     location: null,
   },
   storageMsg: {
-    local: {},
-    session: {},
+    localStorage: {},
+    sessionStorage: {},
     cookie: {},
   },
   initSocket: (room: string) => {
@@ -161,7 +161,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       }
     });
   },
-  clearRecord: (key: SpyMessage.MessageType) => {
+  clearRecord: (key: string) => {
     switch (key) {
       case 'console':
         set({ consoleMsg: [] });
@@ -173,7 +173,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         break;
     }
   },
-  refresh: (key: SpyMessage.MessageType) => {
+  refresh: (key: string) => {
     const socket = get().socket;
     if (!socket) return;
     socket.unicastMessage({
