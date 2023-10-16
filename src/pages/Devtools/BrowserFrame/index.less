@@ -54,6 +54,17 @@
     &-content {
       flex: 1;
     }
+    .mobile-frame {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &__body-content {
+        height: 90%;
+        aspect-ratio: 375 / 667;
+        box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
+      }
+    }
     &-divider {
       position: relative;
       width: 2px;

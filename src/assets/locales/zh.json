@@ -97,7 +97,8 @@
     "reference": "查看检测规则"
   },
   "page": {
-    "element": "元素"
+    "element": "元素",
+    "device": "设备"
   },
   "storage": {
     "empty-detail": "选择查看其中一项的值"
