@@ -1,11 +1,11 @@
 import type { SpyStorage } from '@huolala-tech/page-spy';
-import { Layout, Menu, Table, Tooltip } from 'antd';
-import { useMemo, useRef, useState } from 'react';
+import { Button, Col, Layout, Menu, Row, Table, Tooltip } from 'antd';
+import { useMemo, useState } from 'react';
 import ReactJsonView from '@huolala-tech/react-json-view';
 import './index.less';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { Resizable } from 'react-resizable';
-import { HolderOutlined } from '@ant-design/icons';
+import { HolderOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { capitalize } from 'lodash-es';
 
@@ -14,8 +14,12 @@ const { Column } = Table;
 
 export const StoragePanel = () => {
   const { t } = useTranslation();
-  const storageMsg = useSocketMessageStore((state) => state.storageMsg);
-  const [activeTab, setActiveTab] = useState<SpyStorage.DataType>('local');
+  const [storageMsg, refresh] = useSocketMessageStore((state) => [
+    state.storageMsg,
+    state.refresh,
+  ]);
+  const [activeTab, setActiveTab] =
+    useState<SpyStorage.DataType>('localStorage');
   const data = useMemo(() => {
     return Object.values(storageMsg[activeTab]);
   }, [activeTab, storageMsg]);
@@ -28,6 +32,19 @@ export const StoragePanel = () => {
   const [detailInfo, setDetailInfo] = useState('');
   return (
     <div className="storage-panel">
+      <Row justify="end">
+        <Col>
+          <Tooltip title={t('common.refresh')}>
+            <Button
+              onClick={() => {
+                refresh(activeTab);
+              }}
+            >
+              <ReloadOutlined />
+            </Button>
+          </Tooltip>
+        </Col>
+      </Row>
       <Layout className="storage-panel__layout">
         <Sider className="storage-panel__sider">
           <Menu
@@ -36,8 +53,8 @@ export const StoragePanel = () => {
             selectedKeys={[activeTab]}
             onSelect={({ key }) => setActiveTab(key as SpyStorage.DataType)}
             items={[
-              { key: 'local', label: 'Local Storage' },
-              { key: 'session', label: 'Session Storage' },
+              { key: 'localStorage', label: 'Local Storage' },
+              { key: 'sessionStorage', label: 'Session Storage' },
               { key: 'cookie', label: 'Cookie' },
             ]}
           />
@@ -45,6 +62,7 @@ export const StoragePanel = () => {
         <Layout>
           <Content className="storage-panel__content">
             <Table
+              rowKey="name"
               bordered={false}
               dataSource={data}
               pagination={false}
