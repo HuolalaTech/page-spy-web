@@ -1,10 +1,7 @@
 import { Empty } from 'antd';
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { PCFrame, MobileFrame } from '../BrowserFrame';
+import { useEffect, useRef, useState } from 'react';
+import { PCFrame } from '../BrowserFrame';
 import './index.less';
-import React from 'react';
-import useSearch from '@/utils/useSearch';
-import { resolveClientInfo } from '@/utils/brand';
 import { useSocketMessageStore } from '@/store/socket-message';
 
 function insertStyle(doc: Document, text: string) {
@@ -21,30 +18,12 @@ const PagePanel = () => {
   ]);
   const [loading, setLoading] = useState(false);
   const frameRef = useRef<HTMLIFrameElement | null>(null);
-  const { version } = useSearch();
-  const os = useMemo(() => {
-    const { osName } = resolveClientInfo(version);
-    if (['iPhone', 'iPad'].indexOf(osName) >= 0) return 'iOS';
-    if (osName === 'Android') return 'Android';
-    return 'PC';
-  }, [version]);
 
   useEffect(() => {
     setLoading(true);
     refresh('page');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const FrameWrapper = useMemo(() => {
-    switch (os) {
-      case 'iOS':
-      case 'Android':
-        return ({ children, ...props }: any) =>
-          React.createElement(MobileFrame, { ...props, os }, children);
-      case 'PC':
-      default:
-        return PCFrame;
-    }
-  }, [os]);
 
   useEffect(() => {
     if (html) {
@@ -80,7 +59,7 @@ const PagePanel = () => {
   return (
     <div className="page-panel">
       <div className="page-panel__content">
-        <FrameWrapper
+        <PCFrame
           loading={loading}
           onRefresh={() => {
             setLoading(true);
@@ -95,7 +74,7 @@ const PagePanel = () => {
             sandbox="allow-same-origin"
             referrerPolicy="strict-origin-when-cross-origin"
           />
-        </FrameWrapper>
+        </PCFrame>
       </div>
     </div>
   );

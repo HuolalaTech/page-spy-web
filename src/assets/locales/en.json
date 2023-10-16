@@ -97,7 +97,8 @@
     "reference": "See detection rule"
   },
   "page": {
-    "element": "Element"
+    "element": "Element",
+    "device": "Device"
   },
   "storage": {
     "empty-detail": "Select one to preview its value"

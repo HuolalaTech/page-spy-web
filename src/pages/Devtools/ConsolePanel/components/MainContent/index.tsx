@@ -35,23 +35,40 @@ export const MainContent = () => {
   }, [data]);
   useEffect(() => {
     const logType = [...data].pop()?.logType || '';
-    const isEval = logType === 'debug-eval';
+    const isDebug = ['debug-origin', 'debug-eval'].includes(logType);
     const evalError =
       data.length > 1 && data[data.length - 2].logType === 'debug-origin';
-    if (isEval || evalError) {
+    if (isDebug || evalError) {
       scrollToBottom();
     } else {
       const container = containerEl.current;
       if (!container) return;
 
-      const { offsetHeight, scrollTop, scrollHeight } = container;
+      const { offsetHeight, scrollHeight } = container;
       if (scrollHeight > offsetHeight) {
-        if (scrollTop + offsetHeight <= scrollHeight - 30) {
-          setNewTips(true);
-        }
+        setNewTips(true);
       }
     }
   }, [data, scrollToBottom]);
+
+  useEffect(() => {
+    const container = containerEl.current;
+    if (!container) return;
+
+    const fn = () => {
+      const { offsetHeight, scrollTop, scrollHeight } = container;
+      if (scrollHeight > offsetHeight) {
+        if (scrollTop + offsetHeight > scrollHeight - 30) {
+          setNewTips(false);
+        }
+      }
+    };
+
+    container.addEventListener('scrollend', fn);
+    return () => {
+      container.removeEventListener('scrollend', fn);
+    };
+  }, []);
 
   return (
     <div className="console-list" ref={containerEl}>
