@@ -32,25 +32,21 @@ fs.readdir(directory, (err, files) => {
     throw new FileNotFound('The `/src/assets/locales` directory is not found');
   }
 
-  const unionKeySet = new Set();
-
   const locales = files
     .filter((i) => i.endsWith('.json'))
     .map((i) => {
       const file = join(directory, i);
       const content = JSON.parse(fs.readFileSync(file, 'utf-8'));
-      // Get all chained keys
       const keys = _.keys(flattenObject(content));
-      keys.forEach((i) => unionKeySet.add(i));
       return {
         filename: file,
         keys,
       };
     });
 
-  const unionKeys = Array.from(unionKeySet);
+  const unionKeys = _.union(...locales.map((i) => i.keys));
 
-  for (let i = 1; i < locales.length; i++) {
+  for (let i = 0; i < locales.length; i++) {
     const diff = _.difference(unionKeys, locales[i].keys);
     if (diff.length) {
       console.error(
