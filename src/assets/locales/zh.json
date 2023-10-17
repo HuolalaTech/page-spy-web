@@ -4,7 +4,7 @@
     "OK": "好的",
     "clear": "清空",
     "refresh": "刷新",
-    "lang": "中文",
+    "lang": "语言",
     "doc": "文档",
     "connections": "房间列表",
     "inject-sdk": "接入 SDK",
@@ -89,7 +89,11 @@
       "fix-suggestion-2": "2. 排除网络故障：如果你的源文件所在服务器有限制访问规则，则可能导致请求资源时出现失败，你可以打开控制台查看网络请求是否正常。"
     }
   },
-  "network": {},
+  "network": {
+    "open-in-new-tab": "新窗口打开",
+    "copy-link-address": "复制链接",
+    "copy-as-curl": "复制为 cURL"
+  },
   "system": {
     "overview": "概览",
     "feature": "特性",

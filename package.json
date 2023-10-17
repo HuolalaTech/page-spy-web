@@ -71,7 +71,7 @@
     "zustand": "^4.3.7"
   },
   "gitHooks": {
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged && node ./scripts/check-i18n.mjs"
   },
   "lint-staged": {
     "*.{js,jsx,less,md,json}": [
