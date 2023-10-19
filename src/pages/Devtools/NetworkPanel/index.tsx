@@ -36,6 +36,7 @@ const getContentType = (headers: SpyNetwork.RequestInfo['requestHeader']) => {
 
 const NetworkPanel = () => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
+  const { t: nt } = useTranslation('translation', { keyPrefix: 'network' });
 
   const [data, storageMsg, clearRecord] = useSocketMessageStore((state) => [
     state.networkMsg,
@@ -289,10 +290,13 @@ const NetworkPanel = () => {
                           items: [
                             {
                               key: 'open-in-new-tab',
-                              label: 'Open in new tab',
+                              label: nt('open-in-new-tab'),
                             },
-                            { key: 'copy-link', label: 'Copy link address' },
-                            { key: 'copy-cURL', label: 'Copy as cURL' },
+                            {
+                              key: 'copy-link',
+                              label: nt('copy-link-address'),
+                            },
+                            { key: 'copy-cURL', label: nt('copy-as-curl') },
                           ],
                           onClick: ({ key }) => {
                             onMenuClick(key, row);

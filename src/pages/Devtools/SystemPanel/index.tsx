@@ -69,7 +69,13 @@ const SystemPanel = memo(() => {
         >
           <Row>
             {noSupport.map((feature) => (
-              <Col span={8} key={feature.title}>
+              <Col
+                span={8}
+                xxl={{
+                  span: 6,
+                }}
+                key={feature.title}
+              >
                 <FeatureItem {...feature} />
               </Col>
             ))}
@@ -83,7 +89,7 @@ const SystemPanel = memo(() => {
             <Card>
               <Row>
                 {value.map((feature) => (
-                  <Col span={8} key={feature.title}>
+                  <Col span={8} xxl={{ span: 6 }} key={feature.title}>
                     <FeatureItem {...feature} />
                   </Col>
                 ))}
