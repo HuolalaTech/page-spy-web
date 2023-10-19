@@ -89,7 +89,11 @@
       "fix-suggestion-2": "2. Troubleshoot network issues: If there are access restrictions on the server where your source files are located, it may lead to failed requests when trying to access the resources. You can open the devtool to check if the network is working properly."
     }
   },
-  "network": {},
+  "network": {
+    "open-in-new-tab": "Open in new tab",
+    "copy-link-address": "Copy link address",
+    "copy-as-curl": "Copy as cURL"
+  },
   "system": {
     "overview": "Overview",
     "feature": "Feature",

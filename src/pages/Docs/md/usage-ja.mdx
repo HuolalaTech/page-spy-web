@@ -1,0 +1,70 @@
+import React from 'react';
+import bannerImg from '@/assets/image/doc-banner.png';
+import { HeaderLink } from '../components/HeaderLink';
+import { Image } from 'antd';
+import consoleImg from '@/assets/image/screenshot/console-panel.png';
+import networkImg from '@/assets/image/screenshot/network-panel.png';
+import pageImg from '@/assets/image/screenshot/page-panel.png';
+import storageImg from '@/assets/image/screenshot/storage-panel.png';
+import systemImg from '@/assets/image/screenshot/system-panel.png';
+
+export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
+
+<img src={bannerImg} style={{ width: '100%' }} />
+
+<HeaderLink level={2} slug="introduction" children="紹介" />
+
+<b>PageSpy</b> は、リモートWebプロジェクトのデバッグに使用されるツールです。ネイティブAPIへのラッパーをベースに、ネイティブメソッドの呼び出し時にパラメーターをフィルタリング、変換し、デバッグクライアントが消費できるように整理したフォーマットに変換します。デバッグクライアントは、メッセージデータを受け取り、データを表示するための対話型コンソールのような機能インターフェースを提供します。
+
+<HeaderLink level={2} slug="when-to-use" children="いつ使用するか" />
+
+<u>*ローカルでのコンソールデバッグができないシナリオは、すべて **PageSpy** が活躍できる場面です*</u>
+！以下の2つの例を見てみましょう：
+
+現代のリモートワークと地域間協力がますます一般的になる中、技術者とテスター間の効果的な協力は非常に重要です。しかし、
+電子メール、電話、ビデオ会議などの従来のコミュニケーション方法は、コミュニケーションの効率が低く、情報が不完全で、誤解や誤判断が発生します。 PageSpy はプロジェクトの実行状況を提供し、技術者がデバッグクライアントで確認できるようにすることで、テスターはテキスト、スクリーンショット、スクリーンキャストなどを使用して技術者に障害情報を提供する必要がありません。
+
+<div style={{ textAlign: 'right', marginBottom: 24 }}>
+  <strong>—— コミュニケーションコストを削減し、協力効率を向上させます</strong>
+</div>
+
+ユーザーのデバイスで白い画面や他の致命的な問題が発生した場合、問題を迅速に特定し、効果的に修正することは技術者にとって常に難しい課題でした。
+問題を特定するための従来の方法には、データモニタリング、ログ分析などが含まれます。これらの方法は問題を分析および診断するために多くの時間と労力を費やすだけでなく、トラブルシューティング担当者がビジネス要件のシナリオと技術実装を理解する必要があります。 PageSpy はエラーメッセージを技術者に直接表示し、すべての情報の干渉を排除します。コードを表示！
+
+<div style={{ textAlign: 'right', marginBottom: 24 }}>
+  <strong>—— 正確で効率的なトラブルシューティング、針の山から避けます</strong>
+</div>
+
+<HeaderLink level={2} slug="how-to-use" children="使用方法" />
+
+データの安全性と利便性を考慮して、完全な<a href={`${githubUrl}#how-to-use`} target="\_blank">デプロイメントガイド</a>を提供しています。
+
+ローカルデプロイメントが完了すると、「SDKをインジェクト」メニューが表示され、ビジネスプロジェクトに設定と統合する方法を確認できます。
+
+<HeaderLink level={2} slug="feature-overview" children="機能概要" />
+
+- コンソールパネル： `console.<log | info | warn | error>` ログメッセージを表示し、コードを実行できます；
+
+<Image width="90%" style={{ margin: '0 auto' }} src={consoleImg} />
+
+- ネットワークパネル： `fetch` | `XMLHttpRequest` | `navigator.sendBeacon` のネットワークリクエストを表示します；
+
+<Image width="90%" style={{ margin: '0 auto' }} src={networkImg} />
+
+- エレメントパネル：現在のページを表示し、HTMLノードツリーを表示します；
+
+<Image width="90%" style={{ margin: '0 auto' }} src={pageImg} />
+
+- ストレージパネル： `localStorage` | `sessionStorage` | `cookie` キャッシュデータを表示します；
+
+<Image width="90%" style={{ margin: '0 auto' }} src={storageImg} />
+
+- システムパネル：ユーザーエージェント情報を表示し、APIの互換性を確認します。
+
+<Image width="90%" style={{ margin: '0 auto' }} src={systemImg} />
+
+さらに、新しいデータやデータが変更された場合、リアルタイム通知を受け取ります。
+
+<p style={{ marginTop: 28 }}>
+  <a href={githubUrl}>Github</a> でPRまたはissueを提出いただければ幸いです。
+</p>

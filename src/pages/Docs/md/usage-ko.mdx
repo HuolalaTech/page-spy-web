@@ -1,0 +1,70 @@
+import React from 'react';
+import bannerImg from '@/assets/image/doc-banner.png';
+import { HeaderLink } from '../components/HeaderLink';
+import { Image } from 'antd';
+import consoleImg from '@/assets/image/screenshot/console-panel.png';
+import networkImg from '@/assets/image/screenshot/network-panel.png';
+import pageImg from '@/assets/image/screenshot/page-panel.png';
+import storageImg from '@/assets/image/screenshot/storage-panel.png';
+import systemImg from '@/assets/image/screenshot/system-panel.png';
+
+export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
+
+<img src={bannerImg} style={{ width: '100%' }} />
+
+<HeaderLink level={2} slug="introduction" children="소개" />
+
+<b>PageSpy</b>는 원격 웹 프로젝트를 디버그하는 데 사용되는 도구입니다. 네이티브 API를 래핑하여 네이티브 메소드 호출 시 매개 변수를 필터링, 변환하고 디버그 클라이언트가 사용할 수 있도록 깔끔한 형식의 메시지로 정리합니다. 디버그 클라이언트는 메시지 데이터를받아 데이터를 제공하기위한 대화 형 콘솔과 유사한 기능 인터페이스를 제공합니다.
+
+<HeaderLink level={2} slug="when-to-use" children="사용 시점" />
+
+<u>*로컬 콘솔 디버그를 사용할 수없는 시나리오는 모두 **PageSpy** 가 활용 할 수있는 때입니다*</u>
+！다음 두 가지 예를 살펴보겠습니다.
+
+현대적인 원격 작업과 지역 간 협업이 점점 보편화되면 기술자와 테스터 간의 효과적인 협력이 매우 중요해집니다. 그러나,
+전통적인 의사 소통 방식 인 이메일, 전화, 비디오 회의 등은 효율적인 소통, 전체 정보 부족, 오해, 오인과 같은 효율성 문제가 있습니다. PageSpy는 프로젝트 실행 내역을 제공하여 기술자가 디버그 클라이언트에서 볼 수 있도록하여 텍스트, 스크린 샷, 스크린 캐스트 등을 사용하여 테스터가 기술자에게 장애 정보를 제공 할 필요가 없습니다.
+
+<div style={{ textAlign: 'right', marginBottom: 24 }}>
+  <strong>—— 의사 소통 비용 절감 및 협업 효율 향상</strong>
+</div>
+
+사용자의 기기에서 화면이 하얀색 또는 기타 치명적인 문제가 발생 할 때 문제를 신속하게 식별하고 효과적으로 수정하는 것은 항상 기술자가 직면 한 어려운 과제였습니다.
+문제 식별의 전통적인 방법은 데이터 모니터링, 로그 분석 등을 포함합니다. 이러한 방법은 문제를 분석하고 진단하기 위해 많은 시간과 노력이 필요할뿐만 아니라, 트러블 슈팅 담당자가 비즈니스 요구 사항 시나리오와 기술 구현을 이해해야합니다. PageSpy는 기술자에게 오류 메시지를 직접 표시하여 모든 정보 간섭을 제거하며 코드를 표시합니다!
+
+<div style={{ textAlign: 'right', marginBottom: 24 }}>
+  <strong>—— 정확하고 효율적인 트러블 슈팅, 바늘을 찾는데 시간을 절약</strong>
+</div>
+
+<HeaderLink level={2} slug="how-to-use" children="사용 방법" />
+
+데이터의 안전성 및 사용 편의성을 고려하여 <a href={`${githubUrl}#how-to-use`} target="\_blank">배포 가이드</a> 를 제공합니다.
+
+로컬 배포가 완료되면 상단에 'SDK 삽입' 메뉴가 표시되고 비즈니스 프로젝트에 구성 및 통합하는 방법을 확인할 수 있습니다.
+
+<HeaderLink level={2} slug="feature-overview" children="기능 개요" />
+
+- 콘솔 패널: `console.<log | info | warn | error>` 로그 메시지를 표시하고 코드를 실행할 수 있습니다.
+
+<Image width="90%" style={{ margin: '0 auto' }} src={consoleImg} />
+
+- 네트워크 패널: `fetch` | `XMLHttpRequest` | `navigator.sendBeacon` 네트워크 요청을 표시합니다.
+
+<Image width="90%" style={{ margin: '0 auto' }} src={networkImg} />
+
+- 엘리먼트 패널: 현재 페이지를 표시하고 HTML 노드 트리를 확인합니다.
+
+<Image width="90%" style={{ margin: '0 auto' }} src={pageImg} />
+
+- 스토리지 패널: `localStorage` | `sessionStorage` | `cookie` 캐시 데이터를 확인합니다.
+
+<Image width="90%" style={{ margin: '0 auto' }} src={storageImg} />
+
+- 시스템 패널: 사용자 에이전트 정보를 표시하고 API 호환성을 확인합니다.
+
+<Image width="90%" style={{ margin: '0 auto' }} src={systemImg} />
+
+또한, 새로운 데이터 또는 데이터가 변경되면 실시간 알림을받습니다.
+
+<p style={{ marginTop: 28 }}>
+  <a href={githubUrl}>Github</a> 에서 PR 또는 이슈를 제출 해 주시기 바랍니다.
+</p>
