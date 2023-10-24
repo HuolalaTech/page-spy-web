@@ -1,6 +1,6 @@
 import type { SpyStorage } from '@huolala-tech/page-spy';
 import { Button, Col, Layout, Menu, Row, Table, Tooltip } from 'antd';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ReactJsonView from '@huolala-tech/react-json-view';
 import './index.less';
 import { useSocketMessageStore } from '@/store/socket-message';
@@ -18,6 +18,12 @@ export const StoragePanel = () => {
     state.storageMsg,
     state.refresh,
   ]);
+  useEffect(() => {
+    refresh('localStorage');
+    refresh('sessionStorage');
+    refresh('cookie');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [activeTab, setActiveTab] =
     useState<SpyStorage.DataType>('localStorage');
   const data = useMemo(() => {
