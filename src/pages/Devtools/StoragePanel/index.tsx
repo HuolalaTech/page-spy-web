@@ -27,7 +27,7 @@ export const StoragePanel = () => {
     return Object.values(storageMsg[activeTab]);
   }, [activeTab, storageMsg]);
   const hasDetail = useMemo(() => {
-    const { id, name, value, ...rest } = data[0] || {};
+    const { name, value, ...rest } = data[0] || {};
     return Object.keys(rest).length > 0;
   }, [data]);
 

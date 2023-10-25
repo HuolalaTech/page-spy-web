@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { create } from 'zustand';
 import { produce } from 'immer';
 import { SocketStore } from './socket';
@@ -7,6 +8,7 @@ import {
   SpySystem,
   SpyPage,
   SpyStorage,
+  SpyDatabase,
 } from '@huolala-tech/page-spy';
 import { API_BASE_URL } from '@/apis/request';
 import { resolveProtocol } from '@/utils';
@@ -27,10 +29,8 @@ interface SocketMessage {
     tree: ElementContent[] | null;
     location: SpyPage.DataItem['location'] | null;
   };
-  storageMsg: Record<
-    SpyStorage.DataType,
-    Record<string, Omit<SpyStorage.DataItem, 'type' | 'action'>>
-  >;
+  storageMsg: Record<SpyStorage.DataType, SpyStorage.GetTypeDataItem['data']>;
+  databaseMsg: SpyDatabase.DBInfo[];
   initSocket: (url: string) => void;
   clearRecord: (key: string) => void;
   refresh: (key: string) => void;
@@ -48,10 +48,11 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     location: null,
   },
   storageMsg: {
-    localStorage: {},
-    sessionStorage: {},
-    cookie: {},
+    localStorage: [],
+    sessionStorage: [],
+    cookie: [],
   },
+  databaseMsg: [],
   initSocket: (room: string) => {
     if (!room) return;
     const _socket = get().socket;
@@ -122,21 +123,27 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       );
     });
     socket.addListener('storage', (data: SpyStorage.DataItem) => {
-      const { type, action, name, ...restData } = data;
+      const { type, action } = data;
       switch (action) {
         case 'get':
+          set(
+            produce<SocketMessage>((state) => {
+              state.storageMsg[type] = data.data;
+            }),
+          );
+          break;
         case 'set':
-          if (name) {
-            const state = omit(get().storageMsg[type][name], 'id');
-            const newState = omit({ name, ...restData }, 'id');
-            const skipUpdate = isEqual(state, newState);
-            if (skipUpdate) return;
+          if (data.name) {
             set(
               produce<SocketMessage>((state) => {
-                state.storageMsg[type][name] = {
-                  name,
-                  ...restData,
-                };
+                const cacheData = state.storageMsg[type];
+                const index = cacheData.findIndex((i) => i.name === data.name);
+                if (index < 0) return;
+                const newState = omit(data, 'id');
+                const skipUpdate = isEqual(cacheData[index], newState);
+                if (skipUpdate) return;
+
+                cacheData[index] = data;
               }),
             );
           }
@@ -144,14 +151,16 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         case 'clear':
           set(
             produce<SocketMessage>((state) => {
-              state.storageMsg[type] = {};
+              state.storageMsg[type] = [];
             }),
           );
           break;
         case 'remove':
           set(
             produce<SocketMessage>((state) => {
-              delete state.storageMsg[type][name!];
+              state.storageMsg[type] = state.storageMsg[type].filter(
+                (i) => i.name !== data.name,
+              );
             }),
           );
           break;
