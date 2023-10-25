@@ -1,13 +1,16 @@
 import type { SpyStorage } from '@huolala-tech/page-spy';
 import { Button, Col, Layout, Menu, Row, Table, Tooltip } from 'antd';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import ReactJsonView from '@huolala-tech/react-json-view';
 import './index.less';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { Resizable } from 'react-resizable';
-import { HolderOutlined, ReloadOutlined } from '@ant-design/icons';
+import Icon, { HolderOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { capitalize } from 'lodash-es';
+import { ReactComponent as StorageSvg } from '@/assets/image/storage.svg';
+import { ReactComponent as CookieSvg } from '@/assets/image/cookie.svg';
+import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
 
 const { Sider, Content } = Layout;
 const { Column } = Table;
@@ -18,12 +21,6 @@ export const StoragePanel = () => {
     state.storageMsg,
     state.refresh,
   ]);
-  useEffect(() => {
-    refresh('localStorage');
-    refresh('sessionStorage');
-    refresh('cookie');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   const [activeTab, setActiveTab] =
     useState<SpyStorage.DataType>('localStorage');
   const data = useMemo(() => {
@@ -59,9 +56,26 @@ export const StoragePanel = () => {
             selectedKeys={[activeTab]}
             onSelect={({ key }) => setActiveTab(key as SpyStorage.DataType)}
             items={[
-              { key: 'localStorage', label: 'Local Storage' },
-              { key: 'sessionStorage', label: 'Session Storage' },
-              { key: 'cookie', label: 'Cookie' },
+              {
+                key: 'localStorage',
+                label: 'Local Storage',
+                icon: <Icon component={StorageSvg} />,
+              },
+              {
+                key: 'sessionStorage',
+                label: 'Session Storage',
+                icon: <Icon component={StorageSvg} />,
+              },
+              {
+                key: 'cookie',
+                label: 'Cookie',
+                icon: <Icon component={CookieSvg} />,
+              },
+              {
+                key: 'indexedDB',
+                label: 'IndexedDB',
+                icon: <Icon component={DatabaseSvg} />,
+              },
             ]}
           />
         </Sider>

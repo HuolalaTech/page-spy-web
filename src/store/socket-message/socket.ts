@@ -22,6 +22,11 @@ const ERROR_CODE = {
   Serve: 'ServeError',
 };
 
+export const CUSTOM_EVENT = {
+  NewMessageComing: 'new-message-coming',
+  ConnectStatus: 'connect-status',
+};
+
 export class SocketStore extends EventTarget {
   socket: WebSocket | null = null;
   socketUrl: string = '';
@@ -99,6 +104,7 @@ export class SocketStore extends EventTarget {
             this.socketConnection = content.selfConnection;
             this.filterClient(content);
             this.dispatchConnectStatus();
+            this.triggerLazilyRefreshEvents();
             break;
           case LEAVE:
             this.handleNotification(content, 'leave');
@@ -151,6 +157,18 @@ export class SocketStore extends EventTarget {
     }
   }
 
+  triggerLazilyRefreshEvents() {
+    // 以下指定的数据在客户端 SDK 中都不会缓存
+    // 需要调试端发送 refresh 消息并携带对应数据类型，去获取最新的数据
+    const refreshData = ['localStorage', 'sessionStorage', 'cookie', 'page'];
+    refreshData.forEach((i) => {
+      this.unicastMessage({
+        type: 'refresh',
+        data: i,
+      });
+    });
+  }
+
   getCacheQueueMessage() {
     this.unicastMessage({
       type: 'debugger-online',
@@ -180,7 +198,7 @@ export class SocketStore extends EventTarget {
 
   dispatchConnectStatus() {
     this.dispatchEvent(
-      new CustomEvent('connect-status', {
+      new CustomEvent(CUSTOM_EVENT.ConnectStatus, {
         detail: {
           client: this.clientConnection,
           debug: this.socketConnection,
@@ -238,7 +256,7 @@ export class SocketStore extends EventTarget {
 
     if (MESSAGE_TYPE.indexOf(type) !== -1) {
       window.dispatchEvent(
-        new CustomEvent('page-spy-updated', {
+        new CustomEvent(CUSTOM_EVENT.NewMessageComing, {
           detail: type,
         }),
       );
