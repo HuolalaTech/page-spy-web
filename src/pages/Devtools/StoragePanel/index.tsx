@@ -1,38 +1,30 @@
 import type { SpyStorage } from '@huolala-tech/page-spy';
-import { Button, Col, Layout, Menu, Row, Table, Tooltip } from 'antd';
-import { useMemo, useState } from 'react';
+import { Button, Col, Layout, Menu, Row, Tooltip } from 'antd';
+import { useState } from 'react';
 import ReactJsonView from '@huolala-tech/react-json-view';
 import './index.less';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { Resizable } from 'react-resizable';
 import Icon, { HolderOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { capitalize } from 'lodash-es';
 import { ReactComponent as StorageSvg } from '@/assets/image/storage.svg';
 import { ReactComponent as CookieSvg } from '@/assets/image/cookie.svg';
 import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
+import { useCacheDetailStore } from './store';
+import { DatabaseInfo, StorageInfo } from './TableContent';
 
 const { Sider, Content } = Layout;
-const { Column } = Table;
 
 export const StoragePanel = () => {
   const { t } = useTranslation();
-  const [storageMsg, refresh] = useSocketMessageStore((state) => [
-    state.storageMsg,
-    state.refresh,
-  ]);
-  const [activeTab, setActiveTab] =
-    useState<SpyStorage.DataType>('localStorage');
-  const data = useMemo(() => {
-    return Object.values(storageMsg[activeTab]);
-  }, [activeTab, storageMsg]);
-  const hasDetail = useMemo(() => {
-    const { name, value, ...rest } = data[0] || {};
-    return Object.keys(rest).length > 0;
-  }, [data]);
+  const [activeTab, setActiveTab] = useState<SpyStorage.DataType | 'indexedDB'>(
+    'localStorage',
+  );
+  const refresh = useSocketMessageStore((state) => state.refresh);
 
+  const detailInfo = useCacheDetailStore((state) => state.currentDetail);
   const [detailSize, setDetailSize] = useState(100);
-  const [detailInfo, setDetailInfo] = useState('');
+
   return (
     <div className="storage-panel">
       <Row justify="end">
@@ -81,63 +73,11 @@ export const StoragePanel = () => {
         </Sider>
         <Layout>
           <Content className="storage-panel__content">
-            <Table
-              rowKey="name"
-              bordered={false}
-              dataSource={data}
-              pagination={false}
-              tableLayout="fixed"
-              size="small"
-              onRow={(record) => {
-                return {
-                  onClick() {
-                    setDetailInfo(record.value || '');
-                  },
-                };
-              }}
-            >
-              <Column title="Name" dataIndex="name" key="name" ellipsis />
-              <Column title="Value" dataIndex="value" ellipsis />
-              {hasDetail && (
-                <>
-                  <Column title="Domain" dataIndex="domain" ellipsis />
-                  <Column title="Path" width={120} dataIndex="path" ellipsis />
-                  <Column
-                    title="Expires"
-                    dataIndex="expires"
-                    ellipsis
-                    render={(value) => {
-                      const time = value
-                        ? new Date(value).toISOString()
-                        : 'Session';
-                      return (
-                        <Tooltip placement="topLeft" title={time}>
-                          {time}
-                        </Tooltip>
-                      );
-                    }}
-                  />
-                  <Column
-                    align="center"
-                    title="Secure"
-                    dataIndex="secure"
-                    width={80}
-                    render={(bool) => bool && '✅'}
-                  />
-                  <Column
-                    title="SameSite"
-                    dataIndex="sameSite"
-                    width={80}
-                    render={(v) => capitalize(v)}
-                  />
-                  <Column
-                    title="Partitioned"
-                    width={120}
-                    dataIndex="partitioned"
-                  />
-                </>
-              )}
-            </Table>
+            {activeTab === 'indexedDB' ? (
+              <DatabaseInfo />
+            ) : (
+              <StorageInfo activeTab={activeTab} />
+            )}
           </Content>
           <Resizable
             axis="y"
