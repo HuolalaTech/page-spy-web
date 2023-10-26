@@ -18,6 +18,7 @@ const ERROR_CODE = {
 export const CUSTOM_EVENT = {
   NewMessageComing: 'new-message-coming',
   ConnectStatus: 'connect-status',
+  DatabaseStoreUpdated: 'database-store-updated',
 };
 
 export class SocketStore extends EventTarget {

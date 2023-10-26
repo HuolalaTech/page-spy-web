@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import { create } from 'zustand';
 import { produce } from 'immer';
-import { SocketStore } from './socket';
+import { CUSTOM_EVENT, SocketStore } from './socket';
 import {
   SpyConsole,
   SpyNetwork,
@@ -31,7 +31,7 @@ interface SocketMessage {
     location: SpyPage.DataItem['location'] | null;
   };
   storageMsg: Record<SpyStorage.DataType, SpyStorage.GetTypeDataItem['data']>;
-  databaseMsg: SpyDatabase.DBInfo[];
+  databaseMsg: SpyDatabase.DBInfo[] | null;
   initSocket: (url: string) => void;
   clearRecord: (key: string) => void;
   refresh: (key: string) => void;
@@ -53,7 +53,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     sessionStorage: [],
     cookie: [],
   },
-  databaseMsg: [],
+  databaseMsg: null,
   initSocket: (room: string) => {
     if (!room) return;
     const _socket = get().socket;
@@ -169,8 +169,50 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
           break;
       }
     });
-    socket.addListener(MESSAGE_TYPE.DATABASE, (data: SpyDatabase.DBInfo) => {
-      console.log(data);
+    socket.addListener(MESSAGE_TYPE.DATABASE, (data: SpyDatabase.DataItem) => {
+      // console.log(data);
+      switch (data.action) {
+        case 'get':
+          set(
+            produce<SocketMessage>((state) => {
+              state.databaseMsg = data.result;
+            }),
+          );
+          break;
+        case 'update':
+          window.dispatchEvent(
+            new CustomEvent(CUSTOM_EVENT.DatabaseStoreUpdated, {
+              detail: {
+                database: data.database,
+                store: data.store,
+              },
+            }),
+          );
+          break;
+        case 'clear':
+          set(
+            produce<SocketMessage>((state) => {
+              const db = state.databaseMsg?.find(
+                (i) => i.database === data.database,
+              );
+              if (db) {
+                db.stores = db.stores.filter((i) => i.name !== data.store);
+              }
+            }),
+          );
+          break;
+        case 'drop':
+          set(
+            produce<SocketMessage>((state) => {
+              if (state.databaseMsg) {
+                state.databaseMsg = state.databaseMsg?.filter(
+                  (i) => i.database !== data.database,
+                );
+              }
+            }),
+          );
+          break;
+      }
     });
   },
   clearRecord: (key: string) => {
