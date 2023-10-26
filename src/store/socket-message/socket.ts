@@ -1,18 +1,11 @@
 import type { SpyMessage, SpySocket } from '@huolala-tech/page-spy';
 import { message, notification } from 'antd';
-import * as SERVER_MESSAGE_TYPE from './server-type';
+import * as SERVER_TYPE from './server-type';
+import * as MESSAGE_TYPE from './message-type';
 import { getTranslation } from '@/assets/locales';
 import { MessageInstance } from 'antd/es/message/interface';
 
 const CLIENT_ID = 'Client';
-const MESSAGE_TYPE: SpyMessage.MessageType[] = [
-  'connect',
-  'console',
-  'system',
-  'network',
-  'page',
-  'storage',
-];
 const ERROR_CODE = {
   Unknown: 'UnknownError',
   RoomNotFound: 'RoomNotFoundError',
@@ -76,7 +69,7 @@ export class SocketStore extends EventTarget {
   peelMessage() {
     if (this.socket) {
       const { MESSAGE, BROADCAST, CONNECT, LEAVE, JOIN, ERROR, CLOSE, PING } =
-        SERVER_MESSAGE_TYPE;
+        SERVER_TYPE;
       this.socket.addEventListener('message', (evt: MessageEvent) => {
         const { data } = evt;
         let result = null;
@@ -160,7 +153,13 @@ export class SocketStore extends EventTarget {
   triggerLazilyRefreshEvents() {
     // 以下指定的数据在客户端 SDK 中都不会缓存
     // 需要调试端发送 refresh 消息并携带对应数据类型，去获取最新的数据
-    const refreshData = ['localStorage', 'sessionStorage', 'cookie', 'page'];
+    const refreshData = [
+      'localStorage',
+      'sessionStorage',
+      'cookie',
+      'page',
+      'indexedDB',
+    ];
     refreshData.forEach((i) => {
       this.unicastMessage({
         type: 'refresh',
@@ -236,7 +235,7 @@ export class SocketStore extends EventTarget {
       if (this.socket?.readyState !== WebSocket.OPEN) return;
       this.socket!.send(
         JSON.stringify({
-          type: SERVER_MESSAGE_TYPE.PING,
+          type: SERVER_TYPE.PING,
           content: null,
         }),
       );
@@ -250,11 +249,12 @@ export class SocketStore extends EventTarget {
   }
 
   dispatchEvents(type: SpyMessage.MessageType, data: SpyMessage.MessageItem) {
-    if (MESSAGE_TYPE.indexOf(type) === -1 && /^atom-.*$/.test(type) === false)
-      return;
     if (!data.role || data.role !== 'client') return;
 
-    if (MESSAGE_TYPE.indexOf(type) !== -1) {
+    const typeList = Object.values(MESSAGE_TYPE) as string[];
+    if (!typeList.includes(type) && /^atom-.*$/.test(type) === false) return;
+
+    if (typeList.includes(type)) {
       window.dispatchEvent(
         new CustomEvent(CUSTOM_EVENT.NewMessageComing, {
           detail: type,
@@ -301,7 +301,7 @@ export class SocketStore extends EventTarget {
 
   makeUnicastMessage(data: any) {
     return {
-      type: SERVER_MESSAGE_TYPE.MESSAGE,
+      type: SERVER_TYPE.MESSAGE,
       content: {
         data,
         from: this.socketConnection,

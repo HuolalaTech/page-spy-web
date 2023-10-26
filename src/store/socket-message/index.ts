@@ -15,6 +15,7 @@ import { resolveProtocol } from '@/utils';
 import { ElementContent } from 'hast';
 import { getFixedPageMsg } from './utils';
 import { isEqual, omit } from 'lodash-es';
+import * as MESSAGE_TYPE from './message-type';
 
 const USER_ID = 'Debugger';
 
@@ -63,21 +64,21 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
 
     const socket = new SocketStore(url);
     set({ socket });
-    socket.addListener('console', (data: SpyConsole.DataItem) => {
+    socket.addListener(MESSAGE_TYPE.CONSOLE, (data: SpyConsole.DataItem) => {
       set(
         produce<SocketMessage>((state) => {
           state.consoleMsg.push(data);
         }),
       );
     });
-    socket.addListener('system', (data: SpySystem.DataItem) => {
+    socket.addListener(MESSAGE_TYPE.SYSTEM, (data: SpySystem.DataItem) => {
       set(
         produce<SocketMessage>((state) => {
           state.systemMsg.push(data);
         }),
       );
     });
-    socket.addListener('network', (data: SpyNetwork.RequestInfo) => {
+    socket.addListener(MESSAGE_TYPE.NETWORK, (data: SpyNetwork.RequestInfo) => {
       const cache = get().networkMsg;
       // 整理 xhr 的消息
       const { id } = data;
@@ -99,14 +100,14 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         );
       }
     });
-    socket.addListener('connect', (data: string) => {
+    socket.addListener(MESSAGE_TYPE.CONNECT, (data: string) => {
       set(
         produce<SocketMessage>((state) => {
           state.connectMsg.push(data);
         }),
       );
     });
-    socket.addListener('page', async (data: SpyPage.DataItem) => {
+    socket.addListener(MESSAGE_TYPE.PAGE, async (data: SpyPage.DataItem) => {
       const { tree, html } = await getFixedPageMsg(
         data.html,
         data.location.href,
@@ -122,7 +123,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         }),
       );
     });
-    socket.addListener('storage', (data: SpyStorage.DataItem) => {
+    socket.addListener(MESSAGE_TYPE.STORAGE, (data: SpyStorage.DataItem) => {
       const { type, action } = data;
       switch (action) {
         case 'get':
@@ -167,6 +168,9 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         default:
           break;
       }
+    });
+    socket.addListener(MESSAGE_TYPE.DATABASE, (data: SpyDatabase.DBInfo) => {
+      console.log(data);
     });
   },
   clearRecord: (key: string) => {
