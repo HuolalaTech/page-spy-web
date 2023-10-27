@@ -79,43 +79,45 @@ export const StoragePanel = () => {
               <StorageInfo activeTab={activeTab} />
             )}
           </Content>
-          <Resizable
-            axis="y"
-            resizeHandles={['n']}
-            height={detailSize}
-            handle={
-              <div className="height-controller">
-                <HolderOutlined
-                  style={{
-                    transform: 'rotateZ(90deg)',
-                    color: '#aaa',
-                    fontSize: 16,
-                  }}
-                />
-              </div>
-            }
-            onResize={(_, info) => {
-              const { height } = info.size;
-              if (height > 500 || height < 50) return;
+          {activeTab !== 'indexedDB' && (
+            <Resizable
+              axis="y"
+              resizeHandles={['n']}
+              height={detailSize}
+              handle={
+                <div className="height-controller">
+                  <HolderOutlined
+                    style={{
+                      transform: 'rotateZ(90deg)',
+                      color: '#aaa',
+                      fontSize: 16,
+                    }}
+                  />
+                </div>
+              }
+              onResize={(_, info) => {
+                const { height } = info.size;
+                if (height > 500 || height < 50) return;
 
-              setDetailSize(height);
-            }}
-          >
-            <div className="storage-panel__detail">
-              <div
-                className="storage-item-detail"
-                style={{ height: detailSize, overflowY: 'auto' }}
-              >
-                {detailInfo ? (
-                  <ReactJsonView source={detailInfo} defaultExpand />
-                ) : (
-                  <div className="empty-detail-info">
-                    {t('storage.empty-detail')}
-                  </div>
-                )}
+                setDetailSize(height);
+              }}
+            >
+              <div className="storage-panel__detail">
+                <div
+                  className="storage-item-detail"
+                  style={{ height: detailSize, overflowY: 'auto' }}
+                >
+                  {detailInfo ? (
+                    <ReactJsonView source={detailInfo} defaultExpand />
+                  ) : (
+                    <div className="empty-detail-info">
+                      {t('storage.empty-detail')}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          </Resizable>
+            </Resizable>
+          )}
         </Layout>
       </Layout>
     </div>

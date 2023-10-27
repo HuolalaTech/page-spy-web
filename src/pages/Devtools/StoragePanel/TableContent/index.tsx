@@ -1,13 +1,27 @@
 import { useSocketMessageStore } from '@/store/socket-message';
 import { SpyDatabase, SpyStorage } from '@huolala-tech/page-spy';
-import { Col, Empty, Form, Row, Select, Space, Table, Tooltip } from 'antd';
+import {
+  Button,
+  Col,
+  Divider,
+  Empty,
+  Form,
+  Row,
+  Select,
+  Space,
+  Table,
+  Tooltip,
+} from 'antd';
 import { useState, useMemo, useCallback } from 'react';
 import { useCacheDetailStore } from '../store';
 import { capitalize } from 'lodash';
 import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
 import { ReactComponent as StorageSvg } from '@/assets/image/storage.svg';
-import Icon from '@ant-design/icons';
+import Icon, { CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
 import ReactJsonView from '@huolala-tech/react-json-view';
+import { useTranslation } from 'react-i18next';
+import './index.less';
+import { isArray, isString } from 'lodash-es';
 
 const { Column } = Table;
 const { Option } = Select;
@@ -84,112 +98,180 @@ export const StorageInfo = ({ activeTab }: Props) => {
 };
 
 export const DatabaseInfo = () => {
+  const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
   const [form] = Form.useForm();
-  const dbMsg = useSocketMessageStore((state) => state.databaseMsg);
-
-  const [storeInfo, setStoreInfo] = useState<SpyDatabase.DBStoreInfo | null>(
-    null,
+  const [socket, { basicInfo, data: dbMsg }] = useSocketMessageStore(
+    (state) => [state.socket, state.databaseMsg],
   );
-  const onFormChange = useCallback(
-    (changed: any) => {
-      if (changed.database) {
-        form.setFieldValue('store', undefined);
-      }
-      const { database, store } = form.getFieldsValue();
-      if (!database || !store) {
-        setStoreInfo(null);
-      } else {
-        const result = dbMsg
-          ?.find((i) => i.database === database)
-          ?.stores.find((i) => i.name === store);
-        if (!result) {
-          setStoreInfo(null);
-        } else {
-          setStoreInfo(result);
+  const onGetIndexedDB = useCallback(
+    (values: any) => {
+      if (!socket) return;
+      socket.unicastMessage({
+        type: 'database-pagination',
+        data: {
+          db: values.database,
+          store: values.store,
+          page: 1,
+        },
+      });
+    },
+    [socket],
+  );
+  const onSkip = useCallback(
+    (action: 'prev' | 'next') => {
+      if (!socket || !dbMsg) return;
+      socket.unicastMessage({
+        type: 'database-pagination',
+        data: {
+          db: dbMsg.database?.name,
+          store: dbMsg.store?.name,
+          page: dbMsg.page[action],
+        },
+      });
+    },
+    [dbMsg, socket],
+  );
+
+  const tableData = useMemo(() => {
+    if (!dbMsg) return [];
+    const { page, store, data } = dbMsg;
+    const result = data.map((val: any, idx: number) => {
+      const index = 50 * (page.current - 1) + idx;
+      const item: any = {
+        index,
+        keyPath: null,
+        value: val,
+      };
+      if (store) {
+        const { keyPath, autoIncrement } = store;
+        if (isString(keyPath)) {
+          item.keyPath = val[keyPath];
+        } else if (isArray(keyPath)) {
+          item.keyPath = keyPath.map((i) => val[i]);
+        } else if (autoIncrement) {
+          item.keyPath = index + 1;
         }
       }
-    },
-    [dbMsg, form],
-  );
-
-  if (!dbMsg?.length) {
-    return <Empty />;
-  }
+      return item;
+    });
+    return result;
+  }, [dbMsg]);
 
   return (
     <div className="database-info">
-      <Form
-        form={form}
-        layout="inline"
-        onValuesChange={onFormChange}
-        style={{ padding: 12, position: 'sticky', top: 0, zIndex: 100 }}
+      <Row
+        justify="space-between"
+        align="middle"
+        style={{
+          padding: 12,
+          position: 'sticky',
+          top: 0,
+          zIndex: 100,
+        }}
       >
-        <Form.Item label="Database" name="database">
-          <Select placeholder="Select database" style={{ width: 240 }}>
-            {dbMsg.map((i) => {
-              return (
-                <Option key={i.database} value={i.database}>
-                  <div title={i.database}>
-                    <Space>
-                      <Icon component={DatabaseSvg} />
-                      <span style={{ fontSize: 14 }}>{i.database}</span>
-                    </Space>
-                    <br />
-                    <Space style={{ fontSize: 12, color: '#999' }}>
-                      <span>Version: {i.version || 1}</span>
-                      <span>Object stores: {i.stores.length}</span>
-                    </Space>
-                  </div>
-                </Option>
-              );
-            })}
-          </Select>
-        </Form.Item>
-        <Form.Item
-          label="Store"
-          shouldUpdate={(prev, next) => prev.database !== next.database}
-        >
-          {({ getFieldValue }) => {
-            const db = getFieldValue('database');
-            const stores = dbMsg.find((i) => i.database === db)?.stores || [];
-            return (
-              <Form.Item noStyle name="store">
-                <Select placeholder="Select store" style={{ width: 240 }}>
-                  {stores.map((i) => {
-                    return (
-                      <Option key={i.name} value={i.name}>
-                        <Space title={i.name}>
-                          <Icon component={StorageSvg} />
+        <Col>
+          <Form form={form} layout="inline" onFinish={onGetIndexedDB}>
+            <Form.Item label="Database" name="database">
+              <Select
+                placeholder="Select database"
+                style={{ width: 240 }}
+                onChange={() => {
+                  form.setFieldValue('store', undefined);
+                }}
+              >
+                {basicInfo?.map((i) => {
+                  return (
+                    <Option key={i.name} value={i.name}>
+                      <div title={i.name}>
+                        <Space>
+                          <Icon component={DatabaseSvg} />
                           <span style={{ fontSize: 14 }}>{i.name}</span>
                         </Space>
-                      </Option>
-                    );
-                  })}
-                </Select>
-              </Form.Item>
-            );
-          }}
-        </Form.Item>
-      </Form>
+                        <br />
+                        <Space style={{ fontSize: 12, color: '#999' }} size={2}>
+                          <span>Version: {i.version || 1}</span>
+                          <Divider type="vertical" />
+                          <span>Object stores: {i.stores.length}</span>
+                        </Space>
+                      </div>
+                    </Option>
+                  );
+                })}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              label="Store"
+              shouldUpdate={(prev, next) => prev.database !== next.database}
+            >
+              {({ getFieldValue }) => {
+                const db = getFieldValue('database');
+                const stores =
+                  basicInfo?.find((i) => i.name === db)?.stores || [];
+                return (
+                  <Form.Item noStyle name="store">
+                    <Select placeholder="Select store" style={{ width: 240 }}>
+                      {stores.map((i) => {
+                        return (
+                          <Option key={i.name} value={i.name}>
+                            <Space title={i.name}>
+                              <Icon component={StorageSvg} />
+                              <span style={{ fontSize: 14 }}>{i.name}</span>
+                            </Space>
+                          </Option>
+                        );
+                      })}
+                    </Select>
+                  </Form.Item>
+                );
+              }}
+            </Form.Item>
+            <Form.Item shouldUpdate>
+              {({ getFieldsValue }) => {
+                const { database, store } = getFieldsValue();
+                return (
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    disabled={!database || !store}
+                  >
+                    {ct('submit')}
+                  </Button>
+                );
+              }}
+            </Form.Item>
+          </Form>
+        </Col>
+        <Col>
+          <Space>
+            <Button disabled={!dbMsg?.page.prev} onClick={() => onSkip('prev')}>
+              <CaretLeftOutlined />
+            </Button>
+            <Button disabled={!dbMsg?.page.next} onClick={() => onSkip('next')}>
+              <CaretRightOutlined />
+            </Button>
+          </Space>
+        </Col>
+      </Row>
 
       <Table
-        rowKey="name"
-        bordered={false}
-        dataSource={storeInfo?.data || []}
+        className="database-table"
+        rowKey="index"
+        bordered
+        dataSource={tableData}
         pagination={false}
         tableLayout="fixed"
         size="small"
       >
-        <Column title="#" render={(_, $, index) => index} width={80} />
+        <Column title="#" dataIndex="index" width={80} />
         <Column
           title={
             <Space size={2}>
               Key{' '}
-              {storeInfo?.keyPath && (
+              {dbMsg?.store?.keyPath && (
                 <Space size={0}>
                   <span>(Key path: </span>
                   <ReactJsonView
-                    source={storeInfo.keyPath}
+                    source={dbMsg.store.keyPath}
                     copyable={false}
                     expandable={false}
                   />
@@ -198,12 +280,14 @@ export const DatabaseInfo = () => {
               )}
             </Space>
           }
-          // render={() => <ReactJsonView />}
-          dataIndex="name"
-          key="name"
-          ellipsis
+          render={(value) => <ReactJsonView source={value} maxTitleSize={20} />}
+          dataIndex="keyPath"
         />
-        <Column title="Value" dataIndex="value" ellipsis />
+        <Column
+          title="Value"
+          dataIndex="value"
+          render={(value) => <ReactJsonView source={value} maxTitleSize={50} />}
+        />
       </Table>
     </div>
   );

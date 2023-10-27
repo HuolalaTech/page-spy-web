@@ -31,7 +31,10 @@ interface SocketMessage {
     location: SpyPage.DataItem['location'] | null;
   };
   storageMsg: Record<SpyStorage.DataType, SpyStorage.GetTypeDataItem['data']>;
-  databaseMsg: SpyDatabase.DBInfo[] | null;
+  databaseMsg: {
+    basicInfo: SpyDatabase.DBInfo[] | null;
+    data: SpyDatabase.GetTypeDataItem | null;
+  };
   initSocket: (url: string) => void;
   clearRecord: (key: string) => void;
   refresh: (key: string) => void;
@@ -53,7 +56,10 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     sessionStorage: [],
     cookie: [],
   },
-  databaseMsg: null,
+  databaseMsg: {
+    basicInfo: null,
+    data: null,
+  },
   initSocket: (room: string) => {
     if (!room) return;
     const _socket = get().socket;
@@ -170,33 +176,46 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       }
     });
     socket.addListener(MESSAGE_TYPE.DATABASE, (data: SpyDatabase.DataItem) => {
-      // console.log(data);
       switch (data.action) {
         case 'get':
           set(
             produce<SocketMessage>((state) => {
-              state.databaseMsg = data.result;
+              state.databaseMsg.data = data;
+            }),
+          );
+          break;
+        case 'basic':
+          set(
+            produce<SocketMessage>((state) => {
+              state.databaseMsg.basicInfo = data.result;
             }),
           );
           break;
         case 'update':
-          window.dispatchEvent(
-            new CustomEvent(CUSTOM_EVENT.DatabaseStoreUpdated, {
-              detail: {
-                database: data.database,
-                store: data.store,
-              },
-            }),
-          );
+          const cache = get().databaseMsg.data;
+          if (!cache) return;
+          const { database, store } = cache;
+          if (database?.name === data.database && store?.name === data.store) {
+            window.dispatchEvent(
+              new CustomEvent(CUSTOM_EVENT.DatabaseStoreUpdated, {
+                detail: {
+                  database: data.database,
+                  store: data.store,
+                },
+              }),
+            );
+          }
           break;
         case 'clear':
           set(
             produce<SocketMessage>((state) => {
-              const db = state.databaseMsg?.find(
-                (i) => i.database === data.database,
-              );
-              if (db) {
-                db.stores = db.stores.filter((i) => i.name !== data.store);
+              if (!state.databaseMsg.data) return;
+              const { database, store } = state.databaseMsg.data;
+              if (
+                database?.name === data.database &&
+                store?.name === data.store
+              ) {
+                state.databaseMsg.data = null;
               }
             }),
           );
@@ -204,10 +223,14 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         case 'drop':
           set(
             produce<SocketMessage>((state) => {
-              if (state.databaseMsg) {
-                state.databaseMsg = state.databaseMsg?.filter(
-                  (i) => i.database !== data.database,
+              const { basicInfo, data: cache } = state.databaseMsg;
+              if (basicInfo) {
+                state.databaseMsg.basicInfo = basicInfo.filter(
+                  (i) => i.name !== data.database,
                 );
+              }
+              if (cache?.database?.name === data.database) {
+                state.databaseMsg.data = null;
               }
             }),
           );
