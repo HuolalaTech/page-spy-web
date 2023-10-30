@@ -11,7 +11,7 @@ import {
   Table,
   Tooltip,
 } from 'antd';
-import { useMemo, useCallback, useEffect, useState } from 'react';
+import { useMemo, useCallback, useState } from 'react';
 import { useCacheDetailStore } from '@/store/cache-detail';
 import { capitalize } from 'lodash';
 import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
@@ -19,12 +19,12 @@ import { ReactComponent as StorageSvg } from '@/assets/image/storage.svg';
 import Icon, {
   CaretLeftOutlined,
   CaretRightOutlined,
+  InfoCircleOutlined,
   WarningOutlined,
 } from '@ant-design/icons';
 import ReactJsonView from '@huolala-tech/react-json-view';
 import { useTranslation } from 'react-i18next';
 import './index.less';
-import { isArray, isString } from 'lodash-es';
 import { useEventListener } from '@/utils/useEventListener';
 import { CUSTOM_EVENT } from '@/store/socket-message/socket';
 
@@ -224,10 +224,54 @@ export const DatabaseInfo = () => {
                       {stores.map((i) => {
                         return (
                           <Option key={i.name} value={i.name}>
-                            <Space title={i.name}>
-                              <Icon component={StorageSvg} />
-                              <span style={{ fontSize: 14 }}>{i.name}</span>
-                            </Space>
+                            <Row justify="space-between" align="middle">
+                              <Col>
+                                <Space title={i.name}>
+                                  <Icon component={StorageSvg} />
+                                  <span style={{ fontSize: 14 }}>{i.name}</span>
+                                </Space>
+                              </Col>
+                              <Col>
+                                <Tooltip
+                                  placement="right"
+                                  title={
+                                    <>
+                                      <Space>
+                                        Key path:
+                                        <ReactJsonView
+                                          darkMode
+                                          source={i.keyPath}
+                                          copyable={false}
+                                          expandable={false}
+                                        />
+                                      </Space>
+                                      <br />
+                                      <Space>
+                                        Auto increment:
+                                        <ReactJsonView
+                                          darkMode
+                                          source={i.autoIncrement as any}
+                                          copyable={false}
+                                          expandable={false}
+                                        />
+                                      </Space>
+                                      <br />
+                                      <Space>
+                                        Indexes:
+                                        <ReactJsonView
+                                          darkMode
+                                          source={i.indexes}
+                                          copyable={false}
+                                          expandable={false}
+                                        />
+                                      </Space>
+                                    </>
+                                  }
+                                >
+                                  <InfoCircleOutlined />
+                                </Tooltip>
+                              </Col>
+                            </Row>
                           </Option>
                         );
                       })}
