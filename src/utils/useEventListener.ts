@@ -18,11 +18,11 @@ type Listener<T extends Event> = (e: T) => void;
 export const useEventListener = (
   type: string,
   listener: Listener<Event>,
-  options?: {
-    target: EventTarget;
+  options?: Partial<{
+    target: EventTarget | null;
     capture: AddEventListenerOptions['capture'];
     passive: AddEventListenerOptions['passive'];
-  },
+  }>,
 ) => {
   const { target = window, capture = false, passive = true } = options || {};
   const handler = useRef<Listener<Event>>();
@@ -34,12 +34,12 @@ export const useEventListener = (
   }, []);
 
   useEffect(() => {
-    target.addEventListener(type, fn, {
+    target?.addEventListener(type, fn, {
       capture,
       passive,
     });
     return () => {
-      target.removeEventListener(type, fn);
+      target?.removeEventListener(type, fn);
     };
   }, [target, type, fn, capture, passive]);
 };

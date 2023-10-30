@@ -6,6 +6,7 @@ import { ReactComponent as UserSvg } from '@/assets/image/user-1.svg';
 import Icon from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
+import { CUSTOM_EVENT } from '@/store/socket-message/socket';
 
 interface ConnectionStatus {
   client?: SpySocket.Connection | null;
@@ -30,9 +31,9 @@ export const ConnectStatus = memo(() => {
       const { detail } = evt as CustomEvent<ConnectionStatus>;
       setConnections(detail);
     };
-    socket.addEventListener('connect-status', statusListener);
+    socket.addEventListener(CUSTOM_EVENT.ConnectStatus, statusListener);
     return () => {
-      socket.removeEventListener('connect-status', statusListener);
+      socket.removeEventListener(CUSTOM_EVENT.ConnectStatus, statusListener);
     };
   }, [socket]);
 

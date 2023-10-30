@@ -105,7 +105,9 @@
     "device": "デバイス"
   },
   "storage": {
-    "empty-detail": "値を表示するアイテムを選択"
+    "empty-detail": "値を表示するアイテムを選択",
+    "entries-be-modified": "一部のエントリが変更されました",
+    "data-be-stale": "データが古くなっている可能性があります"
   },
   "socket": {
     "client-name": "クライアント",

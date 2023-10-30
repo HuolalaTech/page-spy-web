@@ -1,19 +1,21 @@
+/* eslint-disable no-case-declarations */
 import { create } from 'zustand';
 import { produce } from 'immer';
-import { SocketStore } from './socket';
+import { CUSTOM_EVENT, SocketStore } from './socket';
 import {
   SpyConsole,
   SpyNetwork,
   SpySystem,
   SpyPage,
   SpyStorage,
-  SpyMessage,
+  SpyDatabase,
 } from '@huolala-tech/page-spy';
 import { API_BASE_URL } from '@/apis/request';
 import { resolveProtocol } from '@/utils';
 import { ElementContent } from 'hast';
 import { getFixedPageMsg } from './utils';
 import { isEqual, omit } from 'lodash-es';
+import * as MESSAGE_TYPE from './message-type';
 
 const USER_ID = 'Debugger';
 
@@ -28,10 +30,11 @@ interface SocketMessage {
     tree: ElementContent[] | null;
     location: SpyPage.DataItem['location'] | null;
   };
-  storageMsg: Record<
-    SpyStorage.DataType,
-    Record<string, Omit<SpyStorage.DataItem, 'type' | 'action'>>
-  >;
+  storageMsg: Record<SpyStorage.DataType, SpyStorage.GetTypeDataItem['data']>;
+  databaseMsg: {
+    basicInfo: SpyDatabase.DBInfo[] | null;
+    data: SpyDatabase.GetTypeDataItem | null;
+  };
   initSocket: (url: string) => void;
   clearRecord: (key: string) => void;
   refresh: (key: string) => void;
@@ -49,9 +52,13 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     location: null,
   },
   storageMsg: {
-    localStorage: {},
-    sessionStorage: {},
-    cookie: {},
+    localStorage: [],
+    sessionStorage: [],
+    cookie: [],
+  },
+  databaseMsg: {
+    basicInfo: null,
+    data: null,
   },
   initSocket: (room: string) => {
     if (!room) return;
@@ -63,21 +70,21 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
 
     const socket = new SocketStore(url);
     set({ socket });
-    socket.addListener('console', (data: SpyConsole.DataItem) => {
+    socket.addListener(MESSAGE_TYPE.CONSOLE, (data: SpyConsole.DataItem) => {
       set(
         produce<SocketMessage>((state) => {
           state.consoleMsg.push(data);
         }),
       );
     });
-    socket.addListener('system', (data: SpySystem.DataItem) => {
+    socket.addListener(MESSAGE_TYPE.SYSTEM, (data: SpySystem.DataItem) => {
       set(
         produce<SocketMessage>((state) => {
           state.systemMsg.push(data);
         }),
       );
     });
-    socket.addListener('network', (data: SpyNetwork.RequestInfo) => {
+    socket.addListener(MESSAGE_TYPE.NETWORK, (data: SpyNetwork.RequestInfo) => {
       const cache = get().networkMsg;
       // 整理 xhr 的消息
       const { id } = data;
@@ -99,14 +106,14 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         );
       }
     });
-    socket.addListener('connect', (data: string) => {
+    socket.addListener(MESSAGE_TYPE.CONNECT, (data: string) => {
       set(
         produce<SocketMessage>((state) => {
           state.connectMsg.push(data);
         }),
       );
     });
-    socket.addListener('page', async (data: SpyPage.DataItem) => {
+    socket.addListener(MESSAGE_TYPE.PAGE, async (data: SpyPage.DataItem) => {
       const { tree, html } = await getFixedPageMsg(
         data.html,
         data.location.href,
@@ -122,22 +129,28 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         }),
       );
     });
-    socket.addListener('storage', (data: SpyStorage.DataItem) => {
-      const { type, action, name, ...restData } = data;
+    socket.addListener(MESSAGE_TYPE.STORAGE, (data: SpyStorage.DataItem) => {
+      const { type, action } = data;
       switch (action) {
         case 'get':
+          set(
+            produce<SocketMessage>((state) => {
+              state.storageMsg[type] = data.data;
+            }),
+          );
+          break;
         case 'set':
-          if (name) {
-            const state = omit(get().storageMsg[type][name], 'id');
-            const newState = omit({ name, ...restData }, 'id');
-            const skipUpdate = isEqual(state, newState);
-            if (skipUpdate) return;
+          if (data.name) {
             set(
               produce<SocketMessage>((state) => {
-                state.storageMsg[type][name] = {
-                  name,
-                  ...restData,
-                };
+                const cacheData = state.storageMsg[type];
+                const index = cacheData.findIndex((i) => i.name === data.name);
+                if (index < 0) return;
+                const newState = omit(data, 'id');
+                const skipUpdate = isEqual(cacheData[index], newState);
+                if (skipUpdate) return;
+
+                cacheData[index] = data;
               }),
             );
           }
@@ -145,18 +158,82 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         case 'clear':
           set(
             produce<SocketMessage>((state) => {
-              state.storageMsg[type] = {};
+              state.storageMsg[type] = [];
             }),
           );
           break;
         case 'remove':
           set(
             produce<SocketMessage>((state) => {
-              delete state.storageMsg[type][name!];
+              state.storageMsg[type] = state.storageMsg[type].filter(
+                (i) => i.name !== data.name,
+              );
             }),
           );
           break;
         default:
+          break;
+      }
+    });
+    socket.addListener(MESSAGE_TYPE.DATABASE, (data: SpyDatabase.DataItem) => {
+      switch (data.action) {
+        case 'get':
+          set(
+            produce<SocketMessage>((state) => {
+              state.databaseMsg.data = data;
+            }),
+          );
+          break;
+        case 'basic':
+          set(
+            produce<SocketMessage>((state) => {
+              state.databaseMsg.basicInfo = data.result;
+            }),
+          );
+          break;
+        case 'update':
+          const cache = get().databaseMsg.data;
+          if (!cache) return;
+          const { database, store } = cache;
+          if (database?.name === data.database && store?.name === data.store) {
+            window.dispatchEvent(
+              new CustomEvent(CUSTOM_EVENT.DatabaseStoreUpdated, {
+                detail: {
+                  database: data.database,
+                  store: data.store,
+                },
+              }),
+            );
+          }
+          break;
+        case 'clear':
+          set(
+            produce<SocketMessage>((state) => {
+              if (!state.databaseMsg.data) return;
+              const { database, store } = state.databaseMsg.data;
+              if (
+                database?.name === data.database &&
+                store?.name === data.store
+              ) {
+                state.databaseMsg.data = null;
+              }
+            }),
+          );
+          break;
+        case 'drop':
+          set(
+            produce<SocketMessage>((state) => {
+              const { basicInfo, data: cache } = state.databaseMsg;
+              if (basicInfo) {
+                state.databaseMsg.basicInfo = basicInfo.filter(
+                  (i) => i.name !== data.database,
+                );
+              }
+              if (cache?.database?.name === data.database) {
+                state.databaseMsg.data = null;
+              }
+            }),
+          );
           break;
       }
     });
