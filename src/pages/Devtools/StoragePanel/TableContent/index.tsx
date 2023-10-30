@@ -11,16 +11,22 @@ import {
   Table,
   Tooltip,
 } from 'antd';
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useEffect, useState } from 'react';
 import { useCacheDetailStore } from '@/store/cache-detail';
 import { capitalize } from 'lodash';
 import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
 import { ReactComponent as StorageSvg } from '@/assets/image/storage.svg';
-import Icon, { CaretLeftOutlined, CaretRightOutlined } from '@ant-design/icons';
+import Icon, {
+  CaretLeftOutlined,
+  CaretRightOutlined,
+  WarningOutlined,
+} from '@ant-design/icons';
 import ReactJsonView from '@huolala-tech/react-json-view';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { isArray, isString } from 'lodash-es';
+import { useEventListener } from '@/utils/useEventListener';
+import { CUSTOM_EVENT } from '@/store/socket-message/socket';
 
 const { Column } = Table;
 const { Option } = Select;
@@ -98,12 +104,17 @@ export const StorageInfo = ({ activeTab }: Props) => {
 
 export const DatabaseInfo = () => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
+  const { t } = useTranslation('translation', { keyPrefix: 'storage' });
   const [form] = Form.useForm();
   const [socket, { basicInfo, data: dbMsg }] = useSocketMessageStore(
     (state) => [state.socket, state.databaseMsg],
   );
+  const [isStale, setIsStale] = useState(false);
   const onGetIndexedDB = useCallback(
     (values: any) => {
+      if (isStale) {
+        setIsStale(false);
+      }
       if (!socket) return;
       socket.unicastMessage({
         type: 'database-pagination',
@@ -114,10 +125,13 @@ export const DatabaseInfo = () => {
         },
       });
     },
-    [socket],
+    [isStale, socket],
   );
   const onSkip = useCallback(
     (action: 'prev' | 'next') => {
+      if (isStale) {
+        setIsStale(false);
+      }
       if (!socket || !dbMsg) return;
       socket.unicastMessage({
         type: 'database-pagination',
@@ -128,8 +142,16 @@ export const DatabaseInfo = () => {
         },
       });
     },
-    [dbMsg, socket],
+    [dbMsg, isStale, socket],
   );
+
+  useEventListener(CUSTOM_EVENT.DatabaseStoreUpdated, (evt: Event) => {
+    const { database, store } = (evt as CustomEvent).detail;
+    const values = form.getFieldsValue();
+    if (values.database === database && values.store === store) {
+      setIsStale(true);
+    }
+  });
 
   const tableData = useMemo(() => {
     if (!dbMsg) return [];
@@ -242,6 +264,14 @@ export const DatabaseInfo = () => {
         </Col>
         <Col>
           <Space>
+            {isStale && (
+              <Space size={4}>
+                <Tooltip title={t('entries-be-modified')}>
+                  <WarningOutlined style={{ color: '#DC933E', fontSize: 18 }} />
+                </Tooltip>
+                <span>{t('data-be-stale')}</span>
+              </Space>
+            )}
             <Button disabled={!dbMsg?.page.prev} onClick={() => onSkip('prev')}>
               <CaretLeftOutlined />
             </Button>
