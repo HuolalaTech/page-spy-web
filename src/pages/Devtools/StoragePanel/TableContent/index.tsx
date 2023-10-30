@@ -1,10 +1,9 @@
 import { useSocketMessageStore } from '@/store/socket-message';
-import { SpyDatabase, SpyStorage } from '@huolala-tech/page-spy';
+import { SpyStorage } from '@huolala-tech/page-spy';
 import {
   Button,
   Col,
   Divider,
-  Empty,
   Form,
   Row,
   Select,
@@ -12,8 +11,8 @@ import {
   Table,
   Tooltip,
 } from 'antd';
-import { useState, useMemo, useCallback } from 'react';
-import { useCacheDetailStore } from '../store';
+import { useMemo, useCallback } from 'react';
+import { useCacheDetailStore } from '@/store/cache-detail';
 import { capitalize } from 'lodash';
 import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
 import { ReactComponent as StorageSvg } from '@/assets/image/storage.svg';
