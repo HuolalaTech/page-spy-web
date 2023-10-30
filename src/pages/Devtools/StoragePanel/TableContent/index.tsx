@@ -155,24 +155,14 @@ export const DatabaseInfo = () => {
 
   const tableData = useMemo(() => {
     if (!dbMsg) return [];
-    const { page, store, data } = dbMsg;
+    const { page, data } = dbMsg;
     const result = data.map((val: any, idx: number) => {
       const index = 50 * (page.current - 1) + idx;
       const item: any = {
         index,
-        keyPath: null,
-        value: val,
+        keyPath: val.key,
+        value: val.value,
       };
-      if (store) {
-        const { keyPath, autoIncrement } = store;
-        if (isString(keyPath)) {
-          item.keyPath = val[keyPath];
-        } else if (isArray(keyPath)) {
-          item.keyPath = keyPath.map((i) => val[i]);
-        } else if (autoIncrement) {
-          item.keyPath = index + 1;
-        }
-      }
       return item;
     });
     return result;
