@@ -107,7 +107,8 @@
   "storage": {
     "empty-detail": "选择查看其中一项的值",
     "entries-be-modified": "一些条目可能已经被修改",
-    "data-be-stale": "数据可能已经过时"
+    "data-be-stale": "数据可能已经过时",
+    "total-entries": "总记录数"
   },
   "socket": {
     "client-name": "客户端",

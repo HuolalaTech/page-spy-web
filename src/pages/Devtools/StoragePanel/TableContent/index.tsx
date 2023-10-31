@@ -352,6 +352,9 @@ export const DatabaseInfo = () => {
           render={(value) => <ReactJsonView source={value} maxTitleSize={50} />}
         />
       </Table>
+      <p className="database-total-entries">
+        {t('total-entries')}: {dbMsg?.total || 0}
+      </p>
     </div>
   );
 };
