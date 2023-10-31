@@ -29,6 +29,7 @@ import { ConnectStatus } from './ConnectStatus';
 import { useSocketMessageStore } from '@/store/socket-message';
 import '@huolala-tech/react-json-view/dist/style.css';
 import { throttle } from 'lodash-es';
+import { CUSTOM_EVENT } from '@/store/socket-message/socket';
 
 const { Sider, Content } = Layout;
 const { Title } = Typography;
@@ -57,7 +58,7 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
     System: false,
   });
   useEventListener(
-    'page-spy-updated',
+    CUSTOM_EVENT.NewMessageComing,
     throttle((evt) => {
       const { detail } = evt as CustomEvent;
       const type = `${(detail as string)[0].toUpperCase()}${detail.slice(

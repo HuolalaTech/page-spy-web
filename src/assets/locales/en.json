@@ -105,7 +105,10 @@
     "device": "Device"
   },
   "storage": {
-    "empty-detail": "Select one to preview its value"
+    "empty-detail": "Select one to preview its value",
+    "entries-be-modified": "Some entries have been modified",
+    "data-be-stale": "Data may be stale",
+    "total-entries": "Total entries"
   },
   "socket": {
     "client-name": "Client",

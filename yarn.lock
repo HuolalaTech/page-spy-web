@@ -746,18 +746,18 @@
     "@huolala-tech/page-spy-api-win32-arm" "1.2.2"
     "@huolala-tech/page-spy-api-win32-arm64" "1.2.2"
 
-"@huolala-tech/page-spy@^1.3.2":
-  version "1.3.2"
-  resolved "https://registry.npmjs.org/@huolala-tech/page-spy/-/page-spy-1.3.2.tgz#442ae3d345d77c06bb6f9c0565e79fb47a842fbc"
-  integrity sha512-7NrFnWObZkeU47HR+Kb+sh7XDae/k4fpLM77X6/WBRbJlVMzhVLfxqKr4a+XvYxH67pxpKG3WyVKzf5V175LcQ==
+"@huolala-tech/page-spy@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.npmjs.org/@huolala-tech/page-spy/-/page-spy-1.4.1.tgz#98c2f85c222f9fb6749b4f360016157056d499f3"
+  integrity sha512-96QRoMiZggoF2o8y2Lr665/nImi7hwyGsISSAlboOhvIhaZh3RTk0IWHlJkbV5TL37h1AbMhNhOu5Q7NyTPZHg==
   dependencies:
     "@babel/runtime" "^7.13.0"
     copy-to-clipboard "^3.3.1"
 
-"@huolala-tech/react-json-view@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/react-json-view/-/react-json-view-1.1.0.tgz#2784801b8d2cf45cade414326f429f808750e02b"
-  integrity sha512-i59YwIU2k0M6CEjrL/skR60coKaytI273b1P6YJMuekWxr/p86I5kNKeWVCCjNzdC8g9BNHmLFTBrebV2leNmg==
+"@huolala-tech/react-json-view@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.npmjs.org/@huolala-tech/react-json-view/-/react-json-view-1.2.2.tgz#dde7bc6adbfa913950395e63992296d9868bd88f"
+  integrity sha512-OU9jVZNBeeaC/nye4AnD10Ef1g0LM4WnOOFKAzWIyYX02QjheMm66LSof2g5vEEhhjRU+kqjpmQ89X5Pb0tCfQ==
   dependencies:
     copy-to-clipboard "^3.3.3"
 
