@@ -20,12 +20,6 @@ const PagePanel = () => {
   const frameRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {
-    setLoading(true);
-    refresh('page');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     if (html) {
       const frameDocument = frameRef.current!.contentDocument;
       frameDocument!.documentElement.innerHTML = html.toString();
