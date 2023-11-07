@@ -1,6 +1,6 @@
 [page-spy]: https://github.com/HuolalaTech/page-spy.git 'page-spy'
 
-English | [中文](./README_CN.md)
+[English](./README_EN.md) | 中文
 
 <p align="center">
   <img src="./logo.svg" height="120" />
@@ -8,42 +8,44 @@ English | [中文](./README_CN.md)
 
 <h1 align="center">PageSpyWeb</h1>
 
-**PageSpy** is a remote debugging tool for web project.
+## 介绍
 
-Based on encapsulation of native web APIs, it filters and transforms the parameters of native methods when called, and converts into messages with specific format for consumption by the debugger client. The debugger presents ui in an interactive devtools-like for easy viewing after receives the message data.
+**PageSpy** 是一款用来调试远程 Web 项目的工具。
 
-## When should I use?
+基于对原生 API 的封装，它将调用原生方法时的参数进行过滤、转化，整理成格式规范的消息供调试端消费；调试端收到消息数据，提供类控制台可交互式的功能界面将数据呈现出来。
 
-<u>It's **PageSpy** show time whenever you can't debug code with local devtools!</u> Let's see the following instances:
+## 何时使用？
 
-**Save communication time, improve collaboration efficiency**: Telecommuting and cross-regional collaboration becoming more and more common,effective collaboration between programmers and testers become extremely important. However, traditional communication such as email, telephone, and video conferencing suffer from inefficient communication, incomplete issue information, and misunderstanding or misjudgment, etc. PageSpy provides project runtime info for technicians to view at the debugger client, and testers no longer need to provide issue information to technicians frequently by text, screenshot, and recording screen.
+<u>任何无法在本地使用控制台调试的场景，都是 **PageSpy** 可以大显身手的时候！</u>一起来看下面的两个例子：
 
-**Accurately troubleshoot to avoid looking a needle in the ocean**: When an application has a white screen or other similar fatal problems on the user's device, it has always been a difficult problem for technicians to quickly locate the error, accurately troubleshoot and fix it. Traditional methods of locating problems include data monitoring and log analysis, which not only consume a lot of time and energy to analyze and diagnose problems, but also rely heavily on technicians to understand business scenarios and code implementation.PageSpy presents the error message directly to the technician, eliminates other interference, just shows the code!
+**节省沟通成本，提升协同效率**：在现代远程工作和跨地区合作变得越来越普遍的背景下，技术人员和测试人员之间的有效协同变得异常重要。然而，传统的沟通方式如邮件、电话、视频会议等存在沟通效率不高、故障信息不全面、误解误判等。PageSpy 提供项目运行现场供技术人员在调试端查看，测试人员不用再频繁的通过文字、截图、录屏等方式向技术人员提供故障信息。
 
-## How to use?
+**精准高效排障，避免大海捞针**：当应用在用户的终端上出现白屏或其他类似致命问题时，快速定位、精准排障并修复问题一直是技术人员面临的难题。传统定位问题的方式包括数据监控、日志分析等，这些方式不仅会耗费大量的时间和精力来分析和诊断问题，还极度依赖排障人员非常理解业务需求场景、技术实现。PageSpy 将错误信息直接呈现给技术人员，排除一切信息干扰，show the code!
 
-For data security and your convenience, we provide a complete and out-of-box deployment solution.
+## 如何使用？
 
-### Docker 👍
+为了数据安全和方便您的使用，我们提供完整的、开箱即用的部署方案。
+
+### Docker 部署 👍
 
 ```bash
 $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
 ```
 
-### Node
+### Node 部署
 
-> HINT: This will download the corresponding binary file based on the platform, which contains all the necessary content, so the download may take some time, please be patient.
+> 提示：这会根据不同的平台下载对应的二进制文件，二进制文件包含了必要的所有内容，所以下载需要一点时间，请耐心等待。
 
 ```bash
 $ yarn global add @huolala-tech/page-spy-api
 
-# if you use npm
+# 如果你使用 npm
 
 $ npm install -g @huolala-tech/page-spy-api
 ```
 
-After the download is complete, you can directly execute `page-spy-api` in the command line to start the service.
-It will also generate a configuration file called config.json in the running directory, and modifying this file allows you to change the running port.
+下载完成之后你可以在命令行中直接执行 `page-spy-api` 启动服务。
+同时还会在运行目录下面生成配置文件 config.json，修改配置文件可以修改运行端口
 
 ```json
 {
@@ -51,18 +53,16 @@ It will also generate a configuration file called config.json in the running dir
 }
 ```
 
-Once the deployment is successful, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
+部署完成后，页面顶部会出现 `接入SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
 
-## Feature overview
+## 功能概览
 
-### Console Panel
+### Console 面板
 
-> Show the `console.<log | info | warn | error>` log data, support execute code；
+> 显示 `console.<log | info | warn | error>` 日志信息，可以执行代码；
 
 <details>
-  <summary>
-    Screenshot
-  </summary>
+  <summary>Screenshot</summary>
 
 ![](./src/assets/image/screenshot/console-panel.png)
 
@@ -70,14 +70,12 @@ Once the deployment is successful, the `Inject SDK` menu will be at the top, and
 
 ---
 
-### Network Panel
+### Network 面板
 
-> Show the request of `fetch` | `XMLHttpRequest` | `navigator.sendBeacon`;
+> 显示 `fetch` | `XMLHttpRequest` | `navigator.sendBeacon` 的网络请求；
 
 <details>
-  <summary>
-    Screenshot
-  </summary>
+  <summary>Screenshot</summary>
 
 ![](./src/assets/image/screenshot/network-panel.png)
 
@@ -85,14 +83,12 @@ Once the deployment is successful, the `Inject SDK` menu will be at the top, and
 
 ---
 
-### Page Panel
+### Page 面板
 
-> Show the current pageview and HTML node tree；
+> 显示当前页面，查看 HTML 节点树；
 
 <details>
-  <summary>
-    Screenshot
-  </summary>
+  <summary>Screenshot</summary>
 
 ![](./src/assets/image/screenshot/page-panel.png)
 
@@ -100,14 +96,12 @@ Once the deployment is successful, the `Inject SDK` menu will be at the top, and
 
 ---
 
-### Storage Panel
+### Storage 面板
 
-> Show the cache of `localStorage` | `sessionStorage` | `cookie`；
+> 查看 `localStorage` | `sessionStorage` | `cookie` 缓存数据；
 
 <details>
-  <summary>
-    Screenshot
-  </summary>
+  <summary>Screenshot</summary>
 
 ![](./src/assets/image/screenshot/storage-panel.png)
 
@@ -115,46 +109,52 @@ Once the deployment is successful, the `Inject SDK` menu will be at the top, and
 
 ---
 
-### Systems Panel
+### Systems 面板
 
-> Show the userAgent info and some APIs compatibility;
+> 显示 userAgent 信息，查看 api 兼容性;
 
 <details>
-  <summary>
-    Screenshot
-  </summary>
+  <summary>Screenshot</summary>
 
 ![](./src/assets/image/screenshot/system-panel.png)
 
 </details>
 
-Besides of above, you will get the realtime notification when there have new data or data changed.
+---
 
-## Develop
+除此之外，当有新的数据或者数据发生变化的时候会实时的收到通知。
 
-1. Clone the repo:
+## 技术支持
+
+有问题可以使用微信扫码进群。
+
+<img src="https://public-assets-v.huolala.cn/images/page-spy-wechat-group.jpg" alt="微信群" width="300" />
+
+## 开发
+
+1. 克隆仓库:
 
 ```bash
 git clone https://github.com/HuolalaTech/page-spy-web.git
 ```
 
-2. Install the deps:
+2. 安装依赖:
 
 ```bash
 yarn install
 ```
 
-3. Local development:
+3. 本地开发:
 
 ```bash
-# frontend
+# 前端
 yarn start:client
 
-# backend
+# 后端
 yarn start:server
 ```
 
-4. Build for production
+4. 生产构建
 
 ```bash
 yarn build:client
