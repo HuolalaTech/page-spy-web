@@ -5,12 +5,11 @@
   "homepage": "https://huolalatech.github.io/page-spy-web",
   "license": "MIT",
   "scripts": {
+    "postinstall": "bash scripts/public-files.sh",
     "start:doc": "vite --mode doc",
-    "prestart:client": "bash scripts/public-files.sh",
     "start:client": "vite --mode client",
     "start:server": "page-spy-api",
     "build:doc": "vite build --mode doc",
-    "prebuild:client": "bash scripts/public-files.sh",
     "build:client": "vite build --mode client",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src"
