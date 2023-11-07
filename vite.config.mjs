@@ -8,9 +8,10 @@ import { ViteEjsPlugin } from 'vite-plugin-ejs';
 export default ({ mode, command }) => {
   const isDoc = mode === 'doc';
   const isProd = command === 'build';
+  const base = isDoc ? '/page-spy-web/' : '/';
 
   return defineConfig({
-    base: isDoc ? '/page-spy-web/' : '/',
+    base,
     build: {
       target: ['chrome100'],
       sourcemap: isProd ? 'hidden' : true,
@@ -37,6 +38,7 @@ export default ({ mode, command }) => {
       react(),
       svgr(),
       ViteEjsPlugin({
+        base,
         isDoc,
       }),
     ],
