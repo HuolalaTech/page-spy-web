@@ -15,10 +15,10 @@ export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 <HeaderLink level={2} slug="introduction" children="Introduction" />
 
 <b>PageSpy</b> is a remote debugging tool for web project. Based on encapsulation
-of native web APIs, it filters and transforms the parameters of native methods
-when called, and converts into messages with specific format for consumption by
-the debugger client. The debugger presents ui in an interactive devtools-like for
-easy viewing after receives the message data.
+of native web APIs, it filters and transforms the parameters of native methods when
+called, and converts into messages with specific format for consumption by the debugger
+client. The debugger presents ui in an interactive devtools-like for easy viewing
+after receives the message data.
 
 <HeaderLink level={2} slug="when-to-use" children="When to use?" />
 
@@ -65,24 +65,23 @@ configure and integrate in the business project by click the menu.
 
 - Console Panel: show the `console.<log | info | warn | error>` log data, support execute code；
 
-<Image width="90%" style={{margin: '0 auto'}} src={consoleImg} />
+<Image width="90%" style={{ margin: '0 auto' }} src={consoleImg} />
 
 - Network Panel: show the request of `fetch` | `XMLHttpRequest` | `navigator.sendBeacon`;
 
-<Image width="90%" style={{margin: '0 auto'}} src={networkImg} />
+<Image width="90%" style={{ margin: '0 auto' }} src={networkImg} />
 
 - Page Panel: show the current pageview and HTML node tree；
 
-<Image width="90%" style={{margin: '0 auto'}} src={pageImg} />
+<Image width="90%" style={{ margin: '0 auto' }} src={pageImg} />
 
-- Storage Panel: show the cache of `localStorage` | `sessionStorage` | `cookie`；
+- Storage Panel: show the cache of `localStorage` | `sessionStorage` | `cookie` | `indexedDB`；
 
-<Image width="90%" style={{margin: '0 auto'}} src={storageImg} />
+<Image width="90%" style={{ margin: '0 auto' }} src={storageImg} />
 
 - Systems Panel: show the userAgent info and some APIs compatibility.
 
-<Image width="90%" style={{margin: '0 auto'}} src={systemImg} />
-
+<Image width="90%" style={{ margin: '0 auto' }} src={systemImg} />
 
 Besides of above, you will get the realtime notification when there have new data or data changed.
 
