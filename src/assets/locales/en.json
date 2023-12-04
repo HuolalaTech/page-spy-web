@@ -14,7 +14,8 @@
     "os": "OS",
     "browser": "Browser",
     "project": "Project",
-    "debug": "Debug"
+    "debug": "Debug",
+    "title": "Title"
   },
   "error": {
     "oops": "Oops! Errors happened~",
