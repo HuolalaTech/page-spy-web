@@ -57,7 +57,12 @@ export const InjectSDKModal = ({
      * help you to distinguish the client. The title value will
      * show in the room-list route page.
      */
-    title: string;
+    title: string,
+    /**
+     * Manually specify the scheme for the PageSpy service,
+     * only if the SDK can't analyse the scheme correctly.
+     */
+    enableSSL: null | boolean,
   });
 </script>
 `,
