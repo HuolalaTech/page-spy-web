@@ -103,29 +103,29 @@ const locateSourceCode = (data: {
 const loadSourceMap = async (filename: string) => {
   let result: string | null = null;
 
-  // hidden sourcemap
-  const fakeSourcemapFilename = filename + '.map';
-  result = await readFile(fakeSourcemapFilename);
-  if (result) return result;
-
-  // inline sourcemap OR standalone sourcemap
   const originFileContent = await readFile(filename);
   if (!originFileContent) {
     throw new Error(getI18nText('fetch-minify-fail')!);
   }
+
+  // inline sourcemap OR standalone sourcemap
   const inlineContent = originFileContent.match(
     /(?<=\/\/#\s+sourceMappingURL=).*/,
   );
   if (!inlineContent) {
-    throw new Error(getI18nText('none-sourcemap')!);
+    // hidden sourcemap
+    const fakeSourcemapFilename = filename + '.map';
+    result = await readFile(fakeSourcemapFilename);
+  } else {
+    // inline sourcemap
+    let targetUrl = inlineContent[0];
+    if (!targetUrl.startsWith('data:application/json;')) {
+      // standalone sourcemap
+      targetUrl = new URL(targetUrl, filename).toString();
+    }
+    result = await readFile(targetUrl);
   }
-  // inline sourcemap
-  let targetUrl = inlineContent[0];
-  if (!targetUrl.startsWith('data:application/json;')) {
-    // standalone sourcemap
-    targetUrl = new URL(targetUrl, filename).toString();
-  }
-  result = await readFile(targetUrl);
+
   return result;
 };
 

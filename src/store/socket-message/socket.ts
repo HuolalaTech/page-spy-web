@@ -289,10 +289,12 @@ export class SocketStore extends EventTarget {
 
   unicastMessage(data: any) {
     if (!this.clientConnection) {
+      message.destroy();
       message.warning(getTranslation('socket.client-not-found'));
       return;
     }
     if (!this.socket) {
+      message.destroy();
       message.error(getTranslation('socket.debug-offline'));
       return;
     }

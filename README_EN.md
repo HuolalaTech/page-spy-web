@@ -151,6 +151,7 @@ yarn install
 yarn start:client
 
 # backend
+yarn global add @huolala-tech/page-spy-api
 yarn start:server
 ```
 

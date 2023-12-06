@@ -4,6 +4,8 @@ import './index.less';
 import Icon from '@ant-design/icons';
 import { useCallback } from 'react';
 import ErrorStackParser from 'error-stack-parser';
+import { message as antdMessage } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 export type RequiredFrames = Required<StackFrame>[];
 
@@ -26,6 +28,8 @@ export const ErrorTraceNode = ({
 }: {
   data: RRequired<SpyConsole.DataItem>;
 }) => {
+  const { t } = useTranslation('translation', { keyPrefix: 'error' });
+
   const onPopupDetail = useCallback(() => {
     if (!data.errorDetail?.stack) {
       return;
@@ -42,7 +46,11 @@ export const ErrorTraceNode = ({
         return [fileName, lineNumber, columnNumber].every(Boolean);
       },
     ) as RequiredFrames;
-    if (!frames.length) return;
+    if (!frames.length) {
+      antdMessage.warning(t('no-frames'));
+      console.log(error);
+      return;
+    }
 
     window.dispatchEvent(
       new CustomEvent('source-code-detail', {

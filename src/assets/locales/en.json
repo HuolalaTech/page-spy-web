@@ -14,18 +14,20 @@
     "os": "OS",
     "browser": "Browser",
     "project": "Project",
-    "debug": "Debug"
+    "debug": "Debug",
+    "title": "Title"
   },
   "error": {
     "oops": "Oops! Errors happened~",
     "actions": "You can take a <1>Try again</1> or <3><0>Report</0></3> the issue.",
     "try-again": "Try again",
-    "report": "Report"
+    "report": "Report",
+    "no-frames": "No valid error information found"
   },
   "inject": {
     "load-script": "Load a <script> in the testing project;",
     "init-instance": "Then, config (optional) and init;",
-    "pass-config": "The configuration you passed will override the default value;",
+    "pass-config": "<0>You can also pass configurations, which will override the default values.</0> <1>See details;</1>",
     "end": "That's ALL.",
     "start-debug": "Start debugging by clicking the <1>Connections</1> menu at the top!"
   },
