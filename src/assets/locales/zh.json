@@ -14,7 +14,8 @@
     "os": "系统",
     "browser": "浏览器",
     "project": "项目",
-    "debug": "调试"
+    "debug": "调试",
+    "title": "标题"
   },
   "error": {
     "oops": " 哎呀！发生错误～",

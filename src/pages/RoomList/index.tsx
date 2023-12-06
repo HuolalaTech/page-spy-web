@@ -39,10 +39,14 @@ const sortConnections = (data: I.SpyRoom[]) => {
 
 const filterConnections = (
   data: I.SpyRoom[],
-  condition: Record<'address' | 'os' | 'browser', string>,
+  condition: Record<'title' | 'address' | 'os' | 'browser', string>,
 ) => {
-  const { address = '', os = '', browser = '' } = condition;
+  const { title = '', address = '', os = '', browser = '' } = condition;
+  const lowerCaseTitle = String(title).trim().toLowerCase();
   return data
+    .filter(({ tags }) => {
+      return String(tags.title).toLowerCase().includes(lowerCaseTitle);
+    })
     .filter((i) => i.address.slice(0, 4).includes(address || ''))
     .filter(({ name }) => {
       const { osName, browserName } = resolveClientInfo(name);
@@ -86,6 +90,7 @@ export const RoomList = () => {
   );
 
   const [conditions, setConditions] = useState({
+    title: '',
     address: '',
     os: '',
     browser: '',
@@ -219,6 +224,11 @@ export const RoomList = () => {
             <Col span={8}>
               <Form.Item label={t('common.project')} name="project">
                 <Input placeholder={t('common.project')!} allowClear />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label={t('common.title')} name="title">
+                <Input placeholder={t('common.title')!} allowClear />
               </Form.Item>
             </Col>
             <Col span={8}>
