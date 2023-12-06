@@ -20,17 +20,20 @@ export const InjectSDKModal = ({
         code: `<script crossorigin="anonymous" src="${window.location.origin}/page-spy/index.min.js"></script>`,
       },
       {
-        title: (
-          <Trans i18nKey="inject.init-instance">
-            Then, config (optional) and init
-          </Trans>
-        ),
+        title: t('inject.init-instance'),
         code: `<script>
   window.$pageSpy = new PageSpy();
 </script>`,
       },
       {
-        title: t('inject.pass-config'),
+        title: (
+          <Trans i18nKey="inject.pass-config">
+            <span>slot-0</span>
+            <a href="https://github.com/HuolalaTech/page-spy" target="_blank">
+              slot-1
+            </a>
+          </Trans>
+        ),
         code: `<script>
   window.$pageSpy = new PageSpy({
     /**
@@ -57,7 +60,12 @@ export const InjectSDKModal = ({
      * help you to distinguish the client. The title value will
      * show in the room-list route page.
      */
-    title: string;
+    title: string,
+    /**
+     * Manually specify the scheme for the PageSpy service,
+     * only if the SDK can't analyse the scheme correctly.
+     */
+    enableSSL: null | boolean,
   });
 </script>
 `,
