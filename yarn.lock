@@ -746,10 +746,10 @@
     "@huolala-tech/page-spy-api-win32-arm" "1.2.2"
     "@huolala-tech/page-spy-api-win32-arm64" "1.2.2"
 
-"@huolala-tech/page-spy@^1.4.4":
-  version "1.4.4"
-  resolved "https://registry.npmjs.org/@huolala-tech/page-spy/-/page-spy-1.4.4.tgz#718399362fb8d57a596baf0a54d40c339cadbba6"
-  integrity sha512-tLJPsZgDj2SDm+Drr8gp74ovVYKhibmmyS4FG515q8N7KAW4M8xaEOB/O9i6NbA4bPKmgug7OPyTafV0BGuSZw==
+"@huolala-tech/page-spy@^1.4.5":
+  version "1.4.5"
+  resolved "https://registry.npmjs.org/@huolala-tech/page-spy/-/page-spy-1.4.5.tgz#8bd030b968cbf23050936641276070701cecdfc7"
+  integrity sha512-psTeIgMQR+Vi9Ze21uMGWDiQf0u7jd4JaNrljne3+MUnad2r6v0inyD4N+Tb3bIXlXXjWxVHpsKqipf0KvMvDQ==
   dependencies:
     "@babel/runtime" "^7.13.0"
     copy-to-clipboard "^3.3.1"
