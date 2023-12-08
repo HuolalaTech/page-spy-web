@@ -28,11 +28,15 @@
 
 ### Docker 部署 👍
 
+视频教程：[使用 Docker 部署 PageSpy](https://www.bilibili.com/video/BV1Ph4y1y78R)
+
 ```bash
 $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
 ```
 
 ### Node 部署
+
+视频教程：[使用 Node 部署 PageSpy](https://www.bilibili.com/video/BV1oM4y1p7Le/?spm_id_from=333.788.recommend_more_video.1&vd_source=6b4fed1a463f67c0e8e56eaa21faa997)
 
 > 提示：这会根据不同的平台下载对应的二进制文件，二进制文件包含了必要的所有内容，所以下载需要一点时间，请耐心等待。
 
@@ -53,76 +57,7 @@ $ npm install -g @huolala-tech/page-spy-api
 }
 ```
 
-部署完成后，页面顶部会出现 `接入SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
-
-## 功能概览
-
-### Console 面板
-
-> 显示 `console.<log | info | warn | error>` 日志信息，可以执行代码；
-
-<details>
-  <summary>Screenshot</summary>
-
-![](./src/assets/image/screenshot/console-panel.png)
-
-</details>
-
----
-
-### Network 面板
-
-> 显示 `fetch` | `XMLHttpRequest` | `navigator.sendBeacon` 的网络请求；
-
-<details>
-  <summary>Screenshot</summary>
-
-![](./src/assets/image/screenshot/network-panel.png)
-
-</details>
-
----
-
-### Page 面板
-
-> 显示当前页面，查看 HTML 节点树；
-
-<details>
-  <summary>Screenshot</summary>
-
-![](./src/assets/image/screenshot/page-panel.png)
-
-</details>
-
----
-
-### Storage 面板
-
-> 查看 `localStorage` | `sessionStorage` | `cookie` 缓存数据；
-
-<details>
-  <summary>Screenshot</summary>
-
-![](./src/assets/image/screenshot/storage-panel.png)
-
-</details>
-
----
-
-### Systems 面板
-
-> 显示 userAgent 信息，查看 api 兼容性;
-
-<details>
-  <summary>Screenshot</summary>
-
-![](./src/assets/image/screenshot/system-panel.png)
-
-</details>
-
----
-
-除此之外，当有新的数据或者数据发生变化的时候会实时的收到通知。
+部署完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
 
 ## 技术支持
 
@@ -130,33 +65,6 @@ $ npm install -g @huolala-tech/page-spy-api
 
 <img src="https://public-assets-v.huolala.cn/images/page-spy-wechat-group.jpg" alt="微信群" width="300" />
 
-## 开发
+## 如何贡献代码？
 
-1. 克隆仓库:
-
-```bash
-git clone https://github.com/HuolalaTech/page-spy-web.git
-```
-
-2. 安装依赖:
-
-```bash
-yarn install
-```
-
-3. 本地开发:
-
-```bash
-# 前端
-yarn start:client
-
-# 后端
-yarn global add @huolala-tech/page-spy-api
-yarn start:server
-```
-
-4. 生产构建
-
-```bash
-yarn build:client
-```
+点击查看 [Contributing](./CONTRIBUTING_CN.md)。
