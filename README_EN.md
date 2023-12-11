@@ -24,15 +24,15 @@ Based on encapsulation of native web APIs, it filters and transforms the paramet
 
 For data security and your convenience, we provide a complete and out-of-box deployment solution.
 
-### Docker 👍
+### Docker
 
 ```bash
 $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
 ```
 
-### Node
+Once the deployment is successful, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
 
-> HINT: This will download the corresponding binary file based on the platform, which contains all the necessary content, so the download may take some time, please be patient.
+### Node
 
 ```bash
 $ yarn global add @huolala-tech/page-spy-api

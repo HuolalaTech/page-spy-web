@@ -26,19 +26,19 @@
 
 为了数据安全和方便您的使用，我们提供完整的、开箱即用的部署方案。
 
-### Docker 部署 👍
+### Docker 部署
 
-视频教程：[使用 Docker 部署 PageSpy](https://www.bilibili.com/video/BV1Ph4y1y78R)
+> 视频教程：[使用 Docker 部署 PageSpy](https://www.bilibili.com/video/BV1Ph4y1y78R)
 
 ```bash
 $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
 ```
 
+启动完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
+
 ### Node 部署
 
-视频教程：[使用 Node 部署 PageSpy](https://www.bilibili.com/video/BV1oM4y1p7Le/?spm_id_from=333.788.recommend_more_video.1&vd_source=6b4fed1a463f67c0e8e56eaa21faa997)
-
-> 提示：这会根据不同的平台下载对应的二进制文件，二进制文件包含了必要的所有内容，所以下载需要一点时间，请耐心等待。
+> 视频教程：[使用 Node 部署 PageSpy](https://www.bilibili.com/video/BV1oM4y1p7Le/?spm_id_from=333.788.recommend_more_video.1&vd_source=6b4fed1a463f67c0e8e56eaa21faa997)
 
 ```bash
 $ yarn global add @huolala-tech/page-spy-api
@@ -48,8 +48,7 @@ $ yarn global add @huolala-tech/page-spy-api
 $ npm install -g @huolala-tech/page-spy-api
 ```
 
-下载完成之后你可以在命令行中直接执行 `page-spy-api` 启动服务。
-同时还会在运行目录下面生成配置文件 config.json，修改配置文件可以修改运行端口
+安装完成之后你可以在命令行中直接执行 `page-spy-api` 启动服务。该命令会在运行目录下面生成配置文件 config.json，修改配置文件可以修改运行端口：
 
 ```json
 {
@@ -68,3 +67,7 @@ $ npm install -g @huolala-tech/page-spy-api
 ## 如何贡献代码？
 
 点击查看 [Contributing](./CONTRIBUTING_CN.md)。
+
+## FAQ
+
+点击查看 [常见问题解答](https://github.com/HuolalaTech/page-spy-web/wiki/%F0%9F%90%9E-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94)。

@@ -20,55 +20,20 @@ export const InjectSDKModal = ({
         code: `<script crossorigin="anonymous" src="${window.location.origin}/page-spy/index.min.js"></script>`,
       },
       {
-        title: t('inject.init-instance'),
-        code: `<script>
-  window.$pageSpy = new PageSpy();
-</script>`,
-      },
-      {
         title: (
-          <Trans i18nKey="inject.pass-config">
+          <Trans i18nKey="inject.init-instance">
             <span>slot-0</span>
-            <a href="https://github.com/HuolalaTech/page-spy" target="_blank">
+            <a
+              href="https://github.com/HuolalaTech/page-spy?tab=readme-ov-file#%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%8F%82%E6%95%B0"
+              target="_blank"
+            >
               slot-1
             </a>
           </Trans>
         ),
         code: `<script>
-  window.$pageSpy = new PageSpy({
-    /**
-     * The server base url. For example, "example.com".
-     */
-    api: string,
-    /**
-     * The debugger client host. For example, "https://example.com".
-     */
-    clientOrigin: string,
-    /**
-     * The project name used for grouping connections.
-     */
-    project: string,
-    /**
-     * Indicate whether auto render the widget on the bottom-left
-     * corner. You can manually render later by calling
-     * "window.$pageSpy.render()" if passed false.
-     * @default true
-     */
-    autoRender: boolean,
-    /**
-     * Custom title for displaying some data like user info to
-     * help you to distinguish the client. The title value will
-     * show in the room-list route page.
-     */
-    title: string,
-    /**
-     * Manually specify the scheme for the PageSpy service,
-     * only if the SDK can't analyse the scheme correctly.
-     */
-    enableSSL: null | boolean,
-  });
-</script>
-`,
+  window.$pageSpy = new PageSpy();
+</script>`,
       },
       {
         title: (
