@@ -59,4 +59,4 @@ Click to see the [Contribution](./CONTRIBUTING_EN.md)
 
 ## FAQ
 
-Click to see the [FAQ](./wiki/FAQ)
+Click to see the [FAQ](https://github.com/HuolalaTech/page-spy-web/wiki/faq)
