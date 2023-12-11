@@ -56,3 +56,7 @@ Once the deployment is successful, you can open the browser and access `<host>:6
 ## How to contribute?
 
 Click to see the [Contribution](./CONTRIBUTING_EN.md)
+
+## FAQ
+
+Click to see the [FAQ](./wiki/FAQ)
