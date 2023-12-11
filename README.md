@@ -6,7 +6,7 @@
   <img src="./logo.svg" height="120" />
 </p>
 
-<h1 align="center">PageSpyWeb</h1>
+<h1 align="center">Page Spy</h1>
 
 ## 介绍
 
@@ -24,9 +24,9 @@
 
 ## 如何使用？
 
-为了数据安全和方便您的使用，我们提供完整的、开箱即用的部署方案。
+为了数据安全和方便您的使用，我们提供完整的、开箱即用的多种部署方案，各位开发者可以根据自己的情况选择任意一种部署方式。
 
-### Docker 部署
+### 第一种：使用 Docker 部署
 
 > 视频教程：[使用 Docker 部署 PageSpy](https://www.bilibili.com/video/BV1Ph4y1y78R)
 
@@ -36,7 +36,7 @@ $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalate
 
 启动完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
 
-### Node 部署
+### 第二种：使用 Node 部署
 
 > 视频教程：[使用 Node 部署 PageSpy](https://www.bilibili.com/video/BV1oM4y1p7Le/?spm_id_from=333.788.recommend_more_video.1&vd_source=6b4fed1a463f67c0e8e56eaa21faa997)
 
