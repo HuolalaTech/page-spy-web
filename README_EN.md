@@ -6,7 +6,7 @@ English | [中文](./README.md)
   <img src="./logo.svg" height="120" />
 </p>
 
-<h1 align="center">PageSpyWeb</h1>
+<h1 align="center">Page Spy</h1>
 
 **PageSpy** is a remote debugging tool for web project.
 
@@ -22,17 +22,17 @@ Based on encapsulation of native web APIs, it filters and transforms the paramet
 
 ## How to use?
 
-For data security and your convenience, we provide a complete and out-of-box deployment solution.
+In order to ensure data security and facilitate your usage, we offer comprehensive, out-of-the-box deployment solutions. Developers can choose any deployment method according to their own situations.
 
-### Docker
+### Option 1: deploy by docker
 
 ```bash
 $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
 ```
 
-Once the deployment is successful, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
+Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
 
-### Node
+### Option 2: deploy by node
 
 ```bash
 $ yarn global add @huolala-tech/page-spy-api
@@ -51,8 +51,8 @@ It will also generate a configuration file called config.json in the running dir
 }
 ```
 
-Once the deployment is successful, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
+Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
 
 ## How to contribute?
 
-Click to see the [Contribution](./CONTRIBUTING.md)
+Click to see the [Contribution](./CONTRIBUTING_EN.md)
