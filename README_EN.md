@@ -12,19 +12,27 @@ English | [中文](./README.md)
 
 Based on encapsulation of native web APIs, it filters and transforms the parameters of native methods when called, and converts into messages with specific format for consumption by the debugger client. The debugger presents ui in an interactive devtools-like for easy viewing after receives the message data.
 
+[![Home](./.github/assets/home-en.jpg)](https://huolalatech.github.io/page-spy-web)
+
 ## When should I use?
 
 <u>It's **PageSpy** show time whenever you can't debug code with local devtools!</u> Let's see the following instances:
 
-**Save communication time, improve collaboration efficiency**: Telecommuting and cross-regional collaboration becoming more and more common,effective collaboration between programmers and testers become extremely important. However, traditional communication such as email, telephone, and video conferencing suffer from inefficient communication, incomplete issue information, and misunderstanding or misjudgment, etc. PageSpy provides project runtime info for technicians to view at the debugger client, and testers no longer need to provide issue information to technicians frequently by text, screenshot, and recording screen.
+- Debugging of H5 or webview app locally: in the past, some products provided panels that could display information on H5, but the small screens of mobile devices make it inconvenient for operation, and the display is not user-friendly. Issues such as information being truncated are also common.
+- Remote work and cross-regional collaboration: traditional communications such as emails, phone calls, and video conferences are inefficient, and fault information is not comprehensive, making it prone to misunderstandings and misjudgments.
+- White screen issues on user devices: traditional approaches to troubleshooting, such as data monitoring and log analysis, depend on troubleshooters understanding business requirements and technical implementations.
 
-**Accurately troubleshoot to avoid looking a needle in the ocean**: When an application has a white screen or other similar fatal problems on the user's device, it has always been a difficult problem for technicians to quickly locate the error, accurately troubleshoot and fix it. Traditional methods of locating problems include data monitoring and log analysis, which not only consume a lot of time and energy to analyze and diagnose problems, but also rely heavily on technicians to understand business scenarios and code implementation.PageSpy presents the error message directly to the technician, eliminates other interference, just shows the code!
+The commonality among these issues is that developers cannot view runtime information as easily as they can using the console.
+
+To address this, PageSpy provides a live view of the project for technical personnel to inspect on the debugging side. In remote collaborative scenarios, testers no longer need to frequently provide fault information to technical personnel through text, screenshots, voice messages, or screen recordings.
 
 ## How to use?
 
 In order to ensure data security and facilitate your usage, we offer comprehensive, out-of-the-box deployment solutions. Developers can choose any deployment method according to their own situations.
 
 ### Option 1: deploy by docker
+
+> Video tutorial: [Deploy PageSpy with docker](https://youtu.be/LttXrBbVqbI?si=AvcI9Fr1YdmyTCD1)
 
 ```bash
 $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
@@ -33,6 +41,8 @@ $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalate
 Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
 
 ### Option 2: deploy by node
+
+> Video tutorial: [Deploy PageSpy with node](https://youtu.be/Xf7S6TPbYd0?si=J4vc_A-8AekCesUf)
 
 ```bash
 $ yarn global add @huolala-tech/page-spy-api
@@ -53,10 +63,14 @@ It will also generate a configuration file called config.json in the running dir
 
 Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
 
+## Roadmap
+
+Click to see the [Roadmap](https://github.com/orgs/HuolalaTech/projects/1).
+
 ## How to contribute?
 
-Click to see the [Contribution](./CONTRIBUTING_EN.md)
+Click to see the [Contribution](./CONTRIBUTING_EN.md).
 
 ## FAQ
 
-Click to see the [FAQ](https://github.com/HuolalaTech/page-spy-web/wiki/faq)
+Click to see the [FAQ](https://github.com/HuolalaTech/page-spy-web/wiki/faq).
