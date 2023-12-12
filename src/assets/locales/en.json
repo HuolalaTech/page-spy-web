@@ -26,8 +26,7 @@
   },
   "inject": {
     "load-script": "Load a <script> in the testing project;",
-    "init-instance": "Then, config (optional) and init;",
-    "pass-config": "<0>You can also pass configurations, which will override the default values.</0> <1>See details;</1>",
+    "init-instance": "<0>Next, configure (optional) and initialize; check </0><1>configuration options;</1>",
     "end": "That's ALL.",
     "start-debug": "Start debugging by clicking the <1>Connections</1> menu at the top!"
   },
