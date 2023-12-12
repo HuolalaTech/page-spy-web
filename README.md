@@ -42,7 +42,7 @@
 
 基于对原生 API 的封装，它将调用原生方法时的参数进行过滤、转化，整理成格式规范的消息供调试端消费；调试端收到消息数据，提供类控制台可交互式的功能界面将数据呈现出来。
 
-[![主页](./.github/assets/dashboard.png)](https://huolalatech.github.io/page-spy-web)
+![主页](./.github/assets/dashboard.png)
 
 ## 何时使用？
 
