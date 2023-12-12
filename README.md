@@ -88,8 +88,6 @@ $ npm install -g @huolala-tech/page-spy-api
 }
 ```
 
-### 如何修改 API 服务配置
-
 ## 技术支持
 
 有问题可以使用微信扫码进群。
