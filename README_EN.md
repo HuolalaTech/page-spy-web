@@ -52,8 +52,13 @@ $ yarn global add @huolala-tech/page-spy-api
 $ npm install -g @huolala-tech/page-spy-api
 ```
 
-After the download is complete, you can directly execute `page-spy-api` in the command line to start the service.
-It will also generate a configuration file called config.json in the running directory, and modifying this file allows you to change the running port.
+After the download is complete, you can directly execute `page-spy-api` in the command line to start the service. Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
+
+### How to Modify API Service Configuration
+
+#### Modifying the Port
+
+Executing the page-spy-api command directly in the command line will generate a configuration file named config.json in the working directory. You can modify the running port by modifying this configuration file:
 
 ```json
 {
@@ -61,7 +66,25 @@ It will also generate a configuration file called config.json in the running dir
 }
 ```
 
-Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
+#### Multi-instance Deployment (Requires upgrading to version 1.5.0 or above)
+
+The rpcAddress configuration is used for multi-instance deployment, where IP and port represent the IP addresses and RPC ports of multiple machines. Multiple instances communicate with each other through RPC, and the program starts the RPC service based on the machine's IP. Therefore, it is important to ensure that IP addresses are unique to avoid potential issues of message confusion or loss.
+
+```json
+{
+  "port": "6752",
+  "rpcAddress": [
+    {
+      "ip": "192.168.123.1",
+      "port": "20008"
+    },
+    {
+      "ip": "192.168.123.2",
+      "port": "20008"
+    }
+  ]
+}
+```
 
 ## Roadmap
 
