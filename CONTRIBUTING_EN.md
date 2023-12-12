@@ -15,7 +15,7 @@ PageSpy consist of three repositories：
 - Server: maintained in [HuolalaTech/page-spy-api][page-spy-api] repository;
 - SDK which be injected in client: maintained in [HuolalaTech/page-spy][page-spy-sdk] repository;
 
-PageSpy is served as a Docker image hosted on Github Package (recommended) / [NPM package][npm-package] or as a binary executable file hosted on the [Release][github-release] page.
+PageSpy is served as a Docker image hosted on GitHub Package (recommended) / [NPM package][npm-package] or as a binary executable file hosted on the [Release][github-release] page.
 
 ## Repo Setup
 
