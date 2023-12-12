@@ -1,12 +1,40 @@
 [page-spy]: https://github.com/HuolalaTech/page-spy.git 'page-spy'
+[license-img]: https://img.shields.io/github/license/HuolalaTech/page-spy-web?label=License
+[license-url]: https://github.com/HuolalaTech/page-spy-web/blob/main/LICENSE
+[release-img]: https://img.shields.io/github/package-json/v/HuolalaTech/page-spy-web/release?label=Release
+[release-url]: https://github.com/HuolalaTech/page-spy-web/blob/release/package.json
+[download-img]: https://img.shields.io/npm/dw/%40huolala-tech/page-spy-api
+[download-url]: https://www.npmjs.com/package/@huolala-tech/page-spy-api
+[sdk-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy?label=SDK%20version
+[sdk-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy
+[sdk-build-img]: https://img.shields.io/github/actions/workflow/status/HuolalaTech/page-spy/coveralls.yml?logo=github&label=build
+[sdk-build-url]: https://github.com/HuolalaTech/page-spy/actions/workflows/coveralls.yml
+[sdk-coveralls-img]: https://img.shields.io/coverallsCoverage/github/HuolalaTech/page-spy?label=coverage
+[sdk-coveralls-url]: https://coveralls.io/github/HuolalaTech/page-spy?branch=main
+[sdk-min-img]: https://img.shields.io/bundlephobia/min/@huolala-tech/page-spy?label=minfied%20size
+[sdk-min-url]: https://unpkg.com/browse/@huolala-tech/page-spy/dist/index.min.js
+[api-ver-img]: https://img.shields.io/github/v/tag/HuolalaTech/page-spy-api?label=API%20version
+[api-ver-url]: https://github.com/HuolalaTech/page-spy-api/tags
+[api-go-img]: https://img.shields.io/github/go-mod/go-version/HuolalaTech/page-spy-api?label=go
+[api-go-url]: https://github.com/HuolalaTech/page-spy-api/blob/master/go.mod
+
+<div align="center">
+  <img src="./logo.svg" height="100" />
+
+  <h1>Page Spy</h1>
+
+[![Release][release-img]][release-url]
+[![license][license-img]][license-url] <br />
+[![NPM SDK][sdk-ver-img]][sdk-ver-url]
+[![Build Status][sdk-build-img]][sdk-build-url]
+[![Coverage Status][sdk-coveralls-img]][sdk-coveralls-url]
+[![SDK size][sdk-min-img]][sdk-min-url] <br />
+[![API Version][api-ver-img]][api-ver-url]
+[![Go Version][api-go-img]][api-go-url]
 
 [English](./README_EN.md) | 中文
 
-<p align="center">
-  <img src="./logo.svg" height="120" />
-</p>
-
-<h1 align="center">Page Spy</h1>
+</div>
 
 ## 介绍
 
@@ -14,7 +42,7 @@
 
 基于对原生 API 的封装，它将调用原生方法时的参数进行过滤、转化，整理成格式规范的消息供调试端消费；调试端收到消息数据，提供类控制台可交互式的功能界面将数据呈现出来。
 
-[![主页](./.github/assets/home.jpg)](https://huolalatech.github.io/page-spy-web)
+[![主页](./.github/assets/dashboard.png)](https://huolalatech.github.io/page-spy-web)
 
 ## 何时使用？
 
@@ -55,38 +83,6 @@ $ npm install -g @huolala-tech/page-spy-api
 ```
 
 安装完成之后你可以在命令行中直接执行 `page-spy-api` 启动服务。部署完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
-
-### 如何修改 API 服务配置
-
-#### 修改端口
-
-命令行中直接执行 `page-spy-api` 命令会在运行目录下面生成配置文件 config.json，修改配置文件可以修改运行端口：
-
-```json
-{
-  "port": "6752"
-}
-```
-
-#### 多实例部署（需要升级到 1.5.0 版本以上才可以使用）
-
-`rpcAddress` 配置是多实例部署配置，其中 ip 和 port 是多个机器 ip 以及 rpc 端口，多个实例通过 rpc 来通信，程序会根据机器 ip 来启动 rpc 服务，所以得保证 ip 不会重复，不然可能会出现消息错乱丢失问题。
-
-```json
-{
-  "port": "6752",
-  "rpcAddress": [
-    {
-      "ip": "192.168.123.1",
-      "port": "20008"
-    },
-    {
-      "ip": "192.168.123.2",
-      "port": "20008"
-    }
-  ]
-}
-```
 
 ## 技术支持
 
