@@ -40,7 +40,7 @@ English | [中文](./README.md)
 
 Based on encapsulation of native web APIs, it filters and transforms the parameters of native methods when called, and converts into messages with specific format for consumption by the debugger client. The debugger presents ui in an interactive devtools-like for easy viewing after receives the message data.
 
-[![Home](./.github/assets/dashboard-en.png)](https://huolalatech.github.io/page-spy-web)
+![Home](./.github/assets/dashboard-en.png)
 
 ## When should I use?
 
