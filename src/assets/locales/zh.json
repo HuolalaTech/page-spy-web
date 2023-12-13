@@ -34,7 +34,7 @@
     "title": "多功能<br />远程调试工具",
     "desc": "像使用谷歌浏览器的控制台一样简单地开始远程调试。",
     "goStart": "开始调试",
-    "goGithub": "Github 仓库"
+    "goGithub": "GitHub 仓库"
   },
   "intro": {
     "does": "PageSpy 可以做到",

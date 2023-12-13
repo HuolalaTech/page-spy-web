@@ -34,7 +34,7 @@
     "title": "多機能<br />リモートデバッグツール",
     "desc": "Google Chromeのコンソールのように簡単にリモートデバッグを開始します。",
     "goStart": "デバッグを開始",
-    "goGithub": "Github リポジトリ"
+    "goGithub": "GitHub リポジトリ"
   },
   "intro": {
     "does": "PageSpyでできること",

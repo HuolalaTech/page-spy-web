@@ -34,7 +34,7 @@
     "title": "다기능<br />원격 디버깅 도구",
     "desc": "Google Chrome 콘솔을 사용하는 것처럼 간단히 원격 디버깅을 시작하세요.",
     "goStart": "디버깅 시작",
-    "goGithub": "Github 저장소"
+    "goGithub": "GitHub 저장소"
   },
   "intro": {
     "does": "PageSpy가 할 수 있는 일",
