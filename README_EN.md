@@ -17,6 +17,8 @@
 [api-ver-url]: https://github.com/HuolalaTech/page-spy-api/tags
 [api-go-img]: https://img.shields.io/github/go-mod/go-version/HuolalaTech/page-spy-api?label=go
 [api-go-url]: https://github.com/HuolalaTech/page-spy-api/blob/master/go.mod
+[telegram-img]: https://img.shields.io/badge/Join-Telegram-blue?logo=telegram
+[telegram-url]: https://t.me/pagespy
 
 <div align="center">
   <img src="./logo.svg" height="100" />
@@ -81,6 +83,10 @@ $ npm install -g @huolala-tech/page-spy-api
 ```
 
 After the download is complete, you can directly execute `page-spy-api` in the command line to start the service. Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
+
+## Support
+
+[![Telegram][telegram-img]][telegram-url]
 
 ## Roadmap
 
