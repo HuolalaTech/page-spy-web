@@ -14,7 +14,7 @@ export const IntroBlock3 = () => {
         <Typography.Title level={2}>{t('intro.welcome')}</Typography.Title>
         <Link to="/docs">
           <Button type="primary" shape="round" size="large">
-            {t('intro.goStart')}
+            {t('common.doc')}
           </Button>
         </Link>
       </div>

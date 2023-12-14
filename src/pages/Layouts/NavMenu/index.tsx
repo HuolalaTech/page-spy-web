@@ -121,7 +121,7 @@ export const NavMenuOnPc = () => {
       >
         <Space>
           <GithubOutlined style={{ fontSize: 16 }} />
-          <span>Github</span>
+          <span>GitHub</span>
         </Space>
       </a>
     </div>
@@ -232,12 +232,12 @@ export const NavMenuOnMobile = () => {
                 <span>{t('common.lang')}</span>
               </Space>
             </div>
-            {/* Github */}
+            {/* GitHub */}
             <div className="menu-item">
               <a href={import.meta.env.VITE_GITHUB_REPO} target="_blank">
                 <Space>
                   <GithubOutlined style={{ fontSize: 16 }} />
-                  <span>Github</span>
+                  <span>GitHub</span>
                 </Space>
               </a>
             </div>

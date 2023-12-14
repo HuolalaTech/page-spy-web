@@ -9,6 +9,7 @@
     "connections": "房间列表",
     "inject-sdk": "接入 SDK",
     "submit": "提交",
+    "search": "搜索",
     "reset": "重置",
     "device-id": "设备 ID",
     "os": "系统",
@@ -26,8 +27,7 @@
   },
   "inject": {
     "load-script": "在测试项目中加载一个 <script>；",
-    "init-instance": "紧接着，配置（可选的）并初始化；",
-    "pass-config": "<0>也可以传递配置，这将覆盖默认的值，</0><1>查看详情；</1>",
+    "init-instance": "<0>紧接着，配置（可选的）并初始化；查看 </0><1>配置项；</1>",
     "end": "以上就是全部。",
     "start-debug": "从顶部的 <1>房间列表</1> 菜单进入并开始调试！"
   },
@@ -35,15 +35,14 @@
     "title": "多功能<br />远程调试工具",
     "desc": "像使用谷歌浏览器的控制台一样简单地开始远程调试。",
     "goStart": "开始调试",
-    "goGithub": "Github 仓库"
+    "goGithub": "GitHub 仓库"
   },
   "intro": {
     "does": "PageSpy 可以做到",
     "doesTitle": "检测运行时，<br />远程操作！",
     "provides": "我们提供",
     "providesTitle": "开箱即用的 <1>SDK</1> 和<br /> <4>调试的客户端</4>",
-    "welcome": "欢迎使用 PageSpy",
-    "goStart": "开始使用"
+    "welcome": "欢迎使用 PageSpy"
   },
   "selConn": {
     "title": "选择连接",
@@ -60,7 +59,7 @@
       "Network": "网络",
       "System": "系统",
       "Page": "页面",
-      "Storage": "缓存"
+      "Storage": "存储"
     }
   },
   "shortcuts": {

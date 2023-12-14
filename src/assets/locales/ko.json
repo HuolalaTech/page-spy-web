@@ -9,6 +9,7 @@
     "connections": "연결",
     "inject-sdk": "SDK 삽입",
     "submit": "제출",
+    "search": "검색",
     "reset": "초기화",
     "device-id": "장치 ID",
     "os": "운영 체제",
@@ -26,8 +27,7 @@
   },
   "inject": {
     "load-script": "테스트 프로젝트에 <script>를 로드합니다.",
-    "init-instance": "그 다음, (선택 사항으로) 설정하고 초기화합니다.",
-    "pass-config": "<0>도 설정을 전달할 수 있으며, 이렇게하면 기본값이 덮어쓰기됩니다,</0> <1>자세한 내용은 여기를 확인하세요.</1>",
+    "init-instance": "<0>다음으로, 구성 (옵션) 및 초기화; 확인 </0><1>구성 옵션;</1>",
     "end": "모두 여기까지입니다.",
     "start-debug": "<1>연결</1> 메뉴에서 상단으로 이동하여 디버그를 시작하세요!"
   },
@@ -35,15 +35,14 @@
     "title": "다기능<br />원격 디버깅 도구",
     "desc": "Google Chrome 콘솔을 사용하는 것처럼 간단히 원격 디버깅을 시작하세요.",
     "goStart": "디버깅 시작",
-    "goGithub": "Github 저장소"
+    "goGithub": "GitHub 저장소"
   },
   "intro": {
     "does": "PageSpy가 할 수 있는 일",
     "doesTitle": "런타임 감지, <br /> 원격 조작!",
     "provides": "제공하는 것",
     "providesTitle": "사용 준비가 된 <1>SDK</1> 및 <4>클라이언트 디버그</4>",
-    "welcome": "PageSpy에 오신 것을 환영합니다.",
-    "goStart": "시작"
+    "welcome": "PageSpy에 오신 것을 환영합니다."
   },
   "selConn": {
     "title": "연결 선택",

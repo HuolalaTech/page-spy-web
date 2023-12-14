@@ -1,38 +1,82 @@
 [page-spy]: https://github.com/HuolalaTech/page-spy.git 'page-spy'
+[license-img]: https://img.shields.io/github/license/HuolalaTech/page-spy-web?label=License
+[license-url]: https://github.com/HuolalaTech/page-spy-web/blob/main/LICENSE
+[release-img]: https://img.shields.io/github/package-json/v/HuolalaTech/page-spy-web/release?label=Release
+[release-url]: https://github.com/HuolalaTech/page-spy-web/blob/release/package.json
+[download-img]: https://img.shields.io/npm/dw/%40huolala-tech/page-spy-api
+[download-url]: https://www.npmjs.com/package/@huolala-tech/page-spy-api
+[sdk-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy?label=SDK%20version
+[sdk-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy
+[sdk-build-img]: https://img.shields.io/github/actions/workflow/status/HuolalaTech/page-spy/coveralls.yml?logo=github&label=build
+[sdk-build-url]: https://github.com/HuolalaTech/page-spy/actions/workflows/coveralls.yml
+[sdk-coveralls-img]: https://img.shields.io/coverallsCoverage/github/HuolalaTech/page-spy?label=coverage
+[sdk-coveralls-url]: https://coveralls.io/github/HuolalaTech/page-spy?branch=main
+[sdk-min-img]: https://img.shields.io/bundlephobia/min/@huolala-tech/page-spy?label=minfied%20size
+[sdk-min-url]: https://unpkg.com/browse/@huolala-tech/page-spy/dist/index.min.js
+[api-ver-img]: https://img.shields.io/github/v/tag/HuolalaTech/page-spy-api?label=API%20version
+[api-ver-url]: https://github.com/HuolalaTech/page-spy-api/tags
+[api-go-img]: https://img.shields.io/github/go-mod/go-version/HuolalaTech/page-spy-api?label=go
+[api-go-url]: https://github.com/HuolalaTech/page-spy-api/blob/master/go.mod
+[telegram-img]: https://img.shields.io/badge/Join-Telegram-blue?logo=telegram
+[telegram-url]: https://t.me/pagespy
+
+<div align="center">
+  <img src="./logo.svg" height="100" />
+
+  <h1>Page Spy</h1>
+
+[![Release][release-img]][release-url]
+[![license][license-img]][license-url] <br />
+[![NPM SDK][sdk-ver-img]][sdk-ver-url]
+[![Build Status][sdk-build-img]][sdk-build-url]
+[![Coverage Status][sdk-coveralls-img]][sdk-coveralls-url]
+[![SDK size][sdk-min-img]][sdk-min-url] <br />
+[![API Version][api-ver-img]][api-ver-url]
+[![Go Version][api-go-img]][api-go-url]
+
+<a href="https://www.producthunt.com/posts/pagespy?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pagespy" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=429852&theme=light" alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Product Hunt" height="36" /></a>
 
 English | [中文](./README.md)
 
-<p align="center">
-  <img src="./logo.svg" height="120" />
-</p>
+</div>
 
-<h1 align="center">PageSpyWeb</h1>
+## Intro
 
 **PageSpy** is a remote debugging tool for web project.
 
 Based on encapsulation of native web APIs, it filters and transforms the parameters of native methods when called, and converts into messages with specific format for consumption by the debugger client. The debugger presents ui in an interactive devtools-like for easy viewing after receives the message data.
 
+![Home](./.github/assets/dashboard-en.png)
+
 ## When should I use?
 
 <u>It's **PageSpy** show time whenever you can't debug code with local devtools!</u> Let's see the following instances:
 
-**Save communication time, improve collaboration efficiency**: Telecommuting and cross-regional collaboration becoming more and more common,effective collaboration between programmers and testers become extremely important. However, traditional communication such as email, telephone, and video conferencing suffer from inefficient communication, incomplete issue information, and misunderstanding or misjudgment, etc. PageSpy provides project runtime info for technicians to view at the debugger client, and testers no longer need to provide issue information to technicians frequently by text, screenshot, and recording screen.
+- Debugging of H5 or webview app locally: in the past, some products provided panels that could display information on H5, but the small screens of mobile devices make it inconvenient for operation, and the display is not user-friendly. Issues such as information being truncated are also common.
+- Remote work and cross-regional collaboration: traditional communications such as emails, phone calls, and video conferences are inefficient, and fault information is not comprehensive, making it prone to misunderstandings and misjudgments.
+- White screen issues on user devices: traditional approaches to troubleshooting, such as data monitoring and log analysis, depend on troubleshooters understanding business requirements and technical implementations.
 
-**Accurately troubleshoot to avoid looking a needle in the ocean**: When an application has a white screen or other similar fatal problems on the user's device, it has always been a difficult problem for technicians to quickly locate the error, accurately troubleshoot and fix it. Traditional methods of locating problems include data monitoring and log analysis, which not only consume a lot of time and energy to analyze and diagnose problems, but also rely heavily on technicians to understand business scenarios and code implementation.PageSpy presents the error message directly to the technician, eliminates other interference, just shows the code!
+The commonality among these issues is that developers cannot view runtime information as easily as they can using the console.
+
+To address this, PageSpy provides a live view of the project for technical personnel to inspect on the debugging side. In remote collaborative scenarios, testers no longer need to frequently provide fault information to technical personnel through text, screenshots, voice messages, or screen recordings.
 
 ## How to use?
 
-For data security and your convenience, we provide a complete and out-of-box deployment solution.
+In order to ensure data security and facilitate your usage, we offer comprehensive, out-of-the-box deployment solutions. Developers can choose any deployment method according to their own situations.
 
-### Docker 👍
+### Option 1: deploy by docker
+
+> Video tutorial: [Deploy PageSpy with docker](https://youtu.be/LttXrBbVqbI?si=AvcI9Fr1YdmyTCD1)
 
 ```bash
 $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
 ```
 
-### Node
+Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
 
-> HINT: This will download the corresponding binary file based on the platform, which contains all the necessary content, so the download may take some time, please be patient.
+### Option 2: deploy by node
+
+> Video tutorial: [Deploy PageSpy with node](https://youtu.be/Xf7S6TPbYd0?si=J4vc_A-8AekCesUf)
 
 ```bash
 $ yarn global add @huolala-tech/page-spy-api
@@ -42,121 +86,16 @@ $ yarn global add @huolala-tech/page-spy-api
 $ npm install -g @huolala-tech/page-spy-api
 ```
 
-After the download is complete, you can directly execute `page-spy-api` in the command line to start the service.
-It will also generate a configuration file called config.json in the running directory, and modifying this file allows you to change the running port.
+After the download is complete, you can directly execute `page-spy-api` in the command line to start the service. Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
 
-```json
-{
-  "port": "6752"
-}
-```
+## Roadmap
 
-Once the deployment is successful, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
+Click to see the [Roadmap](https://github.com/orgs/HuolalaTech/projects/1).
 
-## Feature overview
+## How to contribute?
 
-### Console Panel
+Click to see the [Contribution](./CONTRIBUTING_EN.md).
 
-> Show the `console.<log | info | warn | error>` log data, support execute code；
+## FAQ
 
-<details>
-  <summary>
-    Screenshot
-  </summary>
-
-![](./src/assets/image/screenshot/console-panel.png)
-
-</details>
-
----
-
-### Network Panel
-
-> Show the request of `fetch` | `XMLHttpRequest` | `navigator.sendBeacon`;
-
-<details>
-  <summary>
-    Screenshot
-  </summary>
-
-![](./src/assets/image/screenshot/network-panel.png)
-
-</details>
-
----
-
-### Page Panel
-
-> Show the current pageview and HTML node tree；
-
-<details>
-  <summary>
-    Screenshot
-  </summary>
-
-![](./src/assets/image/screenshot/page-panel.png)
-
-</details>
-
----
-
-### Storage Panel
-
-> Show the cache of `localStorage` | `sessionStorage` | `cookie`；
-
-<details>
-  <summary>
-    Screenshot
-  </summary>
-
-![](./src/assets/image/screenshot/storage-panel.png)
-
-</details>
-
----
-
-### Systems Panel
-
-> Show the userAgent info and some APIs compatibility;
-
-<details>
-  <summary>
-    Screenshot
-  </summary>
-
-![](./src/assets/image/screenshot/system-panel.png)
-
-</details>
-
-Besides of above, you will get the realtime notification when there have new data or data changed.
-
-## Develop
-
-1. Clone the repo:
-
-```bash
-git clone https://github.com/HuolalaTech/page-spy-web.git
-```
-
-2. Install the deps:
-
-```bash
-yarn install
-```
-
-3. Local development:
-
-```bash
-# frontend
-yarn start:client
-
-# backend
-yarn global add @huolala-tech/page-spy-api
-yarn start:server
-```
-
-4. Build for production
-
-```bash
-yarn build:client
-```
+Click to see the [FAQ](https://github.com/HuolalaTech/page-spy-web/wiki/faq).
