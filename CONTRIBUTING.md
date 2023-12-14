@@ -5,6 +5,8 @@
 [github-release]: https://github.com/HuolalaTech/page-spy-web/releases/tag/v1.2.0 'PageSpy Release'
 [npm-package]: https://www.npmjs.com/package/@huolala-tech/page-spy-api 'NPM package'
 
+[English](./CONTRIBUTING_EN.md) | 中文
+
 # PageSpy Contributing Guide
 
 你好！感谢你拿出时间来为 PageSpy 贡献，对此我们感到非常高兴。任何贡献都可以让 PageSpy 越来越好！在正式提交你的贡献之前，请阅读以下指引文档。
