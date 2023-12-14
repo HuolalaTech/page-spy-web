@@ -277,7 +277,7 @@ export const RoomList = () => {
               <Form.Item>
                 <Space>
                   <Button type="primary" htmlType="submit">
-                    {t('common.submit')}
+                    {t('common.search')}
                   </Button>
                   <Button
                     type="default"
