@@ -2,7 +2,7 @@ module github.com/HuolalaTech/page-spy-web/backend
 
 go 1.21
 
-require github.com/HuolalaTech/page-spy-api v1.3.0
+require github.com/HuolalaTech/page-spy-api v1.3.1
 
 require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
