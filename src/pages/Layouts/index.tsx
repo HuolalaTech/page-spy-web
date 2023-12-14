@@ -35,6 +35,16 @@ export const Layouts = () => {
                   )}
                 </Title>
               </Link>
+              <a
+                href="https://www.producthunt.com/posts/pagespy?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pagespy"
+                target="_blank"
+              >
+                <img
+                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=429852&theme=light"
+                  alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Product Hunt"
+                  height="36"
+                />
+              </a>
             </div>
           </Col>
           <Col>
