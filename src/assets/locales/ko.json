@@ -42,8 +42,7 @@
     "doesTitle": "런타임 감지, <br /> 원격 조작!",
     "provides": "제공하는 것",
     "providesTitle": "사용 준비가 된 <1>SDK</1> 및 <4>클라이언트 디버그</4>",
-    "welcome": "PageSpy에 오신 것을 환영합니다.",
-    "goStart": "시작"
+    "welcome": "PageSpy에 오신 것을 환영합니다."
   },
   "selConn": {
     "title": "연결 선택",

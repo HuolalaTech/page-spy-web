@@ -42,8 +42,7 @@
     "doesTitle": "Inspect Runtime,<br/>Remote!",
     "provides": "What we provide",
     "providesTitle": "Out-of-box <1>SDK</1> and<br /> <4>debugger client</4>",
-    "welcome": "Welcome to use PageSpy",
-    "goStart": "Get Started"
+    "welcome": "Welcome to use PageSpy"
   },
   "selConn": {
     "title": "Select the connection",

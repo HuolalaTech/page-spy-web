@@ -42,8 +42,7 @@
     "doesTitle": "ランタイムの検出、<br />リモート操作！",
     "provides": "提供するもの",
     "providesTitle": "使用準備の整った <1>SDK</1> および<br /> <4>クライアントデバッグ</4>",
-    "welcome": "PageSpyへようこそ",
-    "goStart": "開始"
+    "welcome": "PageSpyへようこそ"
   },
   "selConn": {
     "title": "接続を選択",
