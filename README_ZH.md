@@ -92,6 +92,7 @@ $ npm install -g @huolala-tech/page-spy-api
 
 <div style="display: flex; gap: 12px; flex-wrap: nowrap; overflow: auto">
   <img src="https://public-assets-v.huolala.cn/images/page-spy-wechat-group.jpg" alt="微信群" width="260" />
+  <img src="./.github/assets/group-2.jpg" alt="微信群" width="260" />
   <img src="./.github/assets/group-1.jpg" alt="微信群" width="260" />
 </div>
 
