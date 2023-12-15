@@ -5,39 +5,39 @@
 [github-release]: https://github.com/HuolalaTech/page-spy-web/releases/tag/v1.2.0 'PageSpy Release'
 [npm-package]: https://www.npmjs.com/package/@huolala-tech/page-spy-api 'NPM package'
 
-[English](./CONTRIBUTING_EN.md) | 中文
+English | [中文](./CONTRIBUTING_ZH.md)
 
 # PageSpy Contributing Guide
 
-你好！感谢你拿出时间来为 PageSpy 贡献，对此我们感到非常高兴。任何贡献都可以让 PageSpy 越来越好！在正式提交你的贡献之前，请阅读以下指引文档。
+Hi! Thank you for investing your time in contributing to PageSpy. We're really excited about that, as any contributions will help to make it better. Before submitting your contribution, please read the following guide.
 
-PageSpy 主要由三个仓库组成：
+PageSpy consist of three repositories：
 
-- 调试端 WebUI 代码在 [HuolalaTech/page-spy-web][page-spy-web] 仓库维护；
-- 服务器端代码在 [HuolalaTech/page-spy-api][page-spy-api] 仓库维护；
-- 需要在客户端引入的 SDK 代码在 [HuolalaTech/page-spy][page-spy-sdk] 仓库维护；
+- Debugger WebUI: maintained in [HuolalaTech/page-spy-web][page-spy-web] repository;
+- Server: maintained in [HuolalaTech/page-spy-api][page-spy-api] repository;
+- SDK which be injected in client: maintained in [HuolalaTech/page-spy][page-spy-sdk] repository;
 
-提供服务的方式是托管在 GitHub Package 中的 Docker 镜像（推荐）、[NPM package][npm-package] 或者使用 [Release][github-release] 托管的可执行文件。
+PageSpy is served as a Docker image hosted on GitHub Package (recommended) / [NPM package][npm-package] or as a binary executable file hosted on the [Release][github-release] page.
 
 ## Repo Setup
 
-> 请注意：不是每个仓库都需要在本地搭建开发环境，你可以只专注于一个仓库，请点击 [分情景调试](#分情景调试) 查看详情。
+> HINT: It is not necessary to set up the development environment locally for every repository. You can focus on contributing to just one repository. Click on [Debugging in Different Scenarios](#debugging-in-different-scenarios) for more details.
 
-### 搭建服务器端
+### Server Setup
 
-服务端使用的是 Go 语言开发，所以请先在本地配置 Go 语言开发环境，你可以点击 [安装 Go][install-go] 。
+The server is developed in the Go language, so please configure the Go language development environment locally first. You can click on [Install Go][install-go] for further information.
 
-Fork [HuolalaTech/page-spy-api][page-spy-api] 仓库并 clone 到本地，然后按照如下步骤执行：
+To get started, fork the [HuolalaTech/page-spy-api][page-spy-api] repository and clone it to your local machine. Follow the steps below:
 
-1. 在 `VSCode` 或者你偏好的编辑器中打开 page-spy-api 项目；
+1. Open the `page-spy-api` project in `VSCode` or your preferred editor;
 
-2. 在 page-spy-api 目录下执行命令安装依赖：
+2. Run the following command in `page-spy-api` directory to install dependencies：
 
    ```bash
    $ go mod tidy
    ```
 
-3. 在 `bin` 文件夹中创建 `local.go` 文件并添加以下内容：
+3. Create a `local.go` file in `page-spy-api/bin` directory and update content:
 
    ```go
    package main
@@ -62,13 +62,13 @@ Fork [HuolalaTech/page-spy-api][page-spy-api] 仓库并 clone 到本地，然后
    }
    ```
 
-4. 在 page-spy-api 目录下执行以下命令启动本地服务：
+4. Run the following command in `page-spy-api` directory to run local server：
 
    ```bash
    $ go run bin/local.go
    ```
 
-   终端将会打印以下输出：
+   The terminal will print the following output:
 
    ```bash
    ➜  page-spy-api git:(master) ✗ go run bin/local.go
@@ -88,43 +88,43 @@ Fork [HuolalaTech/page-spy-api][page-spy-api] 仓库并 clone 到本地，然后
    ⇨ http server started on [::]:6752
    ```
 
-5. 验证服务端本地环境是否搭建成功：
+5. Verify whether the local environment of the server is successfully built:
 
    ```bash
    $ curl http://localhost:6752/api/v1/room/list
    ```
 
-   不出意外的话，应该会返回类似下方的内容，代表服务器端环境搭建成功：
+   If everything goes well, you should receive a response similar to the following, indicating that the server-side environment has been successfully set up:
 
    ```bash
    {"code":"success","data":[],"success":true,"message":""}
    ```
 
-### 搭建调试端
+### Debugger WebUI Setup
 
-Fork [HuolalaTech/page-spy-web][page-spy-web] 仓库并 clone 到本地，page-spy-web 推荐使用 `yarn` 作为包管理器，包管理器用于安装项目依赖。按照如下步骤执行：
+Fork the [HuolalaTech/page-spy-web][page-spy-web] repository and clone it to your local machine. `page-spy-web` recommends using `yarn` as the package manager for installing project dependencies. Follow the steps below:
 
-1. 在 `VSCode` 或者你偏好的编辑器中打开 page-spy-web 项目；
+1. Open the `page-spy-web` project in `VSCode` or your preferred editor;
 
-2. 在 page-spy-web 目录下执行以下命令安装依赖：
+2. In the `page-spy-web` directory, run the following command to install dependencies:
 
    ```bash
    $ yarn install
    ```
 
-3. 在 page-spy-web 目录下新建 `.env.local` 环境变量文件，更新内容用于指定服务端地址：
+3. Create a `.env.local` file in the `page-spy-web` directory and update its content to specify the server-side address:
 
    ```shell
    VITE_API_BASE=localhost:6752
    ```
 
-4. 在 page-spy-web 目录下执行以下命令启动本地服务：
+4. Run the following command in the `page-spy-web` directory to start the local server:：
 
    ```bash
    $ yarn start:client
    ```
 
-   终端将会打印以下输出，端口可能会不一样，不过这没什么影响：
+   The terminal will print the following output. The port number may be different, but it doesn't matter:
 
    ```bash
     VITE v4.3.9  ready in 1386 ms
@@ -134,98 +134,98 @@ Fork [HuolalaTech/page-spy-web][page-spy-web] 仓库并 clone 到本地，page-s
      ➜  press h to show help
    ```
 
-5. 在浏览器中访问 http://localhost:5173/ ，如果是首次打开请稍微等一会儿，之后你应该能看到调试端在浏览器上显示。
+5. Visit http://localhost:5173/ in your browser. If it's your first time opening it, please wait for a while. You should then see the debugging end displayed in your browser.
 
-### 搭建 SDK
+### SDK Setup
 
-Fork [HuolalaTech/page-spy][page-spy-sdk] 仓库并 clone 到本地，page-spy 推荐使用 `yarn` 作为包管理器。按照如下步骤执行：
+Fork the [HuolalaTech/page-spy][page-spy-sdk] repository and clone it to your local machine. `page-spy` recommends using `yarn` as the package manager. Follow the steps below:
 
-1. 在 `VSCode` 或者你偏好的编辑器中打开 page-spy 项目；
+1. Open the `page-spy` project in VSCode or your preferred editor;
 
-2. 在 page-spy 目录下执行以下命令安装依赖：
+2. In the `page-spy` directory, run the following command to install dependencies:
 
    ```bash
    $ yarn install
    ```
 
-3. 以下命令可以直接使用：
+3. You can use the following commands directly:：
 
-   - `yarn build`：执行构建生成 SDK。产物将生成放在项目目录下的 dist 文件夹；
-   - `yarn build:watch`：监听模式下的构建。当发现内容更新将自动构建；
-   - `yarn test`：执行单元测试；
+   - `yarn build`: Performs the build to generate the SDK. The product will be generated and placed in the `dist` folder of the project directory;
+   - `yarn build:watch`: Build in watch mode. It will automatically build when the content is updated;
+   - `yarn test`: Runs unit tests;
 
-## 分情景调试
+## Debugging in Different Scenarios
 
-在本地同时搭建三个仓库的开发环境并不是必须的，比如说：如果你只想专注于贡献 [HuolalaTech/page-spy][page-spy-sdk] ，你完全可以这么做！本章接下来将通过不同的情景来介绍如何快速的开始贡献。
+It is not necessary to setup the development environment for all three repositories locally, for example: if you only want to focus on contributing to [HuolalaTech/page-spy][page-spy-sdk], you can do so! The following chapter will introduce how to start contributing quickly through different scenarios.
 
-### 准备工作
+### Preparation
 
-PageSpy 对外提供的使用方式有下面几种，它们打包了上面三个仓库的实现细节，支持一键使用。选择任意你偏好的方式在本地或者线上部署：
+PageSpy provides several ways to use it, which pack the implementation details of the three repositories and support one-click use. Choose any way you prefer to deploy locally or online:
 
-1. 使用 Docker 镜像的方式启动服务:
+1. Start the service using Docker image:
 
    ```bash
    $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
    ```
 
-2. 使用 NPM package 的方式启动服务：
+2. Start the service using NPM package:
 
    ```bash
    $ yarn global add pm2 @huolala-tech/page-spy-api
    $ pm2 start page-spy-api
    ```
 
-3. 使用在 [Release][github-release] 页面托管的二进制可执行文件；
+3. Use the binary executable file hosted on the [Release][github-release] page;
 
-当你操作完成后，下文假设您的服务部署在 https://example.com ，现在调试端、服务端、SDK 都已经准备就绪。
+After you have completed the above operations, assume that your service is deployed at https://example.com. Now the debugger web, server-side, and SDK are all ready.
 
-创建测试项目。创建一个测试项目或者直接使用你已有的项目，测试项目用于引入 SDK 并连接我们的服务。
+Create a test project or use an existing one to import the SDK and connect to our service.
 
 <img src="./src/assets/image/relation.png" alt="Relation" width="90%" />
 
-### 专注调试端
+### Focusing on Debugger WebUI
 
-如果你想只专注于为调试端贡献，按照 [搭建调试端](#搭建调试端) 的步骤在本地搭建服务，其中第三步需要更新为:
+If you only want to focus on contributing to the debugger, follow the steps in [Debugger WebUI Setup](#debugger-webui-setup) to set up the service locally. For the third step, update it to:
 
 ```bash
 # .env.local
 VITE_API_BASE=example.com
 ```
 
-> 请注意：这里的 "example.com" 只是假设你将服务部署在 https://example.com ，你应该替换为实际部署地址。
+> HINT: the "example.com" is just assumed that you have deployed the service at https://example.com, you should replace it with the actual deployment address.
 
-等待服务启动后，在浏览器打开调试端地址 http://localhost:5173 ，端口可能不一样，请按照你本地服务打印的地址访问。点击顶部「接入 SDK」菜单，按照指引在测试项目中接入，其中实例化需要传入配置：
+After the service is started, open the debugging end address http://localhost:5173 in the browser. The port may be different, please access it according to the address printed by your local service. Click the "Inject SDK" menu at the top and follow the instructions to access it in the test project. The instantiation requires passing in the configuration:
 
 ```ts
 new PageSpy({
   api: 'example.com',
   clientOrigin: 'http://localhost:5173',
-  project: '<任意名称>',
-  ......
+  project: '<any name>',
+  ...
 });
 ```
 
-之后启动测试项目，测试项目的页面左下角应该出现了 PageSpy 的标志（白色圆形容器，中间包含了 PageSpy logo）。通过 https://localhost:5173 访问调试端顶部菜单「房间列表」，测试项目的调试房间应该出现在列表上了。现在你可以修改调试端代码，开始为调试端仓库贡献。
+Then start the test project. The PageSpy logo (white circular container with the PageSpy logo in the middle) should appear in the lower left corner of the test project page. Access the debugging room of the test project through https://localhost:5173, and the test project's debugging room should appear on the list. Now you can modify the debugging end code and contribute to the debugging end repository.
 
-### 专注 SDK
+### Focusing on SDK
 
-如果你想只专注于为 SDK 提交贡献，按照 [搭建 SDK](#搭建-sdk) 的步骤在本地搭建服务。
+If you only want to focus on contributing to the SDK, follow the steps in [SDK Setup](#sdk-setup) to set up the service locally.
 
-建议执行终端命令，当发生变更时即可执行构建：
+It is recommended to execute the terminal command, which will automatically build when changes occur:
 
 ```bash
 $ yarn build:watch
 ```
 
-这将执行构建并在 `/dist` 目录下生成 SDK 产物。在测试项目中引入构建后的 SDK 产物，实例化 PgaeSpy 需要传入配置：
+This will build and generate the SDK product in the `/dist` directory. Import the built SDK product into the test project, and instantiate PageSpy requires passing in the configuration:
 
 ```ts
 new PageSpy({
   api: 'example.com',
   clientOrigin: 'http://example.com',
-  project: '<任意名称>',
-  ......
+  project: '<any name>',
+  ...
 });
 ```
 
-之后启动测试项目，测试项目的页面左下角应该出现了 PageSpy 的标志（白色圆形容器，中间包含了 PageSpy logo）。通过 https://example.com 访问调试端顶部菜单「房间列表」，测试项目的调试房间应该出现在列表上了。现在你可以修改 SDK 代码，开始为 SDK 仓库贡献。
+Then start the test project. The PageSpy logo (white circular container with the PageSpy logo in the middle) should appear in the lower left corner of the test project page. Access the "Connections" of the test project through https://example.com, and the test project's debugging room should appear on the list. Now you can modify the SDK code and contribute to the SDK repository.
