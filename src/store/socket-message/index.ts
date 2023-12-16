@@ -143,14 +143,19 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
           if (data.name) {
             set(
               produce<SocketMessage>((state) => {
+                const result = omit(data, 'id', 'type', 'action');
                 const cacheData = state.storageMsg[type];
-                const index = cacheData.findIndex((i) => i.name === data.name);
-                if (index < 0) return;
-                const newState = omit(data, 'id');
-                const skipUpdate = isEqual(cacheData[index], newState);
-                if (skipUpdate) return;
 
-                cacheData[index] = data;
+                const index = cacheData.findIndex(
+                  (i) => i.name === result.name,
+                );
+                if (index < 0) {
+                  cacheData.push(result);
+                  return;
+                }
+                const skipUpdate = isEqual(cacheData[index], result);
+                if (skipUpdate) return;
+                cacheData[index] = result;
               }),
             );
           }
