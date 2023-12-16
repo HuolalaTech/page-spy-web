@@ -197,9 +197,10 @@ VITE_API_BASE=example.com
 等待服务启动后，在浏览器打开调试端地址 http://localhost:5173 ，端口可能不一样，请按照你本地服务打印的地址访问。点击顶部「接入 SDK」菜单，按照指引在测试项目中接入，其中实例化需要传入配置：
 
 ```ts
+// 监听的端口为 page-spy-api 的端口
 new PageSpy({
   api: 'example.com',
-  clientOrigin: 'http://localhost:5173',
+  clientOrigin: 'http://localhost:6752',
   project: '<任意名称>',
   ......
 });

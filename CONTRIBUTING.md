@@ -197,9 +197,10 @@ VITE_API_BASE=example.com
 After the service is started, open the debugging end address http://localhost:5173 in the browser. The port may be different, please access it according to the address printed by your local service. Click the "Inject SDK" menu at the top and follow the instructions to access it in the test project. The instantiation requires passing in the configuration:
 
 ```ts
+// The listening port is the page-spy-api port
 new PageSpy({
   api: 'example.com',
-  clientOrigin: 'http://localhost:5173',
+  clientOrigin: 'http://localhost:6752',
   project: '<any name>',
   ...
 });
