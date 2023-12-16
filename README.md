@@ -17,6 +17,8 @@
 [api-ver-url]: https://github.com/HuolalaTech/page-spy-api/tags
 [api-go-img]: https://img.shields.io/github/go-mod/go-version/HuolalaTech/page-spy-api?label=go
 [api-go-url]: https://github.com/HuolalaTech/page-spy-api/blob/master/go.mod
+[telegram-img]: https://img.shields.io/badge/Join-Telegram-blue?logo=telegram
+[telegram-url]: https://t.me/pagespy
 
 <div align="center">
   <img src="./logo.svg" height="100" />
@@ -34,75 +36,66 @@
 
 <a href="https://www.producthunt.com/posts/pagespy?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pagespy" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=429852&theme=light" alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Product Hunt" height="36" /></a>
 
-[English](./README_EN.md) | 中文
+English | [中文](./README_ZH.md)
 
 </div>
 
-## 介绍
+## Intro
 
-**PageSpy** 是一款用来调试远程 Web 项目的工具。
+**PageSpy** is a remote debugging tool for web project.
 
-基于对原生 API 的封装，它将调用原生方法时的参数进行过滤、转化，整理成格式规范的消息供调试端消费；调试端收到消息数据，提供类控制台可交互式的功能界面将数据呈现出来。
+Based on encapsulation of native web APIs, it filters and transforms the parameters of native methods when called, and converts into messages with specific format for consumption by the debugger client. The debugger presents ui in an interactive devtools-like for easy viewing after receives the message data.
 
-![主页](./.github/assets/dashboard.png)
+![Home](./.github/assets/dashboard-en.png)
 
-## 何时使用？
+## When should I use?
 
-<u>任何无法在本地使用控制台调试的场景，都是 **PageSpy** 可以大显身手的时候！</u>一起来看下面的例子：
+<u>It's **PageSpy** show time whenever you can't debug code with local devtools!</u> Let's see the following instances:
 
-- 本地调试 H5、Webview 应用：以往有些产品提供了可以在 H5 上查看信息的面板，但移动端屏幕太小操作不便、显示不友好，以及信息被截断等问题；
-- 远程办公、跨地区协同：传统沟通方式如邮件、电话、视频会议等，沟通效率不高、故障信息不全面，容易误解误判；
-- 用户终端上出现白屏问题：传统定位问题的方式包括数据监控、日志分析等，这些方式依赖排障人员要理解业务需求场景、技术实现；
+- Debugging of H5 or webview app locally: in the past, some products provided panels that could display information on H5, but the small screens of mobile devices make it inconvenient for operation, and the display is not user-friendly. Issues such as information being truncated are also common.
+- Remote work and cross-regional collaboration: traditional communications such as emails, phone calls, and video conferences are inefficient, and fault information is not comprehensive, making it prone to misunderstandings and misjudgments.
+- White screen issues on user devices: traditional approaches to troubleshooting, such as data monitoring and log analysis, depend on troubleshooters understanding business requirements and technical implementations.
 
-此类问题的共同点是开发者无法像使用控制台一样查看运行信息。
+The commonality among these issues is that developers cannot view runtime information as easily as they can using the console.
 
-对此 PageSpy 提供项目运行现场供技术人员在调试端查看，在远程协同场景中，测试人员不用再频繁的通过文字、截图、语音、录屏等方式向技术人员提供故障信息。
+To address this, PageSpy provides a live view of the project for technical personnel to inspect on the debugging side. In remote collaborative scenarios, testers no longer need to frequently provide fault information to technical personnel through text, screenshots, voice messages, or screen recordings.
 
-## 如何使用？
+## How to use?
 
-为了数据安全和方便您的使用，我们提供完整的、开箱即用的多种部署方案，各位开发者可以根据自己的情况选择任意一种部署方式。
+In order to ensure data security and facilitate your usage, we offer comprehensive, out-of-the-box deployment solutions. Developers can choose any deployment method according to their own situations.
 
-### 第一种：使用 Docker 部署
+### Option 1: deploy by docker
 
-> 视频教程：[使用 Docker 部署 PageSpy](https://www.bilibili.com/video/BV1Ph4y1y78R)
+> Video tutorial: [Deploy PageSpy with docker](https://youtu.be/LttXrBbVqbI?si=AvcI9Fr1YdmyTCD1)
 
 ```bash
 $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
 ```
 
-启动完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
+Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
 
-### 第二种：使用 Node 部署
+### Option 2: deploy by node
 
-> 视频教程：[使用 Node 部署 PageSpy](https://www.bilibili.com/video/BV1oM4y1p7Le/?spm_id_from=333.788.recommend_more_video.1&vd_source=6b4fed1a463f67c0e8e56eaa21faa997)
+> Video tutorial: [Deploy PageSpy with node](https://youtu.be/Xf7S6TPbYd0?si=J4vc_A-8AekCesUf)
 
 ```bash
 $ yarn global add @huolala-tech/page-spy-api
 
-# 如果你使用 npm
+# if you use npm
 
 $ npm install -g @huolala-tech/page-spy-api
 ```
 
-安装完成之后你可以在命令行中直接执行 `page-spy-api` 启动服务。部署完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
-
-## 技术支持
-
-有问题可以使用微信扫码进群。
-
-<div style="display: flex; gap: 12px; flex-wrap: nowrap; overflow: auto">
-  <img src="https://public-assets-v.huolala.cn/images/page-spy-wechat-group.jpg" alt="微信群" width="260" />
-  <img src="./.github/assets/group-1.jpg" alt="微信群" width="260" />
-</div>
+After the download is complete, you can directly execute `page-spy-api` in the command line to start the service. Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
 
 ## Roadmap
 
-点击查看 [Roadmap](https://github.com/orgs/HuolalaTech/projects/1)。
+Click to see the [Roadmap](https://github.com/orgs/HuolalaTech/projects/1).
 
-## 如何贡献代码？
+## How to contribute?
 
-点击查看 [Contributing](./CONTRIBUTING.md)。
+Click to see the [Contribution](./CONTRIBUTING_EN.md).
 
 ## FAQ
 
-点击查看 [常见问题解答](https://github.com/HuolalaTech/page-spy-web/wiki/%F0%9F%90%9E-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94)。
+Click to see the [FAQ](https://github.com/HuolalaTech/page-spy-web/wiki/faq).
