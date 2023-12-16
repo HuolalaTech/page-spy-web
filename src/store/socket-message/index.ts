@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { create } from 'zustand';
-import { produce } from 'immer';
+import { original, produce } from 'immer';
 import { CUSTOM_EVENT, SocketStore } from './socket';
 import {
   SpyConsole,
@@ -14,7 +14,7 @@ import { API_BASE_URL } from '@/apis/request';
 import { resolveProtocol } from '@/utils';
 import { ElementContent } from 'hast';
 import { getFixedPageMsg } from './utils';
-import { isEqual, omit } from 'lodash-es';
+import { isEqual, omit, pick } from 'lodash-es';
 import * as MESSAGE_TYPE from './message-type';
 
 const USER_ID = 'Debugger';
@@ -143,14 +143,19 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
           if (data.name) {
             set(
               produce<SocketMessage>((state) => {
+                const result = omit(data, 'id', 'type', 'action');
                 const cacheData = state.storageMsg[type];
-                const index = cacheData.findIndex((i) => i.name === data.name);
-                if (index < 0) return;
-                const newState = omit(data, 'id');
-                const skipUpdate = isEqual(cacheData[index], newState);
-                if (skipUpdate) return;
 
-                cacheData[index] = data;
+                const index = cacheData.findIndex(
+                  (i) => i.name === result.name,
+                );
+                if (index < 0) {
+                  cacheData.push(result);
+                  return;
+                }
+                const skipUpdate = isEqual(cacheData[index], result);
+                if (skipUpdate) return;
+                cacheData[index] = result;
               }),
             );
           }
