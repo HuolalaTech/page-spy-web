@@ -8,7 +8,7 @@ import { ViteEjsPlugin } from 'vite-plugin-ejs';
 export default ({ mode, command }) => {
   const isDoc = mode === 'doc';
   const isProd = command === 'build';
-  const base = isDoc ? '/page-spy-web/' : '/';
+  const base = isDoc ? './' : '/';
 
   return defineConfig({
     base,
