@@ -8,6 +8,7 @@ import { useLanguage } from './utils/useLanguage';
 import { isDoc } from './utils/constants';
 import { ErrorBoundary } from './components/ErrorBoundary';
 
+// const basename = isDoc ? '/page-spy-web' : '/';
 const basename = '/';
 
 export const App = () => {
