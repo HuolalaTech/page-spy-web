@@ -8,7 +8,7 @@ import { useLanguage } from './utils/useLanguage';
 import { isDoc } from './utils/constants';
 import { ErrorBoundary } from './components/ErrorBoundary';
 
-const basename = isDoc ? './' : '/';
+const basename = '/';
 
 export const App = () => {
   const [lang] = useLanguage();
