@@ -88,6 +88,10 @@ $ npm install -g @huolala-tech/page-spy-api
 
 After the download is complete, you can directly execute `page-spy-api` in the command line to start the service. Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
 
+## Community
+
+Join us on our [Official Discord Server](https://discord.gg/ZVSNpDHY)!
+
 ## Roadmap
 
 Click to see the [Roadmap](https://github.com/orgs/HuolalaTech/projects/1).
