@@ -754,10 +754,10 @@
     "@babel/runtime" "^7.13.0"
     copy-to-clipboard "^3.3.1"
 
-"@huolala-tech/react-json-view@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.npmjs.org/@huolala-tech/react-json-view/-/react-json-view-1.2.2.tgz#dde7bc6adbfa913950395e63992296d9868bd88f"
-  integrity sha512-OU9jVZNBeeaC/nye4AnD10Ef1g0LM4WnOOFKAzWIyYX02QjheMm66LSof2g5vEEhhjRU+kqjpmQ89X5Pb0tCfQ==
+"@huolala-tech/react-json-view@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.npmjs.org/@huolala-tech/react-json-view/-/react-json-view-1.2.4.tgz#7e8bec7fa16a42d90ffc406f327848b116d4efe0"
+  integrity sha512-90Oc40JUm4TZnjNzcu3BECk9Rs1nkciGiOsdjuCJFsXntKeLTpp7S0xNxISvr3+R/PsGdlb1c9HWvBp7EYUSpw==
   dependencies:
     copy-to-clipboard "^3.3.3"
 
