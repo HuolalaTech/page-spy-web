@@ -69,7 +69,7 @@ In order to ensure data security and facilitate your usage, we offer comprehensi
 > Video tutorial: [Deploy PageSpy with docker](https://youtu.be/LttXrBbVqbI?si=AvcI9Fr1YdmyTCD1)
 
 ```bash
-$ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
+docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
 ```
 
 Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
@@ -79,11 +79,11 @@ Once the deployment is successful, you can open the browser and access `<host>:6
 > Video tutorial: [Deploy PageSpy with node](https://youtu.be/Xf7S6TPbYd0?si=J4vc_A-8AekCesUf)
 
 ```bash
-$ yarn global add @huolala-tech/page-spy-api
+yarn global add @huolala-tech/page-spy-api
 
 # if you use npm
 
-$ npm install -g @huolala-tech/page-spy-api
+npm install -g @huolala-tech/page-spy-api
 ```
 
 After the download is complete, you can directly execute `page-spy-api` in the command line to start the service. Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.

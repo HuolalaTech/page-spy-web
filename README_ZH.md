@@ -67,7 +67,7 @@
 > 视频教程：[使用 Docker 部署 PageSpy](https://www.bilibili.com/video/BV1Ph4y1y78R)
 
 ```bash
-$ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
+docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
 ```
 
 启动完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
@@ -77,11 +77,11 @@ $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalate
 > 视频教程：[使用 Node 部署 PageSpy](https://www.bilibili.com/video/BV1oM4y1p7Le/?spm_id_from=333.788.recommend_more_video.1&vd_source=6b4fed1a463f67c0e8e56eaa21faa997)
 
 ```bash
-$ yarn global add @huolala-tech/page-spy-api
+yarn global add @huolala-tech/page-spy-api
 
 # 如果你使用 npm
 
-$ npm install -g @huolala-tech/page-spy-api
+npm install -g @huolala-tech/page-spy-api
 ```
 
 安装完成之后你可以在命令行中直接执行 `page-spy-api` 启动服务。部署完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
