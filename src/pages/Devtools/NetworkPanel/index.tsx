@@ -18,6 +18,7 @@ import copy from 'copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { getStatusText, getTime, validEntries } from './utils';
+import { isString } from 'lodash-es';
 
 const networkTitle = ['Name', 'Path', 'Method', 'Status', 'Type', 'Time(≈)'];
 const generalFieldMap = {
@@ -25,8 +26,17 @@ const generalFieldMap = {
   'Request Method': 'method',
 } as const;
 
+const getContentType = (headers: SpyNetwork.RequestInfo['requestHeader']) => {
+  if (!headers) return 'text/plain';
+  const contentType = headers.find(
+    ([key]) => key.toLowerCase() === 'content-type',
+  );
+  return contentType?.[1] || 'text/plain';
+};
+
 const NetworkPanel = () => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
+  const { t: nt } = useTranslation('translation', { keyPrefix: 'network' });
 
   const [data, storageMsg, clearRecord] = useSocketMessageStore((state) => [
     state.networkMsg,
@@ -99,23 +109,61 @@ const NetworkPanel = () => {
           window.open(row.url);
           break;
         case 'copy-cURL':
-          let result = `curl '${row.url}'`;
+          const {
+            url,
+            method,
+            requestHeader,
+            requestPayload,
+            withCredentials,
+          } = row;
+          let result = `curl -X ${method} '${url}'`;
           let headers = '';
-          if (row.requestHeader) {
-            headers = row.requestHeader
+          if (requestHeader) {
+            headers = requestHeader
               .map(([k, v]) => {
-                return `-H '${k}: ${v}'`;
+                return `  -H '${k}: ${v}'`;
               })
               .join(' \\\r\n');
           }
-          if (row.withCredentials) {
+          if (withCredentials) {
             const cookie = Object.entries(storageMsg.cookie)
-              .map(([k, v]) => `${k}=${v}`)
-              .join('; ');
-            headers = `${headers && `${headers} \\\r\n`}-H 'cookie: ${cookie}'`;
+              .map(([k, { value }]) => `${k}=${value}`)
+              .join(';');
+            headers = `${
+              headers && `${headers} \\\r\n`
+            }  -H 'cookie:${cookie}'`;
           }
           if (headers) {
             result = `${result} \\\r\n${headers}`;
+          }
+          if (requestPayload) {
+            const contentType = getContentType(requestHeader);
+            let body = '';
+            if (isString(requestPayload)) {
+              body = `  --data-raw ${JSON.stringify(requestPayload)}`;
+            } else {
+              switch (contentType) {
+                case 'multipart/form-data':
+                  body = requestPayload
+                    .map(([key, value]) => {
+                      return `  --form ${JSON.stringify(`${key}=${value}`)}`;
+                    })
+                    .join(' \\\r\n');
+                  break;
+                case 'application/x-www-form-urlencoded;charset=UTF-8':
+                  body = requestPayload
+                    .map(([key, value]) => {
+                      return `  --data-urlencode ${JSON.stringify(
+                        `${key}=${value}`,
+                      )}`;
+                    })
+                    .join(' \\\r\n');
+                  break;
+                default:
+                  break;
+              }
+            }
+            result = `${result} \\\r\n${body}`;
           }
           copy(result);
           break;
@@ -157,18 +205,18 @@ const NetworkPanel = () => {
               {getObjectKeys(generalFieldMap).map((label) => {
                 const field = generalFieldMap[label];
                 return (
-                  <div className="content-item" key={label}>
-                    <b className="content-item__label">{label}: &nbsp;</b>
-                    <span className="content-item__value">
+                  <div className="entries-item" key={label}>
+                    <b className="entries-item__label">{label}: &nbsp;</b>
+                    <span className="entries-item__value">
                       <code>{detailData[field]}</code>
                     </span>
                   </div>
                 );
               })}
 
-              <div className="content-item">
-                <b className="content-item__label">Status Code: &nbsp;</b>
-                <span className="content-item__value">
+              <div className="entries-item">
+                <b className="entries-item__label">Status Code: &nbsp;</b>
+                <span className="entries-item__value">
                   <code>
                     <StatusCode data={detailData} />
                   </code>
@@ -242,10 +290,13 @@ const NetworkPanel = () => {
                           items: [
                             {
                               key: 'open-in-new-tab',
-                              label: 'Open in new tab',
+                              label: nt('open-in-new-tab'),
                             },
-                            { key: 'copy-link', label: 'Copy link address' },
-                            { key: 'copy-cURL', label: 'Copy as cURL' },
+                            {
+                              key: 'copy-link',
+                              label: nt('copy-link-address'),
+                            },
+                            { key: 'copy-cURL', label: nt('copy-as-curl') },
                           ],
                           onClick: ({ key }) => {
                             onMenuClick(key, row);

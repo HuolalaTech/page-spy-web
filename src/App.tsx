@@ -6,8 +6,10 @@ import zh from 'antd/es/locale/zh_CN';
 import en from 'antd/es/locale/en_US';
 import { useLanguage } from './utils/useLanguage';
 import { isDoc } from './utils/constants';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
-const basename = isDoc ? '/page-spy-web' : '/';
+// const basename = isDoc ? '/page-spy-web' : '/';
+const basename = '/';
 
 export const App = () => {
   const [lang] = useLanguage();
@@ -15,17 +17,19 @@ export const App = () => {
   return (
     <React.StrictMode>
       <BrowserRouter basename={basename}>
-        <ConfigProvider
-          locale={lang === 'zh' ? zh : en}
-          theme={{
-            token: {
-              colorPrimary: 'rgb(132, 52, 233)',
-              colorPrimaryBg: 'rgb(247, 241, 255)',
-            },
-          }}
-        >
-          <RouteConfig />
-        </ConfigProvider>
+        <ErrorBoundary>
+          <ConfigProvider
+            locale={lang === 'zh' ? zh : en}
+            theme={{
+              token: {
+                colorPrimary: 'rgb(132, 52, 233)',
+                colorPrimaryBg: 'rgb(247, 241, 255)',
+              },
+            }}
+          >
+            <RouteConfig />
+          </ConfigProvider>
+        </ErrorBoundary>
       </BrowserRouter>
     </React.StrictMode>
   );

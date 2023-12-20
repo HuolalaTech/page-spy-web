@@ -23,9 +23,6 @@ GenerateMainPackageJson() {
     "registry": "https://registry.npmjs.org",
     "access": "public"
   },
-  "engines": {
-    "node": ">=17"
-  },
   "bin": {
     "${project_name}": "bin/${project_name}"
   },
@@ -120,9 +117,6 @@ PublishAndGeneratePackageJson() {
   },
   "license": "MIT",
   "preferUnplugged": true,
-  "engines": {
-    "node": ">=17"
-  },
   "os": [
     "${os}"
   ],
@@ -189,7 +183,7 @@ MakeRelease() {
     tar -czvf compress/"$i".tar.gz  ${project_name}
     rm -f  ${project_name}
   done
-  for i in $(find . -type f -name "${project_name}-windows-*"); do
+  for i in $(find . -type f -name "${project_name}-win32-*"); do
     cp "$i"  ${project_name}.exe
     zip compress/$(echo $i | sed 's/\.[^.]*$//').zip  ${project_name}.exe
     rm -f  ${project_name}.exe

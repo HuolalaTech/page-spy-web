@@ -9,17 +9,25 @@
     "connections": "Connections",
     "inject-sdk": "Inject SDK",
     "submit": "Submit",
+    "search": "Search",
     "reset": "Reset",
     "device-id": "Device ID",
     "os": "OS",
     "browser": "Browser",
     "project": "Project",
-    "debug": "Debug"
+    "debug": "Debug",
+    "title": "Title"
+  },
+  "error": {
+    "oops": "Oops! Errors happened~",
+    "actions": "You can take a <1>Try again</1> or <3><0>Report</0></3> the issue.",
+    "try-again": "Try again",
+    "report": "Report",
+    "no-frames": "No valid error information found"
   },
   "inject": {
     "load-script": "Load a <script> in the testing project;",
-    "init-instance": "Then, config (optional) and init;",
-    "pass-config": "The configuration you passed will override the default value;",
+    "init-instance": "<0>Next, configure (optional) and initialize; check </0><1>configuration options;</1>",
     "end": "That's ALL.",
     "start-debug": "Start debugging by clicking the <1>Connections</1> menu at the top!"
   },
@@ -27,15 +35,14 @@
     "title": "All-In-One<br />Remote Debugging Tool",
     "desc": "Debug remotely and easily with a range of features like chrome devtool.",
     "goStart": "Start debugging",
-    "goGithub": "View on Github"
+    "goGithub": "View on GitHub"
   },
   "intro": {
     "does": "What PageSpy does",
     "doesTitle": "Inspect Runtime,<br/>Remote!",
     "provides": "What we provide",
     "providesTitle": "Out-of-box <1>SDK</1> and<br /> <4>debugger client</4>",
-    "welcome": "Welcome to use PageSpy",
-    "goStart": "Get Started"
+    "welcome": "Welcome to use PageSpy"
   },
   "selConn": {
     "title": "Select the connection",
@@ -67,9 +74,27 @@
   "console": {
     "run": "Run",
     "placeholder": "Executable code",
-    "newContent": "New content"
+    "newContent": "New content",
+    "error-trace": {
+      "title": "Error detail",
+      "hints": "HINTS",
+      "message-title": "Error message",
+      "stack-title": "Error stack",
+      "source-filename": "Source filename",
+      "fetch-minify-fail": "Fail to fetch origin file",
+      "none-sourcemap": "No sourcemap file founded",
+      "fetch-sourcemap-fail": "Fail to fetch sourcemap file",
+      "failed-title": "There are some issues with locating the source code",
+      "failed-advice": "Here are some suggestions to fix and improve the situation:",
+      "fix-suggestion-1": "<0>1. Ensure file existence: When locating the source code for each error stack, two files need to be requested - the compressed file and the sourcemap file. The rule for obtaining the sourcemap file is based on the address indicated by</0> <1>//# sourceMappingURL=*</1> <2>in the contents of the compressed file;</2>",
+      "fix-suggestion-2": "2. Troubleshoot network issues: If there are access restrictions on the server where your source files are located, it may lead to failed requests when trying to access the resources. You can open the devtool to check if the network is working properly."
+    }
   },
-  "network": {},
+  "network": {
+    "open-in-new-tab": "Open in new tab",
+    "copy-link-address": "Copy link address",
+    "copy-as-curl": "Copy as cURL"
+  },
   "system": {
     "overview": "Overview",
     "feature": "Feature",
@@ -77,10 +102,14 @@
     "reference": "See detection rule"
   },
   "page": {
-    "element": "Element"
+    "element": "Element",
+    "device": "Device"
   },
   "storage": {
-    "empty-detail": "Select one to preview its value"
+    "empty-detail": "Select one to preview its value",
+    "entries-be-modified": "Some entries have been modified",
+    "data-be-stale": "Data may be stale",
+    "total-entries": "Total entries"
   },
   "socket": {
     "client-name": "Client",

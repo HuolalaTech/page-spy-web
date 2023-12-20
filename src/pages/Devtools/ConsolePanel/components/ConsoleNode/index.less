@@ -1,24 +1,23 @@
 .console-node {
   margin-right: 7px;
-  font-size: 12px;
   word-break: break-word;
   &.origin {
     color: #323941;
   }
   &.number {
-    color: #181997;
+    color: #2323f5;
   }
   &.string {
-    color: #be3c31;
+    color: #b82519;
   }
   &.boolean {
-    color: #181997;
+    color: #14229f;
   }
   &.symbol {
-    color: #be3c31;
+    color: #b82519;
   }
   &.error {
-    color: #ec301d;
+    color: #eb3223;
   }
   &.function {
     color: #4e360e;
@@ -51,8 +50,8 @@
   }
 }
 
-.console-item__content > .atom-node > .property-panel {
-  margin-left: 24px;
+.atom-node:not(.atom-node .atom-node) > .property-panel {
+  margin-left: 20px;
 }
 
 .property-panel {

@@ -52,7 +52,7 @@ body:
       label: Validations
       description: Before submitting the issue, please make sure you do the following
       options:
-        - label: Read the [docs](https://huolalatech.github.io/page-spy-web/docs).
+        - label: Read the [FAQ](https://github.com/HuolalaTech/page-spy-web/wiki).
           required: true
         - label: Read the [Contributing Guidelines](https://github.com/HuolalaTech/page-spy-web/blob/main/CONTRIBUTING.md).
           required: true

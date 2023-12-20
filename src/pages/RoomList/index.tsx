@@ -39,10 +39,14 @@ const sortConnections = (data: I.SpyRoom[]) => {
 
 const filterConnections = (
   data: I.SpyRoom[],
-  condition: Record<'address' | 'os' | 'browser', string>,
+  condition: Record<'title' | 'address' | 'os' | 'browser', string>,
 ) => {
-  const { address = '', os = '', browser = '' } = condition;
+  const { title = '', address = '', os = '', browser = '' } = condition;
+  const lowerCaseTitle = String(title).trim().toLowerCase();
   return data
+    .filter(({ tags }) => {
+      return String(tags.title).toLowerCase().includes(lowerCaseTitle);
+    })
     .filter((i) => i.address.slice(0, 4).includes(address || ''))
     .filter(({ name }) => {
       const { osName, browserName } = resolveClientInfo(name);
@@ -86,12 +90,13 @@ export const RoomList = () => {
   );
 
   const [conditions, setConditions] = useState({
+    title: '',
     address: '',
     os: '',
     browser: '',
   });
   const onFormFinish = useCallback(
-    async (value) => {
+    async (value: any) => {
       try {
         await requestConnections(value.project);
 
@@ -120,7 +125,7 @@ export const RoomList = () => {
 
     return (
       <Row gutter={24}>
-        {list.map(({ address, name, connections, group }) => {
+        {list.map(({ address, name, connections, group, tags }) => {
           const simpleAddress = address.slice(0, 4);
           const {
             osName,
@@ -135,21 +140,25 @@ export const RoomList = () => {
           return (
             <Col key={address} span={6}>
               <div className={clsx('connection-item')}>
-                <Row style={{ height: 70 }} justify="center" align="middle">
-                  <Col>
-                    <Tooltip title={`Device ID: ${simpleAddress}`}>
-                      <code style={{ fontSize: 36 }}>
-                        <b>{simpleAddress}</b>
-                      </code>
-                    </Tooltip>
-                  </Col>
-                </Row>
+                <div className="connection-item__title">
+                  <code style={{ fontSize: 36 }}>
+                    <b>{simpleAddress}</b>
+                  </code>
+                  <Tooltip
+                    title={`Title: ${tags.title?.toString() || '--'}`}
+                    placement="right"
+                  >
+                    <div className="custom-title">
+                      {tags.title?.toString() || '--'}
+                    </div>
+                  </Tooltip>
+                </div>
                 <Row wrap={false} style={{ marginBlock: 8 }}>
                   <Col flex={1}>
                     <ConnDetailItem title="Project">
-                      <p style={{ fontSize: 16 }} title={group}>
-                        {group}
-                      </p>
+                      <Tooltip title={group}>
+                        <p style={{ fontSize: 16 }}>{group}</p>
+                      </Tooltip>
                     </ConnDetailItem>
                   </Col>
                   <Col flex={1}>
@@ -218,6 +227,11 @@ export const RoomList = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
+              <Form.Item label={t('common.title')} name="title">
+                <Input placeholder={t('common.title')!} allowClear />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
               <Form.Item label={t('common.device-id')} name="address">
                 <Input placeholder={t('common.device-id')!} allowClear />
               </Form.Item>
@@ -263,7 +277,7 @@ export const RoomList = () => {
               <Form.Item>
                 <Space>
                   <Button type="primary" htmlType="submit">
-                    {t('common.submit')}
+                    {t('common.search')}
                   </Button>
                   <Button
                     type="default"

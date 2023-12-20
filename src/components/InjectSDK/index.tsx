@@ -22,39 +22,18 @@ export const InjectSDKModal = ({
       {
         title: (
           <Trans i18nKey="inject.init-instance">
-            Then, config (optional) and init
+            <span>slot-0</span>
+            <a
+              href="https://github.com/HuolalaTech/page-spy?tab=readme-ov-file#%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%8F%82%E6%95%B0"
+              target="_blank"
+            >
+              slot-1
+            </a>
           </Trans>
         ),
         code: `<script>
   window.$pageSpy = new PageSpy();
-</script>
-`,
-      },
-      {
-        title: t('inject.pass-config'),
-        code: `<script>
-  window.$pageSpy = new PageSpy({
-    /**
-     * The server base url. For example, "example.com".
-     */
-    api: string,
-    /**
-     * The debugger client host. For example, "https://example.com".
-     */
-    clientOrigin: string,
-    /**
-     * The project name used for grouping connections
-     */
-    project: string,
-    /**
-     * Indicate whether auto render. You can manually render later
-     * by calling "window.$pageSpy.render()".
-     * @default true
-     */
-    autoRender: boolean
-  });
-</script>
-`,
+</script>`,
       },
       {
         title: (
@@ -109,7 +88,7 @@ export const InjectSDKModal = ({
                 <p className="inject-steps__title">
                   {index + 1}. {title}
                 </p>
-                <CodeBlock code={code} codeType="language-javascript" />
+                <CodeBlock code={code} />
               </div>
             );
           })}

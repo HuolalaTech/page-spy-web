@@ -1,0 +1,132 @@
+{
+  "common": {
+    "cancel": "취소",
+    "OK": "확인",
+    "clear": "지우기",
+    "refresh": "새로 고침",
+    "lang": "한국인",
+    "doc": "문서",
+    "connections": "연결",
+    "inject-sdk": "SDK 삽입",
+    "submit": "제출",
+    "search": "검색",
+    "reset": "초기화",
+    "device-id": "장치 ID",
+    "os": "운영 체제",
+    "browser": "브라우저",
+    "project": "프로젝트",
+    "debug": "디버그",
+    "title": "제목"
+  },
+  "error": {
+    "oops": "이런! 오류가 발생했습니다.",
+    "actions": "<1>새로 고침</1>하거나 <3><0>보고</0></3>해 주세요.",
+    "try-again": "새로 고침",
+    "report": "보고",
+    "no-frames": "유효한 오류 정보를 찾을 수 없습니다"
+  },
+  "inject": {
+    "load-script": "테스트 프로젝트에 <script>를 로드합니다.",
+    "init-instance": "<0>다음으로, 구성 (옵션) 및 초기화; 확인 </0><1>구성 옵션;</1>",
+    "end": "모두 여기까지입니다.",
+    "start-debug": "<1>연결</1> 메뉴에서 상단으로 이동하여 디버그를 시작하세요!"
+  },
+  "banner": {
+    "title": "다기능<br />원격 디버깅 도구",
+    "desc": "Google Chrome 콘솔을 사용하는 것처럼 간단히 원격 디버깅을 시작하세요.",
+    "goStart": "디버깅 시작",
+    "goGithub": "GitHub 저장소"
+  },
+  "intro": {
+    "does": "PageSpy가 할 수 있는 일",
+    "doesTitle": "런타임 감지, <br /> 원격 조작!",
+    "provides": "제공하는 것",
+    "providesTitle": "사용 준비가 된 <1>SDK</1> 및 <4>클라이언트 디버그</4>",
+    "welcome": "PageSpy에 오신 것을 환영합니다."
+  },
+  "selConn": {
+    "title": "연결 선택",
+    "label": "연결",
+    "placeholder": "연결 선택"
+  },
+  "devtool": {
+    "device": "장치",
+    "system": "시스템",
+    "browser": "브라우저",
+    "version": "버전",
+    "menu": {
+      "Console": "콘솔",
+      "Network": "네트워크",
+      "System": "시스템",
+      "Page": "페이지",
+      "Storage": "저장소"
+    }
+  },
+  "shortcuts": {
+    "title": "단축키",
+    "enter": "코드 실행",
+    "tab": "탭 삽입 (2 스페이스)",
+    "shift+enter": "줄 바꿈",
+    "cmd+k": "패널 지우기",
+    "ctrl+l": "패널 지우기",
+    "updown": "입력 기록 전환"
+  },
+  "console": {
+    "run": "실행",
+    "placeholder": "실행 가능한 코드",
+    "newContent": "새로운 메시지",
+    "error-trace": {
+      "title": "오류 세부 정보",
+      "hints": "사용 팁",
+      "message-title": "오류 메시지",
+      "stack-title": "오류 스택",
+      "source-filename": "소스 파일",
+      "fetch-minify-fail": "소스 파일 가져오기 실패",
+      "none-sourcemap": "소스 맵을 찾을 수 없음",
+      "fetch-sourcemap-fail": "소스 맵 가져오기 실패",
+      "failed-title": "소스 코드 위치 찾기 중 문제가 발생했습니다",
+      "failed-advice": "다음은 수정 및 개선 제안입니다:",
+      "fix-suggestion-1": "<0>1. 파일이 존재하는지 확인하십시오. 각 오류 스택은 소스 코드를 확인하기 위해 2 개의 파일 (압축 파일 및 소스 맵 파일)을 요청합니다. 소스 맵 파일 가져오기 규칙은 압축 파일 내</0><1>//# sourceMappingURL=*</1><2>에 지정된 주소를 기준으로합니다.</2>",
+      "fix-suggestion-2": "2. 네트워크 문제 제외: 원본 파일이있는 서버에 액세스 제한이있는 경우 리소스 가져오기 실패가 발생할 수 있으므로 네트워크 요청이 정상적인지 확인하려면 콘솔을 열 수 있습니다."
+    }
+  },
+  "network": {
+    "open-in-new-tab": "새 탭에서 열기",
+    "copy-link-address": "링크 주소 복사",
+    "copy-as-curl": "cURL로 복사"
+  },
+  "system": {
+    "overview": "개요",
+    "feature": "기능",
+    "unsupport": "지원하지 않는 목록",
+    "reference": "검사 규칙 확인"
+  },
+  "page": {
+    "element": "요소",
+    "device": "장치"
+  },
+  "storage": {
+    "empty-detail": "값을 볼 항목을 선택하십시오.",
+    "entries-be-modified": "일부 항목이 수정되었습니다",
+    "data-be-stale": "데이터가 오래되었을 수 있습니다",
+    "total-entries": "총 항목"
+  },
+  "socket": {
+    "client-name": "클라이언트",
+    "client-not-in-connection": "현재 연결에 클라이언트가 없습니다",
+    "client-not-found": "클라이언트를 찾을 수 없습니다",
+    "client-offline": "클라이언트가 오프라인 상태입니다",
+    "client-fail": "클라이언트의 연결이 끊어졌습니다. 관련 테스터에 문의하십시오.",
+    "debug-name": "당신",
+    "debug-offline": "당신은 오프라인 상태입니다",
+    "reconnect-fail": "연결이 끊어졌습니다",
+    "reconnect-fail-desc": "재연결에 실패했습니다. 페이지를 새로 고치거나 다시 선택하십시오.",
+    "room-not-found": "방이 존재하지 않습니다",
+    "network-timeout": "네트워크 오류, 연결 시간 초과",
+    "server-down": "서버 오류"
+  },
+  "connections": {
+    "select-os": "운영 체제 선택",
+    "select-browser": "브라우저 선택"
+  }
+}

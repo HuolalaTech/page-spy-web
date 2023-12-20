@@ -3,6 +3,9 @@
 [page-spy-sdk]: https://github.com/HuolalaTech/page-spy 'SDK repo'
 [install-go]: https://go.dev/doc/install 'Go Download'
 [github-release]: https://github.com/HuolalaTech/page-spy-web/releases/tag/v1.2.0 'PageSpy Release'
+[npm-package]: https://www.npmjs.com/package/@huolala-tech/page-spy-api 'NPM package'
+
+English | [中文](./CONTRIBUTING_ZH.md)
 
 # PageSpy Contributing Guide
 
@@ -14,7 +17,7 @@ PageSpy consist of three repositories：
 - Server: maintained in [HuolalaTech/page-spy-api][page-spy-api] repository;
 - SDK which be injected in client: maintained in [HuolalaTech/page-spy][page-spy-sdk] repository;
 
-PageSpy is served as a Docker image hosted on Github Package (recommended) or as a binary executable file hosted on the [Release][github-release] page.
+PageSpy is served as a Docker image hosted on GitHub Package (recommended) / [NPM package][npm-package] or as a binary executable file hosted on the [Release][github-release] page.
 
 ## Repo Setup
 
@@ -165,11 +168,18 @@ PageSpy provides several ways to use it, which pack the implementation details o
    $ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
    ```
 
-2. Use the binary executable file hosted on the [Release][github-release] page;
+2. Start the service using NPM package:
+
+   ```bash
+   $ yarn global add pm2 @huolala-tech/page-spy-api
+   $ pm2 start page-spy-api
+   ```
+
+3. Use the binary executable file hosted on the [Release][github-release] page;
 
 After you have completed the above operations, assume that your service is deployed at https://example.com. Now the debugger web, server-side, and SDK are all ready.
 
-3. Create a test project or use an existing one to import the SDK and connect to our service.
+Create a test project or use an existing one to import the SDK and connect to our service.
 
 <img src="./src/assets/image/relation.png" alt="Relation" width="90%" />
 
@@ -182,15 +192,16 @@ If you only want to focus on contributing to the debugger, follow the steps in [
 VITE_API_BASE=example.com
 ```
 
-(Note: "example.com" is just assumed that you have deployed the service at https://example.com, you should replace it with the actual deployment address.)
+> HINT: the "example.com" is just assumed that you have deployed the service at https://example.com, you should replace it with the actual deployment address.
 
 After the service is started, open the debugging end address http://localhost:5173 in the browser. The port may be different, please access it according to the address printed by your local service. Click the "Inject SDK" menu at the top and follow the instructions to access it in the test project. The instantiation requires passing in the configuration:
 
 ```ts
 new PageSpy({
   api: 'example.com',
-  clientOrigin: 'http://localhost:<port>',
+  clientOrigin: 'http://localhost:5173',
   project: '<any name>',
+  ...
 });
 ```
 
@@ -213,6 +224,7 @@ new PageSpy({
   api: 'example.com',
   clientOrigin: 'http://example.com',
   project: '<any name>',
+  ...
 });
 ```
 

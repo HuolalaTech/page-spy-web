@@ -4,22 +4,30 @@
     "OK": "好的",
     "clear": "清空",
     "refresh": "刷新",
-    "lang": "中文",
+    "lang": "简体中文",
     "doc": "文档",
     "connections": "房间列表",
     "inject-sdk": "接入 SDK",
     "submit": "提交",
+    "search": "搜索",
     "reset": "重置",
     "device-id": "设备 ID",
     "os": "系统",
     "browser": "浏览器",
     "project": "项目",
-    "debug": "调试"
+    "debug": "调试",
+    "title": "标题"
+  },
+  "error": {
+    "oops": " 哎呀！发生错误～",
+    "actions": "你可以尝试 <1>刷新一下</1> 或者 <3><0>报告</0></3> 这个问题。",
+    "try-again": "刷新一下",
+    "report": "报告",
+    "no-frames": "未找到有效的错误信息"
   },
   "inject": {
     "load-script": "在测试项目中加载一个 <script>；",
-    "init-instance": "紧接着，配置（可选的）并初始化；",
-    "pass-config": "也可以传递配置，这将覆盖默认的值；",
+    "init-instance": "<0>紧接着，配置（可选的）并初始化；查看 </0><1>配置项；</1>",
     "end": "以上就是全部。",
     "start-debug": "从顶部的 <1>房间列表</1> 菜单进入并开始调试！"
   },
@@ -27,15 +35,14 @@
     "title": "多功能<br />远程调试工具",
     "desc": "像使用谷歌浏览器的控制台一样简单地开始远程调试。",
     "goStart": "开始调试",
-    "goGithub": "Github 仓库"
+    "goGithub": "GitHub 仓库"
   },
   "intro": {
     "does": "PageSpy 可以做到",
     "doesTitle": "检测运行时，<br />远程操作！",
     "provides": "我们提供",
     "providesTitle": "开箱即用的 <1>SDK</1> 和<br /> <4>调试的客户端</4>",
-    "welcome": "欢迎使用 PageSpy",
-    "goStart": "开始使用"
+    "welcome": "欢迎使用 PageSpy"
   },
   "selConn": {
     "title": "选择连接",
@@ -52,7 +59,7 @@
       "Network": "网络",
       "System": "系统",
       "Page": "页面",
-      "Storage": "缓存"
+      "Storage": "存储"
     }
   },
   "shortcuts": {
@@ -67,9 +74,27 @@
   "console": {
     "run": "执行",
     "placeholder": "可执行代码",
-    "newContent": "新消息"
+    "newContent": "新消息",
+    "error-trace": {
+      "title": "错误详情",
+      "hints": "使用须知",
+      "message-title": " 错误信息",
+      "stack-title": "错误栈",
+      "source-filename": "源文件",
+      "fetch-minify-fail": "获取源文件失败",
+      "none-sourcemap": "未找到 SourceMap",
+      "fetch-sourcemap-fail": "获取 SourceMap 失败",
+      "failed-title": "定位源码时出现一些故障",
+      "failed-advice": "以下是修复和改进的建议：",
+      "fix-suggestion-1": "<0>1. 确保文件存在：每个错误栈定位源码时都需要请求两个文件，分别是压缩文件和 sourcemap 文件，sourcemap 文件的获取规则是根据压缩文件内容中的</0><1>//# sourceMappingURL=*</1><2>所指向的地址；</2>",
+      "fix-suggestion-2": "2. 排除网络故障：如果你的源文件所在服务器有限制访问规则，则可能导致请求资源时出现失败，你可以打开控制台查看网络请求是否正常。"
+    }
   },
-  "network": {},
+  "network": {
+    "open-in-new-tab": "新窗口打开",
+    "copy-link-address": "复制链接",
+    "copy-as-curl": "复制为 cURL"
+  },
   "system": {
     "overview": "概览",
     "feature": "特性",
@@ -77,10 +102,14 @@
     "reference": "查看检测规则"
   },
   "page": {
-    "element": "元素"
+    "element": "元素",
+    "device": "设备"
   },
   "storage": {
-    "empty-detail": "选择查看其中一项的值"
+    "empty-detail": "选择查看其中一项的值",
+    "entries-be-modified": "一些条目可能已经被修改",
+    "data-be-stale": "数据可能已经过时",
+    "total-entries": "总记录数"
   },
   "socket": {
     "client-name": "客户端",

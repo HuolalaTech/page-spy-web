@@ -1,13 +1,15 @@
 .code-block {
   position: relative;
   overflow: hidden;
-  @import (less) 'highlight.js/styles/base16/dracula.css';
-  pre code {
-    padding: 32px 20px 24px !important;
-    font-size: 16px;
-    line-height: 1.2;
-    font-family: Cascadia Code, Menlo, Courier, monospace;
+  pre {
+    padding: 24px;
     border-radius: 12px;
+    overflow: auto;
+    code {
+      font-size: 14px;
+      line-height: 1.2;
+      font-family: Cascadia Code, Menlo, Courier, monospace;
+    }
   }
 
   .copy-code {
@@ -15,11 +17,11 @@
     position: absolute;
     right: 0;
     top: 0;
-    padding: 5px 16px;
+    padding: 4px 12px;
     border-bottom-left-radius: 8px;
     background-color: rgba(255, 255, 255, 0.3);
     color: #fff;
-    font-size: 14px;
+    font-size: 12px;
     border: none;
     cursor: pointer;
   }

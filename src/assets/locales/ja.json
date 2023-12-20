@@ -1,0 +1,132 @@
+{
+  "common": {
+    "cancel": "キャンセル",
+    "OK": "OK",
+    "clear": "クリア",
+    "refresh": "リフレッシュ",
+    "lang": "日本語",
+    "doc": "ドキュメント",
+    "connections": "接続",
+    "inject-sdk": "SDKを注入",
+    "submit": "送信",
+    "search": "検索",
+    "reset": "リセット",
+    "device-id": "デバイスID",
+    "os": "オペレーティング システム",
+    "browser": "ブラウザ",
+    "project": "プロジェクト",
+    "debug": "デバッグ",
+    "title": "タイトル"
+  },
+  "error": {
+    "oops": "おっと！エラーが発生しました。",
+    "actions": "<1>リフレッシュ</1>するか、<3><0>報告</0></3>してください。",
+    "try-again": "リフレッシュ",
+    "report": "報告",
+    "no-frames": "有効なエラー情報が見つかりませんでした"
+  },
+  "inject": {
+    "load-script": "テストプロジェクトに <script> を読み込む；",
+    "init-instance": "<0>次に、構成（オプション）して初期化します； </0><1>構成オプションを確認します。</1>",
+    "end": "以上がすべてです。",
+    "start-debug": "<1>接続</1>メニューからトップに移動し、デバッグを開始します！"
+  },
+  "banner": {
+    "title": "多機能<br />リモートデバッグツール",
+    "desc": "Google Chromeのコンソールのように簡単にリモートデバッグを開始します。",
+    "goStart": "デバッグを開始",
+    "goGithub": "GitHub リポジトリ"
+  },
+  "intro": {
+    "does": "PageSpyでできること",
+    "doesTitle": "ランタイムの検出、<br />リモート操作！",
+    "provides": "提供するもの",
+    "providesTitle": "使用準備の整った <1>SDK</1> および<br /> <4>クライアントデバッグ</4>",
+    "welcome": "PageSpyへようこそ"
+  },
+  "selConn": {
+    "title": "接続を選択",
+    "label": "接続",
+    "placeholder": "接続を選択"
+  },
+  "devtool": {
+    "device": "デバイス",
+    "system": "システム",
+    "browser": "ブラウザ",
+    "version": "バージョン",
+    "menu": {
+      "Console": "コンソール",
+      "Network": "ネットワーク",
+      "System": "システム",
+      "Page": "ページ",
+      "Storage": "ストレージ"
+    }
+  },
+  "shortcuts": {
+    "title": "ショートカット",
+    "enter": "コードを実行",
+    "tab": "タブを挿入（2スペース）",
+    "shift+enter": "改行",
+    "cmd+k": "パネルをクリア",
+    "ctrl+l": "パネルをクリア",
+    "updown": "入力履歴を切り替え"
+  },
+  "console": {
+    "run": "実行",
+    "placeholder": "実行可能なコード",
+    "newContent": "新しいメッセージ",
+    "error-trace": {
+      "title": "エラーの詳細",
+      "hints": "使用のヒント",
+      "message-title": "エラーメッセージ",
+      "stack-title": "エラースタック",
+      "source-filename": "ソースファイル",
+      "fetch-minify-fail": "ソースファイルの取得に失敗",
+      "none-sourcemap": "ソースマップが見つかりません",
+      "fetch-sourcemap-fail": "ソースマップの取得に失敗",
+      "failed-title": "ソースコードの特定中に問題が発生しました",
+      "failed-advice": "以下は修正と改善の提案です：",
+      "fix-suggestion-1": "<0>1. ファイルの存在を確認：各エラースタックでソースコードを特定するためには、2つのファイル（圧縮ファイルとソースマップファイル）が要求されます。ソースマップファイルの取得規則は圧縮ファイル内の</0><1>//# sourceMappingURL=*</1><2>に指定されたアドレスに従います；</2>",
+      "fix-suggestion-2": "2. ネットワークの問題を除外：ソースファイルが存在するサーバーにアクセス制限がある場合、リソースの取得に失敗する可能性があるため、ネットワークリクエストが正常かどうかをコンソールで確認できます。"
+    }
+  },
+  "network": {
+    "open-in-new-tab": "新しいタブで開く",
+    "copy-link-address": "リンクアドレスをコピー",
+    "copy-as-curl": "cURLとしてコピー"
+  },
+  "system": {
+    "overview": "概要",
+    "feature": "機能",
+    "unsupport": "サポートされていないリスト",
+    "reference": "チェックルールを確認"
+  },
+  "page": {
+    "element": "要素",
+    "device": "デバイス"
+  },
+  "storage": {
+    "empty-detail": "値を表示するアイテムを選択",
+    "entries-be-modified": "一部のエントリが変更されました",
+    "data-be-stale": "データが古くなっている可能性があります",
+    "total-entries": "合計エントリー"
+  },
+  "socket": {
+    "client-name": "クライアント",
+    "client-not-in-connection": "現在の接続にクライアントが存在しません",
+    "client-not-found": "クライアントが見つかりません",
+    "client-offline": "クライアントがオフラインです",
+    "client-fail": "クライアントの接続が切断されました。関連するテスターにお問い合わせください。",
+    "debug-name": "あなた",
+    "debug-offline": "あなたはオフラインです",
+    "reconnect-fail": "接続が切断されました",
+    "reconnect-fail-desc": "再接続に失敗しました。ページをリフレッシュするか、再選択してください。",
+    "room-not-found": "ルームが存在しません",
+    "network-timeout": "ネットワークエラー、接続がタイムアウトしました",
+    "server-down": "サーバーエラー"
+  },
+  "connections": {
+    "select-os": "オペレーティング システムを選択",
+    "select-browser": "ブラウザを選択"
+  }
+}

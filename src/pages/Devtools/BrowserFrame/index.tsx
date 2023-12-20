@@ -1,14 +1,17 @@
 import type { PropsWithChildren } from 'react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useState } from 'react';
-import Icon from '@ant-design/icons';
+import Icon, { PicLeftOutlined, ReloadOutlined } from '@ant-design/icons';
 import { ReactComponent as CellularSVG } from '@/assets/image/cellular.svg';
 import { ReactComponent as BatterySVG } from '@/assets/image/battery.svg';
+import { ReactComponent as DeviceSVG } from '@/assets/image/device.svg';
 import './index.less';
 import { Button, Space, Spin } from 'antd';
 import { ElementPanel } from '../ElementPanel';
 import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
+import { resolveClientInfo } from '@/utils/brand';
+import useSearch from '@/utils/useSearch';
 
 function getTime() {
   const date = new Date();
@@ -41,6 +44,7 @@ export const PCFrame = ({
   const utilsRef = useRef<HTMLDivElement | null>(null);
   const xAxisRef = useRef(0);
   const [width, setWidth] = useState<string | number>('40%');
+
   useEffect(() => {
     if (!elementVisible) {
       return;
@@ -60,8 +64,8 @@ export const PCFrame = ({
       // `mousemove` not working when meet iframe
       clientIframe.style.pointerEvents = 'none';
       containerWidth = containerArea?.getBoundingClientRect().width || 0;
-      MAX_SIZE = containerWidth * 0.8;
-      MIN_SIZE = containerWidth * 0.2;
+      MAX_SIZE = containerWidth * 0.6;
+      MIN_SIZE = containerWidth * 0.4;
       rightWidth = utilsArea?.getBoundingClientRect().width || 0;
       const { clientX } = e;
       xAxisRef.current = clientX;
@@ -92,6 +96,16 @@ export const PCFrame = ({
       document.removeEventListener('mouseup', end);
     };
   }, [elementVisible]);
+
+  const [enableDevice, setEnableDevice] = useState(false);
+  const { version } = useSearch();
+  useEffect(() => {
+    const { osName } = resolveClientInfo(version);
+    if (['iPhone', 'iPad', 'Android'].indexOf(osName) >= 0) {
+      setEnableDevice(true);
+    }
+  }, [version]);
+
   return (
     <div className="pc-frame" ref={containerRef}>
       <div className="pc-frame__top">
@@ -108,6 +122,16 @@ export const PCFrame = ({
         <div className="pc-frame__top-right">
           <Space>
             <Button
+              type={elementVisible ? 'primary' : 'default'}
+              icon={<PicLeftOutlined />}
+              onClick={() => {
+                setElementVisible(!elementVisible);
+              }}
+            >
+              {t('element')}
+            </Button>
+            <Button
+              icon={<ReloadOutlined />}
               onClick={() => {
                 if (loading) return;
                 onRefresh();
@@ -116,18 +140,27 @@ export const PCFrame = ({
               {ct('refresh')}
             </Button>
             <Button
+              type={enableDevice ? 'primary' : 'default'}
+              icon={<Icon component={DeviceSVG} style={{ fontSize: 14 }} />}
               onClick={() => {
-                setElementVisible(!elementVisible);
+                setEnableDevice((state) => !state);
+                onRefresh();
               }}
             >
-              {t('element')}
+              {t('device')}
             </Button>
           </Space>
         </div>
       </div>
       <div className="pc-frame__body spin-container">
         <Spin spinning={loading} className="spin-controller" />
-        <div className="pc-frame__body-content">{children}</div>
+        {enableDevice ? (
+          <div className="mobile-frame">
+            <div className="mobile-frame__body-content">{children}</div>
+          </div>
+        ) : (
+          <div className="pc-frame__body-content">{children}</div>
+        )}
         {elementVisible && (
           <>
             <div className="pc-frame__body-divider" ref={dividerRef} />

@@ -1,16 +1,13 @@
 import React, { memo } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import { useMemo, useState } from 'react';
-import hljs from 'highlight.js';
-import javascript from 'highlight.js/lib/languages/javascript';
-import css from 'highlight.js/lib/languages/css';
 import './index.less';
 import type { ElementContent, Element } from 'hast';
 import { camelcaseToHypen, replaceProperties } from './utils';
 import { useSocketMessageStore } from '@/store/socket-message';
-
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('css', css);
+import { useAsyncEffect } from 'ahooks';
+import sh from '@/utils/shiki-highlighter';
+import type { Lang } from 'shiki';
 
 const tag2lang = {
   style: 'css',
@@ -27,7 +24,7 @@ const getTextBlockLang = (parentNode: Element) => {
   return 'text';
 };
 
-function hasMemebers(data: any) {
+function hasMembers(data: any) {
   return !!data && Object.keys(data).length > 0;
 }
 
@@ -35,7 +32,7 @@ const ElementAttrs: React.FC<{ data?: Record<string, any> }> = ({
   data = {},
 }) => {
   const attrs = useMemo(() => {
-    if (!hasMemebers(data)) return '';
+    if (!hasMembers(data)) return '';
     return Object.entries(data).map(([key, val]) => {
       const prop = camelcaseToHypen(replaceProperties(key));
       return (
@@ -65,6 +62,28 @@ function ElementItem({
 }) {
   const [spread, setSpread] = useState(false);
   const { type } = ast;
+
+  const [textContent, setTextContent] = useState('');
+  useAsyncEffect(async () => {
+    if (type !== 'text') return;
+
+    const { value } = ast;
+    const content = value.trim();
+    if (!content) {
+      setTextContent('');
+      return;
+    }
+    const highlighter = await sh.get({
+      lang: lang as Lang,
+      theme: 'github-light',
+    });
+    const result = highlighter.codeToHtml(content, {
+      lang,
+      theme: 'github-light',
+    });
+    setTextContent(result);
+  }, [ast]);
+
   if (type === 'element') {
     const { tagName, properties, children } = ast as Element;
 
@@ -109,16 +128,10 @@ function ElementItem({
     );
   }
   if (type === 'text') {
-    const { value } = ast;
-    const content = value.trim();
-    if (!content) return null;
-    const htmlString = hljs.highlight(content, {
-      language: lang,
-    }).value;
     return (
-      <code
+      <div
         className="element-item plain-text"
-        dangerouslySetInnerHTML={{ __html: htmlString }}
+        dangerouslySetInnerHTML={{ __html: textContent }}
       />
     );
   }

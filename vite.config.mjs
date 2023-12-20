@@ -9,20 +9,14 @@ export default ({ mode, command }) => {
   const isProd = command === 'build';
 
   return defineConfig({
-    base: buildDoc ? '/page-spy-web/' : '/',
+    base: buildDoc ? './' : '/',
     build: {
-      target: ['chrome88', 'firefox86', 'safari14', 'edge89'],
+      target: ['chrome100'],
       sourcemap: isProd ? 'hidden' : true,
       outDir: buildDoc ? 'docs-dist' : 'dist',
     },
     resolve: {
-      alias: [
-        { find: '@', replacement: path.join(__dirname, './src') },
-        {
-          find: 'react/jsx-runtime',
-          replacement: 'react/jsx-runtime.js',
-        },
-      ],
+      alias: [{ find: '@', replacement: path.join(__dirname, './src') }],
     },
     css: {
       preprocessorOptions: {
