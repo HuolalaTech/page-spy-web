@@ -106,7 +106,7 @@ npm install -g @huolala-tech/page-spy-api
 
 ## 如何贡献代码？
 
-点击查看 [Contributing](./CONTRIBUTING.md)。
+点击查看 [Contributing](./CONTRIBUTING_ZH.md)。
 
 ## FAQ
 

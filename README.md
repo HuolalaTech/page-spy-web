@@ -102,7 +102,7 @@ Click to see the [Roadmap](https://github.com/orgs/HuolalaTech/projects/1).
 
 ## How to contribute?
 
-Click to see the [Contribution](./CONTRIBUTING_EN.md).
+Click to see the [Contributing](./CONTRIBUTING.md).
 
 ## FAQ
 
