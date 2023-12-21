@@ -1,10 +1,14 @@
-import { Modal } from 'antd';
-import { ComponentType, useCallback, useMemo, useState } from 'react';
-import { useTranslation, Trans } from 'react-i18next';
-import { CodeBlock } from '../CodeBlock';
+import { Modal, Space, Tabs, TabsProps } from 'antd';
+import { ComponentType, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 import './index.less';
-import { Link } from 'react-router-dom';
+import Icon from '@ant-design/icons';
+import {
+  IntegrationWithPlatform,
+  PLATFORMS,
+  PlatformName,
+} from './components/IntegrationWithPlatform';
 
 export const InjectSDKModal = ({
   children,
@@ -13,58 +17,26 @@ export const InjectSDKModal = ({
 }) => {
   const [visible, setVisible] = useState(false);
   const { t } = useTranslation();
-  const steps = useMemo(() => {
-    return [
-      {
-        title: t('inject.load-script'),
-        code: `<script crossorigin="anonymous" src="${window.location.origin}/page-spy/index.min.js"></script>`,
-      },
-      {
-        title: (
-          <Trans i18nKey="inject.init-instance">
-            <span>slot-0</span>
-            <a
-              href="https://github.com/HuolalaTech/page-spy?tab=readme-ov-file#%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%8F%82%E6%95%B0"
-              target="_blank"
-            >
-              slot-1
-            </a>
-          </Trans>
-        ),
-        code: `<script>
-  window.$pageSpy = new PageSpy();
-</script>`,
-      },
-      {
-        title: (
-          <span>
-            {t('inject.end')}{' '}
-            <Trans i18nKey="inject.start-debug">
-              Start debugging by clicking the
-              <Link
-                to="/room-list"
-                onClickCapture={() => {
-                  setVisible(false);
-                }}
-              >
-                Connections
-              </Link>{' '}
-              menu at the top!
-            </Trans>
-          </span>
-        ),
-        code: '',
-      },
-    ];
+  const tabItems: TabsProps['items'] = useMemo(() => {
+    return PLATFORMS.map(({ name, icon }) => ({
+      key: name,
+      label: (
+        <Space style={{ paddingInline: 12 }} size={0}>
+          <Icon component={icon} style={{ fontSize: 24 }} />
+          <span>{t(`inject.${name}.title`)}</span>
+        </Space>
+      ),
+    }));
   }, [t]);
-
-  const onPopup = useCallback(() => {
-    setVisible(true);
-  }, []);
+  const [activeTab, setActiveTab] = useState<PlatformName>(PLATFORMS[0].name);
 
   return (
     <>
-      {React.createElement(children, { onPopup })}
+      {React.createElement(children, {
+        onPopup: () => {
+          setVisible(true);
+        },
+      })}
       <Modal
         open={visible}
         title={t('common.inject-sdk')}
@@ -82,16 +54,19 @@ export const InjectSDKModal = ({
         }}
       >
         <div className="inject-sdk">
-          {steps.map(({ title, code }, index) => {
-            return (
-              <div className="inject-steps" key={index}>
-                <p className="inject-steps__title">
-                  {index + 1}. {title}
-                </p>
-                <CodeBlock code={code} />
-              </div>
-            );
-          })}
+          <Tabs
+            items={tabItems}
+            activeKey={activeTab}
+            onChange={(key) => {
+              setActiveTab(key as PlatformName);
+            }}
+          />
+          <IntegrationWithPlatform
+            platform={activeTab}
+            onCloseModal={() => {
+              setVisible(false);
+            }}
+          />
         </div>
       </Modal>
     </>

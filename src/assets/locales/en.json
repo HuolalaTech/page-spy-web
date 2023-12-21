@@ -26,8 +26,16 @@
     "no-frames": "No valid error information found"
   },
   "inject": {
-    "load-script": "Load a <script> in the testing project;",
-    "init-instance": "<0>Next, configure (optional) and initialize; check </0><1>configuration options;</1>",
+    "web": {
+      "title": "WEB",
+      "load-sdk": "Load a <script> in the test project;",
+      "init-sdk": "<0>Then, initialize it and check the</0> <1>configuration options</1>:"
+    },
+    "miniprogram": {
+      "title": "Mini Program",
+      "install-sdk": "First, install dependencies in the project:",
+      "init-sdk": "<0>Next, import the SDK and instantiate it in the entry file, check the</0> <1>configuration options</1>:"
+    },
     "end": "That's ALL.",
     "start-debug": "Start debugging by clicking the <1>Connections</1> menu at the top!"
   },
