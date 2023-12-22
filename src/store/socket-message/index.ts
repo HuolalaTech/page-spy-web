@@ -58,6 +58,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     localStorage: [],
     sessionStorage: [],
     cookie: [],
+    mpStorage: [],
   },
   databaseMsg: {
     basicInfo: null,

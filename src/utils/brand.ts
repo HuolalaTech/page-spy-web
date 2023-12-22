@@ -14,7 +14,9 @@ import chromeSvg from '@/assets/image/chrome.svg';
 import firefoxSvg from '@/assets/image/firefox.svg';
 import safariSvg from '@/assets/image/safari.svg';
 import browserSvg from '@/assets/image/browser.svg';
+import mpWechatSvg from '@/assets/image/miniprogram.svg';
 import { SpyDevice } from '@huolala-tech/page-spy';
+import useSearch from './useSearch';
 
 interface DeviceInfo {
   osName: SpyDevice.OS | 'Unknown';
@@ -64,6 +66,7 @@ export const BROWSER_LOGO: Record<
   QQ: qqSvg,
   UC: ucSvg,
   Baidu: baiduSvg,
+  MPWeChat: mpWechatSvg,
 };
 
 export function resolveClientInfo(name: string) {
@@ -78,4 +81,12 @@ export function resolveClientInfo(name: string) {
     browserLogo:
       BROWSER_LOGO[browserName as keyof typeof BROWSER_LOGO] || browserSvg,
   };
+}
+
+export function useClientInfo() {
+  const { version = '' } = useSearch();
+  if (!version) {
+    return null;
+  }
+  return resolveClientInfo(version);
 }
