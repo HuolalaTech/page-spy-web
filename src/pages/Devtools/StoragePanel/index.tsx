@@ -1,6 +1,6 @@
 import type { SpyStorage } from '@huolala-tech/page-spy';
 import { Button, Col, Layout, Menu, Row, Tooltip } from 'antd';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ReactJsonView from '@huolala-tech/react-json-view';
 import './index.less';
 import { useSocketMessageStore } from '@/store/socket-message';
@@ -12,18 +12,48 @@ import { ReactComponent as CookieSvg } from '@/assets/image/cookie.svg';
 import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
 import { useCacheDetailStore } from '@/store/cache-detail';
 import { DatabaseInfo, StorageInfo } from './TableContent';
+import useSearch from '@/utils/useSearch';
+import { resolveClientInfo } from '@/utils/brand';
+import { useStorageTypes } from '@/store/platform-config';
 
 const { Sider, Content } = Layout;
 
 export const StoragePanel = () => {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState<SpyStorage.DataType | 'indexedDB'>(
-    'localStorage',
-  );
   const refresh = useSocketMessageStore((state) => state.refresh);
 
   const detailInfo = useCacheDetailStore((state) => state.currentDetail);
   const [detailSize, setDetailSize] = useState(100);
+
+  const storageTypes = useStorageTypes();
+
+  const [activeTab, setActiveTab] = useState<SpyStorage.DataType | 'indexedDB'>(
+    () => {
+      if (storageTypes.length > 0) {
+        return storageTypes[0].name;
+      }
+      return 'localStorage';
+    },
+  );
+
+  useEffect(() => {
+    if (
+      storageTypes.length > 0 &&
+      !storageTypes.some((t) => t.name === activeTab)
+    ) {
+      setActiveTab(storageTypes[0].name);
+    }
+  }, [storageTypes, activeTab]);
+
+  const storageList = useMemo(() => {
+    return storageTypes.map((st) => {
+      return {
+        key: st.name,
+        label: st.label,
+        icon: <Icon component={st.icon} />,
+      };
+    });
+  }, [storageTypes]);
 
   return (
     <div className="storage-panel">
@@ -47,28 +77,7 @@ export const StoragePanel = () => {
             mode="inline"
             selectedKeys={[activeTab]}
             onSelect={({ key }) => setActiveTab(key as SpyStorage.DataType)}
-            items={[
-              {
-                key: 'localStorage',
-                label: 'Local Storage',
-                icon: <Icon component={StorageSvg} />,
-              },
-              {
-                key: 'sessionStorage',
-                label: 'Session Storage',
-                icon: <Icon component={StorageSvg} />,
-              },
-              {
-                key: 'cookie',
-                label: 'Cookie',
-                icon: <Icon component={CookieSvg} />,
-              },
-              {
-                key: 'indexedDB',
-                label: 'IndexedDB',
-                icon: <Icon component={DatabaseSvg} />,
-              },
-            ]}
+            items={storageList}
           />
         </Sider>
         <Layout>

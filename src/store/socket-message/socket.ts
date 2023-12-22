@@ -98,6 +98,7 @@ export class SocketStore extends EventTarget {
             this.socketConnection = content.selfConnection;
             this.filterClient(content);
             this.dispatchConnectStatus();
+            // TODO : move this out of socket logic
             this.triggerLazilyRefreshEvents();
             break;
           case LEAVE:
@@ -160,6 +161,7 @@ export class SocketStore extends EventTarget {
       'cookie',
       'page',
       'indexedDB',
+      'mpStorage',
     ];
     refreshData.forEach((i) => {
       this.unicastMessage({

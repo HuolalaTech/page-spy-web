@@ -16,4 +16,5 @@ export function resolveProtocol() {
     return ['https://', 'wss://'];
   }
   return ['http://', 'ws://'];
+  // TODO if web is seperated with backend service, the schema could be different.
 }

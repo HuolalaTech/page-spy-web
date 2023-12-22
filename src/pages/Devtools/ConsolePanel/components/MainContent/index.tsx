@@ -70,6 +70,20 @@ export const MainContent = () => {
     };
   }, []);
 
+  function getLogUrl(url?: string) {
+    if (url) {
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        return url;
+      }
+      try {
+        return url.substring(new URL(url).origin.length);
+      } catch (e) {
+        return '/';
+      }
+    }
+    return '/';
+  }
+
   return (
     <div className="console-list" ref={containerEl}>
       {data.map((item) => (
@@ -96,7 +110,7 @@ export const MainContent = () => {
             </Row>
           </div>
           <div className="console-item__url" title={item.url}>
-            {item.url?.substring(new URL(item.url).origin.length)}
+            {getLogUrl(item.url)}
           </div>
         </div>
       ))}
