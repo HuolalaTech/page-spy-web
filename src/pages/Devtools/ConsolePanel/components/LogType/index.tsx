@@ -6,6 +6,7 @@ import { ReactComponent as WarnSvg } from '@/assets/image/warn.svg';
 import { ReactComponent as DebugOriginSvg } from '@/assets/image/debug-origin.svg';
 import { ReactComponent as DebugEvalSvg } from '@/assets/image/debug-eval.svg';
 import { ReactComponent as UserSvg } from '@/assets/image/user.svg';
+import { ReactComponent as DebugSvg } from '@/assets/image/debug.svg';
 import './index.less';
 import type { SpyConsole } from '@huolala-tech/page-spy';
 
@@ -13,6 +14,7 @@ interface ThemeItem {
   color: string;
   icon: React.ComponentType | null;
 }
+
 type Theme = Record<SpyConsole.DataType | 'default', ThemeItem>;
 
 const Type2Theme: Partial<Theme> = {
@@ -27,6 +29,10 @@ const Type2Theme: Partial<Theme> = {
   warn: {
     color: '#E9994B',
     icon: WarnSvg,
+  },
+  debug: {
+    color: '#8236CB',
+    icon: DebugSvg,
   },
   'debug-origin': {
     color: '#8236CB',
