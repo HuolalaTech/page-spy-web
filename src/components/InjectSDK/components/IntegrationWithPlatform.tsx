@@ -38,7 +38,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
             <Trans i18nKey="inject.web.init-sdk">
               <span>slot-0</span>
               <a
-                href="https://github.com/HuolalaTech/page-spy?tab=readme-ov-file#%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%8F%82%E6%95%B0"
+                href="https://github.com/HuolalaTech/page-spy?tab=readme-ov-file#web"
                 target="_blank"
               >
                 slot-1
@@ -57,16 +57,29 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
           lang: 'bash',
         },
         {
+          title: t('inject.miniprogram.request-host'),
+        },
+        {
           title: (
             <Trans i18nKey="inject.miniprogram.init-sdk">
               <span>slot-0</span>
-              <a href="小程序接入文档" target="_blank">
+              <a
+                href="https://github.com/HuolalaTech/page-spy?tab=readme-ov-file#mini-program"
+                target="_blank"
+              >
                 slot-1
               </a>
             </Trans>
           ),
-          code: `import PageSpy from '@huolala-tech/page-spy/dist/miniprogram/index.min.js';\nnew PageSpy({
-  api: '${window.location.origin}',
+          code: `import PageSpy from '@huolala-tech/page-spy/dist/miniprogram/esm.min.js';\nnew PageSpy({
+  api: '${window.location.host}',
+})`,
+          lang: 'js',
+        },
+        {
+          title: t('inject.miniprogram.init-sdk-native'),
+          code: `import PageSpy from './your/path/page-spy.js';\nnew PageSpy({
+  api: '${window.location.host}',
 })`,
           lang: 'js',
         },

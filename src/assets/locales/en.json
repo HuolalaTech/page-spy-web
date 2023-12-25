@@ -33,8 +33,10 @@
     },
     "miniprogram": {
       "title": "Mini Program",
+      "request-host": "Add the page-spy server domain to the whitelist of the miniprogram http and websocket requests. Note that the miniprogram requires https and wss protocols, except for the development environment.",
       "install-sdk": "First, install dependencies in the project:",
-      "init-sdk": "<0>Next, import the SDK and instantiate it in the entry file, check the</0> <1>configuration options</1>:"
+      "init-sdk": "<0>For cross platform frameworks like uniApp and Taro，import the SDK in the entry file and initialize it，check the </0> <1>configuration options</1>：",
+      "init-sdk-native": "For native miniprogram, you can not use node_modules directly, you have to copy the SDK file to your project path and import them:"
     },
     "end": "That's ALL.",
     "start-debug": "Start debugging by clicking the <1>Connections</1> menu at the top!"
