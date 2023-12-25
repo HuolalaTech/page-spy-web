@@ -48,11 +48,8 @@ const MENU_COMPONENTS: Record<
   Console: {
     component: ConsolePanel,
   },
-  System: {
-    component: SystemPanel,
-    visible: (params) => {
-      return params.browser !== 'MPWeChat';
-    },
+  Network: {
+    component: NetworkPanel,
   },
   Page: {
     component: PagePanel,
@@ -63,8 +60,11 @@ const MENU_COMPONENTS: Record<
   Storage: {
     component: StoragePanel,
   },
-  Network: {
-    component: NetworkPanel,
+  System: {
+    component: SystemPanel,
+    visible: (params) => {
+      return params.browser !== 'MPWeChat';
+    },
   },
 };
 
