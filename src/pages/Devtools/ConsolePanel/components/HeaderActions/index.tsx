@@ -6,20 +6,19 @@ import { useTranslation } from 'react-i18next';
 
 export const HeaderActions = () => {
   const { t } = useTranslation();
-  const clearRecord = useSocketMessageStore((state) => state.clearRecord);
-  const changeConsoleMsgFilter = useSocketMessageStore(
-    (state) => state.setConsoleMsgTypeFilter,
+  const [clearRecord, changeConsoleMsgFilter] = useSocketMessageStore(
+    (state) => [state.clearRecord, state.setConsoleMsgTypeFilter],
   );
 
   const logLevelList = [
-    { label: 'Debug', value: 'debug' },
-    { label: 'Info', value: 'info' },
+    { label: 'User messages', value: 'log' },
+    { label: 'Errors', value: 'error' },
     {
       label: 'Warnings',
       value: 'warn',
     },
-    { label: 'Errors', value: 'error' },
-    { label: 'Log', value: 'log' },
+    { label: 'Info', value: 'info' },
+    { label: 'Verbose', value: 'debug' },
   ];
 
   const clear = useCallback(() => {
