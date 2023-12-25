@@ -18,7 +18,7 @@ const { Sider, Content } = Layout;
 export const StoragePanel = () => {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<SpyStorage.DataType | 'indexedDB'>(
-    'localStorage',
+    'local',
   );
   const refresh = useSocketMessageStore((state) => state.refresh);
 
@@ -49,12 +49,12 @@ export const StoragePanel = () => {
             onSelect={({ key }) => setActiveTab(key as SpyStorage.DataType)}
             items={[
               {
-                key: 'localStorage',
+                key: 'local',
                 label: 'Local Storage',
                 icon: <Icon component={StorageSvg} />,
               },
               {
-                key: 'sessionStorage',
+                key: 'session',
                 label: 'Session Storage',
                 icon: <Icon component={StorageSvg} />,
               },

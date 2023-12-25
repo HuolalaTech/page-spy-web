@@ -52,8 +52,10 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     location: null,
   },
   storageMsg: {
-    localStorage: [],
-    sessionStorage: [],
+    localStorage: [], // wrong name?
+    local: [],
+    sessionStorage: [], // wrong name?
+    session: [],
     cookie: [],
   },
   databaseMsg: {
@@ -129,57 +131,65 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         }),
       );
     });
-    socket.addListener(MESSAGE_TYPE.STORAGE, (data: SpyStorage.DataItem) => {
-      const { type, action } = data;
-      switch (action) {
-        case 'get':
-          set(
-            produce<SocketMessage>((state) => {
-              state.storageMsg[type] = data.data;
-            }),
-          );
-          break;
-        case 'set':
-          if (data.name) {
+    socket.addListener(
+      MESSAGE_TYPE.STORAGE,
+      // Need to fix the type
+      (data: SpyStorage.DataItem & { name: string; value: string }) => {
+        const { type, action } = data;
+        switch (action) {
+          case 'get':
             set(
               produce<SocketMessage>((state) => {
-                const result = omit(data, 'id', 'type', 'action');
-                const cacheData = state.storageMsg[type];
-
-                const index = cacheData.findIndex(
-                  (i) => i.name === result.name,
-                );
-                if (index < 0) {
-                  cacheData.push(result);
-                  return;
-                }
-                const skipUpdate = isEqual(cacheData[index], result);
-                if (skipUpdate) return;
-                cacheData[index] = result;
+                const { name, value } = data;
+                state.storageMsg[type] = state.storageMsg[type].concat({
+                  name,
+                  value,
+                });
               }),
             );
-          }
-          break;
-        case 'clear':
-          set(
-            produce<SocketMessage>((state) => {
-              state.storageMsg[type] = [];
-            }),
-          );
-          break;
-        case 'remove':
-          set(
-            produce<SocketMessage>((state) => {
-              state.storageMsg[type] = state.storageMsg[type].filter(
-                (i) => i.name !== data.name,
+            break;
+          case 'set':
+            if (data.name) {
+              set(
+                produce<SocketMessage>((state) => {
+                  const result = omit(data, 'id', 'type', 'action');
+                  const cacheData = state.storageMsg[type];
+
+                  const index = cacheData.findIndex(
+                    (i) => i.name === result.name,
+                  );
+                  if (index < 0) {
+                    cacheData.push(result);
+                    return;
+                  }
+                  const skipUpdate = isEqual(cacheData[index], result);
+                  if (skipUpdate) return;
+                  cacheData[index] = result;
+                }),
               );
-            }),
-          );
-          break;
-        default:
-          break;
-      }
-    });
+            }
+            break;
+          case 'clear':
+            set(
+              produce<SocketMessage>((state) => {
+                state.storageMsg[type] = [];
+              }),
+            );
+            break;
+          case 'remove':
+            set(
+              produce<SocketMessage>((state) => {
+                state.storageMsg[type] = state.storageMsg[type].filter(
+                  (i) => i.name !== data.name,
+                );
+              }),
+            );
+            break;
+          default:
+            break;
+        }
+      },
+    );
     socket.addListener(MESSAGE_TYPE.DATABASE, (data: SpyDatabase.DataItem) => {
       switch (data.action) {
         case 'get':
