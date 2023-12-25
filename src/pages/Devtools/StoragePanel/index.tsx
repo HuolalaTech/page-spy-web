@@ -7,13 +7,8 @@ import { useSocketMessageStore } from '@/store/socket-message';
 import { Resizable } from 'react-resizable';
 import Icon, { HolderOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { ReactComponent as StorageSvg } from '@/assets/image/storage.svg';
-import { ReactComponent as CookieSvg } from '@/assets/image/cookie.svg';
-import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
 import { useCacheDetailStore } from '@/store/cache-detail';
 import { DatabaseInfo, StorageInfo } from './TableContent';
-import useSearch from '@/utils/useSearch';
-import { resolveClientInfo } from '@/utils/brand';
 import { useStorageTypes } from '@/store/platform-config';
 
 const { Sider, Content } = Layout;
