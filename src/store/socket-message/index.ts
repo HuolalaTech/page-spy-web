@@ -144,7 +144,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
             set(
               produce<SocketMessage>((state) => {
                 const result = omit(data, 'id', 'type', 'action');
-                const cacheData = state.storageMsg[type];
+                const cacheData = state.storageMsg[type] ?? [];
 
                 const index = cacheData.findIndex(
                   (i) => i.name === result.name,
@@ -170,7 +170,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         case 'remove':
           set(
             produce<SocketMessage>((state) => {
-              state.storageMsg[type] = state.storageMsg[type].filter(
+              state.storageMsg[type] = (state.storageMsg[type] ?? []).filter(
                 (i) => i.name !== data.name,
               );
             }),
