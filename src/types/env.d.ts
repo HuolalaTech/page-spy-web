@@ -15,6 +15,8 @@ interface ImportMeta {
 interface Window {
   sourceMap: typeof import('source-map');
   shiki: typeof import('shiki');
+  // Resolved in /index.html
+  DEPLOY_BASE_PATH: string;
 }
 
 interface OptionName {
