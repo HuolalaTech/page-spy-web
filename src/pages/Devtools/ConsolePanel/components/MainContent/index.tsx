@@ -26,7 +26,10 @@ export const MainContent = () => {
     });
   }, []);
 
-  const [data] = useSocketMessageStore((state) => [state.consoleMsg]);
+  const [data, dataFilter] = useSocketMessageStore((state) => [
+    state.consoleMsg,
+    state.consoleMsgTypeFilter,
+  ]);
   const [newTips, setNewTips] = useState<boolean>(false);
   useEffect(() => {
     if (data.length === 0) {
@@ -70,9 +73,13 @@ export const MainContent = () => {
     };
   }, []);
 
+  const consoleDataList = dataFilter.length
+    ? data.filter((item) => dataFilter.includes(item.logType))
+    : data;
+
   return (
     <div className="console-list" ref={containerEl}>
-      {data.map((item) => (
+      {consoleDataList.map((item) => (
         <div className={`console-item ${item.logType}`} key={item.id}>
           <div className="console-item__title">
             <LogType type={item.logType} />
