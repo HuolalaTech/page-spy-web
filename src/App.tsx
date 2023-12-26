@@ -9,14 +9,14 @@ import { isDoc } from './utils/constants';
 import { ErrorBoundary } from './components/ErrorBoundary';
 
 // const basename = isDoc ? '/page-spy-web' : '/';
-const basename = '/';
+const basename = window.location.pathname;
 
 export const App = () => {
   const [lang] = useLanguage();
 
   return (
     <React.StrictMode>
-      <BrowserRouter basename={basename}>
+      <HashRouter>
         <ErrorBoundary>
           <ConfigProvider
             locale={lang === 'zh' ? zh : en}
@@ -30,7 +30,7 @@ export const App = () => {
             <RouteConfig />
           </ConfigProvider>
         </ErrorBoundary>
-      </BrowserRouter>
+      </HashRouter>
     </React.StrictMode>
   );
 };
