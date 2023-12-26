@@ -58,6 +58,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
         },
         {
           title: t('inject.miniprogram.request-host'),
+          code: `https://${window.location.host}\nwss://${window.location.host}`,
         },
         {
           title: (
