@@ -66,7 +66,9 @@ In order to ensure data security and facilitate your usage, we offer comprehensi
 
 ### Option 1: deploy by docker
 
-> Video tutorial: [Deploy PageSpy with docker](https://youtu.be/LttXrBbVqbI?si=AvcI9Fr1YdmyTCD1)
+> Video tutorial:
+>
+> <a href="https://www.youtube.com/watch?v=AYD84Kht5yA" target="_blank"><img src="./.github/assets/video-docker-en.jpg" width="320" /></a>
 
 ```bash
 docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
@@ -76,7 +78,9 @@ Once the deployment is successful, you can open the browser and access `<host>:6
 
 ### Option 2: deploy by node
 
-> Video tutorial: [Deploy PageSpy with node](https://youtu.be/Xf7S6TPbYd0?si=J4vc_A-8AekCesUf)
+> Video tutorial:
+>
+> <a href="https://www.youtube.com/watch?v=5zVnFPjursQ" target="_blank"><img src="./.github/assets/video-node-en.jpg" width="320" /></a>
 
 ```bash
 yarn global add @huolala-tech/page-spy-api
@@ -98,7 +102,7 @@ Click to see the [Roadmap](https://github.com/orgs/HuolalaTech/projects/1).
 
 ## How to contribute?
 
-Click to see the [Contribution](./CONTRIBUTING_EN.md).
+Click to see the [Contributing](./CONTRIBUTING.md).
 
 ## FAQ
 

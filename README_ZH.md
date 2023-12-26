@@ -64,7 +64,9 @@
 
 ### 第一种：使用 Docker 部署
 
-> 视频教程：[使用 Docker 部署 PageSpy](https://www.bilibili.com/video/BV1Ph4y1y78R)
+> 视频教程：
+>
+> <a href="https://www.bilibili.com/video/BV1Ph4y1y78R" target="_blank"><img src="./.github/assets/video-docker-zh.jpg" width="320" /></a>
 
 ```bash
 docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
@@ -74,7 +76,9 @@ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech
 
 ### 第二种：使用 Node 部署
 
-> 视频教程：[使用 Node 部署 PageSpy](https://www.bilibili.com/video/BV1oM4y1p7Le/?spm_id_from=333.788.recommend_more_video.1&vd_source=6b4fed1a463f67c0e8e56eaa21faa997)
+> 视频教程：
+>
+> <a href="https://www.bilibili.com/video/BV1oM4y1p7Le" target="_blank"><img src="./.github/assets/video-node-zh.jpg" width="320" /></a>
 
 ```bash
 yarn global add @huolala-tech/page-spy-api
@@ -102,7 +106,7 @@ npm install -g @huolala-tech/page-spy-api
 
 ## 如何贡献代码？
 
-点击查看 [Contributing](./CONTRIBUTING.md)。
+点击查看 [Contributing](./CONTRIBUTING_ZH.md)。
 
 ## FAQ
 
