@@ -196,6 +196,7 @@ export const RoomList = () => {
                         <Link
                           to={`/devtools?version=${name}&address=${address}`}
                           target="_blank"
+                          style={{ display: 'block' }}
                         >
                           {t('common.debug')}
                         </Link>
