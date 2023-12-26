@@ -18,6 +18,7 @@ import clsx from 'clsx';
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
+import { Link } from 'react-router-dom';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -188,14 +189,17 @@ export const RoomList = () => {
                         pointerEvents: !client ? 'none' : 'auto',
                       }}
                       shape="round"
-                      onClick={() => {
-                        if (!client) return;
-                        window.open(
-                          `/devtools?version=${name}&address=${address}`,
-                        );
-                      }}
                     >
-                      {t('common.debug')}
+                      {!client ? (
+                        t('common.debug')
+                      ) : (
+                        <Link
+                          to={`/devtools?version=${name}&address=${address}`}
+                          target="_blank"
+                        >
+                          {t('common.debug')}
+                        </Link>
+                      )}
                     </Button>
                   </div>
                 </Tooltip>
