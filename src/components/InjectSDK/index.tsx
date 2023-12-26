@@ -5,6 +5,7 @@ import { CodeBlock } from '../CodeBlock';
 import React from 'react';
 import './index.less';
 import { Link } from 'react-router-dom';
+import { resolveProtocol } from '@/utils';
 
 export const InjectSDKModal = ({
   children,
@@ -17,7 +18,9 @@ export const InjectSDKModal = ({
     return [
       {
         title: t('inject.load-script'),
-        code: `<script crossorigin="anonymous" src="${window.location.origin}/page-spy/index.min.js"></script>`,
+        code: `<script crossorigin="anonymous" src="${resolveProtocol()[0]}${
+          window.DEPLOY_BASE_PATH
+        }/page-spy/index.min.js"></script>`,
       },
       {
         title: (
