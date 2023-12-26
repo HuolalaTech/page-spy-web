@@ -4,6 +4,8 @@ github.com/HuolalaTech/page-spy-api v1.3.2-alpha.1 h1:giDGOOrqwKuT794PJGM+QUwWH2
 github.com/HuolalaTech/page-spy-api v1.3.2-alpha.1/go.mod h1:njVR6tXPbDvvA/ecpLY5+9Pu43bOI5tnK+yscNdiMkU=
 github.com/HuolalaTech/page-spy-api v1.3.2 h1:X+hP0Z0EThysgeCWyvfH/baSgL59kHqejcAwcCEBqmY=
 github.com/HuolalaTech/page-spy-api v1.3.2/go.mod h1:njVR6tXPbDvvA/ecpLY5+9Pu43bOI5tnK+yscNdiMkU=
+github.com/HuolalaTech/page-spy-api v1.3.3 h1:UNzrQ9wfuFntDac334bbRQrLm05eywoRSFlI+soNl0s=
+github.com/HuolalaTech/page-spy-api v1.3.3/go.mod h1:njVR6tXPbDvvA/ecpLY5+9Pu43bOI5tnK+yscNdiMkU=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
