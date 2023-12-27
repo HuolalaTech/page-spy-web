@@ -42,6 +42,7 @@ jobs:
         run: |
           yarn run build:client
           cp -r dist backend/dist
+          ls -l dist/page-spy
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2
