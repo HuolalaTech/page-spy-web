@@ -1,5 +1,6 @@
 {
   "name": "@huolala-tech/page-spy-web",
+  "private": true,
   "version": "1.5.4",
   "description": "All-In-One Remote Debugging Tool",
   "homepage": "https://huolalatech.github.io/page-spy-web",
