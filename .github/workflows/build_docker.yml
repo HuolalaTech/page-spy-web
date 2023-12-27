@@ -40,6 +40,9 @@ jobs:
 
       - name: Build
         run: |
+          echo "打印目录 ++++++++++"
+          ls -l public
+          echo "打印目录 ——————————"
           yarn run build:client
           cp -r dist backend/dist
           echo "打印 dist 目录"
