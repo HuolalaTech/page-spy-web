@@ -53,7 +53,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
       miniprogram: [
         {
           title: t('inject.miniprogram.install-sdk'),
-          code: `yarn add @huolala-tech/page-spy`,
+          code: `yarn add @huolala-tech/page-spy@beta`,
           lang: 'bash',
         },
         {
