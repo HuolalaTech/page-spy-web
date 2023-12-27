@@ -72,7 +72,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
               </a>
             </Trans>
           ),
-          code: `import PageSpy from '@huolala-tech/page-spy/dist/miniprogram/esm.min.js';\nnew PageSpy({
+          code: `// @huolala-tech/page-spy v1.5.x or upper version. \nimport PageSpy from '@huolala-tech/page-spy/miniprogram';\nnew PageSpy({
   api: '${window.location.host}',
 })`,
           lang: 'js',
