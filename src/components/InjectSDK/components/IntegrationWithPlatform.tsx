@@ -5,6 +5,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import type { Lang } from 'shiki';
 import { CodeBlock } from '@/components/CodeBlock';
+import { resolveProtocol } from '@/utils';
 
 export type PlatformName = 'web' | 'miniprogram';
 
@@ -31,7 +32,9 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
       web: [
         {
           title: t('inject.web.load-sdk'),
-          code: `<script crossorigin="anonymous" src="${window.location.origin}/page-spy/index.min.js"></script>`,
+          code: `<script crossorigin="anonymous" src="${resolveProtocol()[0]}${
+            window.DEPLOY_BASE_PATH
+          }/page-spy/index.min.js"></script>`,
         },
         {
           title: (

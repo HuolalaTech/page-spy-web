@@ -22,6 +22,7 @@ const USER_ID = 'Debugger';
 interface SocketMessage {
   socket: SocketStore | null;
   consoleMsg: SpyConsole.DataItem[];
+  consoleMsgTypeFilter: string[];
   networkMsg: SpyNetwork.RequestInfo[];
   systemMsg: SpySystem.DataItem[];
   connectMsg: string[];
@@ -36,6 +37,7 @@ interface SocketMessage {
     data: SpyDatabase.GetTypeDataItem | null;
   };
   initSocket: (url: string) => void;
+  setConsoleMsgTypeFilter: (typeList: string[]) => void;
   clearRecord: (key: string) => void;
   refresh: (key: string) => void;
 }
@@ -43,6 +45,7 @@ interface SocketMessage {
 export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
   socket: null,
   consoleMsg: [],
+  consoleMsgTypeFilter: [],
   networkMsg: [],
   systemMsg: [],
   connectMsg: [],
@@ -243,6 +246,9 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
           break;
       }
     });
+  },
+  setConsoleMsgTypeFilter: (typeList: string[]) => {
+    set({ consoleMsgTypeFilter: typeList });
   },
   clearRecord: (key: string) => {
     switch (key) {

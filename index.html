@@ -1,30 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PageSpy</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      // Resolve the correct address from different deployment base paths.
+      const base = location.pathname.endsWith('/')
+        ? location.pathname.slice(0, -1)
+        : location.pathname;
+      // https://exp.com => 'exp.com'
+      // https://exp.com/ => 'exp.com'
+      // https://exp.com/page-spy => 'exp.com/page-spy'
+      // https://exp.com/page-spy/ => 'exp.com/page-spy'
+      window.DEPLOY_BASE_PATH = location.host + base;
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PageSpy</title>
-  <link rel="icon" href="/favicon.ico">
-  <link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg">
-  <script src="/source-map/source-map.min.js"></script>
-  <script>
-    const mappingWasmUrl = new URL('/source-map/mappings.wasm', window.location.href).toString()
-    sourceMap.SourceMapConsumer.initialize({
-      "lib/mappings.wasm": mappingWasmUrl
-    });
-  </script>
-  <script src="/shiki/dist/index.jsdelivr.iife.js"></script>
-  <script>
-    const shikiURL = new URL('/shiki', window.location.origin).toString()
-    window.shiki.setCDN(shikiURL)
-  </script>
-</head>
+      const sourceBaseUrl = `${location.protocol}//${window.DEPLOY_BASE_PATH}`;
 
-<body>
-  <div id="root"></div>
-  <script src="/src/main.tsx" type="module"></script>
-</body>
+      const loadScript = (src, cb) => {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = () => {
+          cb && cb();
+        };
+        document.head.appendChild(script);
+      };
 
+      // source-map
+      const sourcemapSDK = sourceBaseUrl + '/source-map/source-map.min.js';
+      const mappingWasmUrl = sourceBaseUrl + '/source-map/mappings.wasm';
+      loadScript(sourcemapSDK, () => {
+        window.sourceMap.SourceMapConsumer.initialize({
+          'lib/mappings.wasm': mappingWasmUrl,
+        });
+      });
+
+      // shiki
+      const shikiSDK = sourceBaseUrl + '/shiki/dist/index.jsdelivr.iife.js';
+      const shikiCDN = sourceBaseUrl + '/shiki';
+      loadScript(shikiSDK, () => {
+        window.shiki.setCDN(shikiCDN);
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script src="/src/main.tsx" type="module"></script>
+  </body>
 </html>
