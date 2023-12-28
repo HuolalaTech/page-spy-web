@@ -759,6 +759,7 @@
   integrity sha512-SjOxMrBYlLRJhsHHxLrKFKY05cJ/M1eor1q+aoEBMdTvw6FVgUl0k009JBKvxZM3uiCmEFSY95nfZdfl7qOmag==
   dependencies:
     "@babel/runtime" "^7.13.0"
+    "@huolala-tech/page-spy" "^1.5.0-beta.4"
     copy-to-clipboard "^3.3.1"
 
 "@huolala-tech/react-json-view@^1.2.4":
