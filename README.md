@@ -94,7 +94,7 @@ After the download is complete, you can directly execute `page-spy-api` in the c
 
 ## Community
 
-Join us on our [Official Discord Server](https://discord.gg/ZVSNpDHY)!
+Join us on our [Official Discord Server](https://discord.gg/ERPpNZkX)!
 
 ## Roadmap
 
