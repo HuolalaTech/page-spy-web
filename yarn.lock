@@ -762,6 +762,15 @@
     "@huolala-tech/page-spy" "^1.5.0-beta.4"
     copy-to-clipboard "^3.3.1"
 
+"@huolala-tech/page-spy@^1.5.0-beta.8":
+  version "1.5.0-beta.8"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy/-/page-spy-1.5.0-beta.8.tgz#2d86ca6ec52b7d70140a85ae92116d490c0be6df"
+  integrity sha512-cx5pJY4qRQTfN2EVgB5WNkBM30DbmFiyN7k5sAbTLokvO0r734LvM80ky/4EWvrHVnQMkH8vWlRcQlXfi/gB4g==
+  dependencies:
+    "@babel/runtime" "^7.13.0"
+    "@huolala-tech/page-spy" "^1.5.0-beta.4"
+    copy-to-clipboard "^3.3.1"
+
 "@huolala-tech/react-json-view@^1.2.4":
   version "1.2.4"
   resolved "https://registry.npmjs.org/@huolala-tech/react-json-view/-/react-json-view-1.2.4.tgz#7e8bec7fa16a42d90ffc406f327848b116d4efe0"
