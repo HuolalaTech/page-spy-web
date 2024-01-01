@@ -24,6 +24,8 @@ export const MainContent = () => {
 
   const containerEl = useRef<HTMLDivElement | null>(null);
   const currentScrollTop = useRef<number>(0);
+  const messageLength = useRef<number>(0);
+
   const scrollToBottom = useCallback(() => {
     const container = containerEl.current;
     if (!container) return;
@@ -60,7 +62,10 @@ export const MainContent = () => {
       if (!container) return;
 
       const { offsetHeight, scrollHeight } = container;
-      if (scrollHeight > offsetHeight) {
+      if (
+        scrollHeight > offsetHeight &&
+        messageLength.current !== data.length
+      ) {
         setNewTips(true);
       }
     }
@@ -95,6 +100,7 @@ export const MainContent = () => {
         Math.ceil(e.currentTarget.scrollTop) ===
         e.currentTarget.scrollHeight - e.currentTarget.offsetHeight;
       if (isBottom) {
+        messageLength.current = e.currentTarget.childNodes.length;
         setIsAutoScroll(true);
       } else {
         setIsAutoScroll(false);
