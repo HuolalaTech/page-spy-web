@@ -1,4 +1,8 @@
-import { RightOutlined } from '@ant-design/icons';
+import {
+  CaretRightOutlined,
+  PauseOutlined,
+  RightOutlined,
+} from '@ant-design/icons';
 import { Input, Button } from 'antd';
 import { Shortcuts } from '../Shortcuts';
 import { useSocketMessageStore } from '@/store/socket-message';
@@ -6,6 +10,7 @@ import { TextAreaRef } from 'antd/es/input/TextArea';
 import { useRef, useState, useEffect, useCallback, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { KeyboardEvent } from 'react';
+import { useMiscStore } from '@/store/misc';
 
 const EXECUTE_HISTORY_ID = 'page_spy_execute_history';
 const EXECUTE_HISTORY_MAX_SIZE = 100;
@@ -22,6 +27,10 @@ export const FooterInput = memo(() => {
   const executeHistory = useRef<string[]>(
     JSON.parse(localStorage.getItem(EXECUTE_HISTORY_ID) || '[]'),
   );
+  const [isAutoScroll, setIsAutoScroll] = useMiscStore((state) => [
+    state.isAutoScroll,
+    state.setIsAutoScroll,
+  ]);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -167,10 +176,19 @@ export const FooterInput = memo(() => {
       <Button
         type="primary"
         size="small"
-        style={{ marginTop: 4 }}
+        style={{ marginTop: 4, marginRight: 8 }}
         onClick={handleDebugCode}
       >
         {t('run')}
+      </Button>
+      <Button
+        onClick={() => {
+          setIsAutoScroll(!isAutoScroll);
+        }}
+        size="small"
+        style={{ marginTop: 4 }}
+      >
+        {!isAutoScroll ? <CaretRightOutlined /> : <PauseOutlined />}
       </Button>
       <Shortcuts />
     </div>
