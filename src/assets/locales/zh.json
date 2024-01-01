@@ -75,6 +75,8 @@
     "run": "执行",
     "placeholder": "可执行代码",
     "newContent": "新消息",
+    "auto-scroll-on": "自动滚动",
+    "auto-scroll-off": "自动滚动关闭",
     "error-trace": {
       "title": "错误详情",
       "hints": "使用须知",

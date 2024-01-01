@@ -3,7 +3,7 @@ import {
   PauseOutlined,
   RightOutlined,
 } from '@ant-design/icons';
-import { Input, Button } from 'antd';
+import { Input, Button, Tooltip } from 'antd';
 import { Shortcuts } from '../Shortcuts';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { TextAreaRef } from 'antd/es/input/TextArea';
@@ -181,15 +181,19 @@ export const FooterInput = memo(() => {
       >
         {t('run')}
       </Button>
-      <Button
-        onClick={() => {
-          setIsAutoScroll(!isAutoScroll);
-        }}
-        size="small"
-        style={{ marginTop: 4 }}
+      <Tooltip
+        title={!isAutoScroll ? t('auto-scroll-on') : t('auto-scroll-off')}
       >
-        {!isAutoScroll ? <CaretRightOutlined /> : <PauseOutlined />}
-      </Button>
+        <Button
+          onClick={() => {
+            setIsAutoScroll(!isAutoScroll);
+          }}
+          size="small"
+          style={{ marginTop: 4 }}
+        >
+          {!isAutoScroll ? <CaretRightOutlined /> : <PauseOutlined />}
+        </Button>
+      </Tooltip>
       <Shortcuts />
     </div>
   );
