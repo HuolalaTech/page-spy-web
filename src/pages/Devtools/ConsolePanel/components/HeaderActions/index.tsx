@@ -1,5 +1,5 @@
 import { useSocketMessageStore } from '@/store/socket-message';
-import { ClearOutlined } from '@ant-design/icons';
+import { ClearOutlined, SaveOutlined } from '@ant-design/icons';
 import { Row, Col, Tooltip, Button, Select, Space } from 'antd';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,7 @@ import { ReactComponent as WarnSvg } from '@/assets/image/warn.svg';
 import { ReactComponent as UserSvg } from '@/assets/image/user.svg';
 import { ReactComponent as DebugSvg } from '@/assets/image/debug.svg';
 import './index.less';
+import { objectToFile } from '@/utils/file';
 
 export const HeaderActions = () => {
   const { t } = useTranslation();
@@ -71,6 +72,28 @@ export const HeaderActions = () => {
   const clear = useCallback(() => {
     clearRecord('console');
   }, [clearRecord]);
+
+  const save = useCallback(() => {
+    const hash = window.location.hash.split('?')[1];
+    const params = new URLSearchParams(hash);
+    const address = params.get('address')?.split('-')?.[0] ?? 'unknown';
+    const version = params.get('version');
+    const filename = `${version}_${address}.json`;
+
+    const state = useSocketMessageStore.getState(); // Update the type of the state object
+    const messageKeys = ['consoleMsg'] as const; // ["consoleMsg", "networkMsg", "systemMsg", "connectMsg", "pageMsg", "storageMsg", "databaseMsg"] as const;
+    type SocketMessages = {
+      [Key in (typeof messageKeys)[number]]?: any;
+    };
+    const filteredMessages = messageKeys.reduce((acc, key) => {
+      if (state[key]) {
+        acc[key] = state[key];
+      }
+      return acc;
+    }, {} as Partial<SocketMessages>);
+
+    objectToFile(filteredMessages, filename); // Use filteredMessages instead of state
+  }, []);
   return (
     <Row justify="end">
       <Col>
@@ -84,6 +107,11 @@ export const HeaderActions = () => {
             placeholder="Log Level Filter"
             style={{ width: 200 }}
           />
+          <Tooltip title="Save as JSON">
+            <Button onClick={save}>
+              <SaveOutlined />
+            </Button>
+          </Tooltip>
           <Tooltip title={t('common.clear')}>
             <Button onClick={clear}>
               <ClearOutlined />

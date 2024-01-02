@@ -13,6 +13,7 @@ import {
   Form,
   Select,
   Space,
+  Upload,
 } from 'antd';
 import clsx from 'clsx';
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
@@ -293,6 +294,15 @@ export const RoomList = () => {
                   >
                     {t('common.reset')}
                   </Button>
+                  <Upload
+                    accept=".json"
+                    action={async (file) => {
+                      console.log(file);
+                      return '';
+                    }}
+                  >
+                    <Button type="dashed">Import JSON</Button>
+                  </Upload>
                 </Space>
               </Form.Item>
             </Col>
