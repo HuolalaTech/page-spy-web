@@ -202,8 +202,10 @@ const ClientInfo = memo(() => {
   });
   const clientInfo = useMemo(() => {
     if (!version) return null;
-    return resolveClientInfo(version);
-  }, [version]);
+    if (version) {
+      return resolveClientInfo(version);
+    }
+  }, [version,]);
 
   return (
     <div className="client-info">
@@ -251,7 +253,7 @@ const ClientInfo = memo(() => {
       <Tooltip title="PageSpy ID">
         <Row justify="center" className="page-spy-id">
           <Col>
-            <b>{address.slice(0, 4)}</b>
+            <b>{address.length === 0 ? 'LOCAL' : address.slice(0, 4)}</b>
           </Col>
         </Row>
       </Tooltip>
@@ -261,15 +263,26 @@ const ClientInfo = memo(() => {
 
 export default function Devtools() {
   const { hash = '#Console' } = useLocation();
-  const { address = '' } = useSearch();
-  const [socket, initSocket] = useSocketMessageStore((state) => [
+  const { address = '', json = '' } = useSearch();
+  const [socket, initSocket, setData] = useSocketMessageStore((state) => [
     state.socket,
     state.initSocket,
+    state.setData,
   ]);
   useEffect(() => {
     if (socket) return;
     initSocket(address);
   }, [address, initSocket, socket]);
+
+  useEffect(() => {
+    if (!json) return;
+    fetch(json)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setData(data);
+      });
+  }, [json]);
 
   const hashKey = useMemo<MenuKeys>(() => {
     const value = hash.slice(1);
@@ -284,7 +297,7 @@ export default function Devtools() {
     return content || ConsolePanel;
   }, [hashKey]);
 
-  if (!address) {
+  if (!(address) && !json) {
     message.error('Error url params!');
     return null;
   }

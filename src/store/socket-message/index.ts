@@ -40,6 +40,7 @@ interface SocketMessage {
   setConsoleMsgTypeFilter: (typeList: string[]) => void;
   clearRecord: (key: string) => void;
   refresh: (key: string) => void;
+  setData: (obj: Partial<SocketMessage>) => void;
 }
 
 export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
@@ -268,5 +269,8 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       type: 'refresh',
       data: key,
     });
+  },
+  setData: (obj: Partial<SocketMessage>) => {
+    set(obj);
   },
 }));

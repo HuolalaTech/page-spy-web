@@ -20,6 +20,7 @@ import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { Link } from 'react-router-dom';
+import { fileToObject } from '@/utils/file';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -296,9 +297,21 @@ export const RoomList = () => {
                   </Button>
                   <Upload
                     accept=".json"
-                    action={async (file) => {
+                    maxCount={1}
+                    customRequest={async (file) => {
+                      const now = Date.now();
+                      console.log(now);
+                      console.log('custom');
                       console.log(file);
-                      return '';
+                      const json = await fileToObject(file.file as File);
+                      console.log(Date.now() - now);
+
+                      console.log(json);
+                      return null;
+                    }}
+                    itemRender={() => null}
+                    onChange={(e) => {
+                      console.log(e);
                     }}
                   >
                     <Button type="dashed">Import JSON</Button>
