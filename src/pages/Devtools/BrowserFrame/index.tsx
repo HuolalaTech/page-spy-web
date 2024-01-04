@@ -98,13 +98,17 @@ export const PCFrame = ({
   }, [elementVisible]);
 
   const [enableDevice, setEnableDevice] = useState(false);
-  const { version } = useSearch();
+  const [system] = useSocketMessageStore((state) => [
+    state.systemMsg?.[0]?.system,
+  ]);
   useEffect(() => {
+    if (!system) return;
+    const version = `${system.osName}/${system.osVersion} ${system.browserName}/${system.browserVersion}`;
     const { osName } = resolveClientInfo(version);
     if (['iPhone', 'iPad', 'Android'].indexOf(osName) >= 0) {
       setEnableDevice(true);
     }
-  }, [version]);
+  }, [system]);
 
   return (
     <div className="pc-frame" ref={containerRef}>

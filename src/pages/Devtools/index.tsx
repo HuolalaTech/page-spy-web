@@ -153,7 +153,7 @@ const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
       <a
         key={item.address}
         className="room-item"
-        href={`${window.location.origin}/devtools?version=${item.name}&address=${item.address}&group=${item.group}`}
+        href={`${window.location.origin}/devtools?address=${item.address}&group=${item.group}`}
       >
         <div className="room-item__os">
           <img src={item.osLogo} className="client-icon" />
@@ -192,11 +192,15 @@ const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
 
 const ClientInfo = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
-  const { version = '', address = '' } = useSearch();
+  const { address = '' } = useSearch();
+  const [system] = useSocketMessageStore((state) => [
+    state.systemMsg?.[0]?.system,
+  ]);
   const clientInfo = useMemo(() => {
-    if (!version) return null;
+    if (!system) return null;
+    const version = `${system.osName}/${system.osVersion} ${system.browserName}/${system.browserVersion}}`;
     return resolveClientInfo(version);
-  }, [version]);
+  }, [system]);
 
   return (
     <div className="client-info">
@@ -254,7 +258,7 @@ const ClientInfo = memo(() => {
 
 export default function Devtools() {
   const { hash = '#Console' } = useLocation();
-  const { version = '', address = '' } = useSearch();
+  const { address = '' } = useSearch();
   const [socket, initSocket] = useSocketMessageStore((state) => [
     state.socket,
     state.initSocket,
@@ -277,7 +281,7 @@ export default function Devtools() {
     return content || ConsolePanel;
   }, [hashKey]);
 
-  if (!(version && address)) {
+  if (!address) {
     message.error('Error url params!');
     return null;
   }
