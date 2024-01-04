@@ -1,6 +1,7 @@
 
 # dependencies
 node_modules/
+.yarn/
 
 backend/dist
 backend/*.json
