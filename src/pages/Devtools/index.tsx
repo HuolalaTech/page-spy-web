@@ -193,14 +193,17 @@ const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
 const ClientInfo = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
   const { address = '' } = useSearch();
-  const [system] = useSocketMessageStore((state) => [
-    state.systemMsg?.[0]?.system,
-  ]);
+  const [version] = useSocketMessageStore((state) => {
+    const system = state.systemMsg?.[0]?.system;
+    if (!system) return '';
+    return [
+      `${system.osName}/${system.osVersion} ${system.browserName}/${system.browserVersion}`,
+    ];
+  });
   const clientInfo = useMemo(() => {
-    if (!system) return null;
-    const version = `${system.osName}/${system.osVersion} ${system.browserName}/${system.browserVersion}}`;
+    if (!version) return null;
     return resolveClientInfo(version);
-  }, [system]);
+  }, [version]);
 
   return (
     <div className="client-info">
