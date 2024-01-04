@@ -75,6 +75,8 @@
     "run": "Run",
     "placeholder": "Executable code",
     "newContent": "New content",
+    "auto-scroll-on": "Auto Scroll On",
+    "auto-scroll-off": "Auto Scroll Off",
     "error-trace": {
       "title": "Error detail",
       "hints": "HINTS",

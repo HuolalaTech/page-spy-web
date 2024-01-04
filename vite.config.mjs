@@ -9,7 +9,7 @@ export default ({ mode, command }) => {
   const isProd = command === 'build';
 
   return defineConfig({
-    base: buildDoc ? './' : '/',
+    base: './',
     build: {
       target: ['chrome100'],
       sourcemap: isProd ? 'hidden' : true,
