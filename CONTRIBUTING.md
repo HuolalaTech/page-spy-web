@@ -51,9 +51,9 @@ To get started, fork the [HuolalaTech/page-spy-api][page-spy-api] repository and
 
    func main() {
    	container := container.Container()
-   	err := container.Provide(func() *config.StaticConfig {
-   		return nil
-   	})
+      err := container.Provide(func() *config.StaticConfig {
+         return &config.StaticConfig{}
+      })
 
    	if err != nil {
    		log.Fatal(err)
