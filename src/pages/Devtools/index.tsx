@@ -202,9 +202,7 @@ const ClientInfo = memo(() => {
   });
   const clientInfo = useMemo(() => {
     if (!version) return null;
-    if (version) {
-      return resolveClientInfo(version);
-    }
+    return resolveClientInfo(version);
   }, [version]);
 
   return (
