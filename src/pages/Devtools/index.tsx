@@ -205,7 +205,7 @@ const ClientInfo = memo(() => {
     if (version) {
       return resolveClientInfo(version);
     }
-  }, [version,]);
+  }, [version]);
 
   return (
     <div className="client-info">
@@ -276,10 +276,11 @@ export default function Devtools() {
 
   useEffect(() => {
     if (!json) return;
+    // check json is url
+    if (!json.startsWith('http')) return;
     fetch(json)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setData(data);
       });
   }, [json]);
@@ -297,7 +298,7 @@ export default function Devtools() {
     return content || ConsolePanel;
   }, [hashKey]);
 
-  if (!(address) && !json) {
+  if (!address && !json) {
     message.error('Error url params!');
     return null;
   }

@@ -19,8 +19,9 @@ import clsx from 'clsx';
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
-import { Link } from 'react-router-dom';
-import { fileToObject } from '@/utils/file';
+import { Link, useNavigate } from 'react-router-dom';
+import { fileToObject, objectValidation } from '@/utils/file';
+import { useSocketMessageStore } from '@/store/socket-message';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -72,7 +73,7 @@ const ConnDetailItem = ({
 export const RoomList = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
   const {
     data: connectionList = [],
     error,
@@ -91,6 +92,7 @@ export const RoomList = () => {
       },
     },
   );
+  const [setData] = useSocketMessageStore((state) => [state.setData]);
 
   const [conditions, setConditions] = useState({
     title: '',
@@ -299,14 +301,22 @@ export const RoomList = () => {
                     accept=".json"
                     maxCount={1}
                     customRequest={async (file) => {
-                      const now = Date.now();
-                      console.log(now);
-                      console.log('custom');
-                      console.log(file);
                       const json = await fileToObject(file.file as File);
-                      console.log(Date.now() - now);
-
-                      console.log(json);
+                      const isValid = objectValidation(json, [
+                        'connectMsg',
+                        'consoleMsg',
+                        'databaseMsg',
+                        'networkMsg',
+                        'pageMsg',
+                        'storageMsg',
+                        'systemMsg',
+                      ]);
+                      if (!isValid) {
+                        message.error('Invalid JSON file!');
+                        return;
+                      }
+                      setData(json as Parameters<typeof setData>[0]);
+                      navigate(`/devtools?json=${(file.file as any).name}`);
                       return null;
                     }}
                     itemRender={() => null}

@@ -21,3 +21,9 @@ export const fileToObject = (file: File) => {
     reader.readAsText(file);
   });
 };
+
+export const objectValidation = (object: any, keys: string[]) => {
+  const objectKeys = Object.keys(object);
+  const isObjectValid = keys.every((key) => objectKeys.includes(key));
+  return isObjectValid;
+};
