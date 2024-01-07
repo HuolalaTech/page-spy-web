@@ -22,8 +22,8 @@ export const fileToObject = (file: File) => {
   });
 };
 
-export const objectValidation = (object: any, keys: string[]) => {
+export const hasAllKeys = (object: any, keys: string[]) => {
   const objectKeys = Object.keys(object);
-  const isObjectValid = keys.every((key) => objectKeys.includes(key));
-  return isObjectValid;
+  const hasAll = keys.every((key) => objectKeys.includes(key));
+  return hasAll;
 };

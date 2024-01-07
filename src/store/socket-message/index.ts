@@ -40,7 +40,7 @@ interface SocketMessage {
   setConsoleMsgTypeFilter: (typeList: string[]) => void;
   clearRecord: (key: string) => void;
   refresh: (key: string) => void;
-  setData: (obj: Partial<SocketMessage>) => void;
+  loadJSON: (obj: Partial<SocketMessage>) => void;
 }
 
 export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
@@ -270,7 +270,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       data: key,
     });
   },
-  setData: (obj: Partial<SocketMessage>) => {
+  loadJSON: (obj: Partial<SocketMessage>) => {
     set(obj);
   },
 }));

@@ -262,10 +262,10 @@ const ClientInfo = memo(() => {
 export default function Devtools() {
   const { hash = '#Console' } = useLocation();
   const { address = '', json = '' } = useSearch();
-  const [socket, initSocket, setData] = useSocketMessageStore((state) => [
+  const [socket, initSocket, loadJSON] = useSocketMessageStore((state) => [
     state.socket,
     state.initSocket,
-    state.setData,
+    state.loadJSON,
   ]);
   useEffect(() => {
     if (socket) return;
@@ -279,7 +279,7 @@ export default function Devtools() {
     fetch(json)
       .then((res) => res.json())
       .then((data) => {
-        setData(data);
+        loadJSON(data);
       });
   }, [json]);
 

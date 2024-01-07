@@ -20,7 +20,7 @@ import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { Link, useNavigate } from 'react-router-dom';
-import { fileToObject, objectValidation } from '@/utils/file';
+import { fileToObject, hasAllKeys } from '@/utils/file';
 import { useSocketMessageStore } from '@/store/socket-message';
 
 const { Title } = Typography;
@@ -92,7 +92,7 @@ export const RoomList = () => {
       },
     },
   );
-  const [setData] = useSocketMessageStore((state) => [state.setData]);
+  const [loadJSON] = useSocketMessageStore((state) => [state.loadJSON]);
 
   const [conditions, setConditions] = useState({
     title: '',
@@ -302,7 +302,7 @@ export const RoomList = () => {
                     maxCount={1}
                     customRequest={async (file) => {
                       const json = await fileToObject(file.file as File);
-                      const isValid = objectValidation(json, [
+                      const isValid = hasAllKeys(json, [
                         'connectMsg',
                         'consoleMsg',
                         'databaseMsg',
@@ -315,7 +315,7 @@ export const RoomList = () => {
                         message.error('Invalid JSON file!');
                         return;
                       }
-                      setData(json as Parameters<typeof setData>[0]);
+                      loadJSON(json as Parameters<typeof loadJSON>[0]);
                       navigate(`/devtools?json=${(file.file as any).name}`);
                       return null;
                     }}
