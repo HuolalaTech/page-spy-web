@@ -320,9 +320,6 @@ export const RoomList = () => {
                       return null;
                     }}
                     itemRender={() => null}
-                    onChange={(e) => {
-                      console.log(e);
-                    }}
                   >
                     <Button type="dashed">Import JSON</Button>
                   </Upload>

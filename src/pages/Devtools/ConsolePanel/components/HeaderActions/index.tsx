@@ -74,14 +74,37 @@ export const HeaderActions = () => {
   }, [clearRecord]);
 
   const save = useCallback(() => {
-    const hash = window.location.hash.split('?')[1];
+    const hash = window.location.hash.split('?')?.[1] ?? '';
     const params = new URLSearchParams(hash);
-    const address = params.get('address')?.split('-')?.[0] ?? 'unknown';
-    const version = params.get('version');
+    const address =
+      params.get('address')?.split('-')?.[0]?.slice(0, 4) ?? 'unknown';
+    const state = useSocketMessageStore.getState();
+    const { systemMsg } = state;
+    const [systemMsgItem] = systemMsg ?? [
+      {
+        system: {
+          browserName: 'unknown',
+          browserVersion: '-1.-1.-1',
+          osName: 'unknown',
+          osVersion: '-1.-1.-1',
+        },
+      },
+    ];
+    const {
+      system: { osName, osVersion, browserName, browserVersion },
+    } = systemMsgItem;
+    const version = osName + osVersion + '_' + browserName + browserVersion;
     const filename = `${version}_${address}.json`;
 
-    const state = useSocketMessageStore.getState(); // Update the type of the state object
-    const messageKeys = ['consoleMsg'] as const; // ["consoleMsg", "networkMsg", "systemMsg", "connectMsg", "pageMsg", "storageMsg", "databaseMsg"] as const;
+    const messageKeys = [
+      'consoleMsg',
+      'networkMsg',
+      'systemMsg',
+      'connectMsg',
+      'pageMsg',
+      'storageMsg',
+      'databaseMsg',
+    ] as const;
     type SocketMessages = {
       [Key in (typeof messageKeys)[number]]?: any;
     };
@@ -92,7 +115,7 @@ export const HeaderActions = () => {
       return acc;
     }, {} as Partial<SocketMessages>);
 
-    objectToFile(filteredMessages, filename); // Use filteredMessages instead of state
+    objectToFile(filteredMessages, filename);
   }, []);
   return (
     <Row justify="end">
