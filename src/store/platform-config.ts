@@ -44,8 +44,8 @@ const STORAGE_TYPES: {
 ];
 
 export const useStorageTypes = () => {
-  const clientInfo = useClientInfo();
+  const systemInfo = useClientInfo();
   return STORAGE_TYPES.filter((s) => {
-    return s.visible(clientInfo?.browserName);
+    return s.visible(systemInfo?.browserName);
   });
 };

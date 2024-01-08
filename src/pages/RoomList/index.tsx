@@ -1,5 +1,5 @@
 import { getSpyRoom } from '@/apis';
-import { BROWSER_LOGO, OS_LOGO, resolveClientInfo } from '@/utils/brand';
+import { BROWSER_LOGO, OS_LOGO, parseDeviceInfo } from '@/utils/brand';
 import { useRequest } from 'ahooks';
 import {
   Typography,
@@ -50,7 +50,7 @@ const filterConnections = (
     })
     .filter((i) => i.address.slice(0, 4).includes(address || ''))
     .filter(({ name }) => {
-      const { osName, browserName } = resolveClientInfo(name);
+      const { osName, browserName } = parseDeviceInfo(name);
       return osName.includes(os) && browserName.includes(browser);
     });
 };
@@ -135,7 +135,7 @@ export const RoomList = () => {
             browserName,
             browserVersion,
             browserLogo,
-          } = resolveClientInfo(name);
+          } = parseDeviceInfo(name);
           const client = connections.find(({ userId }) => userId === 'Client');
 
           return (

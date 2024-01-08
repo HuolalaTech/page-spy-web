@@ -7,13 +7,13 @@ import { ErrorDetailDrawer } from './components/ErrorDetailDrawer';
 import { useClientInfo } from '@/utils/brand';
 
 const ConsolePanel = () => {
-  const clientInfo = useClientInfo();
+  const systemInfo = useClientInfo();
   return (
     <div className="console-panel">
       <HeaderActions />
       <div className="console-panel__content">
         <MainContent />
-        {clientInfo?.browserName !== 'MPWeChat' && <FooterInput />}
+        {systemInfo?.browserName !== 'MPWeChat' && <FooterInput />}
       </div>
       <ErrorDetailDrawer />
     </div>

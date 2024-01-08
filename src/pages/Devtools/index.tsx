@@ -23,7 +23,7 @@ import './index.less';
 import { StoragePanel } from './StoragePanel';
 import useSearch from '@/utils/useSearch';
 import { useEventListener } from '@/utils/useEventListener';
-import { resolveClientInfo } from '@/utils/brand';
+import { parseDeviceInfo, useClientInfo } from '@/utils/brand';
 import { useTranslation } from 'react-i18next';
 import { ConnectStatus } from './ConnectStatus';
 import { useSocketMessageStore } from '@/store/socket-message';
@@ -75,7 +75,6 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
   const navigate = useNavigate();
   const { search } = useLocation();
-  const { version = '' } = useSearch();
   const [badge, setBadge] = useState<Record<MenuType, boolean>>({
     Console: false,
     Network: false,
@@ -106,8 +105,10 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
     }));
   }, [active]);
 
+  const clientInfo = useClientInfo();
+
   const menuItems = useMemo(() => {
-    const clientInfo = resolveClientInfo(version);
+    if (!clientInfo) return [];
     return Object.entries(MENU_COMPONENTS)
       .filter(([key, item]) => {
         // Menu filter by some conditions``
@@ -135,7 +136,7 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
           ),
         };
       });
-  }, [badge, navigate, search, t]);
+  }, [clientInfo, badge, navigate, search, t]);
 
   return <Menu mode="inline" selectedKeys={[active]} items={menuItems} />;
 });
@@ -171,7 +172,7 @@ const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
       data
         ?.filter((item) => item.name && item.address)
         .map((item) => {
-          const { osLogo, browserLogo } = resolveClientInfo(item.name);
+          const { osLogo, browserLogo } = parseDeviceInfo(item.name);
           return {
             osLogo,
             browserLogo,
@@ -227,17 +228,7 @@ const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
 const ClientInfo = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
   const { address = '' } = useSearch();
-  const [version] = useSocketMessageStore((state) => {
-    const system = state.systemMsg?.[0]?.system;
-    if (!system) return '';
-    return [
-      `${system.osName}/${system.osVersion} ${system.browserName}/${system.browserVersion}`,
-    ];
-  });
-  const clientInfo = useMemo(() => {
-    if (!version) return null;
-    return resolveClientInfo(version);
-  }, [version]);
+  const clientInfo = useClientInfo();
 
   return (
     <div className="client-info">
