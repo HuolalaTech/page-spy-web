@@ -5,7 +5,7 @@ import { CaretRightOutlined } from '@ant-design/icons';
 import './index.less';
 import clsx from 'clsx';
 import CopyContent from '../CopyContent';
-import type { SpyAtom } from '@huolala-tech/page-spy';
+import type { SpyAtom } from '@huolala-tech/page-spy/web';
 import { LoadMore } from './LoadMore';
 import { useSocketMessageStore } from '@/store/socket-message';
 

@@ -1,4 +1,4 @@
-import { SpyAtom, SpyConsole } from '@huolala-tech/page-spy';
+import { SpyAtom, SpyConsole } from '@huolala-tech/page-spy/web';
 import { isString, pullAt } from 'lodash-es';
 import ConsoleNode from '../index';
 import { getStyleObjectFromString } from './utils';

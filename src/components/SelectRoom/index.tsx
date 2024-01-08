@@ -3,7 +3,7 @@ import { useRequest } from 'ahooks';
 import { Button, Col, Form, message, Modal, Row, Select } from 'antd';
 import { ComponentType, useCallback, useEffect, useState } from 'react';
 import { usePopupRef, withPopup } from '@/utils/withPopup';
-import { resolveClientInfo } from '@/utils/brand';
+import { parseDeviceInfo, useClientInfo } from '@/utils/brand';
 import { getSpyRoom } from '@/apis';
 import './index.less';
 import { useTranslation } from 'react-i18next';
@@ -79,7 +79,7 @@ const SelectRoomModal = withPopup(({ resolve, visible }) => {
                 optionFilterProp="label"
               >
                 {connectionList.map(({ name, address }) => {
-                  const info = resolveClientInfo(name);
+                  const info = parseDeviceInfo(name);
 
                   const simpleAddress = address.slice(0, 4);
                   return (

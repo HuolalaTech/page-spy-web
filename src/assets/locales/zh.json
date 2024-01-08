@@ -26,8 +26,18 @@
     "no-frames": "未找到有效的错误信息"
   },
   "inject": {
-    "load-script": "在测试项目中加载一个 <script>；",
-    "init-instance": "<0>紧接着，配置（可选的）并初始化；查看 </0><1>配置项；</1>",
+    "web": {
+      "title": "WEB",
+      "load-sdk": "在测试项目中加载一个 <script>；",
+      "init-sdk": "<0>紧接着初始化，查看</0> <1>配置项</1>："
+    },
+    "miniprogram": {
+      "title": "小程序",
+      "request-host": "将 page-spy 服务域名填入小程序的 http、websocket 请求白名单中。注意除了开发环境，小程序强制要求使用 https 和 wss 协议。",
+      "install-sdk": "首先在项目中安装依赖：",
+      "init-sdk": "<0>对于跨端小程序框架（uniApp, Taro 等），在入口文件中引入 SDK 并实例化，查看</0> <1>配置项</1>：",
+      "init-sdk-native": "如果是原生小程序，由于无法直接使用 node_modules 路径，需要手动将包中的文件复制到项目目录中引入："
+    },
     "end": "以上就是全部。",
     "start-debug": "从顶部的 <1>房间列表</1> 菜单进入并开始调试！"
   },

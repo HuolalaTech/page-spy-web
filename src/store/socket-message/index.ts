@@ -9,7 +9,7 @@ import {
   SpyPage,
   SpyStorage,
   SpyDatabase,
-} from '@huolala-tech/page-spy';
+} from '@huolala-tech/page-spy/web';
 import { API_BASE_URL } from '@/apis/request';
 import { resolveProtocol } from '@/utils';
 import { ElementContent } from 'hast';
@@ -58,6 +58,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     localStorage: [],
     sessionStorage: [],
     cookie: [],
+    mpStorage: [],
   },
   databaseMsg: {
     basicInfo: null,

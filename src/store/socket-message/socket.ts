@@ -1,4 +1,4 @@
-import type { SpyMessage, SpySocket } from '@huolala-tech/page-spy';
+import type { SpyMessage, SpySocket } from '@huolala-tech/page-spy/web';
 import { message, notification } from 'antd';
 import * as SERVER_TYPE from './server-type';
 import * as MESSAGE_TYPE from './message-type';
@@ -98,6 +98,7 @@ export class SocketStore extends EventTarget {
             this.socketConnection = content.selfConnection;
             this.filterClient(content);
             this.dispatchConnectStatus();
+            // TODO : move this out of socket logic
             this.triggerLazilyRefreshEvents();
             break;
           case LEAVE:
@@ -160,6 +161,7 @@ export class SocketStore extends EventTarget {
       'cookie',
       'page',
       'indexedDB',
+      'mpStorage',
     ];
     refreshData.forEach((i) => {
       this.unicastMessage({

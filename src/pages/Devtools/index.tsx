@@ -23,34 +23,58 @@ import './index.less';
 import { StoragePanel } from './StoragePanel';
 import useSearch from '@/utils/useSearch';
 import { useEventListener } from '@/utils/useEventListener';
-import { resolveClientInfo } from '@/utils/brand';
+import { parseDeviceInfo, useClientInfo } from '@/utils/brand';
 import { useTranslation } from 'react-i18next';
 import { ConnectStatus } from './ConnectStatus';
 import { useSocketMessageStore } from '@/store/socket-message';
 import '@huolala-tech/react-json-view/dist/style.css';
 import { throttle } from 'lodash-es';
 import { CUSTOM_EVENT } from '@/store/socket-message/socket';
+import { SpyDevice } from '@huolala-tech/page-spy/web';
 
 const { Sider, Content } = Layout;
 const { Title } = Typography;
 
-const MENUS = {
-  Console: ConsolePanel,
-  Network: NetworkPanel,
-  Page: PagePanel,
-  Storage: StoragePanel,
-  System: SystemPanel,
+type MenuType = 'Console' | 'Network' | 'Page' | 'Storage' | 'System';
+
+const MENU_COMPONENTS: Record<
+  MenuType,
+  {
+    component: React.FC;
+    visible?: (params: { browser: SpyDevice.Browser }) => boolean;
+  }
+> = {
+  Console: {
+    component: ConsolePanel,
+  },
+  Network: {
+    component: NetworkPanel,
+  },
+  Page: {
+    component: PagePanel,
+    visible: (params) => {
+      return params.browser !== 'MPWeChat';
+    },
+  },
+  Storage: {
+    component: StoragePanel,
+  },
+  System: {
+    component: SystemPanel,
+    visible: (params) => {
+      return params.browser !== 'MPWeChat';
+    },
+  },
 };
-type MenuKeys = keyof typeof MENUS;
 
 interface BadgeMenuProps {
-  active: MenuKeys;
+  active: MenuType;
 }
 const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
   const navigate = useNavigate();
   const { search } = useLocation();
-  const [badge, setBadge] = useState<Record<MenuKeys, boolean>>({
+  const [badge, setBadge] = useState<Record<MenuType, boolean>>({
     Console: false,
     Network: false,
     Page: false,
@@ -63,7 +87,7 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
       const { detail } = evt as CustomEvent;
       const type = `${(detail as string)[0].toUpperCase()}${detail.slice(
         1,
-      )}` as MenuKeys;
+      )}` as MenuType;
       if (type !== active) {
         setBadge((prev) => ({
           ...prev,
@@ -80,28 +104,38 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
     }));
   }, [active]);
 
+  const clientInfo = useClientInfo();
+
   const menuItems = useMemo(() => {
-    return Object.keys(MENUS).map((item) => {
-      return {
-        key: item,
-        label: (
-          <div
-            className="sider-menu__item"
-            onClick={() => {
-              navigate({ search, hash: item });
-            }}
-          >
-            <span>{t(`menu.${item}`)}</span>
+    if (!clientInfo) return [];
+    return Object.entries(MENU_COMPONENTS)
+      .filter(([key, item]) => {
+        // Menu filter by some conditions``
+        return (
+          !item.visible || item.visible({ browser: clientInfo.browserName })
+        );
+      })
+      .map(([key, item]) => {
+        return {
+          key,
+          label: (
             <div
-              className={clsx('circle-badge', {
-                show: badge[item as MenuKeys],
-              })}
-            />
-          </div>
-        ),
-      };
-    });
-  }, [badge, navigate, search, t]);
+              className="sider-menu__item"
+              onClick={() => {
+                navigate({ search, hash: key });
+              }}
+            >
+              <span>{t(`menu.${key}`)}</span>
+              <div
+                className={clsx('circle-badge', {
+                  show: badge[key as MenuType],
+                })}
+              />
+            </div>
+          ),
+        };
+      });
+  }, [clientInfo, badge, navigate, search, t]);
 
   return <Menu mode="inline" selectedKeys={[active]} items={menuItems} />;
 });
@@ -137,7 +171,7 @@ const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
       data
         ?.filter((item) => item.name && item.address)
         .map((item) => {
-          const { osLogo, browserLogo } = resolveClientInfo(item.name);
+          const { osLogo, browserLogo } = parseDeviceInfo(item.name);
           return {
             osLogo,
             browserLogo,
@@ -193,17 +227,7 @@ const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
 const ClientInfo = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
   const { address = '' } = useSearch();
-  const [version] = useSocketMessageStore((state) => {
-    const system = state.systemMsg?.[0]?.system;
-    if (!system) return '';
-    return [
-      `${system.osName}/${system.osVersion} ${system.browserName}/${system.browserVersion}`,
-    ];
-  });
-  const clientInfo = useMemo(() => {
-    if (!version) return null;
-    return resolveClientInfo(version);
-  }, [version]);
+  const clientInfo = useClientInfo();
 
   return (
     <div className="client-info">
@@ -266,22 +290,23 @@ export default function Devtools() {
     state.socket,
     state.initSocket,
   ]);
+
   useEffect(() => {
     if (socket) return;
     initSocket(address);
   }, [address, initSocket, socket]);
 
-  const hashKey = useMemo<MenuKeys>(() => {
+  const hashKey = useMemo<MenuType>(() => {
     const value = hash.slice(1);
-    if (!(value in MENUS)) {
+    if (!(value in MENU_COMPONENTS)) {
       return 'Console';
     }
-    return value as MenuKeys;
+    return value as MenuType;
   }, [hash]);
 
   const ActiveContent = useMemo(() => {
-    const content = MENUS[hashKey];
-    return content || ConsolePanel;
+    const content = MENU_COMPONENTS[hashKey];
+    return content.component || ConsolePanel;
   }, [hashKey]);
 
   if (!address) {

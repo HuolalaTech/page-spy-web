@@ -1,4 +1,4 @@
-import { SpyConsole } from '@huolala-tech/page-spy';
+import { SpyConsole } from '@huolala-tech/page-spy/web';
 import { ReactComponent as ErrorStackSvg } from '@/assets/image/error-stack.svg';
 import './index.less';
 import Icon from '@ant-design/icons';
@@ -60,7 +60,7 @@ export const ErrorTraceNode = ({
         },
       }),
     );
-  }, [data.errorDetail]);
+  }, [data.errorDetail, t]);
 
   return (
     <div className="error-trace">
