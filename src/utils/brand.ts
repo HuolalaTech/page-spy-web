@@ -51,7 +51,6 @@ export const BROWSER_LOGO: Record<
   QQ: qqSvg,
   UC: ucSvg,
   Baidu: baiduSvg,
-  MPWeChat: mpWechatSvg,
 };
 
 export const parseDeviceInfo = (device: string): DeviceInfo => {
