@@ -291,10 +291,9 @@ export default function Devtools() {
     state.socket,
     state.initSocket,
   ]);
-  const storageTypes = useStorageTypes();
 
   useEffect(() => {
-    if (!socket) return;
+    if (socket) return;
     initSocket(address);
   }, [address, initSocket, socket]);
 
