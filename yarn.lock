@@ -753,22 +753,12 @@
     "@huolala-tech/page-spy-api-win32-arm" "1.2.2"
     "@huolala-tech/page-spy-api-win32-arm64" "1.2.2"
 
-"@huolala-tech/page-spy@^1.4.11":
-  version "1.4.11"
-  resolved "https://registry.npmjs.org/@huolala-tech/page-spy/-/page-spy-1.4.11.tgz#5ff1588ae4da4e813eb90301ddbadb2fc08509de"
-  integrity sha512-SjOxMrBYlLRJhsHHxLrKFKY05cJ/M1eor1q+aoEBMdTvw6FVgUl0k009JBKvxZM3uiCmEFSY95nfZdfl7qOmag==
+"@huolala-tech/page-spy@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.npmjs.org/@huolala-tech/page-spy/-/page-spy-1.5.1.tgz#711bcbf5663f85b1320fa2d980f96524c1c2bcbc"
+  integrity sha512-lG/eRIu9N1In6AsAY0GzoLZ1VRawj/qGiSeZrskg6PkWDfhOArGkm9au3CQR2Y8mw48rrXgIah8yr3Kb6RHm1w==
   dependencies:
     "@babel/runtime" "^7.13.0"
-    "@huolala-tech/page-spy" "^1.5.0-beta.4"
-    copy-to-clipboard "^3.3.1"
-
-"@huolala-tech/page-spy@^1.5.0-beta.8":
-  version "1.5.0-beta.8"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy/-/page-spy-1.5.0-beta.8.tgz#2d86ca6ec52b7d70140a85ae92116d490c0be6df"
-  integrity sha512-cx5pJY4qRQTfN2EVgB5WNkBM30DbmFiyN7k5sAbTLokvO0r734LvM80ky/4EWvrHVnQMkH8vWlRcQlXfi/gB4g==
-  dependencies:
-    "@babel/runtime" "^7.13.0"
-    "@huolala-tech/page-spy" "^1.5.0-beta.4"
     copy-to-clipboard "^3.3.1"
 
 "@huolala-tech/react-json-view@^1.2.4":
