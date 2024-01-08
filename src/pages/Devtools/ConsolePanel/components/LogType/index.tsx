@@ -8,7 +8,7 @@ import { ReactComponent as DebugEvalSvg } from '@/assets/image/debug-eval.svg';
 import { ReactComponent as UserSvg } from '@/assets/image/user.svg';
 import { ReactComponent as DebugSvg } from '@/assets/image/debug.svg';
 import './index.less';
-import type { SpyConsole } from '@huolala-tech/page-spy';
+import type { SpyConsole } from '@huolala-tech/page-spy/web';
 
 interface ThemeItem {
   color: string;

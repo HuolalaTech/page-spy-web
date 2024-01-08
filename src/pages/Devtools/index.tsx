@@ -31,7 +31,7 @@ import '@huolala-tech/react-json-view/dist/style.css';
 import { throttle } from 'lodash-es';
 import { CUSTOM_EVENT } from '@/store/socket-message/socket';
 import { useStorageTypes } from '@/store/platform-config';
-import { SpyDevice } from '@huolala-tech/page-spy';
+import { SpyDevice } from '@huolala-tech/page-spy/web';
 
 const { Sider, Content } = Layout;
 const { Title } = Typography;

@@ -1,5 +1,5 @@
 import { getObjectKeys } from '@/utils';
-import { SpyNetwork } from '@huolala-tech/page-spy';
+import { SpyNetwork } from '@huolala-tech/page-spy/web';
 
 export function downloadFile(filename: string, url: string) {
   const aTag = document.createElement('a');
