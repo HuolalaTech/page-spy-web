@@ -294,18 +294,9 @@ export default function Devtools() {
   const storageTypes = useStorageTypes();
 
   useEffect(() => {
-    if (socket && storageTypes.length) {
-      socket.addListener('connect', (data) => {
-        storageTypes.forEach((name) => {
-          socket.unicastMessage({
-            type: 'refresh',
-            data: name,
-          });
-        });
-      });
-    }
+    if (!socket) return;
     initSocket(address);
-  }, [address, initSocket, socket, storageTypes]);
+  }, [address, initSocket, socket]);
 
   const hashKey = useMemo<MenuType>(() => {
     const value = hash.slice(1);
