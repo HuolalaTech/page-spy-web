@@ -1,7 +1,7 @@
 {
   "name": "@huolala-tech/page-spy-web",
   "private": true,
-  "version": "1.5.5",
+  "version": "1.6.0",
   "description": "All-In-One Remote Debugging Tool",
   "homepage": "https://huolalatech.github.io/page-spy-web",
   "license": "MIT",
