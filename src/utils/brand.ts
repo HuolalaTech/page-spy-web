@@ -62,11 +62,11 @@ export const BROWSER_LOGO: Record<
   Firefox: firefoxSvg,
   Safari: safariSvg,
   Edge: edgeSvg,
+  MPWeChat: mpWechatSvg,
   WeChat: wechatSvg,
   QQ: qqSvg,
   UC: ucSvg,
   Baidu: baiduSvg,
-  MPWeChat: mpWechatSvg,
 };
 
 export function resolveClientInfo(name: string) {
