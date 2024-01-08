@@ -51,9 +51,9 @@ Fork [HuolalaTech/page-spy-api][page-spy-api] 仓库并 clone 到本地，然后
 
    func main() {
    	container := container.Container()
-   	err := container.Provide(func() *config.StaticConfig {
-   		return nil
-   	})
+      err := container.Provide(func() *config.StaticConfig {
+         return &config.StaticConfig{}
+      })
 
    	if err != nil {
    		log.Fatal(err)

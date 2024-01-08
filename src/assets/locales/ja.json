@@ -85,6 +85,8 @@
     "run": "実行",
     "placeholder": "実行可能なコード",
     "newContent": "新しいメッセージ",
+    "auto-scroll-on": "自動スクロールオン",
+    "auto-scroll-off": "自動スクロールオフ",
     "error-trace": {
       "title": "エラーの詳細",
       "hints": "使用のヒント",

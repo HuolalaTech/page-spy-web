@@ -46,7 +46,7 @@ const SelectRoomModal = withPopup(({ resolve, visible }) => {
       message.error('No room matched error');
       return;
     }
-    window.open(`/devtools?version=${room.name}&address=${room.address}`);
+    window.open(`/devtools?address=${room.address}`);
   }, [connection, connectionList]);
 
   return (

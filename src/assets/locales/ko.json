@@ -85,6 +85,8 @@
     "run": "실행",
     "placeholder": "실행 가능한 코드",
     "newContent": "새로운 메시지",
+    "auto-scroll-on": "자동 스크롤링 켜기",
+    "auto-scroll-off": "자동 스크롤링 끄기",
     "error-trace": {
       "title": "오류 세부 정보",
       "hints": "사용 팁",
