@@ -26,12 +26,13 @@ interface Props {
 
 export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
   const { t } = useTranslation();
+  const deployPath = (location.host + location.pathname).replace(/\/+$/, '');
   const steps = useMemo(() => {
     const stepsWithPlatform = {
       web: [
         {
           title: t('inject.web.load-sdk'),
-          code: `<script crossorigin="anonymous" src="${window.location.origin}/page-spy/index.min.js"></script>`,
+          code: `<script crossorigin="anonymous" src="${location.protocol}//${deployPath}/page-spy/index.min.js"></script>`,
         },
         {
           title: (
@@ -53,7 +54,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
       miniprogram: [
         {
           title: t('inject.miniprogram.install-sdk'),
-          code: `yarn add @huolala-tech/page-spy@beta`,
+          code: `yarn add @huolala-tech/page-spy@latest`,
           lang: 'bash',
         },
         {
@@ -72,15 +73,15 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
               </a>
             </Trans>
           ),
-          code: `// @huolala-tech/page-spy v1.5.x or upper version. \nimport PageSpy from '@huolala-tech/page-spy/miniprogram';\nnew PageSpy({
-  api: '${window.location.host}',
+          code: `// @huolala-tech/page-spy v1.5.x or upper version. \nimport PageSpy from '@huolala-tech/page-spy/miniprogram';\n\nnew PageSpy({
+  api: '${deployPath}',
 })`,
           lang: 'js',
         },
         {
           title: t('inject.miniprogram.init-sdk-native'),
-          code: `import PageSpy from './your/path/page-spy.js';\nnew PageSpy({
-  api: '${window.location.host}',
+          code: `import PageSpy from './your/path/page-spy.js';\n\nnew PageSpy({
+  api: '${deployPath}',
 })`,
           lang: 'js',
         },
