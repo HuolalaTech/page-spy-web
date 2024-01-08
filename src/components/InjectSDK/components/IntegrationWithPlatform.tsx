@@ -105,7 +105,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
         code: '',
       },
     ] as { title: ReactNode; code: string; lang?: Lang }[];
-  }, [onCloseModal, platform, t]);
+  }, [deployPath, onCloseModal, platform, t]);
 
   return (
     <div className="platform-integratio">
