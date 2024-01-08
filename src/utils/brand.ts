@@ -15,7 +15,7 @@ import firefoxSvg from '@/assets/image/firefox.svg';
 import safariSvg from '@/assets/image/safari.svg';
 import browserSvg from '@/assets/image/browser.svg';
 import mpWechatSvg from '@/assets/image/miniprogram.svg';
-import { SpyDevice } from '@huolala-tech/page-spy';
+import { SpyDevice } from '@huolala-tech/page-spy/web';
 import useSearch from './useSearch';
 
 interface DeviceInfo {
