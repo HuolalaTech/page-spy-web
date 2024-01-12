@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@huolala-tech/page-spy-browser": "^1.6.2",
+    "@huolala-tech/page-spy-browser": "^1.6.3",
     "@huolala-tech/page-spy-types": "^1.6.1",
     "@huolala-tech/react-json-view": "^1.2.4",
     "@huolala-tech/request": "^1.1.2",
