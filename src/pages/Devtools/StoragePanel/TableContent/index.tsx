@@ -38,7 +38,7 @@ interface Props {
 export const StorageInfo = ({ activeTab }: Props) => {
   const storageMsg = useSocketMessageStore((state) => state.storageMsg);
   const data = useMemo(() => {
-    return Object.values(storageMsg[activeTab]);
+    return Object.values(storageMsg[activeTab] || []);
   }, [activeTab, storageMsg]);
   const hasDetail = useMemo(() => {
     const { name, value, ...rest } = data[0] || {};
