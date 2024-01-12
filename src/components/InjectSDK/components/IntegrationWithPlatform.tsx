@@ -78,13 +78,6 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
 })`,
           lang: 'js',
         },
-        {
-          title: t('inject.miniprogram.init-sdk-native'),
-          code: `import PageSpy from './your/path/page-spy.js';\n\nnew PageSpy({
-  api: '${deployPath}',
-})`,
-          lang: 'js',
-        },
       ],
     };
     return [
