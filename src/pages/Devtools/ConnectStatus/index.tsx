@@ -1,4 +1,4 @@
-import { SpySocket } from '@huolala-tech/page-spy/web';
+import { SpySocket } from '@huolala-tech/page-spy-types';
 import { Row, Col, Space, Divider } from 'antd';
 import { memo, useEffect, useState } from 'react';
 import './index.less';

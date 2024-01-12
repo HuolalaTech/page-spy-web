@@ -402,9 +402,9 @@
     regenerator-runtime "^0.13.11"
 
 "@babel/runtime@^7.13.0":
-  version "7.23.6"
-  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.6.tgz#c05e610dc228855dc92ef1b53d07389ed8ab521d"
-  integrity sha512-zHd0eUrf5GZoOWVCXp6koAKQTfZV07eit6bGPmJgnZdnSAvvZee6zniW2XMF7Cmc4ISOOnPy3QaSiIJGJkVEDQ==
+  version "7.23.8"
+  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.23.8.tgz#8ee6fe1ac47add7122902f257b8ddf55c898f650"
+  integrity sha512-Y7KbAP984rn1VGMbGqKmBLio9V7y5Je9GvU4rQPCPinCyNfUcToxIXl06d59URp/F3LwinvODxab5N/G6qggkw==
   dependencies:
     regenerator-runtime "^0.14.0"
 
@@ -753,13 +753,19 @@
     "@huolala-tech/page-spy-api-win32-arm" "1.2.2"
     "@huolala-tech/page-spy-api-win32-arm64" "1.2.2"
 
-"@huolala-tech/page-spy@^1.5.7":
-  version "1.5.7"
-  resolved "https://registry.npmjs.org/@huolala-tech/page-spy/-/page-spy-1.5.7.tgz#a9f9aaa5ee6b8a38f8dfbc796e17454c445a7ffa"
-  integrity sha512-M19WkH6K2taPpdi7gZ9Tz6v0vY/yW4ziffPXdU+p9+pdSmu1s0OhfxjcsWgERAYsaRLZNloSWqJZyWT5zsYIwA==
+"@huolala-tech/page-spy-browser@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-browser/-/page-spy-browser-1.6.2.tgz#365250cd348040d449a9b7bd39f0b7ba23faa597"
+  integrity sha512-sxCTcLvi8dg2O4rj1GCf71ihcrv+MXmQCCrXoMjUGYLTD++3HcFFfRQTYKV16anGcOV3E4QG2VL3G0KW9w4EGg==
   dependencies:
     "@babel/runtime" "^7.13.0"
+    "@huolala-tech/page-spy-types" "^1.6.1"
     copy-to-clipboard "^3.3.1"
+
+"@huolala-tech/page-spy-types@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-types/-/page-spy-types-1.6.1.tgz#b056053180f91561a9996d3d46e7b25ae2553e5d"
+  integrity sha512-SNlYcieVZXwMdioFv6EdvR4FMj4ouREn+0czhbrKwOZEUs6pjyo+Tf1izIcbeOx/c4wkiZiu6XbajAjxRMsCIg==
 
 "@huolala-tech/react-json-view@^1.2.4":
   version "1.2.4"
@@ -4849,7 +4855,7 @@ to-regex-range@^5.0.1:
 
 toggle-selection@^1.0.6:
   version "1.0.6"
-  resolved "https://registry.yarnpkg.com/toggle-selection/-/toggle-selection-1.0.6.tgz#6e45b1263f2017fa0acc7d89d78b15b8bf77da32"
+  resolved "https://registry.npmjs.org/toggle-selection/-/toggle-selection-1.0.6.tgz#6e45b1263f2017fa0acc7d89d78b15b8bf77da32"
   integrity sha512-BiZS+C1OS8g/q2RRbJmy59xpyghNBqrr6k5L/uKBGRsTfxmu3ffiRnd8mlGPUVayg8pvfi5urfnu8TU7DVOkLQ==
 
 trim-lines@^3.0.0:

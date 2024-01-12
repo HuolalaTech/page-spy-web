@@ -30,7 +30,7 @@ import { useSocketMessageStore } from '@/store/socket-message';
 import '@huolala-tech/react-json-view/dist/style.css';
 import { throttle } from 'lodash-es';
 import { CUSTOM_EVENT } from '@/store/socket-message/socket';
-import { SpyDevice } from '@huolala-tech/page-spy/web';
+import { SpyDevice } from '@huolala-tech/page-spy-types';
 
 const { Sider, Content } = Layout;
 const { Title } = Typography;

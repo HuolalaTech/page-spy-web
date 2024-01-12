@@ -13,7 +13,7 @@ import {
   ResponseBody,
   StatusCode,
 } from './comps';
-import type { SpyNetwork } from '@huolala-tech/page-spy/web';
+import type { SpyNetwork } from '@huolala-tech/page-spy-types';
 import copy from 'copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';

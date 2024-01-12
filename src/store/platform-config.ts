@@ -2,7 +2,7 @@ import { useClientInfo } from '@/utils/brand';
 import { ReactComponent as StorageSvg } from '@/assets/image/storage.svg';
 import { ReactComponent as CookieSvg } from '@/assets/image/cookie.svg';
 import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
-import { SpyDevice, SpyStorage } from '@huolala-tech/page-spy/web';
+import { SpyDevice, SpyStorage } from '@huolala-tech/page-spy-types';
 import { FunctionComponent } from 'react';
 
 const STORAGE_TYPES: {

@@ -1,4 +1,4 @@
-import type { SpyStorage } from '@huolala-tech/page-spy/web';
+import type { SpyStorage } from '@huolala-tech/page-spy-types';
 import { Button, Col, Layout, Menu, Row, Tooltip } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import ReactJsonView from '@huolala-tech/react-json-view';

@@ -13,7 +13,7 @@ import { InfoCircleFilled, DownloadOutlined } from '@ant-design/icons';
 import ReactJsonView from '@huolala-tech/react-json-view';
 import { useState, useMemo } from 'react';
 import { usePopupRef, withPopup } from '@/utils/withPopup';
-import type { SpyNetwork } from '@huolala-tech/page-spy/web';
+import type { SpyNetwork } from '@huolala-tech/page-spy-types';
 import clsx from 'clsx';
 import { dataUrlToBlob, downloadFile, semanticSize } from './utils';
 import { isString } from 'lodash-es';

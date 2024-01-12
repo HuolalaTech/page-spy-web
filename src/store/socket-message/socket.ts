@@ -1,4 +1,4 @@
-import type { SpyMessage, SpySocket } from '@huolala-tech/page-spy/web';
+import type { SpyMessage, SpySocket } from '@huolala-tech/page-spy-types';
 import { message, notification } from 'antd';
 import * as SERVER_TYPE from './server-type';
 import * as MESSAGE_TYPE from './message-type';

@@ -39,7 +39,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
             <Trans i18nKey="inject.web.init-sdk">
               <span>slot-0</span>
               <a
-                href="https://github.com/HuolalaTech/page-spy?tab=readme-ov-file#web"
+                href="https://github.com/HuolalaTech/page-spy/tree/main/packages/page-spy-browser"
                 target="_blank"
               >
                 slot-1
@@ -54,7 +54,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
       miniprogram: [
         {
           title: t('inject.miniprogram.install-sdk'),
-          code: `yarn add @huolala-tech/page-spy@latest`,
+          code: `yarn add @huolala-tech/page-spy-wechat@latest`,
           lang: 'bash',
         },
         {
@@ -66,14 +66,14 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
             <Trans i18nKey="inject.miniprogram.init-sdk">
               <span>slot-0</span>
               <a
-                href="https://github.com/HuolalaTech/page-spy?tab=readme-ov-file#mini-program"
+                href="https://github.com/HuolalaTech/page-spy/tree/main/packages/page-spy-wechat"
                 target="_blank"
               >
                 slot-1
               </a>
             </Trans>
           ),
-          code: `// @huolala-tech/page-spy v1.5.x or upper version. \nimport PageSpy from '@huolala-tech/page-spy/dist/miniprogram/esm.min.js';\n\nnew PageSpy({
+          code: `// @huolala-tech/page-spy-wechat v1.6.x or upper version. \nimport PageSpy from '@huolala-tech/page-spy-wechat';\n\nnew PageSpy({
   api: '${deployPath}',
 })`,
           lang: 'js',

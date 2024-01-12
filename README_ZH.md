@@ -5,14 +5,18 @@
 [release-url]: https://github.com/HuolalaTech/page-spy-web/blob/release/package.json
 [download-img]: https://img.shields.io/npm/dw/%40huolala-tech/page-spy-api
 [download-url]: https://www.npmjs.com/package/@huolala-tech/page-spy-api
-[sdk-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy?label=SDK%20version
-[sdk-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy
+[browser-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-browser?logo=html5&label=version
+[browser-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-browser
+[browser-min-img]: https://img.shields.io/bundlephobia/min/@huolala-tech/page-spy-browser?logo=html5&label=size
+[browser-min-url]: https://unpkg.com/browse/@huolala-tech/page-spy/dist/index.min.js
+[wechat-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-wechat?logo=wechat&label=version
+[wechat-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-wechat
+[wechat-min-img]: https://img.shields.io/bundlephobia/min/@huolala-tech/page-spy-wechat?logo=wechat&label=size
+[wechat-min-url]: https://unpkg.com/browse/@huolala-tech/page-spy-wechat/dist/index.min.js
 [sdk-build-img]: https://img.shields.io/github/actions/workflow/status/HuolalaTech/page-spy/coveralls.yml?logo=github&label=build
 [sdk-build-url]: https://github.com/HuolalaTech/page-spy/actions/workflows/coveralls.yml
-[sdk-coveralls-img]: https://img.shields.io/coverallsCoverage/github/HuolalaTech/page-spy?label=coverage
+[sdk-coveralls-img]: https://img.shields.io/coverallsCoverage/github/HuolalaTech/page-spy?label=coverage&logo=coveralls
 [sdk-coveralls-url]: https://coveralls.io/github/HuolalaTech/page-spy?branch=main
-[sdk-min-img]: https://img.shields.io/bundlephobia/min/@huolala-tech/page-spy?label=minfied%20size
-[sdk-min-url]: https://unpkg.com/browse/@huolala-tech/page-spy/dist/index.min.js
 [api-ver-img]: https://img.shields.io/github/v/tag/HuolalaTech/page-spy-api?label=API%20version
 [api-ver-url]: https://github.com/HuolalaTech/page-spy-api/tags
 [api-go-img]: https://img.shields.io/github/go-mod/go-version/HuolalaTech/page-spy-api?label=go
@@ -25,10 +29,12 @@
 
 [![Release][release-img]][release-url]
 [![license][license-img]][license-url] <br />
-[![NPM SDK][sdk-ver-img]][sdk-ver-url]
 [![Build Status][sdk-build-img]][sdk-build-url]
-[![Coverage Status][sdk-coveralls-img]][sdk-coveralls-url]
-[![SDK size][sdk-min-img]][sdk-min-url] <br />
+[![Coverage Status][sdk-coveralls-img]][sdk-coveralls-url] <br />
+[![Browser version][browser-ver-img]][browser-ver-url]
+[![Browser size][browser-min-img]][browser-min-url]
+[![Wechat version][wechat-ver-img]][wechat-ver-url]
+[![Wechat size][wechat-min-img]][wechat-min-url] <br />
 [![API Version][api-ver-img]][api-ver-url]
 [![Go Version][api-go-img]][api-go-url]
 
