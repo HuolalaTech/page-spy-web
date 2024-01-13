@@ -1,5 +1,11 @@
 import { getSpyRoom } from '@/apis';
-import { BROWSER_LOGO, OS_LOGO, parseDeviceInfo } from '@/utils/brand';
+import {
+  BROWSER_LOGO,
+  OS_LOGO,
+  getBrowserLogo,
+  getBrowserName,
+  parseDeviceInfo,
+} from '@/utils/brand';
 import { useRequest } from 'ahooks';
 import {
   Typography,
@@ -70,6 +76,38 @@ const ConnDetailItem = ({
 export const RoomList = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
+
+  const BrowserOptions = useMemo(() => {
+    return [
+      {
+        groupName: 'Web',
+        options: [
+          'Chrome',
+          'Firefox',
+          'Safari',
+          'Edge',
+          'QQ',
+          'WeChat',
+          'UC',
+          'Baidu',
+        ].map((name) => {
+          return {
+            name: getBrowserName(name),
+            logo: getBrowserLogo(name),
+          };
+        }),
+      },
+      {
+        groupName: t('common.miniprogram'),
+        options: ['MPWeChat', 'UniApp'].map((name) => {
+          return {
+            name: getBrowserName(name),
+            logo: getBrowserLogo(name),
+          };
+        }),
+      },
+    ];
+  }, []);
 
   const {
     data: connectionList = [],
@@ -260,17 +298,27 @@ export const RoomList = () => {
             <Col span={8}>
               <Form.Item label={t('common.browser')} name="browser">
                 <Select
+                  listHeight={500}
                   placeholder={t('connections.select-browser')}
                   allowClear
                 >
-                  {Object.entries(BROWSER_LOGO).map(([name, logo]) => {
+                  {BrowserOptions.map((group) => {
                     return (
-                      <Option value={name} key={name}>
-                        <div className="flex-between">
-                          <span>{name}</span>
-                          <img src={logo} width="20" height="20" alt="" />
-                        </div>
-                      </Option>
+                      <Select.OptGroup
+                        label={group.groupName}
+                        key={group.groupName}
+                      >
+                        {group.options.map(({ name, logo }) => {
+                          return (
+                            <Option key={name} value={name}>
+                              <div className="flex-between">
+                                <span>{name}</span>
+                                <img src={logo} width="20" height="20" alt="" />
+                              </div>
+                            </Option>
+                          );
+                        })}
+                      </Select.OptGroup>
                     );
                   })}
                 </Select>

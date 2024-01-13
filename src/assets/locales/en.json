@@ -14,6 +14,8 @@
     "device-id": "Device ID",
     "os": "OS",
     "browser": "Browser",
+    "miniprogram": "Mini Program",
+    "mpwechat": "WeChat Mini Program",
     "project": "Project",
     "debug": "Debug",
     "title": "Title"
