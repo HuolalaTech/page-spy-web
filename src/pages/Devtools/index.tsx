@@ -53,7 +53,7 @@ const MENU_COMPONENTS: Record<
   Page: {
     component: PagePanel,
     visible: (params) => {
-      return params.browser !== 'MPWeChat';
+      return !params.browser?.startsWith('mp-');
     },
   },
   Storage: {
@@ -62,7 +62,7 @@ const MENU_COMPONENTS: Record<
   System: {
     component: SystemPanel,
     visible: (params) => {
-      return params.browser !== 'MPWeChat';
+      return !params.browser?.startsWith('mp-');
     },
   },
 };

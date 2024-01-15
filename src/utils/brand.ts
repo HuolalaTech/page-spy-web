@@ -29,30 +29,33 @@ interface DeviceInfo {
   browserLogo?: string;
 }
 
-export const OS_LOGO: Record<Exclude<SpyDevice.OS, 'Unknown'>, string> = {
+export const OS_LOGO: Record<Exclude<SpyDevice.OS, 'unknown'>, string> = {
   // os
-  Mac: iOSSvg,
-  iPad: iOSSvg,
-  iPhone: iOSSvg,
-  Windows: windowsSvg,
-  Android: androidSvg,
-  Linux: linuxSvg,
+  ios: iOSSvg,
+  ipad: iOSSvg,
+  mac: pcSvg,
+  windows: windowsSvg,
+  android: androidSvg,
+  linux: linuxSvg,
+  harmony: androidSvg,
 };
 export const BROWSER_LOGO: Record<
-  Exclude<SpyDevice.Browser, 'Unknown'>,
+  Exclude<SpyDevice.Browser, 'unknown'>,
   string
 > = {
   // browser
-  Chrome: chromeSvg,
-  Firefox: firefoxSvg,
-  Safari: safariSvg,
-  Edge: edgeSvg,
-  MPWeChat: mpWechatSvg,
-  WeChat: wechatSvg,
-  QQ: qqSvg,
-  UC: ucSvg,
-  Baidu: baiduSvg,
-  UniApp: uniSvg,
+  chrome: chromeSvg,
+  firefox: firefoxSvg,
+  safari: safariSvg,
+  edge: edgeSvg,
+  'mp-wechat': mpWechatSvg,
+  'mp-alipay': mpWechatSvg,
+  'mp-douyin': mpWechatSvg,
+  wechat: wechatSvg,
+  qq: qqSvg,
+  uc: ucSvg,
+  baidu: baiduSvg,
+  // TODO uniapp
 };
 
 export const getBrowserLogo = (browser: string) => {
