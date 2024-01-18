@@ -66,11 +66,14 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
   },
   initSocket: (room: string) => {
     if (!room) return;
+    const address = decodeURIComponent(room).split('#')[0] ?? '';
+    if (!address) return;
+
     const _socket = get().socket;
     if (_socket) return;
 
     const [, protocol] = resolveProtocol();
-    const url = `${protocol}${API_BASE_URL}/api/v1/ws/room/join?address=${room}&userId=${USER_ID}`;
+    const url = `${protocol}${API_BASE_URL}/api/v1/ws/room/join?address=${address}&userId=${USER_ID}`;
 
     const socket = new SocketStore(url);
     set({ socket });
