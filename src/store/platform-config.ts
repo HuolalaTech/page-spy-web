@@ -15,31 +15,31 @@ const STORAGE_TYPES: {
     name: 'localStorage',
     label: 'Local Storage',
     icon: StorageSvg,
-    visible: (browser) => browser !== 'MPWeChat',
+    visible: (browser) => !browser?.startsWith('mp-'),
   },
   {
     name: 'sessionStorage',
     label: 'Session Storage',
     icon: StorageSvg,
-    visible: (browser) => browser !== 'MPWeChat',
+    visible: (browser) => !browser?.startsWith('mp-'),
   },
   {
     name: 'cookie',
     label: 'Cookies',
     icon: CookieSvg,
-    visible: (browser) => browser !== 'MPWeChat',
+    visible: (browser) => !browser?.startsWith('mp-'),
   },
   {
     name: 'indexedDB',
     label: 'IndexedDB',
     icon: DatabaseSvg,
-    visible: (browser) => browser !== 'MPWeChat',
+    visible: (browser) => !browser?.startsWith('mp-'),
   },
   {
     name: 'mpStorage',
     label: '小程序 Storage',
     icon: StorageSvg,
-    visible: (browser) => browser === 'MPWeChat',
+    visible: (browser) => !!browser?.startsWith('mp-'),
   },
 ];
 

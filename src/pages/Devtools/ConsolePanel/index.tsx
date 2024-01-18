@@ -13,7 +13,7 @@ const ConsolePanel = () => {
       <HeaderActions />
       <div className="console-panel__content">
         <MainContent />
-        {systemInfo?.browserName !== 'MPWeChat' && <FooterInput />}
+        {!systemInfo?.browserName?.startsWith('mp-') && <FooterInput />}
       </div>
       <ErrorDetailDrawer />
     </div>

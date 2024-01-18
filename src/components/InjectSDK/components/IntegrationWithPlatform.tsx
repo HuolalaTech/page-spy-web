@@ -1,12 +1,13 @@
 import { ReactComponent as WebSvg } from '@/assets/image/web-h5.svg';
 import { ReactComponent as MiniprogramSvg } from '@/assets/image/miniprogram.svg';
+import { ReactComponent as UniAppSvg } from '@/assets/image/uni.svg';
 import { ReactNode, useMemo, type ComponentType } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import type { Lang } from 'shiki';
 import { CodeBlock } from '@/components/CodeBlock';
 
-export type PlatformName = 'web' | 'miniprogram';
+export type PlatformName = 'web' | 'mp-wechat' | 'mp-uniapp';
 
 export const PLATFORMS: { name: PlatformName; icon: ComponentType }[] = [
   {
@@ -14,8 +15,12 @@ export const PLATFORMS: { name: PlatformName; icon: ComponentType }[] = [
     icon: WebSvg,
   },
   {
-    name: 'miniprogram',
+    name: 'mp-wechat',
     icon: MiniprogramSvg,
+  },
+  {
+    name: 'mp-uniapp',
+    icon: UniAppSvg,
   },
 ];
 
@@ -51,19 +56,19 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
 </script>`,
         },
       ],
-      miniprogram: [
+      'mp-wechat': [
         {
-          title: t('inject.miniprogram.install-sdk'),
+          title: t('inject.mp-wechat.install-sdk'),
           code: `yarn add @huolala-tech/page-spy-wechat@latest`,
           lang: 'bash',
         },
         {
-          title: t('inject.miniprogram.request-host'),
+          title: t('inject.mp-wechat.request-host'),
           code: `https://${window.location.host}\nwss://${window.location.host}`,
         },
         {
           title: (
-            <Trans i18nKey="inject.miniprogram.init-sdk">
+            <Trans i18nKey="inject.mp-wechat.init-sdk">
               <span>slot-0</span>
               <a
                 href="https://github.com/HuolalaTech/page-spy/tree/main/packages/page-spy-wechat"
@@ -73,7 +78,35 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
               </a>
             </Trans>
           ),
-          code: `// @huolala-tech/page-spy-wechat v1.6.x or upper version. \nimport PageSpy from '@huolala-tech/page-spy-wechat';\n\nnew PageSpy({
+          code: `import PageSpy from '@huolala-tech/page-spy-wechat';\n\nnew PageSpy({
+  api: '${deployPath}',
+})`,
+          lang: 'js',
+        },
+      ],
+      'mp-uniapp': [
+        {
+          title: t('inject.mp-uniapp.install-sdk'),
+          code: `yarn add @huolala-tech/page-spy-uniapp@latest`,
+          lang: 'bash',
+        },
+        {
+          title: t('inject.mp-wechat.request-host'),
+          code: `https://${window.location.host}\nwss://${window.location.host}`,
+        },
+        {
+          title: (
+            <Trans i18nKey="inject.mp-uniapp.init-sdk">
+              <span>slot-0</span>
+              <a
+                href="https://github.com/HuolalaTech/page-spy/tree/main/packages/page-spy-uniapp"
+                target="_blank"
+              >
+                slot-1
+              </a>
+            </Trans>
+          ),
+          code: `import PageSpy from '@huolala-tech/page-spy-uniapp';\n\nnew PageSpy({
   api: '${deployPath}',
 })`,
           lang: 'js',

@@ -1,5 +1,11 @@
 import { getSpyRoom } from '@/apis';
-import { BROWSER_LOGO, OS_LOGO, parseDeviceInfo } from '@/utils/brand';
+import {
+  OS_CONFIG,
+  getBrowserLogo,
+  getBrowserName,
+  getOSName,
+  parseDeviceInfo,
+} from '@/utils/brand';
 import { useRequest } from 'ahooks';
 import {
   Typography,
@@ -19,6 +25,7 @@ import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { Link } from 'react-router-dom';
+import { SpyDevice } from '@huolala-tech/page-spy-types';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -70,6 +77,42 @@ const ConnDetailItem = ({
 export const RoomList = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
+
+  const BrowserOptions = useMemo(() => {
+    const browsers: SpyDevice.Browser[] = [
+      'chrome',
+      'firefox',
+      'safari',
+      'edge',
+      'qq',
+      'wechat',
+      'uc',
+      'baidu',
+    ];
+    const mpTypes: SpyDevice.Browser[] = ['mp-wechat', 'mp-alipay'];
+    return [
+      {
+        groupName: 'Web',
+        options: browsers.map((name) => {
+          return {
+            name,
+            label: getBrowserName(name),
+            logo: getBrowserLogo(name),
+          };
+        }),
+      },
+      {
+        groupName: t('common.miniprogram'),
+        options: mpTypes.map((name) => {
+          return {
+            name,
+            label: getBrowserName(name),
+            logo: getBrowserLogo(name),
+          };
+        }),
+      },
+    ];
+  }, []);
 
   const {
     data: connectionList = [],
@@ -164,14 +207,18 @@ export const RoomList = () => {
                   </Col>
                   <Col flex={1}>
                     <ConnDetailItem title="OS">
-                      <Tooltip title={`${osName} ${osVersion}`}>
+                      <Tooltip title={`${getOSName(osName)} ${osVersion}`}>
                         <img src={osLogo} alt="os logo" />
                       </Tooltip>
                     </ConnDetailItem>
                   </Col>
                   <Col flex={1}>
                     <ConnDetailItem title="Browser">
-                      <Tooltip title={`${browserName} ${browserVersion}`}>
+                      <Tooltip
+                        title={`${getBrowserName(
+                          browserName,
+                        )} ${browserVersion}`}
+                      >
                         <img src={browserLogo} alt="browser logo" />
                       </Tooltip>
                     </ConnDetailItem>
@@ -244,12 +291,12 @@ export const RoomList = () => {
             <Col span={8}>
               <Form.Item label={t('common.os')} name="os">
                 <Select placeholder={t('connections.select-os')} allowClear>
-                  {Object.entries(OS_LOGO).map(([name, logo]) => {
+                  {Object.entries(OS_CONFIG).map(([name, conf]) => {
                     return (
                       <Option value={name} key={name}>
                         <div className="flex-between">
-                          <span>{name}</span>
-                          <img src={logo} width="20" height="20" alt="" />
+                          <span>{conf.label}</span>
+                          <img src={conf.logo} width="20" height="20" alt="" />
                         </div>
                       </Option>
                     );
@@ -260,17 +307,27 @@ export const RoomList = () => {
             <Col span={8}>
               <Form.Item label={t('common.browser')} name="browser">
                 <Select
+                  listHeight={500}
                   placeholder={t('connections.select-browser')}
                   allowClear
                 >
-                  {Object.entries(BROWSER_LOGO).map(([name, logo]) => {
+                  {BrowserOptions.map((group) => {
                     return (
-                      <Option value={name} key={name}>
-                        <div className="flex-between">
-                          <span>{name}</span>
-                          <img src={logo} width="20" height="20" alt="" />
-                        </div>
-                      </Option>
+                      <Select.OptGroup
+                        label={group.groupName}
+                        key={group.groupName}
+                      >
+                        {group.options.map(({ name, logo, label }) => {
+                          return (
+                            <Option key={name} value={name}>
+                              <div className="flex-between">
+                                <span>{label}</span>
+                                <img src={logo} width="20" height="20" alt="" />
+                              </div>
+                            </Option>
+                          );
+                        })}
+                      </Select.OptGroup>
                     );
                   })}
                 </Select>
