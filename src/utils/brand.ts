@@ -40,7 +40,7 @@ export const OS_CONFIG: Record<
 > = {
   ios: { logo: iOSSvg, label: 'iOS' },
   ipad: { logo: iOSSvg, label: 'iPad' },
-  mac: { logo: pcSvg, label: 'macOS' },
+  mac: { logo: iOSSvg, label: 'macOS' },
   windows: { logo: windowsSvg, label: 'Windows' },
   linux: { logo: linuxSvg, label: 'Linux' },
   android: { logo: androidSvg, label: 'Android' },
@@ -84,8 +84,8 @@ export const getBrowserName = (browser: string) => {
   );
 };
 
-export const getBrowserLogo = (browser: SpyDevice.Browser) => {
-  return BROWSER_CONFIG[browser]?.logo || browserSvg;
+export const getBrowserLogo = (browser: string) => {
+  return BROWSER_CONFIG[browser as SpyDevice.Browser]?.logo || browserSvg;
 };
 
 export const parseDeviceInfo = (device: string): DeviceInfo => {
@@ -105,8 +105,8 @@ export const parseDeviceInfo = (device: string): DeviceInfo => {
     osVersion,
     browserName: browserName.toLowerCase(),
     browserVersion,
-    osLogo: getOSLogo(osName.toLowerCase() as any),
-    browserLogo: getBrowserLogo(browserName.toLowerCase() as any),
+    osLogo: getOSLogo(osName.toLowerCase()),
+    browserLogo: getBrowserLogo(browserName.toLowerCase()),
   } as DeviceInfo;
 };
 
@@ -120,8 +120,8 @@ export function useClientInfo() {
       browserVersion: system.browserVersion,
       osName: system.osName.toLowerCase(),
       osVersion: system.osVersion,
-      osLogo: getOSLogo(system.osName),
-      browserLogo: getBrowserLogo(system.browserName),
+      osLogo: getOSLogo(system.osName.toLowerCase()),
+      browserLogo: getBrowserLogo(system.browserName.toLowerCase()),
     } as DeviceInfo;
   }
   return null;
