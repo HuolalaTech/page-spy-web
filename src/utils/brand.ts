@@ -50,14 +50,8 @@ export const BROWSER_CONFIG: Record<
     name: string;
   }
 > = {
-  chrome: {
-    logo: chromeSvg,
-    name: 'Chrome',
-  },
-  firefox: {
-    logo: firefoxSvg,
-    name: 'Firefox',
-  },
+  chrome: { logo: chromeSvg, name: 'Chrome' },
+  firefox: { logo: firefoxSvg, name: 'Firefox' },
   safari: { logo: safariSvg, name: 'Safari' },
   edge: { logo: edgeSvg, name: 'Edge' },
   'mp-wechat': { logo: mpWechatSvg, name: t('common.mpwechat') },
