@@ -1,6 +1,5 @@
 import { getSpyRoom } from '@/apis';
 import {
-  BROWSER_LOGO,
   OS_LOGO,
   getBrowserLogo,
   getBrowserName,
@@ -25,6 +24,7 @@ import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { Link } from 'react-router-dom';
+import { SpyDevice } from '@huolala-tech/page-spy-types';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -78,19 +78,21 @@ export const RoomList = () => {
   const { t } = useTranslation();
 
   const BrowserOptions = useMemo(() => {
+    const browsers: SpyDevice.Browser[] = [
+      'chrome',
+      'firefox',
+      'safari',
+      'edge',
+      'qq',
+      'wechat',
+      'uc',
+      'baidu',
+    ];
+    const mpTypes: SpyDevice.Browser[] = ['mp-wechat', 'mp-alipay'];
     return [
       {
         groupName: 'Web',
-        options: [
-          'Chrome',
-          'Firefox',
-          'Safari',
-          'Edge',
-          'QQ',
-          'WeChat',
-          'UC',
-          'Baidu',
-        ].map((name) => {
+        options: browsers.map((name) => {
           return {
             name: getBrowserName(name),
             logo: getBrowserLogo(name),
@@ -99,7 +101,7 @@ export const RoomList = () => {
       },
       {
         groupName: t('common.miniprogram'),
-        options: ['MPWeChat', 'UniApp'].map((name) => {
+        options: mpTypes.map((name) => {
           return {
             name: getBrowserName(name),
             logo: getBrowserLogo(name),

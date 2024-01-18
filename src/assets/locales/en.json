@@ -16,6 +16,8 @@
     "browser": "Browser",
     "miniprogram": "Mini Program",
     "mpwechat": "WeChat Mini Program",
+    "mpalipay": "Alipay Mini Program",
+    "mpdouyin": "Douyin Mini Program",
     "project": "Project",
     "debug": "Debug",
     "title": "Title"
@@ -33,7 +35,13 @@
       "load-sdk": "Load a <script> in the test project;",
       "init-sdk": "<0>Then, initialize it and check the</0> <1>configuration options</1>:"
     },
-    "miniprogram": {
+    "mp-wechat": {
+      "title": "Mini Program",
+      "request-host": "Add the page-spy server domain to the whitelist of the miniprogram http and websocket requests. Note that the miniprogram requires https and wss protocols, except for the development environment.",
+      "install-sdk": "First, install dependencies in the project:",
+      "init-sdk": "<0>Import the SDK in the entry file and initialize it，check the </0> <1>configuration options</1>："
+    },
+    "mp-uniapp": {
       "title": "Mini Program",
       "request-host": "Add the page-spy server domain to the whitelist of the miniprogram http and websocket requests. Note that the miniprogram requires https and wss protocols, except for the development environment.",
       "install-sdk": "First, install dependencies in the project:",

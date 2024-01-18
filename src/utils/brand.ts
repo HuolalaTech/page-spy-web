@@ -2,6 +2,7 @@
 import windowsSvg from '@/assets/image/windows.svg';
 import iOSSvg from '@/assets/image/apple.svg';
 import androidSvg from '@/assets/image/android.svg';
+import harmonySvg from '@/assets/image/harmony.svg';
 import linuxSvg from '@/assets/image/linux.svg';
 import pcSvg from '@/assets/image/pc.svg';
 // browser
@@ -15,6 +16,7 @@ import firefoxSvg from '@/assets/image/firefox.svg';
 import safariSvg from '@/assets/image/safari.svg';
 import browserSvg from '@/assets/image/browser.svg';
 import mpWechatSvg from '@/assets/image/miniprogram.svg';
+import mpAlipaySvg from '@/assets/image/alipay.svg';
 import uniSvg from '@/assets/image/uni.svg';
 import { SpyDevice } from '@huolala-tech/page-spy-types';
 import { useSocketMessageStore } from '@/store/socket-message';
@@ -29,7 +31,7 @@ interface DeviceInfo {
   browserLogo?: string;
 }
 
-export const OS_LOGO: Record<Exclude<SpyDevice.OS, 'unknown'>, string> = {
+export const OS_LOGO: Record<SpyDevice.OS, string> = {
   // os
   ios: iOSSvg,
   ipad: iOSSvg,
@@ -37,49 +39,47 @@ export const OS_LOGO: Record<Exclude<SpyDevice.OS, 'unknown'>, string> = {
   windows: windowsSvg,
   android: androidSvg,
   linux: linuxSvg,
-  harmony: androidSvg,
+  harmony: harmonySvg,
+  unknown: pcSvg,
 };
-export const BROWSER_LOGO: Record<
-  Exclude<SpyDevice.Browser, 'unknown'>,
-  string
+
+export const BROWSER_CONFIG: Record<
+  SpyDevice.Browser,
+  {
+    logo: string;
+    name: string;
+  }
 > = {
-  // browser
-  chrome: chromeSvg,
-  firefox: firefoxSvg,
-  safari: safariSvg,
-  edge: edgeSvg,
-  'mp-wechat': mpWechatSvg,
-  'mp-alipay': mpWechatSvg,
-  'mp-douyin': mpWechatSvg,
-  wechat: wechatSvg,
-  qq: qqSvg,
-  uc: ucSvg,
-  baidu: baiduSvg,
-  // TODO uniapp
+  chrome: {
+    logo: chromeSvg,
+    name: 'Chrome',
+  },
+  firefox: {
+    logo: firefoxSvg,
+    name: 'Firefox',
+  },
+  safari: { logo: safariSvg, name: 'Safari' },
+  edge: { logo: edgeSvg, name: 'Edge' },
+  'mp-wechat': { logo: mpWechatSvg, name: t('common.mpwechat') },
+  'mp-alipay': { logo: mpAlipaySvg, name: t('common.mpalipay') },
+  'mp-douyin': { logo: mpWechatSvg, name: t('common.mpdoyin') },
+  wechat: { logo: wechatSvg, name: 'WeChat' },
+  qq: { logo: qqSvg, name: 'QQ' },
+  uc: { logo: ucSvg, name: 'UC' },
+  baidu: { logo: baiduSvg, name: 'Baidu' },
+  unknown: { logo: pcSvg, name: 'Unknown' },
 };
 
-export const getBrowserLogo = (browser: string) => {
-  return (
-    Object.entries(BROWSER_LOGO).find(([key, value]) => {
-      return key.toLowerCase() === browser.toLowerCase();
-    })?.[1] || browserSvg
-  );
+export const getBrowserLogo = (browser: SpyDevice.Browser) => {
+  return BROWSER_CONFIG[browser]?.logo || browserSvg;
 };
 
-export const getOSLogo = (os: string) => {
-  return (
-    Object.entries(OS_LOGO).find(([key, value]) => {
-      return key.toLowerCase() === os.toLowerCase();
-    })?.[1] || pcSvg
-  );
+export const getOSLogo = (os: SpyDevice.OS) => {
+  return OS_LOGO[os] || pcSvg;
 };
 
-export const getBrowserName = (browser: string) => {
-  return (
-    {
-      MPWeChat: t('common.mpwechat'),
-    }[browser] || browser
-  );
+export const getBrowserName = (browser: SpyDevice.Browser) => {
+  return BROWSER_CONFIG[browser]?.name || 'Unknown';
 };
 
 export const parseDeviceInfo = (device: string): DeviceInfo => {
@@ -99,9 +99,8 @@ export const parseDeviceInfo = (device: string): DeviceInfo => {
     osVersion,
     browserName,
     browserVersion,
-    osLogo: getOSLogo(osName),
-    browserLogo:
-      BROWSER_LOGO[browserName as keyof typeof BROWSER_LOGO] || browserSvg,
+    osLogo: getOSLogo(osName as any),
+    browserLogo: getBrowserLogo(browserName as any),
   } as DeviceInfo;
 };
 
