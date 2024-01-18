@@ -23,7 +23,12 @@ import './index.less';
 import { StoragePanel } from './StoragePanel';
 import useSearch from '@/utils/useSearch';
 import { useEventListener } from '@/utils/useEventListener';
-import { parseDeviceInfo, useClientInfo } from '@/utils/brand';
+import {
+  getBrowserName,
+  getOSName,
+  parseDeviceInfo,
+  useClientInfo,
+} from '@/utils/brand';
 import { useTranslation } from 'react-i18next';
 import { ConnectStatus } from './ConnectStatus';
 import { useSocketMessageStore } from '@/store/socket-message';
@@ -239,7 +244,7 @@ const ClientInfo = memo(() => {
           title={
             <>
               <span>
-                {t('system')}: {clientInfo?.osName}
+                {t('system')}: {getOSName(clientInfo?.osName || '')}
               </span>
               <br />
               <span>
@@ -257,7 +262,7 @@ const ClientInfo = memo(() => {
           title={
             <>
               <span>
-                {t('browser')}: {clientInfo?.browserName}
+                {t('browser')}: {getBrowserName(clientInfo?.browserName || '')}
               </span>
               <br />
               <span>

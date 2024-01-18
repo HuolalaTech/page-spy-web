@@ -23,57 +23,69 @@ import { useSocketMessageStore } from '@/store/socket-message';
 import { t } from 'i18next';
 
 interface DeviceInfo {
-  osName: SpyDevice.OS | 'Unknown';
+  osName: SpyDevice.OS;
   osVersion: string;
-  browserName: SpyDevice.Browser | 'Unknown';
+  browserName: SpyDevice.Browser;
   browserVersion: string;
   osLogo?: string;
   browserLogo?: string;
 }
 
-export const OS_LOGO: Record<SpyDevice.OS, string> = {
-  // os
-  ios: iOSSvg,
-  ipad: iOSSvg,
-  mac: pcSvg,
-  windows: windowsSvg,
-  android: androidSvg,
-  linux: linuxSvg,
-  harmony: harmonySvg,
-  unknown: pcSvg,
+export const OS_CONFIG: Record<
+  SpyDevice.OS,
+  {
+    logo: string;
+    label: string;
+  }
+> = {
+  ios: { logo: iOSSvg, label: 'iOS' },
+  ipad: { logo: iOSSvg, label: 'iPad' },
+  mac: { logo: pcSvg, label: 'macOS' },
+  windows: { logo: windowsSvg, label: 'Windows' },
+  linux: { logo: linuxSvg, label: 'Linux' },
+  android: { logo: androidSvg, label: 'Android' },
+  harmony: { logo: harmonySvg, label: 'HarmonyOS' },
+  unknown: { logo: pcSvg, label: 'Unknown' },
 };
 
 export const BROWSER_CONFIG: Record<
   SpyDevice.Browser,
   {
     logo: string;
-    name: string;
+    label: string;
   }
 > = {
-  chrome: { logo: chromeSvg, name: 'Chrome' },
-  firefox: { logo: firefoxSvg, name: 'Firefox' },
-  safari: { logo: safariSvg, name: 'Safari' },
-  edge: { logo: edgeSvg, name: 'Edge' },
-  'mp-wechat': { logo: mpWechatSvg, name: t('common.mpwechat') },
-  'mp-alipay': { logo: mpAlipaySvg, name: t('common.mpalipay') },
-  'mp-douyin': { logo: mpWechatSvg, name: t('common.mpdoyin') },
-  wechat: { logo: wechatSvg, name: 'WeChat' },
-  qq: { logo: qqSvg, name: 'QQ' },
-  uc: { logo: ucSvg, name: 'UC' },
-  baidu: { logo: baiduSvg, name: 'Baidu' },
-  unknown: { logo: pcSvg, name: 'Unknown' },
+  chrome: { logo: chromeSvg, label: 'Chrome' },
+  firefox: { logo: firefoxSvg, label: 'Firefox' },
+  safari: { logo: safariSvg, label: 'Safari' },
+  edge: { logo: edgeSvg, label: 'Edge' },
+  'mp-wechat': { logo: mpWechatSvg, label: t('common.mpwechat') },
+  'mp-alipay': { logo: mpAlipaySvg, label: t('common.mpalipay') },
+  'mp-douyin': { logo: mpWechatSvg, label: t('common.mpdoyin') },
+  wechat: { logo: wechatSvg, label: 'WeChat' },
+  qq: { logo: qqSvg, label: 'QQ' },
+  uc: { logo: ucSvg, label: 'UC' },
+  baidu: { logo: baiduSvg, label: 'Baidu' },
+  unknown: { logo: pcSvg, label: 'Unknown' },
+};
+
+export const getOSName = (os: string) => {
+  return OS_CONFIG[os.toLowerCase() as SpyDevice.OS]?.label || pcSvg;
+};
+
+export const getOSLogo = (os: string) => {
+  return OS_CONFIG[os.toLowerCase() as SpyDevice.OS]?.logo || pcSvg;
+};
+
+export const getBrowserName = (browser: string) => {
+  return (
+    BROWSER_CONFIG[browser.toLowerCase() as SpyDevice.Browser]?.label ||
+    'Unknown'
+  );
 };
 
 export const getBrowserLogo = (browser: SpyDevice.Browser) => {
   return BROWSER_CONFIG[browser]?.logo || browserSvg;
-};
-
-export const getOSLogo = (os: SpyDevice.OS) => {
-  return OS_LOGO[os] || pcSvg;
-};
-
-export const getBrowserName = (browser: SpyDevice.Browser) => {
-  return BROWSER_CONFIG[browser]?.name || 'Unknown';
 };
 
 export const parseDeviceInfo = (device: string): DeviceInfo => {
@@ -81,20 +93,20 @@ export const parseDeviceInfo = (device: string): DeviceInfo => {
   const result = device.match(reg);
   if (result === null)
     return {
-      osName: 'Unknown',
-      osVersion: 'Unknown',
-      browserName: 'Unknown',
-      browserVersion: 'Unknown',
+      osName: 'unknown',
+      osVersion: 'unknown',
+      browserName: 'unknown',
+      browserVersion: 'unknown',
     };
 
   const [_, osName, osVersion, browserName, browserVersion] = result;
   return {
-    osName,
+    osName: osName.toLowerCase(),
     osVersion,
-    browserName,
+    browserName: browserName.toLowerCase(),
     browserVersion,
-    osLogo: getOSLogo(osName as any),
-    browserLogo: getBrowserLogo(browserName as any),
+    osLogo: getOSLogo(osName.toLowerCase() as any),
+    browserLogo: getBrowserLogo(browserName.toLowerCase() as any),
   } as DeviceInfo;
 };
 
@@ -103,10 +115,14 @@ export function useClientInfo() {
   const system = systemMsg?.[0]?.system;
   if (system) {
     return {
-      ...system,
+      // ...system,
+      browserName: system.browserName.toLowerCase(),
+      browserVersion: system.browserVersion,
+      osName: system.osName.toLowerCase(),
+      osVersion: system.osVersion,
       osLogo: getOSLogo(system.osName),
       browserLogo: getBrowserLogo(system.browserName),
-    };
+    } as DeviceInfo;
   }
   return null;
 }
