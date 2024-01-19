@@ -32,12 +32,13 @@ interface DeviceInfo {
 }
 
 export const OS_CONFIG: Record<
-  SpyDevice.OS,
+  SpyDevice.OS | 'iphone',
   {
     logo: string;
     label: string;
   }
 > = {
+  iphone: { logo: iOSSvg, label: 'iOS' }, // TODO: iphone is not an os, to be removed by sdk.
   ios: { logo: iOSSvg, label: 'iOS' },
   ipad: { logo: iOSSvg, label: 'iPad' },
   mac: { logo: iOSSvg, label: 'macOS' },
@@ -70,7 +71,7 @@ export const BROWSER_CONFIG: Record<
 };
 
 export const getOSName = (os: string) => {
-  return OS_CONFIG[os.toLowerCase() as SpyDevice.OS]?.label || pcSvg;
+  return OS_CONFIG[os.toLowerCase() as SpyDevice.OS]?.label || 'Unknown';
 };
 
 export const getOSLogo = (os: string) => {
