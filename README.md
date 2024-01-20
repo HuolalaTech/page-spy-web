@@ -5,14 +5,12 @@
 [release-url]: https://github.com/HuolalaTech/page-spy-web/blob/release/package.json
 [download-img]: https://img.shields.io/npm/dw/%40huolala-tech/page-spy-api
 [download-url]: https://www.npmjs.com/package/@huolala-tech/page-spy-api
-[browser-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-browser?logo=html5&label=version
+[browser-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-browser?label=page-spy-browser&color=orange
 [browser-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-browser
-[browser-min-img]: https://img.shields.io/bundlephobia/min/@huolala-tech/page-spy-browser?logo=html5&label=size
-[browser-min-url]: https://unpkg.com/browse/@huolala-tech/page-spy/dist/index.min.js
-[wechat-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-wechat?logo=wechat&label=version
+[uniapp-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-uniapp?label=page-spy-uniapp&color=#2B993A
+[uniapp-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-uniapp
+[wechat-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-wechat?label=page-spy-wechat&color=#0CC160
 [wechat-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-wechat
-[wechat-min-img]: https://img.shields.io/bundlephobia/min/@huolala-tech/page-spy-wechat?logo=wechat&label=size
-[wechat-min-url]: https://unpkg.com/browse/@huolala-tech/page-spy-wechat/dist/index.min.js
 [sdk-build-img]: https://img.shields.io/github/actions/workflow/status/HuolalaTech/page-spy/coveralls.yml?logo=github&label=build
 [sdk-build-url]: https://github.com/HuolalaTech/page-spy/actions/workflows/coveralls.yml
 [sdk-coveralls-img]: https://img.shields.io/coverallsCoverage/github/HuolalaTech/page-spy?label=coverage&logo=coveralls
@@ -32,9 +30,8 @@
 [![Build Status][sdk-build-img]][sdk-build-url]
 [![Coverage Status][sdk-coveralls-img]][sdk-coveralls-url] <br />
 [![Browser version][browser-ver-img]][browser-ver-url]
-[![Browser size][browser-min-img]][browser-min-url]
-[![Wechat version][wechat-ver-img]][wechat-ver-url]
-[![Wechat size][wechat-min-img]][wechat-min-url] <br />
+[![UniApp version][uniapp-ver-img]][uniapp-ver-url]
+[![Wechat version][wechat-ver-img]][wechat-ver-url] <br />
 [![API Version][api-ver-img]][api-ver-url]
 [![Go Version][api-go-img]][api-go-url]
 

@@ -14,6 +14,10 @@
     "device-id": "デバイスID",
     "os": "オペレーティング システム",
     "browser": "ブラウザ",
+    "miniprogram": "Mini Program",
+    "mpwechat": "WeChat Mini Program",
+    "mpalipay": "Alipay Mini Program",
+    "mpdouyin": "Douyin Mini Program",
     "project": "プロジェクト",
     "debug": "デバッグ",
     "title": "タイトル"
@@ -31,8 +35,14 @@
       "load-sdk": "テストプロジェクトで <script> をロードする；",
       "init-sdk": "<0>次に、初期化し、</0> <1>構成オプション</1> を確認します："
     },
-    "miniprogram": {
-      "title": "Mini Program",
+    "mp-wechat": {
+      "title": "WeChat Mini Program",
+      "request-host": "page-spy サービスドメインを小プログラムのhttp、websocketリクエストのホワイトリストに入力します。開発環境以外では、小プログラムはhttpsとwssプロトコルの使用を強制しますので注意してください。",
+      "install-sdk": "まず、プロジェクトに依存関係をインストールします：",
+      "init-sdk": "<0>エントリーファイルでSDKをインポートし、インスタンス化します。</0> <1>構成オプション</1> を確認します："
+    },
+    "mp-uniapp": {
+      "title": "UniApp",
       "request-host": "page-spy サービスドメインを小プログラムのhttp、websocketリクエストのホワイトリストに入力します。開発環境以外では、小プログラムはhttpsとwssプロトコルの使用を強制しますので注意してください。",
       "install-sdk": "まず、プロジェクトに依存関係をインストールします：",
       "init-sdk": "<0>エントリーファイルでSDKをインポートし、インスタンス化します。</0> <1>構成オプション</1> を確認します："
