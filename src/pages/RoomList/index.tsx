@@ -3,8 +3,7 @@ import {
   OS_CONFIG,
   getBrowserLogo,
   getBrowserName,
-  getOSName,
-  parseDeviceInfo,
+  parseUserAgent,
 } from '@/utils/brand';
 import { useRequest } from 'ahooks';
 import {
@@ -57,8 +56,11 @@ const filterConnections = (
     })
     .filter((i) => i.address.slice(0, 4).includes(address || ''))
     .filter(({ name }) => {
-      const { osName, browserName } = parseDeviceInfo(name);
-      return osName.includes(os) && browserName.includes(browser);
+      const clientInfo = parseUserAgent(name);
+      return (
+        (!os || clientInfo.os.type === os) &&
+        (!browser || clientInfo.browser.type === browser)
+      );
     });
 };
 
@@ -171,14 +173,7 @@ export const RoomList = () => {
       <Row gutter={24}>
         {list.map(({ address, name, connections, group, tags }) => {
           const simpleAddress = address.slice(0, 4);
-          const {
-            osName,
-            osVersion,
-            osLogo,
-            browserName,
-            browserVersion,
-            browserLogo,
-          } = parseDeviceInfo(name);
+          const { os, browser } = parseUserAgent(name);
           const client = connections.find(({ userId }) => userId === 'Client');
 
           return (
@@ -207,19 +202,15 @@ export const RoomList = () => {
                   </Col>
                   <Col flex={1}>
                     <ConnDetailItem title="OS">
-                      <Tooltip title={`${getOSName(osName)} ${osVersion}`}>
-                        <img src={osLogo} alt="os logo" />
+                      <Tooltip title={`${os.name} ${os.version}`}>
+                        <img src={os.logo} alt="os logo" />
                       </Tooltip>
                     </ConnDetailItem>
                   </Col>
                   <Col flex={1}>
                     <ConnDetailItem title="Browser">
-                      <Tooltip
-                        title={`${getBrowserName(
-                          browserName,
-                        )} ${browserVersion}`}
-                      >
-                        <img src={browserLogo} alt="browser logo" />
+                      <Tooltip title={`${browser.name} ${browser.version}`}>
+                        <img src={browser.logo} alt="browser logo" />
                       </Tooltip>
                     </ConnDetailItem>
                   </Col>

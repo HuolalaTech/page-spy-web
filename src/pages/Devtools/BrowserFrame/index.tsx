@@ -10,7 +10,7 @@ import { Button, Space, Spin } from 'antd';
 import { ElementPanel } from '../ElementPanel';
 import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
-import { useClientInfo } from '@/utils/brand';
+import { useClientInfoFromMsg } from '@/utils/brand';
 
 function getTime() {
   const date = new Date();
@@ -98,10 +98,10 @@ export const PCFrame = ({
 
   const [enableDevice, setEnableDevice] = useState(false);
 
-  const clientInfo = useClientInfo();
+  const clientInfo = useClientInfoFromMsg();
   useEffect(() => {
     if (!clientInfo) return;
-    if (['iPhone', 'iPad', 'Android'].indexOf(clientInfo.osName) >= 0) {
+    if (['ios', 'ipad', 'android'].indexOf(clientInfo.os.type) >= 0) {
       setEnableDevice(true);
     }
   }, [clientInfo]);

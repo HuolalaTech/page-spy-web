@@ -1,4 +1,4 @@
-import { useClientInfo } from '@/utils/brand';
+import { useClientInfoFromMsg } from '@/utils/brand';
 import { ReactComponent as StorageSvg } from '@/assets/image/storage.svg';
 import { ReactComponent as CookieSvg } from '@/assets/image/cookie.svg';
 import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
@@ -44,8 +44,8 @@ const STORAGE_TYPES: {
 ];
 
 export const useStorageTypes = () => {
-  const systemInfo = useClientInfo();
+  const clientInfo = useClientInfoFromMsg();
   return STORAGE_TYPES.filter((s) => {
-    return s.visible(systemInfo?.browserName);
+    return s.visible(clientInfo?.browser.type);
   });
 };
