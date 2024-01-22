@@ -1,0 +1,45 @@
+.play-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  .play-action {
+    font-size: 32px;
+    color: @primary-color;
+    transition: color transform ease-in-out 0.1s;
+    cursor: pointer;
+    &:active {
+      color: fade(@primary-color, 65%);
+      transform: scale(0.95);
+    }
+  }
+  .play-progress {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    .play-timeline {
+      flex: 1;
+      position: relative;
+      height: 8px;
+      background-color: fade(@primary-color, 30%);
+      border-radius: 999px;
+      cursor: pointer;
+      .play-current-point {
+        @size: 18px;
+        position: absolute;
+        width: @size;
+        height: @size;
+        left: 0;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 999px;
+        background-color: @primary-color;
+        &:hover {
+          width: @size * 1.1;
+          height: @size * 1.1;
+        }
+      }
+    }
+  }
+}
