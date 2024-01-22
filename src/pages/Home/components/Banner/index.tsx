@@ -1,7 +1,6 @@
 import { ArrowRightOutlined, GithubOutlined } from '@ant-design/icons';
 import { Row, Col, Button, Space } from 'antd';
 import './index.less';
-import { SelectRoom } from '@/components/SelectRoom';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 

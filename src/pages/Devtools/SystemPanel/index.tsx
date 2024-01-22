@@ -4,11 +4,13 @@ import './index.less';
 import { FeatureItem } from './FeatureItem';
 import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
+import { useClientInfoFromMsg } from '@/utils/brand';
 
 const { Title } = Typography;
 
 const SystemPanel = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'system' });
+  const clientInfo = useClientInfoFromMsg();
   const systemMsg = useSocketMessageStore((state) => state.systemMsg);
   const { features, system } = systemMsg[0] || {};
   const noSupport = useMemo(() => {
@@ -37,13 +39,13 @@ const SystemPanel = memo(() => {
                 <Col span={5} className="system-info__label">
                   System:
                 </Col>
-                <Col className="system-info__value">{`${system.osName}/${system.osVersion}`}</Col>
+                <Col className="system-info__value">{`${clientInfo?.os.name}/${clientInfo?.os.version}`}</Col>
               </Row>
               <Row>
                 <Col span={5} className="system-info__label">
                   Browser:
                 </Col>
-                <Col className="system-info__value">{`${system.browserName}/${system.browserVersion}`}</Col>
+                <Col className="system-info__value">{`${clientInfo?.browser.name}/${clientInfo?.browser.version}`}</Col>
               </Row>
               <Row wrap={false}>
                 <Col span={5} className="system-info__label">

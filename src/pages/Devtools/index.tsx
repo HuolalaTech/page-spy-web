@@ -23,12 +23,7 @@ import './index.less';
 import { StoragePanel } from './StoragePanel';
 import useSearch from '@/utils/useSearch';
 import { useEventListener } from '@/utils/useEventListener';
-import {
-  getBrowserName,
-  getOSName,
-  parseDeviceInfo,
-  useClientInfo,
-} from '@/utils/brand';
+import { parseUserAgent, useClientInfoFromMsg } from '@/utils/brand';
 import { useTranslation } from 'react-i18next';
 import { ConnectStatus } from './ConnectStatus';
 import { useSocketMessageStore } from '@/store/socket-message';
@@ -109,7 +104,7 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
     }));
   }, [active]);
 
-  const clientInfo = useClientInfo();
+  const clientInfo = useClientInfoFromMsg();
 
   const menuItems = useMemo(() => {
     if (!clientInfo) return [];
@@ -117,7 +112,7 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
       .filter(([key, item]) => {
         // Menu filter by some conditions``
         return (
-          !item.visible || item.visible({ browser: clientInfo.browserName })
+          !item.visible || item.visible({ browser: clientInfo.browser.type })
         );
       })
       .map(([key, item]) => {
@@ -176,10 +171,11 @@ const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
       data
         ?.filter((item) => item.name && item.address)
         .map((item) => {
-          const { osLogo, browserLogo } = parseDeviceInfo(item.name);
+          console.log(item);
+          const clientInfo = parseUserAgent(item.name);
           return {
-            osLogo,
-            browserLogo,
+            osLogo: clientInfo.os.logo,
+            browserLogo: clientInfo.browser.logo,
             name: item.name,
             address: item.address,
             group: item.group,
@@ -232,7 +228,7 @@ const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
 const ClientInfo = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
   const { address = '' } = useSearch();
-  const clientInfo = useClientInfo();
+  const clientInfo = useClientInfoFromMsg();
 
   return (
     <div className="client-info">
@@ -244,17 +240,17 @@ const ClientInfo = memo(() => {
           title={
             <>
               <span>
-                {t('system')}: {getOSName(clientInfo?.osName || '')}
+                {t('system')}: {clientInfo?.os.name}
               </span>
               <br />
               <span>
-                {t('version')}: {clientInfo?.osVersion}
+                {t('version')}: {clientInfo?.os.version}
               </span>
             </>
           }
         >
           <Col span={11}>
-            <img className="client-info__logo" src={clientInfo?.osLogo} />
+            <img className="client-info__logo" src={clientInfo?.os.logo} />
           </Col>
         </Tooltip>
         <Divider type="vertical" />
@@ -262,17 +258,17 @@ const ClientInfo = memo(() => {
           title={
             <>
               <span>
-                {t('browser')}: {getBrowserName(clientInfo?.browserName || '')}
+                {t('browser')}: {clientInfo?.browser.name}
               </span>
               <br />
               <span>
-                {t('version')}: {clientInfo?.browserVersion}
+                {t('version')}: {clientInfo?.browser.version}
               </span>
             </>
           }
         >
           <Col span={11}>
-            <img className="client-info__logo" src={clientInfo?.browserLogo} />
+            <img className="client-info__logo" src={clientInfo?.browser.logo} />
           </Col>
         </Tooltip>
       </Row>

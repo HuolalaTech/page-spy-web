@@ -10,9 +10,13 @@ declare namespace I {
     connections: SpyConnection[];
     address: string;
     group: string;
-    name: string;
+    name: string; // TODO this `name` is used for browser and os info, should be reconsidered.
     password: string;
-    tags: Record<string, any>;
+    tags: {
+      ua?: string;
+
+      [others: string]: any;
+    };
   }
 
   export interface SpyRoomList {
