@@ -7,14 +7,7 @@
     <title>PageSpy</title>
     <link rel="icon" href="/favicon.ico" />
     <link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg" />
-    <script src="/sdk.js"></script>
     <script>
-      new PageSpy({
-        api: 'page-spy-web-v.huolala.work',
-        project: 'pagespyweb',
-        title: 'sss',
-        enableSSL: true
-      })
       // Resolve the correct address from different deployment base paths.
       const base = location.pathname.endsWith('/')
         ? location.pathname.slice(0, -1)
