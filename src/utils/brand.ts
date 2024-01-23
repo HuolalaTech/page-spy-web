@@ -16,7 +16,15 @@ import firefoxSvg from '@/assets/image/firefox.svg';
 import safariSvg from '@/assets/image/safari.svg';
 import browserSvg from '@/assets/image/browser.svg';
 import mpWechatSvg from '@/assets/image/miniprogram.svg';
-import mpAlipaySvg from '@/assets/image/alipay.svg';
+import mpQQSvg from '@/assets/image/mp-qq.svg';
+import mpDouyinSvg from '@/assets/image/mp-douyin.svg';
+import mpJDSvg from '@/assets/image/mp-jd.svg';
+import mpKuaishouSvg from '@/assets/image/mp-kuaishou.svg';
+import mpBaiduSvg from '@/assets/image/mp-baidu.svg';
+import mpFeishuSvg from '@/assets/image/mp-feishu.svg';
+import mpDingtalkSvg from '@/assets/image/mp-dingtalk.svg';
+import mpAlipaySvg from '@/assets/image/mp-alipay.svg';
+
 import uniSvg from '@/assets/image/uni.svg';
 import { SpyDevice } from '@huolala-tech/page-spy-types';
 import { useSocketMessageStore } from '@/store/socket-message';
@@ -71,14 +79,26 @@ export const BROWSER_CONFIG: Record<
   firefox: { logo: firefoxSvg, label: 'Firefox' },
   safari: { logo: safariSvg, label: 'Safari' },
   edge: { logo: edgeSvg, label: 'Edge' },
-  'mp-wechat': { logo: mpWechatSvg, label: t('common.mpwechat') },
-  'mp-alipay': { logo: mpAlipaySvg, label: t('common.mpalipay') },
-  'mp-douyin': { logo: mpWechatSvg, label: t('common.mpdoyin') },
   wechat: { logo: wechatSvg, label: 'WeChat' },
   qq: { logo: qqSvg, label: 'QQ' },
   uc: { logo: ucSvg, label: 'UC' },
   baidu: { logo: baiduSvg, label: 'Baidu' },
   unknown: { logo: pcSvg, label: 'Unknown' },
+  'mp-wechat': { logo: mpWechatSvg, label: t('common.mpwechat') },
+  'mp-qq': { logo: mpQQSvg, label: t('common.mpqq') },
+  'mp-alipay': { logo: mpAlipaySvg, label: t('common.mpalipay') },
+  'mp-douyin': { logo: mpDouyinSvg, label: t('common.mpdouyin') },
+  'mp-toutiao': { logo: mpDouyinSvg, label: t('common.mptoutiao') },
+  'mp-baidu': { logo: mpBaiduSvg, label: t('common.mpbaidu') },
+  'mp-lark': { logo: mpFeishuSvg, label: t('common.mpfeishu') },
+  'mp-kuaishou': { logo: mpKuaishouSvg, label: t('common.mpkuaishou') },
+  'mp-jd': { logo: mpJDSvg, label: t('common.mpjd') },
+  'mp-toutiao-lt': { logo: mpDouyinSvg, label: t('common.mptoutiaolt') },
+  'mp-douyin-lt': { logo: mpDouyinSvg, label: t('common.mpdouyinlt') },
+  'mp-huoshan': { logo: mpDouyinSvg, label: t('common.mphuoshan') },
+  'mp-xigua': { logo: mpDouyinSvg, label: t('common.mpxigua') },
+  'mp-ppx': { logo: mpDouyinSvg, label: t('common.mpppx') },
+  'mp-dingtalk': { logo: mpDingtalkSvg, label: t('common.mpdingtalk') },
 };
 
 export const getOSName = (os: string) => {
@@ -122,7 +142,7 @@ const MPTypes: SpyDevice.MPType[] = [
 const MP_REGEXPS = {} as Record<SpyDevice.MPType, RegExp>;
 
 MPTypes.forEach((mpType) => {
-  MP_REGEXPS[mpType] = new RegExp(`${mpType}/([\d.]+)`);
+  MP_REGEXPS[mpType] = new RegExp(`${mpType}/([\\d.]+)`);
 });
 
 const BROWSER_REGEXPS = {
@@ -139,7 +159,7 @@ const BROWSER_REGEXPS = {
 
 const OS_REGEXPS = {
   windows: /Windows NT ([\d_.]+)/,
-  ios: /iPhone OS ([\d_.]+)/,
+  ios: /(iPhone OS|ios) ([\d_.]+)/,
   ipad: /iPad.*OS ([\d_.]+)/,
   mac: /Mac OS X ([\d_.]+)/,
   android: /Android ([\d_.]+)/,
