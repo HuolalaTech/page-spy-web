@@ -10,8 +10,7 @@ import { Button, Space, Spin } from 'antd';
 import { ElementPanel } from '../ElementPanel';
 import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
-import { resolveClientInfo } from '@/utils/brand';
-import useSearch from '@/utils/useSearch';
+import { useClientInfo } from '@/utils/brand';
 
 function getTime() {
   const date = new Date();
@@ -98,13 +97,14 @@ export const PCFrame = ({
   }, [elementVisible]);
 
   const [enableDevice, setEnableDevice] = useState(false);
-  const { version } = useSearch();
+
+  const clientInfo = useClientInfo();
   useEffect(() => {
-    const { osName } = resolveClientInfo(version);
-    if (['iPhone', 'iPad', 'Android'].indexOf(osName) >= 0) {
+    if (!clientInfo) return;
+    if (['iPhone', 'iPad', 'Android'].indexOf(clientInfo.osName) >= 0) {
       setEnableDevice(true);
     }
-  }, [version]);
+  }, [clientInfo]);
 
   return (
     <div className="pc-frame" ref={containerRef}>

@@ -9,7 +9,7 @@ import {
   SpyPage,
   SpyStorage,
   SpyDatabase,
-} from '@huolala-tech/page-spy';
+} from '@huolala-tech/page-spy-types';
 import { API_BASE_URL } from '@/apis/request';
 import { resolveProtocol } from '@/utils';
 import { ElementContent } from 'hast';
@@ -58,6 +58,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     localStorage: [],
     sessionStorage: [],
     cookie: [],
+    mpStorage: [],
   },
   databaseMsg: {
     basicInfo: null,
@@ -65,11 +66,14 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
   },
   initSocket: (room: string) => {
     if (!room) return;
+    const address = decodeURIComponent(room).split('#')[0] ?? '';
+    if (!address) return;
+
     const _socket = get().socket;
     if (_socket) return;
 
     const [, protocol] = resolveProtocol();
-    const url = `${protocol}${API_BASE_URL}/api/v1/ws/room/join?address=${room}&userId=${USER_ID}`;
+    const url = `${protocol}${API_BASE_URL}/api/v1/ws/room/join?address=${address}&userId=${USER_ID}`;
 
     const socket = new SocketStore(url);
     set({ socket });

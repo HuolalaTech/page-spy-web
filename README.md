@@ -5,20 +5,20 @@
 [release-url]: https://github.com/HuolalaTech/page-spy-web/blob/release/package.json
 [download-img]: https://img.shields.io/npm/dw/%40huolala-tech/page-spy-api
 [download-url]: https://www.npmjs.com/package/@huolala-tech/page-spy-api
-[sdk-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy?label=SDK%20version
-[sdk-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy
+[browser-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-browser?label=page-spy-browser&color=orange
+[browser-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-browser
+[uniapp-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-uniapp?label=page-spy-uniapp&color=#2B993A
+[uniapp-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-uniapp
+[wechat-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-wechat?label=page-spy-wechat&color=#0CC160
+[wechat-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-wechat
 [sdk-build-img]: https://img.shields.io/github/actions/workflow/status/HuolalaTech/page-spy/coveralls.yml?logo=github&label=build
 [sdk-build-url]: https://github.com/HuolalaTech/page-spy/actions/workflows/coveralls.yml
-[sdk-coveralls-img]: https://img.shields.io/coverallsCoverage/github/HuolalaTech/page-spy?label=coverage
+[sdk-coveralls-img]: https://img.shields.io/coverallsCoverage/github/HuolalaTech/page-spy?label=coverage&logo=coveralls
 [sdk-coveralls-url]: https://coveralls.io/github/HuolalaTech/page-spy?branch=main
-[sdk-min-img]: https://img.shields.io/bundlephobia/min/@huolala-tech/page-spy?label=minfied%20size
-[sdk-min-url]: https://unpkg.com/browse/@huolala-tech/page-spy/dist/index.min.js
 [api-ver-img]: https://img.shields.io/github/v/tag/HuolalaTech/page-spy-api?label=API%20version
 [api-ver-url]: https://github.com/HuolalaTech/page-spy-api/tags
 [api-go-img]: https://img.shields.io/github/go-mod/go-version/HuolalaTech/page-spy-api?label=go
 [api-go-url]: https://github.com/HuolalaTech/page-spy-api/blob/master/go.mod
-[telegram-img]: https://img.shields.io/badge/Join-Telegram-blue?logo=telegram
-[telegram-url]: https://t.me/pagespy
 
 <div align="center">
   <img src="./logo.svg" height="100" />
@@ -27,10 +27,11 @@
 
 [![Release][release-img]][release-url]
 [![license][license-img]][license-url] <br />
-[![NPM SDK][sdk-ver-img]][sdk-ver-url]
 [![Build Status][sdk-build-img]][sdk-build-url]
-[![Coverage Status][sdk-coveralls-img]][sdk-coveralls-url]
-[![SDK size][sdk-min-img]][sdk-min-url] <br />
+[![Coverage Status][sdk-coveralls-img]][sdk-coveralls-url] <br />
+[![Browser version][browser-ver-img]][browser-ver-url]
+[![UniApp version][uniapp-ver-img]][uniapp-ver-url]
+[![Wechat version][wechat-ver-img]][wechat-ver-url] <br />
 [![API Version][api-ver-img]][api-ver-url]
 [![Go Version][api-go-img]][api-go-url]
 
@@ -71,7 +72,7 @@ In order to ensure data security and facilitate your usage, we offer comprehensi
 > <a href="https://www.youtube.com/watch?v=AYD84Kht5yA" target="_blank"><img src="./.github/assets/video-docker-en.jpg" width="320" /></a>
 
 ```bash
-docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
+docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
 ```
 
 Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
@@ -83,11 +84,11 @@ Once the deployment is successful, you can open the browser and access `<host>:6
 > <a href="https://www.youtube.com/watch?v=5zVnFPjursQ" target="_blank"><img src="./.github/assets/video-node-en.jpg" width="320" /></a>
 
 ```bash
-yarn global add @huolala-tech/page-spy-api
+yarn global add @huolala-tech/page-spy-api@latest
 
 # if you use npm
 
-npm install -g @huolala-tech/page-spy-api
+npm install -g @huolala-tech/page-spy-api@latest
 ```
 
 After the download is complete, you can directly execute `page-spy-api` in the command line to start the service. Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.

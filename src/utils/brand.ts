@@ -2,6 +2,7 @@
 import windowsSvg from '@/assets/image/windows.svg';
 import iOSSvg from '@/assets/image/apple.svg';
 import androidSvg from '@/assets/image/android.svg';
+import harmonySvg from '@/assets/image/harmony.svg';
 import linuxSvg from '@/assets/image/linux.svg';
 import pcSvg from '@/assets/image/pc.svg';
 // browser
@@ -14,68 +15,115 @@ import chromeSvg from '@/assets/image/chrome.svg';
 import firefoxSvg from '@/assets/image/firefox.svg';
 import safariSvg from '@/assets/image/safari.svg';
 import browserSvg from '@/assets/image/browser.svg';
-import { SpyDevice } from '@huolala-tech/page-spy';
+import mpWechatSvg from '@/assets/image/miniprogram.svg';
+import mpAlipaySvg from '@/assets/image/alipay.svg';
+import uniSvg from '@/assets/image/uni.svg';
+import { SpyDevice } from '@huolala-tech/page-spy-types';
+import { useSocketMessageStore } from '@/store/socket-message';
+import { t } from 'i18next';
 
 interface DeviceInfo {
-  osName: SpyDevice.OS | 'Unknown';
+  osName: SpyDevice.OS;
   osVersion: string;
-  browserName: SpyDevice.Browser | 'Unknown';
+  browserName: SpyDevice.Browser;
   browserVersion: string;
+  osLogo?: string;
+  browserLogo?: string;
 }
+
+export const OS_CONFIG: Record<
+  SpyDevice.OS | 'iphone',
+  {
+    logo: string;
+    label: string;
+  }
+> = {
+  iphone: { logo: iOSSvg, label: 'iOS' }, // TODO: iphone is not an os, to be removed by sdk.
+  ios: { logo: iOSSvg, label: 'iOS' },
+  ipad: { logo: iOSSvg, label: 'iPad' },
+  mac: { logo: iOSSvg, label: 'macOS' },
+  windows: { logo: windowsSvg, label: 'Windows' },
+  linux: { logo: linuxSvg, label: 'Linux' },
+  android: { logo: androidSvg, label: 'Android' },
+  harmony: { logo: harmonySvg, label: 'HarmonyOS' },
+  unknown: { logo: pcSvg, label: 'Unknown' },
+};
+
+export const BROWSER_CONFIG: Record<
+  SpyDevice.Browser,
+  {
+    logo: string;
+    label: string;
+  }
+> = {
+  chrome: { logo: chromeSvg, label: 'Chrome' },
+  firefox: { logo: firefoxSvg, label: 'Firefox' },
+  safari: { logo: safariSvg, label: 'Safari' },
+  edge: { logo: edgeSvg, label: 'Edge' },
+  'mp-wechat': { logo: mpWechatSvg, label: t('common.mpwechat') },
+  'mp-alipay': { logo: mpAlipaySvg, label: t('common.mpalipay') },
+  'mp-douyin': { logo: mpWechatSvg, label: t('common.mpdoyin') },
+  wechat: { logo: wechatSvg, label: 'WeChat' },
+  qq: { logo: qqSvg, label: 'QQ' },
+  uc: { logo: ucSvg, label: 'UC' },
+  baidu: { logo: baiduSvg, label: 'Baidu' },
+  unknown: { logo: pcSvg, label: 'Unknown' },
+};
+
+export const getOSName = (os: string) => {
+  return OS_CONFIG[os.toLowerCase() as SpyDevice.OS]?.label || 'Unknown';
+};
+
+export const getOSLogo = (os: string) => {
+  return OS_CONFIG[os.toLowerCase() as SpyDevice.OS]?.logo || pcSvg;
+};
+
+export const getBrowserName = (browser: string) => {
+  return (
+    BROWSER_CONFIG[browser.toLowerCase() as SpyDevice.Browser]?.label ||
+    'Unknown'
+  );
+};
+
+export const getBrowserLogo = (browser: string) => {
+  return BROWSER_CONFIG[browser as SpyDevice.Browser]?.logo || browserSvg;
+};
 
 export const parseDeviceInfo = (device: string): DeviceInfo => {
   const reg = /(.*)\/(.*)\s(.*)\/(.*)/;
   const result = device.match(reg);
   if (result === null)
     return {
-      osName: 'Unknown',
-      osVersion: 'Unknown',
-      browserName: 'Unknown',
-      browserVersion: 'Unknown',
+      osName: 'unknown',
+      osVersion: 'unknown',
+      browserName: 'unknown',
+      browserVersion: 'unknown',
     };
 
   const [_, osName, osVersion, browserName, browserVersion] = result;
   return {
-    osName,
+    osName: osName.toLowerCase(),
     osVersion,
-    browserName,
+    browserName: browserName.toLowerCase(),
     browserVersion,
+    osLogo: getOSLogo(osName.toLowerCase()),
+    browserLogo: getBrowserLogo(browserName.toLowerCase()),
   } as DeviceInfo;
 };
-export const OS_LOGO: Record<Exclude<SpyDevice.OS, 'Unknown'>, string> = {
-  // os
-  Mac: iOSSvg,
-  iPad: iOSSvg,
-  iPhone: iOSSvg,
-  Windows: windowsSvg,
-  Android: androidSvg,
-  Linux: linuxSvg,
-};
-export const BROWSER_LOGO: Record<
-  Exclude<SpyDevice.Browser, 'Unknown'>,
-  string
-> = {
-  // browser
-  Chrome: chromeSvg,
-  Firefox: firefoxSvg,
-  Safari: safariSvg,
-  Edge: edgeSvg,
-  WeChat: wechatSvg,
-  QQ: qqSvg,
-  UC: ucSvg,
-  Baidu: baiduSvg,
-};
 
-export function resolveClientInfo(name: string) {
-  const { osName, osVersion, browserName, browserVersion } =
-    parseDeviceInfo(name);
-  return {
-    osName,
-    osVersion,
-    osLogo: OS_LOGO[osName as keyof typeof OS_LOGO] || pcSvg,
-    browserName,
-    browserVersion,
-    browserLogo:
-      BROWSER_LOGO[browserName as keyof typeof BROWSER_LOGO] || browserSvg,
-  };
+export function useClientInfo() {
+  const systemMsg = useSocketMessageStore((state) => state.systemMsg);
+  const system = systemMsg?.[0]?.system;
+  if (system) {
+    return {
+      // ...system,
+      browserName: system.browserName.toLowerCase(),
+      browserVersion: system.browserVersion,
+      osName: system.osName.toLowerCase(),
+      osVersion: system.osVersion,
+      osLogo: getOSLogo(system.osName.toLowerCase()),
+      browserLogo: getBrowserLogo(system.browserName.toLowerCase()),
+    } as DeviceInfo;
+  }
+  return null;
 }

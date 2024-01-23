@@ -1,5 +1,5 @@
 import { useSocketMessageStore } from '@/store/socket-message';
-import { SpyStorage } from '@huolala-tech/page-spy';
+import { SpyStorage } from '@huolala-tech/page-spy-types';
 import {
   Button,
   Col,

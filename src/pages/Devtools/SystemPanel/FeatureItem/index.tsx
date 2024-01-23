@@ -4,7 +4,7 @@ import { ReactComponent as UnsupportSvg } from '@/assets/image/unsupport.svg';
 import Icon from '@ant-design/icons';
 import './index.less';
 import { Tooltip } from 'antd';
-import type { SpySystem } from '@huolala-tech/page-spy';
+import type { SpySystem } from '@huolala-tech/page-spy-types';
 import CopyContent from '@/pages/Devtools/ConsolePanel/components/CopyContent';
 import { useTranslation } from 'react-i18next';
 

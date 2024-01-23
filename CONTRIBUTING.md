@@ -51,9 +51,9 @@ To get started, fork the [HuolalaTech/page-spy-api][page-spy-api] repository and
 
    func main() {
    	container := container.Container()
-   	err := container.Provide(func() *config.StaticConfig {
-   		return nil
-   	})
+      err := container.Provide(func() *config.StaticConfig {
+         return &config.StaticConfig{}
+      })
 
    	if err != nil {
    		log.Fatal(err)
@@ -150,8 +150,8 @@ Fork the [HuolalaTech/page-spy][page-spy-sdk] repository and clone it to your lo
 
 3. You can use the following commands directly:：
 
-   - `yarn build`: Performs the build to generate the SDK. The product will be generated and placed in the `dist` folder of the project directory;
-   - `yarn build:watch`: Build in watch mode. It will automatically build when the content is updated;
+   - `npx lerna run build`: Performs the build to generate the SDK. The product will be generated and placed in the `dist` folder of the project directory;
+   - `npx lerna run build:watch`: Build in watch mode. It will automatically build when the content is updated;
    - `yarn test`: Runs unit tests;
 
 ## Debugging in Different Scenarios
@@ -211,13 +211,13 @@ Then start the test project. The PageSpy logo (white circular container with the
 
 If you only want to focus on contributing to the SDK, follow the steps in [SDK Setup](#sdk-setup) to set up the service locally.
 
-It is recommended to execute the terminal command, which will automatically build when changes occur:
+It is recommended to take the `--scope` params execute the terminal command, which will automatically build when changes occur. For example:
 
 ```bash
-$ yarn build:watch
+$ npx lerna run build:watch --scope=@huolala-tech/page-spy-wechat
 ```
 
-This will build and generate the SDK product in the `/dist` directory. Import the built SDK product into the test project, and instantiate PageSpy requires passing in the configuration:
+This will build and generate the SDK product in the `packages/*/dist` directory. Import the built SDK product into the test project, and instantiate PageSpy requires passing in the configuration:
 
 ```ts
 new PageSpy({

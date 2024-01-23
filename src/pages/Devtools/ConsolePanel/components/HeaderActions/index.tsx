@@ -3,7 +3,7 @@ import { ClearOutlined } from '@ant-design/icons';
 import { Row, Col, Tooltip, Button, Select, Space } from 'antd';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ProxyType } from '@huolala-tech/page-spy/dist/types/lib/console';
+import { SpyConsole } from '@huolala-tech/page-spy-types';
 import { ReactComponent as ErrorSvg } from '@/assets/image/error.svg';
 import { ReactComponent as InfoSvg } from '@/assets/image/info.svg';
 import { ReactComponent as WarnSvg } from '@/assets/image/warn.svg';
@@ -19,7 +19,7 @@ export const HeaderActions = () => {
 
   const logLevelList: Array<{
     label: string | React.ReactNode;
-    value: ProxyType;
+    value: SpyConsole.ProxyType;
   }> = [
     {
       label: (

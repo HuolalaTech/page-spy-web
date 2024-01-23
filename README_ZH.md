@@ -5,14 +5,16 @@
 [release-url]: https://github.com/HuolalaTech/page-spy-web/blob/release/package.json
 [download-img]: https://img.shields.io/npm/dw/%40huolala-tech/page-spy-api
 [download-url]: https://www.npmjs.com/package/@huolala-tech/page-spy-api
-[sdk-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy?label=SDK%20version
-[sdk-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy
+[browser-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-browser?label=page-spy-browser&color=orange
+[browser-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-browser
+[uniapp-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-uniapp?label=page-spy-uniapp&color=#2B993A
+[uniapp-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-uniapp
+[wechat-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-wechat?label=page-spy-wechat&color=#0CC160
+[wechat-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-wechat
 [sdk-build-img]: https://img.shields.io/github/actions/workflow/status/HuolalaTech/page-spy/coveralls.yml?logo=github&label=build
 [sdk-build-url]: https://github.com/HuolalaTech/page-spy/actions/workflows/coveralls.yml
-[sdk-coveralls-img]: https://img.shields.io/coverallsCoverage/github/HuolalaTech/page-spy?label=coverage
+[sdk-coveralls-img]: https://img.shields.io/coverallsCoverage/github/HuolalaTech/page-spy?label=coverage&logo=coveralls
 [sdk-coveralls-url]: https://coveralls.io/github/HuolalaTech/page-spy?branch=main
-[sdk-min-img]: https://img.shields.io/bundlephobia/min/@huolala-tech/page-spy?label=minfied%20size
-[sdk-min-url]: https://unpkg.com/browse/@huolala-tech/page-spy/dist/index.min.js
 [api-ver-img]: https://img.shields.io/github/v/tag/HuolalaTech/page-spy-api?label=API%20version
 [api-ver-url]: https://github.com/HuolalaTech/page-spy-api/tags
 [api-go-img]: https://img.shields.io/github/go-mod/go-version/HuolalaTech/page-spy-api?label=go
@@ -25,10 +27,11 @@
 
 [![Release][release-img]][release-url]
 [![license][license-img]][license-url] <br />
-[![NPM SDK][sdk-ver-img]][sdk-ver-url]
 [![Build Status][sdk-build-img]][sdk-build-url]
-[![Coverage Status][sdk-coveralls-img]][sdk-coveralls-url]
-[![SDK size][sdk-min-img]][sdk-min-url] <br />
+[![Coverage Status][sdk-coveralls-img]][sdk-coveralls-url] <br />
+[![Browser version][browser-ver-img]][browser-ver-url]
+[![UniApp version][uniapp-ver-img]][uniapp-ver-url]
+[![Wechat version][wechat-ver-img]][wechat-ver-url] <br />
 [![API Version][api-ver-img]][api-ver-url]
 [![Go Version][api-go-img]][api-go-url]
 
@@ -69,7 +72,7 @@
 > <a href="https://www.bilibili.com/video/BV1Ph4y1y78R" target="_blank"><img src="./.github/assets/video-docker-zh.jpg" width="320" /></a>
 
 ```bash
-docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
+docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
 ```
 
 启动完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
@@ -81,11 +84,11 @@ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech
 > <a href="https://www.bilibili.com/video/BV1oM4y1p7Le" target="_blank"><img src="./.github/assets/video-node-zh.jpg" width="320" /></a>
 
 ```bash
-yarn global add @huolala-tech/page-spy-api
+yarn global add @huolala-tech/page-spy-api@latest
 
 # 如果你使用 npm
 
-npm install -g @huolala-tech/page-spy-api
+npm install -g @huolala-tech/page-spy-api@latest
 ```
 
 安装完成之后你可以在命令行中直接执行 `page-spy-api` 启动服务。部署完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
@@ -94,10 +97,11 @@ npm install -g @huolala-tech/page-spy-api
 
 有问题可以使用微信扫码进群。
 
-<div style="display: flex; gap: 12px; flex-wrap: nowrap; overflow: auto">
-  <img src="https://public-assets-v.huolala.cn/images/page-spy-wechat-group.jpg" alt="微信群" width="260" />
-  <img src="./.github/assets/group-2.jpg" alt="微信群" width="260" />
-  <img src="./.github/assets/group-1.jpg" alt="微信群" width="260" />
+<div style="display: flex; gap: 8px; flex-wrap: nowrap; overflow: auto">
+  <img src="https://public-assets-v.huolala.cn/images/page-spy-wechat-group.jpg" alt="微信群" width="240" />
+  <img src="./.github/assets/group-3.jpg" alt="微信群" width="240" />
+  <img src="./.github/assets/group-2.jpg" alt="微信群" width="240" />
+  <img src="./.github/assets/group-1.jpg" alt="微信群" width="240" />
 </div>
 
 ## Roadmap

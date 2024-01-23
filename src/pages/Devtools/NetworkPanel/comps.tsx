@@ -13,7 +13,7 @@ import { InfoCircleFilled, DownloadOutlined } from '@ant-design/icons';
 import ReactJsonView from '@huolala-tech/react-json-view';
 import { useState, useMemo } from 'react';
 import { usePopupRef, withPopup } from '@/utils/withPopup';
-import type { SpyNetwork } from '@huolala-tech/page-spy';
+import type { SpyNetwork } from '@huolala-tech/page-spy-types';
 import clsx from 'clsx';
 import { dataUrlToBlob, downloadFile, semanticSize } from './utils';
 import { isString } from 'lodash-es';
@@ -90,7 +90,7 @@ export const QueryParamsBlock: React.FC<{ data: [string, string][] }> = ({
   return (
     <div className="detail-block">
       <Space className="detail-block__label">
-        <span>Query String Parametes</span>
+        <span>Query String Parameters</span>
         <span
           onClick={() => setDecoded(!decoded)}
           style={{ fontWeight: 'normal', cursor: 'pointer' }}

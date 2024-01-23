@@ -51,9 +51,9 @@ Fork [HuolalaTech/page-spy-api][page-spy-api] 仓库并 clone 到本地，然后
 
    func main() {
    	container := container.Container()
-   	err := container.Provide(func() *config.StaticConfig {
-   		return nil
-   	})
+      err := container.Provide(func() *config.StaticConfig {
+         return &config.StaticConfig{}
+      })
 
    	if err != nil {
    		log.Fatal(err)
@@ -150,8 +150,8 @@ Fork [HuolalaTech/page-spy][page-spy-sdk] 仓库并 clone 到本地，page-spy �
 
 3. 以下命令可以直接使用：
 
-   - `yarn build`：执行构建生成 SDK。产物将生成放在项目目录下的 dist 文件夹；
-   - `yarn build:watch`：监听模式下的构建。当发现内容更新将自动构建；
+   - `npx lerna run build`：执行构建生成 SDK。产物将生成放在项目目录下的 dist 文件夹；
+   - `npx lerna run build:watch`：监听模式下的构建。当发现内容更新将自动构建；
    - `yarn test`：执行单元测试；
 
 ## 分情景调试
@@ -211,13 +211,13 @@ new PageSpy({
 
 如果你想只专注于为 SDK 提交贡献，按照 [搭建 SDK](#搭建-sdk) 的步骤在本地搭建服务。
 
-建议执行终端命令，当发生变更时即可执行构建：
+建议在监听构建命令后面指定 `--scope=` 参数，这样只有当你正在调整的代码在保存时会自动构建。例如：
 
 ```bash
-$ yarn build:watch
+$ npx lerna run build:watch --scope=@huolala-tech/page-spy-wechat
 ```
 
-这将执行构建并在 `/dist` 目录下生成 SDK 产物。在测试项目中引入构建后的 SDK 产物，实例化 PgaeSpy 需要传入配置：
+这将在 `packages/*/dist` 目录下生成 SDK 产物，在测试项目中引入，实例化 PgaeSpy 需要传入配置：
 
 ```ts
 new PageSpy({
@@ -228,4 +228,4 @@ new PageSpy({
 });
 ```
 
-之后启动测试项目，测试项目的页面左下角应该出现了 PageSpy 的标志（白色圆形容器，中间包含了 PageSpy logo）。通过 https://example.com 访问调试端顶部菜单「房间列表」，测试项目的调试房间应该出现在列表上了。现在你可以修改 SDK 代码，开始为 SDK 仓库贡献。
+之后就可以启动测试项目，页面左下角应该出现了 PageSpy 的标志（白色圆形容器，中间包含了 PageSpy logo）。通过 https://example.com 访问调试端顶部菜单「房间列表」，测试项目的调试房间应该出现在列表上了。现在你可以修改 SDK 代码，开始为 SDK 仓库贡献。
