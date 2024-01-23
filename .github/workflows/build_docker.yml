@@ -61,5 +61,8 @@ jobs:
         with:
           context: .
           push: true
+          build-args: |
+            VERSION=main
+            COMMIT=${{ github.sha }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
