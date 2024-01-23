@@ -12,11 +12,7 @@ declare namespace I {
     group: string;
     name: string; // TODO this `name` is used for browser and os info, should be reconsidered.
     password: string;
-    tags: {
-      ua?: string;
-
-      [others: string]: any;
-    };
+    tags: Record<string, any>;
   }
 
   export interface SpyRoomList {

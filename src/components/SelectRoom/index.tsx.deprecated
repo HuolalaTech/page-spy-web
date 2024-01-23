@@ -3,7 +3,7 @@ import { useRequest } from 'ahooks';
 import { Button, Col, Form, message, Modal, Row, Select } from 'antd';
 import { ComponentType, useCallback, useEffect, useState } from 'react';
 import { usePopupRef, withPopup } from '@/utils/withPopup';
-import { parseDeviceInfo } from '@/utils/brand';
+import { parseDeviceInfo, useClientInfo } from '@/utils/brand';
 import { getSpyRoom } from '@/apis';
 import './index.less';
 import { useTranslation } from 'react-i18next';
