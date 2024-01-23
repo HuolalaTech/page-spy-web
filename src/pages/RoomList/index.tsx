@@ -91,7 +91,23 @@ export const RoomList = () => {
       'uc',
       'baidu',
     ];
-    const mpTypes: SpyDevice.Browser[] = ['mp-wechat', 'mp-alipay'];
+    const mpTypes: SpyDevice.MPType[] = [
+      'mp-wechat',
+      'mp-alipay',
+      'mp-douyin',
+      'mp-baidu',
+      'mp-dingtalk',
+      'mp-toutiao',
+      'mp-jd',
+      'mp-kuaishou',
+      'mp-qq',
+      'mp-douyin-lt',
+      'mp-huoshan',
+      'mp-lark',
+      'mp-xigua',
+      'mp-ppx',
+      'mp-toutiao-lt',
+    ];
     return [
       {
         groupName: 'Web',
@@ -174,6 +190,7 @@ export const RoomList = () => {
         {list.map(({ address, name, connections, group, tags }) => {
           const simpleAddress = address.slice(0, 4);
           const { os, browser } = parseUserAgent(name);
+          console.log(name, os, browser);
           const client = connections.find(({ userId }) => userId === 'Client');
 
           return (
