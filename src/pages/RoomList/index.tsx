@@ -59,7 +59,7 @@ const filterConnections = (
       const clientInfo = parseUserAgent(name);
       return (
         (!os || clientInfo.os.type === os) &&
-        (!browser || clientInfo.browser.type === browser)
+        (!browser || clientInfo.browser.type.includes(browser))
       );
     });
 };
@@ -91,45 +91,40 @@ export const RoomList = () => {
       'uc',
       'baidu',
     ];
+    return browsers.map((name) => {
+      return {
+        name,
+        label: getBrowserName(name),
+        logo: getBrowserLogo(name),
+      };
+    });
+  }, []);
+
+  const MPTypeOptions = useMemo(() => {
+    // Here are not all mp types we support (MPTypes defines all supported), because some mp are not good to use(like xhs, dingtalk),
+    // we dont want user to know such mp types exist.
+    // Also, douyin-lt, douyin-huoshan and toutiao-lt are not listed, which will be matched
+    // for douyin and toutiao
     const mpTypes: SpyDevice.MPType[] = [
       'mp-wechat',
       'mp-alipay',
       'mp-douyin',
       'mp-baidu',
-      'mp-dingtalk',
       'mp-toutiao',
       'mp-jd',
       'mp-kuaishou',
       'mp-qq',
-      'mp-douyin-lt',
-      'mp-huoshan',
       'mp-lark',
       'mp-xigua',
       'mp-ppx',
-      'mp-toutiao-lt',
     ];
-    return [
-      {
-        groupName: 'Web',
-        options: browsers.map((name) => {
-          return {
-            name,
-            label: getBrowserName(name),
-            logo: getBrowserLogo(name),
-          };
-        }),
-      },
-      {
-        groupName: t('common.miniprogram'),
-        options: mpTypes.map((name) => {
-          return {
-            name,
-            label: getBrowserName(name),
-            logo: getBrowserLogo(name),
-          };
-        }),
-      },
-    ];
+    return mpTypes.map((name) => {
+      return {
+        name,
+        label: getBrowserName(name),
+        logo: getBrowserLogo(name),
+      };
+    });
   }, []);
 
   const {
@@ -157,11 +152,20 @@ export const RoomList = () => {
     os: '',
     browser: '',
   });
+
+  const handleFormValueChange = (val: Record<string, string>) => {
+    if (val.miniprogram) {
+      form.setFieldValue('browser', undefined);
+    } else if (val.browser) {
+      form.setFieldValue('miniprogram', undefined);
+    }
+  };
+
   const onFormFinish = useCallback(
     async (value: any) => {
       try {
         await requestConnections(value.project);
-
+        value.browser = value.browser || value.miniprogram; // these 2 values dont exist at same time
         setConditions((state) => ({
           ...state,
           ...value,
@@ -276,6 +280,7 @@ export const RoomList = () => {
         <Form
           form={form}
           onFinish={onFormFinish}
+          onValuesChange={handleFormValueChange}
           labelCol={{
             span: 6,
           }}
@@ -319,23 +324,30 @@ export const RoomList = () => {
                   placeholder={t('connections.select-browser')}
                   allowClear
                 >
-                  {BrowserOptions.map((group) => {
+                  {BrowserOptions.map(({ name, logo, label }) => {
                     return (
-                      <Select.OptGroup
-                        label={group.groupName}
-                        key={group.groupName}
-                      >
-                        {group.options.map(({ name, logo, label }) => {
-                          return (
-                            <Option key={name} value={name}>
-                              <div className="flex-between">
-                                <span>{label}</span>
-                                <img src={logo} width="20" height="20" alt="" />
-                              </div>
-                            </Option>
-                          );
-                        })}
-                      </Select.OptGroup>
+                      <Option key={name} value={name}>
+                        <div className="flex-between">
+                          <span>{label}</span>
+                          <img src={logo} width="20" height="20" alt="" />
+                        </div>
+                      </Option>
+                    );
+                  })}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label={t('common.miniprogram')} name="miniprogram">
+                <Select placeholder={t('connection.select-mp')} allowClear>
+                  {MPTypeOptions.map(({ name, logo, label }) => {
+                    return (
+                      <Option key={name} value={name}>
+                        <div className="flex-between">
+                          <span>{label}</span>
+                          <img src={logo} width="20" height="20" alt="" />
+                        </div>
+                      </Option>
                     );
                   })}
                 </Select>

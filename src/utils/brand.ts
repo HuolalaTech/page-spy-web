@@ -24,6 +24,7 @@ import mpBaiduSvg from '@/assets/image/mp-baidu.svg';
 import mpFeishuSvg from '@/assets/image/mp-feishu.svg';
 import mpDingtalkSvg from '@/assets/image/mp-dingtalk.svg';
 import mpAlipaySvg from '@/assets/image/mp-alipay.svg';
+import mpXhsSvg from '@/assets/image/mp-xhs.svg';
 
 import uniSvg from '@/assets/image/uni.svg';
 import { SpyDevice } from '@huolala-tech/page-spy-types';
@@ -51,20 +52,18 @@ interface ClientInfo {
 }
 
 export const OS_CONFIG: Record<
-  SpyDevice.OS | 'iphone',
+  SpyDevice.OS,
   {
     logo: string;
     label: string;
   }
 > = {
-  iphone: { logo: iOSSvg, label: 'iOS' }, // TODO: iphone is not an os, to be removed by sdk.
   ios: { logo: iOSSvg, label: 'iOS' },
   ipad: { logo: iOSSvg, label: 'iPad' },
   mac: { logo: iOSSvg, label: 'macOS' },
   windows: { logo: windowsSvg, label: 'Windows' },
   linux: { logo: linuxSvg, label: 'Linux' },
   android: { logo: androidSvg, label: 'Android' },
-  harmony: { logo: harmonySvg, label: 'HarmonyOS' },
   unknown: { logo: pcSvg, label: 'Unknown' },
 };
 
@@ -95,10 +94,11 @@ export const BROWSER_CONFIG: Record<
   'mp-jd': { logo: mpJDSvg, label: t('common.mpjd') },
   'mp-toutiao-lt': { logo: mpDouyinSvg, label: t('common.mptoutiaolt') },
   'mp-douyin-lt': { logo: mpDouyinSvg, label: t('common.mpdouyinlt') },
-  'mp-huoshan': { logo: mpDouyinSvg, label: t('common.mphuoshan') },
+  'mp-douyin-huoshan': { logo: mpDouyinSvg, label: t('common.mphuoshan') },
   'mp-xigua': { logo: mpDouyinSvg, label: t('common.mpxigua') },
   'mp-ppx': { logo: mpDouyinSvg, label: t('common.mpppx') },
   'mp-dingtalk': { logo: mpDingtalkSvg, label: t('common.mpdingtalk') },
+  'mp-xhs': { logo: mpXhsSvg, label: t('common.mpxhs') },
 };
 
 export const getOSName = (os: string) => {
@@ -133,10 +133,11 @@ const MPTypes: SpyDevice.MPType[] = [
   'mp-jd',
   'mp-toutiao-lt',
   'mp-douyin-lt',
-  'mp-huoshan',
+  'mp-douyin-huoshan',
   'mp-xigua',
   'mp-ppx',
   'mp-dingtalk',
+  'mp-xhs',
 ];
 
 const MP_REGEXPS = {} as Record<SpyDevice.MPType, RegExp>;
@@ -158,11 +159,11 @@ const BROWSER_REGEXPS = {
 } as Record<SpyDevice.Browser, RegExp>;
 
 const OS_REGEXPS = {
-  windows: /Windows NT ([\d_.]+)/,
-  ios: /(iPhone OS|ios) ([\d_.]+)/,
+  windows: /(Windows NT |windows\/)([\d_.]+)/,
+  ios: /(iPhone OS |ios\/)([\d_.]+)/,
   ipad: /iPad.*OS ([\d_.]+)/,
-  mac: /Mac OS X ([\d_.]+)/,
-  android: /Android ([\d_.]+)/,
+  mac: /(Mac OS X |macos\/)([\d_.]+)/,
+  android: /(Android |android\/)([\d_.]+)/,
   linux: /Linux/,
 } as Record<SpyDevice.OS, RegExp>;
 
@@ -188,7 +189,7 @@ export function parseUserAgent(
       const match = uaString.match(reg);
       if (match) {
         osInfo.type = os;
-        osInfo.version = match[1]?.replaceAll('_', '.');
+        osInfo.version = match[match.length - 1]?.replaceAll('_', '.');
         break;
       }
     }
