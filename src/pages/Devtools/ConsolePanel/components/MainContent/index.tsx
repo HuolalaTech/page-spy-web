@@ -1,6 +1,6 @@
 import { useSocketMessageStore } from '@/store/socket-message';
 import { DoubleRightOutlined } from '@ant-design/icons';
-import { Row, Col, Button } from 'antd';
+import { Button } from 'antd';
 import {
   UIEventHandler,
   memo,
@@ -10,17 +10,10 @@ import {
   useRef,
   useState,
 } from 'react';
-import ConsoleNode from '../ConsoleNode';
-import {
-  isPlaceholderNode,
-  PlaceholderNode,
-} from '../ConsoleNode/PlaceholderNode';
-import { isErrorTraceNode, ErrorTraceNode } from '../ConsoleNode/ErrorTrace';
-import LogType from '../LogType';
-import Timestamp from '../Timestamp';
 import { useTranslation } from 'react-i18next';
 import { useMiscStore } from '@/store/misc';
 import { useForceThrottleRender } from '@/utils/useForceRender';
+import { ConsoleItem } from '@/components/ConsoleItem';
 
 export const MainContent = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'console' });
@@ -132,49 +125,10 @@ export const MainContent = memo(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUpdated]);
 
-  function getLogUrl(url?: string) {
-    if (url) {
-      if (!url.startsWith('http://') && !url.startsWith('https://')) {
-        return url;
-      }
-      try {
-        return url.substring(new URL(url).origin.length);
-      } catch (e) {
-        return '/';
-      }
-    }
-    return '/';
-  }
-
   return (
     <div className="console-list" ref={containerEl} onScroll={handleScroll}>
       {consoleDataList.map((item) => (
-        <div className={`console-item ${item.logType}`} key={item.id}>
-          <div className="console-item__title">
-            <LogType type={item.logType} />
-          </div>
-          <div className="console-item__content">
-            <Row gutter={12} wrap={false}>
-              <Col style={{ flexShrink: 0 }}>
-                <Timestamp time={item.time} />
-              </Col>
-              <Col flex={1}>
-                {isPlaceholderNode(item) ? (
-                  <PlaceholderNode data={item.logs} />
-                ) : isErrorTraceNode(item) ? (
-                  <ErrorTraceNode data={item} />
-                ) : (
-                  item.logs?.map((log) => {
-                    return <ConsoleNode data={log} key={log.id} />;
-                  })
-                )}
-              </Col>
-            </Row>
-          </div>
-          <div className="console-item__url" title={item.url}>
-            {getLogUrl(item.url)}
-          </div>
-        </div>
+        <ConsoleItem data={item} key={item.id} />
       ))}
       {newTips && (
         <div className="console-list__new" onClick={scrollToBottom}>

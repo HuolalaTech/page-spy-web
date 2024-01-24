@@ -28,7 +28,6 @@ import { useTranslation } from 'react-i18next';
 import './index.less';
 import { Link, useNavigate } from 'react-router-dom';
 import { SpyDevice } from '@huolala-tech/page-spy-types';
-import { fileToObject } from '@/utils';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -362,7 +361,10 @@ export const RoomList = () => {
                     maxCount={1}
                     customRequest={async (file) => {
                       const url = URL.createObjectURL(file.file as File);
-                      navigate(`/replay?url=${url}`);
+                      const replay = `${location.protocol}//${window.DEPLOY_BASE_PATH}/#/replay?url=${url}#Console`;
+                      setTimeout(() => {
+                        window.open(replay);
+                      });
                       return null;
                     }}
                     itemRender={() => null}

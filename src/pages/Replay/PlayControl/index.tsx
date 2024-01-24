@@ -1,18 +1,21 @@
-import { Col, Row } from 'antd';
 import { ReactComponent as PlaySvg } from '@/assets/image/play.svg';
 import { ReactComponent as PauseSvg } from '@/assets/image/pause.svg';
 import Icon from '@ant-design/icons';
 import './index.less';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
+import {
+  REPLAY_STATUS_CHANGE,
+  REPLAY_END,
+  REPLAY_PROGRESS_CHANGE,
+} from '../events';
+import { Space } from 'antd';
+import { useReplayStore } from '@/store/replay';
+import { useEventListener } from '@/utils/useEventListener';
 
 interface Props {
   duration: number;
 }
-
-export const REPLAY_STATUS_CHANGE = 'replay-status-change';
-export const REPLAY_PROGRESS_CHANGE = 'replay-progress-change';
-export const REPLAY_END = 'replay-end';
 
 export const PlayControl = ({ duration }: Props) => {
   const elapsed = useRef(0);
@@ -21,15 +24,31 @@ export const PlayControl = ({ duration }: Props) => {
   const timelineEl = useRef<HTMLDivElement | null>(null);
   const pointEl = useRef<HTMLDivElement | null>(null);
   const [playing, setPlaying] = useState(false);
+  const updateElapsed = useReplayStore((state) => state.updateElapsed);
 
-  useEffect(() => {
-    if (elapsed.current === duration) return;
+  useEventListener(
+    'keyup',
+    (evt) => {
+      const { key } = evt as KeyboardEvent;
+      if (key === ' ') {
+        setPlaying((playing) => !playing);
+      }
+    },
+    { target: document },
+  );
+
+  const onStatusChange = useCallback(() => {
     window.dispatchEvent(
       new CustomEvent(REPLAY_STATUS_CHANGE, {
-        detail: playing ? 'playing' : 'paused',
+        detail: {
+          status: playing ? 'playing' : 'paused',
+          elapsed: elapsed.current,
+        },
       }),
     );
-  }, [duration, playing]);
+  }, [playing]);
+
+  useEffect(onStatusChange, [onStatusChange, playing]);
 
   const onProgressChange = useCallback(
     (progress: number) => {
@@ -52,8 +71,9 @@ export const PlayControl = ({ duration }: Props) => {
           }),
         );
       }
+      updateElapsed(elapsed.current);
     },
-    [duration],
+    [duration, updateElapsed],
   );
 
   const rafHandler = useCallback(() => {
@@ -86,25 +106,28 @@ export const PlayControl = ({ duration }: Props) => {
       const progress = Math.min(diff / width, 1);
       elapsed.current = Math.ceil(progress < 0 ? 0 : progress * duration);
 
-      onProgressChange(progress);
       setPlaying(false);
+      onStatusChange();
+      onProgressChange(progress);
     };
     el.addEventListener('click', listener);
     return () => {
       el.removeEventListener('click', listener);
     };
-  }, [duration, onProgressChange]);
+  }, [duration, onProgressChange, onStatusChange]);
 
   return (
     <div className="play-control">
-      <Icon
-        component={playing ? PauseSvg : PlaySvg}
-        className="play-action"
-        onClick={() => {
-          if (!playing && elapsed.current / duration >= 1) return;
-          setPlaying((playing) => !playing);
-        }}
-      />
+      <Space>
+        <Icon
+          component={playing ? PauseSvg : PlaySvg}
+          className="play-action toggle-play-status"
+          onClick={() => {
+            if (!playing && elapsed.current / duration >= 1) return;
+            setPlaying((playing) => !playing);
+          }}
+        />
+      </Space>
       <div className="play-progress">
         <code className="play-current-time" ref={currentTimeEl}>
           {dayjs.duration(elapsed.current).format('mm:ss:SSS')}

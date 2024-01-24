@@ -1,14 +1,30 @@
 .replay {
-  width: 85%;
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  margin: 0 auto;
-  padding-block: 24px;
-  .rrweb-player {
-    min-width: 20vw;
-    aspect-ratio: 16 / 9;
-    background-color: #000;
+  overflow: hidden;
+  &-header {
+    padding: 32px 32px 0 32px;
+    &__title {
+      font-size: 24px;
+      font-weight: 500;
+    }
   }
-  .plugin-panel {
-    height: 400px;
+  &-main {
+    flex: 1;
+    padding: 12px 32px;
+    &__left {
+      width: 40vw;
+      aspect-ratio: 16 / 9;
+      background-color: #fff;
+      border-radius: 4px;
+    }
+  }
+  &-footer {
+    flex: 80px 0 0;
+    padding-block: 8px 20px;
+    background-color: #fff;
+    box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.03);
+    z-index: 1000;
   }
 }

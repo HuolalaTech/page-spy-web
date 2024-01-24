@@ -5,8 +5,8 @@ import Icon from '@ant-design/icons';
 import './index.less';
 import { Tooltip } from 'antd';
 import type { SpySystem } from '@huolala-tech/page-spy-types';
-import CopyContent from '@/pages/Devtools/ConsolePanel/components/CopyContent';
 import { useTranslation } from 'react-i18next';
+import CopyContent from '@/components/CopyContent';
 
 export const FeatureItem: React.FC<SpySystem.FeatureDescriptor> = ({
   title,

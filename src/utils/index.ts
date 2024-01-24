@@ -31,3 +31,17 @@ export const fileToObject = (file: File) => {
     reader.readAsText(file);
   });
 };
+
+export function getLogUrl(url?: string) {
+  if (url) {
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      return url;
+    }
+    try {
+      return url.substring(new URL(url).origin.length);
+    } catch (e) {
+      return '/';
+    }
+  }
+  return '/';
+}

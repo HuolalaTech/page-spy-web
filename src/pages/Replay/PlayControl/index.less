@@ -2,22 +2,25 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
   .play-action {
-    font-size: 32px;
+    font-size: 18px;
     color: @primary-color;
     transition: color transform ease-in-out 0.1s;
     cursor: pointer;
+    &.toggle-play-status {
+      font-size: 42px;
+    }
     &:active {
       color: fade(@primary-color, 65%);
-      transform: scale(0.95);
+      transform: scale(0.9);
     }
   }
   .play-progress {
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 18px;
     .play-timeline {
       flex: 1;
       position: relative;
