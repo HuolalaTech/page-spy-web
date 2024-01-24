@@ -30,6 +30,7 @@
     "mpxigua": "Xigua Mini Program",
     "mpppx": "Pipixia Mini Program",
     "mpdingtalk": "Dingtalk Mini Program",
+    "mpxhs": "Xiaohongshu Mini Program",
     "project": "프로젝트",
     "debug": "디버그",
     "title": "제목"
@@ -160,6 +161,7 @@
   },
   "connections": {
     "select-os": "운영 체제 선택",
-    "select-browser": "브라우저 선택"
+    "select-browser": "브라우저 선택",
+    "select-mp": "Mini Program 선택"
   }
 }
