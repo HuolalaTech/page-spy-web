@@ -51,6 +51,38 @@ interface ClientInfo {
   framework?: Framework;
 }
 
+// Make miniprogram browser types
+export const AllMPTypes: SpyDevice.MPType[] = [
+  'mp-wechat',
+  'mp-alipay',
+  'mp-qq',
+  'mp-baidu',
+  'mp-toutiao',
+  'mp-douyin',
+  'mp-lark',
+  'mp-kuaishou',
+  'mp-jd',
+  'mp-toutiao-lt',
+  'mp-douyin-lt',
+  'mp-douyin-huoshan',
+  'mp-xigua',
+  'mp-ppx',
+  'mp-dingtalk',
+  'mp-xhs',
+];
+
+export const AllBrowserTypes: SpyDevice.Browser[] = [
+  'chrome',
+  'edge',
+  'firefox',
+  'safari',
+  'baidu',
+  'uc',
+  'wechat',
+  'qq',
+  'unknown',
+];
+
 export const OS_CONFIG: Record<
   SpyDevice.OS,
   {
@@ -120,29 +152,9 @@ export const getBrowserLogo = (browser: string) => {
   return BROWSER_CONFIG[browser as SpyDevice.Browser]?.logo || browserSvg;
 };
 
-// Make miniprogram browser types
-const MPTypes: SpyDevice.MPType[] = [
-  'mp-wechat',
-  'mp-alipay',
-  'mp-qq',
-  'mp-baidu',
-  'mp-toutiao',
-  'mp-douyin',
-  'mp-lark',
-  'mp-kuaishou',
-  'mp-jd',
-  'mp-toutiao-lt',
-  'mp-douyin-lt',
-  'mp-douyin-huoshan',
-  'mp-xigua',
-  'mp-ppx',
-  'mp-dingtalk',
-  'mp-xhs',
-];
-
 const MP_REGEXPS = {} as Record<SpyDevice.MPType, RegExp>;
 
-MPTypes.forEach((mpType) => {
+AllMPTypes.forEach((mpType) => {
   MP_REGEXPS[mpType] = new RegExp(`${mpType}/([\\d.]+)`);
 });
 

@@ -1,5 +1,7 @@
 import { getSpyRoom } from '@/apis';
 import {
+  AllBrowserTypes,
+  AllMPTypes,
   OS_CONFIG,
   getBrowserLogo,
   getBrowserName,
@@ -80,53 +82,6 @@ export const RoomList = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
 
-  const BrowserOptions = useMemo(() => {
-    const browsers: SpyDevice.Browser[] = [
-      'chrome',
-      'firefox',
-      'safari',
-      'edge',
-      'qq',
-      'wechat',
-      'uc',
-      'baidu',
-    ];
-    return browsers.map((name) => {
-      return {
-        name,
-        label: getBrowserName(name),
-        logo: getBrowserLogo(name),
-      };
-    });
-  }, []);
-
-  const MPTypeOptions = useMemo(() => {
-    // Here are not all mp types we support (MPTypes defines all supported), because some mp are not good to use(like xhs, dingtalk),
-    // we dont want user to know such mp types exist.
-    // Also, douyin-lt, douyin-huoshan and toutiao-lt are not listed, which will be matched
-    // for douyin and toutiao
-    const mpTypes: SpyDevice.MPType[] = [
-      'mp-wechat',
-      'mp-alipay',
-      'mp-douyin',
-      'mp-baidu',
-      'mp-toutiao',
-      'mp-jd',
-      'mp-kuaishou',
-      'mp-qq',
-      'mp-lark',
-      'mp-xigua',
-      'mp-ppx',
-    ];
-    return mpTypes.map((name) => {
-      return {
-        name,
-        label: getBrowserName(name),
-        logo: getBrowserLogo(name),
-      };
-    });
-  }, []);
-
   const {
     data: connectionList = [],
     error,
@@ -134,7 +89,15 @@ export const RoomList = () => {
   } = useRequest(
     async (group = '') => {
       const res = await getSpyRoom(group);
-      return res.data;
+      return res.data?.map((conn) => {
+        const { os, browser, framework } = parseUserAgent(conn.name);
+        return {
+          ...conn,
+          os,
+          browser,
+          framework,
+        };
+      });
     },
     {
       pollingInterval: 5000,
@@ -146,20 +109,36 @@ export const RoomList = () => {
     },
   );
 
+  const BrowserOptions = useMemo(() => {
+    return AllBrowserTypes.filter((browser) => {
+      return connectionList?.some((conn) => conn.browser.name === browser);
+    }).map((name) => {
+      return {
+        name,
+        label: getBrowserName(name),
+        logo: getBrowserLogo(name),
+      };
+    });
+  }, [connectionList]);
+
+  const MPTypeOptions = useMemo(() => {
+    return AllMPTypes.filter((mp) => {
+      return connectionList?.some((conn) => conn.browser.type === mp);
+    }).map((name) => {
+      return {
+        name,
+        label: getBrowserName(name),
+        logo: getBrowserLogo(name),
+      };
+    });
+  }, [connectionList]);
+
   const [conditions, setConditions] = useState({
     title: '',
     address: '',
     os: '',
     browser: '',
   });
-
-  const handleFormValueChange = (val: Record<string, string>) => {
-    if (val.miniprogram) {
-      form.setFieldValue('browser', undefined);
-    } else if (val.browser) {
-      form.setFieldValue('miniprogram', undefined);
-    }
-  };
 
   const onFormFinish = useCallback(
     async (value: any) => {
@@ -280,7 +259,6 @@ export const RoomList = () => {
         <Form
           form={form}
           onFinish={onFormFinish}
-          onValuesChange={handleFormValueChange}
           labelCol={{
             span: 6,
           }}
@@ -324,32 +302,38 @@ export const RoomList = () => {
                   placeholder={t('connections.select-browser')}
                   allowClear
                 >
-                  {BrowserOptions.map(({ name, logo, label }) => {
-                    return (
-                      <Option key={name} value={name}>
-                        <div className="flex-between">
-                          <span>{label}</span>
-                          <img src={logo} width="20" height="20" alt="" />
-                        </div>
-                      </Option>
-                    );
-                  })}
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.miniprogram')} name="miniprogram">
-                <Select placeholder={t('connection.select-mp')} allowClear>
-                  {MPTypeOptions.map(({ name, logo, label }) => {
-                    return (
-                      <Option key={name} value={name}>
-                        <div className="flex-between">
-                          <span>{label}</span>
-                          <img src={logo} width="20" height="20" alt="" />
-                        </div>
-                      </Option>
-                    );
-                  })}
+                  {!!BrowserOptions.length && (
+                    <Select.OptGroup label="Web" key="web">
+                      {BrowserOptions.map(({ name, logo, label }) => {
+                        return (
+                          <Option key={name} value={name}>
+                            <div className="flex-between">
+                              <span>{label}</span>
+                              <img src={logo} width="20" height="20" alt="" />
+                            </div>
+                          </Option>
+                        );
+                      })}
+                    </Select.OptGroup>
+                  )}
+
+                  {!!MPTypeOptions.length && (
+                    <Select.OptGroup
+                      label={t('common.miniprogram')}
+                      key="miniprogram"
+                    >
+                      {MPTypeOptions.map(({ name, logo, label }) => {
+                        return (
+                          <Option key={name} value={name}>
+                            <div className="flex-between">
+                              <span>{label}</span>
+                              <img src={logo} width="20" height="20" alt="" />
+                            </div>
+                          </Option>
+                        );
+                      })}
+                    </Select.OptGroup>
+                  )}
                 </Select>
               </Form.Item>
             </Col>
