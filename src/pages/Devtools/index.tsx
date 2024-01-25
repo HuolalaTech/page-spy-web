@@ -171,7 +171,6 @@ const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
       data
         ?.filter((item) => item.name && item.address)
         .map((item) => {
-          console.log(item);
           const clientInfo = parseUserAgent(item.name);
           return {
             osLogo: clientInfo.os.logo,
