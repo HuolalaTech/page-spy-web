@@ -11,7 +11,7 @@ name: Create and publish a dev Docker image
 
 on:
   push:
-    branches: ['main']
+    branches: ['main','feat/clientinfo']
 
 env:
   REGISTRY: ghcr.io
