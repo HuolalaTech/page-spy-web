@@ -753,19 +753,14 @@
     "@huolala-tech/page-spy-api-win32-arm" "1.2.2"
     "@huolala-tech/page-spy-api-win32-arm64" "1.2.2"
 
-"@huolala-tech/page-spy-browser@^1.6.6":
-  version "1.6.6"
-  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-browser/-/page-spy-browser-1.6.6.tgz#0e76e0f9099e42d80ddbd6945f66be1ac2c9a49a"
-  integrity sha512-/DQ1yfuvuBC6E3jEjBlVcoH7ZfKxgMDgNIR8dOMGvSdfSpWBII+vD0r6CHkQwpzJgwcU2Zzrlj43VzmyieSyGA==
+"@huolala-tech/page-spy-browser@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-browser/-/page-spy-browser-1.7.0.tgz#05f3a9270281100693837f101001afda5e344bf2"
+  integrity sha512-2tomGwP8C3Iw/hDWhFS+bYDkI87SFtZxBrkfRCV2eMctiFo5/nl1VxEPp3BdPO0GT3qDeQgqzmxTaABoS6bqsQ==
   dependencies:
     "@babel/runtime" "^7.13.0"
-    "@huolala-tech/page-spy-types" "^1.6.3"
+    "@huolala-tech/page-spy-types" "^1.7.0"
     copy-to-clipboard "^3.3.1"
-
-"@huolala-tech/page-spy-types@^1.6.3":
-  version "1.6.3"
-  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-types/-/page-spy-types-1.6.3.tgz#f35608f4fe5854242a36fba3362efadd1f66442c"
-  integrity sha512-gY1xMpxngLJ+yUHBVQjTxpQ3R7q4bXpM/cDqpO+n2RQeEYoCiAQEkpzbhnne45c4TWSFWH6yIIVN1Qj7ju96Dw==
 
 "@huolala-tech/page-spy-types@^1.7.0":
   version "1.7.0"
