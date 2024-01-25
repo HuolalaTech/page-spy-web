@@ -767,6 +767,11 @@
   resolved "https://registry.npmjs.org/@huolala-tech/page-spy-types/-/page-spy-types-1.6.3.tgz#f35608f4fe5854242a36fba3362efadd1f66442c"
   integrity sha512-gY1xMpxngLJ+yUHBVQjTxpQ3R7q4bXpM/cDqpO+n2RQeEYoCiAQEkpzbhnne45c4TWSFWH6yIIVN1Qj7ju96Dw==
 
+"@huolala-tech/page-spy-types@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-types/-/page-spy-types-1.7.0.tgz#6bba0be5a1ff01a12274f26c614f48ef4121e865"
+  integrity sha512-GN8i+t/Bse7gjtpArN60FSmWaan9+FNZ2MlWxt2W9bobYS2zUv2VqxYPkj9HENXPon2nBdrXzdPXscVxGpXmxA==
+
 "@huolala-tech/react-json-view@^1.2.4":
   version "1.2.4"
   resolved "https://registry.npmjs.org/@huolala-tech/react-json-view/-/react-json-view-1.2.4.tgz#7e8bec7fa16a42d90ffc406f327848b116d4efe0"
