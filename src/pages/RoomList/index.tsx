@@ -144,7 +144,6 @@ export const RoomList = () => {
     async (value: any) => {
       try {
         await requestConnections(value.project);
-        value.browser = value.browser || value.miniprogram; // these 2 values dont exist at same time
         setConditions((state) => ({
           ...state,
           ...value,
@@ -173,7 +172,6 @@ export const RoomList = () => {
         {list.map(({ address, name, connections, group, tags }) => {
           const simpleAddress = address.slice(0, 4);
           const { os, browser } = parseUserAgent(name);
-          console.log(name, os, browser);
           const client = connections.find(({ userId }) => userId === 'Client');
 
           return (
