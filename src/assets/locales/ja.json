@@ -163,5 +163,10 @@
     "select-os": "オペレーティング システムを選択",
     "select-browser": "ブラウザを選択",
     "select-mp": "Mini Program を選択"
+  },
+  "replay": {
+    "title": "ログ再生",
+    "invalid-params": "リンク内で有効なURLパラメータが見つかりません。",
+    "invalid-blob": "<0>URLからのパラメータの読み取りに失敗しました；オブジェクトは既にクリアされている可能性があります</0><1><0></0></1>"
   }
 }

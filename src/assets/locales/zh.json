@@ -163,5 +163,10 @@
     "select-os": "选择系统",
     "select-browser": "选择浏览器",
     "select-mp": "选择小程序"
+  },
+  "replay": {
+    "title": "日志回放",
+    "invalid-params": "链接中未找到有效的参数 url",
+    "invalid-blob": "<0>url 里的参数读取失败，object 可能已经被清除</0><1><0></0></1>"
   }
 }

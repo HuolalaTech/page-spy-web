@@ -369,7 +369,7 @@ export const RoomList = () => {
                     }}
                     itemRender={() => null}
                   >
-                    <Button type="dashed">Import JSON</Button>
+                    <Button type="dashed">{t('replay.title')}</Button>
                   </Upload>
                 </Space>
               </Form.Item>

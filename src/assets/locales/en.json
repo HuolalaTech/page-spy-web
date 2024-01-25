@@ -163,5 +163,10 @@
     "select-os": "Select OS",
     "select-browser": "Select browser",
     "select-mp": "Select Mini Program"
+  },
+  "replay": {
+    "title": "Replay Log",
+    "invalid-params": "No valid URL parameters found in the link.",
+    "invalid-blob": "<0>Failed to read parameters from the URL; the object may have been cleared</0><1><0></0></1>"
   }
 }

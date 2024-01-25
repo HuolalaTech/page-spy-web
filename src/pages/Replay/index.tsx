@@ -9,8 +9,11 @@ import { HarborDataItem, useReplayStore } from '@/store/replay';
 import { RRWebPlayer } from './RRWebPlayer';
 import { PluginPanel } from './PluginPanel';
 import '@huolala-tech/react-json-view/dist/style.css';
+import { useTranslation } from 'react-i18next';
+import { InvalidObjectURL } from './InvalidObjectURL';
 
 export const Replay = () => {
+  const { t } = useTranslation();
   const { url } = useSearch();
   const setAllData = useReplayStore((state) => state.setAllData);
   const { loading, error } = useRequest(async () => {
@@ -34,19 +37,19 @@ export const Replay = () => {
 
   if (error) {
     message.error(error.message);
-    return <Empty />;
+    return <InvalidObjectURL />;
   }
 
   if (!duration) {
     message.error('Empty data');
-    return <Empty />;
+    return <InvalidObjectURL />;
   }
 
   return (
     <div className="replay">
       <Row className="replay-header" justify="start">
         <Col>
-          <span className="replay-header__title">Replay</span>
+          <span className="replay-header__title">{t('replay.title')}</span>
         </Col>
       </Row>
       <Row align="stretch" className="replay-main" gutter={24}>
