@@ -94,17 +94,22 @@ export const MainContent = () => {
     (e) => {
       const direction =
         e.currentTarget.scrollTop > currentScrollTop.current ? 'down' : 'up';
-      currentScrollTop.current = e.currentTarget.scrollTop;
-      if (direction === 'down' && isAutoScroll) return;
-      const isBottom =
-        Math.ceil(e.currentTarget.scrollTop) ===
-        e.currentTarget.scrollHeight - e.currentTarget.offsetHeight;
-      if (isBottom) {
-        messageLength.current = e.currentTarget.childNodes.length;
-        setIsAutoScroll(true);
+      if (isAutoScroll) {
+        if (direction === 'up') {
+          setIsAutoScroll(false);
+        }
       } else {
-        setIsAutoScroll(false);
+        const isBottom =
+          Math.ceil(e.currentTarget.scrollTop) ===
+          e.currentTarget.scrollHeight - e.currentTarget.offsetHeight;
+        if (isBottom) {
+          messageLength.current = document.querySelectorAll(
+            '.console-list .console-item',
+          ).length;
+          setIsAutoScroll(true);
+        }
       }
+      currentScrollTop.current = e.currentTarget.scrollTop;
     },
     [setIsAutoScroll, isAutoScroll],
   );
