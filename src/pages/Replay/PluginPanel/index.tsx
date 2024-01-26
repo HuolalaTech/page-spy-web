@@ -23,13 +23,11 @@ export const PluginPanel = () => {
   }, [hashKey]);
 
   return (
-    <div className="plugin-panel">
-      <Layout className="plugin-panel-layout">
-        <SiderMenu active={hashKey} />
-        <Content style={{ position: 'relative' }}>
-          <ActiveContent />
-        </Content>
-      </Layout>
-    </div>
+    <Layout className="plugin-panel">
+      <SiderMenu active={hashKey} />
+      <Content style={{ position: 'relative', flex: '1 1 0' }}>
+        <ActiveContent />
+      </Content>
+    </Layout>
   );
 };
