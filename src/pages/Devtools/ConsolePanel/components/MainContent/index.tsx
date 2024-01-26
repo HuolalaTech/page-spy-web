@@ -96,22 +96,23 @@ export const MainContent = memo(() => {
     (e) => {
       const direction =
         e.currentTarget.scrollTop > currentScrollTop.current ? 'down' : 'up';
-      if (isAutoScroll) {
-        if (direction === 'up') {
-          setIsAutoScroll(false);
-        }
-      } else {
-        const isBottom =
-          Math.ceil(e.currentTarget.scrollTop) ===
-          e.currentTarget.scrollHeight - e.currentTarget.offsetHeight;
-        if (isBottom) {
-          messageLength.current = document.querySelectorAll(
-            '.console-list .console-item',
-          ).length;
-          setIsAutoScroll(true);
-        }
-      }
       currentScrollTop.current = e.currentTarget.scrollTop;
+
+      if (direction === 'up' && isAutoScroll) {
+        setIsAutoScroll(false);
+        return;
+      }
+
+      const isBottom =
+        Math.ceil(e.currentTarget.scrollTop) ===
+        e.currentTarget.scrollHeight - e.currentTarget.offsetHeight;
+      if (isBottom) {
+        messageLength.current = document.querySelectorAll(
+          '.console-list .console-item',
+        ).length;
+        // TODO
+        // setIsAutoScroll(true);
+      }
     },
     [setIsAutoScroll, isAutoScroll],
   );
