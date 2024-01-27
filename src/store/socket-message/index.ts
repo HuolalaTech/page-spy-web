@@ -19,7 +19,7 @@ import * as MESSAGE_TYPE from './message-type';
 
 const USER_ID = 'Debugger';
 
-interface SocketMessage {
+export interface SocketMessage {
   socket: SocketStore | null;
   consoleMsg: SpyConsole.DataItem[];
   consoleMsgTypeFilter: string[];
