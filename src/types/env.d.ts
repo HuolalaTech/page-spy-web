@@ -11,6 +11,7 @@ interface ImportMetaEnv {
   readonly VITE_SDK_WECHAT_REPO: string;
   readonly VITE_SDK_BROWSER_REPO: string;
   readonly VITE_WIKI_REPLAY_LOG: string;
+  readonly VITE_WIKI_REPLAY_LOG_ZH: string;
 }
 
 interface ImportMeta {

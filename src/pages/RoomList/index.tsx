@@ -28,6 +28,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import './index.less';
 import { Link } from 'react-router-dom';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { isCN } from '@/assets/locales';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -376,7 +377,11 @@ export const RoomList = () => {
                             <Trans i18nKey="replay.intro">
                               <span>{`What's `}</span>
                               <a
-                                href={import.meta.env.VITE_WIKI_REPLAY_LOG}
+                                href={
+                                  isCN()
+                                    ? import.meta.env.VITE_WIKI_REPLAY_LOG_ZH
+                                    : import.meta.env.VITE_WIKI_REPLAY_LOG
+                                }
                                 target="_blank"
                                 onClick={(e) => {
                                   e.stopPropagation();

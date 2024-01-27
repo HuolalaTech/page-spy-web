@@ -1,11 +1,11 @@
 import { useEventListener } from '@/utils/useEventListener';
-import { useEffect, useMemo, useRef } from 'react';
+import { memo, useEffect, useMemo, useRef } from 'react';
 import { REPLAY_STATUS_CHANGE } from '../events';
 import { useReplayStore } from '@/store/replay';
 import rrwebPlayer from 'rrweb-player';
 import './index.less';
 
-export const RRWebPlayer = () => {
+export const RRWebPlayer = memo(() => {
   const rootEl = useRef<HTMLDivElement | null>(null);
   const playerInstance = useRef<rrwebPlayer>();
   const allRRwebEvent = useReplayStore((state) => state.allRRwebEvent);
@@ -49,4 +49,4 @@ export const RRWebPlayer = () => {
   }, [events]);
 
   return <div className="rrweb-player" ref={rootEl} />;
-};
+});
