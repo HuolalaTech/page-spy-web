@@ -24,10 +24,10 @@ import {
 } from 'antd';
 import clsx from 'clsx';
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import './index.less';
-import { Link, useNavigate } from 'react-router-dom';
-import { SpyDevice } from '@huolala-tech/page-spy-types';
+import { Link } from 'react-router-dom';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -80,7 +80,6 @@ const ConnDetailItem = ({
 };
 
 export const RoomList = () => {
-  const navigate = useNavigate();
   const [form] = Form.useForm();
   const { t } = useTranslation();
 
@@ -369,7 +368,29 @@ export const RoomList = () => {
                     }}
                     itemRender={() => null}
                   >
-                    <Button type="dashed">{t('replay.title')}</Button>
+                    <Button type="dashed">
+                      <Space>
+                        <span>{t('replay.title')}</span>
+                        <Tooltip
+                          title={
+                            <Trans i18nKey="replay.intro">
+                              <span>{`What's `}</span>
+                              <a
+                                href={import.meta.env.VITE_WIKI_REPLAY_LOG}
+                                target="_blank"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                }}
+                              >
+                                {t('replay.title')}
+                              </a>
+                            </Trans>
+                          }
+                        >
+                          <QuestionCircleOutlined />
+                        </Tooltip>
+                      </Space>
+                    </Button>
                   </Upload>
                 </Space>
               </Form.Item>

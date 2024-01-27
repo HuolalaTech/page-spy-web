@@ -43,10 +43,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
           title: (
             <Trans i18nKey="inject.web.init-sdk">
               <span>slot-0</span>
-              <a
-                href="https://github.com/HuolalaTech/page-spy/tree/main/packages/page-spy-browser"
-                target="_blank"
-              >
+              <a href={import.meta.env.VITE_SDK_BROWSER_REPO} target="_blank">
                 slot-1
               </a>
             </Trans>
@@ -70,10 +67,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
           title: (
             <Trans i18nKey="inject.mp-wechat.init-sdk">
               <span>slot-0</span>
-              <a
-                href="https://github.com/HuolalaTech/page-spy/tree/main/packages/page-spy-wechat"
-                target="_blank"
-              >
+              <a href={import.meta.env.VITE_SDK_WECHAT_REPO} target="_blank">
                 slot-1
               </a>
             </Trans>
@@ -98,10 +92,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
           title: (
             <Trans i18nKey="inject.mp-uniapp.init-sdk">
               <span>slot-0</span>
-              <a
-                href="https://github.com/HuolalaTech/page-spy/tree/main/packages/page-spy-uniapp"
-                target="_blank"
-              >
+              <a href={import.meta.env.VITE_SDK_UNIAPP_REPO} target="_blank">
                 slot-1
               </a>
             </Trans>
