@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import { getObjectKeys } from '@/utils';
 import { Button, Col, Dropdown, Empty, Row, Space, Tooltip } from 'antd';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ClearOutlined } from '@ant-design/icons';
 import clsx from 'clsx';
 import './index.less';
@@ -19,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { getStatusText, getTime, validEntries } from './utils';
 import { isString } from 'lodash-es';
+import { useForceThrottleRender } from '@/utils/useForceRender';
 
 const networkTitle = ['Name', 'Path', 'Method', 'Status', 'Type', 'Time(≈)'];
 const generalFieldMap = {
@@ -34,15 +35,26 @@ const getContentType = (headers: SpyNetwork.RequestInfo['requestHeader']) => {
   return contentType?.[1] || 'text/plain';
 };
 
-const NetworkPanel = () => {
+const NetworkPanel = memo(() => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
   const { t: nt } = useTranslation('translation', { keyPrefix: 'network' });
 
-  const [data, storageMsg, clearRecord] = useSocketMessageStore((state) => [
-    state.networkMsg,
-    state.storageMsg,
-    state.clearRecord,
-  ]);
+  const storeRef = useRef(useSocketMessageStore.getState());
+  const networkMsg = useRef(storeRef.current.networkMsg);
+  const storageMsg = useRef(storeRef.current.storageMsg);
+  const clearRecord = useRef(storeRef.current.clearRecord);
+  const { throttleRender } = useForceThrottleRender();
+
+  useEffect(
+    () =>
+      useSocketMessageStore.subscribe((state) => {
+        networkMsg.current = state.networkMsg;
+        storageMsg.current = state.storageMsg;
+        throttleRender();
+      }),
+    [throttleRender],
+  );
+
   const detailClicked = useRef<boolean>(false);
   const [showDetail, setShowDetail] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
@@ -51,8 +63,8 @@ const NetworkPanel = () => {
     if (activeIndex < 0) {
       return null;
     }
-    return data[activeIndex];
-  }, [activeIndex, data]);
+    return networkMsg.current[activeIndex];
+  }, [activeIndex]);
   useEffect(() => {
     const listener = (evt: MouseEvent) => {
       const dom = evt.target! as HTMLElement;
@@ -84,13 +96,14 @@ const NetworkPanel = () => {
           if (activeIndex > 0) setActiveIndex(activeIndex - 1);
           break;
         case 'arrowdown':
-          if (activeIndex < data.length - 1) setActiveIndex(activeIndex + 1);
+          if (activeIndex < networkMsg.current.length - 1)
+            setActiveIndex(activeIndex + 1);
           break;
         default:
           break;
       }
     },
-    [activeIndex, data.length],
+    [activeIndex],
   );
   useEffect(() => {
     document.addEventListener('keyup', hotKeyHandle);
@@ -126,7 +139,7 @@ const NetworkPanel = () => {
               .join(' \\\r\n');
           }
           if (withCredentials) {
-            const cookie = Object.entries(storageMsg.cookie)
+            const cookie = Object.entries(storageMsg.current!.cookie)
               .map(([k, { value }]) => `${k}=${value}`)
               .join(';');
             headers = `${
@@ -171,7 +184,7 @@ const NetworkPanel = () => {
           throw Error('Unknown key');
       }
     },
-    [storageMsg.cookie],
+    [],
   );
 
   const DetailBlock = useMemo(() => {
@@ -261,7 +274,7 @@ const NetworkPanel = () => {
       <Row justify="end">
         <Col>
           <Tooltip title={ct('clear')}>
-            <Button onClick={() => clearRecord('network')}>
+            <Button onClick={() => clearRecord.current!('network')}>
               <ClearOutlined />
             </Button>
           </Tooltip>
@@ -279,10 +292,10 @@ const NetworkPanel = () => {
                 </tr>
               </thead>
             </table>
-            {data.length > 0 ? (
+            {networkMsg.current.length > 0 ? (
               <table className="network-list__body">
                 <tbody>
-                  {data.map((row, index) => {
+                  {networkMsg.current.map((row, index) => {
                     return (
                       <Dropdown
                         key={row.id}
@@ -361,6 +374,6 @@ const NetworkPanel = () => {
       </div>
     </div>
   );
-};
+});
 
 export default NetworkPanel;

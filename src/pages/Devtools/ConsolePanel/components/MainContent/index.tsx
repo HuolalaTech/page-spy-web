@@ -3,8 +3,10 @@ import { DoubleRightOutlined } from '@ant-design/icons';
 import { Row, Col, Button } from 'antd';
 import {
   UIEventHandler,
+  memo,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -18,8 +20,9 @@ import LogType from '../LogType';
 import Timestamp from '../Timestamp';
 import { useTranslation } from 'react-i18next';
 import { useMiscStore } from '@/store/misc';
+import { useForceThrottleRender } from '@/utils/useForceRender';
 
-export const MainContent = () => {
+export const MainContent = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'console' });
 
   const containerEl = useRef<HTMLDivElement | null>(null);
@@ -36,21 +39,27 @@ export const MainContent = () => {
     });
   }, []);
 
-  const [data, dataFilter] = useSocketMessageStore((state) => [
-    state.consoleMsg,
-    state.consoleMsgTypeFilter,
-  ]);
+  const storeRef = useRef(useSocketMessageStore.getState());
+  const consoleMessages = useRef(storeRef.current.consoleMsg);
+  const consoleFilter = useRef(storeRef.current.consoleMsgTypeFilter);
+  const { isUpdated, throttleRender } = useForceThrottleRender();
+  useEffect(
+    () =>
+      useSocketMessageStore.subscribe((state) => {
+        consoleMessages.current = state.consoleMsg;
+        consoleFilter.current = state.consoleMsgTypeFilter;
+        throttleRender();
+      }),
+    [throttleRender],
+  );
+
   const [isAutoScroll, setIsAutoScroll] = useMiscStore((state) => [
     state.isAutoScroll,
     state.setIsAutoScroll,
   ]);
   const [newTips, setNewTips] = useState<boolean>(false);
   useEffect(() => {
-    if (data.length === 0) {
-      setNewTips(false);
-    }
-  }, [data]);
-  useEffect(() => {
+    const data = consoleMessages.current;
     const logType = [...data].pop()?.logType || '';
     const isDebug = ['debug-origin', 'debug-eval'].includes(logType);
     const evalError =
@@ -69,7 +78,7 @@ export const MainContent = () => {
         setNewTips(true);
       }
     }
-  }, [data, scrollToBottom, isAutoScroll]);
+  }, [isUpdated, scrollToBottom, isAutoScroll]);
 
   useEffect(() => {
     const container = containerEl.current;
@@ -114,9 +123,14 @@ export const MainContent = () => {
     [setIsAutoScroll, isAutoScroll],
   );
 
-  const consoleDataList = dataFilter.length
-    ? data.filter((item) => dataFilter.includes(item.logType))
-    : data;
+  const consoleDataList = useMemo(() => {
+    const data = consoleMessages.current;
+    const dataFilter = consoleFilter.current;
+    return dataFilter.length
+      ? data.filter((item) => dataFilter.includes(item.logType))
+      : data;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUpdated]);
 
   function getLogUrl(url?: string) {
     if (url) {
@@ -172,4 +186,4 @@ export const MainContent = () => {
       )}
     </div>
   );
-};
+});
