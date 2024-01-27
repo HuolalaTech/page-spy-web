@@ -16,7 +16,7 @@ import {
 import type { SpyNetwork } from '@huolala-tech/page-spy-types';
 import copy from 'copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
-import { SocketMessage, useSocketMessageStore } from '@/store/socket-message';
+import { useSocketMessageStore } from '@/store/socket-message';
 import { getStatusText, getTime, validEntries } from './utils';
 import { isString } from 'lodash-es';
 import { useForceThrottleRender } from '@/utils/useForceRender';
@@ -40,15 +40,9 @@ const NetworkPanel = memo(() => {
   const { t: nt } = useTranslation('translation', { keyPrefix: 'network' });
 
   const storeRef = useRef(useSocketMessageStore.getState());
-  const networkMsg = useRef<SocketMessage['networkMsg']>(
-    storeRef.current.networkMsg,
-  );
-  const storageMsg = useRef<SocketMessage['storageMsg']>(
-    storeRef.current.storageMsg,
-  );
-  const clearRecord = useRef<SocketMessage['clearRecord']>(
-    storeRef.current.clearRecord,
-  );
+  const networkMsg = useRef(storeRef.current.networkMsg);
+  const storageMsg = useRef(storeRef.current.storageMsg);
+  const clearRecord = useRef(storeRef.current.clearRecord);
   const { throttleRender } = useForceThrottleRender();
 
   useEffect(
