@@ -1,13 +1,13 @@
 import { Layout } from 'antd';
 import { MENU_COMPONENTS, MenuType, SiderMenu } from './components/SiderMenu';
 import { useLocation } from 'react-router-dom';
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { ConsolePanel } from './components/ConsolePanel';
 import './index.less';
 
 const { Content } = Layout;
 
-export const PluginPanel = () => {
+export const PluginPanel = memo(() => {
   const { hash = '#Console' } = useLocation();
   const hashKey = useMemo<MenuType>(() => {
     const value = hash.slice(1);
@@ -30,4 +30,4 @@ export const PluginPanel = () => {
       </Content>
     </Layout>
   );
-};
+});

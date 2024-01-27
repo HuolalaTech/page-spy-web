@@ -2,7 +2,7 @@ import { ReactComponent as PlaySvg } from '@/assets/image/play.svg';
 import { ReactComponent as PauseSvg } from '@/assets/image/pause.svg';
 import Icon from '@ant-design/icons';
 import './index.less';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import {
   REPLAY_STATUS_CHANGE,
@@ -17,7 +17,7 @@ interface Props {
   duration: number;
 }
 
-export const PlayControl = ({ duration }: Props) => {
+export const PlayControl = memo(({ duration }: Props) => {
   const elapsed = useRef(0);
   const raf = useRef(0);
   const currentTimeEl = useRef<HTMLDivElement | null>(null);
@@ -141,4 +141,4 @@ export const PlayControl = ({ duration }: Props) => {
       </div>
     </div>
   );
-};
+});
