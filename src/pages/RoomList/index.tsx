@@ -364,7 +364,7 @@ export const RoomList = () => {
                       const replay = `${location.protocol}//${window.DEPLOY_BASE_PATH}/#/replay?url=${url}#Console`;
                       setTimeout(() => {
                         window.open(replay);
-                      });
+                      }, 50);
                       return null;
                     }}
                     itemRender={() => null}
