@@ -22,7 +22,7 @@ export const PlayControl = memo(({ duration }: Props) => {
   const raf = useRef(0);
   const currentTimeEl = useRef<HTMLDivElement | null>(null);
   const timelineEl = useRef<HTMLDivElement | null>(null);
-  const pointEl = useRef<HTMLDivElement | null>(null);
+  const pointEl = useRef<(HTMLDivElement & { isMoving: boolean }) | null>(null);
   const [playing, setPlaying] = useState(false);
   const updateElapsed = useReplayStore((state) => state.updateElapsed);
 
@@ -53,16 +53,6 @@ export const PlayControl = memo(({ duration }: Props) => {
   const onProgressChange = useCallback(
     (progress: number) => {
       elapsed.current = Math.ceil(progress < 0 ? 0 : progress * duration);
-
-      if (pointEl.current) {
-        pointEl.current.style.left = `${progress * 100}%`;
-      }
-      if (currentTimeEl.current) {
-        currentTimeEl.current.textContent = dayjs
-          .duration(elapsed.current)
-          .format('mm:ss:SSS');
-      }
-
       if (progress === 1) {
         setPlaying(false);
         window.dispatchEvent(new CustomEvent(REPLAY_END));
@@ -74,6 +64,13 @@ export const PlayControl = memo(({ duration }: Props) => {
         );
       }
       updateElapsed(elapsed.current);
+
+      if (pointEl.current?.isMoving) return;
+
+      pointEl.current!.style.left = `${progress * 100}%`;
+      currentTimeEl.current!.textContent = dayjs
+        .duration(elapsed.current)
+        .format('mm:ss:SSS');
     },
     [duration, updateElapsed],
   );
@@ -119,9 +116,10 @@ export const PlayControl = memo(({ duration }: Props) => {
 
   // "Skip" in timeline by mousedown / mousemove
   useEffect(() => {
+    const currentTime = currentTimeEl.current;
     const point = pointEl.current;
     const line = timelineEl.current;
-    if (!duration || !point || !line) return;
+    if (!duration || !currentTime || !point || !line) return;
 
     let pointRect: DOMRect;
     let lineRect: DOMRect;
@@ -133,6 +131,7 @@ export const PlayControl = memo(({ duration }: Props) => {
     let progress = 0;
 
     function move(evt: MouseEvent) {
+      point!.isMoving = true;
       evt.preventDefault();
       const diffX = evt.clientX - startX;
       const offset = pointRect.width / 2;
@@ -151,18 +150,23 @@ export const PlayControl = memo(({ duration }: Props) => {
           : current;
 
       point!.style.left = `${progress * 100}%`;
+      currentTime!.textContent = dayjs
+        .duration(Math.ceil(progress * duration))
+        .format('mm:ss:SSS');
     }
-    function end() {
+    function end(evt: MouseEvent) {
       startX = 0;
       document.removeEventListener('mousemove', move);
       document.removeEventListener('mouseup', end);
 
+      point!.isMoving = false;
       setPlaying(false);
       onStatusChange();
       onProgressChange(progress);
     }
     function start(evt: MouseEvent) {
       evt.preventDefault();
+      point!.isMoving = false;
       pointRect = point!.getBoundingClientRect();
       lineRect = line!.getBoundingClientRect();
       critical.left = lineRect.left;
