@@ -52,6 +52,8 @@ export const PlayControl = memo(({ duration }: Props) => {
 
   const onProgressChange = useCallback(
     (progress: number) => {
+      elapsed.current = Math.ceil(progress < 0 ? 0 : progress * duration);
+
       if (pointEl.current) {
         pointEl.current.style.left = `${progress * 100}%`;
       }
@@ -60,8 +62,8 @@ export const PlayControl = memo(({ duration }: Props) => {
           .duration(elapsed.current)
           .format('mm:ss:SSS');
       }
+
       if (progress === 1) {
-        elapsed.current = duration;
         setPlaying(false);
         window.dispatchEvent(new CustomEvent(REPLAY_END));
       } else {
@@ -104,7 +106,6 @@ export const PlayControl = memo(({ duration }: Props) => {
       const { left, width } = el!.getBoundingClientRect();
       const diff = evt.clientX - left;
       const progress = Math.min(diff / width, 1);
-      elapsed.current = Math.ceil(progress < 0 ? 0 : progress * duration);
 
       setPlaying(false);
       onStatusChange();
@@ -113,6 +114,69 @@ export const PlayControl = memo(({ duration }: Props) => {
     el.addEventListener('click', listener);
     return () => {
       el.removeEventListener('click', listener);
+    };
+  }, [duration, onProgressChange, onStatusChange]);
+
+  // "Skip" in timeline by mousedown / mousemove
+  useEffect(() => {
+    const point = pointEl.current;
+    const line = timelineEl.current;
+    if (!duration || !point || !line) return;
+
+    let pointRect: DOMRect;
+    let lineRect: DOMRect;
+    let startX = 0;
+    const critical = {
+      left: 0,
+      right: 0,
+    };
+    let progress = 0;
+
+    function move(evt: MouseEvent) {
+      evt.preventDefault();
+      const diffX = evt.clientX - startX;
+      const offset = pointRect.width / 2;
+      let resultX = pointRect.x + offset + diffX;
+      if (resultX < critical.left) {
+        resultX = critical.left;
+      } else if (resultX > critical.right) {
+        resultX = critical.right;
+      }
+      const current = (resultX - lineRect.left) / lineRect.width;
+      // prettier-ignore
+      progress = current < 0
+        ? 0
+        : current > 1
+          ? 1
+          : current;
+
+      point!.style.left = `${progress * 100}%`;
+    }
+    function end() {
+      startX = 0;
+      document.removeEventListener('mousemove', move);
+      document.removeEventListener('mouseup', end);
+
+      setPlaying(false);
+      onStatusChange();
+      onProgressChange(progress);
+    }
+    function start(evt: MouseEvent) {
+      evt.preventDefault();
+      pointRect = point!.getBoundingClientRect();
+      lineRect = line!.getBoundingClientRect();
+      critical.left = lineRect.left;
+      critical.right = lineRect.left + lineRect.width;
+
+      startX = evt.clientX;
+      document.addEventListener('mousemove', move, false);
+      document.addEventListener('mouseup', end, false);
+    }
+    point.addEventListener('mousedown', start, false);
+    return () => {
+      point.removeEventListener('mousedown', start);
+      document.removeEventListener('mousemove', move);
+      document.removeEventListener('mouseup', end);
     };
   }, [duration, onProgressChange, onStatusChange]);
 
