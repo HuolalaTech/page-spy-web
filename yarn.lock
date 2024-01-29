@@ -762,6 +762,24 @@
     "@huolala-tech/page-spy-types" "^1.7.1"
     copy-to-clipboard "^3.3.1"
 
+"@huolala-tech/page-spy-plugin-data-harbor@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-plugin-data-harbor/-/page-spy-plugin-data-harbor-1.0.1.tgz#937225360ab9e2f14224824aa225d7a5d4c27596"
+  integrity sha512-c8uH+QfCi/9Cn9ZFYNNxqIMXbtp6Jck7M+udf18x9NiHfbYOUrpsMpWDPCG8vkZ6kEolf2/9IYKhdxT2mPciHA==
+  dependencies:
+    "@babel/runtime" "^7.13.0"
+    "@huolala-tech/page-spy-types" "^1.7.1"
+    fflate "^0.8.1"
+
+"@huolala-tech/page-spy-plugin-rrweb@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-plugin-rrweb/-/page-spy-plugin-rrweb-1.0.1.tgz#1f26c831e5e3b5c0165d397f4fdae761b19821a9"
+  integrity sha512-I9lILcB8T24s2473Gq5i+/eChznUWrkKfldnD597Y0HNcCN7uV4D/5FHi7OCDNNV0uMyN1fAJCWzrWixXtNC9w==
+  dependencies:
+    "@babel/runtime" "^7.13.0"
+    "@huolala-tech/page-spy-types" "^1.7.1"
+    rrweb "^2.0.0-alpha.4"
+
 "@huolala-tech/page-spy-types@^1.7.1":
   version "1.7.1"
   resolved "https://registry.npmjs.org/@huolala-tech/page-spy-types/-/page-spy-types-1.7.1.tgz#9f90a428df05a61a161e34337cbcf591c7dba1a9"

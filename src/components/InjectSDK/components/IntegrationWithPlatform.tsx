@@ -31,13 +31,12 @@ interface Props {
 
 export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
   const { t } = useTranslation();
-  const deployPath = (location.host + location.pathname).replace(/\/+$/, '');
   const steps = useMemo(() => {
     const stepsWithPlatform = {
       web: [
         {
           title: t('inject.web.load-sdk'),
-          code: `<script crossorigin="anonymous" src="${location.protocol}//${deployPath}/page-spy/index.min.js"></script>`,
+          code: `<script crossorigin="anonymous" src="${location.protocol}//${window.DEPLOY_BASE_PATH}/page-spy/index.min.js"></script>`,
         },
         {
           title: (
@@ -51,6 +50,23 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
           code: `<script>
   window.$pageSpy = new PageSpy();
 </script>`,
+        },
+        {
+          title: (
+            <Trans i18nKey="inject.web.plugins">
+              <span>PageSpy 可以按需集成插件，用于拓展 SDK 的能力，例如：</span>
+              <a href={import.meta.env.VITE_PLUGIN_RRWEB} target="_blank">
+                录制 DOM 变化
+              </a>
+              <a href={import.meta.env.VITE_PLUGIN_DATA_HARBOR} target="_blank">
+                离线缓存
+              </a>
+              <span>等功能，如有需要可以查看</span>
+              <a href={import.meta.env.VITE_PLUGIN_DOC} target="_blank">
+                插件详情
+              </a>
+            </Trans>
+          ),
         },
       ],
       'mp-wechat': [
@@ -73,7 +89,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
             </Trans>
           ),
           code: `import PageSpy from '@huolala-tech/page-spy-wechat';\n\nnew PageSpy({
-  api: '${deployPath}',
+  api: '${window.DEPLOY_BASE_PATH}',
 })`,
           lang: 'js',
         },
@@ -98,7 +114,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
             </Trans>
           ),
           code: `import PageSpy from '@huolala-tech/page-spy-uniapp';\n\nnew PageSpy({
-  api: '${deployPath}',
+  api: '${window.DEPLOY_BASE_PATH}',
 })`,
           lang: 'js',
         },
@@ -122,7 +138,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
         code: '',
       },
     ] as { title: ReactNode; code: string; lang?: Lang }[];
-  }, [deployPath, onCloseModal, platform, t]);
+  }, [onCloseModal, platform, t]);
 
   return (
     <div className="platform-integratio">

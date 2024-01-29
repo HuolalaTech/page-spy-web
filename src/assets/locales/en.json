@@ -46,7 +46,8 @@
     "web": {
       "title": "WEB",
       "load-sdk": "Load a <script> in the test project;",
-      "init-sdk": "<0>Then, initialize it and check the</0> <1>configuration options</1>:"
+      "init-sdk": "<0>Then, initialize it and check the</0> <1>configuration options</1>:",
+      "plugins": "<0>PageSpy can integrate plugins on demand to extend the capabilities of the SDK, such as:</0> <1>DOM recording</1>, <2>offline caching</2>, <3>and more. If needed, you can check the</3> <4>plugin details</4>;"
     },
     "mp-wechat": {
       "title": "Mini Program",
