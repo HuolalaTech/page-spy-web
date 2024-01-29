@@ -40,7 +40,6 @@ export const RRWebPlayer = memo(() => {
         speedOption: [1],
         autoPlay: false,
         skipInactive: false,
-        showWarning: false,
         showController: false,
         mouseTail: {
           lineWidth: 5,
