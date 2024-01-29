@@ -762,10 +762,10 @@
     "@huolala-tech/page-spy-types" "^1.7.1"
     copy-to-clipboard "^3.3.1"
 
-"@huolala-tech/page-spy-plugin-data-harbor@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-plugin-data-harbor/-/page-spy-plugin-data-harbor-1.0.1.tgz#937225360ab9e2f14224824aa225d7a5d4c27596"
-  integrity sha512-c8uH+QfCi/9Cn9ZFYNNxqIMXbtp6Jck7M+udf18x9NiHfbYOUrpsMpWDPCG8vkZ6kEolf2/9IYKhdxT2mPciHA==
+"@huolala-tech/page-spy-plugin-data-harbor@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-plugin-data-harbor/-/page-spy-plugin-data-harbor-1.0.2.tgz#f89e2b1e6642439d444cda35819d430537865e7a"
+  integrity sha512-Bz1ppJiajboNlbFMZrZpaCL9+hKk0sf7Bfke5WuaGv+6sk+Nnsti6qN84igC0wbozf62O+KmSwJSegO36WmVUw==
   dependencies:
     "@babel/runtime" "^7.13.0"
     "@huolala-tech/page-spy-types" "^1.7.1"
