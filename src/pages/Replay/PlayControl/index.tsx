@@ -1,31 +1,38 @@
 import { ReactComponent as PlaySvg } from '@/assets/image/play.svg';
 import { ReactComponent as PauseSvg } from '@/assets/image/pause.svg';
+import { ReactComponent as RelateTimeSvg } from '@/assets/image/related-time.svg';
+import { ReactComponent as AbsoluteTimeSvg } from '@/assets/image/absolute-time.svg';
 import Icon from '@ant-design/icons';
 import './index.less';
-import { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import {
   REPLAY_STATUS_CHANGE,
   REPLAY_END,
   REPLAY_PROGRESS_CHANGE,
 } from '../events';
-import { Space } from 'antd';
+import { Col, Row, Space, Tooltip } from 'antd';
 import { useReplayStore } from '@/store/replay';
 import { useEventListener } from '@/utils/useEventListener';
+import { useTranslation } from 'react-i18next';
 
-interface Props {
-  duration: number;
-}
+const fixProgress = (progress: number) => {
+  // prettier-ignore
+  return progress < 0
+    ? 0
+    : progress > 1
+      ? 1
+      : progress;
+};
 
-export const PlayControl = memo(({ duration }: Props) => {
+export const PlayControl = memo(() => {
+  const { t } = useTranslation();
   const elapsed = useRef(0);
   const raf = useRef(0);
   const currentTimeEl = useRef<HTMLDivElement | null>(null);
   const timelineEl = useRef<HTMLDivElement | null>(null);
   const pointEl = useRef<(HTMLDivElement & { isMoving: boolean }) | null>(null);
   const [playing, setPlaying] = useState(false);
-  const updateElapsed = useReplayStore((state) => state.updateElapsed);
-
   useEventListener(
     'keyup',
     (evt) => {
@@ -35,6 +42,41 @@ export const PlayControl = memo(({ duration }: Props) => {
       }
     },
     { target: document },
+  );
+
+  const [isRelatedTimeMode, setIsRelatedTimeMode] = useState(true);
+  const timeFormat = useMemo(() => {
+    return isRelatedTimeMode ? 'mm:ss:SSS' : 'YYYY/MM/DD HH:mm:ss';
+  }, [isRelatedTimeMode]);
+  const [startTime, endTime, duration, updateElapsed] = useReplayStore(
+    (state) => [
+      state.startTime,
+      state.endTime,
+      state.duration,
+      state.updateElapsed,
+    ],
+  );
+  const computeCurrentTime = useCallback(
+    (elapsed: number) => {
+      if (isRelatedTimeMode) {
+        return dayjs.duration(elapsed).format(timeFormat);
+      } else {
+        return dayjs(startTime + elapsed).format(timeFormat);
+      }
+    },
+    [startTime, timeFormat, isRelatedTimeMode],
+  );
+  const handleUpdateAfterProgressChange = useCallback(
+    (progress: number) => {
+      if (pointEl.current) {
+        pointEl.current.style.left = `${progress * 100}%`;
+      }
+      if (currentTimeEl.current) {
+        const elapsed = Math.ceil(progress * duration);
+        currentTimeEl.current!.textContent = computeCurrentTime(elapsed);
+      }
+    },
+    [computeCurrentTime, duration],
   );
 
   const onStatusChange = useCallback(() => {
@@ -52,7 +94,9 @@ export const PlayControl = memo(({ duration }: Props) => {
 
   const onProgressChange = useCallback(
     (progress: number) => {
-      elapsed.current = Math.ceil(progress < 0 ? 0 : progress * duration);
+      // eslint-disable-next-line no-param-reassign
+      progress = fixProgress(progress);
+      elapsed.current = Math.ceil(progress * duration);
       if (progress === 1) {
         setPlaying(false);
         window.dispatchEvent(new CustomEvent(REPLAY_END));
@@ -66,13 +110,9 @@ export const PlayControl = memo(({ duration }: Props) => {
       updateElapsed(elapsed.current);
 
       if (pointEl.current?.isMoving) return;
-
-      pointEl.current!.style.left = `${progress * 100}%`;
-      currentTimeEl.current!.textContent = dayjs
-        .duration(elapsed.current)
-        .format('mm:ss:SSS');
+      handleUpdateAfterProgressChange(progress);
     },
-    [duration, updateElapsed],
+    [duration, handleUpdateAfterProgressChange, updateElapsed],
   );
 
   const rafHandler = useCallback(() => {
@@ -92,6 +132,9 @@ export const PlayControl = memo(({ duration }: Props) => {
     } else {
       window.cancelAnimationFrame(raf.current);
     }
+    return () => {
+      window.cancelAnimationFrame(raf.current);
+    };
   }, [rafHandler, playing]);
 
   // "Skip" in timeline by click
@@ -104,9 +147,8 @@ export const PlayControl = memo(({ duration }: Props) => {
       const diff = evt.clientX - left;
       const progress = Math.min(diff / width, 1);
 
-      setPlaying(false);
-      onStatusChange();
       onProgressChange(progress);
+      onStatusChange();
     };
     el.addEventListener('click', listener);
     return () => {
@@ -114,7 +156,7 @@ export const PlayControl = memo(({ duration }: Props) => {
     };
   }, [duration, onProgressChange, onStatusChange]);
 
-  // "Skip" in timeline by mousedown / mousemove
+  // "Skip" in timeline by drag
   useEffect(() => {
     const currentTime = currentTimeEl.current;
     const point = pointEl.current;
@@ -141,26 +183,15 @@ export const PlayControl = memo(({ duration }: Props) => {
       } else if (resultX > critical.right) {
         resultX = critical.right;
       }
-      const current = (resultX - lineRect.left) / lineRect.width;
-      // prettier-ignore
-      progress = current < 0
-        ? 0
-        : current > 1
-          ? 1
-          : current;
-
-      point!.style.left = `${progress * 100}%`;
-      currentTime!.textContent = dayjs
-        .duration(Math.ceil(progress * duration))
-        .format('mm:ss:SSS');
+      progress = fixProgress((resultX - lineRect.left) / lineRect.width);
+      handleUpdateAfterProgressChange(progress);
     }
-    function end(evt: MouseEvent) {
+    function end() {
       startX = 0;
       document.removeEventListener('mousemove', move);
       document.removeEventListener('mouseup', end);
 
       point!.isMoving = false;
-      setPlaying(false);
       onStatusChange();
       onProgressChange(progress);
     }
@@ -182,29 +213,55 @@ export const PlayControl = memo(({ duration }: Props) => {
       document.removeEventListener('mousemove', move);
       document.removeEventListener('mouseup', end);
     };
-  }, [duration, onProgressChange, onStatusChange]);
+  }, [
+    duration,
+    handleUpdateAfterProgressChange,
+    onProgressChange,
+    onStatusChange,
+  ]);
 
   return (
     <div className="play-control">
-      <Space>
-        <Icon
-          component={playing ? PauseSvg : PlaySvg}
-          className="play-action toggle-play-status"
-          onClick={() => {
-            if (!playing && elapsed.current / duration >= 1) return;
-            setPlaying((playing) => !playing);
-          }}
-        />
-      </Space>
+      <div className="play-actions">
+        <div className="slot" />
+        <Space>
+          <Icon
+            component={playing ? PauseSvg : PlaySvg}
+            className="play-action__btn toggle-play-status"
+            onClick={() => {
+              if (!playing && elapsed.current / duration >= 1) return;
+              setPlaying((playing) => !playing);
+            }}
+          />
+        </Space>
+        <Tooltip
+          title={
+            isRelatedTimeMode
+              ? t('replay.related-time')
+              : t('replay.absolute-time')
+          }
+        >
+          <Icon
+            component={isRelatedTimeMode ? RelateTimeSvg : AbsoluteTimeSvg}
+            className="play-action__btn"
+            onClick={() => {
+              setIsRelatedTimeMode((mode) => !mode);
+            }}
+          />
+        </Tooltip>
+      </div>
       <div className="play-progress">
         <code className="play-current-time" ref={currentTimeEl}>
-          {dayjs.duration(elapsed.current).format('mm:ss:SSS')}
+          {computeCurrentTime(elapsed.current)}
         </code>
         <div className="play-timeline" ref={timelineEl}>
           <div className="play-current-point" ref={pointEl} />
         </div>
         <code className="play-duration-time">
-          {dayjs.duration(duration).format('mm:ss:SSS')}
+          {(isRelatedTimeMode
+            ? dayjs.duration(duration)
+            : dayjs(endTime)
+          ).format(timeFormat)}
         </code>
       </div>
     </div>

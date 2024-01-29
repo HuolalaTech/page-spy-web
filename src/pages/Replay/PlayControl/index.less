@@ -1,28 +1,37 @@
 .play-control {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  .play-action {
-    font-size: 18px;
+  .play-actions {
+    width: 40vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .play-action__btn {
+    font-size: 24px;
     color: @primary-color;
-    transition: color transform ease-in-out 0.1s;
+    transition: color background-color transform ease-in-out 0.1s;
     cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
     &.toggle-play-status {
-      font-size: 42px;
+      font-size: 50px;
     }
     &:active {
-      color: fade(@primary-color, 65%);
+      color: fade(@primary-color, 75%);
       transform: scale(0.9);
+    }
+    &:hover {
+      background-color: fade(@primary-color, 5%);
     }
   }
   .play-progress {
-    width: 100%;
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 18px;
+    margin-top: 8px;
+    white-space: nowrap;
     .play-timeline {
-      flex: 1;
+      flex: 0 0 40vw;
       position: relative;
       height: 8px;
       background-color: fade(@primary-color, 30%);

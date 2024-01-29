@@ -62,11 +62,9 @@ export const Replay = () => {
           <PluginPanel />
         </Col>
       </Row>
-      <Row justify="center" className="replay-footer">
-        <Col flex="60% 0 0">
-          <PlayControl duration={duration} />
-        </Col>
-      </Row>
+      <div className="replay-footer">
+        <PlayControl />
+      </div>
     </div>
   );
 };

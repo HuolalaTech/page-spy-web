@@ -168,6 +168,8 @@
     "title": "Replay Log",
     "intro": "<0>What's</0> <1>Replay Log</1>",
     "invalid-params": "No valid URL parameters found in the link.",
-    "invalid-blob": "<0>Failed to read parameters from the URL; the object may have been cleared</0><1><0></0></1>"
+    "invalid-blob": "<0>Failed to read parameters from the URL; the object may have been cleared</0><1><0></0></1>",
+    "related-time": "Related Time",
+    "absolute-time": "Absolute Time"
   }
 }
