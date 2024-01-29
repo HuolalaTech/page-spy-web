@@ -1,0 +1,57 @@
+.play-control {
+  .play-actions {
+    width: 40vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .play-action__btn {
+    font-size: 24px;
+    color: @primary-color;
+    transition: color background-color transform ease-in-out 0.1s;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    &.toggle-play-status {
+      font-size: 50px;
+    }
+    &:active {
+      color: fade(@primary-color, 75%);
+      transform: scale(0.9);
+    }
+    &:hover {
+      background-color: fade(@primary-color, 5%);
+    }
+  }
+  .play-progress {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    margin-top: 8px;
+    white-space: nowrap;
+    .play-timeline {
+      flex: 0 0 40vw;
+      position: relative;
+      height: 8px;
+      background-color: fade(@primary-color, 30%);
+      border-radius: 999px;
+      cursor: pointer;
+      .play-current-point {
+        @size: 18px;
+        position: absolute;
+        width: @size;
+        height: @size;
+        left: 0;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 999px;
+        background-color: @primary-color;
+        &:hover {
+          width: @size * 1.1;
+          height: @size * 1.1;
+        }
+      }
+    }
+  }
+}

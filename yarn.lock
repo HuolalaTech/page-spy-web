@@ -753,19 +753,37 @@
     "@huolala-tech/page-spy-api-win32-arm" "1.2.2"
     "@huolala-tech/page-spy-api-win32-arm64" "1.2.2"
 
-"@huolala-tech/page-spy-browser@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-browser/-/page-spy-browser-1.7.0.tgz#05f3a9270281100693837f101001afda5e344bf2"
-  integrity sha512-2tomGwP8C3Iw/hDWhFS+bYDkI87SFtZxBrkfRCV2eMctiFo5/nl1VxEPp3BdPO0GT3qDeQgqzmxTaABoS6bqsQ==
+"@huolala-tech/page-spy-browser@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-browser/-/page-spy-browser-1.7.1.tgz#63783224735795cb6e5f6e3fd89955911ab02702"
+  integrity sha512-yjdltFd3sui3OiWX8e0/NypV2t6SyrB5H7aUePrrl4a2V8j4TO9VMzrTZGcp4BqFCGdmAhsO26bMBZoIoTuzwg==
   dependencies:
     "@babel/runtime" "^7.13.0"
-    "@huolala-tech/page-spy-types" "^1.7.0"
+    "@huolala-tech/page-spy-types" "^1.7.1"
     copy-to-clipboard "^3.3.1"
 
-"@huolala-tech/page-spy-types@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-types/-/page-spy-types-1.7.0.tgz#6bba0be5a1ff01a12274f26c614f48ef4121e865"
-  integrity sha512-GN8i+t/Bse7gjtpArN60FSmWaan9+FNZ2MlWxt2W9bobYS2zUv2VqxYPkj9HENXPon2nBdrXzdPXscVxGpXmxA==
+"@huolala-tech/page-spy-plugin-data-harbor@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-plugin-data-harbor/-/page-spy-plugin-data-harbor-1.0.1.tgz#937225360ab9e2f14224824aa225d7a5d4c27596"
+  integrity sha512-c8uH+QfCi/9Cn9ZFYNNxqIMXbtp6Jck7M+udf18x9NiHfbYOUrpsMpWDPCG8vkZ6kEolf2/9IYKhdxT2mPciHA==
+  dependencies:
+    "@babel/runtime" "^7.13.0"
+    "@huolala-tech/page-spy-types" "^1.7.1"
+    fflate "^0.8.1"
+
+"@huolala-tech/page-spy-plugin-rrweb@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-plugin-rrweb/-/page-spy-plugin-rrweb-1.0.1.tgz#1f26c831e5e3b5c0165d397f4fdae761b19821a9"
+  integrity sha512-I9lILcB8T24s2473Gq5i+/eChznUWrkKfldnD597Y0HNcCN7uV4D/5FHi7OCDNNV0uMyN1fAJCWzrWixXtNC9w==
+  dependencies:
+    "@babel/runtime" "^7.13.0"
+    "@huolala-tech/page-spy-types" "^1.7.1"
+    rrweb "^2.0.0-alpha.4"
+
+"@huolala-tech/page-spy-types@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-types/-/page-spy-types-1.7.1.tgz#9f90a428df05a61a161e34337cbcf591c7dba1a9"
+  integrity sha512-/ruCMwyEg1jqMWyE9+pFPVMbLM5tPvK1NjRrUlHRIJQt1+H9Fpsk2vaow9ZDpdhl2wAATDyliyQY1ENgdLmzUg==
 
 "@huolala-tech/react-json-view@^1.2.4":
   version "1.2.4"
@@ -960,6 +978,13 @@
     estree-walker "^2.0.2"
     picomatch "^2.3.1"
 
+"@rrweb/types@^2.0.0-alpha.11", "@rrweb/types@^2.0.0-alpha.4":
+  version "2.0.0-alpha.11"
+  resolved "https://registry.npmjs.org/@rrweb/types/-/types-2.0.0-alpha.11.tgz#30730ac4b619a698d910f391992be8682286b8c8"
+  integrity sha512-8ccocIkT5J/bfNRQY85qR/g6p5YQFpgFO2cMt4+Ex7w31Lq0yqZBRaoYEsawQKpLrn5KOHkdn2UTUrna7WMQuA==
+  dependencies:
+    rrweb-snapshot "^2.0.0-alpha.11"
+
 "@svgr/babel-plugin-add-jsx-attribute@^6.5.1":
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-6.5.1.tgz#74a5d648bd0347bda99d82409d87b8ca80b9a1ba"
@@ -1043,12 +1068,22 @@
     "@svgr/hast-util-to-babel-ast" "^6.5.1"
     svg-parser "^2.0.4"
 
+"@tsconfig/svelte@^1.0.0":
+  version "1.0.13"
+  resolved "https://registry.npmjs.org/@tsconfig/svelte/-/svelte-1.0.13.tgz#2fa34376627192c0d643ce54964915e2bd3a58e4"
+  integrity sha512-5lYJP45Xllo4yE/RUBccBT32eBlRDbqN8r1/MIvQbKxW3aFqaYPCNgm8D5V20X4ShHcwvYWNlKg3liDh1MlBoA==
+
 "@types/acorn@^4.0.0":
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/@types/acorn/-/acorn-4.0.6.tgz#d61ca5480300ac41a7d973dd5b84d0a591154a22"
   integrity sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==
   dependencies:
     "@types/estree" "*"
+
+"@types/css-font-loading-module@0.0.7":
+  version "0.0.7"
+  resolved "https://registry.npmjs.org/@types/css-font-loading-module/-/css-font-loading-module-0.0.7.tgz#2f98ede46acc0975de85c0b7b0ebe06041d24601"
+  integrity sha512-nl09VhutdjINdWyXxHWN/w9zlNCfr60JUqJbd24YXUuCwgeL0TpFSdElCwb6cxfB6ybE19Gjj4g0jsgkXxKv1Q==
 
 "@types/debug@^4.0.0":
   version "4.1.8"
@@ -1287,6 +1322,11 @@
     "@babel/plugin-transform-react-jsx-self" "^7.22.5"
     "@babel/plugin-transform-react-jsx-source" "^7.22.5"
     react-refresh "^0.14.0"
+
+"@xstate/fsm@^1.4.0":
+  version "1.6.5"
+  resolved "https://registry.npmjs.org/@xstate/fsm/-/fsm-1.6.5.tgz#f599e301997ad7e3c572a0b1ff0696898081bea5"
+  integrity sha512-b5o1I6aLNeYlU/3CPlj/Z91ybk1gUsKT+5NAJI+2W4UjvS5KLG28K9v5UvNoFVjHV8PajVZ00RH3vnjyQO7ZAw==
 
 acorn-jsx@^5.0.0, acorn-jsx@^5.3.2:
   version "5.3.2"
@@ -1528,6 +1568,11 @@ balanced-match@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
+
+base64-arraybuffer@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/base64-arraybuffer/-/base64-arraybuffer-1.0.2.tgz#1c37589a7c4b0746e34bd1feb951da2df01c1bdc"
+  integrity sha512-I3yl4r9QB5ZRY3XuJVEPfc2XhZO6YweFPI+UovAzn+8/hb3oJ6lnysaFcjVpkCPfVWFUDvoZ8kmVDP7WyRtYtQ==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -1783,6 +1828,11 @@ dayjs@^1.11.1, dayjs@^1.9.1:
   version "1.11.7"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.7.tgz#4b296922642f70999544d1144a2c25730fce63e2"
   integrity sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==
+
+dayjs@^1.11.10:
+  version "1.11.10"
+  resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.11.10.tgz#68acea85317a6e164457d6d6947564029a6a16a0"
+  integrity sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==
 
 debug@^3.2.6:
   version "3.2.7"
@@ -2276,6 +2326,16 @@ fastq@^1.6.0:
   integrity sha512-wBrocU2LCXXa+lWBt8RoIRD89Fi8OdABODa/kEnyeyjS5aZO5/GNvI5sEINADqP/h8M29UHTHUb53sUu5Ihqdw==
   dependencies:
     reusify "^1.0.4"
+
+fflate@^0.4.4:
+  version "0.4.8"
+  resolved "https://registry.npmjs.org/fflate/-/fflate-0.4.8.tgz#f90b82aefbd8ac174213abb338bd7ef848f0f5ae"
+  integrity sha512-FJqqoDBR00Mdj9ppamLa/Y7vxm+PRmNWA67N846RvsoYVMKB4q3y/de5PA7gUmRMYK/8CMz2GDZQmCRN1wBcWA==
+
+fflate@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.npmjs.org/fflate/-/fflate-0.8.1.tgz#1ed92270674d2ad3c73f077cd0acf26486dae6c9"
+  integrity sha512-/exOvEuc+/iaUm105QIiOt4LpBdMTWsXxqR0HDF35vx3fmaKzw7354gTilCh5rkzEt8WYyG//ku3h3nRmd7CHQ==
 
 file-entry-cache@^6.0.1:
   version "6.0.1"
@@ -3583,6 +3643,11 @@ minimatch@^3.0.5, minimatch@^3.1.1, minimatch@^3.1.2:
   dependencies:
     brace-expansion "^1.1.7"
 
+mitt@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/mitt/-/mitt-3.0.1.tgz#ea36cf0cc30403601ae074c8f77b7092cdab36d1"
+  integrity sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==
+
 mri@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/mri/-/mri-1.2.0.tgz#6721480fec2a11a4889861115a48b6cbe7cc8f0b"
@@ -4488,6 +4553,45 @@ rollup@^3.21.0:
   integrity sha512-h31UlwEi7FHihLe1zbk+3Q7z1k/84rb9BSwmBSr/XjOCEaBJ2YyedQDuM0t/kfOS0IxM+vk1/zI9XxYj9V+NJQ==
   optionalDependencies:
     fsevents "~2.3.2"
+
+rrdom@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.npmjs.org/rrdom/-/rrdom-0.1.7.tgz#f2f49bfd01b59291bb7b0d981371a5e02a18e2aa"
+  integrity sha512-ZLd8f14z9pUy2Hk9y636cNv5Y2BMnNEY99wxzW9tD2BLDfe1xFxtLjB4q/xCBYo6HRe0wofzKzjm4JojmpBfFw==
+  dependencies:
+    rrweb-snapshot "^2.0.0-alpha.4"
+
+rrweb-player@^1.0.0-alpha.4:
+  version "1.0.0-alpha.4"
+  resolved "https://registry.npmjs.org/rrweb-player/-/rrweb-player-1.0.0-alpha.4.tgz#57576343aaff6c6fb266689fd5d63092be46967c"
+  integrity sha512-Wlmn9GZ5Fdqa37vd3TzsYdLl/JWEvXNUrLCrYpnOwEgmY409HwVIvvA5aIo7k582LoKgdRCsB87N+f0oWAR0Kg==
+  dependencies:
+    "@tsconfig/svelte" "^1.0.0"
+    rrweb "^2.0.0-alpha.4"
+
+rrweb-snapshot@^2.0.0-alpha.11:
+  version "2.0.0-alpha.11"
+  resolved "https://registry.npmjs.org/rrweb-snapshot/-/rrweb-snapshot-2.0.0-alpha.11.tgz#5ce031181ac1ac182ce6706369f77824e2bea17a"
+  integrity sha512-N0dzeJA2VhrlSOadkKwCVmV/DuNOwBH+Lhx89hAf9PQK4lCS8AP4AaylhqUdZOYHqwVjqsYel/uZ4hN79vuLhw==
+
+rrweb-snapshot@^2.0.0-alpha.4:
+  version "2.0.0-alpha.4"
+  resolved "https://registry.npmjs.org/rrweb-snapshot/-/rrweb-snapshot-2.0.0-alpha.4.tgz#2801bf5946177b9d685a01661a62d9d2e958f174"
+  integrity sha512-KQ2OtPpXO5jLYqg1OnXS/Hf+EzqnZyP5A+XPqBCjYpj3XIje/Od4gdUwjbFo3cVuWq5Cw5Y1d3/xwgIS7/XpQQ==
+
+rrweb@^2.0.0-alpha.4:
+  version "2.0.0-alpha.4"
+  resolved "https://registry.npmjs.org/rrweb/-/rrweb-2.0.0-alpha.4.tgz#3c7cf2f1bcf44f7a88dd3fad00ee8d6dd711f258"
+  integrity sha512-wEHUILbxDPcNwkM3m4qgPgXAiBJyqCbbOHyVoNEVBJzHszWEFYyTbrZqUdeb1EfmTRC2PsumCIkVcomJ/xcOzA==
+  dependencies:
+    "@rrweb/types" "^2.0.0-alpha.4"
+    "@types/css-font-loading-module" "0.0.7"
+    "@xstate/fsm" "^1.4.0"
+    base64-arraybuffer "^1.0.1"
+    fflate "^0.4.4"
+    mitt "^3.0.0"
+    rrdom "^0.1.7"
+    rrweb-snapshot "^2.0.0-alpha.4"
 
 run-parallel@^1.1.9:
   version "1.2.0"

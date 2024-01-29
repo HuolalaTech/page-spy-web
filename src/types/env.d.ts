@@ -5,7 +5,13 @@ declare module '*.png';
 
 interface ImportMetaEnv {
   readonly VITE_API_BASE: string;
+  readonly VITE_GITHUB_HOMEPAGE: string;
   readonly VITE_GITHUB_REPO: string;
+  readonly VITE_SDK_UNIAPP_REPO: string;
+  readonly VITE_SDK_WECHAT_REPO: string;
+  readonly VITE_SDK_BROWSER_REPO: string;
+  readonly VITE_WIKI_REPLAY_LOG: string;
+  readonly VITE_WIKI_REPLAY_LOG_ZH: string;
 }
 
 interface ImportMeta {

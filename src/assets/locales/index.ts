@@ -40,4 +40,11 @@ export const getTranslation = (key: string) => {
   return res || key;
 };
 
+export const isCN = () => {
+  const lang = i18next.resolvedLanguage;
+  return ['zh-CN', 'zh-HK', 'zh-TW', 'zh'].some((l) => {
+    return lang === l;
+  });
+};
+
 export default i18next;

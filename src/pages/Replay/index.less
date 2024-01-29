@@ -1,0 +1,33 @@
+.replay {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  &-header {
+    padding: 32px 32px 0 32px;
+    &__title {
+      font-size: 24px;
+      font-weight: 500;
+    }
+  }
+  &-main {
+    flex: 1;
+    min-height: 0;
+    padding: 12px 32px;
+    &__left {
+      width: 40vw;
+      aspect-ratio: 16 / 9;
+      background-color: #fff;
+      border-radius: 4px;
+    }
+  }
+  &-footer {
+    flex: 80px 0 0;
+    display: flex;
+    justify-content: center;
+    padding-block: 8px 20px;
+    background-color: #fff;
+    box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.03);
+    z-index: 1000;
+  }
+}

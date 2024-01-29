@@ -46,7 +46,8 @@
     "web": {
       "title": "WEB",
       "load-sdk": "Load a <script> in the test project;",
-      "init-sdk": "<0>Then, initialize it and check the</0> <1>configuration options</1>:"
+      "init-sdk": "<0>Then, initialize it and check the</0> <1>configuration options</1>:",
+      "plugins": "<0>PageSpy can integrate plugins on demand to extend the capabilities of the SDK, such as:</0> <1>DOM recording</1>, <2>offline caching</2>, <3>and more. If needed, you can check the</3> <4>plugin details</4>;"
     },
     "mp-wechat": {
       "title": "Mini Program",
@@ -163,5 +164,13 @@
     "select-os": "Select OS",
     "select-browser": "Select browser",
     "select-mp": "Select Mini Program"
+  },
+  "replay": {
+    "title": "Replay Log",
+    "intro": "<0>What's</0> <1>Replay Log</1>",
+    "invalid-params": "No valid URL parameters found in the link.",
+    "invalid-blob": "<0>Failed to read parameters from the URL; the object may have been cleared</0><1><0></0></1>",
+    "related-time": "Related Time",
+    "absolute-time": "Absolute Time"
   }
 }

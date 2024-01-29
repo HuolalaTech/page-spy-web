@@ -3,6 +3,7 @@ import { App } from './App';
 import '@/assets/style/union.less';
 import '@/assets/style/initial.css';
 import '@/assets/locales/index';
+import './init';
 
 const root = ReactDOM.createRoot(document.querySelector('#root')!);
 
