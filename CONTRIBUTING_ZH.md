@@ -5,7 +5,7 @@
 [github-release]: https://github.com/HuolalaTech/page-spy-web/releases/tag/v1.2.0 'PageSpy Release'
 [npm-package]: https://www.npmjs.com/package/@huolala-tech/page-spy-api 'NPM package'
 
-[English](./CONTRIBUTING.md) | 中文
+[English](./CONTRIBUTING.md) | 中文 | [日本語](./CONTRIBUTING_JA.md)
 
 # PageSpy Contributing Guide
 
