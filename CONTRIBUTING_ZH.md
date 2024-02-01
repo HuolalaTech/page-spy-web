@@ -17,6 +17,8 @@ PageSpy 主要由三个仓库组成：
 - 服务器端代码在 [HuolalaTech/page-spy-api][page-spy-api] 仓库维护；
 - 需要在客户端引入的 SDK 代码在 [HuolalaTech/page-spy][page-spy-sdk] 仓库维护；
 
+<img src="./.github/assets/interaction.png" height="400" />
+
 提供服务的方式是托管在 GitHub Package 中的 Docker 镜像（推荐）、[NPM package][npm-package] 或者使用 [Release][github-release] 托管的可执行文件。
 
 ## Repo Setup

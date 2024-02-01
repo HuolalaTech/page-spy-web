@@ -15,13 +15,15 @@ PageSpy は 3 つのリポジトリから構成されています：
 
 - デバッガ WebUI: [HuolalaTech/page-spy-web][page-spy-web] リポジトリでメンテナンスされています;
 - サーバー: [HuolalaTech/page-spy-api][page-spy-api] リポジトリでメンテナンスされています;
-- クライアントに注入されるSDK: [HuolalaTech/page-spy][page-spy-sdk] リポジトリでメンテナンスされています;
+- クライアントに注入される SDK: [HuolalaTech/page-spy][page-spy-sdk] リポジトリでメンテナンスされています;
+
+<img src="./.github/assets/interaction.png" height="400" />
 
 PageSpy は、GitHub Package (推奨) / [NPM package][npm-package] にホストされている Docker イメージ、または [Release][github-release] ページにホストされているバイナリ実行ファイルとして提供されます。
 
 ## リポジトリセットアップ
 
-> ヒント: リポジトリごとに開発環境をローカルにセットアップする必要はない。1つのリポジトリだけに集中して貢献することができます。詳しくは[さまざまなシナリオでのデバッグ](#debugging-in-different-scenarios)をクリックしてください。
+> ヒント: リポジトリごとに開発環境をローカルにセットアップする必要はない。1 つのリポジトリだけに集中して貢献することができます。詳しくは[さまざまなシナリオでのデバッグ](#debugging-in-different-scenarios)をクリックしてください。
 
 ### サーバーセットアップ
 
@@ -179,13 +181,13 @@ PageSpy は、3 つのリポジトリの実装の詳細をパックし、ワン�
 
 上記の操作が完了したら、サービスが https://example.com にデプロイされたと仮定します。これで、デバッガーウェブ、サーバサイド、SDK の準備がすべて整いました。
 
-テストプロジェクトを作成するか、既存のプロジェクトを使用してSDKをインポートし、サービスに接続します。
+テストプロジェクトを作成するか、既存のプロジェクトを使用して SDK をインポートし、サービスに接続します。
 
 <img src="./src/assets/image/relation.png" alt="Relation" width="90%" />
 
 ### デバッガ WebUI への注力
 
-デバッガーへの貢献だけに集中したい場合は、[Debugger WebUI Setup](#debugger-webui-setup)の手順に従ってサービスをローカルにセットアップしてください。3番目のステップでは、次のように更新します:
+デバッガーへの貢献だけに集中したい場合は、[Debugger WebUI Setup](#debugger-webui-setup)の手順に従ってサービスをローカルにセットアップしてください。3 番目のステップでは、次のように更新します:
 
 ```bash
 # .env.local
@@ -209,7 +211,7 @@ new PageSpy({
 
 ### SDK への注力
 
-SDKへの貢献だけに集中したい場合は、[SDKセットアップ](#sdk-setup)の手順に従って、ローカルでサービスをセットアップしてください。
+SDK への貢献だけに集中したい場合は、[SDK セットアップ](#sdk-setup)の手順に従って、ローカルでサービスをセットアップしてください。
 
 `--scope` パラメータを使用してターミナル コマンドを実行することをお勧めします。変更が発生すると自動的にビルドされます。例えば:
 
