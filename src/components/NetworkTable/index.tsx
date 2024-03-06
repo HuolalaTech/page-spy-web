@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import copy from 'copy-to-clipboard';
 import { isString } from 'lodash-es';
 import { useRef, useState, useMemo, useEffect, useCallback } from 'react';
-import { EntriesBody } from './EntriesBody';
+import { EntriesBody } from '@/components/EntriesBody';
 import { PartOfHeader } from './PartOfHeader';
 import { QueryParamsBlock } from './QueryParamsBlock';
 import { RequestPayloadBlock } from './RequestPayloadBlock';

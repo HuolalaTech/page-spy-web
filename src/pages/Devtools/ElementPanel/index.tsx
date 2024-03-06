@@ -144,7 +144,7 @@ function ElementItem({
   return null;
 }
 
-function ElementNode({
+export function ElementNode({
   ast,
   lang = 'text',
 }: {

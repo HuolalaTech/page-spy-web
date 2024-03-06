@@ -92,7 +92,9 @@
       "Network": "网络",
       "System": "系统",
       "Page": "页面",
-      "Storage": "存储"
+      "Storage": "存储",
+      "MPPage": "小程序页面",
+      "MPSystem": "小程序系统"
     }
   },
   "shortcuts": {
@@ -145,6 +147,9 @@
     "entries-be-modified": "一些条目可能已经被修改",
     "data-be-stale": "数据可能已经过时",
     "total-entries": "总记录数"
+  },
+  "mp-page": {
+    "page-stack": "页面栈"
   },
   "socket": {
     "client-name": "客户端",

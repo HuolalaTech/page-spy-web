@@ -92,7 +92,9 @@
       "Network": "Network",
       "System": "System",
       "Page": "Page",
-      "Storage": "Storage"
+      "Storage": "Storage",
+      "MPPage": "MP Page",
+      "MPSystem": "MP System"
     }
   },
   "shortcuts": {
@@ -145,6 +147,9 @@
     "entries-be-modified": "Some entries have been modified",
     "data-be-stale": "Data may be stale",
     "total-entries": "Total entries"
+  },
+  "mp-page": {
+    "page-stack": "Page Stack"
   },
   "socket": {
     "client-name": "Client",

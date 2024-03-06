@@ -92,7 +92,9 @@
       "Network": "ネットワーク",
       "System": "システム",
       "Page": "ページ",
-      "Storage": "ストレージ"
+      "Storage": "ストレージ",
+      "MPPage": "Mini Program ページ",
+      "MPSystem": "Mini Program システム"
     }
   },
   "shortcuts": {
@@ -145,6 +147,9 @@
     "entries-be-modified": "一部のエントリが変更されました",
     "data-be-stale": "データが古くなっている可能性があります",
     "total-entries": "合計エントリー"
+  },
+  "mp-page": {
+    "page-stack": "ページスタック"
   },
   "socket": {
     "client-name": "クライアント",

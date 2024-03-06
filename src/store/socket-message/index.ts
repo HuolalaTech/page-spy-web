@@ -6,16 +6,17 @@ import {
   SpyConsole,
   SpyNetwork,
   SpySystem,
+  SpyMPPage,
   SpyPage,
   SpyStorage,
   SpyDatabase,
+  SpyMessage,
 } from '@huolala-tech/page-spy-types';
 import { API_BASE_URL } from '@/apis/request';
 import { resolveProtocol } from '@/utils';
 import { ElementContent } from 'hast';
 import { getFixedPageMsg } from './utils';
 import { isEqual, omit } from 'lodash-es';
-import * as MESSAGE_TYPE from './message-type';
 
 const USER_ID = 'Debugger';
 
@@ -36,6 +37,10 @@ interface SocketMessage {
     basicInfo: SpyDatabase.DBInfo[] | null;
     data: SpyDatabase.GetTypeDataItem | null;
   };
+  mpPageMsg: {
+    stack: SpyMPPage.MPPageInfo[];
+  };
+  mpMethodResult: SpyMPPage.MethodResultDataItem[];
   initSocket: (url: string) => void;
   setConsoleMsgTypeFilter: (typeList: string[]) => void;
   clearRecord: (key: string) => void;
@@ -64,6 +69,10 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     basicInfo: null,
     data: null,
   },
+  mpPageMsg: {
+    stack: [],
+  },
+  mpMethodResult: [],
   initSocket: (room: string) => {
     if (!room) return;
     const address = decodeURIComponent(room).split('#')[0] ?? '';
@@ -77,21 +86,67 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
 
     const socket = new SocketStore(url);
     set({ socket });
-    socket.addListener(MESSAGE_TYPE.CONSOLE, (data: SpyConsole.DataItem) => {
+    socket.addListener('console', (data: SpyConsole.DataItem) => {
       set(
         produce<SocketMessage>((state) => {
           state.consoleMsg.push(data);
         }),
       );
     });
-    socket.addListener(MESSAGE_TYPE.SYSTEM, (data: SpySystem.DataItem) => {
+    socket.addListener('system', (data: SpySystem.DataItem) => {
       set(
         produce<SocketMessage>((state) => {
           state.systemMsg.push(data);
         }),
       );
     });
-    socket.addListener(MESSAGE_TYPE.NETWORK, (data: SpyNetwork.RequestInfo) => {
+    socket.addListener(
+      'mp-page-detail',
+      (data: SpyMPPage.PageDetailDataItem) => {
+        set(
+          produce<SocketMessage>((state) => {
+            const page = state.mpPageMsg.stack.find(
+              (p) => p.route === data.page.route,
+            );
+            if (page) {
+              Object.assign(page, data.page);
+            }
+          }),
+        );
+      },
+    );
+    socket.addListener('mp-page-dom', (data: SpyMPPage.PageDetailDataItem) => {
+      set(
+        produce<SocketMessage>((state) => {
+          const page = state.mpPageMsg.stack.find(
+            (p) => p.route === data.page.route,
+          );
+          if (page && data.page.dom) {
+            page.dom = data.page.dom;
+          }
+        }),
+      );
+    });
+    socket.addListener('mp-page-stack', (data: SpyMPPage.PageStackDataItem) => {
+      console.log('page stack event', data);
+      set(
+        produce<SocketMessage>((state) => {
+          state.mpPageMsg.stack = data.stack;
+        }),
+      );
+    });
+    socket.addListener(
+      'mp-method-result',
+      (data: SpyMPPage.MethodResultDataItem) => {
+        console.log('page stack event', data);
+        set(
+          produce<SocketMessage>((state) => {
+            state.mpMethodResult.push(data);
+          }),
+        );
+      },
+    );
+    socket.addListener('network', (data: SpyNetwork.RequestInfo) => {
       const cache = get().networkMsg;
       // 整理 xhr 的消息
       const { id } = data;
@@ -113,14 +168,14 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         );
       }
     });
-    socket.addListener(MESSAGE_TYPE.CONNECT, (data: string) => {
+    socket.addListener('connect', (data: string) => {
       set(
         produce<SocketMessage>((state) => {
           state.connectMsg.push(data);
         }),
       );
     });
-    socket.addListener(MESSAGE_TYPE.PAGE, async (data: SpyPage.DataItem) => {
+    socket.addListener('page', async (data: SpyPage.DataItem) => {
       const { tree, html } = await getFixedPageMsg(
         data.html,
         data.location.href,
@@ -136,7 +191,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         }),
       );
     });
-    socket.addListener(MESSAGE_TYPE.STORAGE, (data: SpyStorage.DataItem) => {
+    socket.addListener('storage', (data: SpyStorage.DataItem) => {
       const { type, action } = data;
       switch (action) {
         case 'get':
@@ -187,7 +242,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
           break;
       }
     });
-    socket.addListener(MESSAGE_TYPE.DATABASE, (data: SpyDatabase.DataItem) => {
+    socket.addListener('database', (data: SpyDatabase.DataItem) => {
       switch (data.action) {
         case 'get':
           set(
