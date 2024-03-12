@@ -171,6 +171,12 @@
     "invalid-params": "链接中未找到有效的参数 url",
     "invalid-blob": "<0>url 里的参数读取失败，object 可能已经被清除</0><1><0></0></1>",
     "related-time": "相对时间",
-    "absolute-time": "绝对时间"
+    "absolute-time": "绝对时间",
+    "select-log": "选择日志",
+    "log-type": "选择日志",
+    "online-link": "在线链接",
+    "online-link-tips": "请输入在线日志的链接",
+    "local-file": "本地文件",
+    "local-file-tip": "请选择本地文件"
   }
 }
