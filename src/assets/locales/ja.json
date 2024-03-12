@@ -171,6 +171,12 @@
     "invalid-params": "リンク内で有効なURLパラメータが見つかりません。",
     "invalid-blob": "<0>URLからのパラメータの読み取りに失敗しました；オブジェクトは既にクリアされている可能性があります</0><1><0></0></1>",
     "related-time": "相対時間",
-    "absolute-time": "絶対時間"
+    "absolute-time": "絶対時間",
+    "select-log": "ログを選択",
+    "log-type": "ログの種類",
+    "online-link": "オンラインリンク",
+    "online-link-tips": "オンラインログのリンクを入力してください",
+    "local-file": "ローカルファイル",
+    "local-file-tip": "ローカルファイルを選択してください"
   }
 }

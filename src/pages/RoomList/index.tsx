@@ -29,6 +29,7 @@ import './index.less';
 import { Link } from 'react-router-dom';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { isCN } from '@/assets/locales';
+import { SelectLogButton } from './SelectLogButton';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -356,7 +357,8 @@ export const RoomList = () => {
                   >
                     {t('common.reset')}
                   </Button>
-                  <Upload
+                  <SelectLogButton />
+                  {/* <Upload
                     accept=".json"
                     maxCount={1}
                     customRequest={async (file) => {
@@ -396,7 +398,7 @@ export const RoomList = () => {
                         </Tooltip>
                       </Space>
                     </Button>
-                  </Upload>
+                  </Upload> */}
                 </Space>
               </Form.Item>
             </Col>

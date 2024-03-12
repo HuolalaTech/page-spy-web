@@ -171,6 +171,12 @@
     "invalid-params": "No valid URL parameters found in the link.",
     "invalid-blob": "<0>Failed to read parameters from the URL; the object may have been cleared</0><1><0></0></1>",
     "related-time": "Related Time",
-    "absolute-time": "Absolute Time"
+    "absolute-time": "Absolute Time",
+    "select-log": "Select Log",
+    "log-type": "Log Type",
+    "online-link": "Online Link",
+    "online-link-tips": "Please enter the link to the online log",
+    "local-file": "Local File",
+    "local-file-tip": "Please select a local file"
   }
 }
