@@ -358,47 +358,6 @@ export const RoomList = () => {
                     {t('common.reset')}
                   </Button>
                   <SelectLogButton />
-                  {/* <Upload
-                    accept=".json"
-                    maxCount={1}
-                    customRequest={async (file) => {
-                      const url = URL.createObjectURL(file.file as File);
-                      const replay = `${location.protocol}//${window.DEPLOY_BASE_PATH}/#/replay?url=${url}#Console`;
-                      setTimeout(() => {
-                        window.open(replay);
-                      }, 50);
-                      return null;
-                    }}
-                    itemRender={() => null}
-                  >
-                    <Button type="dashed">
-                      <Space>
-                        <span>{t('replay.title')}</span>
-                        <Tooltip
-                          title={
-                            <Trans i18nKey="replay.intro">
-                              <span>{`What's `}</span>
-                              <a
-                                href={
-                                  isCN()
-                                    ? import.meta.env.VITE_WIKI_REPLAY_LOG_ZH
-                                    : import.meta.env.VITE_WIKI_REPLAY_LOG
-                                }
-                                target="_blank"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                }}
-                              >
-                                {t('replay.title')}
-                              </a>
-                            </Trans>
-                          }
-                        >
-                          <QuestionCircleOutlined />
-                        </Tooltip>
-                      </Space>
-                    </Button>
-                  </Upload> */}
                 </Space>
               </Form.Item>
             </Col>
