@@ -753,37 +753,41 @@
     "@huolala-tech/page-spy-api-win32-arm" "1.2.2"
     "@huolala-tech/page-spy-api-win32-arm64" "1.2.2"
 
-"@huolala-tech/page-spy-browser@^1.7.7":
-  version "1.7.7"
-  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-browser/-/page-spy-browser-1.7.7.tgz#b5acdc1bae49a2ebfc917b076a8d37f09f2a781f"
-  integrity sha512-wIsAeGlhoQF0v40sh21reW0N9SvE3tUUxU09/9KOZQMbOe9Z2ipF19hJA9spR+Bbl/vyjoS5niT1ln/nDjAsUg==
+"@huolala-tech/page-spy-browser@^1.7.8":
+  version "1.7.8"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-browser/-/page-spy-browser-1.7.8.tgz#47d1cf6533da90743e65b3b86b468428f8022fbb"
+  integrity sha512-n46weM1GDcdf446BuZdhhjk06iL8y7Aw9TI7ns2JouGTeGTez24gb7HLcGxR6Bc6z0jUyu0N5LDdYg577h+LgA==
   dependencies:
     "@babel/runtime" "^7.13.0"
-    "@huolala-tech/page-spy-types" "^1.7.5"
+    "@huolala-tech/page-spy-types" "^1.7.6"
     copy-to-clipboard "^3.3.1"
 
-"@huolala-tech/page-spy-plugin-data-harbor@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-plugin-data-harbor/-/page-spy-plugin-data-harbor-1.1.2.tgz#762a288d3325f1611005579e553d27996dd0b805"
-  integrity sha512-phLD6P4jEby0ZJdoRTVIvd5vW4MRmyiavCylwFUn/pC0hI6oavtuT6F7yznfqfy/ylcijCFQFZYuIEEdchU0HQ==
+"@huolala-tech/page-spy-plugin-data-harbor@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-data-harbor/-/page-spy-plugin-data-harbor-1.1.5.tgz#3378a38ae7f3ba3d760fa51ba1a4adfce271564e"
+  integrity sha512-Tp425eswzOnx8rV+JJ1QBQytSOU1CxBldkZClg8Y3g998eWkrVDFHz1elL6GV9Coi2jKItCKUdkhtB4kxTPokg==
   dependencies:
     "@babel/runtime" "^7.13.0"
-    "@huolala-tech/page-spy-types" "^1.7.5"
     fflate "^0.8.1"
 
-"@huolala-tech/page-spy-plugin-rrweb@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-plugin-rrweb/-/page-spy-plugin-rrweb-1.0.5.tgz#d7f51838d31dc118b097303abc7e5f5af557f286"
-  integrity sha512-YpqiRuR/uxHne3+X7xEZc/GIuZTR2aIB9Ju4Bnc4ZD0Y3oXLGAz81vvWL/uvfU0YtmCZz8d6Caq8okADqMmn1A==
+"@huolala-tech/page-spy-plugin-rrweb@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-rrweb/-/page-spy-plugin-rrweb-1.0.8.tgz#3bdd1be4b2bbf0e5859fa1562cf8d0fc4198f991"
+  integrity sha512-lzqvWUS0JRD1/iX1R7MF6OaYJozwhkHGHsRE70vMx8EUHSZxov0QfA5wWi/aqGQFxicSAd/eTd3d0nM+uPYhIw==
   dependencies:
     "@babel/runtime" "^7.13.0"
-    "@huolala-tech/page-spy-types" "^1.7.5"
+    "@huolala-tech/page-spy-types" "^1.7.6"
     rrweb "^2.0.0-alpha.4"
 
 "@huolala-tech/page-spy-types@^1.7.5":
   version "1.7.5"
   resolved "https://registry.npmjs.org/@huolala-tech/page-spy-types/-/page-spy-types-1.7.5.tgz#21cb1fb75635c1b254da7d13abd720eb280e1267"
   integrity sha512-CvbY4gy/oviQDqTTxc0my5L951Hn+se/3jK4hB+QYD2E8sEkNDgG788TnIhGnauqZxh2f6GVj57HTTklkkZe5Q==
+
+"@huolala-tech/page-spy-types@^1.7.6":
+  version "1.7.6"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-types/-/page-spy-types-1.7.6.tgz#cfee6b2241838fba6b21a198ebb85a7349ada513"
+  integrity sha512-9tgxKu8DbcHobS8poM7QxrhoKH6L6/77SfymnSvKRJsd9CctDn11IrNXKHdve78HVnCz65PkXVdhXDwNnWnhOg==
 
 "@huolala-tech/react-json-view@^1.2.4":
   version "1.2.4"

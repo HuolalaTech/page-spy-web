@@ -44,9 +44,9 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@huolala-tech/page-spy-browser": "^1.7.7",
-    "@huolala-tech/page-spy-plugin-data-harbor": "^1.1.2",
-    "@huolala-tech/page-spy-plugin-rrweb": "^1.0.5",
+    "@huolala-tech/page-spy-browser": "^1.7.8",
+    "@huolala-tech/page-spy-plugin-data-harbor": "^1.1.5",
+    "@huolala-tech/page-spy-plugin-rrweb": "^1.0.8",
     "@huolala-tech/page-spy-types": "^1.7.5",
     "@huolala-tech/react-json-view": "^1.2.4",
     "@huolala-tech/request": "^1.1.2",
