@@ -36,7 +36,7 @@ const MPPanel = (props: Props) => {
   const mpPages = useSocketMessageStore((state) => state.mpPageMsg);
   const { t } = useTranslation('translation', { keyPrefix: 'mp-page' });
 
-  const [currentRoute, setCurrentRoute] = useState<string>('');
+  const [pageId, setPageId] = useState<number | null>(null);
 
   useEffect(() => {
     if (socket) {
@@ -47,11 +47,11 @@ const MPPanel = (props: Props) => {
   }, [socket]);
 
   useEffect(() => {
-    if (currentRoute && !mpPages.stack.find((p) => p.route === currentRoute)) {
-      setCurrentRoute('');
+    if (pageId !== null && !mpPages.stack.find((p) => p.id === pageId)) {
+      setPageId(null);
     }
-    if (mpPages.stack.length > 0 && !currentRoute) {
-      getPageInfo(mpPages.stack[0].route);
+    if (mpPages.stack.length > 0 && pageId === null) {
+      getPageInfo(mpPages.stack[0].id);
     }
     console.log('stack changed');
   }, [mpPages.stack]);
@@ -63,12 +63,12 @@ const MPPanel = (props: Props) => {
     });
   };
 
-  const getPageDetail = (route: string) => {
-    sendUnicast('mp-page-detail', { route });
+  const getPageDetail = (id: number) => {
+    sendUnicast('mp-page-detail', { id });
   };
 
-  const getPageDom = (route: string) => {
-    sendUnicast('mp-page-dom', { route });
+  const getPageDom = (id: number) => {
+    sendUnicast('mp-page-dom', { id });
   };
 
   // const callMethod = (name: string, params: any[] = []) => {
@@ -79,15 +79,15 @@ const MPPanel = (props: Props) => {
   //   });
   // };
 
-  const getPageInfo = (route: string) => {
-    setCurrentRoute(route);
-    getPageDetail(route);
-    getPageDom(route);
+  const getPageInfo = (id: number) => {
+    setPageId(id);
+    getPageDetail(id);
+    getPageDom(id);
   };
 
   const currentPage = useMemo(() => {
-    return mpPages.stack.find((item) => item.route === currentRoute);
-  }, [currentRoute, mpPages.stack]);
+    return mpPages.stack.find((item) => item.id === pageId);
+  }, [pageId, mpPages.stack]);
 
   return (
     <div className="mp-panel">
@@ -108,10 +108,8 @@ const MPPanel = (props: Props) => {
             return (
               <div
                 key={item.route + index}
-                className={`mp-page-item ${
-                  currentRoute === item.route ? 'active' : ''
-                }`}
-                onClick={() => getPageInfo(item.route)}
+                className={`mp-page-item ${pageId === item.id ? 'active' : ''}`}
+                onClick={() => getPageInfo(item.id)}
               >
                 <div className="mp-page-route">{item.route}</div>
                 <div className="mp-page-query">
@@ -125,10 +123,10 @@ const MPPanel = (props: Props) => {
           <Tabs
             style={{ height: '100%' }}
             tabBarExtraContent={
-              currentRoute && (
+              pageId !== null && (
                 <Button
                   onClick={() => {
-                    getPageInfo(currentRoute);
+                    getPageInfo(pageId);
                   }}
                   icon={<ReloadOutlined />}
                 />

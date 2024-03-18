@@ -106,7 +106,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         set(
           produce<SocketMessage>((state) => {
             const page = state.mpPageMsg.stack.find(
-              (p) => p.route === data.page.route,
+              (p) => p.id === data.page.id,
             );
             if (page) {
               Object.assign(page, data.page);
@@ -118,9 +118,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     socket.addListener('mp-page-dom', (data: SpyMPPage.PageDetailDataItem) => {
       set(
         produce<SocketMessage>((state) => {
-          const page = state.mpPageMsg.stack.find(
-            (p) => p.route === data.page.route,
-          );
+          const page = state.mpPageMsg.stack.find((p) => p.id === data.page.id);
           if (page && data.page.dom) {
             page.dom = data.page.dom;
           }
