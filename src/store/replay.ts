@@ -2,6 +2,8 @@ import {
   SpyConsole,
   SpyMessage,
   SpyNetwork,
+  SpyStorage,
+  SpySystem,
 } from '@huolala-tech/page-spy-types';
 import { create } from 'zustand';
 import { eventWithTime } from '@rrweb/types';
@@ -17,24 +19,33 @@ export interface ReplayStore {
   allConsoleMsg: HarborDataItem[];
   allNetworkMsg: HarborDataItem[];
   allRRwebEvent: eventWithTime[];
+  allStorageMsg: HarborDataItem[];
+  allSystemMsg: SpySystem.DataItem[];
   startTime: number;
   endTime: number;
   duration: number;
   consoleMsg: SpyConsole.DataItem[];
   networkMsg: SpyNetwork.RequestInfo[];
+  storageMsg: SpyStorage.DataItem[];
   setAllData: (data: HarborDataItem[]) => void;
   updateElapsed: (elapsed: number) => void;
+  updateConsoleMsg: (currentTime: number) => void;
+  updateNetworkMsg: (currentTime: number) => void;
+  updateStorageMsg: (currentTime: number) => void;
 }
 
 export const useReplayStore = create<ReplayStore>((set, get) => ({
   allConsoleMsg: [],
   allNetworkMsg: [],
   allRRwebEvent: [],
+  allStorageMsg: [],
+  allSystemMsg: [],
   startTime: 0,
   endTime: 0,
   duration: 0,
   consoleMsg: [],
   networkMsg: [],
+  storageMsg: [],
   setAllData: (data: HarborDataItem[]) => {
     if (!data?.length) return;
 
@@ -43,35 +54,53 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
 
     const result: Pick<
       ReplayStore,
-      'allConsoleMsg' | 'allNetworkMsg' | 'allRRwebEvent'
+      | 'allConsoleMsg'
+      | 'allNetworkMsg'
+      | 'allRRwebEvent'
+      | 'allStorageMsg'
+      | 'allSystemMsg'
     > = {
       allConsoleMsg: [],
       allNetworkMsg: [],
       allRRwebEvent: [],
+      allStorageMsg: [],
+      allSystemMsg: [],
     };
-    const { allConsoleMsg, allNetworkMsg, allRRwebEvent } = data.reduce(
-      (acc, cur) => {
-        switch (cur.type) {
-          case 'console':
-            acc.allConsoleMsg.push(cur);
-            break;
-          case 'network':
-            acc.allNetworkMsg.push(cur);
-            break;
-          case 'rrweb-event':
-            acc.allRRwebEvent.push(cur.data);
-            break;
-        }
-        return acc;
-      },
-      result,
-    );
+    const {
+      allConsoleMsg,
+      allNetworkMsg,
+      allRRwebEvent,
+      allSystemMsg,
+      allStorageMsg,
+    } = data.reduce((acc, cur) => {
+      switch (cur.type) {
+        case 'console':
+          acc.allConsoleMsg.push(cur);
+          break;
+        case 'network':
+          acc.allNetworkMsg.push(cur);
+          break;
+        case 'rrweb-event':
+          acc.allRRwebEvent.push(cur.data);
+          break;
+        case 'storage':
+          acc.allStorageMsg.push(cur.data);
+          break;
+        case 'system':
+          acc.allSystemMsg.push(cur.data);
+          break;
+      }
+      return acc;
+    }, result);
 
+    console.log(allStorageMsg);
     set(
       produce((state) => {
         state.allConsoleMsg = allConsoleMsg;
         state.allNetworkMsg = allNetworkMsg;
         state.allRRwebEvent = allRRwebEvent;
+        state.allSystemMsg = allSystemMsg;
+        state.allStorageMsg = allStorageMsg;
         state.startTime = start;
         state.endTime = end;
         state.duration = end - start;
@@ -82,10 +111,12 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     const {
       allConsoleMsg,
       allNetworkMsg,
+      allStorageMsg,
       startTime,
       endTime,
-      consoleMsg,
-      networkMsg,
+      updateConsoleMsg,
+      updateNetworkMsg,
+      updateStorageMsg,
     } = get();
 
     const currentTime = startTime + elapsed;
@@ -94,6 +125,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
         produce((state) => {
           state.consoleMsg = [];
           state.networkMsg = [];
+          state.storageMsg = [];
         }),
       );
       return;
@@ -107,6 +139,12 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       );
       return;
     }
+    updateConsoleMsg(currentTime);
+    updateNetworkMsg(currentTime);
+    updateStorageMsg(currentTime);
+  },
+  updateConsoleMsg(currentTime: number) {
+    const { allConsoleMsg, consoleMsg } = get();
 
     let consoleIndex = 0;
     const showedConsoleMsg: SpyConsole.DataItem[] = [];
@@ -125,6 +163,9 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
         }),
       );
     }
+  },
+  updateNetworkMsg(currentTime: number) {
+    const { allNetworkMsg, networkMsg } = get();
 
     let networkIndex = 0;
     const showedNetworkMsg: SpyNetwork.RequestInfo[] = [];
@@ -143,5 +184,8 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
         }),
       );
     }
+  },
+  updateStorageMsg(currentTime: number) {
+    const { allStorageMsg, storageMsg } = get();
   },
 }));
