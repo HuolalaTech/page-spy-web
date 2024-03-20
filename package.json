@@ -44,8 +44,8 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@huolala-tech/page-spy-browser": "^1.7.8",
-    "@huolala-tech/page-spy-plugin-data-harbor": "^1.1.5",
+    "@huolala-tech/page-spy-browser": "^1.7.9",
+    "@huolala-tech/page-spy-plugin-data-harbor": "^1.1.6",
     "@huolala-tech/page-spy-plugin-rrweb": "^1.0.8",
     "@huolala-tech/page-spy-types": "^1.7.5",
     "@huolala-tech/react-json-view": "^1.2.4",

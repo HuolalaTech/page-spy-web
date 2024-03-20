@@ -753,19 +753,19 @@
     "@huolala-tech/page-spy-api-win32-arm" "1.2.2"
     "@huolala-tech/page-spy-api-win32-arm64" "1.2.2"
 
-"@huolala-tech/page-spy-browser@^1.7.8":
-  version "1.7.8"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-browser/-/page-spy-browser-1.7.8.tgz#47d1cf6533da90743e65b3b86b468428f8022fbb"
-  integrity sha512-n46weM1GDcdf446BuZdhhjk06iL8y7Aw9TI7ns2JouGTeGTez24gb7HLcGxR6Bc6z0jUyu0N5LDdYg577h+LgA==
+"@huolala-tech/page-spy-browser@^1.7.9":
+  version "1.7.9"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-browser/-/page-spy-browser-1.7.9.tgz#c9b207720d8f4e05b8bf0be17ecdae23c7ebba8f"
+  integrity sha512-LFEsEPC8ff0LhO8lpqH++8NL9wdfjHU3oWBaexbuUkS5J+lxgTkQX7wdRoFb2H+plvKQOOEOSd5vlP/ncn0jDg==
   dependencies:
     "@babel/runtime" "^7.13.0"
     "@huolala-tech/page-spy-types" "^1.7.6"
     copy-to-clipboard "^3.3.1"
 
-"@huolala-tech/page-spy-plugin-data-harbor@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-data-harbor/-/page-spy-plugin-data-harbor-1.1.5.tgz#3378a38ae7f3ba3d760fa51ba1a4adfce271564e"
-  integrity sha512-Tp425eswzOnx8rV+JJ1QBQytSOU1CxBldkZClg8Y3g998eWkrVDFHz1elL6GV9Coi2jKItCKUdkhtB4kxTPokg==
+"@huolala-tech/page-spy-plugin-data-harbor@^1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-data-harbor/-/page-spy-plugin-data-harbor-1.1.6.tgz#5e9db727b86c5545e274ae42f40840da357c4754"
+  integrity sha512-AC3PEM9ok+p+kuczxyFs+S7mywKtByZGGqyZpu4O9Rl1b/9fa6AfYz2wLBR/mAac1aA891oTeiha0K+YPmHAiQ==
   dependencies:
     "@babel/runtime" "^7.13.0"
     fflate "^0.8.1"
