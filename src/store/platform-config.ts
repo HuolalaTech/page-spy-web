@@ -5,7 +5,7 @@ import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
 import { SpyDevice, SpyStorage } from '@huolala-tech/page-spy-types';
 import { FunctionComponent } from 'react';
 
-const STORAGE_TYPES: {
+export const STORAGE_TYPES: {
   name: SpyStorage.DataType | 'indexedDB';
   label: string;
   icon: FunctionComponent;

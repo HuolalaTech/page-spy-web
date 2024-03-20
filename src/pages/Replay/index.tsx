@@ -1,5 +1,5 @@
 import useSearch from '@/utils/useSearch';
-import { Empty, message, Row, Col } from 'antd';
+import { message, Row, Col } from 'antd';
 import './index.less';
 import { useRequest } from 'ahooks';
 import { LoadingFallback } from '@/components/LoadingFallback';

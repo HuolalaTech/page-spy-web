@@ -1,10 +1,10 @@
 import { ConsoleItem } from '@/components/ConsoleItem';
 import { useReplayStore } from '@/store/replay';
 import './index.less';
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { useForceThrottleRender } from '@/utils/useForceRender';
 
-export const ConsolePanel = () => {
+export const ConsolePanel = memo(() => {
   const consoleMsg = useRef(useReplayStore.getState().consoleMsg);
   const { throttleRender } = useForceThrottleRender();
   useEffect(
@@ -22,4 +22,4 @@ export const ConsolePanel = () => {
       ))}
     </div>
   );
-};
+});

@@ -1,10 +1,11 @@
 import { Menu } from 'antd';
-import clsx from 'clsx';
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ConsolePanel } from '../ConsolePanel';
 import { NetworkPanel } from '../NetworkPanel';
+import { SystemPanel } from '../SystemPanel';
+import { StoragePanel } from '../StoragePanel';
 
 export const MENU_COMPONENTS = {
   Console: {
@@ -12,6 +13,12 @@ export const MENU_COMPONENTS = {
   },
   Network: {
     component: NetworkPanel,
+  },
+  Storage: {
+    component: StoragePanel,
+  },
+  System: {
+    component: SystemPanel,
   },
 } as const;
 
