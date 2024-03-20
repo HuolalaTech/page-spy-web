@@ -6,11 +6,6 @@ import { useReplayStore } from '@/store/replay';
 export const SystemPanel = memo(() => {
   const systemMsg = useReplayStore((state) => state.allSystemMsg);
 
-  useEffect(() => {
-    console.log(systemMsg);
-    console.count('System');
-  }, [systemMsg]);
-
   if (systemMsg.length === 0) {
     return <Empty description={false} />;
   }

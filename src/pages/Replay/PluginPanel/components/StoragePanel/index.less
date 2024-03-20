@@ -1,0 +1,31 @@
+.storage-panel {
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+  &__layout {
+    flex: 1;
+  }
+  &__sider {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    border-right: 1px solid #d9d9d9;
+  }
+  &__menu {
+    height: 100%;
+    border-right: none;
+  }
+  &__content {
+    height: 100%;
+    overflow: auto;
+    background-color: #fff;
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+  }
+}

@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { ConsolePanel } from '../ConsolePanel';
 import { NetworkPanel } from '../NetworkPanel';
 import { SystemPanel } from '../SystemPanel';
+import { StoragePanel } from '../StoragePanel';
 
 export const MENU_COMPONENTS = {
   Console: {
@@ -13,9 +14,9 @@ export const MENU_COMPONENTS = {
   Network: {
     component: NetworkPanel,
   },
-  // Storage: {
-  //   component: StoragePanel,
-  // },
+  Storage: {
+    component: StoragePanel,
+  },
   System: {
     component: SystemPanel,
   },

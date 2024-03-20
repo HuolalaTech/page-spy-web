@@ -8,6 +8,7 @@ import {
 import { create } from 'zustand';
 import { eventWithTime } from '@rrweb/types';
 import { produce } from 'immer';
+import { isEqual, omit } from 'lodash-es';
 
 export interface HarborDataItem<T = any> {
   type: SpyMessage.DataType | 'rrweb-event';
@@ -19,14 +20,14 @@ export interface ReplayStore {
   allConsoleMsg: HarborDataItem[];
   allNetworkMsg: HarborDataItem[];
   allRRwebEvent: eventWithTime[];
-  allStorageMsg: HarborDataItem[];
+  allStorageMsg: HarborDataItem<SpyStorage.DataItem>[];
   allSystemMsg: SpySystem.DataItem[];
   startTime: number;
   endTime: number;
   duration: number;
   consoleMsg: SpyConsole.DataItem[];
   networkMsg: SpyNetwork.RequestInfo[];
-  storageMsg: SpyStorage.DataItem[];
+  storageMsg: Record<SpyStorage.DataType, SpyStorage.GetTypeDataItem['data']>;
   setAllData: (data: HarborDataItem[]) => void;
   updateElapsed: (elapsed: number) => void;
   updateConsoleMsg: (currentTime: number) => void;
@@ -45,7 +46,13 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
   duration: 0,
   consoleMsg: [],
   networkMsg: [],
-  storageMsg: [],
+  storageMsg: {
+    localStorage: [],
+    sessionStorage: [],
+    cookie: [],
+    // 'mpStorage' is just for type correct at now
+    mpStorage: [],
+  },
   setAllData: (data: HarborDataItem[]) => {
     if (!data?.length) return;
 
@@ -84,7 +91,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
           acc.allRRwebEvent.push(cur.data);
           break;
         case 'storage':
-          acc.allStorageMsg.push(cur.data);
+          acc.allStorageMsg.push(cur);
           break;
         case 'system':
           acc.allSystemMsg.push(cur.data);
@@ -93,7 +100,6 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       return acc;
     }, result);
 
-    console.log(allStorageMsg);
     set(
       produce((state) => {
         state.allConsoleMsg = allConsoleMsg;
@@ -122,10 +128,15 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     const currentTime = startTime + elapsed;
     if (currentTime <= startTime) {
       set(
-        produce((state) => {
+        produce<ReplayStore>((state) => {
           state.consoleMsg = [];
           state.networkMsg = [];
-          state.storageMsg = [];
+          state.storageMsg = {
+            localStorage: [],
+            sessionStorage: [],
+            cookie: [],
+            mpStorage: [],
+          };
         }),
       );
       return;
@@ -135,6 +146,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
         produce((state) => {
           state.consoleMsg = allConsoleMsg.map((i) => i.data);
           state.networkMsg = allNetworkMsg.map((i) => i.data);
+          updateStorageMsg(currentTime);
         }),
       );
       return;
@@ -186,6 +198,64 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     }
   },
   updateStorageMsg(currentTime: number) {
-    const { allStorageMsg, storageMsg } = get();
+    const { allStorageMsg } = get();
+
+    let storageIndex = 0;
+    while (
+      storageIndex < allStorageMsg.length &&
+      allStorageMsg[storageIndex].timestamp <= currentTime
+    ) {
+      const { data } = allStorageMsg[storageIndex];
+      const { type, action } = data;
+      switch (action) {
+        case 'get':
+          set(
+            produce<ReplayStore>((state) => {
+              state.storageMsg[type] = data.data;
+            }),
+          );
+          break;
+        case 'set':
+          if (data.name) {
+            set(
+              produce<ReplayStore>((state) => {
+                const result = omit(data, 'id', 'type', 'action');
+                const cacheData = state.storageMsg[type];
+
+                const index = cacheData.findIndex(
+                  (i) => i.name === result.name,
+                );
+                if (index < 0) {
+                  cacheData.push(result);
+                  return;
+                }
+                const skipUpdate = isEqual(cacheData[index], result);
+                if (skipUpdate) return;
+                cacheData[index] = result;
+              }),
+            );
+          }
+          break;
+        case 'clear':
+          set(
+            produce<ReplayStore>((state) => {
+              state.storageMsg[type] = [];
+            }),
+          );
+          break;
+        case 'remove':
+          set(
+            produce<ReplayStore>((state) => {
+              state.storageMsg[type] = state.storageMsg[type].filter(
+                (i) => i.name !== data.name,
+              );
+            }),
+          );
+          break;
+        default:
+          break;
+      }
+      storageIndex += 1;
+    }
   },
 }));
