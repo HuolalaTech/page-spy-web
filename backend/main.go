@@ -12,12 +12,19 @@ import (
 //go:embed dist/*
 var publicContent embed.FS
 
+var (
+	Version string
+	GitHash string
+)
+
 func main() {
 	container := container.Container()
 	err := container.Provide(func() *config.StaticConfig {
 		return &config.StaticConfig{
 			DirName: "dist",
 			Files:   publicContent,
+			Version: Version,
+			GitHash: GitHash,
 		}
 	})
 

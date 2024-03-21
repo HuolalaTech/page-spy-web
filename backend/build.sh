@@ -2,9 +2,11 @@
 
 git_repository="https://github.com/HuolalaTech/page-spy-web"
 git_version=$(git describe --tags $(git rev-list --tags --max-count=1))
+git_hash=$(git rev-parse HEAD)
 npm_version=$(echo "$git_version" | sed 's/^v//')
 project_name="page-spy-api"
 organization="@huolala-tech"
+build_with_git_info="-X main.Version=$npm_version -X main.GitHash=$git_hash"
 
 
 GenerateMainPackageJson() {
@@ -141,7 +143,7 @@ BuildRelease() {
 
 	for arch in ${archs[@]}
 	do
-		env GOOS=linux GOARCH=${arch} CGO_ENABLED=0 go build -o ./build/${project_name}-linux-${arch}
+		env GOOS=linux GOARCH=${arch} CGO_ENABLED=0 go build -o ./build/${project_name}-linux-${arch} -ldflags="${build_with_git_info}"
     mkdir -p npm/linux-${arch}/bin
     cp -r ./build/${project_name}-linux-${arch} npm/linux-${arch}/bin/${project_name}
     PublishAndGeneratePackageJson "linux" "${arch}" "npm/linux-${arch}"
@@ -151,7 +153,7 @@ BuildRelease() {
 
 	for arch in ${win_archs[@]}
 	do
-		env GOOS=windows GOARCH=${arch} CGO_ENABLED=0 go build -o ./build/${project_name}-win32-${arch}.exe
+		env GOOS=windows GOARCH=${arch} CGO_ENABLED=0 go build -o ./build/${project_name}-win32-${arch}.exe -ldflags="${build_with_git_info}"
     mkdir -p npm/win32-${arch}
     cp -r ./build/${project_name}-win32-${arch}.exe npm/win32-${arch}/${project_name}.exe
     PublishAndGeneratePackageJson "win32" "${arch}" "npm/win32-${arch}"
@@ -161,7 +163,7 @@ BuildRelease() {
 
 	for arch in ${mac_archs[@]}
 	do
-		env GOOS=darwin GOARCH=${arch} CGO_ENABLED=0 go build -o ./build/${project_name}-darwin-${arch}
+		env GOOS=darwin GOARCH=${arch} CGO_ENABLED=0 go build -o ./build/${project_name}-darwin-${arch} -ldflags="${build_with_git_info}"
     mkdir -p npm/darwin-${arch}/bin
     cp -r ./build/${project_name}-darwin-${arch} npm/darwin-${arch}/bin/${project_name}
     PublishAndGeneratePackageJson "darwin" "${arch}" "npm/darwin-${arch}"

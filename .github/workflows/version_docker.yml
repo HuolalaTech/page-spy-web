@@ -12,7 +12,7 @@ name: Create and publish a Docker image
 on:
   push:
     tags:
-      - "v*.*.*"
+      - 'v*.*.*'
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -67,6 +67,9 @@ jobs:
         with:
           context: .
           push: true
+          build-args: |
+            VERSION=${{ steps.meta.outputs.tags }}
+            COMMIT=${{ github.sha }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64,linux/arm64,linux/arm/v7
