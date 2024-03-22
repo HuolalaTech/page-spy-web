@@ -9,6 +9,7 @@ import { ReactComponent as DocsSvg } from '@/assets/image/docs.svg';
 import { ReactComponent as I18nSvg } from '@/assets/image/i18n.svg';
 import { ReactComponent as InjectSdkSvg } from '@/assets/image/inject-sdk.svg';
 import { ReactComponent as OnlineSvg } from '@/assets/image/online.svg';
+import { ReactComponent as ReplaySvg } from '@/assets/image/replay.svg';
 import i18n from '@/assets/locales';
 import { useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
@@ -66,11 +67,19 @@ export const NavMenuOnPc = () => {
             }}
           </InjectSDKModal>
           <Divider type="vertical" className="divider-bg" />
-          {/* Connections */}
+          {/* Real-Time Debug */}
           <Link to="/room-list" className="menu-item online">
             <Space align="center">
               <Icon component={OnlineSvg} style={{ fontSize: 18 }} />
-              <span>{t('common.connections')}</span>
+              <span>{t('common.online-debug')}</span>
+            </Space>
+          </Link>
+          <Divider type="vertical" className="divider-bg" />
+          {/* Log Replay */}
+          <Link to="/log-list" className="menu-item offline">
+            <Space align="center">
+              <Icon component={ReplaySvg} style={{ fontSize: 18 }} />
+              <span>{t('common.offline-debug')}</span>
             </Space>
           </Link>
           <Divider type="vertical" className="divider-bg" />

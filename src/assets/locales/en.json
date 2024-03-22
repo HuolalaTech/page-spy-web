@@ -33,7 +33,9 @@
     "mpxhs": "Xiaohongshu Mini Program",
     "project": "Project",
     "debug": "Debug",
-    "title": "Title"
+    "title": "Title",
+    "online-debug": "RT Debug",
+    "offline-debug": "Log Replay"
   },
   "error": {
     "oops": "Oops! Errors happened~",

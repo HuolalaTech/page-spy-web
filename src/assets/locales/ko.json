@@ -33,7 +33,9 @@
     "mpxhs": "Xiaohongshu Mini Program",
     "project": "프로젝트",
     "debug": "디버그",
-    "title": "제목"
+    "title": "제목",
+    "online-debug": "실시간 디버깅",
+    "offline-debug": "로그 재생"
   },
   "error": {
     "oops": "이런! 오류가 발생했습니다.",

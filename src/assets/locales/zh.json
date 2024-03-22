@@ -33,7 +33,9 @@
     "mpxhs": "小红书小程序",
     "project": "项目",
     "debug": "调试",
-    "title": "标题"
+    "title": "标题",
+    "online-debug": "实时调试",
+    "offline-debug": "日志回放"
   },
   "error": {
     "oops": " 哎呀！发生错误～",

@@ -33,7 +33,9 @@
     "mpxhs": "Xiaohongshu Mini Program",
     "project": "プロジェクト",
     "debug": "デバッグ",
-    "title": "タイトル"
+    "title": "タイトル",
+    "online-debug": "RTデバッグ",
+    "offline-debug": "ログ再生"
   },
   "error": {
     "oops": "おっと！エラーが発生しました。",

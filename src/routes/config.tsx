@@ -9,6 +9,7 @@ import React from 'react';
 import { RoomList } from '@/pages/RoomList';
 import { Docs } from '@/pages/Docs';
 import { Replay } from '@/pages/Replay';
+import { LogList } from '@/pages/LogList';
 
 const Devtools = React.lazy(() => import('@/pages/Devtools'));
 
@@ -36,6 +37,10 @@ const routes: RouteObject[] = [
       {
         path: '/room-list',
         element: <RoomList />,
+      },
+      {
+        path: '/log-list',
+        element: <LogList />,
       },
       {
         path: '/docs',
