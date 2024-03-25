@@ -83,6 +83,9 @@ export const LogList = () => {
     async () => {
       const params = {
         ...form.getFieldsValue(),
+        date: form
+          .getFieldValue('date')
+          ?.map((d: string) => dayjs(d).format('YYYY/MM/DD')),
         page: currentPage.current,
       };
       const res = await getSpyLogs(params);
@@ -149,7 +152,11 @@ export const LogList = () => {
           <Row gutter={24} wrap>
             <Col span={8}>
               <Form.Item label={t('replay.date')} name="date">
-                <RangePicker picker="date" style={{ width: '100%' }} />
+                <RangePicker
+                  picker="date"
+                  style={{ width: '100%' }}
+                  format="YYYY/MM/DD"
+                />
               </Form.Item>
             </Col>
             <Col span={8}>
