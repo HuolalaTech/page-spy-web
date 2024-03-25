@@ -34,8 +34,14 @@
     "project": "Project",
     "debug": "Debug",
     "title": "Title",
+    "start-debug": "Debugging",
     "online-debug": "RT Debug",
-    "offline-debug": "Log Replay"
+    "offline-debug": "Log Replay",
+    "createdAt": "Creation Time",
+    "updatedAt": "Update Time",
+    "actions": "Actions",
+    "delete": "Delete",
+    "confirm": "Confirm"
   },
   "error": {
     "oops": "Oops! Errors happened~",
@@ -179,6 +185,13 @@
     "online-link": "Online Link",
     "online-link-tips": "Please enter the link to the online log",
     "local-file": "Local File",
-    "local-file-tip": "Please select a local file"
+    "local-file-tip": "Please select a local file",
+    "filename": "File Name",
+    "file-status": "File Status",
+    "debug": "Replay",
+    "date": "Date",
+    "others": "Others log",
+    "delete-title": "Delete Log",
+    "delete-desc": "Are you sure you want to delete this log?"
   }
 }

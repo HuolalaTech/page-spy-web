@@ -34,8 +34,14 @@
     "project": "프로젝트",
     "debug": "디버그",
     "title": "제목",
+    "start-debug": "디버깅을 시작",
     "online-debug": "실시간 디버깅",
-    "offline-debug": "로그 재생"
+    "offline-debug": "로그 재생",
+    "createdAt": "생성 시간",
+    "updatedAt": "업데이트 시간",
+    "actions": "조작",
+    "delete": "삭제",
+    "confirm": "확인"
   },
   "error": {
     "oops": "이런! 오류가 발생했습니다.",
@@ -179,6 +185,13 @@
     "online-link": "온라인 링크",
     "online-link-tips": "온라인 로그 링크를 입력하세요",
     "local-file": "로컬 파일",
-    "local-file-tip": "로컬 파일을 선택하세요"
+    "local-file-tip": "로컬 파일을 선택하세요",
+    "filename": "파일 이름",
+    "file-status": "파일 상태",
+    "debug": "재생",
+    "date": "날짜",
+    "others": "기타 로그",
+    "delete-title": "로그 삭제",
+    "delete-desc": "이 로그를 삭제하시겠습니까?"
   }
 }

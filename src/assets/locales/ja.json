@@ -34,8 +34,14 @@
     "project": "プロジェクト",
     "debug": "デバッグ",
     "title": "タイトル",
+    "start-debug": "デバッグを開始",
     "online-debug": "RTデバッグ",
-    "offline-debug": "ログ再生"
+    "offline-debug": "ログ再生",
+    "createdAt": "作成日時",
+    "updatedAt": "更新日時",
+    "actions": "アクション",
+    "delete": "削除",
+    "confirm": "確認"
   },
   "error": {
     "oops": "おっと！エラーが発生しました。",
@@ -179,6 +185,13 @@
     "online-link": "オンラインリンク",
     "online-link-tips": "オンラインログのリンクを入力してください",
     "local-file": "ローカルファイル",
-    "local-file-tip": "ローカルファイルを選択してください"
+    "local-file-tip": "ローカルファイルを選択してください",
+    "filename": "ファイル名",
+    "file-status": "ファイルの状態",
+    "debug": "再生",
+    "date": "日付",
+    "others": "その他のログ",
+    "delete-title": "ログを削除",
+    "delete-desc": "このログを削除してもよろしいですか？"
   }
 }

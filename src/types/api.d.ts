@@ -15,12 +15,29 @@ declare namespace I {
     tags: Record<string, any>;
   }
 
-  export interface SpyRoomList {
+  export interface SpyLog {
+    createdAt: string;
+    updatedAt: string;
+    status: 'Created' | 'Saved' | 'Error' | 'Unknown';
+    size: number;
+    fileId: string;
+    name: string;
+    tags: Record<string, any>;
+  }
+
+  interface Response<T> {
     code: number;
     message: string;
     success: boolean;
-    data: SpyRoom[];
+    data: T;
   }
+
+  export type SpyRoomList = Response<SpyRoom[]>;
+
+  export type SpyLogList = Response<{
+    total: number;
+    data: SpyLog[];
+  }>;
 }
 
 // Recursive Required

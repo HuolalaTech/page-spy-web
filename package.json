@@ -54,7 +54,7 @@
     "antd": "^5.2.1",
     "clsx": "^1.2.1",
     "copy-to-clipboard": "^3.3.3",
-    "dayjs": "^1.11.10",
+    "dayjs": "1.11.7",
     "error-stack-parser": "^2.1.4",
     "fflate": "^0.8.1",
     "i18next": "^22.4.10",

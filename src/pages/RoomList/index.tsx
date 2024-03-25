@@ -20,16 +20,13 @@ import {
   Form,
   Select,
   Space,
-  Upload,
 } from 'antd';
 import clsx from 'clsx';
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import './index.less';
 import { Link } from 'react-router-dom';
-import { QuestionCircleOutlined } from '@ant-design/icons';
-import { isCN } from '@/assets/locales';
-import { SelectLogButton } from './SelectLogButton';
+import { ClearOutlined, SearchOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -345,11 +342,16 @@ export const RoomList = () => {
             <Col>
               <Form.Item>
                 <Space>
-                  <Button type="primary" htmlType="submit">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    icon={<SearchOutlined />}
+                  >
                     {t('common.search')}
                   </Button>
                   <Button
                     type="default"
+                    icon={<ClearOutlined />}
                     onClick={() => {
                       form.resetFields();
                       form.submit();
@@ -357,7 +359,6 @@ export const RoomList = () => {
                   >
                     {t('common.reset')}
                   </Button>
-                  <SelectLogButton />
                 </Space>
               </Form.Item>
             </Col>
