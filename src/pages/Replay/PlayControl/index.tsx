@@ -229,7 +229,11 @@ export const PlayControl = memo(() => {
             component={playing ? PauseSvg : PlaySvg}
             className="play-action__btn toggle-play-status"
             onClick={() => {
-              if (!playing && elapsed.current / duration >= 1) return;
+              if (!playing && elapsed.current / duration >= 1) {
+                onProgressChange(0);
+                setPlaying(true);
+                return;
+              }
               setPlaying((playing) => !playing);
             }}
           />
