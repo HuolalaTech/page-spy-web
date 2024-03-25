@@ -35,6 +35,7 @@ import Icon, {
   SearchOutlined,
 } from '@ant-design/icons';
 import { isCN } from '@/assets/locales';
+import prettyBytes from 'pretty-bytes';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -114,7 +115,7 @@ export const LogList = () => {
       <div className="log-list-content">
         <Title level={3} style={{ marginBottom: 12 }}>
           <Space>
-            {t('replay.title')}
+            {t('replay.list-title')}
             <Tooltip
               title={
                 <Trans i18nKey="replay.intro">
@@ -242,6 +243,13 @@ export const LogList = () => {
                     {value}
                   </Tag>
                 );
+              },
+            },
+            {
+              title: () => t('replay.file-size'),
+              dataIndex: 'size',
+              render: (value: number) => {
+                return <span>{prettyBytes(value)}</span>;
               },
             },
             {

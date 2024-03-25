@@ -1,5 +1,5 @@
 import useSearch from '@/utils/useSearch';
-import { message, Row, Col } from 'antd';
+import { message, Row, Col, Button, Space } from 'antd';
 import './index.less';
 import { useRequest } from 'ahooks';
 import { LoadingFallback } from '@/components/LoadingFallback';
@@ -11,6 +11,8 @@ import { PluginPanel } from './PluginPanel';
 import '@huolala-tech/react-json-view/dist/style.css';
 import { useTranslation } from 'react-i18next';
 import { InvalidObjectURL } from './InvalidObjectURL';
+import { Link } from 'react-router-dom';
+import { ReactComponent as LeftArrowSvg } from '@/assets/image/left-arrow.svg';
 
 export const Replay = () => {
   const { t } = useTranslation();
@@ -49,7 +51,12 @@ export const Replay = () => {
     <div className="replay">
       <Row className="replay-header" justify="start">
         <Col>
-          <span className="replay-header__title">{t('replay.title')}</span>
+          <Space>
+            <Link to={{ pathname: '/log-list' }} className="back-list">
+              <LeftArrowSvg style={{ fontSize: 18 }} />
+            </Link>
+            <span className="replay-header__title">{t('replay.title')}</span>
+          </Space>
         </Col>
       </Row>
       <Row align="stretch" className="replay-main" gutter={24}>
