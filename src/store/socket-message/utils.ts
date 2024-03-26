@@ -1,4 +1,4 @@
-import { ElementContent, Root, Element } from 'hast';
+import { ElementContent, Root } from 'hast';
 import rehypeParse from 'rehype-parse';
 import rehypeStrigify from 'rehype-stringify';
 import { Plugin, unified } from 'unified';

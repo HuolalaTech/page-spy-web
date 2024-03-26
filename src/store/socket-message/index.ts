@@ -9,7 +9,6 @@ import {
   SpyPage,
   SpyStorage,
   SpyDatabase,
-  SpyMessage,
 } from '@huolala-tech/page-spy-types';
 import { API_BASE_URL } from '@/apis/request';
 import { resolveProtocol } from '@/utils';
