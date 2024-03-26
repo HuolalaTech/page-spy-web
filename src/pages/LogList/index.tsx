@@ -20,7 +20,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import './index.less';
 import { Link } from 'react-router-dom';
 import { SelectLogButton } from './SelectLogButton';
-import dayjs from 'dayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 import request from '@/apis/request';
 import { ComponentType, useMemo, useRef } from 'react';
 import Icon, {
@@ -82,11 +82,14 @@ export const LogList = () => {
     runAsync: requestClientLogs,
   } = useRequest(
     async () => {
+      const { date = [], project, title, deviceId } = form.getFieldsValue();
+      const [start, end]: Dayjs[] = date;
       const params = {
-        ...form.getFieldsValue(),
-        date: form
-          .getFieldValue('date')
-          ?.map((d: string) => dayjs(d).format('YYYY/MM/DD')),
+        project,
+        title,
+        deviceId,
+        from: start && dayjs(start.format('YYYY/MM/DD')).unix(),
+        to: end && dayjs(start.format('YYYY/MM/DD')).unix(),
         page: currentPage.current,
       };
       const res = await getSpyLogs(params);
