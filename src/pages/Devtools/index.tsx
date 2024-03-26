@@ -31,19 +31,11 @@ import '@huolala-tech/react-json-view/dist/style.css';
 import { throttle } from 'lodash-es';
 import { CUSTOM_EVENT } from '@/store/socket-message/socket';
 import { SpyDevice } from '@huolala-tech/page-spy-types';
-import MPPagePanel from './MPPagePanel';
 
 const { Sider, Content } = Layout;
 const { Title } = Typography;
 
-type MenuType =
-  | 'Console'
-  | 'Network'
-  | 'Page'
-  | 'Storage'
-  | 'System'
-  | 'MPPage'
-  | 'MPSystem';
+type MenuType = 'Console' | 'Network' | 'Page' | 'Storage' | 'System';
 
 const MENU_COMPONENTS: Record<
   MenuType,
@@ -73,18 +65,6 @@ const MENU_COMPONENTS: Record<
       return !params.browser?.startsWith('mp-');
     },
   },
-  MPPage: {
-    component: MPPagePanel,
-    visible: (params) => {
-      return params.browser?.startsWith('mp-');
-    },
-  },
-  MPSystem: {
-    component: MPPagePanel,
-    visible: (params) => {
-      return false; // TODO: this page will release later
-    },
-  },
 };
 
 interface BadgeMenuProps {
@@ -100,8 +80,6 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
     Page: false,
     Storage: false,
     System: false,
-    MPPage: false,
-    MPSystem: false,
   });
   useEventListener(
     CUSTOM_EVENT.NewMessageComing,
