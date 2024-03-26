@@ -171,7 +171,7 @@ export const LogList = () => {
               </Form.Item>
             </Col>
             <Col span={8}>
-              <Form.Item label={t('common.device-id')} name="roomId">
+              <Form.Item label={t('common.device-id')} name="deviceId">
                 <Input placeholder={t('common.device-id')!} allowClear />
               </Form.Item>
             </Col>
