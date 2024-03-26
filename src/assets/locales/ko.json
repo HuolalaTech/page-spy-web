@@ -112,6 +112,7 @@
     "newContent": "새로운 메시지",
     "auto-scroll-on": "자동 스크롤링 켜기",
     "auto-scroll-off": "자동 스크롤링 끄기",
+    "mp-code-error": "코드 형식이 잘못되었습니다. 참고 사항: 현재 미니 프로그램 환경은 ES5 구문만 지원합니다.",
     "error-trace": {
       "title": "오류 세부 정보",
       "hints": "사용 팁",

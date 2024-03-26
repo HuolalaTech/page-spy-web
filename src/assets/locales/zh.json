@@ -112,6 +112,7 @@
     "newContent": "新消息",
     "auto-scroll-on": "自动滚动",
     "auto-scroll-off": "自动滚动关闭",
+    "mp-code-error": "代码格式不正确。友情提示：目前小程序环境仅支持ES5语法。",
     "error-trace": {
       "title": "错误详情",
       "hints": "使用须知",

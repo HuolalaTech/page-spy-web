@@ -112,6 +112,7 @@
     "newContent": "New content",
     "auto-scroll-on": "Auto Scroll On",
     "auto-scroll-off": "Auto Scroll Off",
+    "mp-code-error": "Code format is incorrect. Friendly reminder: currently the mini program environment only supports ES5 syntax.",
     "error-trace": {
       "title": "Error detail",
       "hints": "HINTS",

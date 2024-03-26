@@ -112,6 +112,7 @@
     "newContent": "新しいメッセージ",
     "auto-scroll-on": "自動スクロールオン",
     "auto-scroll-off": "自動スクロールオフ",
+    "mp-code-error": "コードの形式が間違っています。注意: 現在、ミニ プログラム環境は ES5 構文のみをサポートしています。",
     "error-trace": {
       "title": "エラーの詳細",
       "hints": "使用のヒント",

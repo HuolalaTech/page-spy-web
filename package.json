@@ -50,6 +50,7 @@
     "@huolala-tech/page-spy-types": "^1.7.4",
     "@huolala-tech/react-json-view": "^1.2.4",
     "@huolala-tech/request": "^1.1.2",
+    "acorn": "^8.11.3",
     "ahooks": "^3.1.9",
     "antd": "^5.2.1",
     "clsx": "^1.2.1",
