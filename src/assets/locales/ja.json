@@ -197,6 +197,6 @@
     "delete-title": "ログを削除",
     "delete-desc": "このログを削除してもよろしいですか？",
     "client": "クライアント情報",
-    "ref-file": "ログリンク"
+    "download-file": "ログのダウンロード"
   }
 }

@@ -197,6 +197,6 @@
     "delete-title": "删除日志",
     "delete-desc": "确认删除此条日志吗？",
     "client": "客户端信息",
-    "ref-file": "日志链接"
+    "download-file": "下载日志"
   }
 }

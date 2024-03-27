@@ -30,6 +30,7 @@ import {
   CloseCircleOutlined,
   CopyOutlined,
   DeleteOutlined,
+  DownloadOutlined,
   InfoCircleOutlined,
   MinusCircleOutlined,
   PlayCircleOutlined,
@@ -390,13 +391,12 @@ export const LogList = () => {
                     <Button
                       type="text"
                       size="small"
-                      icon={<CopyOutlined />}
-                      onClick={async () => {
-                        await navigator.clipboard.writeText(logUrl);
-                        message.success(t('common.copied'));
+                      icon={<DownloadOutlined />}
+                      onClick={() => {
+                        window.open(logUrl);
                       }}
                     >
-                      {t('replay.ref-file')}
+                      {t('replay.download-file')}
                     </Button>
                     <Popconfirm
                       title={t('replay.delete-title')}
