@@ -272,7 +272,7 @@ const ClientInfo = memo(() => {
         </Tooltip>
       </Row>
       <Divider type="horizontal" style={{ margin: '8px 0' }} />
-      <Tooltip title="PageSpy ID">
+      <Tooltip title="Device ID">
         <Row justify="center" className="page-spy-id">
           <Col>
             <b>{address.slice(0, 4)}</b>

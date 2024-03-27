@@ -11,7 +11,7 @@ import {
   REPLAY_END,
   REPLAY_PROGRESS_CHANGE,
 } from '../events';
-import { Col, Row, Space, Tooltip } from 'antd';
+import { Space, Tooltip } from 'antd';
 import { useReplayStore } from '@/store/replay';
 import { useEventListener } from '@/utils/useEventListener';
 import { useTranslation } from 'react-i18next';
@@ -229,26 +229,32 @@ export const PlayControl = memo(() => {
             component={playing ? PauseSvg : PlaySvg}
             className="play-action__btn toggle-play-status"
             onClick={() => {
-              if (!playing && elapsed.current / duration >= 1) return;
+              if (!playing && elapsed.current / duration >= 1) {
+                onProgressChange(0);
+                setPlaying(true);
+                return;
+              }
               setPlaying((playing) => !playing);
             }}
           />
         </Space>
-        <Tooltip
-          title={
-            isRelatedTimeMode
-              ? t('replay.related-time')
-              : t('replay.absolute-time')
-          }
-        >
-          <Icon
-            component={isRelatedTimeMode ? RelateTimeSvg : AbsoluteTimeSvg}
-            className="play-action__btn"
-            onClick={() => {
-              setIsRelatedTimeMode((mode) => !mode);
-            }}
-          />
-        </Tooltip>
+        <Space>
+          <Tooltip
+            title={
+              isRelatedTimeMode
+                ? t('replay.related-time')
+                : t('replay.absolute-time')
+            }
+          >
+            <Icon
+              component={isRelatedTimeMode ? RelateTimeSvg : AbsoluteTimeSvg}
+              className="play-action__btn"
+              onClick={() => {
+                setIsRelatedTimeMode((mode) => !mode);
+              }}
+            />
+          </Tooltip>
+        </Space>
       </div>
       <div className="play-progress">
         <code className="play-current-time" ref={currentTimeEl}>

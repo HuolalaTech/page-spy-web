@@ -1,22 +1,18 @@
-import { isCN } from '@/assets/locales';
 import { usePopupRef, withPopup } from '@/utils/withPopup';
-import { QuestionCircleOutlined, UploadOutlined } from '@ant-design/icons';
+import { PaperClipOutlined, UploadOutlined } from '@ant-design/icons';
 import {
   Button,
-  Col,
   Form,
   Input,
   Modal,
   Radio,
-  Row,
   Space,
-  Tooltip,
   Upload,
   message,
 } from 'antd';
 import { t } from 'i18next';
 import { useCallback, useState } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 const getReplayUrl = (url: string) => {
   return `${location.protocol}//${window.DEPLOY_BASE_PATH}/#/replay?url=${url}#Console`;
@@ -122,34 +118,13 @@ export const SelectLogButton = () => {
     <>
       <Button
         type="dashed"
+        icon={<PaperClipOutlined />}
         onClick={() => {
           popRef.current?.popup();
         }}
       >
         <Space>
-          <span>{t('replay.title')}</span>
-          <Tooltip
-            title={
-              <Trans i18nKey="replay.intro">
-                <span>{`What's `}</span>
-                <a
-                  href={
-                    isCN()
-                      ? import.meta.env.VITE_WIKI_REPLAY_LOG_ZH
-                      : import.meta.env.VITE_WIKI_REPLAY_LOG
-                  }
-                  target="_blank"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                >
-                  {t('replay.title')}
-                </a>
-              </Trans>
-            }
-          >
-            <QuestionCircleOutlined />
-          </Tooltip>
+          <span>{t('replay.others')}</span>
         </Space>
       </Button>
       <SelectResource ref={popRef} />
