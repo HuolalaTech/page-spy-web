@@ -92,8 +92,8 @@ export const LogList = () => {
         project,
         title,
         deviceId,
-        from: start && dayjs(start.format('YYYY/MM/DD')).unix(),
-        to: end && dayjs(start.format('YYYY/MM/DD')).unix(),
+        from: start?.startOf('date').unix(),
+        end: end?.endOf('date').unix(),
         page: currentPage.current,
       };
       getObjectKeys(params).forEach((k) => {
@@ -246,10 +246,11 @@ export const LogList = () => {
             {
               title: () => t('replay.client'),
               key: 'client',
+              width: 220,
               render: (_, row) => {
                 const { client, deviceId } = row;
                 return (
-                  <Space size={4}>
+                  <Space size="small">
                     <Tooltip
                       title={
                         <>
@@ -366,7 +367,7 @@ export const LogList = () => {
             // 操作
             {
               title: () => t('common.actions'),
-              width: 350,
+              width: 300,
               fixed: 'right',
               key: 'actions',
               render: (_, row) => {
