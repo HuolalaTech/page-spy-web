@@ -257,7 +257,6 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     set({ consoleMsgTypeFilter: typeList });
   },
   setConsoleMsgKeywordFilter(keyword: string) {
-    console.log("keyword-change",keyword)
     set({ consoleMsgKeywordFilter: keyword });
   },
   clearRecord: (key: string) => {
