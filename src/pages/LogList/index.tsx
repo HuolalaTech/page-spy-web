@@ -11,10 +11,10 @@ import {
   Space,
   Table,
   Tooltip,
-  Tag,
   TagProps,
   DatePicker,
   Popconfirm,
+  Divider,
 } from 'antd';
 import { Trans, useTranslation } from 'react-i18next';
 import './index.less';
@@ -23,12 +23,14 @@ import { SelectLogButton } from './SelectLogButton';
 import dayjs, { type Dayjs } from 'dayjs';
 import request from '@/apis/request';
 import { ComponentType, useMemo, useRef } from 'react';
-import Icon, {
+import {
   CheckCircleOutlined,
   ClearOutlined,
   ClockCircleOutlined,
   CloseCircleOutlined,
+  CopyOutlined,
   DeleteOutlined,
+  InfoCircleOutlined,
   MinusCircleOutlined,
   PlayCircleOutlined,
   QuestionCircleOutlined,
@@ -36,6 +38,8 @@ import Icon, {
 } from '@ant-design/icons';
 import { isCN } from '@/assets/locales';
 import prettyBytes from 'pretty-bytes';
+import { parseUserAgent } from '@/utils/brand';
+import { getObjectKeys } from '@/utils';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
@@ -82,8 +86,8 @@ export const LogList = () => {
     runAsync: requestClientLogs,
   } = useRequest(
     async () => {
-      const { date = [], project, title, deviceId } = form.getFieldsValue();
-      const [start, end]: Dayjs[] = date;
+      const { date, project, title, deviceId } = form.getFieldsValue();
+      const [start, end]: Dayjs[] = date || [];
       const params = {
         project,
         title,
@@ -92,7 +96,22 @@ export const LogList = () => {
         to: end && dayjs(start.format('YYYY/MM/DD')).unix(),
         page: currentPage.current,
       };
+      getObjectKeys(params).forEach((k) => {
+        if (!params[k] || params[k].toString().trim() === '') {
+          delete params[k];
+        }
+      });
       const res = await getSpyLogs(params);
+      // 从 tag 里提取客户端信息
+      res.data.data?.forEach((d) => {
+        d?.tags.forEach(({ key, value }) => {
+          if (key === 'userAgent') {
+            d.client = parseUserAgent(value);
+          } else {
+            d[key] = value;
+          }
+        });
+      });
       return res.data;
     },
     {
@@ -223,60 +242,161 @@ export const LogList = () => {
           }}
           dataSource={logList.data}
           columns={[
+            // 客户端信息
             {
-              title: () => t('replay.filename'),
-              dataIndex: 'name',
-              ellipsis: {
-                showTitle: false,
-              },
-              render: (filename) => (
-                <Tooltip placement="topLeft" title={filename}>
-                  {filename}
-                </Tooltip>
-              ),
-            },
-            {
-              title: () => t('replay.file-status'),
-              dataIndex: 'status',
-              render: (value: I.SpyLog['status']) => {
-                const { icon, color } =
-                  FILE_STATUS[value] || FILE_STATUS['Unknown'];
+              title: () => t('replay.client'),
+              key: 'client',
+              render: (_, row) => {
+                const { client, deviceId } = row;
                 return (
-                  <Tag icon={<Icon component={icon} />} color={color}>
-                    {value}
-                  </Tag>
+                  <Space size={4}>
+                    <Tooltip
+                      title={
+                        <>
+                          <span>
+                            {t('devtool.system')}: {client?.os.name}
+                          </span>
+                          <br />
+                          <span>
+                            {t('devtool.version')}: {client?.os.version}
+                          </span>
+                        </>
+                      }
+                    >
+                      <img
+                        className="client-info__logo"
+                        src={client?.os.logo}
+                      />
+                    </Tooltip>
+                    <Divider type="vertical" />
+                    <Tooltip
+                      title={
+                        <>
+                          <span>
+                            {t('devtool.browser')}: {client?.browser.name}
+                          </span>
+                          <br />
+                          <span>
+                            {t('devtool.version')}: {client?.browser.version}
+                          </span>
+                        </>
+                      }
+                    >
+                      <img
+                        className="client-info__logo"
+                        src={client?.browser.logo}
+                      />
+                    </Tooltip>
+                    <Divider type="vertical" />
+                    <Tooltip title="Device ID">
+                      <div className="page-spy-id">
+                        <b>{deviceId?.slice(0, 4)}</b>
+                      </div>
+                    </Tooltip>
+                  </Space>
                 );
               },
             },
+            // Project
             {
-              title: () => t('replay.file-size'),
-              dataIndex: 'size',
-              render: (value: number) => {
-                return <span>{prettyBytes(value)}</span>;
+              title: () => t('common.project'),
+              dataIndex: 'project',
+              ellipsis: {
+                showTitle: false,
+              },
+              render: (project) => (
+                <Tooltip placement="topLeft" title={`Project: ${project}`}>
+                  {project}
+                </Tooltip>
+              ),
+            },
+            // Title
+            {
+              title: () => t('common.title'),
+              dataIndex: 'title',
+              ellipsis: {
+                showTitle: false,
+              },
+              render: (title) => (
+                <Tooltip placement="topLeft" title={`Title: ${title}`}>
+                  {title}
+                </Tooltip>
+              ),
+            },
+            // 文件信息
+            {
+              title: () => t('replay.file-info'),
+              key: 'file-info',
+              width: 200,
+              render: (_, row) => {
+                const { icon, color } =
+                  FILE_STATUS[row.status] || FILE_STATUS['Unknown'];
+                return (
+                  <Space>
+                    <p style={{ maxWidth: 150 }} className="text-ellipse">
+                      {row.name}
+                    </p>
+                    <Tooltip
+                      placement="topLeft"
+                      title={
+                        <div>
+                          <div>
+                            <b>{t('replay.file-status')}：</b>
+                            {row.status}
+                          </div>
+                          <div>
+                            <b>{t('replay.file-size')}：</b>
+                            <span>{prettyBytes(row.size)}</span>
+                          </div>
+                        </div>
+                      }
+                    >
+                      <InfoCircleOutlined />
+                    </Tooltip>
+                  </Space>
+                );
               },
             },
+            // 创建时间
             {
               title: () => t('common.createdAt'),
               dataIndex: 'createdAt',
               render: (value) => dayjs(value).format('YYYY-MM-DD HH:mm:ss'),
             },
+            // 操作
             {
               title: () => t('common.actions'),
+              width: 350,
+              fixed: 'right',
               key: 'actions',
               render: (_, row) => {
                 const logUrl = `${request.defaultPrefix}/log/download?fileId=${row.fileId}`;
                 return (
                   <Space size="middle">
                     <Link
-                      className="action-item"
                       to={{ pathname: '/replay', search: `?url=${logUrl}` }}
                       target="_blank"
                     >
-                      <Space>
-                        <PlayCircleOutlined />
-                        <span>{t('replay.debug')}</span>
-                      </Space>
+                      <Button
+                        className="action-item"
+                        type="link"
+                        size="small"
+                        icon={<PlayCircleOutlined />}
+                      >
+                        {t('replay.debug')}
+                      </Button>
                     </Link>
+                    <Button
+                      type="text"
+                      size="small"
+                      icon={<CopyOutlined />}
+                      onClick={async () => {
+                        await navigator.clipboard.writeText(logUrl);
+                        message.success(t('common.copied'));
+                      }}
+                    >
+                      {t('replay.ref-file')}
+                    </Button>
                     <Popconfirm
                       title={t('replay.delete-title')}
                       description={t('replay.delete-desc')}
@@ -287,6 +407,7 @@ export const LogList = () => {
                       <Button
                         danger
                         type="text"
+                        size="small"
                         icon={<DeleteOutlined />}
                         loading={
                           row.fileId === deletingFileId.current && deleting

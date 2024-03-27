@@ -41,7 +41,8 @@
     "updatedAt": "更新时间",
     "actions": "操作",
     "delete": "删除",
-    "confirm": "确认"
+    "confirm": "确认",
+    "copied": "已复制"
   },
   "error": {
     "oops": " 哎呀！发生错误～",
@@ -187,13 +188,15 @@
     "online-link-tips": "请输入在线日志的链接",
     "local-file": "本地文件",
     "local-file-tip": "请选择本地文件",
-    "filename": "文件名",
+    "file-info": "文件信息",
     "file-status": "文件状态",
     "file-size": "文件尺寸",
     "debug": "回放",
     "date": "日期",
     "others": "其他日志",
     "delete-title": "删除日志",
-    "delete-desc": "确认删除此条日志吗？"
+    "delete-desc": "确认删除此条日志吗？",
+    "client": "客户端信息",
+    "ref-file": "日志链接"
   }
 }

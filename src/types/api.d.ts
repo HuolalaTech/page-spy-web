@@ -22,7 +22,11 @@ declare namespace I {
     size: number;
     fileId: string;
     name: string;
-    tags: Record<string, any>;
+    tags: {
+      key: string;
+      value: string;
+    }[];
+    [k: string]: any;
   }
 
   interface Response<T> {

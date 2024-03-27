@@ -41,7 +41,8 @@
     "updatedAt": "更新日時",
     "actions": "アクション",
     "delete": "削除",
-    "confirm": "確認"
+    "confirm": "確認",
+    "copied": "コピーされました"
   },
   "error": {
     "oops": "おっと！エラーが発生しました。",
@@ -187,13 +188,15 @@
     "online-link-tips": "オンラインログのリンクを入力してください",
     "local-file": "ローカルファイル",
     "local-file-tip": "ローカルファイルを選択してください",
-    "filename": "ファイル名",
+    "file-info": "ファイル情報",
     "file-status": "ファイルの状態",
     "file-size": "ファイルサイズ",
     "debug": "再生",
     "date": "日付",
     "others": "その他のログ",
     "delete-title": "ログを削除",
-    "delete-desc": "このログを削除してもよろしいですか？"
+    "delete-desc": "このログを削除してもよろしいですか？",
+    "client": "クライアント情報",
+    "ref-file": "ログリンク"
   }
 }
