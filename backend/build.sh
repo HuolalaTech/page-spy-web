@@ -169,10 +169,6 @@ BuildRelease() {
 }
 
 
-InstallDep() {
-  apt install gcc musl-dev
-}
-
 MakeRelease() {
   cd build
   mkdir compress
@@ -204,7 +200,6 @@ Clean() {
 }
 
 Clean
-InstallDep
 BuildRelease
 MakeRelease
 GenerateMainPackageJson
