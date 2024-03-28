@@ -22,6 +22,7 @@ interface SocketMessage {
   socket: SocketStore | null;
   consoleMsg: SpyConsole.DataItem[];
   consoleMsgTypeFilter: string[];
+  consoleMsgKeywordFilter:string,
   networkMsg: SpyNetwork.RequestInfo[];
   systemMsg: SpySystem.DataItem[];
   connectMsg: string[];
@@ -37,6 +38,7 @@ interface SocketMessage {
   };
   initSocket: (url: string) => void;
   setConsoleMsgTypeFilter: (typeList: string[]) => void;
+  setConsoleMsgKeywordFilter: (keyword: string) => void;
   clearRecord: (key: string) => void;
   refresh: (key: string) => void;
 }
@@ -45,6 +47,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
   socket: null,
   consoleMsg: [],
   consoleMsgTypeFilter: [],
+  consoleMsgKeywordFilter:'',
   networkMsg: [],
   systemMsg: [],
   connectMsg: [],
@@ -251,6 +254,9 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
   },
   setConsoleMsgTypeFilter: (typeList: string[]) => {
     set({ consoleMsgTypeFilter: typeList });
+  },
+  setConsoleMsgKeywordFilter(keyword: string) {
+    set({ consoleMsgKeywordFilter: keyword });
   },
   clearRecord: (key: string) => {
     switch (key) {

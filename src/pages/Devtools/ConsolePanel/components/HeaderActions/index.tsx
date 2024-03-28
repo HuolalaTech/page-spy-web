@@ -1,6 +1,6 @@
 import { useSocketMessageStore } from '@/store/socket-message';
 import { ClearOutlined } from '@ant-design/icons';
-import { Row, Col, Tooltip, Button, Select, Space } from 'antd';
+import { Row, Col, Tooltip, Button,Input, Select, Space } from 'antd';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SpyConsole } from '@huolala-tech/page-spy-types';
@@ -13,8 +13,8 @@ import './index.less';
 
 export const HeaderActions = () => {
   const { t } = useTranslation();
-  const [clearRecord, changeConsoleMsgFilter] = useSocketMessageStore(
-    (state) => [state.clearRecord, state.setConsoleMsgTypeFilter],
+  const [clearRecord, changeConsoleMsgFilter,setConsoleMsgKeywordFilter] = useSocketMessageStore(
+    (state) => [state.clearRecord, state.setConsoleMsgTypeFilter,state.setConsoleMsgKeywordFilter],
   );
 
   const logLevelList: Array<{
@@ -82,6 +82,12 @@ export const HeaderActions = () => {
             allowClear={true}
             options={logLevelList}
             placeholder="Log Level Filter"
+            style={{ width: 200 }}
+          />
+           <Input
+            onChange={e=>setConsoleMsgKeywordFilter(e.target.value)}
+            placeholder="Keyword Filter"
+            allowClear={true}
             style={{ width: 200 }}
           />
           <Tooltip title={t('common.clear')}>
