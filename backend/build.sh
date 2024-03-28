@@ -169,6 +169,12 @@ BuildRelease() {
 }
 
 
+InstallDep() {
+  apk add --no-cache \
+    gcc \
+    musl-dev
+}
+
 MakeRelease() {
   cd build
   mkdir compress
@@ -200,6 +206,7 @@ Clean() {
 }
 
 Clean
+InstallDep
 BuildRelease
 MakeRelease
 GenerateMainPackageJson
