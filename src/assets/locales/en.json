@@ -101,7 +101,9 @@
       "Network": "Network",
       "System": "System",
       "Page": "Page",
-      "Storage": "Storage"
+      "Storage": "Storage",
+      "MPPage": "MP Page",
+      "MPSystem": "MP System"
     }
   },
   "shortcuts": {
@@ -119,6 +121,7 @@
     "newContent": "New content",
     "auto-scroll-on": "Auto Scroll On",
     "auto-scroll-off": "Auto Scroll Off",
+    "mp-code-error": "Code format is incorrect. Friendly reminder: currently the mini program environment only supports ES5 syntax.",
     "error-trace": {
       "title": "Error detail",
       "hints": "HINTS",
@@ -154,6 +157,9 @@
     "entries-be-modified": "Some entries have been modified",
     "data-be-stale": "Data may be stale",
     "total-entries": "Total entries"
+  },
+  "mp-page": {
+    "page-stack": "Page Stack"
   },
   "socket": {
     "client-name": "Client",

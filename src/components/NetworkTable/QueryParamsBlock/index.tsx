@@ -1,6 +1,6 @@
 import { Space } from 'antd';
 import { useState, useMemo } from 'react';
-import { EntriesBody } from '../EntriesBody';
+import { EntriesBody } from '@/components/EntriesBody';
 
 export const QueryParamsBlock: React.FC<{ data: [string, string][] }> = ({
   data,

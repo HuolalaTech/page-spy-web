@@ -101,7 +101,9 @@
       "Network": "网络",
       "System": "系统",
       "Page": "页面",
-      "Storage": "存储"
+      "Storage": "存储",
+      "MPPage": "小程序页面",
+      "MPSystem": "小程序系统"
     }
   },
   "shortcuts": {
@@ -119,6 +121,7 @@
     "newContent": "新消息",
     "auto-scroll-on": "自动滚动",
     "auto-scroll-off": "自动滚动关闭",
+    "mp-code-error": "代码格式不正确。友情提示：目前小程序环境仅支持ES5语法。",
     "error-trace": {
       "title": "错误详情",
       "hints": "使用须知",
@@ -154,6 +157,9 @@
     "entries-be-modified": "一些条目可能已经被修改",
     "data-be-stale": "数据可能已经过时",
     "total-entries": "总记录数"
+  },
+  "mp-page": {
+    "page-stack": "页面栈"
   },
   "socket": {
     "client-name": "客户端",

@@ -13,7 +13,7 @@ const ConsolePanel = () => {
       <HeaderActions />
       <div className="console-panel__content">
         <MainContent />
-        {!clientInfo?.browser.type?.startsWith('mp-') && <FooterInput />}
+        <FooterInput />
       </div>
       <ErrorDetailDrawer />
     </div>

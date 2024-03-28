@@ -1,7 +1,7 @@
 import ReactJsonView from '@huolala-tech/react-json-view';
 import { isString } from 'lodash-es';
 import { useMemo } from 'react';
-import { EntriesBody } from '../EntriesBody';
+import { EntriesBody } from '@/components/EntriesBody';
 
 export const RequestPayloadBlock: React.FC<{
   data: string | [string, string][];
