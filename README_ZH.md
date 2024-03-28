@@ -98,7 +98,7 @@ npm install -g @huolala-tech/page-spy-api@latest
 有问题可以使用微信扫码进群。
 
 <div style="display: flex; gap: 8px; flex-wrap: nowrap; overflow: auto">
-  <img src="https://public-assets-v.huolala.cn/images/page-spy-wechat-group.jpg" alt="微信群" width="180" />
+  <img src="https://public-assets-v.huolala.cn/images/page-spy-wechat-group.webp" alt="微信群" width="180" />
   <img src="./.github/assets/group-4.jpg" alt="微信群" width="180" />
   <img src="./.github/assets/group-3.jpg" alt="微信群" width="180" />
   <img src="./.github/assets/group-2.jpg" alt="微信群" width="180" />
