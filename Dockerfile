@@ -1,8 +1,6 @@
 FROM golang:1.20-buster AS backend
 WORKDIR /app
-RUN apk add --no-cache \
-    gcc \
-    musl-dev
+RUN apt-get install gcc libc6-dev
 COPY backend/go.mod backend/go.sum ./
 RUN go mod download
 COPY backend/. .

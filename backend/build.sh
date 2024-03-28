@@ -170,9 +170,7 @@ BuildRelease() {
 
 
 InstallDep() {
-  apk add --no-cache \
-    gcc \
-    musl-dev
+  apt install gcc musl-dev
 }
 
 MakeRelease() {
