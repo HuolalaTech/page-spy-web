@@ -1,5 +1,5 @@
 import useSearch from '@/utils/useSearch';
-import { message, Row, Col, Button, Space } from 'antd';
+import { message, Row, Col, Space } from 'antd';
 import './index.less';
 import { useRequest } from 'ahooks';
 import { LoadingFallback } from '@/components/LoadingFallback';
@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { InvalidObjectURL } from './InvalidObjectURL';
 import { Link } from 'react-router-dom';
 import { ReactComponent as LeftArrowSvg } from '@/assets/image/left-arrow.svg';
+import { useReplayerExpand } from '@/store/replayer-expand';
 
 export const Replay = () => {
   const { t } = useTranslation();
@@ -32,6 +33,8 @@ export const Replay = () => {
     state.duration,
     state.allRRwebEvent,
   ]);
+
+  const isExpand = useReplayerExpand((state) => state.isExpand);
 
   if (loading) {
     return <LoadingFallback />;
@@ -59,9 +62,12 @@ export const Replay = () => {
           </Space>
         </Col>
       </Row>
-      <Row align="stretch" className="replay-main" gutter={24}>
+      <Row align="stretch" className="replay-main" gutter={24} wrap={false}>
         {!!allRRwebEvent.length && (
-          <Col className="replay-main__left">
+          <Col
+            className="replay-main__left"
+            style={{ width: isExpand ? '70vw' : '40vw' }}
+          >
             <RRWebPlayer />
           </Col>
         )}

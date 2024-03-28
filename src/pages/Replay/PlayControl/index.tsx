@@ -2,6 +2,8 @@ import { ReactComponent as PlaySvg } from '@/assets/image/play.svg';
 import { ReactComponent as PauseSvg } from '@/assets/image/pause.svg';
 import { ReactComponent as RelateTimeSvg } from '@/assets/image/related-time.svg';
 import { ReactComponent as AbsoluteTimeSvg } from '@/assets/image/absolute-time.svg';
+import { ReactComponent as ExpandSvg } from '@/assets/image/expand.svg';
+import { ReactComponent as CollapseSvg } from '@/assets/image/collapse.svg';
 import Icon from '@ant-design/icons';
 import './index.less';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -11,10 +13,11 @@ import {
   REPLAY_END,
   REPLAY_PROGRESS_CHANGE,
 } from '../events';
-import { Space, Tooltip } from 'antd';
+import { Button, Space, Tooltip } from 'antd';
 import { useReplayStore } from '@/store/replay';
 import { useEventListener } from '@/utils/useEventListener';
 import { useTranslation } from 'react-i18next';
+import { useReplayerExpand } from '@/store/replayer-expand';
 
 const fixProgress = (progress: number) => {
   // prettier-ignore
@@ -220,6 +223,11 @@ export const PlayControl = memo(() => {
     onStatusChange,
   ]);
 
+  const [isExpand, setIsExpand] = useReplayerExpand((state) => [
+    state.isExpand,
+    state.setIsExpand,
+  ]);
+
   return (
     <div className="play-control">
       <div className="play-actions">
@@ -238,7 +246,16 @@ export const PlayControl = memo(() => {
             }}
           />
         </Space>
-        <Space>
+        <Space size="middle">
+          <Tooltip title={t('replay.update-layout')}>
+            <Icon
+              className="play-action__btn"
+              component={isExpand ? CollapseSvg : ExpandSvg}
+              onClick={() => {
+                setIsExpand(!isExpand);
+              }}
+            />
+          </Tooltip>
           <Tooltip
             title={
               isRelatedTimeMode

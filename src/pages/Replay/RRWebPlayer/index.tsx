@@ -1,6 +1,6 @@
 import { useEventListener } from '@/utils/useEventListener';
 import { memo, useEffect, useMemo, useRef } from 'react';
-import { REPLAY_STATUS_CHANGE } from '../events';
+import { PLAYER_SIZE_CHANGE, REPLAY_STATUS_CHANGE } from '../events';
 import { useReplayStore } from '@/store/replay';
 import rrwebPlayer from 'rrweb-player';
 import './index.less';
@@ -48,6 +48,29 @@ export const RRWebPlayer = memo(() => {
       },
     });
   }, [events]);
+
+  useEffect(() => {
+    const el = document.querySelector('.replay-main__left');
+    if (!el) return;
+    const fn = (e: Event) => {
+      if (e.eventPhase === Event.AT_TARGET) {
+        window.dispatchEvent(new CustomEvent(PLAYER_SIZE_CHANGE));
+      }
+    };
+
+    el.addEventListener('transitionend', fn, true);
+    return () => {
+      el.removeEventListener('transitionend', fn, true);
+    };
+  }, []);
+  useEventListener(PLAYER_SIZE_CHANGE, () => {
+    const { width, height } = rootEl.current!.getBoundingClientRect();
+    (playerInstance.current as any)?.$set({
+      width,
+      height,
+    });
+    playerInstance.current?.triggerResize();
+  });
 
   return <div className="rrweb-player" ref={rootEl} />;
 });

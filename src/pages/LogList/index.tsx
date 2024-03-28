@@ -335,9 +335,11 @@ export const LogList = () => {
                   FILE_STATUS[row.status] || FILE_STATUS['Unknown'];
                 return (
                   <Space>
-                    <p style={{ maxWidth: 150 }} className="text-ellipse">
-                      {row.name}
-                    </p>
+                    <Tooltip placement="topLeft" title={row.name}>
+                      <p style={{ maxWidth: 150 }} className="text-ellipse">
+                        {row.name}
+                      </p>
+                    </Tooltip>
                     <Tooltip
                       placement="topLeft"
                       title={

@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { parseUserAgent } from '@/utils/brand';
 import { SpySystem } from '@huolala-tech/page-spy-types';
+import { useReplayerExpand } from '@/store/replayer-expand';
 
 const { Title } = Typography;
 
@@ -31,6 +32,22 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
     }, []);
   }, [features]);
 
+  const isExpand = useReplayerExpand((state) => state.isExpand);
+  const spanValue = useMemo(() => {
+    if (isExpand) {
+      return {
+        overviewSpan: 10,
+        featSpan: 24,
+        xxlFeatSpan: 12,
+      };
+    }
+    return {
+      overviewSpan: 4,
+      featSpan: 8,
+      xxlFeatSpan: 6,
+    };
+  }, [isExpand]);
+
   if (data.length === 0) {
     return <Empty description={false} />;
   }
@@ -40,26 +57,22 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
         <Title level={3}>{t('overview')}</Title>
         <Card>
           <Row>
-            <Col span={18}>
-              <Row>
-                <Col span={5} className="system-info__label">
-                  System:
-                </Col>
-                <Col className="system-info__value">{`${clientInfo?.os.name}/${clientInfo?.os.version}`}</Col>
-              </Row>
-              <Row>
-                <Col span={5} className="system-info__label">
-                  Browser:
-                </Col>
-                <Col className="system-info__value">{`${clientInfo?.browser.name}/${clientInfo?.browser.version}`}</Col>
-              </Row>
-              <Row wrap={false}>
-                <Col span={5} className="system-info__label">
-                  User Agent:
-                </Col>
-                <Col className="system-info__value">{system.ua}</Col>
-              </Row>
+            <Col span={spanValue.overviewSpan} className="system-info__label">
+              System:
             </Col>
+            <Col className="system-info__value">{`${clientInfo?.os.name}/${clientInfo?.os.version}`}</Col>
+          </Row>
+          <Row>
+            <Col span={spanValue.overviewSpan} className="system-info__label">
+              Browser:
+            </Col>
+            <Col className="system-info__value">{`${clientInfo?.browser.name}/${clientInfo?.browser.version}`}</Col>
+          </Row>
+          <Row wrap={false}>
+            <Col span={spanValue.overviewSpan} className="system-info__label">
+              User Agent:
+            </Col>
+            <Col className="system-info__value">{system.ua}</Col>
           </Row>
         </Card>
       </div>
@@ -78,9 +91,9 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
           <Row>
             {noSupport.map((feature) => (
               <Col
-                span={8}
+                span={spanValue.featSpan}
                 xxl={{
-                  span: 6,
+                  span: spanValue.xxlFeatSpan,
                 }}
                 key={feature.title}
               >
@@ -97,7 +110,11 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
             <Card>
               <Row>
                 {value.map((feature) => (
-                  <Col span={8} xxl={{ span: 6 }} key={feature.title}>
+                  <Col
+                    span={spanValue.featSpan}
+                    xxl={{ span: spanValue.xxlFeatSpan }}
+                    key={feature.title}
+                  >
                     <FeatureItem {...feature} />
                   </Col>
                 ))}
