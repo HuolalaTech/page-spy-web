@@ -4,10 +4,8 @@ import { HeaderActions } from './components/HeaderActions';
 import { MainContent } from './components/MainContent';
 import { FooterInput } from './components/FooterInput';
 import { ErrorDetailDrawer } from './components/ErrorDetailDrawer';
-import { useClientInfoFromMsg } from '@/utils/brand';
 
 const ConsolePanel = () => {
-  const clientInfo = useClientInfoFromMsg();
   return (
     <div className="console-panel">
       <HeaderActions />

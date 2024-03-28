@@ -1,6 +1,6 @@
 import { useSocketMessageStore } from '@/store/socket-message';
 import { ClearOutlined } from '@ant-design/icons';
-import { Row, Col, Tooltip, Button,Input, Select, Space } from 'antd';
+import { Row, Col, Tooltip, Button, Input, Select, Space } from 'antd';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SpyConsole } from '@huolala-tech/page-spy-types';
@@ -10,12 +10,16 @@ import { ReactComponent as WarnSvg } from '@/assets/image/warn.svg';
 import { ReactComponent as UserSvg } from '@/assets/image/user.svg';
 import { ReactComponent as DebugSvg } from '@/assets/image/debug.svg';
 import './index.less';
+import { debounce } from 'lodash-es';
 
 export const HeaderActions = () => {
   const { t } = useTranslation();
-  const [clearRecord, changeConsoleMsgFilter,setConsoleMsgKeywordFilter] = useSocketMessageStore(
-    (state) => [state.clearRecord, state.setConsoleMsgTypeFilter,state.setConsoleMsgKeywordFilter],
-  );
+  const [clearRecord, changeConsoleMsgFilter, setConsoleMsgKeywordFilter] =
+    useSocketMessageStore((state) => [
+      state.clearRecord,
+      state.setConsoleMsgTypeFilter,
+      state.setConsoleMsgKeywordFilter,
+    ]);
 
   const logLevelList: Array<{
     label: string | React.ReactNode;
@@ -71,6 +75,14 @@ export const HeaderActions = () => {
   const clear = useCallback(() => {
     clearRecord('console');
   }, [clearRecord]);
+
+  const debounceKeywordFilter = useCallback(
+    debounce((e) => {
+      setConsoleMsgKeywordFilter(e.target.value);
+    }, 300),
+    [],
+  );
+
   return (
     <Row justify="end">
       <Col>
@@ -84,8 +96,8 @@ export const HeaderActions = () => {
             placeholder="Log Level Filter"
             style={{ width: 200 }}
           />
-           <Input
-            onChange={e=>setConsoleMsgKeywordFilter(e.target.value)}
+          <Input
+            onChange={debounceKeywordFilter}
             placeholder="Keyword Filter"
             allowClear={true}
             style={{ width: 200 }}
