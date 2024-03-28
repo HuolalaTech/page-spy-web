@@ -48,7 +48,6 @@ export const ErrorTraceNode = ({
     ) as RequiredFrames;
     if (!frames.length) {
       antdMessage.warning(t('no-frames'));
-      console.log(error);
       return;
     }
 

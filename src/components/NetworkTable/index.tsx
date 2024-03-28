@@ -304,7 +304,6 @@ export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
                           active: showDetail && index === activeIndex,
                         })}
                         onClick={(evt: any) => {
-                          console.log(evt.target.clientWidth, evt);
                           setActiveIndex(index);
                           // setDetailData(row);
                           setLeftDistance(evt.target.clientWidth);

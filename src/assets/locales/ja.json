@@ -33,7 +33,16 @@
     "mpxhs": "Xiaohongshu Mini Program",
     "project": "プロジェクト",
     "debug": "デバッグ",
-    "title": "タイトル"
+    "title": "タイトル",
+    "start-debug": "デバッグを開始",
+    "online-debug": "RTデバッグ",
+    "offline-debug": "ログ再生",
+    "createdAt": "作成日時",
+    "updatedAt": "更新日時",
+    "actions": "アクション",
+    "delete": "削除",
+    "confirm": "確認",
+    "copied": "コピーされました"
   },
   "error": {
     "oops": "おっと！エラーが発生しました。",
@@ -166,6 +175,7 @@
     "select-mp": "Mini Program を選択"
   },
   "replay": {
+    "list-title": "再生リスト",
     "title": "ログ再生",
     "intro": "<0>何が</0> <1>ログリプレイ</1>ですか",
     "invalid-params": "リンク内で有効なURLパラメータが見つかりません。",
@@ -177,6 +187,17 @@
     "online-link": "オンラインリンク",
     "online-link-tips": "オンラインログのリンクを入力してください",
     "local-file": "ローカルファイル",
-    "local-file-tip": "ローカルファイルを選択してください"
+    "local-file-tip": "ローカルファイルを選択してください",
+    "file-info": "ファイル情報",
+    "file-status": "ファイルの状態",
+    "file-size": "ファイルサイズ",
+    "debug": "再生",
+    "date": "日付",
+    "others": "その他のログ",
+    "delete-title": "ログを削除",
+    "delete-desc": "このログを削除してもよろしいですか？",
+    "client": "クライアント情報",
+    "download-file": "ログのダウンロード",
+    "update-layout": "レイアウトの更新"
   }
 }

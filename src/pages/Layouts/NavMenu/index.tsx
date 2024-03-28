@@ -4,11 +4,13 @@ import { langType, useLanguage } from '@/utils/useLanguage';
 import Icon, { GithubOutlined } from '@ant-design/icons';
 import { Space, Divider, MenuProps, Dropdown, ConfigProvider } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ReactComponent as DocsSvg } from '@/assets/image/docs.svg';
 import { ReactComponent as I18nSvg } from '@/assets/image/i18n.svg';
 import { ReactComponent as InjectSdkSvg } from '@/assets/image/inject-sdk.svg';
+import { ReactComponent as BugSvg } from '@/assets/image/bug.svg';
 import { ReactComponent as OnlineSvg } from '@/assets/image/online.svg';
+import { ReactComponent as ReplaySvg } from '@/assets/image/replay.svg';
 import i18n from '@/assets/locales';
 import { useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
@@ -36,7 +38,17 @@ const ALL_LANGS: MenuProps['items'] = [
   },
 ];
 
+const navDropdownConfig = {
+  components: {
+    Dropdown: {
+      colorBgElevated: '#313131',
+      colorText: '#eee',
+    },
+  },
+};
+
 export const NavMenuOnPc = () => {
+  const navigate = useNavigate();
   const isDark = useDarkTheme();
   const [lang, setLang] = useLanguage();
   const { t } = useTranslation();
@@ -66,14 +78,51 @@ export const NavMenuOnPc = () => {
             }}
           </InjectSDKModal>
           <Divider type="vertical" className="divider-bg" />
-          {/* Connections */}
-          <Link to="/room-list" className="menu-item online">
-            <Space align="center">
-              <Icon component={OnlineSvg} style={{ fontSize: 18 }} />
-              <span>{t('common.connections')}</span>
-            </Space>
-          </Link>
-          <Divider type="vertical" className="divider-bg" />
+          <div className="menu-item debug-type">
+            <ConfigProvider theme={navDropdownConfig}>
+              <Dropdown
+                arrow
+                menu={{
+                  items: [
+                    {
+                      key: 'online-debug',
+                      label: (
+                        <Link to="/room-list" className="menu-item online">
+                          <Space align="center">
+                            <Icon
+                              component={OnlineSvg}
+                              style={{ fontSize: 18 }}
+                            />
+                            <span>{t('common.online-debug')}</span>
+                          </Space>
+                        </Link>
+                      ),
+                    },
+                    {
+                      key: 'offline-debug',
+                      label: (
+                        <Link to="/log-list" className="menu-item offline">
+                          <Space align="center">
+                            <Icon
+                              component={ReplaySvg}
+                              style={{ fontSize: 18 }}
+                            />
+                            <span>{t('common.offline-debug')}</span>
+                          </Space>
+                        </Link>
+                      ),
+                    },
+                  ],
+                }}
+              >
+                <Space align="center">
+                  <Icon component={BugSvg} style={{ fontSize: 18 }} />
+                  <span>{t('common.start-debug')}</span>
+                </Space>
+              </Dropdown>
+            </ConfigProvider>
+            <Divider type="vertical" className="divider-bg" />
+          </div>
         </>
       )}
       {/* Docs */}
@@ -86,16 +135,7 @@ export const NavMenuOnPc = () => {
       <Divider type="vertical" className="divider-bg" />
       {/* i18n */}
       <div className="menu-item lang">
-        <ConfigProvider
-          theme={{
-            components: {
-              Dropdown: {
-                colorBgElevated: '#333',
-                colorText: '#eee',
-              },
-            },
-          }}
-        >
+        <ConfigProvider theme={navDropdownConfig}>
           <Dropdown
             arrow
             menu={{

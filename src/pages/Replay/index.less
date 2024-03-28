@@ -3,6 +3,9 @@
   flex-direction: column;
   height: 100%;
   overflow: hidden;
+  .back-list {
+    color: @primary-color;
+  }
   &-header {
     padding: 32px 32px 0 32px;
     &__title {
@@ -15,10 +18,10 @@
     min-height: 0;
     padding: 12px 32px;
     &__left {
-      width: 40vw;
       aspect-ratio: 16 / 9;
       background-color: #fff;
       border-radius: 4px;
+      transition: width 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
     }
   }
   &-footer {
