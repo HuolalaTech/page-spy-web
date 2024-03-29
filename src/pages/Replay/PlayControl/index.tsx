@@ -11,7 +11,7 @@ import {
   REPLAY_END,
   REPLAY_PROGRESS_CHANGE,
 } from '../events';
-import { Space, Tooltip } from 'antd';
+import { Space, Tooltip, Select } from 'antd';
 import { useReplayStore } from '@/store/replay';
 import { useEventListener } from '@/utils/useEventListener';
 import { useTranslation } from 'react-i18next';
@@ -239,6 +239,20 @@ export const PlayControl = memo(() => {
           />
         </Space>
         <Space size="middle">
+          <Select
+            size="middle"
+            bordered={false}
+            defaultValue={1}
+            placeholder={t('replay.speed')}
+            options={[
+              { label: '0.5x', value: 0.5 },
+              { label: t('replay.speed'), value: 1 },
+              { label: '2.0x', value: 2 },
+              { label: '3.0x', value: 3 },
+              { label: '4.0x', value: 4 },
+            ]}
+            onChange={(v) => {}}
+          />
           <Tooltip
             title={
               isRelatedTimeMode

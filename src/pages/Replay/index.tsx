@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { InvalidObjectURL } from './InvalidObjectURL';
 import { Link } from 'react-router-dom';
 import { ReactComponent as LeftArrowSvg } from '@/assets/image/left-arrow.svg';
-import { RefCallback, useCallback, useEffect, useRef, useState } from 'react';
+import { RefCallback, useCallback, useRef, useState } from 'react';
 import useCallbackRef from '@/utils/useCallbackRef';
 import clsx from 'clsx';
 import { PLAYER_SIZE_CHANGE } from './events';
@@ -39,6 +39,7 @@ export const Replay = () => {
     state.allRRwebEvent,
   ]);
 
+  // drag to resize
   const setIsExpand = useReplayerExpand((state) => state.setIsExpand);
   const [isDragging, setIsDragging] = useState(false);
   const playerRef = useRef<HTMLDivElement | null>(null);
