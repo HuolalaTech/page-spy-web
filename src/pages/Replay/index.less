@@ -16,12 +16,41 @@
   &-main {
     flex: 1;
     min-height: 0;
+    display: flex;
+    gap: 8px;
     padding: 12px 32px;
     &__left {
-      aspect-ratio: 16 / 9;
+      flex: 0 0 50%;
+      overflow: hidden;
+      // aspect-ratio: 16 / 9;
+      padding: 0 12px;
       background-color: #fff;
       border-radius: 4px;
-      transition: width 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    }
+    &__center {
+      position: relative;
+      .dragger {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 5px;
+        height: 320px;
+        background-color: #ddd;
+        border-radius: 4px;
+        cursor: col-resize;
+        transition: background-color 0.3s;
+        &:hover {
+          background-color: #bbb;
+        }
+      }
+    }
+    &__right {
+      flex: 1;
+      z-index: 20;
+    }
+    .no-select {
+      user-select: none;
     }
   }
   &-footer {
