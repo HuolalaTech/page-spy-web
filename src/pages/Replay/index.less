@@ -17,32 +17,22 @@
     flex: 1;
     min-height: 0;
     display: flex;
-    gap: 8px;
     padding: 12px 32px;
     &__left {
       flex: 0 0 50%;
       overflow: hidden;
-      // aspect-ratio: 16 / 9;
       padding: 0 12px;
       background-color: #fff;
       border-radius: 4px;
     }
     &__center {
-      position: relative;
-      .dragger {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 5px;
-        height: 320px;
-        background-color: #ddd;
-        border-radius: 4px;
-        cursor: col-resize;
-        transition: background-color 0.3s;
-        &:hover {
-          background-color: #bbb;
-        }
+      flex: 4px 0 0;
+      background-color: fade(@primary-color, 20%);
+      border-radius: 4px;
+      cursor: col-resize;
+      transition: background-color 0.3s;
+      &:hover {
+        background-color: fade(@primary-color, 80%);
       }
     }
     &__right {

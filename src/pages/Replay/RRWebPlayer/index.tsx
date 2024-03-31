@@ -8,7 +8,10 @@ import './index.less';
 export const RRWebPlayer = memo(() => {
   const rootEl = useRef<HTMLDivElement | null>(null);
   const playerInstance = useRef<rrwebPlayer>();
-  const allRRwebEvent = useReplayStore((state) => state.allRRwebEvent);
+  const [allRRwebEvent, speed] = useReplayStore((state) => [
+    state.allRRwebEvent,
+    state.speed,
+  ]);
 
   const events = useMemo(() => {
     if (!allRRwebEvent.length) return [];
@@ -22,6 +25,19 @@ export const RRWebPlayer = memo(() => {
 
     player.goto(elapsed, status === 'playing');
   });
+
+  useEventListener(PLAYER_SIZE_CHANGE, () => {
+    const { width, height } = rootEl.current!.getBoundingClientRect();
+    (playerInstance.current as any)?.$set({
+      width,
+      height,
+    });
+    playerInstance.current?.triggerResize();
+  });
+
+  useEffect(() => {
+    playerInstance.current?.setSpeed(speed);
+  }, [speed]);
 
   useEffect(() => {
     const root = rootEl.current;
@@ -48,29 +64,6 @@ export const RRWebPlayer = memo(() => {
       },
     });
   }, [events]);
-
-  useEffect(() => {
-    const el = document.querySelector('.replay-main__left');
-    if (!el) return;
-    const fn = (e: Event) => {
-      if (e.eventPhase === Event.AT_TARGET) {
-        window.dispatchEvent(new CustomEvent(PLAYER_SIZE_CHANGE));
-      }
-    };
-
-    el.addEventListener('transitionend', fn, true);
-    return () => {
-      el.removeEventListener('transitionend', fn, true);
-    };
-  }, []);
-  useEventListener(PLAYER_SIZE_CHANGE, () => {
-    const { width, height } = rootEl.current!.getBoundingClientRect();
-    (playerInstance.current as any)?.$set({
-      width,
-      height,
-    });
-    playerInstance.current?.triggerResize();
-  });
 
   return <div className="rrweb-player" ref={rootEl} />;
 });

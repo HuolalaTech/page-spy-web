@@ -48,14 +48,15 @@ export const PlayControl = memo(() => {
   const timeFormat = useMemo(() => {
     return isRelatedTimeMode ? 'mm:ss:SSS' : 'YYYY/MM/DD HH:mm:ss';
   }, [isRelatedTimeMode]);
-  const [startTime, endTime, duration, updateElapsed] = useReplayStore(
-    (state) => [
+  const [startTime, endTime, duration, updateElapsed, speed, setSpeed] =
+    useReplayStore((state) => [
       state.startTime,
       state.endTime,
       state.duration,
       state.updateElapsed,
-    ],
-  );
+      state.speed,
+      state.setSpeed,
+    ]);
   const computeCurrentTime = useCallback(
     (elapsed: number) => {
       if (isRelatedTimeMode) {
@@ -117,14 +118,14 @@ export const PlayControl = memo(() => {
 
   const rafHandler = useCallback(() => {
     if (!duration) return;
-    elapsed.current += 16;
+    elapsed.current += 16 * speed;
     const progress = Math.min(elapsed.current / duration, 1);
     onProgressChange(progress);
 
     if (progress < 1 && playing) {
       raf.current = requestAnimationFrame(rafHandler);
     }
-  }, [duration, onProgressChange, playing]);
+  }, [duration, onProgressChange, playing, speed]);
 
   useEffect(() => {
     if (playing) {
@@ -223,7 +224,6 @@ export const PlayControl = memo(() => {
   return (
     <div className="play-control">
       <div className="play-actions">
-        <div className="slot" />
         <Space>
           <Icon
             component={playing ? PauseSvg : PlaySvg}
@@ -238,20 +238,22 @@ export const PlayControl = memo(() => {
             }}
           />
         </Space>
-        <Space size="middle">
+        <Space size="small" className="right-actions">
           <Select
             size="middle"
             bordered={false}
-            defaultValue={1}
+            defaultValue={speed}
             placeholder={t('replay.speed')}
+            style={{ width: '65px' }}
+            showArrow={false}
             options={[
               { label: '0.5x', value: 0.5 },
-              { label: t('replay.speed'), value: 1 },
+              { label: '1.0x', value: 1 },
               { label: '2.0x', value: 2 },
               { label: '3.0x', value: 3 },
               { label: '4.0x', value: 4 },
             ]}
-            onChange={(v) => {}}
+            onChange={setSpeed}
           />
           <Tooltip
             title={

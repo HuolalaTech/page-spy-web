@@ -18,7 +18,6 @@ import useCallbackRef from '@/utils/useCallbackRef';
 import clsx from 'clsx';
 import { PLAYER_SIZE_CHANGE } from './events';
 import { useEventListener } from '@/utils/useEventListener';
-import { useReplayerExpand } from '@/store/replayer-expand';
 
 export const Replay = () => {
   const { t } = useTranslation();
@@ -40,7 +39,7 @@ export const Replay = () => {
   ]);
 
   // drag to resize
-  const setIsExpand = useReplayerExpand((state) => state.setIsExpand);
+  const setIsExpand = useReplayStore((state) => state.setIsExpand);
   const [isDragging, setIsDragging] = useState(false);
   const playerRef = useRef<HTMLDivElement | null>(null);
   const bindPlayer = useCallback<RefCallback<HTMLDivElement>>((node) => {
@@ -129,9 +128,7 @@ export const Replay = () => {
             >
               <RRWebPlayer />
             </div>
-            <div className="replay-main__center">
-              <div className="dragger" ref={bindDragger} />
-            </div>
+            <div className="replay-main__center" ref={bindDragger} />
           </>
         )}
         <div className={clsx('replay-main__right', isDragging && 'no-select')}>

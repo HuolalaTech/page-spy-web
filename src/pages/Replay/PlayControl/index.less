@@ -1,9 +1,16 @@
 .play-control {
   .play-actions {
+    position: relative;
     width: 40vw;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    .right-actions {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
   }
   .play-action__btn {
     font-size: 24px;
