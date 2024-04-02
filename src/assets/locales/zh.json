@@ -204,6 +204,7 @@
     "delete-desc": "确认删除此条日志吗？",
     "client": "客户端信息",
     "download-file": "下载日志",
-    "update-layout": "调整布局"
+    "update-layout": "调整布局",
+    "speed": "倍速"
   }
 }

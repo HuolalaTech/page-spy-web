@@ -2,8 +2,6 @@ import { ReactComponent as PlaySvg } from '@/assets/image/play.svg';
 import { ReactComponent as PauseSvg } from '@/assets/image/pause.svg';
 import { ReactComponent as RelateTimeSvg } from '@/assets/image/related-time.svg';
 import { ReactComponent as AbsoluteTimeSvg } from '@/assets/image/absolute-time.svg';
-import { ReactComponent as ExpandSvg } from '@/assets/image/expand.svg';
-import { ReactComponent as CollapseSvg } from '@/assets/image/collapse.svg';
 import Icon from '@ant-design/icons';
 import './index.less';
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -13,11 +11,10 @@ import {
   REPLAY_END,
   REPLAY_PROGRESS_CHANGE,
 } from '../events';
-import { Button, Space, Tooltip } from 'antd';
+import { Space, Tooltip, Select } from 'antd';
 import { useReplayStore } from '@/store/replay';
 import { useEventListener } from '@/utils/useEventListener';
 import { useTranslation } from 'react-i18next';
-import { useReplayerExpand } from '@/store/replayer-expand';
 
 const fixProgress = (progress: number) => {
   // prettier-ignore
@@ -51,14 +48,15 @@ export const PlayControl = memo(() => {
   const timeFormat = useMemo(() => {
     return isRelatedTimeMode ? 'mm:ss:SSS' : 'YYYY/MM/DD HH:mm:ss';
   }, [isRelatedTimeMode]);
-  const [startTime, endTime, duration, updateElapsed] = useReplayStore(
-    (state) => [
+  const [startTime, endTime, duration, updateElapsed, speed, setSpeed] =
+    useReplayStore((state) => [
       state.startTime,
       state.endTime,
       state.duration,
       state.updateElapsed,
-    ],
-  );
+      state.speed,
+      state.setSpeed,
+    ]);
   const computeCurrentTime = useCallback(
     (elapsed: number) => {
       if (isRelatedTimeMode) {
@@ -120,14 +118,14 @@ export const PlayControl = memo(() => {
 
   const rafHandler = useCallback(() => {
     if (!duration) return;
-    elapsed.current += 16;
+    elapsed.current += 16 * speed;
     const progress = Math.min(elapsed.current / duration, 1);
     onProgressChange(progress);
 
     if (progress < 1 && playing) {
       raf.current = requestAnimationFrame(rafHandler);
     }
-  }, [duration, onProgressChange, playing]);
+  }, [duration, onProgressChange, playing, speed]);
 
   useEffect(() => {
     if (playing) {
@@ -223,15 +221,9 @@ export const PlayControl = memo(() => {
     onStatusChange,
   ]);
 
-  const [isExpand, setIsExpand] = useReplayerExpand((state) => [
-    state.isExpand,
-    state.setIsExpand,
-  ]);
-
   return (
     <div className="play-control">
       <div className="play-actions">
-        <div className="slot" />
         <Space>
           <Icon
             component={playing ? PauseSvg : PlaySvg}
@@ -246,16 +238,23 @@ export const PlayControl = memo(() => {
             }}
           />
         </Space>
-        <Space size="middle">
-          <Tooltip title={t('replay.update-layout')}>
-            <Icon
-              className="play-action__btn"
-              component={isExpand ? CollapseSvg : ExpandSvg}
-              onClick={() => {
-                setIsExpand(!isExpand);
-              }}
-            />
-          </Tooltip>
+        <Space size="small" className="right-actions">
+          <Select
+            size="middle"
+            bordered={false}
+            defaultValue={speed}
+            placeholder={t('replay.speed')}
+            style={{ width: '65px' }}
+            showArrow={false}
+            options={[
+              { label: '0.5x', value: 0.5 },
+              { label: '1.0x', value: 1 },
+              { label: '2.0x', value: 2 },
+              { label: '3.0x', value: 3 },
+              { label: '4.0x', value: 4 },
+            ]}
+            onChange={setSpeed}
+          />
           <Tooltip
             title={
               isRelatedTimeMode

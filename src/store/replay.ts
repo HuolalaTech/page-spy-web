@@ -33,6 +33,10 @@ export interface ReplayStore {
   updateConsoleMsg: (currentTime: number) => void;
   updateNetworkMsg: (currentTime: number) => void;
   updateStorageMsg: (currentTime: number) => void;
+  isExpand: boolean;
+  setIsExpand: (expand: boolean) => void;
+  speed: number;
+  setSpeed: (speed: number) => void;
 }
 
 export const useReplayStore = create<ReplayStore>((set, get) => ({
@@ -257,5 +261,13 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       }
       storageIndex += 1;
     }
+  },
+  isExpand: false,
+  setIsExpand(expand: boolean) {
+    set({ isExpand: expand });
+  },
+  speed: 1,
+  setSpeed(speed: number) {
+    set({ speed });
   },
 }));

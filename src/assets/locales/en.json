@@ -204,6 +204,7 @@
     "delete-desc": "Are you sure you want to delete this log?",
     "client": "Client Information",
     "download-file": "Download Log",
-    "update-layout": "Update Layout"
+    "update-layout": "Update Layout",
+    "speed": "Speed"
   }
 }

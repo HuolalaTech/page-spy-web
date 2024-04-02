@@ -16,12 +16,31 @@
   &-main {
     flex: 1;
     min-height: 0;
+    display: flex;
     padding: 12px 32px;
     &__left {
-      aspect-ratio: 16 / 9;
+      flex: 0 0 50%;
+      overflow: hidden;
+      padding: 0 12px;
       background-color: #fff;
       border-radius: 4px;
-      transition: width 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    }
+    &__center {
+      flex: 4px 0 0;
+      background-color: fade(@primary-color, 20%);
+      border-radius: 4px;
+      cursor: col-resize;
+      transition: background-color 0.3s;
+      &:hover {
+        background-color: fade(@primary-color, 80%);
+      }
+    }
+    &__right {
+      flex: 1;
+      z-index: 20;
+    }
+    .no-select {
+      user-select: none;
     }
   }
   &-footer {

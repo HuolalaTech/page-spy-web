@@ -204,6 +204,7 @@
     "delete-desc": "このログを削除してもよろしいですか？",
     "client": "クライアント情報",
     "download-file": "ログのダウンロード",
-    "update-layout": "レイアウトの更新"
+    "update-layout": "レイアウトの更新",
+    "speed": "倍速"
   }
 }

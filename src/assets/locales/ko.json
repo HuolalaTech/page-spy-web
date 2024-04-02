@@ -204,6 +204,7 @@
     "delete-desc": "이 로그를 삭제하시겠습니까?",
     "client": "클라이언트 정보",
     "download-file": "로그 다운로드",
-    "update-layout": "레이아웃 업데이트"
+    "update-layout": "레이아웃 업데이트",
+    "speed": "속도"
   }
 }

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { parseUserAgent } from '@/utils/brand';
 import { SpySystem } from '@huolala-tech/page-spy-types';
-import { useReplayerExpand } from '@/store/replayer-expand';
+import { useReplayStore } from '@/store/replay';
 
 const { Title } = Typography;
 
@@ -32,7 +32,7 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
     }, []);
   }, [features]);
 
-  const isExpand = useReplayerExpand((state) => state.isExpand);
+  const isExpand = useReplayStore((state) => state.isExpand);
   const spanValue = useMemo(() => {
     if (isExpand) {
       return {
