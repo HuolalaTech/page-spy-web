@@ -96,6 +96,7 @@
     "system": "系统",
     "browser": "浏览器",
     "version": "版本",
+    "mp-warning": "小程序提交审核时请务必删除代码中的 SDK，否则会导致审核失败。",
     "menu": {
       "Console": "输出",
       "Network": "网络",

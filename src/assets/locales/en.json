@@ -96,6 +96,7 @@
     "system": "System",
     "browser": "Browser",
     "version": "Version",
+    "mp-warning": "When submitting the mini program for review, be sure to delete the SDK in the code, otherwise the review will fail.",
     "menu": {
       "Console": "Console",
       "Network": "Network",

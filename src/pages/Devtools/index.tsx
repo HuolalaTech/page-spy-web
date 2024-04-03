@@ -1,4 +1,5 @@
 import {
+  Alert,
   Col,
   Divider,
   Empty,
@@ -15,7 +16,7 @@ import NetworkPanel from './NetworkPanel';
 import SystemPanel from './SystemPanel';
 import { useNavigate, useLocation } from 'react-router-dom';
 import PagePanel from './PagePanel';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, ExclamationCircleFilled } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
 import { getSpyRoom } from '@/apis';
 import clsx from 'clsx';
@@ -31,6 +32,7 @@ import '@huolala-tech/react-json-view/dist/style.css';
 import { throttle } from 'lodash-es';
 import { CUSTOM_EVENT } from '@/store/socket-message/socket';
 import { SpyDevice } from '@huolala-tech/page-spy-types';
+import MPWarning from '@/components/MPWarning';
 
 const { Sider, Content } = Layout;
 const { Title } = Typography;
@@ -137,7 +139,14 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
       });
   }, [clientInfo, badge, navigate, search, t]);
 
-  return <Menu mode="inline" selectedKeys={[active]} items={menuItems} />;
+  return (
+    <Menu
+      className="sider-menu"
+      mode="inline"
+      selectedKeys={[active]}
+      items={menuItems}
+    />
+  );
 });
 
 interface SiderRoomProps {
@@ -291,6 +300,8 @@ export default function Devtools() {
     state.initSocket,
   ]);
 
+  const clientInfo = useClientInfoFromMsg();
+
   useEffect(() => {
     if (socket) return;
     initSocket(address);
@@ -320,6 +331,9 @@ export default function Devtools() {
       <Sider theme="light">
         <div className="page-spy-devtools__sider">
           <ClientInfo />
+          {clientInfo?.browser.type.startsWith('mp-') && (
+            <MPWarning className="sider-warning" />
+          )}
           <BadgeMenu active={hashKey} />
           {/* <div className="page-spy-devtools__sider-bottom">
             <SiderRooms exclude={address} />
