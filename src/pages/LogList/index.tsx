@@ -287,12 +287,13 @@ export const LogList = () => {
             // Project
             {
               title: () => t('common.project'),
+              width: 150,
               dataIndex: 'project',
               ellipsis: {
                 showTitle: false,
               },
               render: (project) => (
-                <Tooltip placement="topLeft" title={`Project: ${project}`}>
+                <Tooltip placement="topLeft" title={project}>
                   {project}
                 </Tooltip>
               ),
@@ -300,12 +301,13 @@ export const LogList = () => {
             // Title
             {
               title: () => t('common.title'),
+              width: 150,
               dataIndex: 'title',
               ellipsis: {
                 showTitle: false,
               },
               render: (title) => (
-                <Tooltip placement="topLeft" title={`Title: ${title}`}>
+                <Tooltip placement="topLeft" title={title}>
                   {title}
                 </Tooltip>
               ),
@@ -349,13 +351,20 @@ export const LogList = () => {
             // 创建时间
             {
               title: () => t('common.createdAt'),
+              width: 180,
               dataIndex: 'createdAt',
-              render: (value) => dayjs(value).format('YYYY-MM-DD HH:mm:ss'),
+              ellipsis: {
+                showTitle: false,
+              },
+              render: (value) => {
+                const title = dayjs(value).format('YYYY-MM-DD HH:mm:ss');
+                return <Tooltip title={title}>{title}</Tooltip>;
+              },
             },
             // 操作
             {
               title: () => t('common.actions'),
-              width: 300,
+              width: 350,
               fixed: 'right',
               key: 'actions',
               render: (_, row) => {
