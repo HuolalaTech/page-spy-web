@@ -14,6 +14,7 @@ const isCaredActivity = (activity: HarborDataItem) => {
   const { type, data } = activity;
   if (type === 'rrweb-event') return false;
   if (type === 'storage') {
+    if (data.action === 'get') return false;
     if (data.name && data.name === 'page-spy-room') return false;
   }
   return true;
