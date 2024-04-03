@@ -20,6 +20,7 @@ import {
   Form,
   Select,
   Space,
+  Layout,
 } from 'antd';
 import clsx from 'clsx';
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
@@ -30,6 +31,7 @@ import { ClearOutlined, SearchOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 const { Option } = Select;
+const { Sider, Content } = Layout;
 
 const sortConnections = (data: I.SpyRoom[]) => {
   const [valid, invalid] = (data || []).reduce(
@@ -177,7 +179,7 @@ export const RoomList = () => {
           const client = connections.find(({ userId }) => userId === 'Client');
 
           return (
-            <Col key={address} span={6}>
+            <Col key={address} span={8} xl={6} xxl={4}>
               <div className={clsx('connection-item')}>
                 <div className="connection-item__title">
                   <code style={{ fontSize: 36 }}>
@@ -251,93 +253,75 @@ export const RoomList = () => {
   }, [conditions, connectionList, error, t]);
 
   return (
-    <div className="room-list">
-      <div className="room-list-content">
-        <Title level={3} style={{ marginBottom: 12 }}>
+    <Layout style={{ height: '100%' }}>
+      <Sider width={350} theme="light" style={{ padding: 24 }}>
+        <Title level={3} style={{ marginBottom: 32 }}>
           {t('common.connections')}
         </Title>
-        <Form
-          form={form}
-          onFinish={onFormFinish}
-          labelCol={{
-            span: 6,
-          }}
-        >
-          <Row gutter={24} wrap>
-            <Col span={8}>
-              <Form.Item label={t('common.project')} name="project">
-                <Input placeholder={t('common.project')!} allowClear />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.title')} name="title">
-                <Input placeholder={t('common.title')!} allowClear />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.device-id')} name="address">
-                <Input placeholder={t('common.device-id')!} allowClear />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.os')} name="os">
-                <Select placeholder={t('connections.select-os')} allowClear>
-                  {Object.entries(OS_CONFIG).map(([name, conf]) => {
+        <Form layout="vertical" form={form} onFinish={onFormFinish}>
+          <Form.Item label={t('common.project')} name="project">
+            <Input placeholder={t('common.project')!} allowClear />
+          </Form.Item>
+          <Form.Item label={t('common.title')} name="title">
+            <Input placeholder={t('common.title')!} allowClear />
+          </Form.Item>
+          <Form.Item label={t('common.device-id')} name="address">
+            <Input placeholder={t('common.device-id')!} allowClear />
+          </Form.Item>
+          <Form.Item label={t('common.os')} name="os">
+            <Select placeholder={t('connections.select-os')} allowClear>
+              {Object.entries(OS_CONFIG).map(([name, conf]) => {
+                return (
+                  <Option value={name} key={name}>
+                    <div className="flex-between">
+                      <span>{conf.label}</span>
+                      <img src={conf.logo} width="20" height="20" alt="" />
+                    </div>
+                  </Option>
+                );
+              })}
+            </Select>
+          </Form.Item>
+          <Form.Item label={t('common.browser')} name="browser">
+            <Select
+              listHeight={500}
+              placeholder={t('connections.select-browser')}
+              allowClear
+            >
+              {!!BrowserOptions.length && (
+                <Select.OptGroup label="Web" key="web">
+                  {BrowserOptions.map(({ name, logo, label }) => {
                     return (
-                      <Option value={name} key={name}>
+                      <Option key={name} value={name}>
                         <div className="flex-between">
-                          <span>{conf.label}</span>
-                          <img src={conf.logo} width="20" height="20" alt="" />
+                          <span>{label}</span>
+                          <img src={logo} width="20" height="20" alt="" />
                         </div>
                       </Option>
                     );
                   })}
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.browser')} name="browser">
-                <Select
-                  listHeight={500}
-                  placeholder={t('connections.select-browser')}
-                  allowClear
-                >
-                  {!!BrowserOptions.length && (
-                    <Select.OptGroup label="Web" key="web">
-                      {BrowserOptions.map(({ name, logo, label }) => {
-                        return (
-                          <Option key={name} value={name}>
-                            <div className="flex-between">
-                              <span>{label}</span>
-                              <img src={logo} width="20" height="20" alt="" />
-                            </div>
-                          </Option>
-                        );
-                      })}
-                    </Select.OptGroup>
-                  )}
+                </Select.OptGroup>
+              )}
 
-                  {!!MPTypeOptions.length && (
-                    <Select.OptGroup
-                      label={t('common.miniprogram')}
-                      key="miniprogram"
-                    >
-                      {MPTypeOptions.map(({ name, logo, label }) => {
-                        return (
-                          <Option key={name} value={name}>
-                            <div className="flex-between">
-                              <span>{label}</span>
-                              <img src={logo} width="20" height="20" alt="" />
-                            </div>
-                          </Option>
-                        );
-                      })}
-                    </Select.OptGroup>
-                  )}
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
+              {!!MPTypeOptions.length && (
+                <Select.OptGroup
+                  label={t('common.miniprogram')}
+                  key="miniprogram"
+                >
+                  {MPTypeOptions.map(({ name, logo, label }) => {
+                    return (
+                      <Option key={name} value={name}>
+                        <div className="flex-between">
+                          <span>{label}</span>
+                          <img src={logo} width="20" height="20" alt="" />
+                        </div>
+                      </Option>
+                    );
+                  })}
+                </Select.OptGroup>
+              )}
+            </Select>
+          </Form.Item>
           <Row justify="end">
             <Col>
               <Form.Item>
@@ -364,8 +348,8 @@ export const RoomList = () => {
             </Col>
           </Row>
         </Form>
-        {mainContent}
-      </div>
-    </div>
+      </Sider>
+      <Content style={{ padding: 24 }}>{mainContent}</Content>
+    </Layout>
   );
 };

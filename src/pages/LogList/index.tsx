@@ -15,6 +15,7 @@ import {
   DatePicker,
   Popconfirm,
   Divider,
+  Layout,
 } from 'antd';
 import { Trans, useTranslation } from 'react-i18next';
 import './index.less';
@@ -44,6 +45,7 @@ import { getObjectKeys } from '@/utils';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
+const { Sider, Content } = Layout;
 
 const FILE_STATUS: Record<
   I.SpyLog['status'],
@@ -73,12 +75,6 @@ const FILE_STATUS: Record<
 export const LogList = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
-  const tableScrollY = useMemo(() => {
-    if (window.innerWidth <= 1500) {
-      return '42vh';
-    }
-    return '53vh';
-  }, []);
 
   const currentPage = useRef(1);
   const {
@@ -134,9 +130,9 @@ export const LogList = () => {
   );
 
   return (
-    <div className="log-list">
-      <div className="log-list-content">
-        <Title level={3} style={{ marginBottom: 12 }}>
+    <Layout style={{ height: '100%' }}>
+      <Sider theme="light" width={350} style={{ padding: 24 }}>
+        <Title level={3} style={{ marginBottom: 32 }}>
           <Space>
             {t('replay.list-title')}
             <Tooltip
@@ -164,41 +160,29 @@ export const LogList = () => {
           </Space>
         </Title>
         <Form
+          layout="vertical"
           form={form}
           onFinish={() => {
             currentPage.current = 1;
             requestClientLogs();
           }}
-          labelCol={{
-            span: 6,
-          }}
         >
-          <Row gutter={24} wrap>
-            <Col span={8}>
-              <Form.Item label={t('replay.date')} name="date">
-                <RangePicker
-                  picker="date"
-                  style={{ width: '100%' }}
-                  format="YYYY/MM/DD"
-                />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.project')} name="project">
-                <Input placeholder={t('common.project')!} allowClear />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.title')} name="title">
-                <Input placeholder={t('common.title')!} allowClear />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.device-id')} name="deviceId">
-                <Input placeholder={t('common.device-id')!} allowClear />
-              </Form.Item>
-            </Col>
-          </Row>
+          <Form.Item label={t('replay.date')} name="date">
+            <RangePicker
+              picker="date"
+              style={{ width: '100%' }}
+              format="YYYY/MM/DD"
+            />
+          </Form.Item>
+          <Form.Item label={t('common.project')} name="project">
+            <Input placeholder={t('common.project')!} allowClear />
+          </Form.Item>
+          <Form.Item label={t('common.title')} name="title">
+            <Input placeholder={t('common.title')!} allowClear />
+          </Form.Item>
+          <Form.Item label={t('common.device-id')} name="deviceId">
+            <Input placeholder={t('common.device-id')!} allowClear />
+          </Form.Item>
           <Row justify="end">
             <Col>
               <Form.Item>
@@ -226,12 +210,13 @@ export const LogList = () => {
             </Col>
           </Row>
         </Form>
-
+      </Sider>
+      <Content style={{ padding: 24 }}>
         <Table
           bordered
           loading={loading}
           scroll={{
-            y: tableScrollY,
+            y: '80vh',
           }}
           pagination={{
             total: logList.total,
@@ -425,7 +410,7 @@ export const LogList = () => {
             },
           ]}
         />
-      </div>
-    </div>
+      </Content>
+    </Layout>
   );
 };
