@@ -1,77 +1,71 @@
 .room-list {
-  .room-list-content {
-    width: 90%;
-    max-width: 1400px;
-    margin: 32px auto;
-  }
-}
-
-.connection-item {
-  margin-bottom: 24px;
-  padding: 12px;
-  background-color: #fff;
-  border-radius: 6px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
-  transition: all ease-out 0.3s;
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.1);
-  }
-  &__title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 4px;
-    padding-block: 8px;
-    text-align: center;
-  }
-  .custom-title {
-    padding-inline: 8px;
-    font-size: 12px;
-    line-height: 18px;
-    color: #fff;
-    background-color: fade(@primary-color, 50%);
-    border-radius: 999px;
-    max-width: 80%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-  &__info {
-    > div {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 6px;
-      &:first-child {
-        margin-bottom: 8px;
-      }
+  .connection-item {
+    margin-bottom: 24px;
+    padding: 12px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+    transition: all ease-out 0.3s;
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0px 8px 4px rgba(0, 0, 0, 0.1);
     }
-  }
-  .conn-detail {
     &__title {
-      font-size: 12px;
-      color: #999;
-      text-align: center;
-    }
-    &__value {
-      max-width: 100px;
-      height: 42px;
       display: flex;
       justify-content: center;
       align-items: center;
-      p {
-        font-weight: 500;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+      flex-direction: column;
+      gap: 4px;
+      padding-block: 8px;
+      text-align: center;
+    }
+    .custom-title {
+      padding-inline: 8px;
+      font-size: 12px;
+      line-height: 18px;
+      color: #fff;
+      background-color: fade(@primary-color, 50%);
+      border-radius: 999px;
+      max-width: 80%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    &__info {
+      > div {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 6px;
+        &:first-child {
+          margin-bottom: 8px;
+        }
       }
-      // > * {
-      //   min-width: 0;
-      // }
-      img {
-        width: 24px;
+    }
+    .conn-detail {
+      &__title {
+        font-size: 12px;
+        color: #999;
+        text-align: center;
+      }
+      &__value {
+        max-width: 100px;
+        height: 42px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p {
+          font-weight: 500;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+        // > * {
+        //   min-width: 0;
+        // }
+        img {
+          width: 24px;
+        }
       }
     }
   }

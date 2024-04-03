@@ -253,7 +253,7 @@ export const RoomList = () => {
   }, [conditions, connectionList, error, t]);
 
   return (
-    <Layout style={{ height: '100%' }}>
+    <Layout style={{ height: '100%' }} className="room-list">
       <Sider width={350} theme="light" style={{ padding: 24 }}>
         <Title level={3} style={{ marginBottom: 32 }}>
           {t('common.connections')}

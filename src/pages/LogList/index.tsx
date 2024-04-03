@@ -130,7 +130,7 @@ export const LogList = () => {
   );
 
   return (
-    <Layout style={{ height: '100%' }}>
+    <Layout style={{ height: '100%' }} className="log-list">
       <Sider theme="light" width={350} style={{ padding: 24 }}>
         <Title level={3} style={{ marginBottom: 32 }}>
           <Space>
