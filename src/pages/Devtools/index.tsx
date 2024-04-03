@@ -1,5 +1,4 @@
 import {
-  Alert,
   Col,
   Divider,
   Empty,
@@ -16,7 +15,7 @@ import NetworkPanel from './NetworkPanel';
 import SystemPanel from './SystemPanel';
 import { useNavigate, useLocation } from 'react-router-dom';
 import PagePanel from './PagePanel';
-import { DownOutlined, ExclamationCircleFilled } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 import { useRequest } from 'ahooks';
 import { getSpyRoom } from '@/apis';
 import clsx from 'clsx';
