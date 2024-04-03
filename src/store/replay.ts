@@ -10,6 +10,15 @@ import { eventWithTime } from '@rrweb/types';
 import { produce } from 'immer';
 import { isEqual, omit } from 'lodash-es';
 
+const isCaredActivity = (activity: HarborDataItem) => {
+  const { type, data } = activity;
+  if (type === 'rrweb-event') return false;
+  if (type === 'storage') {
+    if (data.name && data.name === 'page-spy-room') return false;
+  }
+  return true;
+};
+
 export interface HarborDataItem<T = any> {
   type: SpyMessage.DataType | 'rrweb-event';
   timestamp: number;
@@ -66,7 +75,6 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
 
     const start = data[0].timestamp;
     const end = data[data.length - 1].timestamp;
-    const duration = end - start;
 
     const result: Pick<
       ReplayStore,
@@ -93,7 +101,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       allStorageMsg,
     } = data.reduce((acc, cur) => {
       const { type, data, timestamp } = cur;
-      if (type !== 'rrweb-event') {
+      if (isCaredActivity(cur)) {
         if (!acc.activity.length) {
           acc.activity.push([{ type, timestamp }]);
         } else {
