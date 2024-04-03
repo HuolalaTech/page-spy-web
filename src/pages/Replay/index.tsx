@@ -1,5 +1,5 @@
 import useSearch from '@/utils/useSearch';
-import { message, Row, Col, Space } from 'antd';
+import { message, Row, Col, Space, Empty } from 'antd';
 import './index.less';
 import { useRequest } from 'ahooks';
 import { LoadingFallback } from '@/components/LoadingFallback';
@@ -120,17 +120,20 @@ export const Replay = () => {
         </Col>
       </Row>
       <div className="replay-main">
-        {!!allRRwebEvent.length && (
-          <>
-            <div
-              className={clsx('replay-main__left', isDragging && 'no-select')}
-              ref={bindPlayer}
-            >
-              <RRWebPlayer />
+        <div
+          className={clsx('replay-main__left', isDragging && 'no-select')}
+          ref={bindPlayer}
+        >
+          {/* Replayer need at least 2 events. */}
+          {allRRwebEvent.length >= 2 ? (
+            <RRWebPlayer />
+          ) : (
+            <div style={{ marginTop: 80 }}>
+              <Empty />
             </div>
-            <div className="replay-main__center" ref={bindDragger} />
-          </>
-        )}
+          )}
+        </div>
+        <div className="replay-main__center" ref={bindDragger} />
         <div className={clsx('replay-main__right', isDragging && 'no-select')}>
           <PluginPanel />
         </div>
