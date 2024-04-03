@@ -6,6 +6,7 @@ import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import type { Lang } from 'shiki';
 import { CodeBlock } from '@/components/CodeBlock';
+import MPWarning from '@/components/MPWarning';
 
 export type PlatformName = 'web' | 'mp-wechat' | 'mp-uniapp';
 
@@ -142,6 +143,16 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
 
   return (
     <div className="platform-integratio">
+      {(platform === 'mp-uniapp' || platform === 'mp-wechat') && (
+        <MPWarning
+          style={{
+            marginBottom: 12,
+            borderRadius: 8,
+          }}
+          inline
+        />
+      )}
+
       {steps.map(({ title, code, lang = 'html' }, index) => {
         return (
           <div className="inject-steps" key={index}>
