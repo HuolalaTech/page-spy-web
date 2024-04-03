@@ -54,10 +54,18 @@
         transform: translate(-50%, -50%);
         border-radius: 999px;
         background-color: @primary-color;
+        z-index: 10;
         &:hover {
           width: @size * 1.1;
           height: @size * 1.1;
         }
+      }
+      .point-item {
+        position: absolute;
+        min-width: 2px;
+        height: 12px;
+        transform: translateY(-2px);
+        background-color: #686ff6;
       }
     }
   }

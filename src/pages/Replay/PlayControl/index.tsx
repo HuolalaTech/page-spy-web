@@ -12,7 +12,7 @@ import {
   REPLAY_PROGRESS_CHANGE,
 } from '../events';
 import { Space, Tooltip, Select } from 'antd';
-import { useReplayStore } from '@/store/replay';
+import { Activity, useReplayStore } from '@/store/replay';
 import { useEventListener } from '@/utils/useEventListener';
 import { useTranslation } from 'react-i18next';
 
@@ -48,15 +48,44 @@ export const PlayControl = memo(() => {
   const timeFormat = useMemo(() => {
     return isRelatedTimeMode ? 'mm:ss:SSS' : 'YYYY/MM/DD HH:mm:ss';
   }, [isRelatedTimeMode]);
-  const [startTime, endTime, duration, updateElapsed, speed, setSpeed] =
-    useReplayStore((state) => [
-      state.startTime,
-      state.endTime,
-      state.duration,
-      state.updateElapsed,
-      state.speed,
-      state.setSpeed,
-    ]);
+  const [
+    activity,
+    startTime,
+    endTime,
+    duration,
+    updateElapsed,
+    speed,
+    setSpeed,
+  ] = useReplayStore((state) => [
+    state.activity,
+    state.startTime,
+    state.endTime,
+    state.duration,
+    state.updateElapsed,
+    state.speed,
+    state.setSpeed,
+  ]);
+  const activityPoints = useMemo(() => {
+    return activity.map((a) => {
+      const itemDuration = a[a.length - 1].timestamp - a[0].timestamp;
+      const timeOffset = (a[0].timestamp - startTime) / duration;
+      const timeDuration =
+        itemDuration === 0 ? 0.0001 : itemDuration / duration;
+      const eventsCount = a.reduce((acc, cur) => {
+        if (!acc[cur.type]) {
+          acc[cur.type] = 0;
+        }
+        acc[cur.type] += 1;
+        return acc;
+      }, {} as Record<Activity[number]['type'], number>);
+      return {
+        timeOffset,
+        timeDuration,
+        eventsCount,
+      };
+    });
+  }, [activity, duration, startTime]);
+
   const computeCurrentTime = useCallback(
     (elapsed: number) => {
       if (isRelatedTimeMode) {
@@ -278,6 +307,27 @@ export const PlayControl = memo(() => {
         </code>
         <div className="play-timeline" ref={timelineEl}>
           <div className="play-current-point" ref={pointEl} />
+          {activityPoints.map((a) => {
+            return (
+              <Tooltip
+                key={a.timeOffset}
+                title={Object.entries(a.eventsCount).map(([event, count]) => (
+                  <div key={event}>
+                    <b>{event}: </b>
+                    <span>{count}</span>
+                  </div>
+                ))}
+              >
+                <div
+                  className="point-item"
+                  style={{
+                    width: `${a.timeDuration * 100}%`,
+                    left: `${a.timeOffset * 100}%`,
+                  }}
+                />
+              </Tooltip>
+            );
+          })}
         </div>
         <code className="play-duration-time">
           {(isRelatedTimeMode
