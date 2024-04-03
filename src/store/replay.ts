@@ -109,7 +109,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
           const lastFrame = acc.activity[acc.activity.length - 1];
           const lastItemInLastFrame = lastFrame[lastFrame.length - 1];
           const timeDiff = timestamp - lastItemInLastFrame.timestamp;
-          // Generate a new 'activity point' if time diff > 100ms
+          // Generate a new 'activity point' if time diff > 500ms
           if (timeDiff < 500) {
             lastFrame.push({ type, timestamp });
           } else {
