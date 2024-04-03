@@ -174,14 +174,14 @@ export const LogList = () => {
               format="YYYY/MM/DD"
             />
           </Form.Item>
+          <Form.Item label={t('common.device-id')} name="deviceId">
+            <Input placeholder={t('common.device-id')!} allowClear />
+          </Form.Item>
           <Form.Item label={t('common.project')} name="project">
             <Input placeholder={t('common.project')!} allowClear />
           </Form.Item>
           <Form.Item label={t('common.title')} name="title">
             <Input placeholder={t('common.title')!} allowClear />
-          </Form.Item>
-          <Form.Item label={t('common.device-id')} name="deviceId">
-            <Input placeholder={t('common.device-id')!} allowClear />
           </Form.Item>
           <Row justify="end">
             <Col>
@@ -216,7 +216,7 @@ export const LogList = () => {
           bordered
           loading={loading}
           scroll={{
-            y: '80vh',
+            y: '70vh',
           }}
           pagination={{
             total: logList.total,

@@ -259,14 +259,14 @@ export const RoomList = () => {
           {t('common.connections')}
         </Title>
         <Form layout="vertical" form={form} onFinish={onFormFinish}>
+          <Form.Item label={t('common.device-id')} name="address">
+            <Input placeholder={t('common.device-id')!} allowClear />
+          </Form.Item>
           <Form.Item label={t('common.project')} name="project">
             <Input placeholder={t('common.project')!} allowClear />
           </Form.Item>
           <Form.Item label={t('common.title')} name="title">
             <Input placeholder={t('common.title')!} allowClear />
-          </Form.Item>
-          <Form.Item label={t('common.device-id')} name="address">
-            <Input placeholder={t('common.device-id')!} allowClear />
           </Form.Item>
           <Form.Item label={t('common.os')} name="os">
             <Select placeholder={t('connections.select-os')} allowClear>
