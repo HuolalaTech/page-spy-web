@@ -10,13 +10,26 @@ import { eventWithTime } from '@rrweb/types';
 import { produce } from 'immer';
 import { isEqual, omit } from 'lodash-es';
 
+const isCaredActivity = (activity: HarborDataItem) => {
+  const { type, data } = activity;
+  if (type === 'rrweb-event') return false;
+  if (type === 'storage') {
+    if (data.action === 'get') return false;
+    if (data.name && data.name === 'page-spy-room') return false;
+  }
+  return true;
+};
+
 export interface HarborDataItem<T = any> {
   type: SpyMessage.DataType | 'rrweb-event';
   timestamp: number;
   data: T;
 }
 
+export type Activity = Omit<HarborDataItem, 'data'>[];
+
 export interface ReplayStore {
+  activity: Activity[];
   allConsoleMsg: HarborDataItem[];
   allNetworkMsg: HarborDataItem[];
   allRRwebEvent: eventWithTime[];
@@ -40,6 +53,7 @@ export interface ReplayStore {
 }
 
 export const useReplayStore = create<ReplayStore>((set, get) => ({
+  activity: [],
   allConsoleMsg: [],
   allNetworkMsg: [],
   allRRwebEvent: [],
@@ -65,12 +79,14 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
 
     const result: Pick<
       ReplayStore,
+      | 'activity'
       | 'allConsoleMsg'
       | 'allNetworkMsg'
       | 'allRRwebEvent'
       | 'allStorageMsg'
       | 'allSystemMsg'
     > = {
+      activity: [],
       allConsoleMsg: [],
       allNetworkMsg: [],
       allRRwebEvent: [],
@@ -78,13 +94,30 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       allSystemMsg: [],
     };
     const {
+      activity,
       allConsoleMsg,
       allNetworkMsg,
       allRRwebEvent,
       allSystemMsg,
       allStorageMsg,
     } = data.reduce((acc, cur) => {
-      switch (cur.type) {
+      const { type, data, timestamp } = cur;
+      if (isCaredActivity(cur)) {
+        if (!acc.activity.length) {
+          acc.activity.push([{ type, timestamp }]);
+        } else {
+          const lastFrame = acc.activity[acc.activity.length - 1];
+          const lastItemInLastFrame = lastFrame[lastFrame.length - 1];
+          const timeDiff = timestamp - lastItemInLastFrame.timestamp;
+          // Generate a new 'activity point' if time diff > 500ms
+          if (timeDiff < 500) {
+            lastFrame.push({ type, timestamp });
+          } else {
+            acc.activity.push([{ type, timestamp }]);
+          }
+        }
+      }
+      switch (type) {
         case 'console':
           acc.allConsoleMsg.push(cur);
           break;
@@ -92,13 +125,13 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
           acc.allNetworkMsg.push(cur);
           break;
         case 'rrweb-event':
-          acc.allRRwebEvent.push(cur.data);
+          acc.allRRwebEvent.push(data);
           break;
         case 'storage':
           acc.allStorageMsg.push(cur);
           break;
         case 'system':
-          acc.allSystemMsg.push(cur.data);
+          acc.allSystemMsg.push(data);
           break;
       }
       return acc;
@@ -106,6 +139,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
 
     set(
       produce((state) => {
+        state.activity = activity;
         state.allConsoleMsg = allConsoleMsg;
         state.allNetworkMsg = allNetworkMsg;
         state.allRRwebEvent = allRRwebEvent;
