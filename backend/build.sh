@@ -137,7 +137,7 @@ cd ../..
 BuildRelease() {
 	mkdir -p "build"
 	mkdir -p "npm"
-	archs=(amd64 arm arm64 mips mips64 mips64le mipsle ppc64le ppc64 s390x)
+	archs=(amd64 arm arm64 s390x)
 
 	for arch in ${archs[@]}
 	do
