@@ -42,7 +42,10 @@ const MENU_COMPONENTS: Record<
   MenuType,
   {
     component: React.FC;
-    visible?: (params: { browser: SpyDevice.Browser }) => boolean;
+    visible?: (params: {
+      browser: SpyDevice.Browser;
+      os: SpyDevice.OS;
+    }) => boolean;
   }
 > = {
   Console: {
@@ -54,16 +57,19 @@ const MENU_COMPONENTS: Record<
   Page: {
     component: PagePanel,
     visible: (params) => {
-      return !params.browser?.startsWith('mp-');
+      return params.os !== 'harmony' && !params.browser?.startsWith('mp-');
     },
   },
   Storage: {
     component: StoragePanel,
+    visible: (params) => {
+      return params.os !== 'harmony';
+    },
   },
   System: {
     component: SystemPanel,
     visible: (params) => {
-      return !params.browser?.startsWith('mp-');
+      return params.os !== 'harmony' && !params.browser?.startsWith('mp-');
     },
   },
 };
@@ -113,7 +119,11 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
       .filter(([key, item]) => {
         // Menu filter by some conditions``
         return (
-          !item.visible || item.visible({ browser: clientInfo.browser.type })
+          !item.visible ||
+          item.visible({
+            browser: clientInfo.browser.type,
+            os: clientInfo.os.type,
+          })
         );
       })
       .map(([key, item]) => {
