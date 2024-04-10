@@ -176,6 +176,7 @@ export const RoomList = () => {
         {list.map(({ address, name, connections, group, tags }) => {
           const simpleAddress = address.slice(0, 4);
           const { os, browser } = parseUserAgent(name);
+          console.log({ os, browser, name });
           const client = connections.find(({ userId }) => userId === 'Client');
 
           return (
@@ -275,7 +276,7 @@ export const RoomList = () => {
                   <Option value={name} key={name}>
                     <div className="flex-between">
                       <span>{conf.label}</span>
-                      <img src={conf.logo} width="20" height="20" alt="" />
+                      <img src={conf.logo} height="20" alt="" />
                     </div>
                   </Option>
                 );

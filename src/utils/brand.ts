@@ -96,6 +96,7 @@ export const OS_CONFIG: Record<
   windows: { logo: windowsSvg, label: 'Windows' },
   linux: { logo: linuxSvg, label: 'Linux' },
   android: { logo: androidSvg, label: 'Android' },
+  harmony: { logo: harmonySvg, label: 'Open Harmony' },
   unknown: { logo: pcSvg, label: 'Unknown' },
 };
 
@@ -177,6 +178,7 @@ const OS_REGEXPS = {
   mac: /(Mac OS X |macos\/)([\d_.]+)/,
   android: /(Android |android\/)([\d_.]+)/,
   linux: /Linux/,
+  harmony: /(OpenHarmony )([\d_.]+)/,
 } as Record<SpyDevice.OS, RegExp>;
 
 export function parseUserAgent(
