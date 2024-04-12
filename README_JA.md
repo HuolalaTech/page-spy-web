@@ -65,19 +65,7 @@
 
 データのセキュリティを確保し、利用を容易にするために、私たちは包括的な、すぐに使えるデプロイソリューションを提供しています。開発者は、それぞれの状況に応じて、どのようなデプロイ方法を選択することもできます。
 
-### オプション 1: docker によるデプロイ
-
-> ビデオチュートリアル:
->
-> <a href="https://www.youtube.com/watch?v=AYD84Kht5yA" target="_blank"><img src="./.github/assets/video-docker-en.jpg" width="320" /></a>
-
-```bash
-docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
-```
-
-デプロイが成功したら、ブラウザを開いて `<host>:6752` にアクセスすると、上部に `Inject SDK` メニューが表示され、メニューをクリックすると、ビジネスプロジェクトに設定および統合する方法が表示されます。
-
-### オプション 2: node によるデプロイ
+### オプション 1: node によるデプロイ 👍
 
 > ビデオチュートリアル:
 >
@@ -92,6 +80,18 @@ npm install -g @huolala-tech/page-spy-api@latest
 ```
 
 ダウンロードが完了したら、コマンドラインで `page-spy-api` を直接実行してサービスを開始することができます。デプロイが成功したら、ブラウザを開いて `<host>:6752` にアクセスすると、上部に `Inject SDK` メニューが表示され、メニューをクリックすると、ビジネスプロジェクトに設定および統合する方法が表示されます。
+
+### オプション 2: docker によるデプロイ
+
+> ビデオチュートリアル:
+>
+> <a href="https://www.youtube.com/watch?v=AYD84Kht5yA" target="_blank"><img src="./.github/assets/video-docker-en.jpg" width="320" /></a>
+
+```bash
+docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
+```
+
+デプロイが成功したら、ブラウザを開いて `<host>:6752` にアクセスすると、上部に `Inject SDK` メニューが表示され、メニューをクリックすると、ビジネスプロジェクトに設定および統合する方法が表示されます。
 
 ## コミュニティ
 

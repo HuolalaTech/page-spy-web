@@ -65,19 +65,7 @@ To address this, PageSpy provides a live view of the project for technical perso
 
 In order to ensure data security and facilitate your usage, we offer comprehensive, out-of-the-box deployment solutions. Developers can choose any deployment method according to their own situations.
 
-### Option 1: deploy by docker
-
-> Video tutorial:
->
-> <a href="https://www.youtube.com/watch?v=AYD84Kht5yA" target="_blank"><img src="./.github/assets/video-docker-en.jpg" width="320" /></a>
-
-```bash
-docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
-```
-
-Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
-
-### Option 2: deploy by node
+### Option 1: deploy by node
 
 > Video tutorial:
 >
@@ -92,6 +80,18 @@ npm install -g @huolala-tech/page-spy-api@latest
 ```
 
 After the download is complete, you can directly execute `page-spy-api` in the command line to start the service. Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
+
+### Option 2: deploy by docker
+
+> Video tutorial:
+>
+> <a href="https://www.youtube.com/watch?v=AYD84Kht5yA" target="_blank"><img src="./.github/assets/video-docker-en.jpg" width="320" /></a>
+
+```bash
+docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
+```
+
+Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
 
 ## Community
 
