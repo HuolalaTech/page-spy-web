@@ -1,6 +1,8 @@
 import { ReactComponent as WebSvg } from '@/assets/image/web-h5.svg';
 import { ReactComponent as MiniprogramSvg } from '@/assets/image/miniprogram.svg';
 import { ReactComponent as UniAppSvg } from '@/assets/image/uni.svg';
+import { ReactComponent as TaroSvg } from '@/assets/image/taro.svg';
+
 import { ReactNode, useMemo, type ComponentType } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -8,7 +10,7 @@ import type { Lang } from 'shiki';
 import { CodeBlock } from '@/components/CodeBlock';
 import MPWarning from '@/components/MPWarning';
 
-export type PlatformName = 'web' | 'mp-wechat' | 'mp-uniapp';
+export type PlatformName = 'web' | 'mp-wechat' | 'mp-uniapp' | 'mp-taro';
 
 export const PLATFORMS: { name: PlatformName; icon: ComponentType }[] = [
   {
@@ -22,6 +24,10 @@ export const PLATFORMS: { name: PlatformName; icon: ComponentType }[] = [
   {
     name: 'mp-uniapp',
     icon: UniAppSvg,
+  },
+  {
+    name: 'mp-taro',
+    icon: TaroSvg,
   },
 ];
 
@@ -120,6 +126,31 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
           lang: 'js',
         },
       ],
+      'mp-taro': [
+        {
+          title: t('inject.mp-taro.install-sdk'),
+          code: `yarn add @huolala-tech/page-spy-taro@latest`,
+          lang: 'bash',
+        },
+        {
+          title: t('inject.mp-wechat.request-host'),
+          code: `https://${window.location.host}\nwss://${window.location.host}`,
+        },
+        {
+          title: (
+            <Trans i18nKey="inject.mp-taro.init-sdk">
+              <span>slot-0</span>
+              <a href={import.meta.env.VITE_SDK_TARO_REPO} target="_blank">
+                slot-1
+              </a>
+            </Trans>
+          ),
+          code: `import PageSpy from '@huolala-tech/page-spy-taro';\n\nnew PageSpy({
+  api: '${window.DEPLOY_BASE_PATH}',
+})`,
+          lang: 'js',
+        },
+      ],
     };
     return [
       ...stepsWithPlatform[platform],
@@ -143,7 +174,9 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
 
   return (
     <div className="platform-integratio">
-      {(platform === 'mp-uniapp' || platform === 'mp-wechat') && (
+      {(platform === 'mp-uniapp' ||
+        platform === 'mp-wechat' ||
+        platform === 'mp-taro') && (
         <MPWarning
           style={{
             marginBottom: 12,
