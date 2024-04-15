@@ -64,6 +64,11 @@
       "install-sdk": "First, install dependencies in the project. We provide SDKs for different platforms, you may choose the one you need:",
       "init-sdk": "<0>Import the SDK in the entry file and initialize it，check the </0> <1>configuration options</1>："
     },
+    "harmony": {
+      "title": "Harmony",
+      "install-sdk": "Install dependencies in the target HAP directory:",
+      "init-sdk": "<0>Import and initialize the SDK at the appropriate location, using EntryAbility as an example. Check the</0> <1>configuration options</1>:"
+    },
     "end": "That's ALL.",
     "start-debug": "Start debugging by clicking the <1>Connections</1> menu at the top!"
   },
