@@ -1,5 +1,6 @@
 import { ReactComponent as WebSvg } from '@/assets/image/web-h5.svg';
 import { ReactComponent as MiniprogramSvg } from '@/assets/image/miniprogram.svg';
+import { ReactComponent as HarmonySvg } from '@/assets/image/harmony.svg';
 import { ReactNode, useMemo, type ComponentType } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -7,7 +8,7 @@ import type { Lang } from 'shiki';
 import { CodeBlock } from '@/components/CodeBlock';
 import MPWarning from '@/components/MPWarning';
 
-export type PlatformName = 'web' | 'mp';
+export type PlatformName = 'web' | 'mp' | 'harmony';
 
 export const PLATFORMS: { name: PlatformName; icon: ComponentType }[] = [
   {
@@ -17,6 +18,10 @@ export const PLATFORMS: { name: PlatformName; icon: ComponentType }[] = [
   {
     name: 'mp',
     icon: MiniprogramSvg,
+  },
+  {
+    name: 'harmony',
+    icon: HarmonySvg,
   },
 ];
 
@@ -98,6 +103,36 @@ yarn add @huolala-tech/page-spy-taro@latest
           code: `import PageSpy from '@huolala-tech/page-spy-wechat';\n\nnew PageSpy({
   api: '${window.DEPLOY_BASE_PATH}',
 })`,
+          lang: 'js',
+        },
+      ],
+      harmony: [
+        {
+          title: t('inject.harmony.install-sdk'),
+          code: `# API 9\nohpm install @huolala/page-spy-harmony@^1.0.0\n
+# WIP: API Next\nohpm install @huolala/page-spy-harmony@latest`,
+          lang: 'bash',
+        },
+        {
+          title: (
+            <Trans i18nKey="inject.harmony.init-sdk">
+              <span>slot-0</span>
+              <a href={import.meta.env.VITE_SDK_HARMONY_REPO} target="_blank">
+                slot-1
+              </a>
+            </Trans>
+          ),
+          code: `import { PageSpy } from '@huolala/page-spy-harmony';
+import axiosInstance from 'path/to/your/axios-instance';\n
+export default class EntryAbility extends UIAbility {
+  onWindowStageCreate(windowStage: window.WindowStage) {
+    new PageSpy({
+      api: '${window.DEPLOY_BASE_PATH}',
+      enableSSL: true,
+      axios: axiosInstance
+    })
+  }
+}`,
           lang: 'js',
         },
       ],
