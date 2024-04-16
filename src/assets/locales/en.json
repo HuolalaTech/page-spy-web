@@ -58,22 +58,10 @@
       "init-sdk": "<0>Then, initialize it and check the</0> <1>configuration options</1>:",
       "plugins": "<0>PageSpy can integrate plugins on demand to extend the capabilities of the SDK, such as:</0> <1>DOM recording</1>, <2>offline caching</2>, <3>and more. If needed, you can check the</3> <4>plugin details</4>;"
     },
-    "mp-wechat": {
-      "title": "WeChat Mini Program",
+    "mp": {
+      "title": "Mini Program",
       "request-host": "Add the page-spy server domain to the whitelist of the miniprogram http and websocket requests. Note that the miniprogram requires https and wss protocols, except for the development environment.",
-      "install-sdk": "First, install dependencies in the project:",
-      "init-sdk": "<0>Import the SDK in the entry file and initialize it，check the </0> <1>configuration options</1>："
-    },
-    "mp-uniapp": {
-      "title": "UniAPP",
-      "request-host": "Add the page-spy server domain to the whitelist of the miniprogram http and websocket requests. Note that the miniprogram requires https and wss protocols, except for the development environment.",
-      "install-sdk": "First, install dependencies in the project:",
-      "init-sdk": "<0>Import the SDK in the entry file and initialize it，check the </0> <1>configuration options</1>："
-    },
-    "mp-taro": {
-      "title": "Taro",
-      "request-host": "Add the page-spy server domain to the whitelist of the miniprogram http and websocket requests. Note that the miniprogram requires https and wss protocols, except for the development environment.",
-      "install-sdk": "First, install dependencies in the project:",
+      "install-sdk": "First, install dependencies in the project. We provide SDKs for different platforms, you may choose the one you need:",
       "init-sdk": "<0>Import the SDK in the entry file and initialize it，check the </0> <1>configuration options</1>："
     },
     "end": "That's ALL.",
@@ -102,7 +90,7 @@
     "system": "System",
     "browser": "Browser",
     "version": "Version",
-    "mp-warning": "When submitting the mini program for review, be sure to delete the SDK in the code, otherwise the review will fail.",
+    "mp-warning": "When submitting the mini program for review, DO REMEMBER to delete the SDK in the code, otherwise the review will fail.",
     "menu": {
       "Console": "Console",
       "Network": "Network",
