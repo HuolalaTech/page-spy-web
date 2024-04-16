@@ -10,7 +10,7 @@ import type { Lang } from 'shiki';
 import { CodeBlock } from '@/components/CodeBlock';
 import MPWarning from '@/components/MPWarning';
 
-export type PlatformName = 'web' | 'mp-wechat' | 'mp-uniapp' | 'mp-taro';
+export type PlatformName = 'web' | 'mp';
 
 export const PLATFORMS: { name: PlatformName; icon: ComponentType }[] = [
   {
@@ -18,16 +18,8 @@ export const PLATFORMS: { name: PlatformName; icon: ComponentType }[] = [
     icon: WebSvg,
   },
   {
-    name: 'mp-wechat',
+    name: 'mp',
     icon: MiniprogramSvg,
-  },
-  {
-    name: 'mp-uniapp',
-    icon: UniAppSvg,
-  },
-  {
-    name: 'mp-taro',
-    icon: TaroSvg,
   },
 ];
 
@@ -76,19 +68,30 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
           ),
         },
       ],
-      'mp-wechat': [
+      mp: [
         {
-          title: t('inject.mp-wechat.install-sdk'),
-          code: `yarn add @huolala-tech/page-spy-wechat@latest`,
+          title: t('inject.mp.install-sdk'),
+          code: `# ${t('common.mpwechat')}
+yarn add @huolala-tech/page-spy-wechat@latest
+
+# ${t('common.mpalipay')}
+yarn add @huolala-tech/page-spy-alipay@latest
+
+# UniAPP
+yarn add @huolala-tech/page-spy-uniapp@latest
+
+# Taro
+yarn add @huolala-tech/page-spy-taro@latest
+`,
           lang: 'bash',
         },
         {
-          title: t('inject.mp-wechat.request-host'),
+          title: t('inject.mp.request-host'),
           code: `https://${window.location.host}\nwss://${window.location.host}`,
         },
         {
           title: (
-            <Trans i18nKey="inject.mp-wechat.init-sdk">
+            <Trans i18nKey="inject.mp.init-sdk">
               <span>slot-0</span>
               <a href={import.meta.env.VITE_SDK_WECHAT_REPO} target="_blank">
                 slot-1
@@ -96,56 +99,6 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
             </Trans>
           ),
           code: `import PageSpy from '@huolala-tech/page-spy-wechat';\n\nnew PageSpy({
-  api: '${window.DEPLOY_BASE_PATH}',
-})`,
-          lang: 'js',
-        },
-      ],
-      'mp-uniapp': [
-        {
-          title: t('inject.mp-uniapp.install-sdk'),
-          code: `yarn add @huolala-tech/page-spy-uniapp@latest`,
-          lang: 'bash',
-        },
-        {
-          title: t('inject.mp-wechat.request-host'),
-          code: `https://${window.location.host}\nwss://${window.location.host}`,
-        },
-        {
-          title: (
-            <Trans i18nKey="inject.mp-uniapp.init-sdk">
-              <span>slot-0</span>
-              <a href={import.meta.env.VITE_SDK_UNIAPP_REPO} target="_blank">
-                slot-1
-              </a>
-            </Trans>
-          ),
-          code: `import PageSpy from '@huolala-tech/page-spy-uniapp';\n\nnew PageSpy({
-  api: '${window.DEPLOY_BASE_PATH}',
-})`,
-          lang: 'js',
-        },
-      ],
-      'mp-taro': [
-        {
-          title: t('inject.mp-taro.install-sdk'),
-          code: `yarn add @huolala-tech/page-spy-taro@latest`,
-          lang: 'bash',
-        },
-        {
-          title: t('inject.mp-wechat.request-host'),
-          code: `https://${window.location.host}\nwss://${window.location.host}`,
-        },
-        {
-          title: (
-            <Trans i18nKey="inject.mp-taro.init-sdk">
-              <span>slot-0</span>
-              <a href={import.meta.env.VITE_SDK_TARO_REPO} target="_blank">
-                slot-1
-              </a>
-            </Trans>
-          ),
-          code: `import PageSpy from '@huolala-tech/page-spy-taro';\n\nnew PageSpy({
   api: '${window.DEPLOY_BASE_PATH}',
 })`,
           lang: 'js',
@@ -174,9 +127,7 @@ export const IntegrationWithPlatform = ({ platform, onCloseModal }: Props) => {
 
   return (
     <div className="platform-integratio">
-      {(platform === 'mp-uniapp' ||
-        platform === 'mp-wechat' ||
-        platform === 'mp-taro') && (
+      {platform === 'mp' && (
         <MPWarning
           style={{
             marginBottom: 12,
