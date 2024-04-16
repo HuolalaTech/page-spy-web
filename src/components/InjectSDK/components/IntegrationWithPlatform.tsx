@@ -1,8 +1,5 @@
 import { ReactComponent as WebSvg } from '@/assets/image/web-h5.svg';
 import { ReactComponent as MiniprogramSvg } from '@/assets/image/miniprogram.svg';
-import { ReactComponent as UniAppSvg } from '@/assets/image/uni.svg';
-import { ReactComponent as TaroSvg } from '@/assets/image/taro.svg';
-
 import { ReactNode, useMemo, type ComponentType } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
