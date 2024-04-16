@@ -110,7 +110,7 @@ yarn add @huolala-tech/page-spy-taro@latest
         {
           title: t('inject.harmony.install-sdk'),
           code: `# API 9\nohpm install @huolala/page-spy-harmony@^1.0.0\n
-# WIP: API Next\nohpm install @huolala/page-spy-harmony@latest`,
+# 🟡 WIP: API Next\nohpm install @huolala/page-spy-harmony@^2`,
           lang: 'bash',
         },
         {
