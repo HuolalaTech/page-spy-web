@@ -8,6 +8,7 @@ interface ImportMetaEnv {
   readonly VITE_GITHUB_HOMEPAGE: string;
   readonly VITE_GITHUB_REPO: string;
   readonly VITE_SDK_UNIAPP_REPO: string;
+  readonly VITE_SDK_TARO_REPO: string;
   readonly VITE_SDK_WECHAT_REPO: string;
   readonly VITE_SDK_BROWSER_REPO: string;
   readonly VITE_WIKI_REPLAY_LOG: string;
