@@ -43,7 +43,7 @@ English | [中文](./README_ZH.md) | [日本語](./README_JA.md)
 
 ## Intro
 
-**PageSpy** is a remote debugging tool for web / miniprogram project.
+**PageSpy** is a tool used for debugging projects on platforms such as Web, Mini Programs, and HarmonyOS apps.
 
 Based on encapsulation of native web APIs, it filters and transforms the parameters of native methods when called, and converts into messages with specific format for consumption by the debugger client. The debugger presents ui in an interactive devtools-like for easy viewing after receives the message data.
 
