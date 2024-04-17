@@ -5,12 +5,18 @@
 [release-url]: https://github.com/HuolalaTech/page-spy-web/blob/release/package.json
 [download-img]: https://img.shields.io/npm/dw/%40huolala-tech/page-spy-api
 [download-url]: https://www.npmjs.com/package/@huolala-tech/page-spy-api
-[browser-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-browser?label=page-spy-browser&color=orange
+[browser-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-browser?label=Browser%20SDK&color=orange
 [browser-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-browser
-[uniapp-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-uniapp?label=page-spy-uniapp&color=#2B993A
+[uniapp-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-uniapp?label=UniApp%20SDK&color=green
 [uniapp-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-uniapp
-[wechat-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-wechat?label=page-spy-wechat&color=#0CC160
+[wechat-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-wechat?label=Wechat%20SDK&color=green
 [wechat-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-wechat
+[alipay-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-alipay?label=Alipay%20SDK&color=blue
+[alipay-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-alipay
+[taro-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-taro?label=Taro%20SDK&color=blue
+[taro-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-taro
+[harmony-ver-img]: https://harmony.blucas.me/badge/version/@huolala/page-spy-harmony?label=Harmony%20SDK&color=black
+[harmony-ver-url]: https://ohpm.openharmony.cn/#/cn/detail/@huolala%2Fpage-spy-harmony
 [sdk-build-img]: https://img.shields.io/github/actions/workflow/status/HuolalaTech/page-spy/coveralls.yml?logo=github&label=build
 [sdk-build-url]: https://github.com/HuolalaTech/page-spy/actions/workflows/coveralls.yml
 [sdk-coveralls-img]: https://img.shields.io/coverallsCoverage/github/HuolalaTech/page-spy?label=coverage&logo=coveralls
@@ -26,12 +32,14 @@
   <h1>Page Spy</h1>
 
 [![Release][release-img]][release-url]
-[![license][license-img]][license-url] <br />
-[![Build Status][sdk-build-img]][sdk-build-url]
-[![Coverage Status][sdk-coveralls-img]][sdk-coveralls-url] <br />
-[![Browser version][browser-ver-img]][browser-ver-url]
-[![UniApp version][uniapp-ver-img]][uniapp-ver-url]
-[![Wechat version][wechat-ver-img]][wechat-ver-url] <br />
+[![license][license-img]][license-url]
+[![Build Status][sdk-build-img]][sdk-build-url] <br />
+[![Browser SDK version][browser-ver-img]][browser-ver-url]
+[![Wechat SDK version][wechat-ver-img]][wechat-ver-url]
+[![Alipay SDK version][alipay-ver-img]][alipay-ver-url] <br />
+[![UniApp SDK version][uniapp-ver-img]][uniapp-ver-url]
+[![Taro SDK version][taro-ver-img]][taro-ver-url]
+[![Harmony SDK version][harmony-ver-img]][harmony-ver-url] <br />
 [![API Version][api-ver-img]][api-ver-url]
 [![Go Version][api-go-img]][api-go-url]
 
