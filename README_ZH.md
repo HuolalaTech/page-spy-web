@@ -99,10 +99,6 @@ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech
 
 <div style="display: flex; gap: 8px; flex-wrap: nowrap; overflow: auto">
   <img src="https://pagespy.blucas.me/qrcode/wechat-group" alt="在 GitHub 中查看支持群二维码" width="180" />
-  <img src="./.github/assets/group-4.jpg" alt="微信群" width="180" />
-  <img src="./.github/assets/group-3.jpg" alt="微信群" width="180" />
-  <img src="./.github/assets/group-2.jpg" alt="微信群" width="180" />
-  <img src="./.github/assets/group-1.jpg" alt="微信群" width="180" />
 </div>
 
 ## Roadmap
