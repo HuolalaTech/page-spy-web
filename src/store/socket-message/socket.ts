@@ -162,6 +162,7 @@ export class SocketStore extends EventTarget {
       'page',
       'indexedDB',
       'mpStorage',
+      'system',
     ];
     refreshData.forEach((i) => {
       this.unicastMessage({
