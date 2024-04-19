@@ -69,3 +69,8 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64,linux/arm64,linux/arm/v7
+
+      - name: Lark bot notify
+        run: |
+          BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
+          curl -X POST "https://pagespy.blucas.me/lark?branch=$BRANCH_NAME&actionId=$GITHUB_RUN_ID"
