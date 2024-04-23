@@ -30,13 +30,6 @@ GenerateMainPackageJson() {
     "${organization}/${project_name}-linux-amd64": "${npm_version}",
     "${organization}/${project_name}-linux-arm": "${npm_version}",
     "${organization}/${project_name}-linux-arm64": "${npm_version}",
-    "${organization}/${project_name}-linux-mips": "${npm_version}",
-    "${organization}/${project_name}-linux-mips64": "${npm_version}",
-    "${organization}/${project_name}-linux-mips64le": "${npm_version}",
-    "${organization}/${project_name}-linux-mipsle": "${npm_version}",
-    "${organization}/${project_name}-linux-ppc64le": "${npm_version}",
-    "${organization}/${project_name}-linux-ppc64": "${npm_version}",
-    "${organization}/${project_name}-linux-s390x": "${npm_version}",
     "${organization}/${project_name}-win32-amd64": "${npm_version}",
     "${organization}/${project_name}-win32-arm": "${npm_version}",
     "${organization}/${project_name}-win32-arm64": "${npm_version}",
@@ -70,27 +63,6 @@ convertArch() {
       ;;
     arm64)
       echo "arm64"
-      ;;
-    mips)
-      echo "mips"
-      ;;
-    mips64)
-      echo "mips64"
-      ;;
-    mips64le)
-      echo "mips64le"
-      ;;
-    mipsle)
-      echo "mipsle"
-      ;;
-    ppc64le)
-      echo "ppc64le"
-      ;;
-    ppc64)
-      echo "ppc"
-      ;;
-    s390x)
-      echo "s390"
       ;;
     *)
       echo "Unknown architecture: $1"
@@ -137,7 +109,7 @@ cd ../..
 BuildRelease() {
 	mkdir -p "build"
 	mkdir -p "npm"
-	archs=(amd64 arm arm64 s390x)
+	archs=(amd64 arm arm64)
 
 	for arch in ${archs[@]}
 	do
