@@ -65,7 +65,6 @@ export const FooterInput = memo(() => {
             locations: true,
           });
         } catch (e) {
-          console.log(e);
           setShowInputError(true);
           setTimeout(() => {
             setShowInputError(false);

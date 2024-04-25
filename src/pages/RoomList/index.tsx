@@ -176,7 +176,6 @@ export const RoomList = () => {
         {list.map(({ address, name, connections, group, tags }) => {
           const simpleAddress = address.slice(0, 4);
           const { os, browser } = parseUserAgent(name);
-          console.log({ os, browser, name });
           const client = connections.find(({ userId }) => userId === 'Client');
 
           return (
