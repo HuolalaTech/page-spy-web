@@ -43,17 +43,22 @@ const sortConnections = (data: I.SpyRoom[]) => {
     [[], []] as I.SpyRoom[][],
   );
 
-  // 再按创建时间排序
-  const sortFn = (a: I.SpyRoom, b: I.SpyRoom) => {
-    if (a.createdAt > b.createdAt) {
-      return 1;
+  // 有效房间再按创建时间升序
+  const ascWithCreatedAtForInvalid = valid.sort((a, b) => {
+    if (a.createdAt < b.createdAt) {
+      return -1;
     }
-    return -1;
-  };
-  const createdAtWithAscForValid = valid.sort(sortFn);
-  const createdAtWithAscForInvalid = invalid.sort(sortFn);
+    return 1;
+  });
+  // 失效房间再按活动时间升序
+  const ascWithActiveAtForInvalid = invalid.sort((a, b) => {
+    if (a.activeAt < b.activeAt) {
+      return -1;
+    }
+    return 1;
+  });
 
-  return [...createdAtWithAscForValid, ...createdAtWithAscForInvalid];
+  return [...ascWithCreatedAtForInvalid, ...ascWithActiveAtForInvalid];
 };
 
 const filterConnections = (
