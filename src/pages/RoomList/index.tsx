@@ -15,19 +15,17 @@ import {
   message,
   Empty,
   Button,
-  Tooltip,
   Input,
   Form,
   Select,
   Space,
   Layout,
 } from 'antd';
-import clsx from 'clsx';
-import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { ClearOutlined, SearchOutlined } from '@ant-design/icons';
-import { DebugButton } from './DebugButton';
+import { RoomCard } from './RoomCard';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -76,18 +74,6 @@ const filterConnections = (
         (!browser || clientInfo.browser.type.includes(browser))
       );
     });
-};
-
-const ConnDetailItem = ({
-  title,
-  children,
-}: PropsWithChildren<{ title: string }>) => {
-  return (
-    <div className="conn-detail">
-      <p className="conn-detail__title">{title}</p>
-      <div className="conn-detail__value">{children}</div>
-    </div>
-  );
 };
 
 export const RoomList = () => {
@@ -183,55 +169,9 @@ export const RoomList = () => {
 
     return (
       <Row gutter={24}>
-        {list.map((item) => {
-          const { address, name, group, tags } = item;
-          const simpleAddress = address.slice(0, 4);
-          const { os, browser } = parseUserAgent(name);
-
-          return (
-            <Col key={address} span={8} xl={6} xxl={4}>
-              <div className={clsx('connection-item')}>
-                <div className="connection-item__title">
-                  <code style={{ fontSize: 36 }}>
-                    <b>{simpleAddress}</b>
-                  </code>
-                  <Tooltip
-                    title={`Title: ${tags.title?.toString() || '--'}`}
-                    placement="right"
-                  >
-                    <div className="custom-title">
-                      {tags.title?.toString() || '--'}
-                    </div>
-                  </Tooltip>
-                </div>
-                <Row wrap={false} style={{ marginBlock: 8 }}>
-                  <Col flex={1}>
-                    <ConnDetailItem title="Project">
-                      <Tooltip title={group}>
-                        <p style={{ fontSize: 16 }}>{group}</p>
-                      </Tooltip>
-                    </ConnDetailItem>
-                  </Col>
-                  <Col flex={1}>
-                    <ConnDetailItem title="OS">
-                      <Tooltip title={`${os.name} ${os.version}`}>
-                        <img src={os.logo} alt="os logo" />
-                      </Tooltip>
-                    </ConnDetailItem>
-                  </Col>
-                  <Col flex={1}>
-                    <ConnDetailItem title="Browser">
-                      <Tooltip title={`${browser.name} ${browser.version}`}>
-                        <img src={browser.logo} alt="browser logo" />
-                      </Tooltip>
-                    </ConnDetailItem>
-                  </Col>
-                </Row>
-                <DebugButton room={item} />
-              </div>
-            </Col>
-          );
-        })}
+        {list.map((room) => (
+          <RoomCard key={room.address} room={room} />
+        ))}
       </Row>
     );
   }, [conditions, connectionList, error]);
