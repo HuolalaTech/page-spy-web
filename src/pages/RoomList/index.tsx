@@ -50,9 +50,9 @@ const sortConnections = (data: I.SpyRoom[]) => {
     }
     return 1;
   });
-  // 失效房间再按活动时间升序
+  // 失效房间再按活动时间降序
   const ascWithActiveAtForInvalid = invalid.sort((a, b) => {
-    if (a.activeAt < b.activeAt) {
+    if (a.activeAt > b.activeAt) {
       return -1;
     }
     return 1;
