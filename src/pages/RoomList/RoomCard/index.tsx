@@ -20,50 +20,59 @@ const ConnDetailItem = ({
   );
 };
 
-export const RoomCard = memo(({ room }: Props) => {
-  const { address, name, group, tags } = room;
-  const simpleAddress = address.slice(0, 4);
-  const { os, browser } = parseUserAgent(name);
+export const RoomCard = memo(
+  ({ room }: Props) => {
+    const { address, name, group, tags } = room;
+    const simpleAddress = address.slice(0, 4);
+    const { os, browser } = parseUserAgent(name);
 
-  return (
-    <Col key={address} span={8} xl={6} xxl={4}>
-      <div className={clsx('connection-item')}>
-        <div className="connection-item__title">
-          <code style={{ fontSize: 36 }}>
-            <b>{simpleAddress}</b>
-          </code>
-          <Tooltip
-            title={`Title: ${tags.title?.toString() || '--'}`}
-            placement="right"
-          >
-            <div className="custom-title">{tags.title?.toString() || '--'}</div>
-          </Tooltip>
+    return (
+      <Col key={address} span={8} xl={6} xxl={4}>
+        <div className={clsx('connection-item')}>
+          <div className="connection-item__title">
+            <code style={{ fontSize: 36 }}>
+              <b>{simpleAddress}</b>
+            </code>
+            <Tooltip
+              title={`Title: ${tags.title?.toString() || '--'}`}
+              placement="right"
+            >
+              <div className="custom-title">
+                {tags.title?.toString() || '--'}
+              </div>
+            </Tooltip>
+          </div>
+          <Row wrap={false} style={{ marginBlock: 8 }}>
+            <Col flex={1}>
+              <ConnDetailItem title="Project">
+                <Tooltip title={group}>
+                  <p style={{ fontSize: 16 }}>{group}</p>
+                </Tooltip>
+              </ConnDetailItem>
+            </Col>
+            <Col flex={1}>
+              <ConnDetailItem title="OS">
+                <Tooltip title={`${os.name} ${os.version}`}>
+                  <img src={os.logo} alt="os logo" />
+                </Tooltip>
+              </ConnDetailItem>
+            </Col>
+            <Col flex={1}>
+              <ConnDetailItem title="Browser">
+                <Tooltip title={`${browser.name} ${browser.version}`}>
+                  <img src={browser.logo} alt="browser logo" />
+                </Tooltip>
+              </ConnDetailItem>
+            </Col>
+          </Row>
+          <DebugButton room={room} />
         </div>
-        <Row wrap={false} style={{ marginBlock: 8 }}>
-          <Col flex={1}>
-            <ConnDetailItem title="Project">
-              <Tooltip title={group}>
-                <p style={{ fontSize: 16 }}>{group}</p>
-              </Tooltip>
-            </ConnDetailItem>
-          </Col>
-          <Col flex={1}>
-            <ConnDetailItem title="OS">
-              <Tooltip title={`${os.name} ${os.version}`}>
-                <img src={os.logo} alt="os logo" />
-              </Tooltip>
-            </ConnDetailItem>
-          </Col>
-          <Col flex={1}>
-            <ConnDetailItem title="Browser">
-              <Tooltip title={`${browser.name} ${browser.version}`}>
-                <img src={browser.logo} alt="browser logo" />
-              </Tooltip>
-            </ConnDetailItem>
-          </Col>
-        </Row>
-        <DebugButton room={room} />
-      </div>
-    </Col>
-  );
-});
+      </Col>
+    );
+  },
+  ({ room: old }, { room: now }) => {
+    if (old.address !== now.address) return false;
+    if (old.connections.length !== now.connections.length) return false;
+    return true;
+  },
+);
