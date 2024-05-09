@@ -163,7 +163,7 @@
   },
   "socket": {
     "client-name": "클라이언트",
-    "client-not-in-connection": "현재 연결에 클라이언트가 없습니다",
+    "client-not-in-connection": "현재 연결에서 디버그 대상 클라이언트를 찾을 수 없습니다. 클라이언트의 WebSocket을 확인하세요.",
     "client-not-found": "클라이언트를 찾을 수 없습니다",
     "client-offline": "클라이언트가 오프라인 상태입니다",
     "client-fail": "클라이언트의 연결이 끊어졌습니다. 관련 테스터에 문의하십시오.",
@@ -173,7 +173,11 @@
     "reconnect-fail-desc": "재연결에 실패했습니다. 페이지를 새로 고치거나 다시 선택하십시오.",
     "room-not-found": "방이 존재하지 않습니다",
     "network-timeout": "네트워크 오류, 연결 시간 초과",
-    "server-down": "서버 오류"
+    "server-down": "서버 오류",
+    "room-secret": "방 비밀번호",
+    "secret": "비밀번호",
+    "secret-placeholder": "6 자리 숫자의 방 비밀번호를 입력하십시오",
+    "invalid-secret": "잘못된 비밀번호"
   },
   "connections": {
     "select-os": "운영 체제 선택",

@@ -29,3 +29,12 @@ export const deleteSpyLog = (params: { fileId: string }) => {
     params,
   });
 };
+
+export const checkRoomSecret = (params: {
+  address: string;
+  secret: string;
+}) => {
+  return request.get<I.Response<any>>('/room/check', {
+    params,
+  });
+};

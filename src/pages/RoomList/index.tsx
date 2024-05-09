@@ -26,8 +26,8 @@ import clsx from 'clsx';
 import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
-import { Link } from 'react-router-dom';
 import { ClearOutlined, SearchOutlined } from '@ant-design/icons';
+import { DebugButton } from './DebugButton';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -173,10 +173,10 @@ export const RoomList = () => {
 
     return (
       <Row gutter={24}>
-        {list.map(({ address, name, connections, group, tags }) => {
+        {list.map((item) => {
+          const { address, name, group, tags } = item;
           const simpleAddress = address.slice(0, 4);
           const { os, browser } = parseUserAgent(name);
-          const client = connections.find(({ userId }) => userId === 'Client');
 
           return (
             <Col key={address} span={8} xl={6} xxl={4}>
@@ -217,40 +217,14 @@ export const RoomList = () => {
                     </ConnDetailItem>
                   </Col>
                 </Row>
-                <Tooltip
-                  title={!client && t('socket.client-not-in-connection')}
-                >
-                  <div>
-                    <Button
-                      type="primary"
-                      disabled={!client}
-                      style={{
-                        width: '100%',
-                        pointerEvents: !client ? 'none' : 'auto',
-                      }}
-                      shape="round"
-                    >
-                      {!client ? (
-                        t('common.debug')
-                      ) : (
-                        <Link
-                          to={`/devtools?address=${address}`}
-                          target="_blank"
-                          style={{ display: 'block' }}
-                        >
-                          {t('common.debug')}
-                        </Link>
-                      )}
-                    </Button>
-                  </div>
-                </Tooltip>
+                <DebugButton room={item} />
               </div>
             </Col>
           );
         })}
       </Row>
     );
-  }, [conditions, connectionList, error, t]);
+  }, [conditions, connectionList, error]);
 
   return (
     <Layout style={{ height: '100%' }} className="room-list">

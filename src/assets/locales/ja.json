@@ -163,7 +163,7 @@
   },
   "socket": {
     "client-name": "クライアント",
-    "client-not-in-connection": "現在の接続にクライアントが存在しません",
+    "client-not-in-connection": "現在の接続でデバッグするクライアントが見つかりませんでした。クライアントのWebSocketを確認してください。",
     "client-not-found": "クライアントが見つかりません",
     "client-offline": "クライアントがオフラインです",
     "client-fail": "クライアントの接続が切断されました。関連するテスターにお問い合わせください。",
@@ -173,7 +173,11 @@
     "reconnect-fail-desc": "再接続に失敗しました。ページをリフレッシュするか、再選択してください。",
     "room-not-found": "ルームが存在しません",
     "network-timeout": "ネットワークエラー、接続がタイムアウトしました",
-    "server-down": "サーバーエラー"
+    "server-down": "サーバーエラー",
+    "room-secret": "ルームパスワード",
+    "secret": "パスワード",
+    "secret-placeholder": "6桁の部屋のパスワードを入力してください",
+    "invalid-secret": "パスワードが無効です"
   },
   "connections": {
     "select-os": "オペレーティング システムを選択",

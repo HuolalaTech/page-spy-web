@@ -47,7 +47,7 @@
     "@huolala-tech/page-spy-browser": "^1.8.3",
     "@huolala-tech/page-spy-plugin-data-harbor": "^1.2.3",
     "@huolala-tech/page-spy-plugin-rrweb": "^1.1.3",
-    "@huolala-tech/page-spy-types": "^1.7.5",
+    "@huolala-tech/page-spy-types": "^1.8.3",
     "@huolala-tech/react-json-view": "^1.2.4",
     "@huolala-tech/request": "^1.1.2",
     "acorn": "^8.11.3",

@@ -303,7 +303,7 @@ const ClientInfo = memo(() => {
 
 export default function Devtools() {
   const { hash = '#Console' } = useLocation();
-  const { address = '' } = useSearch();
+  const { address = '', secret = '' } = useSearch();
   const [socket, initSocket] = useSocketMessageStore((state) => [
     state.socket,
     state.initSocket,
@@ -313,8 +313,8 @@ export default function Devtools() {
 
   useEffect(() => {
     if (socket) return;
-    initSocket(address);
-  }, [address, initSocket, socket]);
+    initSocket({ address, secret });
+  }, [address, initSocket, secret, socket]);
 
   const hashKey = useMemo<MenuType>(() => {
     const value = hash.slice(1);

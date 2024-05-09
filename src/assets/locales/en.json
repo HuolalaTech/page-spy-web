@@ -163,7 +163,7 @@
   },
   "socket": {
     "client-name": "Client",
-    "client-not-in-connection": "No client in the current connection",
+    "client-not-in-connection": "No client in the current connection. Please check the WebSocket of the client.",
     "client-not-found": "Client not found",
     "client-offline": "Client is offline",
     "client-fail": "Client has lost the connection, please contact the relevant tester.",
@@ -173,7 +173,11 @@
     "reconnect-fail-desc": "Reconnect failed, you have lost the connection. Please refresh the page or select another.",
     "room-not-found": "Room is not found",
     "network-timeout": "Network timeout",
-    "server-down": "Server error"
+    "server-down": "Server error",
+    "room-secret": "Room Secret",
+    "secret": "Secret",
+    "secret-placeholder": "Please enter a 6-digit room password",
+    "invalid-secret": "Invalid Password"
   },
   "connections": {
     "select-os": "Select OS",

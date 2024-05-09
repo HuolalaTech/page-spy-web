@@ -22,7 +22,7 @@ interface SocketMessage {
   socket: SocketStore | null;
   consoleMsg: SpyConsole.DataItem[];
   consoleMsgTypeFilter: string[];
-  consoleMsgKeywordFilter:string,
+  consoleMsgKeywordFilter: string;
   networkMsg: SpyNetwork.RequestInfo[];
   systemMsg: SpySystem.DataItem[];
   connectMsg: string[];
@@ -36,7 +36,7 @@ interface SocketMessage {
     basicInfo: SpyDatabase.DBInfo[] | null;
     data: SpyDatabase.GetTypeDataItem | null;
   };
-  initSocket: (url: string) => void;
+  initSocket: (args: Record<string, string>) => void;
   setConsoleMsgTypeFilter: (typeList: string[]) => void;
   setConsoleMsgKeywordFilter: (keyword: string) => void;
   clearRecord: (key: string) => void;
@@ -47,7 +47,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
   socket: null,
   consoleMsg: [],
   consoleMsgTypeFilter: [],
-  consoleMsgKeywordFilter:'',
+  consoleMsgKeywordFilter: '',
   networkMsg: [],
   systemMsg: [],
   connectMsg: [],
@@ -66,16 +66,16 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     basicInfo: null,
     data: null,
   },
-  initSocket: (room: string) => {
-    if (!room) return;
-    const address = decodeURIComponent(room).split('#')[0] ?? '';
+  initSocket: ({ address, secret }: Record<string, string>) => {
     if (!address) return;
+    const roomID = decodeURIComponent(address).split('#')[0] ?? '';
+    if (!roomID) return;
 
     const _socket = get().socket;
     if (_socket) return;
 
     const [, protocol] = resolveProtocol();
-    const url = `${protocol}${API_BASE_URL}/api/v1/ws/room/join?address=${address}&userId=${USER_ID}`;
+    const url = `${protocol}${API_BASE_URL}/api/v1/ws/room/join?address=${roomID}&userId=${USER_ID}&secret=${secret}`;
 
     const socket = new SocketStore(url);
     set({ socket });

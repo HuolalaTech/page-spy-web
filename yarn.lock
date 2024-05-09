@@ -779,11 +779,6 @@
     "@huolala-tech/page-spy-types" "^1.8.3"
     rrweb "^2.0.0-alpha.4"
 
-"@huolala-tech/page-spy-types@^1.7.5":
-  version "1.7.5"
-  resolved "https://registry.npmjs.org/@huolala-tech/page-spy-types/-/page-spy-types-1.7.5.tgz#21cb1fb75635c1b254da7d13abd720eb280e1267"
-  integrity sha512-CvbY4gy/oviQDqTTxc0my5L951Hn+se/3jK4hB+QYD2E8sEkNDgG788TnIhGnauqZxh2f6GVj57HTTklkkZe5Q==
-
 "@huolala-tech/page-spy-types@^1.8.3":
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-types/-/page-spy-types-1.8.3.tgz#2979957bbc2f48e8e3dfc8617511be7fa98e248d"

@@ -163,7 +163,7 @@
   },
   "socket": {
     "client-name": "客户端",
-    "client-not-in-connection": "当前连接不存在客户端",
+    "client-not-in-connection": "当前连接未找到待调试的客户端，请检查客户端的 WebSocket 连接",
     "client-not-found": "未找到客户端",
     "client-offline": "客户端已离线",
     "client-fail": "客户端的连接已断开，请联系相关测试人员。",
@@ -173,7 +173,11 @@
     "reconnect-fail-desc": "重连失败，您的连接已断开。请刷新页面或者重新选择。",
     "room-not-found": "房间不存在",
     "network-timeout": "网络故障，连接超时",
-    "server-down": "服务出错"
+    "server-down": "服务出错",
+    "room-secret": "房间密码",
+    "secret": "密码",
+    "secret-placeholder": "请输入 6 位数字的房间密码",
+    "invalid-secret": "密码错误"
   },
   "connections": {
     "select-os": "选择系统",
