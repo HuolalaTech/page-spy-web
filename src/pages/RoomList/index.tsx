@@ -45,7 +45,17 @@ const sortConnections = (data: I.SpyRoom[]) => {
     [[], []] as I.SpyRoom[][],
   );
 
-  return [...valid, ...invalid];
+  // 再按创建时间排序
+  const sortFn = (a: I.SpyRoom, b: I.SpyRoom) => {
+    if (a.createdAt > b.createdAt) {
+      return 1;
+    }
+    return -1;
+  };
+  const createdAtWithAscForValid = valid.sort(sortFn);
+  const createdAtWithAscForInvalid = invalid.sort(sortFn);
+
+  return [...createdAtWithAscForValid, ...createdAtWithAscForInvalid];
 };
 
 const filterConnections = (
