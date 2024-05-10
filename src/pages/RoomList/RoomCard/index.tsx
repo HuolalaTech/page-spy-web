@@ -71,8 +71,13 @@ export const RoomCard = memo(
     );
   },
   ({ room: old }, { room: now }) => {
-    if (old.address !== now.address) return false;
-    if (old.connections.length !== now.connections.length) return false;
+    if (
+      old.group !== now.group ||
+      old.address !== now.address ||
+      old.tags.title !== now.tags.title ||
+      old.connections.length !== now.connections.length
+    )
+      return false;
     return true;
   },
 );
