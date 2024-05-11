@@ -2,7 +2,7 @@ module github.com/HuolalaTech/page-spy-web/backend
 
 go 1.21
 
-require github.com/HuolalaTech/page-spy-api v1.5.1
+require github.com/HuolalaTech/page-spy-api v1.6.0
 
 require (
 	github.com/dustin/go-humanize v1.0.1 // indirect
