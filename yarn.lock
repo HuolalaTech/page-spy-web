@@ -753,10 +753,10 @@
     "@huolala-tech/page-spy-api-win32-arm" "1.2.2"
     "@huolala-tech/page-spy-api-win32-arm64" "1.2.2"
 
-"@huolala-tech/page-spy-browser@^1.8.4":
-  version "1.8.4"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-browser/-/page-spy-browser-1.8.4.tgz#15a32fc49d659d340ce25a452346d5d344b222af"
-  integrity sha512-DyP9RrQqNxCYAW2n0tuQPwYXkpQgMb7+TRuoFoOk1mUPzYvMYDqEtOWD5FhIi/z8pHAJWJsGAbK3xLApnt54xg==
+"@huolala-tech/page-spy-browser@^1.8.5":
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-browser/-/page-spy-browser-1.8.5.tgz#daab5724b332a3a8826f8c075e9cf17670750983"
+  integrity sha512-ovDOam3hXpw3mVImcYM1qxwvieDvhG+WyH9XlFF3rBCeUK5AvTUCIru2DcbNZ4BrwS9nijmJgEfXhn8inp4PSg==
   dependencies:
     "@babel/runtime" "^7.13.0"
     "@huolala-tech/page-spy-types" "^1.8.4"
