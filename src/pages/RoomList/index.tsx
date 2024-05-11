@@ -175,7 +175,7 @@ export const RoomList = () => {
     return (
       <Row gutter={24}>
         {list.map((room) => (
-          <RoomCard key={JSON.stringify(room)} room={room} />
+          <RoomCard key={room.address} room={room} />
         ))}
       </Row>
     );
