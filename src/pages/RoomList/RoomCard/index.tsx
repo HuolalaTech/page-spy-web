@@ -23,6 +23,7 @@ const ConnDetailItem = ({
 export const RoomCard = memo(
   ({ room }: Props) => {
     const { address, name, group, tags } = room;
+    const decodeGroup = decodeURI(group);
     const simpleAddress = address.slice(0, 4);
     const { os, browser } = parseUserAgent(name);
 
@@ -45,8 +46,8 @@ export const RoomCard = memo(
           <Row wrap={false} style={{ marginBlock: 8 }}>
             <Col flex={1}>
               <ConnDetailItem title="Project">
-                <Tooltip title={group}>
-                  <p style={{ fontSize: 16 }}>{group}</p>
+                <Tooltip title={decodeGroup}>
+                  <p style={{ fontSize: 16 }}>{decodeGroup}</p>
                 </Tooltip>
               </ConnDetailItem>
             </Col>
