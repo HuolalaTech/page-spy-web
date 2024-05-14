@@ -25,6 +25,7 @@ import mpFeishuSvg from '@/assets/image/mp-feishu.svg';
 import mpDingtalkSvg from '@/assets/image/mp-dingtalk.svg';
 import mpAlipaySvg from '@/assets/image/mp-alipay.svg';
 import mpXhsSvg from '@/assets/image/mp-xhs.svg';
+import reactSvg from '@/assets/image/react.svg';
 
 import uniSvg from '@/assets/image/uni.svg';
 import { SpyClient, SpyMessage } from '@huolala-tech/page-spy-types';
@@ -143,6 +144,7 @@ export const BROWSER_CONFIG: Record<
   'mp-uni': { logo: uniSvg, label: 'Uni APP' },
   'uni-native': { logo: uniSvg, label: 'Uni APP' },
   harmony: { logo: pcSvg, label: 'Harmony' },
+  'react-native': { logo: reactSvg, label: 'React Native' },
 };
 
 export const getOSName = (os: string) => {
@@ -181,6 +183,7 @@ const BROWSER_REGEXPS = {
   safari: /Version\/([\d.]+).*Safari/,
   'uni-native': /uni-native\/([\d.]+)/,
   harmony: /Device\/(.*)/,
+  'react-native': /react-native\/([\d.]+)/,
   ...MP_REGEXPS,
 } as Record<SpyClient.Browser | 'harmony', RegExp>;
 
