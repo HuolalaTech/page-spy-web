@@ -57,7 +57,11 @@ const MENU_COMPONENTS: Record<
   Page: {
     component: PagePanel,
     visible: (params) => {
-      return params.os !== 'harmony' && !params.browser?.startsWith('mp-');
+      return (
+        params.os !== 'harmony' &&
+        !params.browser?.startsWith('mp-') &&
+        params.browser !== 'react-native'
+      );
     },
   },
   Storage: {

@@ -22,7 +22,7 @@ interface SocketMessage {
   socket: SocketStore | null;
   consoleMsg: SpyConsole.DataItem[];
   consoleMsgTypeFilter: string[];
-  consoleMsgKeywordFilter:string,
+  consoleMsgKeywordFilter: string;
   networkMsg: SpyNetwork.RequestInfo[];
   systemMsg: SpySystem.DataItem[];
   connectMsg: string[];
@@ -47,7 +47,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
   socket: null,
   consoleMsg: [],
   consoleMsgTypeFilter: [],
-  consoleMsgKeywordFilter:'',
+  consoleMsgKeywordFilter: '',
   networkMsg: [],
   systemMsg: [],
   connectMsg: [],
@@ -61,6 +61,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     sessionStorage: [],
     cookie: [],
     mpStorage: [],
+    asyncStorage: [],
   },
   databaseMsg: {
     basicInfo: null,

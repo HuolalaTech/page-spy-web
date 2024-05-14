@@ -15,31 +15,42 @@ export const STORAGE_TYPES: {
     name: 'localStorage',
     label: 'Local Storage',
     icon: StorageSvg,
-    visible: (browser) => !browser?.startsWith('mp-'),
+    visible: (browser) =>
+      !browser?.startsWith('mp-') && browser !== 'react-native',
   },
   {
     name: 'sessionStorage',
     label: 'Session Storage',
     icon: StorageSvg,
-    visible: (browser) => !browser?.startsWith('mp-'),
+    visible: (browser) =>
+      !browser?.startsWith('mp-') && browser !== 'react-native',
   },
   {
     name: 'cookie',
     label: 'Cookies',
     icon: CookieSvg,
-    visible: (browser) => !browser?.startsWith('mp-'),
+    visible: (browser) =>
+      !browser?.startsWith('mp-') && browser !== 'react-native',
   },
   {
     name: 'indexedDB',
     label: 'IndexedDB',
     icon: DatabaseSvg,
-    visible: (browser) => !browser?.startsWith('mp-'),
+    visible: (browser) =>
+      !browser?.startsWith('mp-') && browser !== 'react-native',
   },
   {
     name: 'mpStorage',
     label: '小程序 Storage',
     icon: StorageSvg,
-    visible: (browser) => !!browser?.startsWith('mp-'),
+    visible: (browser) =>
+      !!browser?.startsWith('mp-') && browser !== 'react-native',
+  },
+  {
+    name: 'asyncStorage',
+    label: 'Async Storage',
+    icon: StorageSvg,
+    visible: (browser) => browser === 'react-native',
   },
 ];
 

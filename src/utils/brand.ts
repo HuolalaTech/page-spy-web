@@ -25,6 +25,7 @@ import mpFeishuSvg from '@/assets/image/mp-feishu.svg';
 import mpDingtalkSvg from '@/assets/image/mp-dingtalk.svg';
 import mpAlipaySvg from '@/assets/image/mp-alipay.svg';
 import mpXhsSvg from '@/assets/image/mp-xhs.svg';
+import reactSvg from '@/assets/image/react.svg';
 
 import uniSvg from '@/assets/image/uni.svg';
 import { SpyDevice } from '@huolala-tech/page-spy-types';
@@ -132,6 +133,7 @@ export const BROWSER_CONFIG: Record<
   'mp-ppx': { logo: mpDouyinSvg, label: t('common.mpppx') },
   'mp-dingtalk': { logo: mpDingtalkSvg, label: t('common.mpdingtalk') },
   'mp-xhs': { logo: mpXhsSvg, label: t('common.mpxhs') },
+  'react-native': { logo: reactSvg, label: 'React Native' },
 };
 
 export const getOSName = (os: string) => {
@@ -168,6 +170,7 @@ const BROWSER_REGEXPS = {
   chrome: /(?:Chrome|CriOS)\/([\d.]+)/,
   firefox: /(?:Firefox|FxiOS)\/([\d.]+)/,
   safari: /Version\/([\d.]+).*Safari/,
+  'react-native': /react-native\/([\d.]+)/,
   ...MP_REGEXPS,
 } as Record<SpyDevice.Browser, RegExp>;
 
