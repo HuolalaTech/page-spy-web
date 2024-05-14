@@ -96,7 +96,7 @@ npm install -g @huolala-tech/page-spy-api@latest
 > <a href="https://www.youtube.com/watch?v=AYD84Kht5yA" target="_blank"><img src="./.github/assets/video-docker-en.jpg" width="320" /></a>
 
 ```bash
-docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
+docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
 ```
 
 デプロイが成功したら、ブラウザを開いて `<host>:6752` にアクセスすると、上部に `Inject SDK` メニューが表示され、メニューをクリックすると、ビジネスプロジェクトに設定および統合する方法が表示されます。
