@@ -1,6 +1,7 @@
 import { ReactComponent as WebSvg } from '@/assets/image/web-h5.svg';
 import { ReactComponent as MiniprogramSvg } from '@/assets/image/miniprogram.svg';
 import { ReactComponent as HarmonySvg } from '@/assets/image/harmony.svg';
+import { ReactComponent as RNSvg } from '@/assets/image/react.svg';
 import { ReactNode, useMemo, type ComponentType } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -8,7 +9,7 @@ import type { Lang } from 'shiki';
 import { CodeBlock } from '@/components/CodeBlock';
 import MPWarning from '@/components/MPWarning';
 
-export type PlatformName = 'web' | 'mp' | 'harmony';
+export type PlatformName = 'web' | 'mp' | 'harmony' | 'rn';
 
 export const PLATFORMS: { name: PlatformName; icon: ComponentType }[] = [
   {
@@ -22,6 +23,10 @@ export const PLATFORMS: { name: PlatformName; icon: ComponentType }[] = [
   {
     name: 'harmony',
     icon: HarmonySvg,
+  },
+  {
+    name: 'rn',
+    icon: RNSvg,
   },
 ];
 
@@ -133,6 +138,49 @@ export default class EntryAbility extends UIAbility {
     })
   }
 }`,
+          lang: 'js',
+        },
+      ],
+      rn: [
+        {
+          title: t('inject.rn.install-sdk'),
+          code: `yarn add @huolala-tech/page-spy-react-native@^1.0.0`,
+          lang: 'bash',
+        },
+        {
+          title: (
+            <Trans i18nKey="inject.rn.init-sdk">
+              <span>slot-0</span>
+              <a href={import.meta.env.VITE_SDK_RN_REPO} target="_blank">
+                slot-1
+              </a>
+            </Trans>
+          ),
+          code: `import { PageSpy } from '@huolala-tech/page-spy-react-native';
+new PageSpy({
+  api: '${window.DEPLOY_BASE_PATH}',
+})
+`,
+          lang: 'js',
+        },
+        {
+          title: (
+            <Trans i18nKey="inject.rn.storage-plugin">
+              <span>slot-0</span>
+              <a href={import.meta.env.VITE_PLUGIN_RN_STORAGE} target="_blank">
+                slot-1
+              </a>
+            </Trans>
+          ),
+          code: `import { PageSpy } from '@huolala-tech/page-spy-react-native';
+import RNAsyncStoragePlugin from '@huolala-tech/page-spy-plugin-rn-async-storage';
+
+PageSpy.registerPlugin(new RNAsyncStoragePlugin())
+new PageSpy({
+  api: '${window.DEPLOY_BASE_PATH}',
+})
+
+          `,
           lang: 'js',
         },
       ],
