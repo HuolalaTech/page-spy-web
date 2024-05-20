@@ -62,14 +62,11 @@ const MENU_COMPONENTS: Record<
   },
   Storage: {
     component: StoragePanel,
-    visible: (params) => {
-      return params.os !== 'harmony';
-    },
   },
   System: {
     component: SystemPanel,
     visible: (params) => {
-      return params.os !== 'harmony' && !params.browser?.startsWith('mp-');
+      return !params.browser?.startsWith('mp-');
     },
   },
 };
@@ -275,7 +272,7 @@ const ClientInfo = memo(() => {
           title={
             <>
               <span>
-                {t('browser')}: {clientInfo?.browser.name}
+                {t('platform')}: {clientInfo?.browser.name}
               </span>
               <br />
               <span>

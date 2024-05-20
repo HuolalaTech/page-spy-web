@@ -1,4 +1,5 @@
 import { useCacheDetailStore } from '@/store/cache-detail';
+import { StorageType } from '@/store/platform-config';
 import { SpyStorage } from '@huolala-tech/page-spy-types';
 import { Table, Tooltip } from 'antd';
 import { capitalize } from 'lodash-es';
@@ -7,8 +8,8 @@ import { useMemo } from 'react';
 const { Column } = Table;
 
 interface Props {
-  activeTab: SpyStorage.DataType;
-  storageMsg: Record<SpyStorage.DataType, SpyStorage.GetTypeDataItem['data']>;
+  activeTab: StorageType;
+  storageMsg: Record<StorageType, SpyStorage.GetTypeDataItem['data']>;
 }
 
 export const StorageTable = ({ activeTab, storageMsg }: Props) => {

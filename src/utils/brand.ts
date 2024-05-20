@@ -96,12 +96,12 @@ export const OS_CONFIG: Record<
   windows: { logo: windowsSvg, label: 'Windows' },
   linux: { logo: linuxSvg, label: 'Linux' },
   android: { logo: androidSvg, label: 'Android' },
-  harmony: { logo: harmonySvg, label: 'Open Harmony' },
+  harmony: { logo: harmonySvg, label: 'HarmonyOS' },
   unknown: { logo: pcSvg, label: 'Unknown' },
 };
 
 export const BROWSER_CONFIG: Record<
-  SpyDevice.Browser,
+  SpyDevice.Browser | 'harmony',
   {
     logo: string;
     label: string;
@@ -132,6 +132,7 @@ export const BROWSER_CONFIG: Record<
   'mp-ppx': { logo: mpDouyinSvg, label: t('common.mpppx') },
   'mp-dingtalk': { logo: mpDingtalkSvg, label: t('common.mpdingtalk') },
   'mp-xhs': { logo: mpXhsSvg, label: t('common.mpxhs') },
+  harmony: { logo: pcSvg, label: 'Harmony' },
 };
 
 export const getOSName = (os: string) => {
@@ -168,8 +169,9 @@ const BROWSER_REGEXPS = {
   chrome: /(?:Chrome|CriOS)\/([\d.]+)/,
   firefox: /(?:Firefox|FxiOS)\/([\d.]+)/,
   safari: /Version\/([\d.]+).*Safari/,
+  harmony: /Device\/(.*)/,
   ...MP_REGEXPS,
-} as Record<SpyDevice.Browser, RegExp>;
+} as Record<SpyDevice.Browser | 'harmony', RegExp>;
 
 const OS_REGEXPS = {
   windows: /(Windows NT |windows\/)([\d_.]+)/,
@@ -178,7 +180,7 @@ const OS_REGEXPS = {
   mac: /(Mac OS X |macos\/)([\d_.]+)/,
   android: /(Android |android\/)([\d_.]+)/,
   linux: /Linux/,
-  harmony: /(OpenHarmony )([\d_.]+)/,
+  harmony: /(HarmonyOS\/)([\d_.]+[\(\w\)]*)/,
 } as Record<SpyDevice.OS, RegExp>;
 
 export function parseUserAgent(

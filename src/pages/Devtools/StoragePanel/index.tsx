@@ -5,7 +5,7 @@ import './index.less';
 import { useSocketMessageStore } from '@/store/socket-message';
 import Icon, { ReloadOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { useStorageTypes } from '@/store/platform-config';
+import { StorageType, useStorageTypes } from '@/store/platform-config';
 import { DBTable } from '@/components/DBTable';
 import { StorageContent } from './StorageContent';
 import { ResizableDetail } from '@/components/ResizableDetail';
@@ -18,14 +18,12 @@ export const StoragePanel = () => {
 
   const storageTypes = useStorageTypes();
 
-  const [activeTab, setActiveTab] = useState<SpyStorage.DataType | 'indexedDB'>(
-    () => {
-      if (storageTypes.length > 0) {
-        return storageTypes[0].name;
-      }
-      return 'localStorage';
-    },
-  );
+  const [activeTab, setActiveTab] = useState<StorageType | 'indexedDB'>(() => {
+    if (storageTypes.length > 0) {
+      return storageTypes[0].name;
+    }
+    return 'localStorage';
+  });
 
   useEffect(() => {
     if (

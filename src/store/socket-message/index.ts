@@ -15,6 +15,7 @@ import { resolveProtocol } from '@/utils';
 import { ElementContent } from 'hast';
 import { getFixedPageMsg } from './utils';
 import { isEqual, omit } from 'lodash-es';
+import { StorageType } from '../platform-config';
 
 const USER_ID = 'Debugger';
 
@@ -31,7 +32,7 @@ interface SocketMessage {
     tree: ElementContent[] | null;
     location: SpyPage.DataItem['location'] | null;
   };
-  storageMsg: Record<SpyStorage.DataType, SpyStorage.GetTypeDataItem['data']>;
+  storageMsg: Record<StorageType, SpyStorage.GetTypeDataItem['data']>;
   databaseMsg: {
     basicInfo: SpyDatabase.DBInfo[] | null;
     data: SpyDatabase.GetTypeDataItem | null;
@@ -61,6 +62,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     sessionStorage: [],
     cookie: [],
     mpStorage: [],
+    AppStorage: [],
   },
   databaseMsg: {
     basicInfo: null,
