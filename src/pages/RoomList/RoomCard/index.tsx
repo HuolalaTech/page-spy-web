@@ -59,7 +59,7 @@ export const RoomCard = memo(
               </ConnDetailItem>
             </Col>
             <Col flex={1}>
-              <ConnDetailItem title="Browser">
+              <ConnDetailItem title="Platform">
                 <Tooltip title={`${browser.name} ${browser.version}`}>
                   <img src={browser.logo} alt="browser logo" />
                 </Tooltip>

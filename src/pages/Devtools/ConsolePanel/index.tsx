@@ -11,8 +11,9 @@ const ConsolePanel = () => {
   const clientInfo = useSocketMessageStore((state) => state.clientInfo);
   const dynamicalExecutable = useMemo(() => {
     const { os } = clientInfo || {};
-    // TODO 纯血鸿蒙出来后需要额外判断是「鸿蒙上的 APP」
-    return os?.type !== 'harmony';
+    // // TODO 纯血鸿蒙出来后需要额外判断是「鸿蒙上的 APP」
+    // return os?.type !== 'harmony';
+    return true;
   }, [clientInfo]);
 
   return (
