@@ -94,6 +94,7 @@
     "device": "장치",
     "system": "시스템",
     "browser": "브라우저",
+    "platform": "플랫폼",
     "version": "버전",
     "mp-warning": "검토를 위해 미니 프로그램을 제출할 때 코드에서 SDK를 삭제해야 합니다. 그렇지 않으면 검토가 실패합니다.",
     "menu": {
