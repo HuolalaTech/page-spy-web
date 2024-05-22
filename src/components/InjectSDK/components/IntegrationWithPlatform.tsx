@@ -156,7 +156,7 @@ export default class EntryAbility extends UIAbility {
               </a>
             </Trans>
           ),
-          code: `import { PageSpy } from '@huolala-tech/page-spy-react-native';
+          code: `import PageSpy from '@huolala-tech/page-spy-react-native';
 new PageSpy({
   api: '${window.DEPLOY_BASE_PATH}',
 })
