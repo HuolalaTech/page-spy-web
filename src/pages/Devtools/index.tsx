@@ -32,6 +32,7 @@ import { throttle } from 'lodash-es';
 import { CUSTOM_EVENT } from '@/store/socket-message/socket';
 import { SpyDevice } from '@huolala-tech/page-spy-types';
 import MPWarning from '@/components/MPWarning';
+import { isBrowser, isHarmonyApp } from '@/store/platform-config';
 
 const { Sider, Content } = Layout;
 const { Title } = Typography;
@@ -57,7 +58,7 @@ const MENU_COMPONENTS: Record<
   Page: {
     component: PagePanel,
     visible: (params) => {
-      return params.os !== 'harmony' && !params.browser?.startsWith('mp-');
+      return isBrowser(params.browser);
     },
   },
   Storage: {
@@ -65,8 +66,8 @@ const MENU_COMPONENTS: Record<
   },
   System: {
     component: SystemPanel,
-    visible: (params) => {
-      return !params.browser?.startsWith('mp-');
+    visible: ({ browser }) => {
+      return isBrowser(browser) || isHarmonyApp(browser);
     },
   },
 };

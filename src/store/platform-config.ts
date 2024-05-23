@@ -7,7 +7,7 @@ import { FunctionComponent } from 'react';
 
 export type StorageType = SpyStorage.DataType | 'AppStorage';
 
-const isBrowser = (browser: SpyDevice.Browser) => {
+export const isBrowser = (browser: SpyDevice.Browser) => {
   return [
     'wechat',
     'qq',
@@ -21,11 +21,11 @@ const isBrowser = (browser: SpyDevice.Browser) => {
   ].includes(browser);
 };
 
-const isMiniProgram = (browser: SpyDevice.Browser) => {
+export const isMiniProgram = (browser: SpyDevice.Browser) => {
   return browser.startsWith('mp-');
 };
 
-const isHarmonyApp = (browser: SpyDevice.Browser) => {
+export const isHarmonyApp = (browser: SpyDevice.Browser) => {
   return browser.startsWith('harmony');
 };
 
