@@ -232,7 +232,7 @@ export const RoomList = () => {
                 })}
               </Select>
             </Form.Item>
-            <Form.Item label={t('common.browser')} name="browser">
+            <Form.Item label={t('devtool.platform')} name="browser">
               <Select
                 listHeight={500}
                 placeholder={t('connections.select-browser')}
