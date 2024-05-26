@@ -22,7 +22,7 @@ const PagePanel = () => {
   useEffect(() => {
     if (html) {
       const frameDocument = frameRef.current!.contentDocument;
-      frameDocument!.documentElement.innerHTML = html.toString();
+      frameDocument!.write(html.toString());
 
       insertStyle(frameDocument!, `a { pointer-events: none} `);
       const frameBody = frameDocument!.querySelector('body');
