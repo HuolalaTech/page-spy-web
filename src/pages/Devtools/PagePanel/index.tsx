@@ -17,12 +17,25 @@ const PagePanel = () => {
     state.refresh,
   ]);
   const [loading, setLoading] = useState(false);
+  const parser = useRef<DOMParser>(new DOMParser());
   const frameRef = useRef<HTMLIFrameElement | null>(null);
 
   useEffect(() => {
     if (html) {
       const frameDocument = frameRef.current!.contentDocument;
-      frameDocument!.documentElement.innerHTML = html.toString();
+      if (!frameDocument) return;
+
+      const newDoc = parser.current.parseFromString(
+        html.toString(),
+        'text/html',
+      );
+      const htmlAttrs = Array.from(newDoc.documentElement.attributes);
+
+      frameDocument.documentElement.innerHTML =
+        newDoc.documentElement.innerHTML;
+      htmlAttrs.forEach(({ name, value }) => {
+        frameDocument.documentElement.setAttribute(name, value);
+      });
 
       insertStyle(frameDocument!, `a { pointer-events: none} `);
       const frameBody = frameDocument!.querySelector('body');
