@@ -15,31 +15,36 @@ export const STORAGE_TYPES: {
     name: 'localStorage',
     label: 'Local Storage',
     icon: StorageSvg,
-    visible: (browser) => !browser?.startsWith('mp-'),
+    visible: (browser) =>
+      !browser?.startsWith('mp-') && browser !== 'uni-native',
   },
   {
     name: 'sessionStorage',
     label: 'Session Storage',
     icon: StorageSvg,
-    visible: (browser) => !browser?.startsWith('mp-'),
+    visible: (browser) =>
+      !browser?.startsWith('mp-') && browser !== 'uni-native',
   },
   {
     name: 'cookie',
     label: 'Cookies',
     icon: CookieSvg,
-    visible: (browser) => !browser?.startsWith('mp-'),
+    visible: (browser) =>
+      !browser?.startsWith('mp-') && browser !== 'uni-native',
   },
   {
     name: 'indexedDB',
     label: 'IndexedDB',
     icon: DatabaseSvg,
-    visible: (browser) => !browser?.startsWith('mp-'),
+    visible: (browser) =>
+      !browser?.startsWith('mp-') && browser !== 'uni-native',
   },
   {
     name: 'mpStorage',
     label: '小程序 Storage',
     icon: StorageSvg,
-    visible: (browser) => !!browser?.startsWith('mp-'),
+    visible: (browser) =>
+      !!browser?.startsWith('mp-') || browser === 'uni-native',
   },
 ];
 
