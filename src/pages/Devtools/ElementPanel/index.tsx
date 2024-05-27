@@ -3,11 +3,12 @@ import { CaretRightOutlined } from '@ant-design/icons';
 import { useMemo, useState } from 'react';
 import './index.less';
 import type { ElementContent, Element } from 'hast';
-import { camelcaseToHypen, replaceProperties } from './utils';
+import { camelCaseToKebabCase, replaceProperties } from './utils';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { useAsyncEffect } from 'ahooks';
 import sh from '@/utils/shiki-highlighter';
 import type { Lang } from 'shiki';
+import { isArray } from 'lodash-es';
 
 const tag2lang = {
   style: 'css',
@@ -34,7 +35,7 @@ const ElementAttrs: React.FC<{ data?: Record<string, any> }> = ({
   const attrs = useMemo(() => {
     if (!hasMembers(data)) return '';
     return Object.entries(data).map(([key, val]) => {
-      const prop = camelcaseToHypen(replaceProperties(key));
+      const prop = camelCaseToKebabCase(replaceProperties(key));
       return (
         <span className="attrs-item" key={key}>
           {' '}
@@ -42,7 +43,9 @@ const ElementAttrs: React.FC<{ data?: Record<string, any> }> = ({
           {!!val && (
             <>
               =&quot;
-              <span className="attrs-item__value">{val}</span>
+              <span className="attrs-item__value">
+                {isArray(val) ? val.join(' ') : val}
+              </span>
               &quot;
             </>
           )}
