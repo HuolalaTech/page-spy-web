@@ -1,6 +1,6 @@
 import { ElementContent, Root } from 'hast';
 import rehypeParse from 'rehype-parse';
-import rehypeStrigify from 'rehype-stringify';
+import rehypeStringify from 'rehype-stringify';
 import { Plugin, unified } from 'unified';
 import { visit } from 'unist-util-visit';
 
@@ -28,7 +28,7 @@ export const getFixedPageMsg = async (htmlText: string, base: string) => {
     const processor = unified()
       .use(rehypeParse)
       .use(fixHtmlSourceUriPlugin, { base })
-      .use(rehypeStrigify)
+      .use(rehypeStringify)
       .data('settings', { fragment: false });
 
     const file = await processor.process(htmlText);

@@ -1,6 +1,6 @@
 export const TextBlockTags = ['noscript', 'script', 'style'];
 
-export function camelcaseToHypen(str: string) {
+export function camelCaseToKebabCase(str: string) {
   const result: string[] = [];
   Object.values(str).forEach((s) => {
     if (/[A-Z]/.test(s)) {
