@@ -69,6 +69,7 @@ export const AllMPTypes: SpyDevice.MPType[] = [
   'mp-ppx',
   'mp-dingtalk',
   'mp-xhs',
+  'mp-uni', // uniapp 自研小程序引擎
 ];
 
 export const AllBrowserTypes: SpyDevice.Browser[] = [
@@ -132,6 +133,8 @@ export const BROWSER_CONFIG: Record<
   'mp-ppx': { logo: mpDouyinSvg, label: t('common.mpppx') },
   'mp-dingtalk': { logo: mpDingtalkSvg, label: t('common.mpdingtalk') },
   'mp-xhs': { logo: mpXhsSvg, label: t('common.mpxhs') },
+  'mp-uni': { logo: uniSvg, label: 'Uni APP' },
+  'uni-native': { logo: uniSvg, label: 'Uni APP' },
 };
 
 export const getOSName = (os: string) => {
@@ -168,6 +171,7 @@ const BROWSER_REGEXPS = {
   chrome: /(?:Chrome|CriOS)\/([\d.]+)/,
   firefox: /(?:Firefox|FxiOS)\/([\d.]+)/,
   safari: /Version\/([\d.]+).*Safari/,
+  'uni-native': /uni-native\/([\d.]+)/,
   ...MP_REGEXPS,
 } as Record<SpyDevice.Browser, RegExp>;
 

@@ -57,7 +57,11 @@ const MENU_COMPONENTS: Record<
   Page: {
     component: PagePanel,
     visible: (params) => {
-      return params.os !== 'harmony' && !params.browser?.startsWith('mp-');
+      return (
+        params.os !== 'harmony' &&
+        !params.browser?.startsWith('mp-') &&
+        params.browser !== 'uni-native'
+      );
     },
   },
   Storage: {
@@ -69,7 +73,11 @@ const MENU_COMPONENTS: Record<
   System: {
     component: SystemPanel,
     visible: (params) => {
-      return params.os !== 'harmony' && !params.browser?.startsWith('mp-');
+      return (
+        params.os !== 'harmony' &&
+        !params.browser?.startsWith('mp-') &&
+        params.browser !== 'uni-native'
+      );
     },
   },
 };

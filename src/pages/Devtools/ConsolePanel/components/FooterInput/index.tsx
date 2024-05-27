@@ -56,7 +56,8 @@ export const FooterInput = memo(() => {
   const handleDebugCode = useCallback(() => {
     const trimedCode = code.trim();
     if (trimedCode) {
-      if (clientInfo?.browser.type?.startsWith('mp-')) {
+      const browserType = clientInfo?.browser.type;
+      if (browserType?.startsWith('mp-') || browserType === 'uni-native') {
         let nodes: Program = {};
         try {
           nodes = parse(trimedCode, {
