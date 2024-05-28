@@ -18,6 +18,7 @@ import useCallbackRef from '@/utils/useCallbackRef';
 import clsx from 'clsx';
 import { PLAYER_SIZE_CHANGE } from './events';
 import { useEventListener } from '@/utils/useEventListener';
+import { useShallow } from 'zustand/react/shallow';
 
 export const Replay = () => {
   const { t } = useTranslation();
@@ -33,10 +34,9 @@ export const Replay = () => {
     setAllData(result);
     return result;
   });
-  const [duration, allRRwebEvent] = useReplayStore((state) => [
-    state.duration,
-    state.allRRwebEvent,
-  ]);
+  const [duration, allRRwebEvent] = useReplayStore(
+    useShallow((state) => [state.duration, state.allRRwebEvent]),
+  );
 
   // drag to resize
   const setIsExpand = useReplayStore((state) => state.setIsExpand);

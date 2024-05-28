@@ -11,8 +11,10 @@ export const NetworkPanel = memo(() => {
   useEffect(
     () =>
       useReplayStore.subscribe((state) => {
-        networkMsg.current = state.networkMsg;
-        throttleRender();
+        if (networkMsg.current.length !== state.networkMsg.length) {
+          networkMsg.current = state.networkMsg;
+          throttleRender();
+        }
       }),
     [throttleRender],
   );

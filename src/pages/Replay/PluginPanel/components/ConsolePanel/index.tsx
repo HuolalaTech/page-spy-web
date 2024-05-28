@@ -10,11 +10,14 @@ export const ConsolePanel = memo(() => {
   useEffect(
     () =>
       useReplayStore.subscribe((state) => {
-        consoleMsg.current = state.consoleMsg;
-        throttleRender();
+        if (consoleMsg.current.length !== state.consoleMsg.length) {
+          consoleMsg.current = state.consoleMsg;
+          throttleRender();
+        }
       }),
     [throttleRender],
   );
+
   return (
     <div className="console-panel">
       {consoleMsg.current.map((data) => (

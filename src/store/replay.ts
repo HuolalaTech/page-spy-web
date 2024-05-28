@@ -9,6 +9,7 @@ import { create } from 'zustand';
 import { eventWithTime } from '@rrweb/types';
 import { produce } from 'immer';
 import { isEqual, omit } from 'lodash-es';
+import { REPLAY_STATUS_CHANGE } from '@/pages/Replay/events';
 
 const isCaredActivity = (activity: HarborDataItem) => {
   const { type, data } = activity;
@@ -28,7 +29,13 @@ export interface HarborDataItem<T = any> {
 
 export type Activity = Omit<HarborDataItem, 'data'>[];
 
+export enum TIME_MODE {
+  RELATED = 'HH:mm:ss:SSS',
+  ABSOLUTE = 'YYYY/MM/DD HH:mm:ss',
+}
+
 export interface ReplayStore {
+  // data
   activity: Activity[];
   allConsoleMsg: HarborDataItem[];
   allNetworkMsg: HarborDataItem[];
@@ -42,15 +49,32 @@ export interface ReplayStore {
   networkMsg: SpyNetwork.RequestInfo[];
   storageMsg: Record<SpyStorage.DataType, SpyStorage.GetTypeDataItem['data']>;
   setAllData: (data: HarborDataItem[]) => void;
-  updateElapsed: (elapsed: number) => void;
+  flushActiveData: () => void;
   updateConsoleMsg: (currentTime: number) => void;
   updateNetworkMsg: (currentTime: number) => void;
   updateStorageMsg: (currentTime: number) => void;
+
+  // user-interactive
   isExpand: boolean;
   setIsExpand: (expand: boolean) => void;
   speed: number;
   setSpeed: (speed: number) => void;
+  progress: number;
+  setProgress: (progress: number) => void;
+  isPlaying: boolean;
+  setIsPlaying: (value: boolean) => void;
+  timeMode: TIME_MODE;
+  setTimeMode: (mode: TIME_MODE) => void;
 }
+
+export const fixProgress = (progress: number) => {
+  // prettier-ignore
+  return progress < 0
+    ? 0
+    : progress > 1
+      ? 1
+      : progress;
+};
 
 export const useReplayStore = create<ReplayStore>((set, get) => ({
   activity: [],
@@ -71,7 +95,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     // 'mpStorage' is just for type correct at now
     mpStorage: [],
   },
-  setAllData: (data: HarborDataItem[]) => {
+  setAllData(data) {
     if (!data?.length) return;
 
     const start = data[0].timestamp;
@@ -151,11 +175,12 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       }),
     );
   },
-  updateElapsed: (elapsed: number) => {
+  flushActiveData() {
     const {
       allConsoleMsg,
       allNetworkMsg,
-      allStorageMsg,
+      progress,
+      duration,
       startTime,
       endTime,
       updateConsoleMsg,
@@ -163,7 +188,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       updateStorageMsg,
     } = get();
 
-    const currentTime = startTime + elapsed;
+    const currentTime = startTime + progress * duration;
     if (currentTime <= startTime) {
       set(
         produce<ReplayStore>((state) => {
@@ -193,7 +218,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     updateNetworkMsg(currentTime);
     updateStorageMsg(currentTime);
   },
-  updateConsoleMsg(currentTime: number) {
+  updateConsoleMsg(currentTime) {
     const { allConsoleMsg, consoleMsg } = get();
 
     let consoleIndex = 0;
@@ -214,7 +239,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       );
     }
   },
-  updateNetworkMsg(currentTime: number) {
+  updateNetworkMsg(currentTime) {
     const { allNetworkMsg, networkMsg } = get();
 
     let networkIndex = 0;
@@ -235,7 +260,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       );
     }
   },
-  updateStorageMsg(currentTime: number) {
+  updateStorageMsg(currentTime) {
     const { allStorageMsg } = get();
 
     let storageIndex = 0;
@@ -297,11 +322,44 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     }
   },
   isExpand: false,
-  setIsExpand(expand: boolean) {
+  setIsExpand(expand) {
     set({ isExpand: expand });
   },
   speed: 1,
-  setSpeed(speed: number) {
+  setSpeed(speed) {
     set({ speed });
+  },
+  progress: 0,
+  setProgress(progress) {
+    set(
+      produce((state) => {
+        state.progress = fixProgress(progress);
+      }),
+    );
+  },
+  isPlaying: false,
+  setIsPlaying(value) {
+    set(
+      produce((state) => {
+        state.isPlaying = value;
+      }),
+    );
+    const { progress, duration } = get();
+    window.dispatchEvent(
+      new CustomEvent(REPLAY_STATUS_CHANGE, {
+        detail: {
+          status: value ? 'playing' : 'paused',
+          elapsed: progress * duration,
+        },
+      }),
+    );
+  },
+  timeMode: TIME_MODE.RELATED,
+  setTimeMode(mode) {
+    set(
+      produce((state) => {
+        state.timeMode = mode;
+      }),
+    );
   },
 }));

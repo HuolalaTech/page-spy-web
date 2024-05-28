@@ -4,14 +4,14 @@ import { PLAYER_SIZE_CHANGE, REPLAY_STATUS_CHANGE } from '../events';
 import { useReplayStore } from '@/store/replay';
 import rrwebPlayer from 'rrweb-player';
 import './index.less';
+import { useShallow } from 'zustand/react/shallow';
 
 export const RRWebPlayer = memo(() => {
   const rootEl = useRef<HTMLDivElement | null>(null);
   const playerInstance = useRef<rrwebPlayer>();
-  const [allRRwebEvent, speed] = useReplayStore((state) => [
-    state.allRRwebEvent,
-    state.speed,
-  ]);
+  const [allRRwebEvent, speed] = useReplayStore(
+    useShallow((state) => [state.allRRwebEvent, state.speed]),
+  );
 
   const events = useMemo(() => {
     if (!allRRwebEvent.length) return [];
