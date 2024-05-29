@@ -81,6 +81,7 @@ export const AllBrowserTypes: SpyDevice.Browser[] = [
   'uc',
   'wechat',
   'qq',
+  'uni-native',
   'unknown',
 ];
 

@@ -115,7 +115,7 @@ export const RoomList = () => {
   const BrowserOptions = useMemo(() => {
     return AllBrowserTypes.filter((browser) => {
       return connectionList?.some(
-        (conn) => conn.browser.name.toLocaleLowerCase() === browser,
+        (conn) => conn.browser.type.toLocaleLowerCase() === browser,
       );
     }).map((name) => {
       return {
