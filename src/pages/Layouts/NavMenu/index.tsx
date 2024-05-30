@@ -4,7 +4,7 @@ import { langType, useLanguage } from '@/utils/useLanguage';
 import Icon, { GithubOutlined } from '@ant-design/icons';
 import { Space, Divider, MenuProps, Dropdown, ConfigProvider } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ReactComponent as DocsSvg } from '@/assets/image/docs.svg';
 import { ReactComponent as I18nSvg } from '@/assets/image/i18n.svg';
 import { ReactComponent as InjectSdkSvg } from '@/assets/image/inject-sdk.svg';
@@ -48,7 +48,6 @@ const navDropdownConfig = {
 };
 
 export const NavMenuOnPc = () => {
-  const navigate = useNavigate();
   const isDark = useDarkTheme();
   const [lang, setLang] = useLanguage();
   const { t } = useTranslation();
@@ -82,6 +81,7 @@ export const NavMenuOnPc = () => {
             <ConfigProvider theme={navDropdownConfig}>
               <Dropdown
                 arrow
+                trigger={['click']}
                 menu={{
                   items: [
                     {

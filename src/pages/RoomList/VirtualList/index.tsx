@@ -36,9 +36,14 @@ const RowRooms = memo(
       useShallow((state) => [state.columnCount]),
     );
     const [isLoading, setIsLoading] = useState(true);
-    useMount(() => {
-      setIsLoading(false);
-    });
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 100);
+      return () => {
+        clearTimeout(timer);
+      };
+    }, []);
 
     return (
       <div
