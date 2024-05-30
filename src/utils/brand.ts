@@ -45,7 +45,7 @@ interface BrowserInfo {
   version: string;
   logo?: string;
 }
-interface ClientInfo {
+export interface ClientInfo {
   os: OSInfo;
   browser: BrowserInfo;
   framework?: Framework;

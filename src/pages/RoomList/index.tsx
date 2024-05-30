@@ -2,6 +2,7 @@ import { getSpyRoom } from '@/apis';
 import {
   AllBrowserTypes,
   AllMPTypes,
+  ClientInfo,
   OS_CONFIG,
   getBrowserLogo,
   getBrowserName,
@@ -20,6 +21,7 @@ import {
   Select,
   Space,
   Layout,
+  Skeleton,
 } from 'antd';
 import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -42,7 +44,7 @@ const { Sider, Content } = Layout;
 
 // 按搜索条件过滤房间
 const filterConnections = (
-  data: I.SpyRoom[],
+  data: (I.SpyRoom & ClientInfo)[],
   condition: Record<'title' | 'address' | 'os' | 'browser', string>,
 ) => {
   const { title = '', address = '', os = '', browser = '' } = condition;
@@ -52,11 +54,10 @@ const filterConnections = (
       return String(tags.title).toLowerCase().includes(lowerCaseTitle);
     })
     .filter((i) => i.address.slice(0, 4).includes(address || ''))
-    .filter(({ name }) => {
-      const clientInfo = parseUserAgent(name);
+    .filter(({ os: itemOs, browser: itemBrowser }) => {
       return (
-        (!os || clientInfo.os.type === os) &&
-        (!browser || clientInfo.browser.type.includes(browser))
+        (!os || itemOs.type === os) &&
+        (!browser || itemBrowser.type.includes(browser))
       );
     });
 };
@@ -97,7 +98,7 @@ const RowRooms = ({
       data-index={index}
     >
       {isLoading ? (
-        <LoadingFallback />
+        <Skeleton active />
       ) : (
         <Row gutter={24}>
           {data[index].map((room) => {
@@ -135,7 +136,9 @@ export const RoomList = () => {
     () => {
       const { innerWidth } = window;
       let span = 6;
-      if (innerWidth < 800) {
+      if (innerWidth < 700) {
+        span = 1;
+      } else if (innerWidth < 800) {
         span = 2;
       } else if (innerWidth < 1200) {
         span = 3;
@@ -214,11 +217,11 @@ export const RoomList = () => {
   const onFormFinish = useCallback(
     async (value: any) => {
       try {
-        await requestConnections(value.project);
         setConditions((state) => ({
           ...state,
           ...value,
         }));
+        await requestConnections(value.project);
       } catch (e: any) {
         message.error(e.message);
       }
@@ -261,6 +264,7 @@ export const RoomList = () => {
         }}
       </AutoSizer>
     );
+    // loading 无需添加到 deps，只有第一次显示 loading
   }, [error, roomList, rowCount]);
 
   return (

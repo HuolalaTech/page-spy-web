@@ -55,7 +55,7 @@ export const useRoomListStore = create<StoreData>((set, get) => ({
     const { columnCount } = get();
     set(
       produce((state) => {
-        state.rowCount = Math.floor(data.length / columnCount);
+        state.rowCount = Math.ceil(data.length / columnCount);
         state.roomList = chunk(sortConnections(data), columnCount);
       }),
     );
