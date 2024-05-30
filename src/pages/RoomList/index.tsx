@@ -223,15 +223,11 @@ export const RoomList = () => {
 
   const onFormFinish = useCallback(
     async (value: any) => {
-      try {
-        setConditions((state) => ({
-          ...state,
-          ...value,
-        }));
-        await requestConnections(value.project);
-      } catch (e: any) {
-        message.error(e.message);
-      }
+      setConditions((state) => ({
+        ...state,
+        ...value,
+      }));
+      await requestConnections(value.project);
     },
     [requestConnections],
   );
