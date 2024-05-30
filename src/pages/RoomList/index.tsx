@@ -23,7 +23,14 @@ import {
   Layout,
   Skeleton,
 } from 'antd';
-import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  forwardRef,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { ClearOutlined, SearchOutlined } from '@ant-design/icons';
@@ -35,6 +42,7 @@ import {
   FixedSizeList,
   ListChildComponentProps,
   ReactElementType,
+  areEqual,
 } from 'react-window';
 import { LoadingFallback } from '@/components/LoadingFallback';
 
@@ -79,40 +87,39 @@ const ContentContainer = forwardRef<HTMLDivElement, any>(
 ) as ReactElementType;
 
 // 每一行的房间
-const RowRooms = ({
-  index,
-  style,
-  data,
-}: ListChildComponentProps<I.SpyRoom[][]>) => {
-  const [columnCount] = useRoomListStore(
-    useShallow((state) => [state.columnCount]),
-  );
-  const [isLoading, setIsLoading] = useState(true);
-  useMount(() => {
-    setIsLoading(false);
-  });
+const RowRooms = memo(
+  ({ index, style, data }: ListChildComponentProps<I.SpyRoom[][]>) => {
+    const [columnCount] = useRoomListStore(
+      useShallow((state) => [state.columnCount]),
+    );
+    const [isLoading, setIsLoading] = useState(true);
+    useMount(() => {
+      setIsLoading(false);
+    });
 
-  return (
-    <div
-      style={{ ...style, top: Number(style.top) + 24, paddingInline: 24 }}
-      data-index={index}
-    >
-      {isLoading ? (
-        <Skeleton active />
-      ) : (
-        <Row gutter={24}>
-          {data[index].map((room) => {
-            return (
-              <Col span={24 / columnCount} key={room.address}>
-                <RoomCard key={room.address} room={room} />
-              </Col>
-            );
-          })}
-        </Row>
-      )}
-    </div>
-  );
-};
+    return (
+      <div
+        style={{ ...style, top: Number(style.top) + 24, paddingInline: 24 }}
+        data-index={index}
+      >
+        {isLoading ? (
+          <Skeleton active />
+        ) : (
+          <Row gutter={24}>
+            {data[index].map((room) => {
+              return (
+                <Col span={24 / columnCount} key={room.address}>
+                  <RoomCard key={room.address} room={room} />
+                </Col>
+              );
+            })}
+          </Row>
+        )}
+      </div>
+    );
+  },
+  areEqual,
+);
 
 export const RoomList = () => {
   const { t } = useTranslation();
