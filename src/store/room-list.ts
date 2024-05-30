@@ -1,16 +1,21 @@
 import { produce } from 'immer';
 import { create } from 'zustand';
 import { chunk } from 'lodash-es';
+import { ClientInfo } from '@/utils/brand';
+
+export type ParsedRoom = I.SpyRoom & ClientInfo;
 
 interface StoreData {
   rowCount: number;
   columnCount: number;
   setColumnCount: (columns: number) => void;
-  roomList: I.SpyRoom[][];
-  updateRoomList: (data: I.SpyRoom[]) => Promise<void>;
+  originList: ParsedRoom[];
+  setOriginList: (data: ParsedRoom[]) => void;
+  rowRooms: ParsedRoom[][];
+  computeRowRooms: () => void;
 }
 
-const sortConnections = (data: I.SpyRoom[]) => {
+const sortConnections = (data: ParsedRoom[]) => {
   const [valid, invalid] = (data || []).reduce(
     (acc, cur) => {
       const hasClient =
@@ -50,13 +55,21 @@ export const useRoomListStore = create<StoreData>((set, get) => ({
       }),
     );
   },
-  roomList: [],
-  async updateRoomList(data: I.SpyRoom[]) {
-    const { columnCount } = get();
+  originList: [],
+  setOriginList(data: ParsedRoom[]) {
     set(
       produce((state) => {
-        state.rowCount = Math.ceil(data.length / columnCount);
-        state.roomList = chunk(sortConnections(data), columnCount);
+        state.originList = data;
+      }),
+    );
+  },
+  rowRooms: [],
+  computeRowRooms() {
+    const { columnCount, originList } = get();
+    set(
+      produce((state) => {
+        state.rowCount = Math.ceil(originList.length / columnCount);
+        state.rowRooms = chunk(sortConnections(originList), columnCount);
       }),
     );
   },

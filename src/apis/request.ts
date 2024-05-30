@@ -20,7 +20,7 @@ const removeUndefinedValues = (params: unknown) => {
 };
 
 class ApiRequest {
-  defaultPrefix = resolveProtocol()[0] + API_BASE_URL + '/api/v1';
+  defaultPrefix = 'https://' + API_BASE_URL + '/api/v1';
 
   get<T>(path: string, options?: Options) {
     return this.request<T>('GET', path, options);
