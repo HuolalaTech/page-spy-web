@@ -27,32 +27,36 @@ import mpAlipaySvg from '@/assets/image/mp-alipay.svg';
 import mpXhsSvg from '@/assets/image/mp-xhs.svg';
 
 import uniSvg from '@/assets/image/uni.svg';
-import { SpyDevice } from '@huolala-tech/page-spy-types';
+import { SpyClient, SpyMessage } from '@huolala-tech/page-spy-types';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { t } from 'i18next';
-import { Framework } from '@huolala-tech/page-spy-types/lib/device';
+import { Framework } from '@huolala-tech/page-spy-types/lib/client';
 
 interface OSInfo {
-  type: SpyDevice.OS;
+  type: SpyClient.OS;
   name: string;
   version: string;
   logo?: string;
 }
 
 interface BrowserInfo {
-  type: SpyDevice.Browser;
+  type: SpyClient.Browser;
   name: string;
   version: string;
   logo?: string;
 }
-interface ClientInfo {
+export interface ParsedClientInfo {
+  ua: string;
   os: OSInfo;
   browser: BrowserInfo;
   framework?: Framework;
+  sdk: SpyClient.SDKType;
+  isDevTools?: boolean;
+  plugins: string[];
 }
 
 // Make miniprogram browser types
-export const AllMPTypes: SpyDevice.MPType[] = [
+export const AllMPTypes: SpyClient.MPType[] = [
   'mp-wechat',
   'mp-alipay',
   'mp-qq',
@@ -72,7 +76,7 @@ export const AllMPTypes: SpyDevice.MPType[] = [
   'mp-uni', // uniapp 自研小程序引擎
 ];
 
-export const AllBrowserTypes: SpyDevice.Browser[] = [
+export const AllBrowserTypes: SpyClient.Browser[] = [
   'chrome',
   'edge',
   'firefox',
@@ -86,7 +90,7 @@ export const AllBrowserTypes: SpyDevice.Browser[] = [
 ];
 
 export const OS_CONFIG: Record<
-  SpyDevice.OS,
+  SpyClient.OS,
   {
     logo: string;
     label: string;
@@ -103,7 +107,7 @@ export const OS_CONFIG: Record<
 };
 
 export const BROWSER_CONFIG: Record<
-  SpyDevice.Browser,
+  SpyClient.Browser,
   {
     logo: string;
     label: string;
@@ -136,28 +140,29 @@ export const BROWSER_CONFIG: Record<
   'mp-xhs': { logo: mpXhsSvg, label: t('common.mpxhs') },
   'mp-uni': { logo: uniSvg, label: 'Uni APP' },
   'uni-native': { logo: uniSvg, label: 'Uni APP' },
+  harmony: { logo: harmonySvg, label: 'Harmony' },
 };
 
 export const getOSName = (os: string) => {
-  return OS_CONFIG[os.toLowerCase() as SpyDevice.OS]?.label || 'Unknown';
+  return OS_CONFIG[os.toLowerCase() as SpyClient.OS]?.label || 'Unknown';
 };
 
 export const getOSLogo = (os: string) => {
-  return OS_CONFIG[os.toLowerCase() as SpyDevice.OS]?.logo || pcSvg;
+  return OS_CONFIG[os.toLowerCase() as SpyClient.OS]?.logo || pcSvg;
 };
 
 export const getBrowserName = (browser: string) => {
   return (
-    BROWSER_CONFIG[browser.toLowerCase() as SpyDevice.Browser]?.label ||
+    BROWSER_CONFIG[browser.toLowerCase() as SpyClient.Browser]?.label ||
     'Unknown'
   );
 };
 
 export const getBrowserLogo = (browser: string) => {
-  return BROWSER_CONFIG[browser as SpyDevice.Browser]?.logo || browserSvg;
+  return BROWSER_CONFIG[browser as SpyClient.Browser]?.logo || browserSvg;
 };
 
-const MP_REGEXPS = {} as Record<SpyDevice.MPType, RegExp>;
+const MP_REGEXPS = {} as Record<SpyClient.MPType, RegExp>;
 
 AllMPTypes.forEach((mpType) => {
   MP_REGEXPS[mpType] = new RegExp(`${mpType}/([\\d.]+)`);
@@ -174,7 +179,7 @@ const BROWSER_REGEXPS = {
   safari: /Version\/([\d.]+).*Safari/,
   'uni-native': /uni-native\/([\d.]+)/,
   ...MP_REGEXPS,
-} as Record<SpyDevice.Browser, RegExp>;
+} as Record<SpyClient.Browser, RegExp>;
 
 const OS_REGEXPS = {
   windows: /(Windows NT |windows\/)([\d_.]+)/,
@@ -184,11 +189,9 @@ const OS_REGEXPS = {
   android: /(Android |android\/)([\d_.]+)/,
   linux: /Linux/,
   harmony: /(OpenHarmony )([\d_.]+)/,
-} as Record<SpyDevice.OS, RegExp>;
+} as Record<SpyClient.OS, RegExp>;
 
-export function parseUserAgent(
-  uaString: string = window.navigator.userAgent,
-): ClientInfo {
+export function parseUserAgent(uaString: string = window.navigator.userAgent) {
   const osInfo: OSInfo = {
     type: 'unknown',
     name: 'Unknown',
@@ -203,8 +206,8 @@ export function parseUserAgent(
   // 判断操作系统
   for (const key in OS_REGEXPS) {
     if (Object.hasOwn(OS_REGEXPS, key)) {
-      const os = key as SpyDevice.OS;
-      const reg = OS_REGEXPS[os as SpyDevice.OS];
+      const os = key as SpyClient.OS;
+      const reg = OS_REGEXPS[os as SpyClient.OS];
       const match = uaString.match(reg);
       if (match) {
         osInfo.type = os;
@@ -217,7 +220,7 @@ export function parseUserAgent(
   // 判断浏览器
   for (const key in BROWSER_REGEXPS) {
     if (Object.hasOwn(BROWSER_REGEXPS, key)) {
-      const browser = key as SpyDevice.Browser;
+      const browser = key as SpyClient.Browser;
       const match = uaString.match(BROWSER_REGEXPS[browser]);
       if (match) {
         browserInfo.type = browser;
@@ -268,12 +271,15 @@ export function parseUserAgent(
 // }
 
 // get client info from system message
-export function useClientInfoFromMsg() {
-  const systemMsg = useSocketMessageStore((state) => state.systemMsg);
-  const system = systemMsg?.[0]?.system;
-  if (system) {
-    const { ua } = system;
-    return parseUserAgent(ua);
-  }
-  return null;
+export function parseClientInfo(msg: SpyClient.DataItem): ParsedClientInfo {
+  const { ua = '', sdk = 'unknown', plugins = [], isDevTools } = msg;
+  const { os, browser } = parseUserAgent(msg.ua);
+  return {
+    ua,
+    os,
+    browser,
+    sdk,
+    plugins,
+    isDevTools,
+  };
 }

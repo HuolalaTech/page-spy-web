@@ -1,15 +1,15 @@
-import { useClientInfoFromMsg } from '@/utils/brand';
 import { ReactComponent as StorageSvg } from '@/assets/image/storage.svg';
 import { ReactComponent as CookieSvg } from '@/assets/image/cookie.svg';
 import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
-import { SpyDevice, SpyStorage } from '@huolala-tech/page-spy-types';
+import { SpyClient, SpyStorage } from '@huolala-tech/page-spy-types';
 import { FunctionComponent } from 'react';
+import { useSocketMessageStore } from './socket-message';
 
 export const STORAGE_TYPES: {
   name: SpyStorage.DataType | 'indexedDB';
   label: string;
   icon: FunctionComponent;
-  visible: (browser?: SpyDevice.Browser) => boolean;
+  visible: (browser?: SpyClient.Browser) => boolean;
 }[] = [
   {
     name: 'localStorage',
@@ -49,7 +49,7 @@ export const STORAGE_TYPES: {
 ];
 
 export const useStorageTypes = () => {
-  const clientInfo = useClientInfoFromMsg();
+  const clientInfo = useSocketMessageStore((state) => state.clientInfo);
   return STORAGE_TYPES.filter((s) => {
     return s.visible(clientInfo?.browser.type);
   });

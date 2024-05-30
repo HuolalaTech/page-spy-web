@@ -1,4 +1,5 @@
 export const CONNECT = 'connect';
+export const CLIENT_INFO = 'client-info';
 export const CONSOLE = 'console';
 export const SYSTEM = 'system';
 export const NETWORK = 'network';

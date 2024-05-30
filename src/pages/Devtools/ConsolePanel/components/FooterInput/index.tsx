@@ -12,7 +12,6 @@ import { useRef, useState, useEffect, useCallback, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { KeyboardEvent } from 'react';
 import { useMiscStore } from '@/store/misc';
-import { useClientInfoFromMsg } from '@/utils/brand';
 import { parse, Program } from 'acorn';
 
 const EXECUTE_HISTORY_ID = 'page_spy_execute_history';
@@ -20,11 +19,11 @@ const EXECUTE_HISTORY_MAX_SIZE = 100;
 
 export const FooterInput = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'console' });
-  const [socket, clearRecord] = useSocketMessageStore((state) => [
+  const [socket, clearRecord, clientInfo] = useSocketMessageStore((state) => [
     state.socket,
     state.clearRecord,
+    state.clientInfo,
   ]);
-  const clientInfo = useClientInfoFromMsg();
 
   const inputRef = useRef<TextAreaRef | null>(null);
   const [code, setCode] = useState<string>('');
