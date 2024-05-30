@@ -265,7 +265,7 @@ export const RoomList = () => {
                 return data[index].map((i) => i.address).join(',');
               }}
             >
-              {RowRooms}
+              {RowRooms as any}
             </FixedSizeList>
           );
         }}
