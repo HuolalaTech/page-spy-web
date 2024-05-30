@@ -7,7 +7,7 @@ import {
   getBrowserName,
   parseUserAgent,
 } from '@/utils/brand';
-import { useRequest } from 'ahooks';
+import { useEventListener, useMount, useRequest, useThrottleFn } from 'ahooks';
 import {
   Typography,
   Row,
@@ -21,46 +21,26 @@ import {
   Space,
   Layout,
 } from 'antd';
-import { useCallback, useMemo, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { ClearOutlined, SearchOutlined } from '@ant-design/icons';
 import { RoomCard } from './RoomCard';
+import { useRoomListStore } from '@/store/room-list';
+import { useShallow } from 'zustand/react/shallow';
+import AutoSizer from 'react-virtualized-auto-sizer';
+import {
+  FixedSizeList,
+  ListChildComponentProps,
+  ReactElementType,
+} from 'react-window';
+import { LoadingFallback } from '@/components/LoadingFallback';
 
 const { Title } = Typography;
 const { Option } = Select;
 const { Sider, Content } = Layout;
 
-const sortConnections = (data: I.SpyRoom[]) => {
-  const [valid, invalid] = (data || []).reduce(
-    (acc, cur) => {
-      const hasClient =
-        cur.connections.findIndex((i) => i.userId === 'Client') > -1;
-      if (hasClient) acc[0].push(cur);
-      else acc[1].push(cur);
-      return acc;
-    },
-    [[], []] as I.SpyRoom[][],
-  );
-
-  // 有效房间再按创建时间升序
-  const ascWithCreatedAtForInvalid = valid.sort((a, b) => {
-    if (a.createdAt < b.createdAt) {
-      return -1;
-    }
-    return 1;
-  });
-  // 失效房间再按活动时间降序
-  const ascWithActiveAtForInvalid = invalid.sort((a, b) => {
-    if (a.activeAt > b.activeAt) {
-      return -1;
-    }
-    return 1;
-  });
-
-  return [...ascWithCreatedAtForInvalid, ...ascWithActiveAtForInvalid];
-};
-
+// 按搜索条件过滤房间
 const filterConnections = (
   data: I.SpyRoom[],
   condition: Record<'title' | 'address' | 'os' | 'browser', string>,
@@ -81,18 +61,108 @@ const filterConnections = (
     });
 };
 
+// 虚拟列表外层容器
+const ContentContainer = forwardRef<HTMLDivElement, any>(
+  ({ style, ...rest }, ref) => {
+    return (
+      <div
+        ref={ref}
+        style={{
+          ...style,
+          height: `${parseFloat(style.height) + 24 * 2}px`,
+        }}
+        {...rest}
+      />
+    );
+  },
+) as ReactElementType;
+
+// 每一行的房间
+const RowRooms = ({
+  index,
+  style,
+  data,
+}: ListChildComponentProps<I.SpyRoom[][]>) => {
+  const [columnCount] = useRoomListStore(
+    useShallow((state) => [state.columnCount]),
+  );
+  const [isLoading, setIsLoading] = useState(true);
+  useMount(() => {
+    setIsLoading(false);
+  });
+
+  return (
+    <div
+      style={{ ...style, top: Number(style.top) + 24, paddingInline: 24 }}
+      data-index={index}
+    >
+      {isLoading ? (
+        <LoadingFallback />
+      ) : (
+        <Row gutter={24}>
+          {data[index].map((room) => {
+            return (
+              <Col span={24 / columnCount} key={room.address}>
+                <RoomCard key={room.address} room={room} />
+              </Col>
+            );
+          })}
+        </Row>
+      )}
+    </div>
+  );
+};
+
 export const RoomList = () => {
-  const [form] = Form.useForm();
   const { t } = useTranslation();
+  const [form] = Form.useForm();
+
+  const [conditions, setConditions] = useState({
+    title: '',
+    address: '',
+    os: '',
+    browser: '',
+  });
+  const [rowCount, roomList, updateRoomList, setColumnCount] = useRoomListStore(
+    useShallow((state) => [
+      state.rowCount,
+      state.roomList,
+      state.updateRoomList,
+      state.setColumnCount,
+    ]),
+  );
+  const updateLayout = useThrottleFn(
+    () => {
+      const { innerWidth } = window;
+      let span = 6;
+      if (innerWidth < 800) {
+        span = 2;
+      } else if (innerWidth < 1200) {
+        span = 3;
+      } else if (innerWidth < 1600) {
+        span = 4;
+      }
+      setColumnCount(span);
+      updateRoomList(connectionList);
+    },
+    { wait: 500 },
+  );
+  useEffect(() => {
+    updateLayout.run();
+    return updateLayout.cancel;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEventListener('resize', updateLayout.run);
 
   const {
     data: connectionList = [],
     error,
+    loading,
     runAsync: requestConnections,
   } = useRequest(
     async (group = '') => {
       const res = await getSpyRoom(group);
-      return res.data?.map((conn) => {
+      return (res.data || []).map((conn) => {
         const { os, browser, framework } = parseUserAgent(conn.name);
         return {
           ...conn,
@@ -103,9 +173,12 @@ export const RoomList = () => {
       });
     },
     {
-      pollingInterval: 5000,
+      pollingInterval: 10 * 1000,
       pollingWhenHidden: false,
       pollingErrorRetryCount: 0,
+      onSuccess(data) {
+        updateRoomList(filterConnections(data, conditions));
+      },
       onError(e) {
         message.error(e.message);
       },
@@ -138,13 +211,6 @@ export const RoomList = () => {
     });
   }, [connectionList]);
 
-  const [conditions, setConditions] = useState({
-    title: '',
-    address: '',
-    os: '',
-    browser: '',
-  });
-
   const onFormFinish = useCallback(
     async (value: any) => {
       try {
@@ -161,7 +227,10 @@ export const RoomList = () => {
   );
 
   const mainContent = useMemo(() => {
-    if (error || connectionList.length === 0)
+    if (loading) {
+      return <LoadingFallback />;
+    }
+    if (error || roomList.length === 0)
       return (
         <Empty
           style={{
@@ -170,16 +239,29 @@ export const RoomList = () => {
         />
       );
 
-    const list = sortConnections(filterConnections(connectionList, conditions));
-
     return (
-      <Row gutter={24}>
-        {list.map((room) => (
-          <RoomCard key={room.address} room={room} />
-        ))}
-      </Row>
+      <AutoSizer>
+        {({ width, height }) => {
+          return (
+            <FixedSizeList
+              width={width}
+              height={height}
+              innerElementType={ContentContainer}
+              useIsScrolling
+              itemCount={rowCount}
+              itemData={roomList}
+              itemSize={230}
+              itemKey={(index, data) => {
+                return data[index].map((i) => i.address).join(',');
+              }}
+            >
+              {RowRooms}
+            </FixedSizeList>
+          );
+        }}
+      </AutoSizer>
     );
-  }, [conditions, connectionList, error]);
+  }, [error, roomList, rowCount]);
 
   return (
     <Layout style={{ height: '100%' }} className="room-list">
@@ -278,7 +360,7 @@ export const RoomList = () => {
           </Row>
         </Form>
       </Sider>
-      <Content style={{ padding: 24 }}>{mainContent}</Content>
+      <Content>{mainContent}</Content>
     </Layout>
   );
 };
