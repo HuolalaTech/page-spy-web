@@ -55,6 +55,8 @@ export interface ParsedClientInfo {
   plugins: string[];
 }
 
+export type ClientRoomInfo = I.SpyRoom & ClientInfo;
+
 // Make miniprogram browser types
 export const AllMPTypes: SpyClient.MPType[] = [
   'mp-wechat',

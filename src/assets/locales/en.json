@@ -182,7 +182,13 @@
   "connections": {
     "select-os": "Select OS",
     "select-browser": "Select browser",
-    "select-mp": "Select Mini Program"
+    "select-mp": "Select Mini Program",
+    "maximum-alert": "Just show partial connections. Please further filter through the conditions.",
+    "status": {
+      "active": "Debugging",
+      "wait": "Pending Debug",
+      "inactive": "Unable to Debug"
+    }
   },
   "replay": {
     "list-title": "Replay List",
