@@ -22,12 +22,13 @@ import {
   Space,
   Layout,
 } from 'antd';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { ClearOutlined, SearchOutlined } from '@ant-design/icons';
 import { RoomCard } from './RoomCard';
 import { Statistics } from './Statistics';
+import { LoadingFallback } from '@/components/LoadingFallback';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -91,7 +92,9 @@ export const RoomList = () => {
   const showDashboard = localStorage.getItem('page-spy-dashboard') === '1';
 
   const [showMaximumAlert, setMaximumAlert] = useState(false);
+  const showLoadingRef = useRef(false);
   const {
+    loading,
     data: connectionList = [],
     error,
     runAsync: requestConnections,
@@ -114,6 +117,9 @@ export const RoomList = () => {
       pollingErrorRetryCount: 0,
       onError(e) {
         message.error(e.message);
+      },
+      onFinally() {
+        showLoadingRef.current = true;
       },
     },
   );
@@ -167,7 +173,13 @@ export const RoomList = () => {
   );
 
   const mainContent = useMemo(() => {
-    if (error || connectionList.length === 0)
+    if (loading && !showLoadingRef.current) {
+      return <LoadingFallback />;
+    }
+
+    const matchedConnections = filterConnections(connectionList, conditions);
+    setMaximumAlert(matchedConnections.length > MAXIMUM_CONNECTIONS);
+    if (error || matchedConnections.length === 0)
       return (
         <Empty
           style={{
@@ -175,9 +187,6 @@ export const RoomList = () => {
           }}
         />
       );
-
-    const matchedConnections = filterConnections(connectionList, conditions);
-    setMaximumAlert(matchedConnections.length > MAXIMUM_CONNECTIONS);
 
     const list = sortConnections(
       matchedConnections.slice(0, MAXIMUM_CONNECTIONS),
@@ -190,7 +199,7 @@ export const RoomList = () => {
         ))}
       </Row>
     );
-  }, [conditions, connectionList, error]);
+  }, [conditions, connectionList, error, loading]);
 
   return (
     <Layout style={{ height: '100%' }} className="room-list">
