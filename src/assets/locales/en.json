@@ -95,7 +95,8 @@
     "system": "System",
     "browser": "Browser",
     "version": "Version",
-    "mp-warning": "When submitting the mini program for review, DO REMEMBER to delete the SDK in the code, otherwise the review will fail.",
+    "eval-plugin-required": "If you need to dynamically execute code in mini program, please use @huolala-tech/page-spy-mp-eval-plugin in client SDK.",
+    "mp-warning": "When submitting the mini program for review, DO REMEMBER to delete the mp-eval-plugin in the code, otherwise the review will fail.",
     "menu": {
       "Console": "Console",
       "Network": "Network",

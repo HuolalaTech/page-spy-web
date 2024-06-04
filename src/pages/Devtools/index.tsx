@@ -347,7 +347,7 @@ export default function Devtools() {
       <Sider theme="light">
         <div className="page-spy-devtools__sider">
           <ClientInfo />
-          {clientInfo?.browser.type.startsWith('mp-') && (
+          {clientInfo?.plugins?.includes('MPEvalPlugin') && (
             <MPWarning className="sider-warning" />
           )}
           <BadgeMenu active={hashKey} />
