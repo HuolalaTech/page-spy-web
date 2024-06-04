@@ -21,12 +21,18 @@
         border-bottom: 1px solid @table-border-color;
       }
     }
+    &__body {
+      td:nth-child(1) {
+        cursor: pointer;
+      }
+    }
   }
   table {
     width: 100%;
     table-layout: fixed;
     font-size: 13px;
     color: #4a4b4d;
+    border-collapse: collapse;
     tr {
       &:nth-child(odd) {
         background-color: #f5f5f5;
@@ -42,9 +48,9 @@
     td {
       #mixin > .ellipsis;
       border-right: 1px solid @table-border-color;
-      padding: 2px 4px;
+      padding: 4px 6px;
       &.active {
-        background-color: #2c66df;
+        background-color: fade(@primary-color, 70%);
         color: #fff;
       }
       &:nth-child(1) {
@@ -72,7 +78,7 @@
     tbody {
       tr {
         &:hover {
-          background-color: #f0f4fc;
+          background-color: fade(@primary-color, 8%);
         }
       }
       td:nth-child(6) {
