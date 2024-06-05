@@ -45,3 +45,36 @@ export function getLogUrl(url?: string) {
   }
   return '/';
 }
+
+export function resolveUrlInfo(target: URL | string, base?: string | URL) {
+  try {
+    let url: string;
+    let query: [string, string][];
+
+    const { searchParams, href, origin, pathname } = new URL(target, base);
+    url = href;
+    query = [...searchParams.entries()];
+
+    // https://exp.com => "exp.com/"
+    // https://exp.com/ => "exp.com/"
+    // https://exp.com/devtools => "devtools"
+    // https://exp.com/devtools/ => "devtools/"
+    // https://exp.com/devtools?version=Mac/10.15.7 => "devtools?version=Mac/10.15.7"
+    // https://exp.com/devtools/?version=Mac/10.15.7 => "devtools/?version=Mac/10.15.7"
+    const name = url.replace(/^.*?([^/]+)(\/)*(\?.*?)?$/, '$1$2$3') || '';
+
+    return {
+      url,
+      name,
+      query,
+      rawUrl: origin + pathname,
+    };
+  } /* c8 ignore start */ catch (e) {
+    return {
+      url: 'Unknown',
+      name: 'Unknown',
+      query: null,
+      rawUrl: 'Unknown',
+    };
+  } /* c8 ignore stop */
+}

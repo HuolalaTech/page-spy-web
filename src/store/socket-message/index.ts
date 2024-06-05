@@ -12,9 +12,9 @@ import {
   SpyClient,
 } from '@huolala-tech/page-spy-types';
 import { API_BASE_URL } from '@/apis/request';
-import { resolveProtocol } from '@/utils';
+import { resolveProtocol, resolveUrlInfo } from '@/utils';
 import { ElementContent } from 'hast';
-import { getFixedPageMsg } from './utils';
+import { getFixedPageMsg, processMPNetworkMsg } from './utils';
 import { isEqual, omit } from 'lodash-es';
 import {
   parseClientInfo,
@@ -109,6 +109,12 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       );
     });
     socket.addListener('network', (data: SpyNetwork.RequestInfo) => {
+      // 小程序 network 信息需要特别处理。
+      // 你可能会担心，会不会有 network msg 先于 clientInfo 发送过来导致被遗漏？
+      // 不会的，clientInfo 是在 socket 连接建立之后立马送过来的，之后才会 flush 历史数据。
+      if (get().clientInfo?.browser.type.startsWith('mp-')) {
+        processMPNetworkMsg(data);
+      }
       const cache = get().networkMsg;
       // 整理 xhr 的消息
       const { id } = data;
