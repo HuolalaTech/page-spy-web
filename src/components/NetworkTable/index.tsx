@@ -1,21 +1,14 @@
 /* eslint-disable no-case-declarations */
-import { validEntries } from './utils';
-import { getObjectKeys } from '@/utils';
 import { SpyNetwork, SpyStorage } from '@huolala-tech/page-spy-types';
-import { Dropdown, Empty, Space } from 'antd';
+import { Dropdown, Empty } from 'antd';
 import clsx from 'clsx';
 import copy from 'copy-to-clipboard';
 import { isString } from 'lodash-es';
 import { useRef, useState, useMemo, useEffect, useCallback } from 'react';
-import { EntriesBody } from '@/components/EntriesBody';
-import { PartOfHeader } from './PartOfHeader';
-import { QueryParamsBlock } from './QueryParamsBlock';
-import { RequestPayloadBlock } from './RequestPayloadBlock';
-import { ResponseBody } from './ResponseBody';
-import { StatusCode } from './StatusCode';
 import { getStatusText, getTime } from './utils';
 import { useTranslation } from 'react-i18next';
 import './index.less';
+import { NetworkDetail } from './NetworkDetail';
 
 const networkTitle = ['Name', 'Path', 'Method', 'Status', 'Type', 'Time(≈)'];
 const generalFieldMap = {
@@ -170,89 +163,6 @@ export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
     [],
   );
 
-  const DetailBlock = useMemo(() => {
-    if (detailData) {
-      const emptyContent = (
-        <Empty
-          image={Empty.PRESENTED_IMAGE_SIMPLE}
-          description={false}
-          style={{ margin: '10px 0' }}
-          imageStyle={{ height: 30 }}
-        />
-      );
-      const { getData, requestPayload, requestHeader, responseHeader } =
-        detailData;
-      const headerContent = [
-        {
-          label: 'Request Header',
-          data: validEntries(requestHeader) ? requestHeader : [],
-        },
-        {
-          label: 'Response Header',
-          data: validEntries(responseHeader) ? responseHeader : [],
-        },
-      ];
-      return (
-        <>
-          {/* General */}
-          <div className="detail-block">
-            <div className="detail-block__label">General Info</div>
-            <div className="detail-block__content">
-              {getObjectKeys(generalFieldMap).map((label) => {
-                const field = generalFieldMap[label];
-                return (
-                  <div className="entries-item" key={label}>
-                    <b className="entries-item__label">{label}: &nbsp;</b>
-                    <span className="entries-item__value">
-                      <code>{detailData[field]}</code>
-                    </span>
-                  </div>
-                );
-              })}
-
-              <div className="entries-item">
-                <b className="entries-item__label">Status Code: &nbsp;</b>
-                <span className="entries-item__value">
-                  <code>
-                    <StatusCode data={detailData} />
-                  </code>
-                </span>
-              </div>
-            </div>
-          </div>
-          {/* Header Content */}
-          {headerContent.map((item) => {
-            return (
-              <div className="detail-block" key={item.label}>
-                <Space className="detail-block__label">
-                  <span>{item.label}</span>
-                  <PartOfHeader />
-                </Space>
-                <div className="detail-block__content">
-                  {item.data ? <EntriesBody data={item.data} /> : emptyContent}
-                </div>
-              </div>
-            );
-          })}
-          {/* Query String Parametes */}
-          {validEntries(getData) && <QueryParamsBlock data={getData} />}
-
-          {/* Request Payload */}
-          {requestPayload && <RequestPayloadBlock data={requestPayload} />}
-
-          {/* Response Body */}
-          <div className="detail-block">
-            <div className="detail-block__label">Response</div>
-            <div className="detail-block__content">
-              <ResponseBody data={detailData} />
-            </div>
-          </div>
-        </>
-      );
-    }
-    return <Empty />;
-  }, [detailData]);
-
   return (
     <div className="network-table">
       <div className="network-list">
@@ -328,7 +238,7 @@ export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
           <Empty description={false} style={{ marginTop: 40 }} />
         )}
       </div>
-      {showDetail && (
+      {showDetail && detailData && (
         <div
           className="network-detail"
           style={{
@@ -338,7 +248,7 @@ export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
             detailClicked.current = true;
           }}
         >
-          {DetailBlock}
+          <NetworkDetail data={detailData} />
         </div>
       )}
     </div>
