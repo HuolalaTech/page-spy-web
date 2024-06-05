@@ -23,14 +23,14 @@ import './index.less';
 import { StoragePanel } from './StoragePanel';
 import useSearch from '@/utils/useSearch';
 import { useEventListener } from '@/utils/useEventListener';
-import { parseUserAgent, useClientInfoFromMsg } from '@/utils/brand';
+import { parseUserAgent } from '@/utils/brand';
 import { useTranslation } from 'react-i18next';
 import { ConnectStatus } from './ConnectStatus';
 import { useSocketMessageStore } from '@/store/socket-message';
 import '@huolala-tech/react-json-view/dist/style.css';
 import { throttle } from 'lodash-es';
 import { CUSTOM_EVENT } from '@/store/socket-message/socket';
-import { SpyDevice } from '@huolala-tech/page-spy-types';
+import { SpyClient } from '@huolala-tech/page-spy-types';
 import MPWarning from '@/components/MPWarning';
 
 const { Sider, Content } = Layout;
@@ -43,8 +43,8 @@ const MENU_COMPONENTS: Record<
   {
     component: React.FC;
     visible?: (params: {
-      browser: SpyDevice.Browser;
-      os: SpyDevice.OS;
+      browser: SpyClient.Browser;
+      os: SpyClient.OS;
     }) => boolean;
   }
 > = {
@@ -119,7 +119,7 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
     }));
   }, [active]);
 
-  const clientInfo = useClientInfoFromMsg();
+  const clientInfo = useSocketMessageStore((socket) => socket.clientInfo);
 
   const menuItems = useMemo(() => {
     if (!clientInfo) return [];
@@ -253,7 +253,7 @@ const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
 const ClientInfo = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
   const { address = '' } = useSearch();
-  const clientInfo = useClientInfoFromMsg();
+  const clientInfo = useSocketMessageStore((state) => state.clientInfo);
 
   return (
     <div className="client-info">
@@ -312,12 +312,11 @@ const ClientInfo = memo(() => {
 export default function Devtools() {
   const { hash = '#Console' } = useLocation();
   const { address = '', secret = '' } = useSearch();
-  const [socket, initSocket] = useSocketMessageStore((state) => [
+  const [socket, initSocket, clientInfo] = useSocketMessageStore((state) => [
     state.socket,
     state.initSocket,
+    state.clientInfo,
   ]);
-
-  const clientInfo = useClientInfoFromMsg();
 
   useEffect(() => {
     if (socket) return;

@@ -10,7 +10,6 @@ import { Button, Space, Spin } from 'antd';
 import { ElementPanel } from '../ElementPanel';
 import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
-import { useClientInfoFromMsg } from '@/utils/brand';
 
 function getTime() {
   const date = new Date();
@@ -34,8 +33,9 @@ export const PCFrame = ({
 }: PropsWithChildren<FrameWrapperProps>) => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
   const { t } = useTranslation('translation', { keyPrefix: 'page' });
-  const [pageLocation] = useSocketMessageStore((state) => [
+  const [pageLocation, clientInfo] = useSocketMessageStore((state) => [
     state.pageMsg.location,
+    state.clientInfo,
   ]);
   const [elementVisible, setElementVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -98,7 +98,6 @@ export const PCFrame = ({
 
   const [enableDevice, setEnableDevice] = useState(false);
 
-  const clientInfo = useClientInfoFromMsg();
   useEffect(() => {
     if (!clientInfo) return;
     if (['ios', 'ipad', 'android'].indexOf(clientInfo.os.type) >= 0) {
