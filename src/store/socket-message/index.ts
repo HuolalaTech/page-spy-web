@@ -9,17 +9,24 @@ import {
   SpyPage,
   SpyStorage,
   SpyDatabase,
+  SpyClient,
 } from '@huolala-tech/page-spy-types';
 import { API_BASE_URL } from '@/apis/request';
 import { resolveProtocol } from '@/utils';
 import { ElementContent } from 'hast';
 import { getFixedPageMsg } from './utils';
 import { isEqual, omit } from 'lodash-es';
+import {
+  parseClientInfo,
+  ParsedClientInfo,
+  parseUserAgent,
+} from '@/utils/brand';
 
 const USER_ID = 'Debugger';
 
 interface SocketMessage {
   socket: SocketStore | null;
+  clientInfo: ParsedClientInfo | null;
   consoleMsg: SpyConsole.DataItem[];
   consoleMsgTypeFilter: string[];
   consoleMsgKeywordFilter: string;
@@ -45,6 +52,7 @@ interface SocketMessage {
 
 export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
   socket: null,
+  clientInfo: null,
   consoleMsg: [],
   consoleMsgTypeFilter: [],
   consoleMsgKeywordFilter: '',
@@ -79,6 +87,13 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
 
     const socket = new SocketStore(url);
     set({ socket });
+    socket.addListener('client-info', (data: SpyClient.DataItem) => {
+      set(
+        produce<SocketMessage>((state) => {
+          state.clientInfo = parseClientInfo(data);
+        }),
+      );
+    });
     socket.addListener('console', (data: SpyConsole.DataItem) => {
       set(
         produce<SocketMessage>((state) => {
