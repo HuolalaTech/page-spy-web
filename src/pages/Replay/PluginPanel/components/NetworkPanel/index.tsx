@@ -1,23 +1,11 @@
 import { NetworkTable } from '@/components/NetworkTable';
 import { useReplayStore } from '@/store/replay';
 import './index.less';
-import { useForceThrottleRender } from '@/utils/useForceRender';
-import { memo, useEffect, useRef } from 'react';
+import { memo } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 export const NetworkPanel = memo(() => {
-  const networkMsg = useRef(useReplayStore.getState().networkMsg);
-  const { throttleRender } = useForceThrottleRender();
+  const networkMsg = useReplayStore(useShallow((state) => state.networkMsg));
 
-  useEffect(
-    () =>
-      useReplayStore.subscribe((state) => {
-        if (networkMsg.current.length !== state.networkMsg.length) {
-          networkMsg.current = state.networkMsg;
-          throttleRender();
-        }
-      }),
-    [throttleRender],
-  );
-
-  return <NetworkTable data={networkMsg.current} />;
+  return <NetworkTable data={networkMsg} />;
 });

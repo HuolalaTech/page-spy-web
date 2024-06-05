@@ -8,24 +8,21 @@ import { ProgressBar } from './components/ProgressBar';
 import { Actions } from './components/Actions';
 import { Duration } from './components/Duration';
 import { useShallow } from 'zustand/react/shallow';
+import { throttle } from 'lodash-es';
 
 export const PlayControl = memo(() => {
-  const [
-    duration,
-    speed,
-    isPlaying,
-    setIsPlaying,
-    setProgress,
-    flushActiveData,
-  ] = useReplayStore(
-    useShallow((state) => [
-      state.duration,
-      state.speed,
-      state.isPlaying,
-      state.setIsPlaying,
-      state.setProgress,
-      state.flushActiveData,
-    ]),
+  const [duration, speed, isPlaying, setIsPlaying, setProgress] =
+    useReplayStore(
+      useShallow((state) => [
+        state.duration,
+        state.speed,
+        state.isPlaying,
+        state.setIsPlaying,
+        state.setProgress,
+      ]),
+    );
+  const flushActiveData = useRef(
+    throttle(useReplayStore.getState().flushActiveData, 100),
   );
   const elapsed = useRef(0);
   const raf = useRef(0);
@@ -58,12 +55,12 @@ export const PlayControl = memo(() => {
         }),
       );
     }
-    flushActiveData();
+    flushActiveData.current();
 
     if (progress < 1 && isPlaying) {
       raf.current = requestAnimationFrame(rafHandler);
     }
-  }, [duration, isPlaying, setIsPlaying, setProgress, speed, flushActiveData]);
+  }, [duration, isPlaying, setIsPlaying, setProgress, speed]);
 
   useEffect(() => {
     const { progress, duration } = useReplayStore.getState();
