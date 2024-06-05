@@ -2,13 +2,14 @@ import { EntriesBody } from '@/components/EntriesBody';
 import { getObjectKeys } from '@/utils';
 import { SpyNetwork } from '@huolala-tech/page-spy-types';
 import { Empty, Space } from 'antd';
-import { ReactNode, memo } from 'react';
+import { ReactNode, memo, useEffect, useMemo, useState } from 'react';
 import { PartOfHeader } from '../PartOfHeader';
 import { StatusCode } from '../StatusCode';
 import { validEntries } from '../utils';
 import { QueryParamsBlock } from '../QueryParamsBlock';
 import { RequestPayloadBlock } from '../RequestPayloadBlock';
 import { ResponseBody } from '../ResponseBody';
+import clsx from 'clsx';
 
 interface Props {
   data: SpyNetwork.RequestInfo;
@@ -116,8 +117,19 @@ const TABS: TabItem[] = [
     },
   },
   {
+    title: 'EventStream',
+    visible: (data) => {
+      return data.requestType === 'eventsource';
+    },
+    content: (data) => {
+      return <ResponseBody data={data} />;
+    },
+  },
+  {
     title: 'Response',
-    visible: () => true,
+    visible: (data) => {
+      return data.requestType !== 'eventsource';
+    },
     content: (data) => {
       return <ResponseBody data={data} />;
     },
@@ -125,17 +137,54 @@ const TABS: TabItem[] = [
 ];
 
 export const NetworkDetail = memo(({ data }: Props) => {
+  const [activeTab, setActiveTab] = useState('Headers');
+  const activeContent = useMemo(() => {
+    const tabItem = TABS.find((t) => t.title === activeTab);
+    if (!tabItem) return <Empty />;
+    return tabItem.content(data);
+  }, [activeTab, data]);
+
+  useEffect(() => {
+    const ul = document.querySelector(
+      '.network-detail-tabs',
+    ) as HTMLUListElement;
+    if (!ul) return;
+
+    const li = document.querySelector(
+      `[data-tab-id="${activeTab}"]`,
+    ) as HTMLLIElement;
+    if (!li) {
+      setActiveTab('Headers');
+      return;
+    }
+
+    const ulRect = ul.getBoundingClientRect();
+    const liRect = li.getBoundingClientRect();
+    ul.style.setProperty('--width', `${liRect.width}px`);
+    ul.style.setProperty('--left', `${liRect.left - ulRect.left}px`);
+  }, [data, activeTab]);
+
   return (
-    <div className="detail-content">
-      <ul className="detail-content-tabs">
+    <>
+      <ul className="network-detail-tabs">
         {TABS.filter((t) => t.visible(data)).map((i) => {
           return (
-            <li data-tab-id={i.title} key={i.title}>
+            <li
+              key={i.title}
+              data-tab-id={i.title}
+              className={clsx({
+                active: activeTab === i.title,
+              })}
+              onClick={() => {
+                setActiveTab(i.title);
+              }}
+            >
               {i.title}
             </li>
           );
         })}
       </ul>
-    </div>
+      <div className="network-detail-content">{activeContent}</div>
+    </>
   );
 });
