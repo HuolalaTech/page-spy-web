@@ -1,13 +1,13 @@
 import { ReactComponent as StorageSvg } from '@/assets/image/storage.svg';
 import { ReactComponent as CookieSvg } from '@/assets/image/cookie.svg';
 import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
-import { SpyClient, SpyDevice, SpyStorage } from '@huolala-tech/page-spy-types';
+import { SpyClient, SpyStorage } from '@huolala-tech/page-spy-types';
 import { FunctionComponent } from 'react';
 import { useSocketMessageStore } from './socket-message';
 
 export type StorageType = SpyStorage.DataType | 'AppStorage';
 
-export const isBrowser = (browser: SpyDevice.Browser) => {
+export const isBrowser = (browser: SpyClient.Browser) => {
   return [
     'wechat',
     'qq',
@@ -21,19 +21,19 @@ export const isBrowser = (browser: SpyDevice.Browser) => {
   ].includes(browser);
 };
 
-export const isMiniProgram = (browser: SpyDevice.Browser) => {
+export const isMiniProgram = (browser: SpyClient.Browser) => {
   return browser.startsWith('mp-');
 };
 
-export const isUniAppNative = (browser: SpyDevice.Browser) => {
+export const isUniAppNative = (browser: SpyClient.Browser) => {
   return browser === 'uni-native';
 };
 
-export const isHarmonyApp = (browser: SpyDevice.Browser) => {
+export const isHarmonyApp = (browser: SpyClient.Browser) => {
   return browser.startsWith('harmony');
 };
 
-export const isReactNative = (browser: SpyDevice.Browser) => {
+export const isReactNative = (browser: SpyClient.Browser) => {
   return browser === 'react-native';
 };
 
@@ -41,7 +41,7 @@ export const STORAGE_TYPES: {
   name: StorageType | 'indexedDB';
   label: string;
   icon: FunctionComponent;
-  visible: (browser: SpyDevice.Browser) => boolean;
+  visible: (browser: SpyClient.Browser) => boolean;
 }[] = [
   {
     name: 'localStorage',
