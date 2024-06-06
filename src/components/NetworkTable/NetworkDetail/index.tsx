@@ -108,7 +108,7 @@ const TABS: TabItem[] = [
       return (
         <>
           {/* Request Payload */}
-          {requestPayload?.length && (
+          {!!requestPayload?.length && (
             <RequestPayloadBlock data={requestPayload} />
           )}
 
