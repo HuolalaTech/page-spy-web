@@ -37,8 +37,8 @@ export enum TIME_MODE {
 export interface ReplayStore {
   // data
   activity: Activity[];
-  allConsoleMsg: HarborDataItem[];
-  allNetworkMsg: HarborDataItem[];
+  allConsoleMsg: HarborDataItem<SpyConsole.DataItem>[];
+  allNetworkMsg: HarborDataItem<SpyNetwork.RequestInfo>[];
   allRRwebEvent: eventWithTime[];
   allStorageMsg: HarborDataItem<SpyStorage.DataItem>[];
   allSystemMsg: SpySystem.DataItem[];
@@ -178,7 +178,6 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
   flushActiveData() {
     const {
       allConsoleMsg,
-      allNetworkMsg,
       progress,
       duration,
       startTime,
@@ -208,7 +207,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       set(
         produce((state) => {
           state.consoleMsg = allConsoleMsg.map((i) => i.data);
-          state.networkMsg = allNetworkMsg.map((i) => i.data);
+          updateNetworkMsg(currentTime);
           updateStorageMsg(currentTime);
         }),
       );
@@ -243,22 +242,41 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     const { allNetworkMsg, networkMsg } = get();
 
     let networkIndex = 0;
+    const eventSourceData: Record<string, SpyNetwork.RequestInfo> = {};
     const showedNetworkMsg: SpyNetwork.RequestInfo[] = [];
     while (
       networkIndex < allNetworkMsg.length &&
       allNetworkMsg[networkIndex].timestamp <= currentTime
     ) {
-      showedNetworkMsg.push(allNetworkMsg[networkIndex].data);
+      const { data } = allNetworkMsg[networkIndex];
+      const { id, requestType, endTime, response } = data;
+      // @ts-ignore
+      if (requestType === 'eventsource') {
+        if (!eventSourceData[id]) {
+          const result = {
+            ...data,
+            response: [{ time: endTime, data: response }],
+          };
+          eventSourceData[id] = result;
+          showedNetworkMsg.push(result);
+        } else {
+          // 通过 response 数组引用直接修改
+          eventSourceData[id].response.push({
+            time: endTime,
+            data: response,
+          });
+        }
+      } else {
+        showedNetworkMsg.push(data);
+      }
       networkIndex += 1;
     }
 
-    if (showedNetworkMsg.length !== networkMsg.length) {
-      set(
-        produce((state) => {
-          state.networkMsg = showedNetworkMsg;
-        }),
-      );
-    }
+    set(
+      produce((state) => {
+        state.networkMsg = showedNetworkMsg;
+      }),
+    );
   },
   updateStorageMsg(currentTime) {
     const { allStorageMsg } = get();
