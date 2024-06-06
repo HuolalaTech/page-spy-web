@@ -182,7 +182,13 @@
   "connections": {
     "select-os": "운영 체제 선택",
     "select-browser": "브라우저 선택",
-    "select-mp": "Mini Program 선택"
+    "select-mp": "Mini Program 선택",
+    "maximum-alert": "일부 연결만 표시됩니다. 조건을 통해 추가로 필터링하세요.",
+    "status": {
+      "active": "디버깅 중",
+      "wait": "디버깅 대기 중",
+      "inactive": "디버깅 불가"
+    }
   },
   "replay": {
     "list-title": "재생 목록",

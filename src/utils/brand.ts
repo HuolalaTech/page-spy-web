@@ -51,6 +51,8 @@ interface ClientInfo {
   framework?: Framework;
 }
 
+export type ClientRoomInfo = I.SpyRoom & ClientInfo;
+
 // Make miniprogram browser types
 export const AllMPTypes: SpyDevice.MPType[] = [
   'mp-wechat',
