@@ -101,14 +101,16 @@ const TABS: TabItem[] = [
     title: 'Payload',
     visible: (data) => {
       const { getData, requestPayload } = data;
-      return !!requestPayload || validEntries(getData);
+      return !!requestPayload?.length || validEntries(getData);
     },
     content: (data) => {
       const { getData, requestPayload } = data;
       return (
         <>
           {/* Request Payload */}
-          {requestPayload && <RequestPayloadBlock data={requestPayload} />}
+          {requestPayload?.length && (
+            <RequestPayloadBlock data={requestPayload} />
+          )}
 
           {/* Query String Parametes */}
           {validEntries(getData) && <QueryParamsBlock data={getData} />}
