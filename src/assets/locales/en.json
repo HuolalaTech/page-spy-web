@@ -94,6 +94,7 @@
     "device": "Device",
     "system": "System",
     "browser": "Browser",
+    "platform": "Platform",
     "version": "Version",
     "mp-warning": "When submitting the mini program for review, DO REMEMBER to delete the SDK in the code, otherwise the review will fail.",
     "menu": {

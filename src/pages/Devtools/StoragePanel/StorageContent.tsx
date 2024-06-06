@@ -1,10 +1,11 @@
 import { StorageTable } from '@/components/StorageTable';
+import { StorageType } from '@/store/platform-config';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { SpyStorage } from '@huolala-tech/page-spy-types';
 import { memo } from 'react';
 
 interface Props {
-  activeTab: SpyStorage.DataType;
+  activeTab: StorageType;
 }
 
 export const StorageContent = memo(({ activeTab }: Props) => {
