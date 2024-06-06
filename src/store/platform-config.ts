@@ -1,7 +1,7 @@
 import { ReactComponent as StorageSvg } from '@/assets/image/storage.svg';
 import { ReactComponent as CookieSvg } from '@/assets/image/cookie.svg';
 import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
-import { SpyClient, SpyStorage } from '@huolala-tech/page-spy-types';
+import { SpyClient, SpyDevice, SpyStorage } from '@huolala-tech/page-spy-types';
 import { FunctionComponent } from 'react';
 import { useSocketMessageStore } from './socket-message';
 
@@ -31,6 +31,10 @@ export const isUniAppNative = (browser: SpyDevice.Browser) => {
 
 export const isHarmonyApp = (browser: SpyDevice.Browser) => {
   return browser.startsWith('harmony');
+};
+
+export const isReactNative = (browser: SpyDevice.Browser) => {
+  return browser === 'react-native';
 };
 
 export const STORAGE_TYPES: {
@@ -76,6 +80,12 @@ export const STORAGE_TYPES: {
     label: 'AppStorage',
     icon: StorageSvg,
     visible: isHarmonyApp,
+  },
+  {
+    name: 'asyncStorage',
+    label: 'Async Storage',
+    icon: StorageSvg,
+    visible: isReactNative,
   },
 ];
 

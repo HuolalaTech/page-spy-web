@@ -69,6 +69,13 @@
       "install-sdk": "Install dependencies in the target HAP directory:",
       "init-sdk": "<0>Import and initialize the SDK at the appropriate location, using EntryAbility as an example. Check the</0> <1>configuration options</1>:"
     },
+    "rn": {
+      "title": "React Native",
+      "install-sdk": "First, install dependencies in the project:",
+      "init-sdk": "<0>Import and initialize the SDK at the appropriate location. Check the</0> <1>configuration options</1>:",
+      "storage-plugin": "<0>If you use the official recommended storage library @react-native-async-storage/async-storage, we provide an independent plugin for you:</0> <1>Async Storage plugin</1>"
+    },
+
     "end": "That's ALL.",
     "start-debug": "Start debugging by clicking the <1>Connections</1> menu at the top!"
   },
