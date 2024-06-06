@@ -28,10 +28,9 @@ import mpXhsSvg from '@/assets/image/mp-xhs.svg';
 import reactSvg from '@/assets/image/react.svg';
 
 import uniSvg from '@/assets/image/uni.svg';
-import { SpyClient, SpyMessage } from '@huolala-tech/page-spy-types';
-import { useSocketMessageStore } from '@/store/socket-message';
+import { SpyClient } from '@huolala-tech/page-spy-types';
 import { t } from 'i18next';
-import { Framework } from '@huolala-tech/page-spy-types/lib/client';
+import { Browser, Framework } from '@huolala-tech/page-spy-types/lib/client';
 
 interface OSInfo {
   type: SpyClient.OS;
@@ -56,7 +55,10 @@ export interface ParsedClientInfo {
   plugins: string[];
 }
 
-export type ClientRoomInfo = I.SpyRoom & ClientInfo;
+export type ClientRoomInfo = I.SpyRoom & {
+  os: OSInfo;
+  browser: BrowserInfo;
+};
 
 // Make miniprogram browser types
 export const AllMPTypes: SpyClient.MPType[] = [

@@ -92,7 +92,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     localStorage: [],
     sessionStorage: [],
     cookie: [],
-    // 'mpStorage' is just for type correct at now
+    // following 'storage' is just for type correct at now
     mpStorage: [],
     asyncStorage: [],
   },

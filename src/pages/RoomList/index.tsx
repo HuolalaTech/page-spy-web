@@ -102,12 +102,11 @@ export const RoomList = () => {
     async (group = '') => {
       const res = await getSpyRoom(group);
       return res.data?.map((conn) => {
-        const { os, browser, framework } = parseUserAgent(conn.name);
+        const { os, browser } = parseUserAgent(conn.name);
         return {
           ...conn,
           os,
           browser,
-          framework,
         };
       });
     },

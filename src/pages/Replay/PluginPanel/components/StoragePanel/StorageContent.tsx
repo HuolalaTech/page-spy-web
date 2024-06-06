@@ -11,5 +11,5 @@ interface Props {
 export const StorageContent = memo(({ activeTab }: Props) => {
   const storageMsg = useReplayStore(useShallow((state) => state.storageMsg));
 
-  return <StorageTable activeTab={activeTab} storageMsg={storageMsg} />;
+  return <StorageTable activeTab={activeTab} storageMsg={storageMsg as any} />;
 });
