@@ -115,7 +115,7 @@ yarn add @huolala-tech/page-spy-taro@latest
         {
           title: t('inject.harmony.install-sdk'),
           code: `# API 9\nohpm install @huolala/page-spy-harmony@^1.0.0\n
-# 🟡 WIP: API Next\nohpm install @huolala/page-spy-harmony@^2`,
+# API 11\nohpm install @huolala/page-spy-harmony@^2`,
           lang: 'bash',
         },
         {
@@ -144,7 +144,7 @@ export default class EntryAbility extends UIAbility {
       rn: [
         {
           title: t('inject.rn.install-sdk'),
-          code: `yarn add @huolala-tech/page-spy-react-native@^1.0.0`,
+          code: `yarn add @huolala-tech/page-spy-react-native@latest`,
           lang: 'bash',
         },
         {

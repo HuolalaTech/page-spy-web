@@ -182,7 +182,7 @@ const BROWSER_REGEXPS = {
   firefox: /(?:Firefox|FxiOS)\/([\d.]+)/,
   safari: /Version\/([\d.]+).*Safari/,
   'uni-native': /uni-native\/([\d.]+)/,
-  harmony: /Device\/(.*)/,
+  harmony: /\sharmony\/(.*)$/,
   'react-native': /react-native\/([\d.]+)/,
   ...MP_REGEXPS,
 } as Record<SpyClient.Browser | 'harmony', RegExp>;
@@ -194,7 +194,7 @@ const OS_REGEXPS = {
   mac: /(Mac OS X |macos\/)([\d_.]+)/,
   android: /(Android |android\/)([\d_.]+)/,
   linux: /Linux/,
-  harmony: /(HarmonyOS\/)([\d_.]+[\(\w\)]*)/,
+  harmony: /(harmony\/)([\d_.]+[\(\w\)]*)/,
 } as Record<SpyClient.OS, RegExp>;
 
 export function parseUserAgent(uaString: string = window.navigator.userAgent) {
