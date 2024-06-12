@@ -3,7 +3,7 @@ import './index.less';
 import { HeaderActions } from './components/HeaderActions';
 import { MainContent } from './components/MainContent';
 import { FooterInput } from './components/FooterInput';
-import { ErrorDetailDrawer } from './components/ErrorDetailDrawer';
+import { ErrorDetailDrawer } from '@/components/ErrorDetailDrawer';
 import { useMemo } from 'react';
 import { useSocketMessageStore } from '@/store/socket-message';
 
