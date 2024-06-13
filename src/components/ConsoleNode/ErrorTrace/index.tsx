@@ -4,7 +4,6 @@ import './index.less';
 import Icon from '@ant-design/icons';
 import { useCallback } from 'react';
 import ErrorStackParser from 'error-stack-parser';
-import { useTranslation } from 'react-i18next';
 
 export type RequiredFrames = Required<StackFrame>[];
 
@@ -57,8 +56,6 @@ interface Props {
   data: { error: Error; frames: RequiredFrames };
 }
 export const ErrorTraceNode = ({ data }: Props) => {
-  const { t } = useTranslation('translation', { keyPrefix: 'error' });
-
   const onPopupDetail = useCallback(() => {
     window.dispatchEvent(
       new CustomEvent('source-code-detail', {
