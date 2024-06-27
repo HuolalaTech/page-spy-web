@@ -1,0 +1,63 @@
+.doc-content {
+  padding: 24px;
+  height: 100%;
+  overflow: auto;
+  &__content {
+    max-width: 800px;
+  }
+  * {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.65;
+  }
+
+  /* 元素样式 */
+  blockquote {
+    padding: 8px 16px;
+    border-left: 4px solid @primary-color;
+    border-radius: 4px;
+    background-color: #212121;
+    p {
+      margin: 0;
+    }
+  }
+  each(range(3), {
+    h@{value} {
+      margin-block: 28px 8px;
+      font-size: 28px - (@value - 1) * 4px;
+      font-weight: 900 - 100 * @value;
+      color: #f3f3f3;
+    }
+  })
+    p {
+    margin-bottom: 8px;
+  }
+  b,
+  strong {
+    font-weight: 700;
+    color: #f3f3f3;
+  }
+  a,
+  u {
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
+  a,
+  code {
+    color: rgb(182, 124, 255);
+  }
+  ul,
+  ol {
+    padding-left: 20px;
+    margin-block: 4px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .doc-content {
+    padding-left: calc(var(--doc-menus-width) + var(--doc-side-width) / 2);
+    &__content {
+      padding: 32px 0 64px 64px;
+    }
+  }
+}

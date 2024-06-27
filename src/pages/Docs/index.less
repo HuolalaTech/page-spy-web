@@ -1,59 +1,11 @@
 .docs {
-  min-height: calc(100vh - 64px);
-  padding-block: 20px 100px;
+  --doc-menus-width: 240px;
+  --doc-page-max-width: 1280px;
+  --doc-side-width: calc(100vw - var(--doc-page-max-width));
+  position: relative;
+  height: 100%;
   /* 整体样式 */
   background-color: #1a1a1a;
   color: #c4c4c4;
   letter-spacing: 0.8px;
-  &-content {
-    width: 90%;
-    max-width: 768px;
-    margin: 0 auto;
-  }
-  * {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.65;
-  }
-
-  /* 元素样式 */
-  blockquote {
-    padding: 8px 16px;
-    border-left: 4px solid @primary-color;
-    border-radius: 4px;
-    background-color: #212121;
-    p {
-      margin: 0;
-    }
-  }
-  each(range(3), {
-    h@{value} {
-      margin-block: 28px 8px;
-      font-size: 28px - (@value - 1) * 4px;
-      font-weight: 900 - 100 * @value;
-      color: #f3f3f3;
-    }
-  })
-    p {
-    margin-bottom: 8px;
-  }
-  b,
-  strong {
-    font-weight: 700;
-    color: #f3f3f3;
-  }
-  a,
-  u {
-    text-decoration: underline;
-    text-underline-offset: 0.25em;
-  }
-  a,
-  code {
-    color: rgb(182, 124, 255);
-  }
-  ul,
-  ol {
-    padding-left: 20px;
-    margin-block: 4px;
-  }
 }

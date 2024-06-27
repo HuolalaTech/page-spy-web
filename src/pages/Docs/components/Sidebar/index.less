@@ -1,0 +1,23 @@
+.sidebar {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--doc-menus-width);
+  overflow: auto;
+  // border: 1px solid red;
+}
+
+@media screen and (min-width: 1024px) {
+  .sidebar {
+    display: block;
+    padding: 24px 24px 100px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .sidebar {
+    width: calc(var(--doc-menus-width) + var(--doc-side-width) / 2);
+    padding-inline: calc(var(--doc-side-width) / 2) 0;
+  }
+}

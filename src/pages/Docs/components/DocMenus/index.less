@@ -1,0 +1,29 @@
+.doc-menus {
+  &__group:not(:first-of-type) {
+    margin-top: 32px;
+  }
+  h4 {
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  a {
+    display: block;
+    font-size: 13px;
+    color: darken(silver, 25%);
+    margin-bottom: 6px;
+    &:hover {
+      color: #ddd;
+    }
+    &.active {
+      color: lighten(@primary-color, 15%);
+      font-weight: 500;
+    }
+    &:first-of-type {
+      margin-top: 6px;
+    }
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
