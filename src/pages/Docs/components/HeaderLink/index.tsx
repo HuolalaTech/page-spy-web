@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { PropsWithChildren } from 'react';
 import './index.less';
+import { Link } from 'react-router-dom';
 
 export const HeaderLink = ({
   level = 1,
@@ -19,9 +20,9 @@ export const HeaderLink = ({
       className: clsx('header-link', `level-${level}`),
     },
     [
-      <a href={`#${slug}`} key="anchor">
+      <Link to={`#${slug}`} key="anchor">
         <LinkOutlined />
-      </a>,
+      </Link>,
       children,
     ],
   );

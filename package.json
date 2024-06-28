@@ -52,7 +52,7 @@
     "@huolala-tech/request": "^1.1.2",
     "acorn": "^8.11.3",
     "ahooks": "^3.1.9",
-    "antd": "^5.2.1",
+    "antd": "^5.18.3",
     "clsx": "^1.2.1",
     "copy-to-clipboard": "^3.3.3",
     "dayjs": "1.11.7",

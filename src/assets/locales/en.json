@@ -44,6 +44,10 @@
     "confirm": "Confirm",
     "copied": "Copied"
   },
+  "docs": {
+    "miss-language": "Translation error",
+    "miss-desc": "Documentation for the current language not found. Please submit an issue to report this."
+  },
   "error": {
     "oops": "Oops! Errors happened~",
     "actions": "You can take a <1>Try again</1> or <3><0>Report</0></3> the issue.",

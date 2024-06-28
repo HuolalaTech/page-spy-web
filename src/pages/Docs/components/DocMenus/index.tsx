@@ -1,5 +1,5 @@
-import { useLanguage } from '@/utils/useLanguage';
-import { Link, useLocation } from 'react-router-dom';
+import { langType, useLanguage } from '@/utils/useLanguage';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import './index.less';
 import clsx from 'clsx';
 
@@ -20,6 +20,15 @@ export const DOC_MENUS = [
           ko: '소개',
         },
         doc: 'introduction',
+      },
+      {
+        label: {
+          zh: '服务部署',
+          en: 'Deploy',
+          ja: 'Deploy',
+          ko: 'Deploy',
+        },
+        doc: 'deploy',
       },
     ],
   },
@@ -101,6 +110,15 @@ export const DOC_MENUS = [
       },
       {
         label: {
+          zh: '版本日志',
+          en: 'Changelog',
+          ja: 'Changelog',
+          ko: 'Changelog',
+        },
+        doc: 'changelog',
+      },
+      {
+        label: {
           zh: '开发团队',
           en: 'Team',
           ja: '開発チーム',
@@ -112,10 +130,24 @@ export const DOC_MENUS = [
   },
 ];
 
+export type OrderDocMenus = {
+  doc: string;
+  label: string | Record<langType, string>;
+  group: Record<langType, string>;
+}[];
+
+export const ORDER_DOC_MENUS = DOC_MENUS.reduce((acc, cur) => {
+  const { children, group } = cur;
+  const menus = children.map((item) => ({ ...item, group }));
+  acc.push(...menus);
+  return acc;
+}, [] as OrderDocMenus);
+
 export const DocMenus = () => {
   const [lang] = useLanguage();
-  const { hash } = useLocation();
-  const docInUrl = hash?.slice(1) || DOC_MENUS[0].children[0].doc;
+  const params = useParams();
+  // route match rule "/docs/*"
+  const docInUrl = params['*'] || DOC_MENUS[0].children[0].doc;
 
   return (
     <div className="doc-menus">
@@ -126,7 +158,7 @@ export const DocMenus = () => {
             {children.map(({ label, doc }) => {
               return (
                 <Link
-                  to={`#${doc}`}
+                  to={`${doc}`}
                   key={doc}
                   className={clsx({
                     active: docInUrl === doc,
