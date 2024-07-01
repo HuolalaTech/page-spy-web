@@ -3,8 +3,12 @@ import React, { Suspense, useMemo } from 'react';
 import './index.less';
 import { Link, useParams } from 'react-router-dom';
 import { DOC_MENUS, ORDER_DOC_MENUS, OrderDocMenus } from '../DocMenus';
-import { message, notification } from 'antd';
+import { Space, message, notification } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { ReactComponent as BeforeSvg } from '@/assets/image/before.svg';
+import { ReactComponent as NextSvg } from '@/assets/image/next.svg';
+import Icon from '@ant-design/icons';
+import { HeaderLink } from '../HeaderLink';
 
 const modules = import.meta.glob('../../md/*.mdx') as Record<string, any>;
 
@@ -20,6 +24,33 @@ const mdComponents = Object.entries(modules).reduce((acc, cur) => {
   }
   return acc;
 }, {} as Record<string, Record<string, React.LazyExoticComponent<any>>>);
+
+const FooterLink = ({
+  menu,
+  flag,
+}: {
+  menu: OrderDocMenus[number] | null;
+  flag: 'prev' | 'next';
+}) => {
+  const [lang] = useLanguage();
+  const { t } = useTranslation();
+  if (!menu) return null;
+
+  return (
+    <Link className="footer-link" to={menu.doc}>
+      <div className="footer-link__head">
+        {flag === 'prev' && (
+          <Icon component={BeforeSvg} style={{ fontSize: 12 }} />
+        )}
+        <span>{flag === 'prev' ? t('common.prev') : t('common.next')}</span>
+        {flag === 'next' && <Icon component={NextSvg} />}
+      </div>
+      <h4 className="footer-link__title">
+        {typeof menu.label === 'string' ? menu.label : menu.label[lang]}
+      </h4>
+    </Link>
+  );
+};
 
 export const DocContent = () => {
   const { t } = useTranslation();
@@ -38,9 +69,11 @@ export const DocContent = () => {
     }
     return docData;
   }, [doc, lang, t]);
-  const { prev, next } = useMemo(() => {
-    const navigation: Record<'prev' | 'next', OrderDocMenus[number] | null> = {
+
+  const { prev, current, next } = useMemo(() => {
+    const navigation: Record<string, OrderDocMenus[number] | null> = {
       prev: null,
+      current: null,
       next: null,
     };
     const index = ORDER_DOC_MENUS.findIndex((o) => o.doc === doc);
@@ -53,38 +86,33 @@ export const DocContent = () => {
       navigation.prev = ORDER_DOC_MENUS[index - 1];
       navigation.next = ORDER_DOC_MENUS[index + 1];
     }
+    navigation.current = ORDER_DOC_MENUS[index];
     return navigation;
   }, [doc]);
 
   return (
-    <div className="doc-content">
-      <div className="doc-content__content">
+    <main className="doc-content">
+      <div className="paragraph">
         <Suspense fallback={<span>Loading</span>}>
-          <>
-            {React.createElement(docContent)}
-            <div className="doc-footer">
-              <div className="doc-footer__prev">
-                {prev && (
-                  <Link to={prev.doc}>
-                    {typeof prev.label === 'string'
-                      ? prev.label
-                      : prev.label[lang]}
-                  </Link>
-                )}
-              </div>
-              <div className="doc-footer__next">
-                {next && (
-                  <Link to={next.doc}>
-                    {typeof next.label === 'string'
-                      ? next.label
-                      : next.label[lang]}
-                  </Link>
-                )}
-              </div>
+          {current && (
+            <HeaderLink level={1} slug={current.doc}>
+              {typeof current.label === 'string'
+                ? current.label
+                : current.label[lang]}
+            </HeaderLink>
+          )}
+
+          {React.createElement(docContent)}
+          <div className="navigation">
+            <div className="navigation-prev">
+              <FooterLink menu={prev} flag="prev" />
             </div>
-          </>
+            <div className="navigation-next">
+              <FooterLink menu={next} flag="next" />
+            </div>
+          </div>
         </Suspense>
       </div>
-    </div>
+    </main>
   );
 };

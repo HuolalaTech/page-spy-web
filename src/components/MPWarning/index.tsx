@@ -1,13 +1,13 @@
-import React, { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import './index.less';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 
-type Props = {
+interface Props {
   inline?: boolean;
   style?: CSSProperties;
   className?: string;
-};
+}
 
 const MPWarning = (props: Props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'devtool' });

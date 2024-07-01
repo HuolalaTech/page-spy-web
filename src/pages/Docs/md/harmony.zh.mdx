@@ -1,0 +1,28 @@
+import { CodeBlock } from '@/components/CodeBlock'
+import { Link } from 'react-router-dom'
+import { Tooltip } from 'antd'
+
+第一步，在待调试 HAP 目录下安装依赖：
+
+<CodeBlock code="# API 9
+ohpm install @huolala/page-spy-harmony@^1.0.0
+
+# API 11
+ohpm install @huolala/page-spy-harmony@^2" lang="bash" />
+
+第二步，在合适的位置引入 SDK 并初始化，这里以 `EntryAbility` 为例。初始化参数提供了可选的 <a href={import.meta.env.VITE_SDK_HARMONY_REPO}>配置项</a> 用于自定义 SDK 的行为：
+
+<CodeBlock dynamicCode={({ deployPath }) => `import { PageSpy } from '@huolala/page-spy-harmony';
+import axiosInstance from 'path/to/your/axios-instance';
+
+export default class EntryAbility extends UIAbility {
+  onWindowStageCreate(windowStage: window.WindowStage) {
+    new PageSpy({
+      api: "${deployPath}",
+      enableSSL: true,
+      axios: axiosInstance
+    })
+  }
+}`} lang='js' />
+
+以上就是在鸿蒙 App 项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 <Tooltip title="菜单默认隐藏，部署后可见" color="purple"><a href="javascript:void(0)">开始调试</a></Tooltip> 使用！

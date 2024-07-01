@@ -1,16 +1,33 @@
+@paragraph-space: 12px;
+
 .doc-content {
   padding: 24px;
   height: 100%;
   overflow: auto;
-  &__content {
+  .paragraph {
     max-width: 800px;
+    > * + * {
+      margin-top: @paragraph-space;
+    }
+    > img {
+      display: block;
+      width: 90%;
+      margin: 0 auto;
+      border-radius: 8px;
+    }
   }
-  * {
+  p,
+  li,
+  summary,
+  .header-anchor {
     font-size: 16px;
     font-weight: 400;
     line-height: 1.65;
   }
 
+  details[open] summary {
+    margin-bottom: @paragraph-space;
+  }
   /* 元素样式 */
   blockquote {
     padding: 8px 16px;
@@ -21,19 +38,16 @@
       margin: 0;
     }
   }
-  each(range(3), {
+  each(range(6), {
     h@{value} {
-      margin-block: 28px 8px;
-      font-size: 28px - (@value - 1) * 4px;
+      margin-top: 28px !important;
+      font-size: 36px - (@value - 1) * 4px;
       font-weight: 900 - 100 * @value;
       color: #f3f3f3;
-      &:first-of-type {
-        margin-top: 0px;
-      }
     }
   })
     p {
-    margin-bottom: 8px;
+    margin-bottom: @paragraph-space;
   }
   b,
   strong {
@@ -48,18 +62,62 @@
   a,
   code {
     color: rgb(182, 124, 255);
+    font-family: Cascadia Code, Menlo, Courier, monospace;
   }
   ul,
   ol {
     padding-left: 20px;
     margin-block: 4px;
   }
+  iframe {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 8px;
+    border: none;
+    aspect-ratio: 16 / 9;
+  }
+  .navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 80px;
+    > div {
+      flex: 0 0 20%;
+      &:hover .footer-link__title {
+        color: #b67cff;
+      }
+    }
+    &-next .footer-link {
+      align-items: end;
+    }
+    .footer-link {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      &__head {
+        display: flex;
+        align-items: center;
+        color: @text-regulary;
+        span {
+          font-size: 12px;
+        }
+      }
+      &__title {
+        margin-top: 6px !important;
+        color: #9e51ff;
+        font-size: 16px;
+        font-weight: 700;
+        transition: color linear 0.3s;
+      }
+    }
+  }
 }
 
 @media screen and (min-width: 1024px) {
   .doc-content {
     padding-left: calc(var(--doc-menus-width) + var(--doc-side-width) / 2);
-    &__content {
+    .paragraph {
       padding: 32px 0 64px 64px;
     }
   }

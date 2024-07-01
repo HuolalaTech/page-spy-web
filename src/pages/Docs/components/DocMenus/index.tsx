@@ -14,7 +14,7 @@ export const DOC_MENUS = [
     children: [
       {
         label: {
-          zh: '介绍',
+          zh: '简介',
           en: 'Introduction',
           ja: '紹介',
           ko: '소개',
@@ -83,15 +83,6 @@ export const DOC_MENUS = [
     children: [
       {
         label: {
-          zh: '插件系统',
-          en: 'Plugins',
-          ja: 'プラグインシステム',
-          ko: '플러그인 시스템',
-        },
-        doc: 'plugins',
-      },
-      {
-        label: {
           zh: '离线日志回放',
           en: 'Offline Log',
           ja: 'オフラインログ',
@@ -107,6 +98,15 @@ export const DOC_MENUS = [
           ko: '자주 묻는 질문',
         },
         doc: 'faq',
+      },
+      {
+        label: {
+          zh: '插件系统',
+          en: 'Plugins',
+          ja: 'プラグインシステム',
+          ko: '플러그인 시스템',
+        },
+        doc: 'plugins',
       },
       {
         label: {

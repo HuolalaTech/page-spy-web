@@ -1,0 +1,406 @@
+import { HeaderLink } from '../components/HeaderLink'
+import { CodeBlock } from '@/components/CodeBlock'
+import moduleImg from '@/assets/image/screenshot/module.png';
+import dynamicInjectImg from '@/assets/image/screenshot/dynamic-inject.png';
+import pnpmInstallImg from '@/assets/image/screenshot/pnpm-install.png';
+
+<HeaderLink slug="module" level={4} children="PageSpy 模块组成？" />
+
+PageSpy 模块间的依赖关系和交互示意图：
+
+<img alt="系统模块示意图" src={moduleImg} />
+
+<HeaderLink slug="compatibility" level={4} children="PageSpy 的兼容性怎么样？" />
+
+- 浏览器 SDK 的兼容性目标设置的是 [`["chrome > 75","safari > 12", "> 0.1%", "not dead","not op_mini all"]`](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-browser/package.json#L66-L72)，其他 SDK 可以前往各自的仓库查看；
+- 调试端主要是开发者使用，对于浏览器的新特性使用我们保持开放的态度。所以建议使用最新版本的浏览器，设置的兼容性目标是 [`["last 2 chrome version", "last 2 firefox version", "last 2 safari version"]`](https://github.com/HuolalaTech/page-spy-web/blob/main/package.json#L92-L96)。
+
+
+<HeaderLink slug="hide-logo" level={4} children="如何隐藏 SDK 渲染的图标？" />
+
+<CodeBlock code={`window.$pageSpy = new PageSpy({
+  // ... 其他配置参数
+  autoRender: false
+})`} lang="js" />
+
+<HeaderLink slug="init-params" level={4} children="实例化都可以传哪些参数，它们的作用分别是什么？" />
+
+> 所有参数都是可选的，以下是各个参数的说明及其默认值
+
+<CodeBlock code={`window.$pageSpy = new PageSpy({
+  // SDK 会从引入的路径自动分析并决定 Server 的地址（api）和调试端的地址（clientOrigin）
+  // 假设你通过 <script src="https://example.com/page-spy/index.min.js"> 引入 SDK，那么 SDK 会在内部设置：
+  //   - api: "example.com"
+  //   - clientOrigin: "https://example.com"
+  // 如果你的服务部署在别处，就需要在这里手动指定去覆盖。
+  api: "",
+  clientOrigin: "", // 仅适用浏览器环境的 SDK
+  
+  // project 作为信息的一种聚合，可以在调试端房间列表进行搜索
+  project: "default",
+  
+  // title 供用户提供自定义参数，可以用于区分当前调试的客户端
+  // 对应的信息显示在每个调试连接面板的「设备id」下方
+  title: "--",
+  
+  // 指示 SDK 初始化完成，是否自动在客户端左下角渲染「圆形白底带 Logo」的控件
+  // 如果设置为 false, 可以调用 window.$pageSpy.render() 手动渲染
+  autoRender: true,  // 仅适用浏览器环境的 SDK
+  
+  // 手动指定 PageSpy 服务的 scheme。
+  // 这在 SDK 无法正确分析出 scheme 可以使用，例如 PageSpy 的浏览器插件
+  // 是通过 chrome-extension://xxx/sdk/index.min.js 引入 SDK，这会
+  // 被 SDK 解析成无效的 "chrome-extension://" 并回退到 ["http://", "ws://"]。
+  //   - （默认）传值 undefined 或者 null：SDK 会自动分析；
+  //   - 传递 boolean 值：
+  //     - true：SDK 将通过 ["https://", "wss://"] 访问 PageSpy 服务
+  //     - false：SDK 将通过 ["http://", "ws://"] 访问 PageSpy 服务
+  enableSSL: null,
+
+  // 在 PageSpy@1.7.4 支持离线回放功能后，客户端集成的 SDK 可以不用和调试端建立连接，
+  // 通过 DataHarborPlugin 收集数据、导出离线日志，成为新的使用方式。
+  // 默认值 false。用户设置为其他值时，会进入 "离线模式"，具体表现为 PageSpy 不会创建房间、建立 WebSocket 连接。
+  offline: false, // 仅适用浏览器环境的 SDK
+
+  // 自定义控件渲染的 logo
+  logo: '', // 仅适用浏览器环境的 SDK
+
+  // 设置 logo 样式
+  logoStyle: {}, // 仅适用浏览器环境的 SDK
+})`} lang="js" />
+
+<HeaderLink slug="update-info" level={4} children="如何更新初始化参数？" />
+
+PageSpy 提供了 Device ID 用于识别设备，同时还提供了 `project` / `title` 供开发者在初始化时自定义信息，用于辅助识别客户端。但你可能希望在初始化之后更新这些参数信息，操作方式如下：
+
+<CodeBlock code={`window.$pageSpy = new PageSpy(...);
+
+// 调用 updateRoomInfo 可以更新 project / title
+window.$pageSpy.updateRoomInfo({ project: 'xxx', title: 'xxx' });`} lang="js" />
+
+<HeaderLink slug="framework" level={4} children="如何在 xxx 框架中集成？" />
+
+PageSpy 借助 CodeSandbox 平台发布了与当下流行的所有框架的接入指南，大家可以前往在线体验：
+
+- **React**：[CodeSandbox - PageSpy in React](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
+- **Vue**：[CodeSandbox - PageSpy in Vue](https://codesandbox.io/p/sandbox/page-spy-with-vue-ft35qs)
+- **Svelte**：[CodeSandbox - PageSpy in Svelte](https://codesandbox.io/p/sandbox/page-spy-with-svelte-p6mxd6)
+- **Angular**：[CodeSandbox - PageSpy in Angular](https://codesandbox.io/p/sandbox/page-spy-with-angular-6wg3ps)
+- **Nextjs**：[CodeSandbox - PageSpy in Nextjs](https://codesandbox.io/p/sandbox/page-spy-with-nextjs-5htxv5)
+- **Nuxtjs**：[CodeSandbox - PageSpy in Nuxtjs](https://codesandbox.io/p/sandbox/page-spy-with-nuxtjs-8znq22)
+
+<HeaderLink slug="test-domain" level={4} children="test.jikejishu.com 是官方提供的域名吗？一直可以用吗？" />
+
+[https://test.jikejishu.com](https://test.jikejishu.com) 是我们为了让大家能够在线体验、学习 PageSpy 临时搭建的服务，**不保证 24 小时可用性、不保证数据安全、造成的损失自负**，强烈建议大家在体验后前往私服、内网中自行部署。
+
+<HeaderLink slug="server-port" level={4} children="为什么本地 6752 端口可以访问，部署到服务器上就不行了？" />
+
+检查服务器上的防火墙、或者安全组规则是否开放了 6752 端口。
+
+<HeaderLink slug="debug-disabled" level={4} children="调试按钮显示 “当前连接不存在客户端” 是什么意思？" />
+
+这种情况通常是因为 SDK 正常创建了房间，但是无法通过 websocket 加入房间。按以下步骤排查：
+
+- 打开 SDK 所在的客户端的控制台，看是否有报错；
+- 如果控制台提示 "WebSocket connect failed" 相关信息，检查服务器的配置是否正确；
+
+<HeaderLink slug="nginx" level={4} children="部署的时候 nginx 该怎么配置？" />
+
+这里贴出 `https://test.jikejishu.com` 的 nginx 配置供大家参考：
+
+<CodeBlock code={`server {
+  listen 443 ssl;
+  server_name test.jikejishu.com;
+
+  if ($scheme != https) {
+      rewrite ^(.*)$  https://$host$1 permanent;
+  }
+  
+  ssl_certificate /etc/letsencrypt/live/test.jikejishu.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/test.jikejishu.com/privkey.pem;
+
+  location / {
+      proxy_pass http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+  }
+}
+
+server {
+  if ($host = test.jikejishu.com) {
+      return 301 https://$host$request_uri;
+  }
+
+  listen 80;
+  listen [::]:80;
+  server_name test.jikejishu.com;
+  return 404;
+}`} lang="nginx" />
+
+<HeaderLink slug="sub-path" level={4} children="如何部署到子路径？" />
+
+在版本 1.5.4 中支持用户将服务部署到子路径，安装过程没有任何变化，需要做调整的是 `nginx` 配置:
+
+<CodeBlock code={`server {
+  # ...
+
+  # <sub-path> 填写你准备部署到的子路径
+  location /<sub-path>/  {
+      # 这里的 <sub-path> 和上面的保持一致
+      rewrite ^/<sub-path>/(.*)$ /$1 break;
+      proxy_pass            http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+      proxy_set_header      Host $host;
+      proxy_set_header      X-Real-IP $remote_addr;
+      proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+
+  # 这里的 <sub-path> 和上面的保持一致
+  location /<sub-path> {
+      return 301 $scheme://$host$request_uri/;
+  }
+}`} lang="nginx" />
+
+在调整配置后，重启 nginx 即可通过子路径访问；需要注意的是，现在实例化时需要手动传参 `api` 和 `clientOrigin` 告诉 SDK 部署地址，例如：
+
+<CodeBlock code={`window.$pageSpy = new PageSpy({
+  // 例如 api: "example.com/pagespy"
+  api: "<host>/<sub-path>",
+
+  // 例如 clientOrigin: "https://example.com/pagespy"
+  clientOrigin: "<scheme>://<host>/<sub-path>"
+
+})`} lang="js" />
+
+<HeaderLink slug="basic-auth" level={4} children="调试端如何加一些安全认证的保护，开发者通过认证才可以访问？" />
+
+可以在服务器上设置 IP 白名单或者使用 HTTP Authorization 来进行保护。
+
+- Nginx 设置 IP 白名单配置参考：
+
+  <CodeBlock code={`server {
+    location / {
+      # 允许谁可以访问
+      allow <ip>;
+
+      # 除了 allow 的，拒绝所有其他的客户端访问
+      deny all;
+    }
+  }`} lang="nginx" />
+
+- Nginx 配置 HTTP Authorization，访问时需要提供账号和密码；
+
+  首先通过 `htpasswd` 生成账密文件：
+
+  <CodeBlock code={`# 执行后会要求输入密码、二次确认密码
+  htpasswd -c /etc/nginx/.htpasswd <用户名>;`} lang="bash" />
+
+  接着在 nginx 文件中配置 `auth_basic` 模块；
+
+  <CodeBlock code={`server {
+    location / {
+      auth_basic "请输入用户名和密码以访问 PageSpy 服务";
+      auth_basic_user_file /etc/nginx/.htpasswd;
+
+      proxy_pass http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+    }
+
+    location ~ /(api|page-spy) {
+      proxy_pass http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+    }
+  }`} lang="nginx" />
+
+  最后重启 nginx 服务即可。
+
+<HeaderLink slug="extension" level={4} children="不想在项目里手动集成，有没有办法可以不侵入业务项目代码？" />
+
+PageSpy 为大家准备了浏览器插件，插件提供了以下特性：
+
+- 自动注入最新版本的 SDK；
+- 自动完成实例化操作；
+- 提供注入的域名配置规则；
+
+点击前往使用：[HuolalaTech/page-spy-extension](https://github.com/HuolalaTech/page-spy-extension)
+
+<HeaderLink slug="tampermonkey" level={4} children="有油猴脚本可以使用吗？" />
+
+参考以下内容：
+
+<CodeBlock code={`// ==UserScript==
+// @name         Inject PageSpy Script
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Inject script on xxx.yyy
+// @author       You
+// @match        <匹配规则，比如 example.com>
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    var script1 = document.createElement('script');
+    script1.setAttribute('crossorigin', 'anonymous');
+    // 实际项目中请替换 SDK 的地址连接
+    script1.src = 'https://test.jikejishu.com/page-spy/index.min.js';
+
+    var script2 = document.createElement('script');
+    script2.textContent = 'window.$pageSpy = new PageSpy();';
+
+    document.head.prepend(script1);
+    script1.onload = () => {
+        document.head.appendChild(script2);
+    }
+})();
+`} lang='js' />
+
+<HeaderLink slug="http-error" level={4} children="业务项目部署在 HTTPS，PageSpy 部署在 HTTP，控制台报错怎么办？" />
+
+浏览器会阻止从 HTTPS 站点加载 HTTP 资源，这是因为在 HTTP 和 HTTPS 之间传输数据时，HTTPS 提供了加密和安全性，而 HTTP 则是明文传输，存在安全风险。
+
+建议大家直接将 PageSpy 升级到 HTTPS 服务，就可以完美解决。
+
+<HeaderLink slug="prod-debug" level={4} children="如何单独对某个用户进行调试？" />
+
+最简单的方案是让用户使用 [PageSpy 的浏览器插件](https://github.com/HuolalaTech/page-spy-extension)，适用于非常配合的客户且是 PC 端项目的时候，但这个前提条件肉眼可见的非常苛刻；
+
+那么如果 H5 项目上生产了想使用 PageSpy 该怎么办？对所有用户都开启这显然不现实。
+
+大家可以想想 PageSpy 的生效过程总共就两个步骤：
+
+1. `head` 标签中通过 `<script>` 引入 SDK；
+2. 实例化；
+
+PageSpy 在第二步实例化之前，引入的 `<script>` 对项目不会产生任何作用。我们想针对某个用户进行调试，关键在第二步：在哪个用户的终端上实例化 PageSpy。对此有两种方案：
+
+- 动态响应 HTML：如果用户在请求 HTML 时，我们可以拿到用户的唯一标识、并且可以对 HTML 动态注入，那么就可以在向用户返回 HTML 之前决定是否注入 `<script>` 和实例化的逻辑；
+
+<img src={dynamicInjectImg} />
+
+- 让用户使用手势开启：这通常需要用户的主动配合。默认情况下注入 SDK 但不实例化，让用户触发特殊手势后再开启调试；
+
+友情提示：除了技术上的实现之外，需要注意合法合规等安全风险。
+
+<HeaderLink slug="page-principle" level={4} children="Page 面板原理" />
+
+Page 面板是将客户端的 `document.documentElement.outerHTML` 渲染到调试端的 iframe 中，可以直接通过本地控制台审查元素。
+
+<HeaderLink slug="page-interactive" level={4} children="Page 面板渲染的客户端可以直接交互吗？" />
+
+不可以直接交互。如果需要执行某些交互，可尝试在 Console 面板底部输入代码执行，再返回 Page 面板查看界面反馈。
+
+<HeaderLink slug="page-style" level={4} children="Page 面板的样式不正确？" />
+
+- 客户端和调试端的渲染环境不一致，例如：客户端的浏览器版本是 Chrome 75，调试端的浏览器版本是 Chrome 120；
+- 调试端访问客户端引用的资源时存在网络限制；
+
+所以样式仅供参考。
+
+<HeaderLink slug="page-reset" level={4} children="Page 面板就不能 100% 还原客户端的内容吗？" />
+
+SDK 可以对页面进行 “截图” 并发送到调试端，但由于：
+
+- “图片” 比文本的数据体积大，数据交互会增加网络传输开销；
+- 增加 SDK 的体积和复杂度；
+- 如果是「样式出错」，远程协同时测试人员可以精准的反馈给开发者；
+
+出于以上原因，Page 面板的样式仅供参考。
+
+<HeaderLink slug="api-config" level={4} children="如何修改 API 服务配置？" />
+
+  当你通过 NPM package 的部署方式在命令行中执行 `page-spy-api` 时，会在运行目录下面生成配置文件 `config.json`，该文件支持配置运行端口和多实例部署：
+
+- 修改配置
+
+  <CodeBlock code={`{
+    "port": "6752",
+    "maxLogFileSizeOfMB": "10240",
+    "maxLogLifeTimeOfHour": "720",
+    "corsConfig": {
+      "allowOrigins": string[],
+      "allowHeaders": string[],
+      "allowMethods": string[],
+      "exposeHeaders": string[]
+    }
+  }`} lang="json" />
+
+- 多实例部署（需要升级到 1.5.0 版本以上才可以使用）
+
+  `rpcAddress` 配置是多实例部署配置，其中 ip 和 port 是多个机器 ip 以及 rpc 端口，多个实例通过 rpc 来通信，程序会根据机器 ip 来启动 rpc 服务，所以得保证 ip 不会重复，不然可能会出现消息错乱丢失问题。
+
+  <CodeBlock code={`{
+    "port": "6752",
+    "rpcAddress": [
+      {
+        "ip": "192.168.123.1",
+        "port": "20008"
+      },
+      {
+        "ip": "192.168.123.2",
+        "port": "20008"
+      }
+    ]
+  }`} lang='json' />
+
+<HeaderLink slug="pnpm" level={4} children="通过 `pnpm` 全局安装的包，使用 `pm2` 启动报错是为什么？" />
+
+`pnpm` 全局安装的包会被 `pnpm` 用一个 shell 脚本包装，也就是说在执行 `pm2 start page-spy-api` 时，找到的其实是一个 shell 脚本，`pm2` 无法解释执行，因此报错。
+
+<img src={pnpmInstallImg} />
+
+使用 `yarn` 或者 `npm` 安装即可解决这个问题，相关的讨论：[Unitech/pm2#5416](https://github.com/Unitech/pm2/issues/5416)
+
+<HeaderLink slug="upgrade-latest" level={4} children="新版本发布后，怎么升级到最新版本？" />
+
+- 如果你使用 docker 部署的：
+
+<CodeBlock lang="bash" code={`# 更新镜像
+docker pull ghcr.io/huolalatech/page-spy-web:latest
+
+# 停止正在运行的 PageSpy 容器
+docker stop pageSpy && docker rm -f pageSpy
+
+# 重新运行
+docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest`} />
+
+- 如果你使用 NPM Package 部署的：
+
+<CodeBlock code={`# 更新 package（yarn）
+yarn global upgrade @huolala-tech/page-spy-api@latest
+
+# 更新 package（npm）
+npm install -g @huolala-tech/page-spy-api@latest
+
+# 使用 pm2 重启
+pm2 restart page-spy-api`} lang="bash" />
+
+<HeaderLink slug="auto-destroy" level={4} children="房间连接什么情况下会自动销毁？" />
+
+> 查看配置：https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323
+
+- 房间创建后，无 SDK 或调试端进入，1 分钟后销毁（实际使用过程中，该场景不存在）；
+- SDK 和调试端都已断开连接，1 分钟后销毁；
+- 一直没有数据消息交互，5 分钟后销毁；
+- 连接使用持续超过 1 个小时自动被销毁；
+
+<HeaderLink slug="alipay-global" level={4} children="为何支付宝小程序远程执行代码时无法获取到全局对象如 my.getCurrentPages()?" />
+
+支付宝小程序由于历史原因，对全局对象的访问做了限制。可以通过小程序配置文件或支付宝小程序 IDE 进行设置：
+
+- IDE：详情 -> 编译配置 -> 全局对象（global/globalThis）访问策略：可访问（推荐）
+- 配置文件：[https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode](https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode)
+
+<HeaderLink slug="offline-log" level={4} children="为什么上传的文件日志不见了？" />
+
+- 上传的文件日志默认最多保存最新的 10 G，以及 30 天，可以通过修改配置来自定义。
+- 上传日志保存在运行目录的 log 目录下，docker 运行时候，如果 docker 被销毁日志也会丢失，可以用目录映射 `-v ./log:/app/log -v ./data:/app/data` 来持久话。
+

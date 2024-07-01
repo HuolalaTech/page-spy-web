@@ -20,7 +20,7 @@ export const HeaderLink = ({
       className: clsx('header-link', `level-${level}`),
     },
     [
-      <Link to={`#${slug}`} key="anchor">
+      <Link to={`#${slug}`} className="header-anchor" key="anchor">
         <LinkOutlined />
       </Link>,
       children,

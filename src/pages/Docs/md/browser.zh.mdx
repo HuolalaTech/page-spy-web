@@ -1,0 +1,40 @@
+import { CodeBlock } from '@/components/CodeBlock'
+import { Link } from 'react-router-dom'
+import { Tooltip } from 'antd'
+
+第一步，在客户端的项目中加载 &lt;script&gt;；
+
+<CodeBlock dynamicCode={({ deployUrl }) => `<!-- PageSpy SDK -->
+<script crossorigin="anonymous" src="${deployUrl}/page-spy/index.min.js"></script>
+
+<!-- 插件（可选的，但建议使用） -->
+<script crossorigin="anonymous" src="${deployUrl}/plugin/data-harbor/index.min.js"></script>
+<script crossorigin="anonymous" src="${deployUrl}/plugin/rrweb/index.min.js"></script>`} lang="html" />
+
+第二步，初始化 PageSpy 和插件，它们的初始化参数都提供了可选的配置项用于自定义 SDK 的行为：
+
+<blockquote>
+  <details>
+    <summary>引入的插件提供了哪些功能？</summary>
+    <div>
+      <a href={import.meta.env.VITE_PLUGIN_DATA_HARBOR} target='_blank'>DataHarborPlugin</a> 和 <a href={import.meta.env.VITE_PLUGIN_RRWEB}>RRWebPlugin</a> 两个插件，主要用于拓展 PageSpy 的能力：
+      - **DataHarborPlugin**：PageSpy 本身仅支持在线模式，即调试期间「客户端和调试端必须同时在线」，DataHarborPlugin 让 PageSpy 实现了离线模式的调试。点击 <Link to="offline-log">离线日志回放</Link> 查看更多详细信息；
+      - **RRWebPlugin**：记录用户操作轨迹，底层使用 [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.zh_CN.md)。通常和 DataHarborPlugin 绑定在一起使用。
+
+      你也可以通过  <a href={import.meta.env.VITE_PLUGIN_DOC} target='_blank'>开发插件</a>，定制化属于你自己的 PageSpy！
+    </div>
+  </details>
+</blockquote>
+
+<CodeBlock code={`<script>
+  window.$harbor = new DataHarborPlugin();
+  window.$rrweb = new RRWebPlugin();
+
+  [window.$harbor, window.$rrweb].forEach(p => {
+    PageSpy.registerPlugin(p)
+  })
+
+  window.$pageSpy = new PageSpy();
+</script>`} lang="html" />
+
+以上就是在浏览器项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 <Tooltip title="菜单默认隐藏，部署后可见" color="purple"><a href="javascript:void(0)">开始调试</a></Tooltip> 使用！

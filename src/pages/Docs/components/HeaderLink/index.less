@@ -2,4 +2,17 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-left: -1.5rem;
+  &:is(h1) {
+    margin-bottom: 20px;
+  }
+  &:hover {
+    .header-anchor {
+      opacity: 1;
+    }
+  }
+  .header-anchor {
+    opacity: 0;
+    transition: opacity linear 0.15s;
+  }
 }

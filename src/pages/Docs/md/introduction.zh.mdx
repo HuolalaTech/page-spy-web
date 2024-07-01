@@ -1,7 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import bannerImg from '@/assets/image/doc-banner.png';
 import { HeaderLink } from '../components/HeaderLink';
-import { Image } from 'antd';
 import consoleImg from '@/assets/image/screenshot/console-panel.png';
 import networkImg from '@/assets/image/screenshot/network-panel.png';
 import pageImg from '@/assets/image/screenshot/page-panel.png';
@@ -10,60 +10,39 @@ import systemImg from '@/assets/image/screenshot/system-panel.png';
 
 export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
-<HeaderLink level={2} slug="introduction" children="介绍" />
+<HeaderLink level={4} slug="what-is-page-spy" children="什么是 PageSpy？" />
 
-<b>PageSpy</b> 是一款兼容 Web / 小程序 / 鸿蒙 App 等平台项目的开源调试平台。基于对原生 API 的封装，它将调用原生方法时的参数进行过滤、转化，整理成一定格式的消息供调试端消费；调试端收到消息数据后，提供类似本地控制台的功能界面将数据呈现出来。
+<b>PageSpy</b> 是一款兼容 <Link to="browser">Web</Link> / <Link to="miniprogram">小程序</Link> / <Link to="react-native">React Native</Link> / <Link to="harmony">鸿蒙 App</Link> 等平台项目的开源调试平台。基于对原生 API 的封装，它将调用原生方法时的参数进行过滤、转化，整理成一定格式的消息供调试端消费；调试端收到消息数据后，提供类似本地控制台的功能界面将数据呈现出来。
 
-<HeaderLink level={2} slug="when-to-use" children="何时使用？" />
+<HeaderLink level={4} slug="when-to-use" children="何时使用？" />
 
-<u>*任何无法在本地使用控制台调试的场景，都是 **PageSpy** 可以大显身手的时候*</u>
-！一起来看下面的几个场景案例：
+*任何无法在本地使用控制台调试的场景，都是 **PageSpy** 可以大显身手的时候！*
+一起来看下面的几个场景案例：
 
 - **本地调试 H5、Webview 应用**：以往有些产品提供了可以在 H5 上查看信息的面板，但移动端屏幕太小操作不便、显示不友好，以及信息被截断等问题；
 - **远程办公、跨地区协同**：传统沟通方式如邮件、电话、视频会议等，沟通效率不高、故障信息不全面，容易误解误判；
 - **用户终端上出现白屏问题**：传统定位问题的方式包括数据监控、日志分析等，这些方式依赖排障人员要理解业务需求场景、技术实现；
 
-<HeaderLink level={2} slug="feature-overview" children="功能概览" />
+<HeaderLink level={4} slug="feature-overview" children="界面概览" />
 
 - Console 面板: 显示 `console.<log | info | warn | error | debug>` 输出的日志信息，可以发送代码到客户端执行；
 
-<div className="flex-center">
-  <Image width="95%" src={consoleImg} />
-</div>
+<img src={consoleImg} />
 
 - Network 面板: 显示客户端发出的网络请求信息；
 
-<div className="flex-center">
-  <Image width="95%" src={networkImg} />
-</div>
+<img src={networkImg} />
 
 - Element 面板: 显示客户端当前界面，查看 HTML 节点树；
 
-<div className="flex-center">
-  <Image width="95%" src={pageImg} />
-</div>
+<img src={pageImg} />
 
 - Storage 面板: 查看客户端本地的缓存数据；
 
-<div className="flex-center">
-  <Image width="95%" src={storageImg} />
-</div>
+<img src={storageImg} />
 
 - Systems 面板: 显示客户端的系统信息，查看兼容性。
 
-<div className="flex-center">
-  <Image width="95%" src={systemImg} />
-</div>
+<img src={systemImg} />
 
 除此之外，当有新的数据或者数据发生变化的时候会实时的收到通知。
-
-<HeaderLink level={2} slug="how-to-use" children="如何使用？" />
-
-为了数据安全和方便您的使用，我们提供完整的、开箱即用的<a href={`${githubUrl}#how-to-use`} target="\_blank">部署方案</a>。
-
-本地化部署完成后，顶部会出现 `接入SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
-
-
-<p style={{ marginTop: 28 }}>
-  欢迎在 <a href={githubUrl}>GitHub</a> 上提交 PR 或 issue。
-</p>

@@ -1,0 +1,82 @@
+[release-1.7.3]: https://github.com/HuolalaTech/page-spy-web/releases/tag/v1.7.3
+[public-data-event]: https://github.com/HuolalaTech/page-spy/blob/main/docs/plugin_zh.md#行为约定
+
+import { HeaderLink } from '../components/HeaderLink'
+import { CodeBlock } from '@/components/CodeBlock'
+import modalImg from '@/assets/image/screenshot/modal.png';
+import replayImg from '@/assets/image/screenshot/replay-page.png';
+import replayGif from '@/assets/image/screenshot/replay-page.gif';
+
+**日志回放**，顾名思义是重新播放之前产生的日志。那么为什么要播放之前的日志？之前的日志从哪来？如何重新播放？我们一一来看。
+
+<img src={replayGif} />
+
+<HeaderLink slug="why" children="为什么" level={4} />
+
+以往，PageSpy 在线调试解决了很多棘手的问题，但使用 PageSpy 有一个前提条件：「客户端和调试端必须同时在线」。这个前置条件不仅局限了 PageSpy 的使用场景，比如：
+
+- 针对一个问题要同时投入开发和测试两个人力；
+- 调试期间客户端退到后台导致连接断开了；
+
+同时也给 PageSpy 自身带来边边框框，比如：
+
+- 要考虑收集的数据体积、网络传输的压力；
+
+为了解决这些问题、使用时获得更大自由度，PageSpy 在 [1.7.3][release-1.7.3] 版本中提供了日志回放的功能！
+
+<HeaderLink slug="where" children="日志从哪来" level={4} />
+
+在 PageSpy 的 SDK 支持 <a href={import.meta.env.VITE_PLUGIN_DOC} target='_blank'>注册插件</a> 后，开发团队第一时间推进 <a href={import.meta.env.VITE_PLUGIN_DATA_HARBOR} target='_blank'>DataHarborPlugin</a> 插件的研发。
+
+> `Data Harbor`，数据港口。
+> 
+> 心智模型：PageSpy 产生的数据会源源不断的被送到 “数据港口”，在对数据进行整理、打包、压缩后，“数据港口” 将数据存放在 “集装箱”（内存）中，等待下一步指示。
+
+它在内部监听 `"public-data"` 事件（[什么是 `public-data` 事件？][public-data-event]），进而实现离线缓存数据的功能，同时在 SDK 渲染的控件中提供下载数据的功能。当客户端发现问题时，测试同学可以直接导出数据，这一创新打破了以往「客户端和调试端必须同时在线」的前提要求。
+
+<HeaderLink slug="how-to-use" children="如何使用" level={4} />
+
+> 当前可用于客户端运行在浏览器环境中的场景。
+
+##### 第一步：客户端引入 SDK 和插件
+
+<CodeBlock code={`<html>
+  <head>
+    <!-- 1. 加载 PageSpy -->
+    <script src="https://<your-host>/page-spy/index.min.js"></script>
+
+    <!-- 2. 加载 DataHarbor 插件，实现缓存离线数据，下载或上传日志数据 -->
+    <script src="https://<your-host>/plugin/data-harbor/index.min.js"></script>
+
+    <!-- 3. 同时可以加载 RRWeb 插件，实现将用户操作轨迹记录到离线日志中 -->
+    <script src="https://<your-host>/plugin/rrweb/index.min.js"></script>
+
+    <script>
+      // 4. 注册插件，config 信息查看：https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor
+      PageSpy.registerPlugin(new DataHarborPlugin(config));
+      PageSpy.registerPlugin(new RRWebPlugin());
+
+      // 5. 实例化 PageSpy
+      window.$pageSpy = new PageSpy({
+        // 如果不想 SDK 和调试端建立实时连接，可以开启离线模式
+        // offline: true
+      });
+    </script>
+  </head>
+</html>`} />
+
+引入成功后，点击客户端渲染的控件后出现的弹窗中应该包含了上传和下载的按钮。
+
+<img src={modalImg} />
+
+##### 第二步：回放日志
+
+进入调试端，点击顶部菜单「开始调试 - 日志回放」进入回放列表页面，选择上一步上传 / 下载的 json 数据即可开始使用回放功能！
+
+<img src={replayImg} />
+
+##### 配合其他插件使用
+
+DataHarborPlugin 本身只收集数据、提供数据处理的功能，PageSpy 另外还提供了：
+
+- <a href={import.meta.env.VITE_PLUGIN_RRWEB} targte="_blank"><code>RRWebPlugin</code></a>: 使用 `rrweb` 记录 DOM 更新，在调试端的「日志回放」面板左侧用户可以看到页面的操作轨迹；
