@@ -1,16 +1,17 @@
-import { CodeBlock } from '@/components/CodeBlock'
-import { Link } from 'react-router-dom'
+
 import { Tooltip } from 'antd'
 import { TransitionLink } from '@/components/Transition'
 
 第一步，在客户端的项目中加载 &lt;script&gt;；
 
-<CodeBlock dynamicCode={({ deployUrl }) => `<!-- PageSpy SDK -->
-<script crossorigin="anonymous" src="${deployUrl}/page-spy/index.min.js"></script>
+```html
+<!-- PageSpy SDK -->
+<script crossorigin="anonymous" src="{deployUrl}/page-spy/index.min.js"></script>
 
 <!-- 插件（可选的，但建议使用） -->
-<script crossorigin="anonymous" src="${deployUrl}/plugin/data-harbor/index.min.js"></script>
-<script crossorigin="anonymous" src="${deployUrl}/plugin/rrweb/index.min.js"></script>`} lang="html" />
+<script crossorigin="anonymous" src="{deployUrl}/plugin/data-harbor/index.min.js"></script>
+<script crossorigin="anonymous" src="{deployUrl}/plugin/rrweb/index.min.js"></script>
+```
 
 第二步，初始化 PageSpy 和插件，它们的初始化参数都提供了可选的配置项用于自定义 SDK 的行为：
 
@@ -27,7 +28,8 @@ import { TransitionLink } from '@/components/Transition'
   </details>
 </blockquote>
 
-<CodeBlock code={`<script>
+```html
+<script>
   window.$harbor = new DataHarborPlugin();
   window.$rrweb = new RRWebPlugin();
 
@@ -36,6 +38,7 @@ import { TransitionLink } from '@/components/Transition'
   })
 
   window.$pageSpy = new PageSpy();
-</script>`} lang="html" />
+</script>
+```
 
 以上就是在浏览器项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 <Tooltip title="菜单默认隐藏，部署后可见" color="purple"><a href="javascript:void(0)">开始调试</a></Tooltip> 使用！

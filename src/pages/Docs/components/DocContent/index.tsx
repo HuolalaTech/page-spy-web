@@ -20,6 +20,7 @@ import { useEventListener } from '@/utils/useEventListener';
 import { useSidebarStore } from '@/store/doc-sidebar';
 import { useShallow } from 'zustand/react/shallow';
 import { TransitionContext } from '@/components/Transition';
+import components from './mdx-mapping';
 
 const modules = import.meta.glob('../../md/*.mdx') as Record<string, any>;
 
@@ -183,7 +184,10 @@ export const DocContent = () => {
             </HeaderLink>
           )}
 
-          {React.createElement(docContent, { key: doc })}
+          {React.createElement(docContent, {
+            key: doc,
+            components,
+          })}
         </div>
         <div className="navigation">
           <div className="navigation-prev">

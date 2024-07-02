@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { TransitionLink } from '@/components/Transition'
 import bannerImg from '@/assets/image/doc-banner.png';
-import { HeaderLink } from '../components/HeaderLink';
+
 import consoleImg from '@/assets/image/screenshot/console-panel.png';
 import networkImg from '@/assets/image/screenshot/network-panel.png';
 import pageImg from '@/assets/image/screenshot/page-panel.png';
@@ -13,11 +12,11 @@ export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
 <img src={bannerImg} style={{ width: '100%' }} />
 
-<HeaderLink level={4} slug="what-is-page-spy" children="什么是 PageSpy？" />
+### 什么是 PageSpy？#what-is-page-spy
 
 <b>PageSpy</b> 是一款兼容 <TransitionLink to="browser">Web</TransitionLink> / <TransitionLink to="miniprogram">小程序</TransitionLink> / <TransitionLink to="react-native">React Native</TransitionLink> / <TransitionLink to="harmony">鸿蒙 App</TransitionLink> 等平台项目的开源调试平台。基于对原生 API 的封装，它将调用原生方法时的参数进行过滤、转化，整理成一定格式的消息供调试端消费；调试端收到消息数据后，提供类似本地控制台的功能界面将数据呈现出来。
 
-<HeaderLink level={4} slug="when-to-use" children="何时使用？" />
+### 何时使用？#when-to-use
 
 *任何无法在本地使用控制台调试的场景，都是 **PageSpy** 可以大显身手的时候！*
 一起来看下面的几个场景案例：
@@ -26,7 +25,7 @@ export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 - **远程办公、跨地区协同**：传统沟通方式如邮件、电话、视频会议等，沟通效率不高、故障信息不全面，容易误解误判；
 - **用户终端上出现白屏问题**：传统定位问题的方式包括数据监控、日志分析等，这些方式依赖排障人员要理解业务需求场景、技术实现；
 
-<HeaderLink level={4} slug="feature-overview" children="界面概览" />
+### 界面概览#feature-overview
 
 - Console 面板: 显示 `console.<log | info | warn | error | debug>` 输出的日志信息，可以发送代码到客户端执行；
 

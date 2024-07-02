@@ -1,33 +1,34 @@
-import { CodeBlock } from '@/components/CodeBlock';
-import { HeaderLink } from '../components/HeaderLink';
 import { EmbedVideo } from '../components/EmbedVideo'
 
 PageSpy 的核心能力之一是提供了用于连接客户端和调试端、转发两端之间产生的消息的服务。
 
 同时为了数据安全和方便你的使用，PageSpy 内置了完整的、开箱即用的多种部署方案，各位开发者可以根据自己的情况选择任意一种部署方式。
 
-<HeaderLink level={4} slug="node" children="使用 Node 部署" />
+### 使用 Node 部署#node
 
-<CodeBlock lang="bash" code={`yarn global add @huolala-tech/page-spy-api@latest
+```bash
+yarn global add @huolala-tech/page-spy-api@latest
 
 # 如果你使用 npm
 
-npm install -g @huolala-tech/page-spy-api@latest`
-} />
+npm install -g @huolala-tech/page-spy-api@latest
+```
 
 安装完成之后你可以在命令行中执行 `page-spy-api` 启动服务，查看视频学习使用 Node 部署 PageSpy：
 
 <EmbedVideo title="deployWithNode" /> 
 
-<HeaderLink level={4} slug="docker" children="使用 Docker 部署" />
+### 使用 Docker 部署#docker
 
-<CodeBlock lang="bash" code={`docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest`} />
+```bash
+docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
+```
 
 查看视频学习使用 Docker 部署 PageSpy：
 
 <EmbedVideo title="deployWithDocker" /> 
 
-<HeaderLink level={4} slug="next" children="接下来" />
+### 接下来#next
 
 部署完成后，需要在客户端引入 SDK。
 

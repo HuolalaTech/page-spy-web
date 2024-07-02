@@ -1,6 +1,6 @@
 import { LinkOutlined } from '@ant-design/icons';
 import clsx from 'clsx';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PropsWithChildren } from 'react';
 import './index.less';
 import { Link, useLocation } from 'react-router-dom';
