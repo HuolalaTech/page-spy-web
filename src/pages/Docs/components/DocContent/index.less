@@ -4,16 +4,26 @@
   padding: 24px;
   height: 100%;
   overflow: auto;
+  transition: filter ease-in-out 100ms;
+  &.loading {
+    filter: blur(3px);
+  }
   .paragraph {
     max-width: 800px;
-    > * + * {
-      margin-top: @paragraph-space;
+    .content {
+      min-height: 100%;
+      > * + * {
+        margin-top: @paragraph-space;
+      }
     }
-    > img {
+    img {
       display: block;
       width: 90%;
-      margin: 0 auto;
+      margin: 0 auto @paragraph-space;
       border-radius: 8px;
+    }
+    .code-block {
+      margin-bottom: @paragraph-space;
     }
   }
   p,
@@ -61,8 +71,11 @@
   }
   a,
   code {
-    color: rgb(182, 124, 255);
+    color: #b392f0;
     font-family: Cascadia Code, Menlo, Courier, monospace;
+  }
+  a:hover {
+    color: #c3a5fb;
   }
   ul,
   ol {
@@ -78,18 +91,24 @@
     aspect-ratio: 16 / 9;
   }
   .navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     margin-top: 80px;
+    background-color: var(--dark-background);
     > div {
-      flex: 0 0 20%;
+      cursor: pointer;
       &:hover .footer-link__title {
         color: #b67cff;
       }
     }
-    &-next .footer-link {
-      align-items: end;
+    &-menus {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform ease-in-out 150ms;
+      &:active {
+        transform: scale(1.25);
+      }
     }
     .footer-link {
       text-decoration: none;
@@ -111,14 +130,30 @@
         transition: color linear 0.3s;
       }
     }
+    &-next .footer-link {
+      align-items: end;
+    }
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: @doc-page-max-width) {
   .doc-content {
-    padding-left: calc(var(--doc-menus-width) + var(--doc-side-width) / 2);
+    padding-left: calc(var(--doc-sidebar-width) + var(--doc-side-space) / 2);
     .paragraph {
       padding: 32px 0 64px 64px;
     }
+  }
+  .navigation-menus {
+    visibility: hidden;
+  }
+}
+@media screen and (max-width: @doc-page-max-width) {
+  .navigation {
+    position: sticky;
+    bottom: 0;
+    width: 100vw;
+    padding: 24px;
+    transform: translate(-24px, 24px);
+    border-top: 1px solid @dark-border;
   }
 }

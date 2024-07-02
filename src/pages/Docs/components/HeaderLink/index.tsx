@@ -1,9 +1,9 @@
 import { LinkOutlined } from '@ant-design/icons';
 import clsx from 'clsx';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { PropsWithChildren } from 'react';
 import './index.less';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export const HeaderLink = ({
   level = 1,
@@ -13,6 +13,13 @@ export const HeaderLink = ({
   level: number;
   slug: string;
 }>) => {
+  const { hash } = useLocation();
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    if (hash && hash === `#${slug}`) {
+      setShow(true);
+    }
+  }, [hash, slug]);
   return React.createElement(
     `h${level}`,
     {
@@ -24,6 +31,15 @@ export const HeaderLink = ({
         <LinkOutlined />
       </Link>,
       children,
+      show && (
+        <div
+          className="matched-bg"
+          key="bg"
+          onAnimationEnd={() => {
+            setShow(false);
+          }}
+        />
+      ),
     ],
   );
 };

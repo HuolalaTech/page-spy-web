@@ -1,30 +1,66 @@
 import { useLanguage } from '@/utils/useLanguage';
-import React, { Suspense, useMemo } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useTransition,
+} from 'react';
 import './index.less';
-import { Link, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { DOC_MENUS, ORDER_DOC_MENUS, OrderDocMenus } from '../DocMenus';
-import { Space, message, notification } from 'antd';
+import { notification } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as BeforeSvg } from '@/assets/image/before.svg';
 import { ReactComponent as NextSvg } from '@/assets/image/next.svg';
+import { ReactComponent as MenuSvg } from '@/assets/image/menu.svg';
 import Icon from '@ant-design/icons';
 import { HeaderLink } from '../HeaderLink';
+import { useEventListener } from '@/utils/useEventListener';
+import { useSidebarStore } from '@/store/doc-sidebar';
+import { useShallow } from 'zustand/react/shallow';
 
 const modules = import.meta.glob('../../md/*.mdx') as Record<string, any>;
 
+const LOAD_DOC_EVENT = 'load-doc';
+const lazyDocWithNotification =
+  (doc: string, value: () => Promise<any>) => async () => {
+    window.dispatchEvent(
+      new CustomEvent(LOAD_DOC_EVENT, {
+        detail: {
+          doc,
+          loading: true,
+        },
+      }),
+    );
+    const result = await value();
+    setTimeout(() => {
+      window.dispatchEvent(
+        new CustomEvent(LOAD_DOC_EVENT, {
+          detail: {
+            doc,
+            loading: false,
+          },
+        }),
+      );
+    }, 100);
+    return result;
+  };
 const mdComponents = Object.entries(modules).reduce((acc, cur) => {
   const [key, value] = cur;
   const result = key.match(/md\/(.+)\.(.+)\.mdx$/);
   if (!result) return acc;
   const [, doc, lang] = result;
+  const lazyDoc = lazyDocWithNotification(doc, value);
   if (!acc[doc]) {
-    acc[doc] = { [lang]: React.lazy(value) };
+    acc[doc] = { [lang]: React.lazy(lazyDoc) };
   } else {
-    acc[doc][lang] = React.lazy(value);
+    acc[doc][lang] = React.lazy(lazyDoc);
   }
   return acc;
 }, {} as Record<string, Record<string, React.LazyExoticComponent<any>>>);
 
+export const TOGGLE_TRANSITION_EVENT = 'toggle-transition';
 const FooterLink = ({
   menu,
   flag,
@@ -34,10 +70,27 @@ const FooterLink = ({
 }) => {
   const [lang] = useLanguage();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [inTransition, startTransition] = useTransition();
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent(TOGGLE_TRANSITION_EVENT, {
+        detail: inTransition,
+      }),
+    );
+  }, [inTransition]);
+
   if (!menu) return null;
 
   return (
-    <Link className="footer-link" to={menu.doc}>
+    <div
+      className="footer-link"
+      onClick={() => {
+        startTransition(() => {
+          navigate(menu.doc);
+        });
+      }}
+    >
       <div className="footer-link__head">
         {flag === 'prev' && (
           <Icon component={BeforeSvg} style={{ fontSize: 12 }} />
@@ -48,7 +101,7 @@ const FooterLink = ({
       <h4 className="footer-link__title">
         {typeof menu.label === 'string' ? menu.label : menu.label[lang]}
       </h4>
-    </Link>
+    </div>
   );
 };
 
@@ -90,10 +143,43 @@ export const DocContent = () => {
     return navigation;
   }, [doc]);
 
+  const rootRef = useRef<HTMLElement | null>(null);
+  // 侧边/底部导航：切换文档，处理状态过渡
+  useEventListener(TOGGLE_TRANSITION_EVENT, (e) => {
+    const el = rootRef.current;
+    if (!el) return;
+    const { detail } = e as CustomEvent;
+    if (detail) {
+      el.classList.add('loading');
+    } else {
+      el.classList.remove('loading');
+    }
+  });
+  const { hash } = useLocation();
+  const scrollIntoAnchor = useCallback(() => {
+    if (!hash) return;
+    rootRef.current?.querySelector(hash)?.scrollIntoView({
+      block: 'center',
+    });
+  }, [hash]);
+  useEventListener(LOAD_DOC_EVENT, (e) => {
+    const { detail } = e as CustomEvent;
+    if (detail.loading === false) {
+      scrollIntoAnchor();
+    }
+  });
+  // 点击锚点
+  useEffect(scrollIntoAnchor, [scrollIntoAnchor]);
+
+  const setShow = useSidebarStore(useShallow((state) => state.setShow));
+  const onCallSidebar = () => {
+    setShow(true);
+  };
+
   return (
-    <main className="doc-content">
+    <main className="doc-content" ref={rootRef}>
       <div className="paragraph">
-        <Suspense fallback={<span>Loading</span>}>
+        <div className="content">
           {current && (
             <HeaderLink level={1} slug={current.doc}>
               {typeof current.label === 'string'
@@ -102,16 +188,19 @@ export const DocContent = () => {
             </HeaderLink>
           )}
 
-          {React.createElement(docContent)}
-          <div className="navigation">
-            <div className="navigation-prev">
-              <FooterLink menu={prev} flag="prev" />
-            </div>
-            <div className="navigation-next">
-              <FooterLink menu={next} flag="next" />
-            </div>
+          {React.createElement(docContent, { key: doc })}
+        </div>
+        <div className="navigation">
+          <div className="navigation-prev">
+            <FooterLink menu={prev} flag="prev" />
           </div>
-        </Suspense>
+          <div className="navigation-menus" onClick={onCallSidebar}>
+            <Icon component={MenuSvg} style={{ color: '#999', fontSize: 24 }} />
+          </div>
+          <div className="navigation-next">
+            <FooterLink menu={next} flag="next" />
+          </div>
+        </div>
       </div>
     </main>
   );

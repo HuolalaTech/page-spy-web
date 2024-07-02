@@ -1,13 +1,10 @@
 .layouts {
   height: 100%;
   overflow: hidden;
-  --header-height: 64px;
-  --light-background: rgba(255, 255, 255, 1);
-  --dark-background: rgba(26, 26, 26, 1);
   .ant-layout-header {
     position: relative;
     padding-inline: 0;
-    z-index: 10;
+    z-index: 100;
   }
   .ant-layout-content {
     overflow: auto;
@@ -16,11 +13,11 @@
     position: relative;
     padding-inline: 48px;
     height: var(--header-height);
-    box-shadow: @box-shadow;
+    box-shadow: @light-box-shadow;
     background-color: var(--light-background);
     z-index: 10;
     &.is-dark {
-      box-shadow: 0 2px 10px 1px rgba(0, 0, 0, 0.85);
+      box-shadow: @dark-box-shadow;
       background-color: var(--dark-background);
       .logo-name {
         color: #ddd;
