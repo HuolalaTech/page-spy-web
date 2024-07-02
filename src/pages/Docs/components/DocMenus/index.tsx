@@ -3,9 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './index.less';
 import clsx from 'clsx';
 import { memo, useEffect, useTransition } from 'react';
-import { TOGGLE_TRANSITION_EVENT } from '../DocContent';
 import { useSidebarStore } from '@/store/doc-sidebar';
 import { useShallow } from 'zustand/react/shallow';
+import { TransitionLink } from '@/components/Transition';
 
 export const DOC_MENUS = [
   {
@@ -148,20 +148,10 @@ export const ORDER_DOC_MENUS = DOC_MENUS.reduce((acc, cur) => {
 }, [] as OrderDocMenus);
 
 export const DocMenus = memo(() => {
-  const setShow = useSidebarStore(useShallow((state) => state.setShow));
-  const navigate = useNavigate();
   const [lang] = useLanguage();
   const params = useParams();
   // route match rule "/docs/*"
   const docInUrl = params['*'] || DOC_MENUS[0].children[0].doc;
-  const [inTransition, startTransition] = useTransition();
-  useEffect(() => {
-    window.dispatchEvent(
-      new CustomEvent(TOGGLE_TRANSITION_EVENT, {
-        detail: inTransition,
-      }),
-    );
-  }, [inTransition]);
 
   return (
     <div className="doc-menus">
@@ -171,20 +161,15 @@ export const DocMenus = memo(() => {
             <h4>{group[lang]}</h4>
             {children.map(({ label, doc }) => {
               return (
-                <div
+                <TransitionLink
+                  to={doc}
                   key={doc}
                   className={clsx('menu-item', {
                     active: docInUrl === doc,
                   })}
-                  onClick={() => {
-                    setShow(false);
-                    startTransition(() => {
-                      navigate(doc);
-                    });
-                  }}
                 >
                   {typeof label === 'string' ? label : label[lang]}
-                </div>
+                </TransitionLink>
               );
             })}
           </div>

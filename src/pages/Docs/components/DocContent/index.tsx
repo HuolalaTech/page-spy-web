@@ -1,10 +1,10 @@
 import { useLanguage } from '@/utils/useLanguage';
 import React, {
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useRef,
-  useTransition,
 } from 'react';
 import './index.less';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -19,6 +19,7 @@ import { HeaderLink } from '../HeaderLink';
 import { useEventListener } from '@/utils/useEventListener';
 import { useSidebarStore } from '@/store/doc-sidebar';
 import { useShallow } from 'zustand/react/shallow';
+import { TransitionContext } from '@/components/Transition';
 
 const modules = import.meta.glob('../../md/*.mdx') as Record<string, any>;
 
@@ -60,7 +61,6 @@ const mdComponents = Object.entries(modules).reduce((acc, cur) => {
   return acc;
 }, {} as Record<string, Record<string, React.LazyExoticComponent<any>>>);
 
-export const TOGGLE_TRANSITION_EVENT = 'toggle-transition';
 const FooterLink = ({
   menu,
   flag,
@@ -71,14 +71,7 @@ const FooterLink = ({
   const [lang] = useLanguage();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [inTransition, startTransition] = useTransition();
-  useEffect(() => {
-    window.dispatchEvent(
-      new CustomEvent(TOGGLE_TRANSITION_EVENT, {
-        detail: inTransition,
-      }),
-    );
-  }, [inTransition]);
+  const { startTransition } = useContext(TransitionContext);
 
   if (!menu) return null;
 
@@ -145,16 +138,17 @@ export const DocContent = () => {
 
   const rootRef = useRef<HTMLElement | null>(null);
   // 侧边/底部导航：切换文档，处理状态过渡
-  useEventListener(TOGGLE_TRANSITION_EVENT, (e) => {
+  const { inTransition } = useContext(TransitionContext);
+  useEffect(() => {
     const el = rootRef.current;
     if (!el) return;
-    const { detail } = e as CustomEvent;
-    if (detail) {
+    if (inTransition) {
       el.classList.add('loading');
     } else {
       el.classList.remove('loading');
     }
-  });
+  }, [inTransition]);
+
   const { hash } = useLocation();
   const scrollIntoAnchor = useCallback(() => {
     if (!hash) return;
