@@ -149,7 +149,7 @@ export const DocContent = () => {
     }
   }, [inTransition]);
 
-  const { hash } = useLocation();
+  const { hash, pathname } = useLocation();
   const scrollIntoAnchor = useCallback(() => {
     if (!hash) return;
     rootRef.current?.querySelector(hash)?.scrollIntoView({
@@ -162,13 +162,14 @@ export const DocContent = () => {
       scrollIntoAnchor();
     }
   });
+  useEffect(() => {
+    if (hash) return;
+    rootRef.current?.scrollTo(0, 0);
+  }, [hash, pathname]);
   // 点击锚点
   useEffect(scrollIntoAnchor, [scrollIntoAnchor]);
 
   const setShow = useSidebarStore(useShallow((state) => state.setShow));
-  const onCallSidebar = () => {
-    setShow(true);
-  };
 
   return (
     <main className="doc-content" ref={rootRef}>
@@ -188,7 +189,12 @@ export const DocContent = () => {
           <div className="navigation-prev">
             <FooterLink menu={prev} flag="prev" />
           </div>
-          <div className="navigation-menus" onClick={onCallSidebar}>
+          <div
+            className="navigation-menus"
+            onClick={() => {
+              setShow(true);
+            }}
+          >
             <Icon component={MenuSvg} style={{ color: '#999', fontSize: 24 }} />
           </div>
           <div className="navigation-next">

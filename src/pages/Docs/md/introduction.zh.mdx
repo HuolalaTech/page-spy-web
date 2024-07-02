@@ -11,6 +11,8 @@ import systemImg from '@/assets/image/screenshot/system-panel.png';
 
 export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
+<img src={bannerImg} style={{ width: '100%' }} />
+
 <HeaderLink level={4} slug="what-is-page-spy" children="什么是 PageSpy？" />
 
 <b>PageSpy</b> 是一款兼容 <TransitionLink to="browser">Web</TransitionLink> / <TransitionLink to="miniprogram">小程序</TransitionLink> / <TransitionLink to="react-native">React Native</TransitionLink> / <TransitionLink to="harmony">鸿蒙 App</TransitionLink> 等平台项目的开源调试平台。基于对原生 API 的封装，它将调用原生方法时的参数进行过滤、转化，整理成一定格式的消息供调试端消费；调试端收到消息数据后，提供类似本地控制台的功能界面将数据呈现出来。
