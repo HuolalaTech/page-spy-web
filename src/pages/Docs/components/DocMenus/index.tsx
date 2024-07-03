@@ -121,15 +121,6 @@ export const DOC_MENUS = [
         },
         doc: 'changelog',
       },
-      {
-        label: {
-          zh: '开发团队',
-          en: 'Team',
-          ja: '開発チーム',
-          ko: '개발 팀',
-        },
-        doc: 'team',
-      },
     ],
   },
 ];
