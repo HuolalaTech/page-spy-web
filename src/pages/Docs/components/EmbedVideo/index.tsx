@@ -46,6 +46,12 @@ export const EmbedVideo = ({ title, style = {} }: Props) => {
         referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen
         style={style}
+        onLoad={() => {
+          console.log('OK');
+        }}
+        onError={() => {
+          console.log('Error');
+        }}
       />
     );
   }
@@ -58,14 +64,10 @@ export const EmbedVideo = ({ title, style = {} }: Props) => {
       allowFullScreen
       style={style}
       onLoad={() => {
-        if (!bFrame.current) return;
-        const doc = bFrame.current.contentDocument;
-        const video = doc?.querySelector('video') as HTMLVideoElement;
-        if (!video) return;
-        console.log(video.paused);
-        if (!video.paused) {
-          video.pause();
-        }
+        console.log('OK');
+      }}
+      onError={() => {
+        console.log('Error');
       }}
     />
   );

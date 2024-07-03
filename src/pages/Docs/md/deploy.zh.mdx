@@ -1,8 +1,12 @@
 import { EmbedVideo } from '../components/EmbedVideo'
+import ApiImg from '@/assets/image/screenshot/page-spy-api.png'
+import SDKImg from '@/assets/image/screenshot/page-spy-sdks.png'
 
-PageSpy 的核心能力之一是提供了用于连接客户端和调试端、转发两端之间产生的消息的服务。
+<img src={ApiImg} />
 
-同时为了数据安全和方便你的使用，PageSpy 内置了完整的、开箱即用的多种部署方案，各位开发者可以根据自己的情况选择任意一种部署方式。
+用于连接客户端和调试端、并转发两端之间消息的服务是 PageSpy 的核心能力之一。
+
+为了数据安全和方便使用，PageSpy 提供完整的、开箱即用的多种部署方案，各位开发者可以根据自己的情况选择任意一种部署方式。
 
 ### 使用 Node 部署#node
 
@@ -14,7 +18,7 @@ yarn global add @huolala-tech/page-spy-api@latest
 npm install -g @huolala-tech/page-spy-api@latest
 ```
 
-安装完成之后你可以在命令行中执行 `page-spy-api` 启动服务，查看视频学习使用 Node 部署 PageSpy：
+安装完成之后，在终端中执行 `page-spy-api` 启动服务，查看视频学习使用 Node 部署 PageSpy：
 
 <EmbedVideo title="deployWithNode" /> 
 
@@ -30,6 +34,8 @@ docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:675
 
 ### 接下来#next
 
-部署完成后，需要在客户端引入 SDK。
+部署完成后，需要在客户端引入对应的 SDK。
 
-SDK 的作用是负责收集客户端程序的运行时信息，并自动将收集的信息发送到上面部署的服务、由其转发到调试端。
+SDK 的功能是负责收集客户端程序的运行时信息，并自动将收集的信息发送到上面部署的 PageSpy 服务、再由其转发到调试端。
+
+<img src={SDKImg} />

@@ -2,13 +2,28 @@
 import { Tooltip } from 'antd'
 import { TransitionLink } from '@/components/Transition'
 
-第一步，在客户端的项目中加载 &lt;script&gt;；
+### 在线体验#online
+
+> 点击查看完整代码: [Codesandbox](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
+
+<iframe
+  width="100%"
+  src="https://codesandbox.io/embed/k3pzzt?view=editor+%2B+preview&module=%2Fpublic%2Findex.html"
+  title="page-spy-with-react"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  style={{ fontSize: 12 }}
+/>
+
+### 接入使用#usage
+
+第一步，在客户端的项目中加载 `<script>`；
 
 ```html
 <!-- PageSpy SDK -->
 <script crossorigin="anonymous" src="{deployUrl}/page-spy/index.min.js"></script>
 
-<!-- 插件（可选的，但建议使用） -->
+<!-- 插件（非必须，但建议使用） -->
 <script crossorigin="anonymous" src="{deployUrl}/plugin/data-harbor/index.min.js"></script>
 <script crossorigin="anonymous" src="{deployUrl}/plugin/rrweb/index.min.js"></script>
 ```
@@ -23,7 +38,7 @@ import { TransitionLink } from '@/components/Transition'
       - **DataHarborPlugin**：PageSpy 本身仅支持在线模式，即调试期间「客户端和调试端必须同时在线」，DataHarborPlugin 让 PageSpy 实现了离线模式的调试。点击 <TransitionLink to="offline-log">离线日志回放</TransitionLink> 查看更多详细信息；
       - **RRWebPlugin**：记录用户操作轨迹，底层使用 [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.zh_CN.md)。通常和 DataHarborPlugin 绑定在一起使用。
 
-      你也可以通过  <a href={import.meta.env.VITE_PLUGIN_DOC} target='_blank'>开发插件</a>，定制化属于你自己的 PageSpy！
+      你也可以通过  <a href={import.meta.env.VITE_PLUGIN_DOC} target='_blank'>开发插件</a>，定制属于你自己的 PageSpy！
     </div>
   </details>
 </blockquote>
