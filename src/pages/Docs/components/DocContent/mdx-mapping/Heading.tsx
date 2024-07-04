@@ -20,7 +20,7 @@ const Heading = ({ level, children }: Props) => {
     const nodes: ReactNode[] = [...children];
     const last = nodes.pop();
     if (last && typeof last === 'string') {
-      const [content, anchor] = nodes.pop()!.toString().split('#');
+      const [content, anchor] = last.toString().split('#');
       children = nodes.concat(content);
       slug = anchor;
     }
@@ -28,7 +28,7 @@ const Heading = ({ level, children }: Props) => {
 
   return (
     <HeaderLink level={level} slug={slug}>
-      <div>{children}</div>
+      {createElement('div', {}, children)}
     </HeaderLink>
   );
 };
