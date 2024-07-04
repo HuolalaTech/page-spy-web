@@ -1,20 +1,34 @@
-import { createElement } from 'react';
+/* eslint-disable no-param-reassign */
+import { ReactNode, createElement } from 'react';
 import { HeaderLink } from '../../HeaderLink';
 
 interface Props {
   level: number;
-  children: string;
+  children: string | ReactNode[];
 }
 
 // 格式：
 // ### 标题#slug
-const Heading = ({ level, children = '' }: Props) => {
-  const [text, anchor] = children.toString().split('#');
-  const anchorId = anchor ?? children.replace(/\./g, '_');
+const Heading = ({ level, children }: Props) => {
+  let slug = '';
+  if (typeof children === 'string') {
+    [children, slug] = children.toString().split('#');
+    if (!slug) {
+      slug = children.replace(/\./g, '_');
+    }
+  } else {
+    const nodes: ReactNode[] = [...children];
+    const last = nodes.pop();
+    if (last && typeof last === 'string') {
+      const [content, anchor] = nodes.pop()!.toString().split('#');
+      children = nodes.concat(content);
+      slug = anchor;
+    }
+  }
 
   return (
-    <HeaderLink level={level} slug={anchorId}>
-      {text.trim()}
+    <HeaderLink level={level} slug={slug}>
+      <div>{children}</div>
     </HeaderLink>
   );
 };

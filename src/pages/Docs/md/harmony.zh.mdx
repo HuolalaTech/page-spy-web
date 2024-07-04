@@ -1,7 +1,9 @@
 
 import { Tooltip } from 'antd'
 
-第一步，在待调试 HAP 目录下安装依赖：
+#### 第一步#step-1
+
+在待调试 HAP 目录下安装依赖：
 
 ```bash
 # API 9
@@ -11,7 +13,9 @@ ohpm install @huolala/page-spy-harmony@^1.0.0
 ohpm install @huolala/page-spy-harmony@^2
 ```
 
-第二步，在合适的位置引入 SDK 并初始化，这里以 `EntryAbility` 为例。初始化参数提供了可选的 [配置项]({VITE_SDK_HARMONY_REPO}) 用于自定义 SDK 的行为：
+#### 第二步#step-2
+
+在合适的位置引入 SDK 并初始化，这里以 `EntryAbility` 为例。初始化参数提供了可选的 [配置项]({VITE_SDK_HARMONY_REPO}) 用于自定义 SDK 的行为：
 
 ```js
 import { PageSpy } from '@huolala/page-spy-harmony';

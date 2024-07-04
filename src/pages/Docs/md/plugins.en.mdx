@@ -1,0 +1,77 @@
+
+
+
+### Type Definitions #definition
+
+```ts
+import { SocketStoreType } from '@huolala-tech/page-spy-types/lib/base';
+import { PluginOrder } from '@huolala-tech/page-spy-types';
+import { InitConfig } from 'types';
+
+export abstract class PageSpyPlugin {
+  /**
+   * Each plugin must specify a name, which serves as its "identity".
+   * Functionality within PageSpy such as registration and disabling depends on this name property.
+   */
+  public abstract name: string;
+
+  /**
+   * Specifies the plugin loading order. Plugin invocation follows:
+   *   1. Plugins with enforce: "pre" property;
+   *   2. Plugins without enforce property;
+   *   3. Plugins with enforce: "post" property.
+   */
+  public abstract enforce?: PluginOrder;
+
+  // Called when new PageSpy() is invoked
+  public abstract onInit: (params: OnInitParams) => any;
+
+  // Called after PageSpy rendering is completed (if there's a rendering process)
+  public abstract onMounted?: (params: OnMountedParams) => any;
+
+  // When PageSpy is no longer needed, plugins should have reset/recovery functionality
+  public abstract onReset?: () => any;
+}
+
+export interface OnInitParams {
+  // Configuration information merged with user-provided instantiation parameters
+  config: Required<InitConfig>;
+
+  // Wrapper around the socket instance; plugin developers can interact with the debug terminal/API through this property
+  socketStore: SocketStoreType;
+}
+
+export interface OnMountedParams {
+  // Root node of PageSpy rendering
+  root?: HTMLDivElement;
+
+  // Root node of the dialog rendered by PageSpy
+  content?: HTMLDivElement;
+
+  // Wrapper around the socket instance; plugin developers can interact with the debug terminal/API through this property
+  socketStore: SocketStoreType;
+}
+```
+
+### Behavioral Conventions #convention
+
+If a plugin collects (or want to publicly expose) certain platform "data", in addition to broadcasting data via `socketStore`, it is conventionally required to dispatch an `"public-data"` internal event on the `socketStore` instance. This allows plugins with statistical or persistence requirements to uniformly collect data from this event. Plugins that think certain data should not be "public" are not required to dispatch the `"public-data"` event.
+
+### Example Implementation of Plugins #demo
+
+Reference implementations can be found in [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) and [RRWebPlugin]({VITE_PLUGIN_RRWEB}).
+
+### Usage of Plugins #usage
+
+```html
+<!-- Include SDK -->
+<script src="https://<your-host>/page-spy/index.min.js"></script>
+<!-- Include Plugin -->
+<script src="https://<your-host>/plugin/xxx/index.min.js"></script>
+
+<!-- Register Plugin -->
+<script>
+  PageSpy.registerPlugin(new XXXPlugin());
+  window.$pageSpy = new PageSpy();
+</script>
+```

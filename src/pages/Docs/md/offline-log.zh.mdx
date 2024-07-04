@@ -24,13 +24,13 @@ import replayGif from '@/assets/image/screenshot/replay-page.gif';
 
 ### 日志从哪来#where
 
-在 PageSpy 的 SDK 支持 [注册插件]({VITE_PLUGIN_DOC}) 后，开发团队第一时间推进 [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) 插件的研发。
+在 PageSpy 的 SDK 支持 [注册插件](./plugins) 后，开发团队第一时间推进 [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) 插件的研发。
 
 > `Data Harbor`，数据港口。
 > 
-> 心智模型：PageSpy 产生的数据会源源不断的被送到 “数据港口”，在对数据进行整理、打包、压缩后，“数据港口” 将数据存放在 “集装箱”（内存）中，等待下一步指示。
+> 心智模型：PageSpy 产生的数据会源源不断的被送到 “数据港口”，在对数据进行整理、打包、压缩后，“数据港口” 将数据存放在 “集装箱”（内存或本地临时文件）中，等待下一步指示。
 
-它在内部监听 `"public-data"` 事件（[什么是 `public-data` 事件？][public-data-event]），进而实现离线缓存数据的功能，同时在 SDK 渲染的控件中提供下载数据的功能。当客户端发现问题时，测试同学可以直接导出数据，这一创新打破了以往「客户端和调试端必须同时在线」的前提要求。
+它在内部监听 "public-data" 事件（[什么是 `"public-data"` 事件？](./plugins#convention)），进而实现离线缓存数据的功能，同时在 SDK 渲染的控件中提供上传、下载数据的功能。当客户端发现问题时，测试同学可以直接上传或者下载数据，这一创新打破了以往「客户端和调试端必须同时在线」的前提要求。
 
 ### 如何使用#how-to-use
 

@@ -21,6 +21,7 @@ import { useSidebarStore } from '@/store/doc-sidebar';
 import { useShallow } from 'zustand/react/shallow';
 import { TransitionContext } from '@/components/Transition';
 import components from './mdx-mapping';
+import { DocNotFound } from '../DocNotFound';
 
 const modules = import.meta.glob('../../md/*.mdx') as Record<string, any>;
 
@@ -112,7 +113,7 @@ export const DocContent = () => {
         message: t('doc.miss-language')!,
         description: t('doc.miss-desc'),
       });
-      return mdComponents[doc]['zh'];
+      return DocNotFound;
     }
     return docData;
   }, [doc, lang, t]);
@@ -153,7 +154,7 @@ export const DocContent = () => {
   const { hash, pathname } = useLocation();
   const scrollIntoAnchor = useCallback(() => {
     if (!hash) return;
-    rootRef.current?.querySelector(hash)?.scrollIntoView({
+    rootRef.current?.querySelector(decodeURIComponent(hash))?.scrollIntoView({
       block: 'center',
     });
   }, [hash]);

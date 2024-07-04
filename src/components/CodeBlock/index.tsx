@@ -6,7 +6,6 @@ import { CheckOutlined } from '@ant-design/icons';
 import sh from '@/utils/shiki-highlighter';
 import { useAsyncEffect } from 'ahooks';
 import type { Lang } from 'shiki';
-import { useTranslation } from 'react-i18next';
 
 interface Props {
   code: string;
@@ -19,7 +18,6 @@ export const CodeBlock = ({
   lang = 'html',
   showCopy = true,
 }: Props) => {
-  const { t } = useTranslation();
   const [codeContent, setCodeContent] = useState('');
   useAsyncEffect(async () => {
     const highlighter = await sh.get({

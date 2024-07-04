@@ -16,7 +16,7 @@ export const HeaderLink = ({
   const { hash } = useLocation();
   const [show, setShow] = useState(false);
   useEffect(() => {
-    if (hash && hash === `#${slug}`) {
+    if (hash && decodeURIComponent(hash) === `#${slug}`) {
       setShow(true);
     }
   }, [hash, slug]);

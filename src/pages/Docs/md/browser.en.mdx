@@ -1,0 +1,63 @@
+import { Tooltip } from 'antd'
+
+### Take a try#online
+
+> Click to view the complete code: [Codesandbox](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
+
+<iframe
+  width="100%"
+  src="https://codesandbox.io/embed/k3pzzt?view=editor+%2B+preview&module=%2Fpublic%2Findex.html"
+  title="page-spy-with-react"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+/>
+
+### Access and Usage#usage
+
+#### Step 1#step-1
+
+Load `<script>` in the client's project:
+
+```html
+<!-- PageSpy SDK -->
+<script crossorigin="anonymous" src="{deployUrl}/page-spy/index.min.js"></script>
+
+<!-- Plugins (optional, but recommended) -->
+<script crossorigin="anonymous" src="{deployUrl}/plugin/data-harbor/index.min.js"></script>
+<script crossorigin="anonymous" src="{deployUrl}/plugin/rrweb/index.min.js"></script>
+```
+
+#### Step 2#step-2
+
+Initialize PageSpy and the plugins. Both their initialization parameters provide optional [configuration]({VITE_SDK_BROWSER_REPO}) items for customizing the behavior of the SDK:
+
+<blockquote>
+  <details>
+    <summary>What functions do these plugins provide?</summary>
+    <div>
+      [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) and [RRWebPlugin]({VITE_PLUGIN_RRWEB}) are two plugins mainly used to extend the capabilities of PageSpy:
+      
+      - **DataHarborPlugin**: PageSpy itself only supports _online mode_, meaning "the client and the debugging side must be online simultaneously" during debugging. DataHarborPlugin enables offline debugging for PageSpy. Click [Offline Log](./offline-log) to see more details;
+      - **RRWebPlugin**: Records user operation traces, using [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.zh_CN.md) as the underlying technology. It's commonly used in conjunction with DataHarborPlugin.
+
+      You can also customize your own PageSpy by [developing plugins](./plugins)!
+    </div>
+  </details>
+</blockquote>
+
+```html
+<script>
+  window.$harbor = new DataHarborPlugin();
+  window.$rrweb = new RRWebPlugin();
+
+  [window.$harbor, window.$rrweb].forEach(p => {
+    PageSpy.registerPlugin(p)
+  })
+
+  window.$pageSpy = new PageSpy();
+</script>
+```
+
+That's the complete process to integrate PageSpy into a browser project.
+
+Once integrated, click on the top menu <Tooltip title="Menu is hidden by default and will be visible after deployment." color="purple"><a href="javascript:void(0)">Debugging</a></Tooltip> to use it!
