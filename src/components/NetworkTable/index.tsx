@@ -248,7 +248,12 @@ export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
             detailClicked.current = true;
           }}
         >
-          <NetworkDetail data={detailData} />
+          <NetworkDetail
+            data={detailData}
+            onClose={() => {
+              setShowDetail(false);
+            }}
+          />
         </div>
       )}
     </div>

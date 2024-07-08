@@ -175,10 +175,8 @@ export const RoomList = () => {
     if (loading && !showLoadingRef.current) {
       return <LoadingFallback />;
     }
-
     const matchedConnections = filterConnections(connectionList, conditions);
-    setMaximumAlert(matchedConnections.length > MAXIMUM_CONNECTIONS);
-    if (error || matchedConnections.length === 0)
+    if (error || matchedConnections.length === 0) {
       return (
         <Empty
           style={{
@@ -186,6 +184,8 @@ export const RoomList = () => {
           }}
         />
       );
+    }
+    setMaximumAlert(matchedConnections.length > MAXIMUM_CONNECTIONS);
 
     const list = sortConnections(
       matchedConnections.slice(0, MAXIMUM_CONNECTIONS),

@@ -10,9 +10,12 @@ import { QueryParamsBlock } from '../QueryParamsBlock';
 import { RequestPayloadBlock } from '../RequestPayloadBlock';
 import { ResponseBody } from '../ResponseBody';
 import clsx from 'clsx';
+import Icon from '@ant-design/icons';
+import { ReactComponent as CloseSvg } from '@/assets/image/close.svg';
 
 interface Props {
   data: SpyNetwork.RequestInfo;
+  onClose: () => void;
 }
 
 const generalFieldMap = {
@@ -79,7 +82,7 @@ const TABS: TabItem[] = [
                   <PartOfHeader />
                 </Space>
                 <div className="detail-block__content">
-                  {item.data ? (
+                  {item.data?.length ? (
                     <EntriesBody data={item.data} />
                   ) : (
                     <Empty
@@ -138,7 +141,7 @@ const TABS: TabItem[] = [
   },
 ];
 
-export const NetworkDetail = memo(({ data }: Props) => {
+export const NetworkDetail = memo(({ data, onClose }: Props) => {
   const [activeTab, setActiveTab] = useState('Headers');
   const activeContent = useMemo(() => {
     const tabItem = TABS.find((t) => t.title === activeTab);
@@ -168,24 +171,29 @@ export const NetworkDetail = memo(({ data }: Props) => {
 
   return (
     <>
-      <ul className="network-detail-tabs">
-        {TABS.filter((t) => t.visible(data)).map((i) => {
-          return (
-            <li
-              key={i.title}
-              data-tab-id={i.title}
-              className={clsx({
-                active: activeTab === i.title,
-              })}
-              onClick={() => {
-                setActiveTab(i.title);
-              }}
-            >
-              {i.title}
-            </li>
-          );
-        })}
-      </ul>
+      <div className="network-detail-header">
+        <div className="network-detail-close" onClick={onClose}>
+          <Icon component={CloseSvg} style={{ fontSize: 20 }} />
+        </div>
+        <ul className="network-detail-tabs">
+          {TABS.filter((t) => t.visible(data)).map((i) => {
+            return (
+              <li
+                key={i.title}
+                data-tab-id={i.title}
+                className={clsx({
+                  active: activeTab === i.title,
+                })}
+                onClick={() => {
+                  setActiveTab(i.title);
+                }}
+              >
+                {i.title}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
       <div className="network-detail-content">{activeContent}</div>
     </>
   );
