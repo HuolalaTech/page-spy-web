@@ -46,12 +46,6 @@ export const EmbedVideo = ({ title, style = {} }: Props) => {
         referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen
         style={style}
-        onLoad={() => {
-          console.log('OK');
-        }}
-        onError={() => {
-          console.log('Error');
-        }}
       />
     );
   }
@@ -63,12 +57,6 @@ export const EmbedVideo = ({ title, style = {} }: Props) => {
       scrolling="no"
       allowFullScreen
       style={style}
-      onLoad={() => {
-        console.log('OK');
-      }}
-      onError={() => {
-        console.log('Error');
-      }}
     />
   );
 };

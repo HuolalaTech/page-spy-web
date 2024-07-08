@@ -1,14 +1,28 @@
-// import { ReactComponent as NoDocSvg } from '@/assets/image/no-doc.svg';
-import NoDocSvg from '@/assets/image/no-doc.svg';
+// import { ReactComponent as EmptySvg } from '@/assets/image/empty.svg';
+import EmptySvg from '@/assets/image/empty.svg';
 import Icon from '@ant-design/icons';
 import './index.less';
+import { Row, Col, Empty, Button } from 'antd';
 
 export const DocNotFound = () => {
   return (
-    <div className="doc-not-found">
-      {/* <Icon component={NoDocSvg} style={{ fontSize: 400 }} /> */}
-      <img src={NoDocSvg} style={{ width: '40%' }} alt="" />
-      <p>Not Found</p>
-    </div>
+    <Empty
+      image={EmptySvg}
+      imageStyle={{ height: 120 }}
+      description={
+        <p style={{ color: '#ababab' }}>
+          Translation not found, welcome to submit PR!
+        </p>
+      }
+    >
+      <Button
+        type="primary"
+        href="https://github.com/HuolalaTech/page-spy-web/tree/main/src/pages/Docs/md"
+        target="_blank"
+        style={{ color: '#cdcdcd', textDecoration: 'none' }}
+      >
+        Go to PR
+      </Button>
+    </Empty>
   );
 };

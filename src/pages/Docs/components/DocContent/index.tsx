@@ -109,14 +109,10 @@ export const DocContent = () => {
   const docContent = useMemo(() => {
     const docData = mdComponents[doc][lang];
     if (!docData) {
-      notification.error({
-        message: t('doc.miss-language')!,
-        description: t('doc.miss-desc'),
-      });
       return DocNotFound;
     }
     return docData;
-  }, [doc, lang, t]);
+  }, [doc, lang]);
 
   const { prev, current, next } = useMemo(() => {
     const navigation: Record<string, OrderDocMenus[number] | null> = {

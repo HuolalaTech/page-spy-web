@@ -11,7 +11,7 @@ import replayGif from '@/assets/image/screenshot/replay-page.gif';
 
 ### Why#why
 
-Previously, PageSpy's online debugging solved many tricky problems, but there was a prerequisite for using PageSpy**: "The client and the debugger must be online simultaneously."** This prerequisite limited the use cases for PageSpy, for example:
+Previously, PageSpy's online debugging solved many tricky problems, but there was a prerequisite for using PageSpy: **"The client and the debugger must be online simultaneously."** This prerequisite limited the use cases for PageSpy, for example:
 
 - Two people (e.g. developer and tester) are required simultaneously to debug a problem.
 - The connection is lost if the client moves to the background during debugging.
@@ -42,13 +42,13 @@ It internally listens for the "public-data" event (see [what is the `"public-dat
 <html>
   <head>
     <!-- 1. Load PageSpy -->
-    <script src="https://<your-host>/page-spy/index.min.js"></script>
+    <script src="https://<your-pagespy-host>/page-spy/index.min.js"></script>
 
     <!-- 2. Load DataHarbor plugin to cache offline data and download or upload log data -->
-    <script src="https://<your-host>/plugin/data-harbor/index.min.js"></script>
+    <script src="https://<your-pagespy-host>/plugin/data-harbor/index.min.js"></script>
 
     <!-- 3. Optionally, load the RRWeb plugin to record user interaction traces into offline logs -->
-    <script src="https://<your-host>/plugin/rrweb/index.min.js"></script>
+    <script src="https://<your-pagespy-host>/plugin/rrweb/index.min.js"></script>
 
     <script>
       // 4. Register plugins, see config details at: https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor
