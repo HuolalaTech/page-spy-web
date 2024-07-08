@@ -42,7 +42,9 @@
     "actions": "Actions",
     "delete": "Delete",
     "confirm": "Confirm",
-    "copied": "Copied"
+    "copied": "Copied",
+    "prev": "Previous",
+    "next": "Next"
   },
   "error": {
     "oops": "Oops! Errors happened~",

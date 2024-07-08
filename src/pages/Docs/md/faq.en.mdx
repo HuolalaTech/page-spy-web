@@ -1,0 +1,428 @@
+
+
+import moduleImg from '@/assets/image/screenshot/module.png';
+import dynamicInjectImg from '@/assets/image/screenshot/dynamic-inject.png';
+import pnpmInstallImg from '@/assets/image/screenshot/pnpm-install.png';
+
+### PageSpy Module Composition#module
+
+Dependency and interaction diagram between PageSpy modules:
+
+<img alt="System module diagram" src={moduleImg} />
+
+### Compatibility of PageSpy#compatibility
+
+- The compatibility targets for browser SDK are set to [`["chrome > 75","safari > 12", "> 0.1%", "not dead","not op_mini all"]`](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-browser/package.json#L66-L72); for other SDKs, refer to their respective repositories.
+- Debugging primarily targets developers and maintains an open attitude towards new browser features. Therefore, it is recommended to use the latest browser versions with compatibility targets set to [`["last 2 chrome version", "last 2 firefox version", "last 2 safari version"]`](https://github.com/HuolalaTech/page-spy-web/blob/main/package.json#L92-L96).
+
+### How to Hide the SDK Rendered Logo?#hide-logo
+
+```js
+window.$pageSpy = new PageSpy({
+  // ... other configuration parameters
+  autoRender: false
+})
+```
+
+### Instantiation Parameters and Their Purposes?#init-params
+
+> All parameters are optional. Below are explanations and default values for each parameter:
+
+```js
+window.$pageSpy = new PageSpy({
+  // SDK will automatically determine server address (api) and client origin (clientOrigin) from the imported path
+  // For example, if you import SDK via <script src="https://example.com/page-spy/index.min.js">,
+  // SDK will internally set:
+  //   - api: "example.com"
+  //   - clientOrigin: "https://example.com"
+  // If your service is deployed elsewhere, you need to manually specify it here to override.
+  api: "",
+  clientOrigin: "", // Only applicable for browser environment
+  
+  // Project serves as an aggregation of information, searchable in the room list
+  project: "default",
+  
+  // Title allows users to provide custom parameters for distinguishing the current client
+  // Corresponding information appears below the "device id" in each connection panel
+  title: "--",
+  
+  // Indicates whether SDK initializes and automatically renders "circular white logo on a white background" control in the lower left corner of the client
+  // If set to false, you can call window.$pageSpy.render() to render manually
+  autoRender: true,  // Only applicable for browser environment
+  
+  // Manually specify PageSpy service scheme.
+  // This can be used if SDK cannot correctly analyze the scheme, such as PageSpy's browser plugin
+  // is imported via chrome-extension://xxx/sdk/index.min.js, which SDK interprets as invalid "chrome-extension://" and falls back to ["http://", "ws://"].
+  //   - (Default) Pass undefined or null: SDK will analyze automatically;
+  //   - Pass boolean value:
+  //     - true: SDK will access PageSpy service via ["https://", "wss://"]
+  //     - false: SDK will access PageSpy service via ["http://", "ws://"]
+  enableSSL: null,
+
+  // After PageSpy@1.7.4 supports offline playback function, SDK integrated into the client can collect data, export offline logs, and become a new usage mode.
+  // Default value is false. When set to other values, it enters "offline mode", where PageSpy does not create rooms or establish WebSocket connections.
+  offline: false, // Only applicable for browser environment
+
+  // Custom control rendering logo
+  logo: '', // Only applicable for browser environment
+
+  // Set logo style
+  logoStyle: {}, // Only applicable for browser environment
+})
+```
+
+### How to Update Initialization Parameters? #update-info
+
+PageSpy provides a "Device ID" for identifying devices and also offers `project / title` for developers to customize information during initialization to aid in client identification. If you wish to update these parameters after initialization, follow these steps:
+
+```js
+window.$pageSpy = new PageSpy(...);
+
+// Calling updateRoomInfo updates project / title
+window.$pageSpy.updateRoomInfo({ project: 'xxx', title: 'xxx' });
+```
+
+### How to Integrate with xxx Framework? #framework
+
+PageSpy has published integration guides for all popular frameworks on the CodeSandbox platform. You can experience them online:
+
+- **React**：[CodeSandbox - PageSpy in React](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
+- **Vue**：[CodeSandbox - PageSpy in Vue](https://codesandbox.io/p/sandbox/page-spy-with-vue-ft35qs)
+- **Svelte**：[CodeSandbox - PageSpy in Svelte](https://codesandbox.io/p/sandbox/page-spy-with-svelte-p6mxd6)
+- **Angular**：[CodeSandbox - PageSpy in Angular](https://codesandbox.io/p/sandbox/page-spy-with-angular-6wg3ps)
+- **Nextjs**：[CodeSandbox - PageSpy in Nextjs](https://codesandbox.io/p/sandbox/page-spy-with-nextjs-5htxv5)
+- **Nuxtjs**：[CodeSandbox - PageSpy in Nuxtjs](https://codesandbox.io/p/sandbox/page-spy-with-nuxtjs-8znq22)
+
+### Is test.jikejishu.com an Officially Provided Domain? Will It Always Be Available? #test-domain
+
+[https://test.jikejishu.com](https://test.jikejishu.com) is a temporary service set up by us to allow everyone to experience and learn PageSpy online. We do not guarantee 24-hour availability, data security, or assume responsibility for any losses. We strongly recommend deploying privately or within an intranet after experiencing.
+
+### Why Can Local Port 6752 Be Accessed, But Not When Deployed on a Server? #server-port
+
+Check the server's firewall or security group rules to ensure port 6752 is open.
+
+### What Does "No client in the current connection" Mean on the Debug Button? #debug-disabled
+
+This usually indicates that the SDK successfully created a room but failed to join it via WebSocket. To troubleshoot:
+
+- Check the console of the client where the SDK is running for any WebSocket connection failure messages.
+- Verify server configuration if console shows "WebSocket connect failed" related errors.
+
+### How Should nginx Be Configured During Deployment? #nginx
+
+Here's an nginx configuration for https://test.jikejishu.com:
+
+```nginx
+server {
+  listen 443 ssl;
+  server_name test.jikejishu.com;
+
+  if ($scheme != https) {
+      rewrite ^(.*)$  https://$host$1 permanent;
+  }
+  
+  ssl_certificate /etc/letsencrypt/live/test.jikejishu.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/test.jikejishu.com/privkey.pem;
+
+  location / {
+      proxy_pass http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+  }
+}
+
+server {
+  if ($host = test.jikejishu.com) {
+      return 301 https://$host$request_uri;
+  }
+
+  listen 80;
+  listen [::]:80;
+  server_name test.jikejishu.com;
+  return 404;
+}
+```
+
+### How to Deploy to a Subpath? #sub-path
+
+Starting from version 1.5.4, you can deploy the service to a subpath. The installation process remains unchanged, but nginx configuration needs adjustment:
+
+```nginx
+server {
+  # ...
+
+  # <sub-path> should be replaced with the subpath you intend to deploy
+  location /<sub-path>/  {
+      # Ensure <sub-path> is consistent with above
+      rewrite ^/<sub-path>/(.*)$ /$1 break;
+      proxy_pass            http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+      proxy_set_header      Host $host;
+      proxy_set_header      X-Real-IP $remote_addr;
+      proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+
+  # Ensure <sub-path> is consistent with above
+  location /<sub-path> {
+      return 301 $scheme://$host$request_uri/;
+  }
+}
+```
+
+After adjusting the configuration, restart nginx to access via the subpath. During instantiation, manually pass api and clientOrigin to inform the SDK of the deployment address:
+
+```js
+window.$pageSpy = new PageSpy({
+  // For example api: "example.com/pagespy"
+  api: "<host>/<sub-path>",
+
+  // For example clientOrigin: "https://example.com/pagespy"
+  clientOrigin: "<scheme>://<host>/<sub-path>"
+
+})
+```
+
+### How Can the Debug Terminal Be Protected with Some Authentication Mechanism to Allow Access Only to Authenticated Developers? #basic-auth
+
+You can protect the server by setting an IP whitelist in nginx or using HTTP Authorization:
+
+- Nginx IP whitelist configuration example:
+
+  ```nginx
+  server {
+    location / {
+      # Allow who can access
+      allow <ip>;
+
+      # Deny all other clients except allow
+      deny all;
+    }
+  }
+  ```
+
+- Nginx configuration for HTTP Authorization, requiring username and password for access.
+
+  Generate username and password file using `htpasswd`:
+
+  ```bash
+  sudo htpasswd -c /etc/nginx/.htpasswd username
+  ```
+
+  Nginx configuration:
+
+  ```nginx
+  server {
+    location / {
+      auth_basic "请输入用户名和密码以访问 PageSpy 服务";
+      auth_basic_user_file /etc/nginx/.htpasswd;
+
+      proxy_pass http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+    }
+
+    location ~ /(api|page-spy) {
+      proxy_pass http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+    }
+  }
+  ```
+
+  Restart nginx.
+
+### Don't want to integrate manually into the project, is there a way to do it without invading the business project code? #extension
+
+PageSpy has prepared a browser extension for everyone, which provides the following features:
+
+- Automatically injects the latest version of the SDK.
+- Automatically completes the instantiation operation.
+- Provides rules for domain injection configuration.
+
+Click here to use: [HuolalaTech/page-spy-extension](https://github.com/HuolalaTech/page-spy-extension)
+
+### Can I use a Tampermonkey script?
+
+Refer to the following content:
+
+```js
+// ==UserScript==
+// @name         Inject PageSpy Script
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Inject script on xxx.yyy
+// @author       You
+// @match        <match rules, such as example.com>
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    var script1 = document.createElement('script');
+    script1.setAttribute('crossorigin', 'anonymous');
+    // Replace the SDK URL with the actual project URL
+    script1.src = 'https://test.jikejishu.com/page-spy/index.min.js';
+
+    var script2 = document.createElement('script');
+    script2.textContent = 'window.$pageSpy = new PageSpy();';
+
+    document.head.prepend(script1);
+    script1.onload = () => {
+        document.head.appendChild(script2);
+    }
+})();
+```
+
+### Business project is deployed on HTTPS, PageSpy is deployed on HTTP, what should I do if there is a console error? #http-error
+
+Browsers block loading HTTP resources from HTTPS sites because HTTPS provides encryption and security, while HTTP transmits data in plaintext, posing security risks.
+
+It is recommended to upgrade PageSpy to HTTPS service directly to resolve this issue perfectly.
+
+### How to debug a specific user individually? #prod-debug
+
+The simplest solution is to have users use the [PageSpy browser extension](https://github.com/HuolalaTech/page-spy-extension), which is suitable when the client is highly cooperative and it's a PC project. However, this condition is quite stringent.
+
+So what if a H5 project in production wants to use PageSpy? It's clearly impractical to enable it for all users.
+
+PageSpy's effective process involves just two steps:
+
+1. Inject SDK via `<script>` tag in the `head`.
+2. Instantiate.
+
+PageSpy does not affect the project until the second step of instantiation. There are two approaches to debug a specific user:
+
+- Dynamic HTML Response: If we can obtain a unique identifier for the user when requesting HTML, we can dynamically decide whether to inject `<script>` and instantiate logic before returning HTML to the user.
+
+  <img src={dynamicInjectImg} />
+
+- User Gesture Activation: This typically requires the user's active cooperation. By default, inject the SDK but do not instantiate it, allowing the user to trigger debugging after a special gesture.
+
+Note: Besides technical implementation, attention to legal compliance and security risks is essential.
+
+### Page Panel Principle #page-principle
+
+The Page panel renders document.documentElement.outerHTML of the client to an iframe on the debugging end, allowing direct element inspection via local console.
+
+### Can the Page panel rendered on the client side interact directly? #page-interactive
+
+It cannot interact directly. If interaction is needed, try entering code at the bottom of the Console panel and then checking the Page panel for interface feedback.
+
+### Page panel style is incorrect? #page-style
+
+The discrepancy in rendering environments between client and debugging end (e.g., client's browser version is Chrome 75, debugging end's is Chrome 120) or network restrictions when debugging end accesses client-referenced resources may cause style discrepancies.
+
+Thus, styles are for reference only.
+
+### Can the Page panel completely restore client content 100%? #page-reset
+
+The SDK can "screenshot" the page and send it to the debugging end. However, due to:
+
+- Larger data volume for images compared to text, increasing network transmission overhead.
+- Adding to SDK size and complexity.
+- For "style errors," remote collaboration allows testers to provide precise feedback to developers.
+
+Therefore, Page panel styles are for reference only.
+
+### How to modify API service configuration? #api-config
+
+When executing `page-spy-api` via NPM package deployment in the command line, a configuration file config.json is generated in the runtime directory, supporting configuration of runtime ports and multi-instance deployment:
+
+- Modify configuration:
+
+  ```json
+  {
+    "port": "6752",
+    "maxLogFileSizeOfMB": "10240",
+    "maxLogLifeTimeOfHour": "720",
+    "corsConfig": {
+      "allowOrigins": string[],
+      "allowHeaders": string[],
+      "allowMethods": string[],
+      "exposeHeaders": string[]
+    }
+  }
+  ```
+
+- Multi-instance deployment (requires version 1.5.0 or higher):
+
+  The `rpcAddress` configuration is for multi-instance deployment, where ip and port are multiple machine IPs and RPC ports. Multiple instances communicate via RPC, and the program starts RPC services based on machine IPs to avoid message confusion due to duplicate IPs.
+
+  ```json
+  {
+    "port": "6752",
+    "rpcAddress": [
+      {
+        "ip": "192.168.123.1",
+        "port": "20008"
+      },
+      {
+        "ip": "192.168.123.2",
+        "port": "20008"
+      }
+    ]
+  }
+  ```
+
+### Why does a globally installed package using pnpm cause errors when starting with pm2? #pnpm
+
+Globally installed packages with pnpm are wrapped by a shell script used by pnpm. Thus, when executing pm2 start page-spy-api, it finds a shell script, and pm2 cannot interpret and execute it, resulting in an error.
+
+<img src={pnpmInstallImg} />
+
+Using yarn or npm installation resolves this issue. See related discussion: [Unitech/pm2#5416](https://github.com/Unitech/pm2/issues/5416).
+
+### How to upgrade to the latest version after a new release? #upgrade
+
+If using Docker deployment:
+
+```bash
+# Update image
+docker pull ghcr.io/huolalatech/page-spy-web:latest
+
+# Stop running PageSpy container
+docker stop pageSpy && docker rm -f pageSpy
+
+# Run again
+docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
+```
+
+If using NPM Package deployment:
+
+```bash
+# Update package (yarn)
+yarn global upgrade @huolala-tech/page-spy-api@latest
+
+# Update package (npm)
+npm install -g @huolala-tech/page-spy-api@latest
+
+# Restart with pm2
+pm2 restart page-spy-api
+```
+
+### Under what conditions will a room connection be automatically destroyed? #auto-destroy
+
+> View configuration: [`https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323`](https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323)
+
+- If a room is created and no SDK or debugging end enters, it will be destroyed after 1 minute (this scenario does not exist in actual use).
+- If both SDK and debugging end disconnect, it will be destroyed after 1 minute.
+- If there is no data message interaction, it will be destroyed after 5 minutes.
+- If the connection duration exceeds 1 hour, it will be automatically destroyed.
+
+### Why can't Alipay Mini Program get global objects like `my.getCurrentPages()` when executing remote code? #alipay-global
+
+Due to historical reasons, Alipay Mini Program restricts access to global objects. This can be set via the mini program configuration file or Alipay Mini Program IDE:
+
+- IDE: Details -> Compilation Configuration -> Global Object (global/globalThis) Access Policy: Accessible (recommended)
+- Configuration file: [https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode](https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode)
+
+### Why are uploaded file logs missing? #offline-log
+
+- Uploaded file logs are by default saved for up to the latest 10 GB and 30 days, customizable via configuration modification.
+- Uploaded logs are saved in the log directory under the runtime directory. In Docker runtime, if Docker is destroyed, logs will also be lost. Use directory mapping `-v ./log:/app/log -v ./data:/app/data` for persistence.

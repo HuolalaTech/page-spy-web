@@ -1,0 +1,53 @@
+import React from 'react';
+import { TransitionLink } from '@/components/Transition';
+import bannerImg from '@/assets/image/doc-banner.png';
+
+import consoleImg from '@/assets/image/screenshot/console-panel.png';
+import networkImg from '@/assets/image/screenshot/network-panel.png';
+import pageImg from '@/assets/image/screenshot/page-panel.png';
+import storageImg from '@/assets/image/screenshot/storage-panel.png';
+import systemImg from '@/assets/image/screenshot/system-panel.png';
+
+export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
+
+<img src={bannerImg} style={{ width: '100%' }} />
+
+### What is PageSpy?#what-is-page-spy
+
+**PageSpy** is an open-source debugging platform compatible with various platforms, including [Web](./browser), [Mini Program](./miniprogram), [React Native](./react-native), and [Harmony OS Apps](./harmony). It encapsulates native APIs, filtering and transforming the parameters when native methods are invoked, and organizes them into a specific format for the debugging client to consume. The debugging client then provides a devtools UI to display this data.
+
+### When to Use?#when-to-use
+
+_PageSpy shines in any scenario where local console debugging is not possible!_ Let's explore some use cases:
+
+- **Local Debugging of H5 and Webview Applications**: While some products provide panels for viewing information on H5, small screens in mobile often make operations inconvenient, the display less user-friendly, and information might get truncated.
+
+- **Remote Work and Cross-Region Collaboration**: Traditional communication methods like emails, phone calls, and video conferences often suffer from low efficiency, incomplete fault information, and can easily lead to misunderstandings and misjudgments.
+
+- **White Screen Issues on User Terminals**: Traditional methods for locating issues, such as data monitoring and log analysis, rely on the troubleshooting team understanding the business requirements and technical implementations.
+
+Yep, the goal of PageSpy is can help the people which in like above cases.
+
+### Feature Overview#feature-overview
+
+- **Console Panel**: Displays logs from `console.<log | info | warn | error | debug>`, and allows sending code to be executed on the client side.
+
+<img src={consoleImg} />
+
+- **Network Panel**: Shows information about network requests made by the client.
+
+<img src={networkImg} />
+
+- **Element Panel**: Displays the current client interface and allows viewing the HTML node tree.
+
+<img src={pageImg} />
+
+- **Storage Panel**: Allows viewing local cache data of the client.
+
+<img src={storageImg} />
+
+- **System Panel**: Displays the client's system information and checks for compatibility.
+
+<img src={systemImg} />
+
+Additionally, you will receive real-time notifications when new data is available or existing data changes.
