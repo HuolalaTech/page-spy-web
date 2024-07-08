@@ -74,6 +74,7 @@ export const NavMenuOnPc = () => {
           <ConfigProvider theme={navDropdownConfig}>
             <Dropdown
               arrow
+              trigger={['click']}
               menu={{
                 items: [
                   {
