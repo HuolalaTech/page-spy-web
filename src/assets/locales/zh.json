@@ -104,7 +104,8 @@
     "browser": "浏览器",
     "platform": "平台",
     "version": "版本",
-    "mp-warning": "小程序提交审核时请务必删除代码中的 SDK，否则会导致审核失败。",
+    "eval-plugin-required": "若需在小程序环境动态执行代码，请在客户端安装 @huolala-tech/page-spy-mp-eval-plugin",
+    "mp-warning": "小程序提交审核时请务必删除代码中的 mp-eval-plugin，否则会导致审核失败。",
     "menu": {
       "Console": "输出",
       "Network": "网络",

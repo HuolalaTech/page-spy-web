@@ -104,7 +104,8 @@
     "browser": "브라우저",
     "platform": "플랫폼",
     "version": "버전",
-    "mp-warning": "검토를 위해 미니 프로그램을 제출할 때 코드에서 SDK를 삭제해야 합니다. 그렇지 않으면 검토가 실패합니다.",
+    "eval-plugin-required": "미니 프로그램 환경에서 동적으로 코드를 실행해야 하는 경우 클라이언트에서 SDK 플러그인 @huolala-tech/page-spy-mp-eval-plugin을 사용하십시오.",
+    "mp-warning": "검토를 위해 미니 프로그램을 제출할 때 코드에서 mp-eval-plugin를 삭제해야 합니다. 그렇지 않으면 검토가 실패합니다.",
     "menu": {
       "Console": "콘솔",
       "Network": "네트워크",
