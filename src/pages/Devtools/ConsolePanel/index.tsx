@@ -3,7 +3,7 @@ import './index.less';
 import { HeaderActions } from './components/HeaderActions';
 import { MainContent } from './components/MainContent';
 import { FooterInput } from './components/FooterInput';
-import { ErrorDetailDrawer } from './components/ErrorDetailDrawer';
+import { ErrorDetailDrawer } from '@/components/ErrorDetailDrawer';
 import { useMemo } from 'react';
 import { useSocketMessageStore } from '@/store/socket-message';
 import MPWarning from '@/components/MPWarning';
@@ -19,8 +19,7 @@ const ConsolePanel = () => {
       isMP: browser?.type.startsWith('mp-'),
       hasEvalPlugin: plugins?.includes('MPEvalPlugin'),
       dynamicalExecutable:
-        os?.type !== 'harmony' &&
-        (!browser?.type.startsWith('mp-') || plugins?.includes('MPEvalPlugin')),
+        !browser?.type.startsWith('mp-') || plugins?.includes('MPEvalPlugin'),
     };
   }, [clientInfo]);
 

@@ -42,7 +42,9 @@
     "actions": "アクション",
     "delete": "削除",
     "confirm": "確認",
-    "copied": "コピーされました"
+    "copied": "コピーされました",
+    "prev": "前のページ",
+    "next": "次のページ"
   },
   "error": {
     "oops": "おっと！エラーが発生しました。",
@@ -69,6 +71,12 @@
       "install-sdk": "対象のHAPディレクトリに依存関係をインストール:",
       "init-sdk": "<0>適切な場所でSDKをインポートし、初期化します。EntryAbilityを例として使用します。</0> <1>設定オプション</1>を表示:"
     },
+    "rn": {
+      "title": "React Native",
+      "install-sdk": "まず、プロジェクトに依存関係をインストールします:",
+      "init-sdk": "<0>エントリーファイルでSDKをインポートし、インスタンス化します。</0> <1>構成オプション</1> を確認します：",
+      "storage-plugin": "<0>@react-native-async-storage/async-storage をご利用の場合、独自のプラグインを提供しています：</0> <1>Async Storage plugin</1>"
+    },
     "end": "以上がすべてです。",
     "start-debug": "<1>接続</1>メニューからトップに移動し、デバッグを開始します！"
   },
@@ -94,6 +102,7 @@
     "device": "デバイス",
     "system": "システム",
     "browser": "ブラウザ",
+    "platform": "プラットフォーム",
     "version": "バージョン",
     "eval-plugin-required": "小プログラム環境で動的にコードを実行する必要がある場合、クライアント側で SDK プラグイン @huolala-tech/page-spy-mp-eval-plugin を使用してください",
     "mp-warning": "レビューのためにミニ プログラムを送信するときは、必ずコード内の mp-eval-plugin を削除してください。削除しないと、レビューが失敗します。",
@@ -183,7 +192,13 @@
   "connections": {
     "select-os": "オペレーティング システムを選択",
     "select-browser": "ブラウザを選択",
-    "select-mp": "Mini Program を選択"
+    "select-mp": "Mini Program を選択",
+    "maximum-alert": "一部の接続のみが表示されます。条件によってさらに絞り込んでください。",
+    "status": {
+      "active": "デバッグ中",
+      "wait": "デバッグ待ち",
+      "inactive": "デバッグ不可"
+    }
   },
   "replay": {
     "list-title": "再生リスト",

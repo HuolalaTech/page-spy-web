@@ -1,0 +1,37 @@
+import { Tooltip } from 'antd'
+
+#### Step 1#step-1
+
+Install the dependency in your project:
+
+```bash
+yarn add @huolala-tech/page-spy-react-native@latest
+```
+
+#### Step 2#step-2
+
+Import and instantiate the SDK in the entry file. The initialization parameters provide optional [configuration]({VITE_SDK_RN_REPO}) options to customize the SDK's behavior:
+
+```js
+import PageSpy from '@huolala-tech/page-spy-react-native';
+
+new PageSpy({
+  api: "{deployPath}",
+})
+```
+
+If you are using `@react-native-async-storage/async-storage`, we provide a separate [plugin]({VITE_PLUGIN_RN_STORAGE}):
+
+```js
+import { PageSpy } from '@huolala-tech/page-spy-react-native';
+import RNAsyncStoragePlugin from '@huolala-tech/page-spy-plugin-rn-async-storage';
+
+PageSpy.registerPlugin(new RNAsyncStoragePlugin())
+new PageSpy({
+  api: "${deployPath}",
+})
+```
+
+That's the complete process to integrate PageSpy into a react native project.
+
+Once integrated, click on the top menu <Tooltip title="Menu is hidden by default and will be visible after deployment." color="purple"><a href="javascript:void(0)">Debugging</a></Tooltip> to use it!

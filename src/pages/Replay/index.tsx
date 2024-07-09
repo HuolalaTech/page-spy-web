@@ -19,6 +19,7 @@ import clsx from 'clsx';
 import { PLAYER_SIZE_CHANGE } from './events';
 import { useEventListener } from '@/utils/useEventListener';
 import { useShallow } from 'zustand/react/shallow';
+import { ErrorDetailDrawer } from '@/components/ErrorDetailDrawer';
 
 export const Replay = () => {
   const { t } = useTranslation();
@@ -141,6 +142,8 @@ export const Replay = () => {
       <div className="replay-footer">
         <PlayControl />
       </div>
+
+      <ErrorDetailDrawer />
     </div>
   );
 };

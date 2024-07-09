@@ -42,7 +42,9 @@
     "actions": "操作",
     "delete": "删除",
     "confirm": "确认",
-    "copied": "已复制"
+    "copied": "已复制",
+    "prev": "上一页",
+    "next": "下一页"
   },
   "error": {
     "oops": " 哎呀！发生错误～",
@@ -69,13 +71,19 @@
       "install-sdk": "在待调试 HAP 目录下安装依赖：",
       "init-sdk": "<0>在合适的位置引入 SDK 并初始化，这里以 EntryAbility 为例。查看</0> <1>配置项</1>："
     },
+    "rn": {
+      "title": "React Native",
+      "install-sdk": "首先在项目中安装依赖:",
+      "init-sdk": "<0>在入口文件中引入 SDK 并实例化。 查看</0> <1>配置项</1>:",
+      "storage-plugin": "<0>如果你使用 @react-native-async-storage/async-storage，我们提供了</0><1>独立的插件</1>："
+    },
     "end": "以上就是全部。",
     "start-debug": "从顶部的 <1>房间列表</1> 菜单进入并开始调试！"
   },
   "banner": {
     "title": "多功能<br />远程调试工具",
     "desc": "像使用谷歌浏览器的控制台一样简单地开始远程调试。",
-    "goStart": "开始调试",
+    "goStart": "开始使用",
     "goGithub": "GitHub 仓库"
   },
   "intro": {
@@ -94,6 +102,7 @@
     "device": "设备",
     "system": "系统",
     "browser": "浏览器",
+    "platform": "平台",
     "version": "版本",
     "eval-plugin-required": "若需在小程序环境动态执行代码，请在客户端安装 @huolala-tech/page-spy-mp-eval-plugin",
     "mp-warning": "小程序提交审核时请务必删除代码中的 mp-eval-plugin，否则会导致审核失败。",
@@ -183,7 +192,13 @@
   "connections": {
     "select-os": "选择系统",
     "select-browser": "选择浏览器",
-    "select-mp": "选择小程序"
+    "select-mp": "选择小程序",
+    "maximum-alert": "当前待调试终端较多，请通过条件进一步筛选",
+    "status": {
+      "active": "调试中",
+      "wait": "待调试",
+      "inactive": "无法调试"
+    }
   },
   "replay": {
     "list-title": "回放列表",

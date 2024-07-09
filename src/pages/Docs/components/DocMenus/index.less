@@ -1,0 +1,34 @@
+.doc-menus {
+  &__group:not(:first-of-type) {
+    margin-top: 32px;
+  }
+  h4 {
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .menu-item {
+    display: block;
+    font-size: 13px;
+    color: darken(silver, 25%);
+    margin-bottom: 6px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: color ease-in-out 150ms, background-color ease-in-out 150ms;
+    &:hover {
+      color: #ddd;
+    }
+    &.active {
+      color: #b67cff;
+      font-weight: 500;
+      background-color: rgb(60, 60, 60);
+    }
+    &:first-of-type {
+      margin-top: 6px;
+    }
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}

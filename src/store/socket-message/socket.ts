@@ -162,6 +162,7 @@ export class SocketStore extends EventTarget {
       'page',
       'indexedDB',
       'mpStorage',
+      'asyncStorage',
       'system',
     ];
     refreshData.forEach((i) => {

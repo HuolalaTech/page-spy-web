@@ -12,6 +12,7 @@ import {
   message,
   Typography,
   Empty,
+  Select,
 } from 'antd';
 import clsx from 'clsx';
 import { memo, useMemo, useState } from 'react';
@@ -23,10 +24,13 @@ const { Paragraph, Text } = Typography;
 
 export type RequiredFrames = Required<StackFrame>[];
 
+const TAB_SIZE = [2, 4, 6, 8];
+
 const ErrorStackItem = ({ frame }: { frame: Required<StackFrame> }) => {
   const { t } = useTranslation('translation', {
     keyPrefix: 'console.error-trace',
   });
+  const [tabSize, setTabSize] = useState(2);
   const {
     data,
     run: requestChunk,
@@ -80,21 +84,45 @@ const ErrorStackItem = ({ frame }: { frame: Required<StackFrame> }) => {
 
     return (
       <div className="source-code-fragments">
-        <code className="origin-filename">
-          <span>{t('source-filename')}:</span> {data.sourceFile}({data.line}:
-          {data.column})
-        </code>
+        <Row
+          className="fragments-header"
+          justify="space-between"
+          align="middle"
+        >
+          <Col>
+            <code className="origin-filename">
+              <span>{t('source-filename')}: </span>
+              <span>
+                {data.sourceFile}({data.line}:{data.column})
+              </span>
+            </code>
+          </Col>
+          {data.useTabs && (
+            <Select
+              size="small"
+              value={tabSize}
+              onChange={setTabSize}
+              popupMatchSelectWidth
+              options={TAB_SIZE.map((size) => ({
+                label: `\\t = ${size} Space`,
+                value: size,
+              }))}
+            />
+          )}
+        </Row>
         <div
           style={{
             // @ts-ignore
             '--start': data.start,
             '--error-line': data.line,
           }}
-          dangerouslySetInnerHTML={{ __html: data.sourceHTML || '' }}
+          dangerouslySetInnerHTML={{
+            __html: data.sourceHTML.replace(/\t/g, ' '.repeat(tabSize)) || '',
+          }}
         />
       </div>
     );
-  }, [data, error, loading, t]);
+  }, [data, error, loading, t, tabSize]);
 
   return (
     <div className="error-stack-item">

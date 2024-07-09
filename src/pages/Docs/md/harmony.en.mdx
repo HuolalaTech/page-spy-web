@@ -1,0 +1,37 @@
+
+import { Tooltip } from 'antd'
+
+#### Step 1#step-1
+
+Install the dependency in the HAP directory to be debugged:
+
+```bash
+# API 9
+ohpm install @huolala/page-spy-harmony@^1.0.0
+
+# API 11
+ohpm install @huolala/page-spy-harmony@^2
+```
+
+#### Step 2#step-2
+
+Import and initialize the SDK at an appropriate place. Here, EntryAbility is used as an example. The initialization parameters provide optional [configuration]({VITE_SDK_HARMONY_REPO}) options to customize the SDK's behavior:
+
+```js
+import { PageSpy } from '@huolala/page-spy-harmony';
+import axiosInstance from 'path/to/your/axios-instance';
+
+export default class EntryAbility extends UIAbility {
+  onWindowStageCreate(windowStage: window.WindowStage) {
+    new PageSpy({
+      api: "{deployPath}",
+      enableSSL: true,
+      axios: axiosInstance
+    })
+  }
+}
+```
+
+That's the complete process to integrate PageSpy into a Harmony App project.
+
+Once integrated, click on the top menu <Tooltip title="Menu is hidden by default and will be visible after deployment." color="purple"><a href="javascript:void(0)">Debugging</a></Tooltip> to use it!

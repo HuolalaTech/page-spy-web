@@ -43,7 +43,7 @@ const routes: RouteObject[] = [
         element: <LogList />,
       },
       {
-        path: '/docs',
+        path: '/docs/*',
         element: <Docs />,
       },
       {
