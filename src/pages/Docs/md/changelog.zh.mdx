@@ -1,3 +1,11 @@
+## v1.9.0
+
+- 🆕 全新的文档页面；
+- 🆕 将动态执行代码能力从小程序 SDK 中拆出，封装为独立插件 [@huolala-tech/page-spy-plugin-mp-eval](https://www.npmjs.com/package/@huolala-tech/page-spy-plugin-mp-eval)，以减少对小程序审核的影响；
+- 🆕 兼容小程序能力：GET 请求自动将 body 转为 query string: [#199](https://github.com/HuolalaTech/page-spy-web/issues/199)；
+- 🐛 修复小程序 `getAccountInfoSync` 兼容性问题: [#213](https://github.com/HuolalaTech/page-spy-web/issues/213)；
+- 🐛 修复小程序 没有透传 `updateRoomInfo` 类型定义: [#213](https://github.com/HuolalaTech/page-spy-web/issues/213)；
+
 ## v1.8.10
 
 本次更新主要针对「错误定位源码」功能做了许多优化。具体内容如下：
