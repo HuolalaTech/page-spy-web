@@ -1,4 +1,3 @@
-import { InjectSDKModal } from '@/components/InjectSDK';
 import { isClient } from '@/utils/constants';
 import { langType, useLanguage } from '@/utils/useLanguage';
 import Icon, { GithubOutlined } from '@ant-design/icons';
@@ -62,69 +61,6 @@ export const NavMenuOnPc = () => {
         'is-dark': isDark,
       })}
     >
-      {isClient && (
-        <>
-          {/* Inject */}
-          <InjectSDKModal>
-            {({ onPopup }) => {
-              return (
-                <div className="menu-item inject" onClick={onPopup}>
-                  <Space align="center">
-                    <Icon component={InjectSdkSvg} style={{ fontSize: 18 }} />
-                    <span>{t('common.inject-sdk')}</span>
-                  </Space>
-                </div>
-              );
-            }}
-          </InjectSDKModal>
-          <Divider type="vertical" className="divider-bg" />
-          <div className="menu-item debug-type">
-            <ConfigProvider theme={navDropdownConfig}>
-              <Dropdown
-                arrow
-                menu={{
-                  items: [
-                    {
-                      key: 'online-debug',
-                      label: (
-                        <Link to="/room-list" className="menu-item online">
-                          <Space align="center">
-                            <Icon
-                              component={OnlineSvg}
-                              style={{ fontSize: 18 }}
-                            />
-                            <span>{t('common.online-debug')}</span>
-                          </Space>
-                        </Link>
-                      ),
-                    },
-                    {
-                      key: 'offline-debug',
-                      label: (
-                        <Link to="/log-list" className="menu-item offline">
-                          <Space align="center">
-                            <Icon
-                              component={ReplaySvg}
-                              style={{ fontSize: 18 }}
-                            />
-                            <span>{t('common.offline-debug')}</span>
-                          </Space>
-                        </Link>
-                      ),
-                    },
-                  ],
-                }}
-              >
-                <Space align="center">
-                  <Icon component={BugSvg} style={{ fontSize: 18 }} />
-                  <span>{t('common.start-debug')}</span>
-                </Space>
-              </Dropdown>
-            </ConfigProvider>
-            <Divider type="vertical" className="divider-bg" />
-          </div>
-        </>
-      )}
       {/* Docs */}
       <Link to="/docs" className="menu-item doc">
         <Space align="center">
@@ -133,6 +69,54 @@ export const NavMenuOnPc = () => {
         </Space>
       </Link>
       <Divider type="vertical" className="divider-bg" />
+      {isClient && (
+        <div className="menu-item debug-type">
+          <ConfigProvider theme={navDropdownConfig}>
+            <Dropdown
+              arrow
+              trigger={['click']}
+              menu={{
+                items: [
+                  {
+                    key: 'online-debug',
+                    label: (
+                      <Link to="/room-list" className="menu-item online">
+                        <Space align="center">
+                          <Icon
+                            component={OnlineSvg}
+                            style={{ fontSize: 18 }}
+                          />
+                          <span>{t('common.online-debug')}</span>
+                        </Space>
+                      </Link>
+                    ),
+                  },
+                  {
+                    key: 'offline-debug',
+                    label: (
+                      <Link to="/log-list" className="menu-item offline">
+                        <Space align="center">
+                          <Icon
+                            component={ReplaySvg}
+                            style={{ fontSize: 18 }}
+                          />
+                          <span>{t('common.offline-debug')}</span>
+                        </Space>
+                      </Link>
+                    ),
+                  },
+                ],
+              }}
+            >
+              <Space align="center">
+                <Icon component={BugSvg} style={{ fontSize: 18 }} />
+                <span>{t('common.start-debug')}</span>
+              </Space>
+            </Dropdown>
+          </ConfigProvider>
+          <Divider type="vertical" className="divider-bg" />
+        </div>
+      )}
       {/* i18n */}
       <div className="menu-item lang">
         <ConfigProvider theme={navDropdownConfig}>
@@ -211,24 +195,21 @@ export const NavMenuOnMobile = () => {
               'is-dark': isDark,
             })}
           >
+            {/* Docs */}
+            <Link
+              to="/docs"
+              className="menu-item doc"
+              onClick={() => {
+                setExpand(false);
+              }}
+            >
+              <Space align="center">
+                <Icon component={DocsSvg} style={{ fontSize: 18 }} />
+                <span>{t('common.doc')}</span>
+              </Space>
+            </Link>
             {isClient && (
               <>
-                {/* Inject */}
-                <InjectSDKModal>
-                  {({ onPopup }) => {
-                    return (
-                      <div className="menu-item inject" onClick={onPopup}>
-                        <Space align="center">
-                          <Icon
-                            component={InjectSdkSvg}
-                            style={{ fontSize: 18 }}
-                          />
-                          <span>{t('common.inject-sdk')}</span>
-                        </Space>
-                      </div>
-                    );
-                  }}
-                </InjectSDKModal>
                 {/* Connections */}
                 <Link
                   to="/room-list"
@@ -244,19 +225,6 @@ export const NavMenuOnMobile = () => {
                 </Link>
               </>
             )}
-            {/* Docs */}
-            <Link
-              to="/docs"
-              className="menu-item doc"
-              onClick={() => {
-                setExpand(false);
-              }}
-            >
-              <Space align="center">
-                <Icon component={DocsSvg} style={{ fontSize: 18 }} />
-                <span>{t('common.doc')}</span>
-              </Space>
-            </Link>
             {/* i18n */}
             <div
               className="menu-item lang"

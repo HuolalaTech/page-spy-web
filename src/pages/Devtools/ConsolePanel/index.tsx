@@ -3,7 +3,7 @@ import './index.less';
 import { HeaderActions } from './components/HeaderActions';
 import { MainContent } from './components/MainContent';
 import { FooterInput } from './components/FooterInput';
-import { ErrorDetailDrawer } from './components/ErrorDetailDrawer';
+import { ErrorDetailDrawer } from '@/components/ErrorDetailDrawer';
 import { useMemo } from 'react';
 import { useSocketMessageStore } from '@/store/socket-message';
 
@@ -11,8 +11,9 @@ const ConsolePanel = () => {
   const clientInfo = useSocketMessageStore((state) => state.clientInfo);
   const dynamicalExecutable = useMemo(() => {
     const { os } = clientInfo || {};
-    // TODO 纯血鸿蒙出来后需要额外判断是「鸿蒙上的 APP」
-    return os?.type !== 'harmony';
+    // // TODO 纯血鸿蒙出来后需要额外判断是「鸿蒙上的 APP」
+    // return os?.type !== 'harmony';
+    return true;
   }, [clientInfo]);
 
   return (

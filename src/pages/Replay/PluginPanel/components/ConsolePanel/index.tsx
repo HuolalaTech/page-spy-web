@@ -1,26 +1,15 @@
 import { ConsoleItem } from '@/components/ConsoleItem';
 import { useReplayStore } from '@/store/replay';
 import './index.less';
-import { memo, useEffect, useRef } from 'react';
-import { useForceThrottleRender } from '@/utils/useForceRender';
+import { memo } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 export const ConsolePanel = memo(() => {
-  const consoleMsg = useRef(useReplayStore.getState().consoleMsg);
-  const { throttleRender } = useForceThrottleRender();
-  useEffect(
-    () =>
-      useReplayStore.subscribe((state) => {
-        if (consoleMsg.current.length !== state.consoleMsg.length) {
-          consoleMsg.current = state.consoleMsg;
-          throttleRender();
-        }
-      }),
-    [throttleRender],
-  );
+  const consoleMsg = useReplayStore(useShallow((state) => state.consoleMsg));
 
   return (
     <div className="console-panel">
-      {consoleMsg.current.map((data) => (
+      {consoleMsg.map((data) => (
         <ConsoleItem data={data} key={data.id} />
       ))}
     </div>

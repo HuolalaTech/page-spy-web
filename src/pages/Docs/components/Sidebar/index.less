@@ -1,0 +1,24 @@
+.sidebar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--doc-sidebar-width);
+  overflow: auto;
+  border-right: 1px solid @dark-border;
+  transform: translateX(-100%);
+  background-color: var(--dark-background);
+  transition: transform ease-in-out 200ms;
+  z-index: 10;
+  &.show {
+    padding: 20px;
+    transform: translateX(0);
+  }
+}
+
+@media screen and (min-width: @doc-page-max-width) {
+  .sidebar {
+    transform: translateX(0);
+    width: calc(var(--doc-sidebar-width) + var(--doc-side-space) / 2);
+    padding: 80px 24px 100px calc(var(--doc-side-space) / 2);
+  }
+}

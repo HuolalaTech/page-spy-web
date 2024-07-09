@@ -25,12 +25,12 @@ import mpFeishuSvg from '@/assets/image/mp-feishu.svg';
 import mpDingtalkSvg from '@/assets/image/mp-dingtalk.svg';
 import mpAlipaySvg from '@/assets/image/mp-alipay.svg';
 import mpXhsSvg from '@/assets/image/mp-xhs.svg';
+import reactSvg from '@/assets/image/react.svg';
 
 import uniSvg from '@/assets/image/uni.svg';
-import { SpyClient, SpyMessage } from '@huolala-tech/page-spy-types';
-import { useSocketMessageStore } from '@/store/socket-message';
+import { SpyClient } from '@huolala-tech/page-spy-types';
 import { t } from 'i18next';
-import { Framework } from '@huolala-tech/page-spy-types/lib/client';
+import { Browser, Framework } from '@huolala-tech/page-spy-types/lib/client';
 
 interface OSInfo {
   type: SpyClient.OS;
@@ -54,6 +54,11 @@ export interface ParsedClientInfo {
   isDevTools?: boolean;
   plugins: string[];
 }
+
+export type ClientRoomInfo = I.SpyRoom & {
+  os: OSInfo;
+  browser: BrowserInfo;
+};
 
 // Make miniprogram browser types
 export const AllMPTypes: SpyClient.MPType[] = [
@@ -102,12 +107,12 @@ export const OS_CONFIG: Record<
   windows: { logo: windowsSvg, label: 'Windows' },
   linux: { logo: linuxSvg, label: 'Linux' },
   android: { logo: androidSvg, label: 'Android' },
-  harmony: { logo: harmonySvg, label: 'Open Harmony' },
+  harmony: { logo: harmonySvg, label: 'HarmonyOS' },
   unknown: { logo: pcSvg, label: 'Unknown' },
 };
 
 export const BROWSER_CONFIG: Record<
-  SpyClient.Browser,
+  SpyClient.Browser | 'harmony',
   {
     logo: string;
     label: string;
@@ -140,7 +145,8 @@ export const BROWSER_CONFIG: Record<
   'mp-xhs': { logo: mpXhsSvg, label: t('common.mpxhs') },
   'mp-uni': { logo: uniSvg, label: 'Uni APP' },
   'uni-native': { logo: uniSvg, label: 'Uni APP' },
-  harmony: { logo: harmonySvg, label: 'Harmony' },
+  harmony: { logo: pcSvg, label: 'Harmony' },
+  'react-native': { logo: reactSvg, label: 'React Native' },
 };
 
 export const getOSName = (os: string) => {
@@ -178,8 +184,10 @@ const BROWSER_REGEXPS = {
   firefox: /(?:Firefox|FxiOS)\/([\d.]+)/,
   safari: /Version\/([\d.]+).*Safari/,
   'uni-native': /uni-native\/([\d.]+)/,
+  harmony: /\sharmony\/(.*)$/,
+  'react-native': /react-native\/([\d.]+)/,
   ...MP_REGEXPS,
-} as Record<SpyClient.Browser, RegExp>;
+} as Record<SpyClient.Browser | 'harmony', RegExp>;
 
 const OS_REGEXPS = {
   windows: /(Windows NT |windows\/)([\d_.]+)/,
@@ -188,7 +196,7 @@ const OS_REGEXPS = {
   mac: /(Mac OS X |macos\/)([\d_.]+)/,
   android: /(Android |android\/)([\d_.]+)/,
   linux: /Linux/,
-  harmony: /(OpenHarmony )([\d_.]+)/,
+  harmony: /(harmony\/)([\d_.]+[\(\w\)]*)/,
 } as Record<SpyClient.OS, RegExp>;
 
 export function parseUserAgent(uaString: string = window.navigator.userAgent) {

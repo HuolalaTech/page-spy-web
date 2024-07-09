@@ -1,25 +1,15 @@
 import { StorageTable } from '@/components/StorageTable';
 import { useReplayStore } from '@/store/replay';
-import { useSocketMessageStore } from '@/store/socket-message';
-import { useForceThrottleRender } from '@/utils/useForceRender';
 import { SpyStorage } from '@huolala-tech/page-spy-types';
-import { memo, useEffect, useRef } from 'react';
+import { memo } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 
 interface Props {
   activeTab: SpyStorage.DataType;
 }
 
 export const StorageContent = memo(({ activeTab }: Props) => {
-  const storageMsg = useRef(useReplayStore.getState().storageMsg);
-  const { throttleRender } = useForceThrottleRender();
-  useEffect(
-    () =>
-      useReplayStore.subscribe((state) => {
-        storageMsg.current = state.storageMsg;
-        throttleRender();
-      }),
-    [throttleRender],
-  );
+  const storageMsg = useReplayStore(useShallow((state) => state.storageMsg));
 
-  return <StorageTable activeTab={activeTab} storageMsg={storageMsg.current} />;
+  return <StorageTable activeTab={activeTab} storageMsg={storageMsg as any} />;
 });

@@ -48,10 +48,9 @@ export function getStatusText(row: SpyNetwork.RequestInfo) {
 }
 
 export function getTime(time: number) {
-  if (time > 1000) {
-    return `${(time / 1000).toFixed(1)} s`;
-  }
-  return `${time} ms`;
+  if (time < 1000) return `${time} ms`;
+  if (time < 60 * 1000) return `${(time / 1000).toFixed(1)} s`;
+  return `${(time / 60 / 1000).toFixed(1)} min`;
 }
 
 export function validValues(value: any) {
