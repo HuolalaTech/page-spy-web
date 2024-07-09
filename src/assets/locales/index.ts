@@ -28,7 +28,7 @@ i18next
   .use(languageDetector)
   .init({
     resources,
-    fallbackLng: 'en',
+    fallbackLng: 'zh',
     interpolation: {
       escapeValue: false,
     },
@@ -38,6 +38,13 @@ export const getTranslation = (key: string) => {
   const lang = i18next.resolvedLanguage || 'zh';
   const res = i18next.getResource(lang, 'translation', key);
   return res || key;
+};
+
+export const isCN = () => {
+  const lang = i18next.resolvedLanguage;
+  return ['zh-CN', 'zh-HK', 'zh-TW', 'zh'].some((l) => {
+    return lang === l;
+  });
 };
 
 export default i18next;

@@ -1,7 +1,14 @@
 export const CONNECT = 'connect';
+export const CLIENT_INFO = 'client-info';
 export const CONSOLE = 'console';
 export const SYSTEM = 'system';
 export const NETWORK = 'network';
 export const PAGE = 'page';
 export const STORAGE = 'storage';
 export const DATABASE = 'database';
+export const MP_PAGE_STACK = 'mp-page-stack';
+export const MP_PAGE_DETAIL = 'mp-page-detail';
+export const MP_METHOD_RESULT = 'mp-method-result';
+export const MP_SYSTEM = 'mp-system';
+export const MP_AUTH = 'mp-auth';
+export const MP_PAGE_DOM = 'mp-page-dom';

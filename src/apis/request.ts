@@ -3,7 +3,7 @@ import { InvokeParams, request } from '@huolala-tech/request';
 import { RequestFailed } from './RequestFailed';
 
 export const API_BASE_URL =
-  import.meta.env.VITE_API_BASE || window.location.host;
+  import.meta.env.VITE_API_BASE || window.DEPLOY_BASE_PATH;
 
 export interface Options extends Omit<InvokeParams, 'method' | 'url' | 'data'> {
   data?: unknown;
@@ -28,6 +28,10 @@ class ApiRequest {
 
   post<T>(path: string, options?: Options) {
     return this.request<T>('POST', path, options);
+  }
+
+  delete<T>(path: string, options?: Options) {
+    return this.request<T>('DELETE', path, options);
   }
 
   private async request<T>(

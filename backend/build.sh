@@ -30,13 +30,6 @@ GenerateMainPackageJson() {
     "${organization}/${project_name}-linux-amd64": "${npm_version}",
     "${organization}/${project_name}-linux-arm": "${npm_version}",
     "${organization}/${project_name}-linux-arm64": "${npm_version}",
-    "${organization}/${project_name}-linux-mips": "${npm_version}",
-    "${organization}/${project_name}-linux-mips64": "${npm_version}",
-    "${organization}/${project_name}-linux-mips64le": "${npm_version}",
-    "${organization}/${project_name}-linux-mipsle": "${npm_version}",
-    "${organization}/${project_name}-linux-ppc64le": "${npm_version}",
-    "${organization}/${project_name}-linux-ppc64": "${npm_version}",
-    "${organization}/${project_name}-linux-s390x": "${npm_version}",
     "${organization}/${project_name}-win32-amd64": "${npm_version}",
     "${organization}/${project_name}-win32-arm": "${npm_version}",
     "${organization}/${project_name}-win32-arm64": "${npm_version}",
@@ -70,27 +63,6 @@ convertArch() {
       ;;
     arm64)
       echo "arm64"
-      ;;
-    mips)
-      echo "mips"
-      ;;
-    mips64)
-      echo "mips64"
-      ;;
-    mips64le)
-      echo "mips64le"
-      ;;
-    mipsle)
-      echo "mipsle"
-      ;;
-    ppc64le)
-      echo "ppc64le"
-      ;;
-    ppc64)
-      echo "ppc"
-      ;;
-    s390x)
-      echo "s390"
       ;;
     *)
       echo "Unknown architecture: $1"
@@ -137,11 +109,11 @@ cd ../..
 BuildRelease() {
 	mkdir -p "build"
 	mkdir -p "npm"
-	archs=(amd64 arm arm64 mips mips64 mips64le mipsle ppc64le ppc64 s390x)
+	archs=(amd64 arm arm64)
 
 	for arch in ${archs[@]}
 	do
-		env GOOS=linux GOARCH=${arch} CGO_ENABLED=0 go build -o ./build/${project_name}-linux-${arch}
+		env GOOS=linux GOARCH=${arch} CGO_ENABLED=0 go build  -o ./build/${project_name}-linux-${arch}
     mkdir -p npm/linux-${arch}/bin
     cp -r ./build/${project_name}-linux-${arch} npm/linux-${arch}/bin/${project_name}
     PublishAndGeneratePackageJson "linux" "${arch}" "npm/linux-${arch}"
@@ -151,7 +123,7 @@ BuildRelease() {
 
 	for arch in ${win_archs[@]}
 	do
-		env GOOS=windows GOARCH=${arch} CGO_ENABLED=0 go build -o ./build/${project_name}-win32-${arch}.exe
+		env GOOS=windows GOARCH=${arch} CGO_ENABLED=0 go build  -o ./build/${project_name}-win32-${arch}.exe
     mkdir -p npm/win32-${arch}
     cp -r ./build/${project_name}-win32-${arch}.exe npm/win32-${arch}/${project_name}.exe
     PublishAndGeneratePackageJson "win32" "${arch}" "npm/win32-${arch}"
@@ -161,7 +133,7 @@ BuildRelease() {
 
 	for arch in ${mac_archs[@]}
 	do
-		env GOOS=darwin GOARCH=${arch} CGO_ENABLED=0 go build -o ./build/${project_name}-darwin-${arch}
+		env GOOS=darwin GOARCH=${arch} CGO_ENABLED=0 go build  -o ./build/${project_name}-darwin-${arch}
     mkdir -p npm/darwin-${arch}/bin
     cp -r ./build/${project_name}-darwin-${arch} npm/darwin-${arch}/bin/${project_name}
     PublishAndGeneratePackageJson "darwin" "${arch}" "npm/darwin-${arch}"

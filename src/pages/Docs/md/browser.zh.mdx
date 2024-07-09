@@ -1,0 +1,72 @@
+
+import { Tooltip } from 'antd'
+
+### 在线体验#online
+
+> 点击查看完整代码: [Codesandbox](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
+
+<iframe
+  width="100%"
+  src="https://codesandbox.io/embed/k3pzzt?view=editor+%2B+preview&module=%2Fpublic%2Findex.html"
+  title="page-spy-with-react"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+/>
+
+### 接入使用#usage
+
+#### 第一步#step-1
+
+在客户端的项目中加载 `<script>`:
+
+```html
+<!-- PageSpy SDK -->
+<script crossorigin="anonymous" src="{deployUrl}/page-spy/index.min.js"></script>
+
+<!-- 插件（非必须，但建议使用） -->
+<script crossorigin="anonymous" src="{deployUrl}/plugin/data-harbor/index.min.js"></script>
+<script crossorigin="anonymous" src="{deployUrl}/plugin/rrweb/index.min.js"></script>
+```
+
+#### 第二步#step-2
+
+初始化 PageSpy 和插件，它们的初始化参数都提供了可选的 [配置项]({VITE_SDK_BROWSER_REPO}) 用于自定义 SDK 的行为：
+
+<blockquote>
+  <details>
+    <summary>引入的插件提供了哪些功能？</summary>
+    <div>
+      [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) 和 [RRWebPlugin]({VITE_PLUGIN_RRWEB}) 两个插件，主要用于拓展 PageSpy 的能力：
+      - **DataHarborPlugin**：PageSpy 本身仅支持在线模式，即调试期间「客户端和调试端必须同时在线」，DataHarborPlugin 让 PageSpy 实现了离线模式的调试。点击 [离线日志回放](./offline-log) 查看更多详细信息；
+      - **RRWebPlugin**：记录用户操作轨迹，底层使用 [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.zh_CN.md)。通常和 DataHarborPlugin 绑定在一起使用。
+
+      你也可以通过 [开发插件](./plugins)，定制属于你自己的 PageSpy！
+    </div>
+  </details>
+</blockquote>
+
+```html
+<script>
+  window.$harbor = new DataHarborPlugin();
+  window.$rrweb = new RRWebPlugin();
+
+  [window.$harbor, window.$rrweb].forEach(p => {
+    PageSpy.registerPlugin(p)
+  })
+
+  window.$pageSpy = new PageSpy();
+</script>
+```
+
+以上就是在浏览器项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 <Tooltip title="菜单默认隐藏，部署后可见" color="purple"><a href="javascript:void(0)">开始调试</a></Tooltip> 使用！
+
+### 在框架中集成#framework
+
+PageSpy 通过 CodeSandbox 平台发布了与当下流行的所有框架的接入指南，大家可以前往在线体验：
+
+- **React**：[CodeSandbox - PageSpy in React](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
+- **Vue**：[CodeSandbox - PageSpy in Vue](https://codesandbox.io/p/sandbox/page-spy-with-vue-ft35qs)
+- **Svelte**：[CodeSandbox - PageSpy in Svelte](https://codesandbox.io/p/sandbox/page-spy-with-svelte-p6mxd6)
+- **Angular**：[CodeSandbox - PageSpy in Angular](https://codesandbox.io/p/sandbox/page-spy-with-angular-6wg3ps)
+- **Nextjs**：[CodeSandbox - PageSpy in Nextjs](https://codesandbox.io/p/sandbox/page-spy-with-nextjs-5htxv5)
+- **Nuxtjs**：[CodeSandbox - PageSpy in Nuxtjs](https://codesandbox.io/p/sandbox/page-spy-with-nuxtjs-8znq22)

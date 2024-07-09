@@ -10,8 +10,6 @@ import { Button, Space, Spin } from 'antd';
 import { ElementPanel } from '../ElementPanel';
 import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
-import { resolveClientInfo } from '@/utils/brand';
-import useSearch from '@/utils/useSearch';
 
 function getTime() {
   const date = new Date();
@@ -35,8 +33,9 @@ export const PCFrame = ({
 }: PropsWithChildren<FrameWrapperProps>) => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
   const { t } = useTranslation('translation', { keyPrefix: 'page' });
-  const [pageLocation] = useSocketMessageStore((state) => [
+  const [pageLocation, clientInfo] = useSocketMessageStore((state) => [
     state.pageMsg.location,
+    state.clientInfo,
   ]);
   const [elementVisible, setElementVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -98,13 +97,13 @@ export const PCFrame = ({
   }, [elementVisible]);
 
   const [enableDevice, setEnableDevice] = useState(false);
-  const { version } = useSearch();
+
   useEffect(() => {
-    const { osName } = resolveClientInfo(version);
-    if (['iPhone', 'iPad', 'Android'].indexOf(osName) >= 0) {
+    if (!clientInfo) return;
+    if (['ios', 'ipad', 'android'].indexOf(clientInfo.os.type) >= 0) {
       setEnableDevice(true);
     }
-  }, [version]);
+  }, [clientInfo]);
 
   return (
     <div className="pc-frame" ref={containerRef}>

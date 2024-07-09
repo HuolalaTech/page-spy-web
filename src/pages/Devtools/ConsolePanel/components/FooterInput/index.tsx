@@ -1,27 +1,41 @@
-import { RightOutlined } from '@ant-design/icons';
-import { Input, Button } from 'antd';
+import {
+  CaretRightOutlined,
+  PauseOutlined,
+  RightOutlined,
+  ExclamationCircleFilled,
+} from '@ant-design/icons';
+import { Input, Button, Tooltip } from 'antd';
 import { Shortcuts } from '../Shortcuts';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { TextAreaRef } from 'antd/es/input/TextArea';
 import { useRef, useState, useEffect, useCallback, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { KeyboardEvent } from 'react';
+import { useMiscStore } from '@/store/misc';
+import { parse, Program } from 'acorn';
 
 const EXECUTE_HISTORY_ID = 'page_spy_execute_history';
 const EXECUTE_HISTORY_MAX_SIZE = 100;
 
 export const FooterInput = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'console' });
-  const [socket, clearRecord] = useSocketMessageStore((state) => [
+  const [socket, clearRecord, clientInfo] = useSocketMessageStore((state) => [
     state.socket,
     state.clearRecord,
+    state.clientInfo,
   ]);
+
   const inputRef = useRef<TextAreaRef | null>(null);
   const [code, setCode] = useState<string>('');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const executeHistory = useRef<string[]>(
     JSON.parse(localStorage.getItem(EXECUTE_HISTORY_ID) || '[]'),
   );
+  const [isAutoScroll, setIsAutoScroll] = useMiscStore((state) => [
+    state.isAutoScroll,
+    state.setIsAutoScroll,
+  ]);
+  const [showInputError, setShowInputError] = useState(false);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -41,10 +55,36 @@ export const FooterInput = memo(() => {
   const handleDebugCode = useCallback(() => {
     const trimedCode = code.trim();
     if (trimedCode) {
-      socket?.unicastMessage({
-        type: 'debug',
-        data: trimedCode,
-      });
+      const browserType = clientInfo?.browser.type;
+      if (browserType?.startsWith('mp-') || browserType === 'uni-native') {
+        let nodes: Program = {};
+        try {
+          nodes = parse(trimedCode, {
+            ecmaVersion: 5,
+            ranges: true,
+            locations: true,
+          });
+        } catch (e) {
+          setShowInputError(true);
+          setTimeout(() => {
+            setShowInputError(false);
+          }, 5000);
+          return;
+        }
+        socket?.unicastMessage({
+          type: 'debug',
+          data: {
+            code: trimedCode,
+            nodes,
+          },
+        });
+      } else {
+        socket?.unicastMessage({
+          type: 'debug',
+          data: trimedCode,
+        });
+      }
+
       setCode('');
       const historyStorage = executeHistory.current;
       if (trimedCode === historyStorage[historyStorage.length - 1]) return;
@@ -153,25 +193,51 @@ export const FooterInput = memo(() => {
   return (
     <div className="console-item page-spy-input">
       <RightOutlined className="icon" />
-      <code style={{ flex: 1 }}>
-        <Input.TextArea
-          placeholder={t('placeholder')!}
-          bordered={false}
-          autoSize
-          ref={inputRef}
-          value={code}
-          onChange={(evt) => setCode(evt.target.value)}
-          onKeyDown={onTextareaKeyDown}
-        />
-      </code>
+      <Tooltip
+        open={showInputError}
+        title={
+          <span>
+            <ExclamationCircleFilled
+              style={{ color: '#f5222d', marginRight: 6 }}
+            />
+            {t('mp-code-error')}
+          </span>
+        }
+      >
+        <code style={{ flex: 1 }}>
+          <Input.TextArea
+            spellCheck="false"
+            placeholder={t('placeholder')!}
+            bordered={false}
+            autoSize
+            ref={inputRef}
+            value={code}
+            onChange={(evt) => setCode(evt.target.value)}
+            onKeyDown={onTextareaKeyDown}
+          />
+        </code>
+      </Tooltip>
       <Button
         type="primary"
         size="small"
-        style={{ marginTop: 4 }}
+        style={{ marginTop: 4, marginRight: 8 }}
         onClick={handleDebugCode}
       >
         {t('run')}
       </Button>
+      <Tooltip
+        title={!isAutoScroll ? t('auto-scroll-on') : t('auto-scroll-off')}
+      >
+        <Button
+          onClick={() => {
+            setIsAutoScroll(!isAutoScroll);
+          }}
+          size="small"
+          style={{ marginTop: 4 }}
+        >
+          {!isAutoScroll ? <CaretRightOutlined /> : <PauseOutlined />}
+        </Button>
+      </Tooltip>
       <Shortcuts />
     </div>
   );

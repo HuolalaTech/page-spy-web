@@ -5,14 +5,22 @@
 [release-url]: https://github.com/HuolalaTech/page-spy-web/blob/release/package.json
 [download-img]: https://img.shields.io/npm/dw/%40huolala-tech/page-spy-api
 [download-url]: https://www.npmjs.com/package/@huolala-tech/page-spy-api
-[sdk-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy?label=SDK%20version
-[sdk-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy
+[browser-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-browser?label=Browser%20SDK&color=orange
+[browser-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-browser
+[uniapp-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-uniapp?label=UniApp%20SDK&color=green
+[uniapp-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-uniapp
+[wechat-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-wechat?label=Wechat%20SDK&color=green
+[wechat-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-wechat
+[alipay-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-alipay?label=Alipay%20SDK&color=blue
+[alipay-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-alipay
+[taro-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-taro?label=Taro%20SDK&color=blue
+[taro-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-taro
+[harmony-ver-img]: https://harmony.blucas.me/badge/version/@huolala/page-spy-harmony?label=Harmony%20SDK&color=black
+[harmony-ver-url]: https://ohpm.openharmony.cn/#/cn/detail/@huolala%2Fpage-spy-harmony
 [sdk-build-img]: https://img.shields.io/github/actions/workflow/status/HuolalaTech/page-spy/coveralls.yml?logo=github&label=build
 [sdk-build-url]: https://github.com/HuolalaTech/page-spy/actions/workflows/coveralls.yml
-[sdk-coveralls-img]: https://img.shields.io/coverallsCoverage/github/HuolalaTech/page-spy?label=coverage
+[sdk-coveralls-img]: https://img.shields.io/coverallsCoverage/github/HuolalaTech/page-spy?label=coverage&logo=coveralls
 [sdk-coveralls-url]: https://coveralls.io/github/HuolalaTech/page-spy?branch=main
-[sdk-min-img]: https://img.shields.io/bundlephobia/min/@huolala-tech/page-spy?label=minfied%20size
-[sdk-min-url]: https://unpkg.com/browse/@huolala-tech/page-spy/dist/index.min.js
 [api-ver-img]: https://img.shields.io/github/v/tag/HuolalaTech/page-spy-api?label=API%20version
 [api-ver-url]: https://github.com/HuolalaTech/page-spy-api/tags
 [api-go-img]: https://img.shields.io/github/go-mod/go-version/HuolalaTech/page-spy-api?label=go
@@ -24,23 +32,26 @@
   <h1>Page Spy</h1>
 
 [![Release][release-img]][release-url]
-[![license][license-img]][license-url] <br />
-[![NPM SDK][sdk-ver-img]][sdk-ver-url]
-[![Build Status][sdk-build-img]][sdk-build-url]
-[![Coverage Status][sdk-coveralls-img]][sdk-coveralls-url]
-[![SDK size][sdk-min-img]][sdk-min-url] <br />
+[![license][license-img]][license-url]
+[![Build Status][sdk-build-img]][sdk-build-url] <br />
+[![Browser SDK version][browser-ver-img]][browser-ver-url]
+[![Wechat SDK version][wechat-ver-img]][wechat-ver-url]
+[![Alipay SDK version][alipay-ver-img]][alipay-ver-url] <br />
+[![UniApp SDK version][uniapp-ver-img]][uniapp-ver-url]
+[![Taro SDK version][taro-ver-img]][taro-ver-url]
+[![Harmony SDK version][harmony-ver-img]][harmony-ver-url] <br />
 [![API Version][api-ver-img]][api-ver-url]
 [![Go Version][api-go-img]][api-go-url]
 
-<a href="https://www.producthunt.com/posts/pagespy?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pagespy" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=429852&theme=light" alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Product Hunt" height="36" /></a>
+<a href="https://www.producthunt.com/posts/pagespy?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pagespy" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=429852&theme=light" alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Product Hunt" height="36" /></a> <a href="https://news.ycombinator.com/item?id=38679798" target="_blank"><img src="https://hackernews-badge.vercel.app/api?id=38679798" alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Hacker News" height="36" /></a>
 
-[English](./README.md) | 中文
+[English](./README.md) | 中文 | [日本語](./README_JA.md)
 
 </div>
 
 ## 介绍
 
-**PageSpy** 是一款用来调试远程 Web 项目的工具。
+**PageSpy** 是一款用来调试 Web / 小程序 / 鸿蒙 APP 等平台项目的工具。
 
 基于对原生 API 的封装，它将调用原生方法时的参数进行过滤、转化，整理成格式规范的消息供调试端消费；调试端收到消息数据，提供类控制台可交互式的功能界面将数据呈现出来。
 
@@ -62,38 +73,40 @@
 
 为了数据安全和方便您的使用，我们提供完整的、开箱即用的多种部署方案，各位开发者可以根据自己的情况选择任意一种部署方式。
 
-### 第一种：使用 Docker 部署
+### 第一种：使用 Node 部署 👍
 
-> 视频教程：[使用 Docker 部署 PageSpy](https://www.bilibili.com/video/BV1Ph4y1y78R)
-
-```bash
-$ docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:release
-```
-
-启动完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
-
-### 第二种：使用 Node 部署
-
-> 视频教程：[使用 Node 部署 PageSpy](https://www.bilibili.com/video/BV1oM4y1p7Le/?spm_id_from=333.788.recommend_more_video.1&vd_source=6b4fed1a463f67c0e8e56eaa21faa997)
+> 视频教程：
+>
+> <a href="https://www.bilibili.com/video/BV1oM4y1p7Le" target="_blank"><img src="./.github/assets/video-node-zh.jpg" width="320" /></a>
 
 ```bash
-$ yarn global add @huolala-tech/page-spy-api
+yarn global add @huolala-tech/page-spy-api@latest
 
 # 如果你使用 npm
 
-$ npm install -g @huolala-tech/page-spy-api
+npm install -g @huolala-tech/page-spy-api@latest
 ```
 
 安装完成之后你可以在命令行中直接执行 `page-spy-api` 启动服务。部署完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
+
+### 第二种：使用 Docker 部署
+
+> 视频教程：
+>
+> <a href="https://www.bilibili.com/video/BV1Ph4y1y78R" target="_blank"><img src="./.github/assets/video-docker-zh.jpg" width="320" /></a>
+
+```bash
+docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
+```
+
+启动完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
 
 ## 技术支持
 
 有问题可以使用微信扫码进群。
 
-<div style="display: flex; gap: 12px; flex-wrap: nowrap; overflow: auto">
-  <img src="https://public-assets-v.huolala.cn/images/page-spy-wechat-group.jpg" alt="微信群" width="260" />
-  <img src="./.github/assets/group-2.jpg" alt="微信群" width="260" />
-  <img src="./.github/assets/group-1.jpg" alt="微信群" width="260" />
+<div style="display: flex; gap: 8px; flex-wrap: nowrap; overflow: auto">
+  <img src="https://pagespy.blucas.me/qrcode/wechat-group" alt="在 GitHub 中查看支持群二维码" width="180" />
 </div>
 
 ## Roadmap
@@ -102,7 +115,7 @@ $ npm install -g @huolala-tech/page-spy-api
 
 ## 如何贡献代码？
 
-点击查看 [Contributing](./CONTRIBUTING.md)。
+点击查看 [Contributing](./CONTRIBUTING_ZH.md)。
 
 ## FAQ
 

@@ -5,7 +5,7 @@
 [github-release]: https://github.com/HuolalaTech/page-spy-web/releases/tag/v1.2.0 'PageSpy Release'
 [npm-package]: https://www.npmjs.com/package/@huolala-tech/page-spy-api 'NPM package'
 
-English | [中文](./CONTRIBUTING_ZH.md)
+English | [中文](./CONTRIBUTING_ZH.md) | [日本語](./CONTRIBUTING_JA.md)
 
 # PageSpy Contributing Guide
 
@@ -16,6 +16,8 @@ PageSpy consist of three repositories：
 - Debugger WebUI: maintained in [HuolalaTech/page-spy-web][page-spy-web] repository;
 - Server: maintained in [HuolalaTech/page-spy-api][page-spy-api] repository;
 - SDK which be injected in client: maintained in [HuolalaTech/page-spy][page-spy-sdk] repository;
+
+<img src="./.github/assets/interaction.png" height="400" />
 
 PageSpy is served as a Docker image hosted on GitHub Package (recommended) / [NPM package][npm-package] or as a binary executable file hosted on the [Release][github-release] page.
 
@@ -51,9 +53,9 @@ To get started, fork the [HuolalaTech/page-spy-api][page-spy-api] repository and
 
    func main() {
    	container := container.Container()
-   	err := container.Provide(func() *config.StaticConfig {
-   		return nil
-   	})
+      err := container.Provide(func() *config.StaticConfig {
+         return &config.StaticConfig{}
+      })
 
    	if err != nil {
    		log.Fatal(err)
@@ -150,8 +152,8 @@ Fork the [HuolalaTech/page-spy][page-spy-sdk] repository and clone it to your lo
 
 3. You can use the following commands directly:：
 
-   - `yarn build`: Performs the build to generate the SDK. The product will be generated and placed in the `dist` folder of the project directory;
-   - `yarn build:watch`: Build in watch mode. It will automatically build when the content is updated;
+   - `npx lerna run build`: Performs the build to generate the SDK. The product will be generated and placed in the `dist` folder of the project directory;
+   - `npx lerna run build:watch`: Build in watch mode. It will automatically build when the content is updated;
    - `yarn test`: Runs unit tests;
 
 ## Debugging in Different Scenarios
@@ -211,13 +213,13 @@ Then start the test project. The PageSpy logo (white circular container with the
 
 If you only want to focus on contributing to the SDK, follow the steps in [SDK Setup](#sdk-setup) to set up the service locally.
 
-It is recommended to execute the terminal command, which will automatically build when changes occur:
+It is recommended to take the `--scope` params execute the terminal command, which will automatically build when changes occur. For example:
 
 ```bash
-$ yarn build:watch
+$ npx lerna run build:watch --scope=@huolala-tech/page-spy-wechat
 ```
 
-This will build and generate the SDK product in the `/dist` directory. Import the built SDK product into the test project, and instantiate PageSpy requires passing in the configuration:
+This will build and generate the SDK product in the `packages/*/dist` directory. Import the built SDK product into the test project, and instantiate PageSpy requires passing in the configuration:
 
 ```ts
 new PageSpy({

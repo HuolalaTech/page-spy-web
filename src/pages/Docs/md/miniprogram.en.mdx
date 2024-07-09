@@ -1,0 +1,44 @@
+import { Tooltip } from 'antd'
+
+#### Step 1#step-1
+
+Install the dependencies in your project. We provide SDKs for several mini-program platforms. Please install the one you need:
+
+```bash
+# {t('common.mpwechat')}
+yarn add @huolala-tech/page-spy-wechat@latest
+
+# {t('common.mpalipay')}
+yarn add @huolala-tech/page-spy-alipay@latest
+
+# UniAPP
+yarn add @huolala-tech/page-spy-uniapp@latest
+
+# Taro
+yarn add @huolala-tech/page-spy-taro@latest
+```
+
+#### Step 2#step-2
+
+Add the PageSpy service domain to the whitelist for HTTP and WebSocket requests in your mini-program. Note that except for the development environment, mini-programs must use HTTPS and WSS protocols:
+
+```
+https://<your-pagespy-host>
+wss://<your-pagespy-host>
+```
+
+#### Step 3#step-3
+
+Import and instantiate the SDK in the entry file. The initialization parameters provide optional [configuration]({VITE_SDK_WECHAT_REPO}) options to customize the SDK's behavior:
+
+```js
+import PageSpy from '@huolala-tech/page-spy-wechat';
+
+new PageSpy({
+  api: "{deployPath}",
+})
+```
+
+That's the complete process to integrate PageSpy into a mini-program project.
+
+Once integrated, click on the top menu <Tooltip title="Menu is hidden by default and will be visible after deployment." color="purple"><a href="javascript:void(0)">Debugging</a></Tooltip> to use it!

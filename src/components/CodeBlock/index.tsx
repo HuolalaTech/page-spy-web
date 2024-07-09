@@ -5,20 +5,26 @@ import { Space } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
 import sh from '@/utils/shiki-highlighter';
 import { useAsyncEffect } from 'ahooks';
+import type { Lang } from 'shiki';
 
 interface Props {
   code: string;
+  lang?: Lang;
   showCopy?: boolean;
 }
 
-export const CodeBlock = ({ code, showCopy = true }: Props) => {
+export const CodeBlock = ({
+  code = '',
+  lang = 'html',
+  showCopy = true,
+}: Props) => {
   const [codeContent, setCodeContent] = useState('');
   useAsyncEffect(async () => {
     const highlighter = await sh.get({
-      lang: 'html',
+      lang,
     });
     const content = highlighter.codeToHtml(code, {
-      lang: 'html',
+      lang,
     });
     setCodeContent(content);
   }, [code]);

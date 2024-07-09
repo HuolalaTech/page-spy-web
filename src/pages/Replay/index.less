@@ -1,0 +1,55 @@
+.replay {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  .back-list {
+    color: @primary-color;
+  }
+  &-header {
+    padding: 32px 32px 0 32px;
+    &__title {
+      font-size: 24px;
+      font-weight: 500;
+    }
+  }
+  &-main {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    padding: 12px 32px;
+    &__left {
+      flex: 0 0 50%;
+      overflow: hidden;
+      padding: 0 12px;
+      background-color: #fff;
+      border-radius: 4px;
+    }
+    &__center {
+      flex: 4px 0 0;
+      background-color: fade(@primary-color, 20%);
+      border-radius: 4px;
+      cursor: col-resize;
+      transition: background-color 0.3s;
+      &:hover {
+        background-color: fade(@primary-color, 80%);
+      }
+    }
+    &__right {
+      flex: 1;
+      z-index: 20;
+    }
+    .no-select {
+      user-select: none;
+    }
+  }
+  &-footer {
+    flex: 80px 0 0;
+    display: flex;
+    justify-content: center;
+    padding-block: 8px 20px;
+    background-color: #fff;
+    box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.03);
+    z-index: 1000;
+  }
+}

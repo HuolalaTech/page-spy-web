@@ -12,7 +12,6 @@ name: Create and publish a Docker image
 on:
   push:
     branches: ["release"]
-
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -70,3 +69,12 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           platforms: linux/amd64,linux/arm64,linux/arm/v7
+
+      - name: Lark bot notify
+        env:
+          TOKEN: ${{ secrets.LARK_BOT_TOKEN }}
+        run: |
+          BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
+          curl "https://pagespy.blucas.me/lark/ci?branch=$BRANCH_NAME&actionId=$GITHUB_RUN_ID" \
+            -X POST \
+            -H "token: $TOKEN"

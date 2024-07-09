@@ -7,7 +7,7 @@ export const Footer = () => {
         <p>Open-source MIT Licensed.</p>
         <p>
           Copyright &copy; 2023{' '}
-          <a href="https://github.com/HuolalaTech" target="_blank">
+          <a href={import.meta.env.VITE_GITHUB_HOMEPAGE} target="_blank">
             Huolala-Tech
           </a>
         </p>

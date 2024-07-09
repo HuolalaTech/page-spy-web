@@ -1,0 +1,36 @@
+
+import { Tooltip } from 'antd'
+
+#### 第一步#step-1
+
+在项目中安装依赖：
+
+```bash
+yarn add @huolala-tech/page-spy-react-native@latest
+```
+
+#### 第二步#step-2
+
+在入口文件中引入 SDK 并实例化。 初始化参数提供了可选的 [配置项]({VITE_SDK_RN_REPO}) 用于自定义 SDK 的行为：
+
+```js
+import PageSpy from '@huolala-tech/page-spy-react-native';
+
+new PageSpy({
+  api: "{deployPath}",
+})
+```
+
+如果你使用 `@react-native-async-storage/async-storage`，我们提供了独立的 [插件]({VITE_PLUGIN_RN_STORAGE})：
+
+```js
+import { PageSpy } from '@huolala-tech/page-spy-react-native';
+import RNAsyncStoragePlugin from '@huolala-tech/page-spy-plugin-rn-async-storage';
+
+PageSpy.registerPlugin(new RNAsyncStoragePlugin())
+new PageSpy({
+  api: "${deployPath}",
+})
+```
+
+以上就是在 React Native 项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 <Tooltip title="菜单默认隐藏，部署后可见" color="purple"><a href="javascript:void(0)">开始调试</a></Tooltip> 使用！

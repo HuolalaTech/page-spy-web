@@ -1,6 +1,8 @@
+import { resolveUrlInfo } from '@/utils';
+import { SpyNetwork } from '@huolala-tech/page-spy-types';
 import { ElementContent, Root } from 'hast';
 import rehypeParse from 'rehype-parse';
-import rehypeStrigify from 'rehype-stringify';
+import rehypeStringify from 'rehype-stringify';
 import { Plugin, unified } from 'unified';
 import { visit } from 'unist-util-visit';
 
@@ -28,7 +30,7 @@ export const getFixedPageMsg = async (htmlText: string, base: string) => {
     const processor = unified()
       .use(rehypeParse)
       .use(fixHtmlSourceUriPlugin, { base })
-      .use(rehypeStrigify)
+      .use(rehypeStringify)
       .data('settings', { fragment: false });
 
     const file = await processor.process(htmlText);
@@ -45,5 +47,38 @@ export const getFixedPageMsg = async (htmlText: string, base: string) => {
       tree: null,
       html: '',
     };
+  }
+};
+
+// 处理小程序网络信息
+export const processMPNetworkMsg = (data: SpyNetwork.RequestInfo) => {
+  if (data.url) {
+    const urlInfo = resolveUrlInfo(data.url);
+    data.name = urlInfo.name;
+    data.getData = urlInfo.query;
+    data.url = urlInfo.url;
+    // why the requestPayload should be string? because the js object will be stringified in sdk.
+    if (
+      data.method.toUpperCase() === 'GET' &&
+      data.requestPayload &&
+      typeof data.requestPayload === 'string'
+    ) {
+      try {
+        const obj = JSON.parse(data.requestPayload);
+        if (data.getData) {
+          data.getData.forEach(([k, v]) => {
+            if (!Reflect.has(obj, k)) {
+              obj[k] = JSON.stringify(v);
+            }
+          });
+        }
+        data.getData = Object.entries(obj);
+        data.url =
+          urlInfo.rawUrl + '?' + new URLSearchParams(data.getData).toString();
+        data.requestPayload = null;
+      } catch (e) {
+        // do nothing
+      }
+    }
   }
 };

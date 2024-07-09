@@ -1,0 +1,21 @@
+.rrweb-player {
+  height: 100%;
+  .replayer-wrapper {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform-origin: top left;
+    float: left;
+    clear: both;
+    > iframe {
+      border: none;
+    }
+  }
+  .replayer-mouse-tail {
+    position: absolute;
+    pointer-events: none;
+  }
+  iframe {
+    pointer-events: none;
+  }
+}

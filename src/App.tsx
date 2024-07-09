@@ -1,25 +1,36 @@
-import { ConfigProvider } from 'antd';
-import React from 'react';
-import { BrowserRouter, HashRouter } from 'react-router-dom';
+import { Calendar, ConfigProvider, DatePicker } from 'antd';
+import React, { useEffect } from 'react';
+import { HashRouter } from 'react-router-dom';
 import RouteConfig from './routes/config';
 import zh from 'antd/es/locale/zh_CN';
 import en from 'antd/es/locale/en_US';
-import { useLanguage } from './utils/useLanguage';
-import { isDoc } from './utils/constants';
+import ja from 'antd/es/locale/ja_JP';
+import ko from 'antd/es/locale/ko_KR';
+import { langType, useLanguage } from './utils/useLanguage';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import type { Locale } from 'antd/es/locale';
+import dayjs from 'dayjs';
 
-// const basename = isDoc ? '/page-spy-web' : '/';
-const basename = '/';
+const localeConfig: Record<langType, Locale> = {
+  zh,
+  en,
+  ja,
+  ko,
+};
 
 export const App = () => {
   const [lang] = useLanguage();
 
+  useEffect(() => {
+    dayjs.locale(localeConfig[lang].locale);
+  }, [lang]);
+
   return (
     <React.StrictMode>
-      <BrowserRouter basename={basename}>
+      <HashRouter>
         <ErrorBoundary>
           <ConfigProvider
-            locale={lang === 'zh' ? zh : en}
+            locale={localeConfig[lang]}
             theme={{
               token: {
                 colorPrimary: 'rgb(132, 52, 233)',
@@ -30,7 +41,7 @@ export const App = () => {
             <RouteConfig />
           </ConfigProvider>
         </ErrorBoundary>
-      </BrowserRouter>
+      </HashRouter>
     </React.StrictMode>
   );
 };

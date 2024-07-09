@@ -14,9 +14,37 @@
     "device-id": "デバイスID",
     "os": "オペレーティング システム",
     "browser": "ブラウザ",
+    "miniprogram": "Mini Program",
+    "mpwechat": "WeChat Mini Program",
+    "mpqq": "QQ Mini Program",
+    "mpalipay": "Alipay Mini Program",
+    "mpdouyin": "Douyin Mini Program",
+    "mptoutiao": "Toutiao Mini Program",
+    "mpbaidu": "Baidu Mini Program",
+    "mpfeishu": "Feishu Mini Program",
+    "mpkuaishou": "Kuaishou Mini Program",
+    "mpjd": "Jingdong Mini Program",
+    "mptoutiaolt": "Toutiao Lite Mini Program",
+    "mpdouyinlt": "Douyin Lite Mini Program",
+    "mphuoshan": "Douyin Huoshan Mini Program",
+    "mpxigua": "Xigua Mini Program",
+    "mpppx": "Pipixia Mini Program",
+    "mpdingtalk": "Dingtalk Mini Program",
+    "mpxhs": "Xiaohongshu Mini Program",
     "project": "プロジェクト",
     "debug": "デバッグ",
-    "title": "タイトル"
+    "title": "タイトル",
+    "start-debug": "デバッグを開始",
+    "online-debug": "RTデバッグ",
+    "offline-debug": "ログ再生",
+    "createdAt": "作成日時",
+    "updatedAt": "更新日時",
+    "actions": "アクション",
+    "delete": "削除",
+    "confirm": "確認",
+    "copied": "コピーされました",
+    "prev": "前のページ",
+    "next": "次のページ"
   },
   "error": {
     "oops": "おっと！エラーが発生しました。",
@@ -26,8 +54,29 @@
     "no-frames": "有効なエラー情報が見つかりませんでした"
   },
   "inject": {
-    "load-script": "テストプロジェクトに <script> を読み込む；",
-    "init-instance": "<0>次に、構成（オプション）して初期化します； </0><1>構成オプションを確認します。</1>",
+    "web": {
+      "title": "WEB",
+      "load-sdk": "テストプロジェクトで <script> をロードする；",
+      "init-sdk": "<0>次に、初期化し、</0> <1>構成オプション</1> を確認します：",
+      "plugins": "<0>PageSpyは必要に応じてプラグインを統合し、SDKの機能を拡張できます。例えば:</0> <1>DOMの変更を記録</1>、<2>オフラインキャッシュ</2> <3>などの機能があります。必要に応じて、</3> <4>プラグインの詳細</4>を確認できます;"
+    },
+    "mp": {
+      "title": "Mini Program",
+      "request-host": "page-spy サービスドメインを小プログラムのhttp、websocketリクエストのホワイトリストに入力します。開発環境以外では、小プログラムはhttpsとwssプロトコルの使用を強制しますので注意してください。",
+      "install-sdk": "まず、プロジェクトに依存関係をインストールします。さまざまなプラットフォーム向けの SDK が提供されており、必要なものを選択できます。",
+      "init-sdk": "<0>エントリーファイルでSDKをインポートし、インスタンス化します。</0> <1>構成オプション</1> を確認します："
+    },
+    "harmony": {
+      "title": "鸿蒙",
+      "install-sdk": "対象のHAPディレクトリに依存関係をインストール:",
+      "init-sdk": "<0>適切な場所でSDKをインポートし、初期化します。EntryAbilityを例として使用します。</0> <1>設定オプション</1>を表示:"
+    },
+    "rn": {
+      "title": "React Native",
+      "install-sdk": "まず、プロジェクトに依存関係をインストールします:",
+      "init-sdk": "<0>エントリーファイルでSDKをインポートし、インスタンス化します。</0> <1>構成オプション</1> を確認します：",
+      "storage-plugin": "<0>@react-native-async-storage/async-storage をご利用の場合、独自のプラグインを提供しています：</0> <1>Async Storage plugin</1>"
+    },
     "end": "以上がすべてです。",
     "start-debug": "<1>接続</1>メニューからトップに移動し、デバッグを開始します！"
   },
@@ -53,13 +102,18 @@
     "device": "デバイス",
     "system": "システム",
     "browser": "ブラウザ",
+    "platform": "プラットフォーム",
     "version": "バージョン",
+    "eval-plugin-required": "小プログラム環境で動的にコードを実行する必要がある場合、クライアント側で SDK プラグイン @huolala-tech/page-spy-mp-eval-plugin を使用してください",
+    "mp-warning": "レビューのためにミニ プログラムを送信するときは、必ずコード内の mp-eval-plugin を削除してください。削除しないと、レビューが失敗します。",
     "menu": {
       "Console": "コンソール",
       "Network": "ネットワーク",
       "System": "システム",
       "Page": "ページ",
-      "Storage": "ストレージ"
+      "Storage": "ストレージ",
+      "MPPage": "Mini Program ページ",
+      "MPSystem": "Mini Program システム"
     }
   },
   "shortcuts": {
@@ -75,6 +129,9 @@
     "run": "実行",
     "placeholder": "実行可能なコード",
     "newContent": "新しいメッセージ",
+    "auto-scroll-on": "自動スクロールオン",
+    "auto-scroll-off": "自動スクロールオフ",
+    "mp-code-error": "コードの形式が間違っています。注意: 現在、ミニ プログラム環境は ES5 構文のみをサポートしています。",
     "error-trace": {
       "title": "エラーの詳細",
       "hints": "使用のヒント",
@@ -111,9 +168,12 @@
     "data-be-stale": "データが古くなっている可能性があります",
     "total-entries": "合計エントリー"
   },
+  "mp-page": {
+    "page-stack": "ページスタック"
+  },
   "socket": {
     "client-name": "クライアント",
-    "client-not-in-connection": "現在の接続にクライアントが存在しません",
+    "client-not-in-connection": "現在の接続でデバッグするクライアントが見つかりませんでした。クライアントのWebSocketを確認してください。",
     "client-not-found": "クライアントが見つかりません",
     "client-offline": "クライアントがオフラインです",
     "client-fail": "クライアントの接続が切断されました。関連するテスターにお問い合わせください。",
@@ -123,10 +183,48 @@
     "reconnect-fail-desc": "再接続に失敗しました。ページをリフレッシュするか、再選択してください。",
     "room-not-found": "ルームが存在しません",
     "network-timeout": "ネットワークエラー、接続がタイムアウトしました",
-    "server-down": "サーバーエラー"
+    "server-down": "サーバーエラー",
+    "room-secret": "ルームパスワード",
+    "secret": "パスワード",
+    "secret-placeholder": "6桁の部屋のパスワードを入力してください",
+    "invalid-secret": "パスワードが無効です"
   },
   "connections": {
     "select-os": "オペレーティング システムを選択",
-    "select-browser": "ブラウザを選択"
+    "select-browser": "ブラウザを選択",
+    "select-mp": "Mini Program を選択",
+    "maximum-alert": "一部の接続のみが表示されます。条件によってさらに絞り込んでください。",
+    "status": {
+      "active": "デバッグ中",
+      "wait": "デバッグ待ち",
+      "inactive": "デバッグ不可"
+    }
+  },
+  "replay": {
+    "list-title": "再生リスト",
+    "title": "ログ再生",
+    "intro": "<0>何が</0> <1>ログリプレイ</1>ですか",
+    "invalid-params": "リンク内で有効なURLパラメータが見つかりません。",
+    "invalid-blob": "<0>URLからのパラメータの読み取りに失敗しました；オブジェクトは既にクリアされている可能性があります</0><1><0></0></1>",
+    "related-time": "相対時間",
+    "absolute-time": "絶対時間",
+    "select-log": "ログを選択",
+    "log-type": "ログの種類",
+    "online-link": "オンラインリンク",
+    "online-link-tips": "オンラインログのリンクを入力してください",
+    "local-file": "ローカルファイル",
+    "local-file-tip": "ローカルファイルを選択してください",
+    "file-info": "ファイル情報",
+    "file-status": "ファイルの状態",
+    "file-size": "ファイルサイズ",
+    "debug": "再生",
+    "date": "日付",
+    "others": "その他のログ",
+    "delete-title": "ログを削除",
+    "delete-desc": "このログを削除してもよろしいですか？",
+    "client": "クライアント情報",
+    "download-file": "ログのダウンロード",
+    "update-layout": "レイアウトの更新",
+    "speed": "倍速"
   }
 }

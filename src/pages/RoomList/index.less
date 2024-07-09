@@ -1,8 +1,38 @@
 .room-list {
-  .room-list-content {
-    width: 90%;
-    max-width: 1200px;
-    margin: 32px auto;
+  &-sider {
+    height: 100%;
+    display: grid;
+    padding: 24px;
+    grid-template-rows: auto 1fr auto;
+    .maximum-alert {
+      position: relative;
+      font-size: 12px;
+      text-align: right;
+      color: fade(@primary-color, 90%);
+      &::before {
+        content: '*';
+        color: red;
+        font-size: 14px;
+        font-weight: 500;
+        margin-right: 2px;
+      }
+    }
+    .statistics {
+      &-item {
+        text-align: center;
+        p:nth-child(1) {
+          font-size: 12px;
+          color: #999;
+          text-align: center;
+          margin-bottom: 8px;
+        }
+        p:nth-child(2) {
+          cursor: pointer;
+          font-size: 20px;
+          font-weight: 500;
+        }
+      }
+    }
   }
   .connection-item {
     margin-bottom: 24px;

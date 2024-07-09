@@ -1,0 +1,93 @@
+## v1.9.0
+
+- 🆕 All brand new document page.
+- 🆕 The ability to dynamically execute code has been extracted from the mini-program SDK and encapsulated into an independent plugin, [@huolala-tech/page-spy-plugin-mp-eval](https://www.npmjs.com/package/@huolala-tech/page-spy-plugin-mp-eval), in order to minimize the impact on the review process for mini-programs.
+- 🆕 Support miniprogram feature that transfer request payload to query string in GET request: [#199](https://github.com/HuolalaTech/page-spy-web/issues/199).
+- 🐛 Fix compatibility issue of `getAccountInfoSync` in miniprogram SDK: [#213](https://github.com/HuolalaTech/page-spy-web/issues/213).
+- 🐛 Fix type declaration of `updateRoomInfo` in miniprogram SDK: [#213](https://github.com/HuolalaTech/page-spy-web/issues/213).
+
+### v1.8.10
+
+This update primarily focuses on optimizing the "Error Source Code Location" feature. Specific changes include:
+
+- 🆕 Enhanced error source code location support in the "Log Replay" page.
+- 🆕 Added support for locating source code in console.xxx(Error) logs, in addition to captured errors. Details can be viewed in [#212](https://github.com/HuolalaTech/page-spy-web/pull/212).
+- 🆕 Provided an option to configure tab characters (`\t`) in source code, allowing users to set 1 tab = N spaces.
+- 🐛 Fixed interaction issues with the logo. Details in [#211](https://github.com/HuolalaTech/page-spy-web/issues/211).
+
+## v1.8.9
+
+- 🆕 Support for debugging React Native applications, related [HuolalaTech/page-spy#87](https://github.com/HuolalaTech/page-spy/pull/87) / [#190](https://github.com/HuolalaTech/page-spy-web/pull/190);
+- 🆕 Support for debugging HarmonyOS applications, related [#191](https://github.com/HuolalaTech/page-spy-web/pull/191) / [HuolalaTech/page-spy#88](HuolalaTech/page-spy#88);
+- 🆕 Web applications now support viewing `EventSource` request and response data, with an optimized network panel layout, related [#206](https://github.com/HuolalaTech/page-spy-web/pull/206) / [#202](https://github.com/HuolalaTech/page-spy-web/issues/202) / [#183](https://github.com/HuolalaTech/page-spy-web/issues/183);
+- 🆕 Improved message types for faster debugging interface response, related [HuolalaTech/page-spy#91](https://github.com/HuolalaTech/page-spy/pull/91) / [#201](https://github.com/HuolalaTech/page-spy-web/pull/201);
+- 🆕 Room list page now limits the display to a maximum of 30 panels, related [#204](https://github.com/HuolalaTech/page-spy-web/pull/204);
+- 🐛 Fixed several issues, related [#205](https://github.com/HuolalaTech/page-spy-web/issues/205) / [HuolalaTech/page-spy#95](https://github.com/HuolalaTech/page-spy/pull/95);
+
+## v1.8.8
+
+- 🆕 Refactor the "/replay" page, making interactions smoother when playing back long and large offline log data, see [#186](https://github.com/HuolalaTech/page-spy-web/pull/186);
+- 🆕 Adapted for "UniApp packaged as a native App", see [HuolalaTech/page-spy#90](https://github.com/HuolalaTech/page-spy/pull/90) / [#197](https://github.com/HuolalaTech/page-spy-web/pull/197);
+- 🐛 Fixed an issue where a circual-reference in request headers caused the `Network` plugin to malfunction, see [HuolalaTech/page-spy#89](https://github.com/HuolalaTech/page-spy/pull/89), [#193](https://github.com/HuolalaTech/page-spy-web/pull/193);
+- 🐛 Fixed the display of HTML tags on the `Page` panel, see [#196](https://github.com/HuolalaTech/page-spy-web/pull/196);
+
+## v1.8.7
+- 🆕 The SDK doesn't send message until the developer enter room, see [HuolalaTech/page-spy#84](https://github.com/HuolalaTech/page-spy/pull/84);
+- 🐛 Fix the issue where reconnection after connection timeout;
+
+## v1.8.6
+
+- 🆕 After disconnection, the SDK will exponentially retry establishing connection, with a maximum interval not exceeding (1.5 ** 4 * 2000)ms, see [HuolalaTech/page-spy#78](https://github.com/HuolalaTech/page-spy/pull/78);
+- 🆕 The SDK instantiation adds a new parameter `useSecret`, with a default value of `false`. When set to `true`, the SDK will generate a 6-digit random password for the room. The debugging terminal needs to know the client password before entering the debugging room, see [HuolalaTech/page-spy#78](https://github.com/HuolalaTech/page-spy/pull/78);
+- 🆕 Support for dynamically updating the `title / project` parameters by using `window.$pageSpy.updateRoomInfo({ title: 'xxx', project: 'xxx' })`, see [HuolalaTech/page-spy#78](https://github.com/HuolalaTech/page-spy/pull/78);
+- 🆕 After dragging the floating ball rendered by the browser SDK to the top, bottom, left, or right side, it will automatically retract, see [HuolalaTech/page-spy#80](https://github.com/HuolalaTech/page-spy/pull/80;
+- 🆕 Support for get uploaded url, see [HuolalaTech/page-spy#81](https://github.com/HuolalaTech/page-spy/pull/81:
+
+  ```js
+  window.$harbor = new DataHarborPlugin()
+  PageSpy.registerPlugin(window.$harbor)
+
+  async function uploadLogManually() {
+    const debugUrl = await window.$harbor.onOfflineLog('upload')
+    console.log({ debugUrl })
+  }
+  ```
+
+- 🆕 The `page-spy-api` no longer serializes data, resulting in a significant performance improvement;
+- 🐛 fix some problems, see: [#172](https://github.com/HuolalaTech/page-spy-web/issues/172), [HuolalaTech/page-spy#79](https://github.com/HuolalaTech/page-spy/pull/79);
+
+## v1.8.5
+
+- 🆕 remove the unsupported arch binary;
+
+## v1.8.4
+
+- 🆕 Optimize the message cache , see [#169](https://github.com/HuolalaTech/page-spy-web/issues/169)
+
+## v1.8.3 
+
+- 🆕 Support debug Taro miniprogram, see [@huolala-tech/page-spy-taro](https://github.com/HuolalaTech/page-spy/tree/main/packages/page-spy-taro);
+- 🆕 Support debug HarmonyOS App, see [@huolala/page-spy-harmony](https://ohpm.openharmony.cn/#/cn/detail/@huolala%2Fpage-spy-harmony);
+
+  > Developed based on OpenHarmony API 9.
+
+- 🐛 Fix response loss when an error occurs in NetworkPlugin
+
+## v1.8.2
+
+- 🐛 Fixed the issue where the npm package from the 1.8.0 and 1.8.1 version couldn't be installed on certain system architectures;
+
+## v1.8.1
+
+- 🆕 Added pre-submission reminders to the mini-program integration documentation;
+- 🆕 Log replay page: Progress bar displays aggregated activity events.
+
+## v1.8.0
+
+- 🆕 `DataHarborPlugin` now supports uploading offline logs, and the debugging end has added a `https://<your-pagespy-host>/#/log-list` page;
+- 🆕 Enhanced functionality on the offline log replay page, supporting layout adjustment via drag-and-drop and playback speed adjustment;
+- 🆕 The mini-program now supports sending code for remote execution on the client side;
+
+## More...
+
+  For earlier release details, please visit the [Release](https://github.com/HuolalaTech/page-spy-web/releases) page.

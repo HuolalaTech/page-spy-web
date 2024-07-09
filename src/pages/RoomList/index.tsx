@@ -1,5 +1,13 @@
 import { getSpyRoom } from '@/apis';
-import { BROWSER_LOGO, OS_LOGO, resolveClientInfo } from '@/utils/brand';
+import {
+  AllBrowserTypes,
+  AllMPTypes,
+  ClientRoomInfo,
+  OS_CONFIG,
+  getBrowserLogo,
+  getBrowserName,
+  parseUserAgent,
+} from '@/utils/brand';
 import { useRequest } from 'ahooks';
 import {
   Typography,
@@ -8,21 +16,27 @@ import {
   message,
   Empty,
   Button,
-  Tooltip,
   Input,
   Form,
   Select,
   Space,
+  Layout,
 } from 'antd';
-import clsx from 'clsx';
-import { PropsWithChildren, useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
+import { ClearOutlined, SearchOutlined } from '@ant-design/icons';
+import { RoomCard } from './RoomCard';
+import { Statistics } from './Statistics';
+import { LoadingFallback } from '@/components/LoadingFallback';
 
 const { Title } = Typography;
 const { Option } = Select;
+const { Sider, Content } = Layout;
 
-const sortConnections = (data: I.SpyRoom[]) => {
+const MAXIMUM_CONNECTIONS = 30;
+
+const sortConnections = (data: ClientRoomInfo[]) => {
   const [valid, invalid] = (data || []).reduce(
     (acc, cur) => {
       const hasClient =
@@ -34,11 +48,26 @@ const sortConnections = (data: I.SpyRoom[]) => {
     [[], []] as I.SpyRoom[][],
   );
 
-  return [...valid, ...invalid];
+  // 有效房间再按创建时间升序
+  const ascWithCreatedAtForInvalid = valid.sort((a, b) => {
+    if (a.createdAt < b.createdAt) {
+      return -1;
+    }
+    return 1;
+  });
+  // 失效房间再按活动时间降序
+  const ascWithActiveAtForInvalid = invalid.sort((a, b) => {
+    if (a.activeAt > b.activeAt) {
+      return -1;
+    }
+    return 1;
+  });
+
+  return [...ascWithCreatedAtForInvalid, ...ascWithActiveAtForInvalid];
 };
 
 const filterConnections = (
-  data: I.SpyRoom[],
+  data: ClientRoomInfo[],
   condition: Record<'title' | 'address' | 'os' | 'browser', string>,
 ) => {
   const { title = '', address = '', os = '', browser = '' } = condition;
@@ -48,36 +77,38 @@ const filterConnections = (
       return String(tags.title).toLowerCase().includes(lowerCaseTitle);
     })
     .filter((i) => i.address.slice(0, 4).includes(address || ''))
-    .filter(({ name }) => {
-      const { osName, browserName } = resolveClientInfo(name);
-      return osName.includes(os) && browserName.includes(browser);
+    .filter((clientInfo) => {
+      return (
+        (!os || clientInfo.os.type === os) &&
+        (!browser || clientInfo.browser.type.includes(browser))
+      );
     });
-};
-
-const ConnDetailItem = ({
-  title,
-  children,
-}: PropsWithChildren<{ title: string }>) => {
-  return (
-    <div className="conn-detail">
-      <p className="conn-detail__title">{title}</p>
-      <div className="conn-detail__value">{children}</div>
-    </div>
-  );
 };
 
 export const RoomList = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
 
+  const showDashboard = localStorage.getItem('page-spy-dashboard') === '1';
+
+  const [showMaximumAlert, setMaximumAlert] = useState(false);
+  const showLoadingRef = useRef(false);
   const {
+    loading,
     data: connectionList = [],
     error,
     runAsync: requestConnections,
   } = useRequest(
     async (group = '') => {
       const res = await getSpyRoom(group);
-      return res.data;
+      return res.data?.map((conn) => {
+        const { os, browser } = parseUserAgent(conn.name);
+        return {
+          ...conn,
+          os,
+          browser,
+        };
+      });
     },
     {
       pollingInterval: 5000,
@@ -86,8 +117,37 @@ export const RoomList = () => {
       onError(e) {
         message.error(e.message);
       },
+      onFinally() {
+        showLoadingRef.current = true;
+      },
     },
   );
+
+  const BrowserOptions = useMemo(() => {
+    return AllBrowserTypes.filter((browser) => {
+      return connectionList?.some(
+        (conn) => conn.browser.type.toLocaleLowerCase() === browser,
+      );
+    }).map((name) => {
+      return {
+        name,
+        label: getBrowserName(name),
+        logo: getBrowserLogo(name),
+      };
+    });
+  }, [connectionList]);
+
+  const MPTypeOptions = useMemo(() => {
+    return AllMPTypes.filter((mp) => {
+      return connectionList?.some((conn) => conn.browser.type === mp);
+    }).map((name) => {
+      return {
+        name,
+        label: getBrowserName(name),
+        logo: getBrowserLogo(name),
+      };
+    });
+  }, [connectionList]);
 
   const [conditions, setConditions] = useState({
     title: '',
@@ -95,11 +155,11 @@ export const RoomList = () => {
     os: '',
     browser: '',
   });
+
   const onFormFinish = useCallback(
     async (value: any) => {
       try {
         await requestConnections(value.project);
-
         setConditions((state) => ({
           ...state,
           ...value,
@@ -112,7 +172,11 @@ export const RoomList = () => {
   );
 
   const mainContent = useMemo(() => {
-    if (error || connectionList.length === 0)
+    if (loading && !showLoadingRef.current) {
+      return <LoadingFallback />;
+    }
+    const matchedConnections = filterConnections(connectionList, conditions);
+    if (error || matchedConnections.length === 0) {
       return (
         <Empty
           style={{
@@ -120,181 +184,129 @@ export const RoomList = () => {
           }}
         />
       );
+    }
+    setMaximumAlert(matchedConnections.length > MAXIMUM_CONNECTIONS);
 
-    const list = sortConnections(filterConnections(connectionList, conditions));
+    const list = sortConnections(
+      matchedConnections.slice(0, MAXIMUM_CONNECTIONS),
+    );
 
     return (
-      <Row gutter={24}>
-        {list.map(({ address, name, connections, group, tags }) => {
-          const simpleAddress = address.slice(0, 4);
-          const {
-            osName,
-            osVersion,
-            osLogo,
-            browserName,
-            browserVersion,
-            browserLogo,
-          } = resolveClientInfo(name);
-          const client = connections.find(({ userId }) => userId === 'Client');
-
-          return (
-            <Col key={address} span={6}>
-              <div className={clsx('connection-item')}>
-                <div className="connection-item__title">
-                  <code style={{ fontSize: 36 }}>
-                    <b>{simpleAddress}</b>
-                  </code>
-                  <Tooltip
-                    title={`Title: ${tags.title?.toString() || '--'}`}
-                    placement="right"
-                  >
-                    <div className="custom-title">
-                      {tags.title?.toString() || '--'}
-                    </div>
-                  </Tooltip>
-                </div>
-                <Row wrap={false} style={{ marginBlock: 8 }}>
-                  <Col flex={1}>
-                    <ConnDetailItem title="Project">
-                      <Tooltip title={group}>
-                        <p style={{ fontSize: 16 }}>{group}</p>
-                      </Tooltip>
-                    </ConnDetailItem>
-                  </Col>
-                  <Col flex={1}>
-                    <ConnDetailItem title="OS">
-                      <Tooltip title={`${osName} ${osVersion}`}>
-                        <img src={osLogo} alt="os logo" />
-                      </Tooltip>
-                    </ConnDetailItem>
-                  </Col>
-                  <Col flex={1}>
-                    <ConnDetailItem title="Browser">
-                      <Tooltip title={`${browserName} ${browserVersion}`}>
-                        <img src={browserLogo} alt="browser logo" />
-                      </Tooltip>
-                    </ConnDetailItem>
-                  </Col>
-                </Row>
-                <Tooltip
-                  title={!client && t('socket.client-not-in-connection')}
-                >
-                  <div>
-                    <Button
-                      type="primary"
-                      disabled={!client}
-                      style={{
-                        width: '100%',
-                        pointerEvents: !client ? 'none' : 'auto',
-                      }}
-                      shape="round"
-                      onClick={() => {
-                        if (!client) return;
-                        window.open(
-                          `/devtools?version=${name}&address=${address}`,
-                        );
-                      }}
-                    >
-                      {t('common.debug')}
-                    </Button>
-                  </div>
-                </Tooltip>
-              </div>
-            </Col>
-          );
-        })}
+      <Row gutter={24} style={{ padding: 24 }}>
+        {list.map((room) => (
+          <RoomCard key={room.address} room={room} />
+        ))}
       </Row>
     );
-  }, [conditions, connectionList, error, t]);
+  }, [conditions, connectionList, error, loading]);
 
   return (
-    <div className="room-list">
-      <div className="room-list-content">
-        <Title level={3} style={{ marginBottom: 12 }}>
-          {t('common.connections')}
-        </Title>
-        <Form
-          form={form}
-          onFinish={onFormFinish}
-          labelCol={{
-            span: 6,
-          }}
-        >
-          <Row gutter={24} wrap>
-            <Col span={8}>
-              <Form.Item label={t('common.project')} name="project">
-                <Input placeholder={t('common.project')!} allowClear />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.title')} name="title">
-                <Input placeholder={t('common.title')!} allowClear />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.device-id')} name="address">
-                <Input placeholder={t('common.device-id')!} allowClear />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.os')} name="os">
-                <Select placeholder={t('connections.select-os')} allowClear>
-                  {Object.entries(OS_LOGO).map(([name, logo]) => {
-                    return (
-                      <Option value={name} key={name}>
-                        <div className="flex-between">
-                          <span>{name}</span>
-                          <img src={logo} width="20" height="20" alt="" />
-                        </div>
-                      </Option>
-                    );
-                  })}
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.browser')} name="browser">
-                <Select
-                  placeholder={t('connections.select-browser')}
-                  allowClear
-                >
-                  {Object.entries(BROWSER_LOGO).map(([name, logo]) => {
-                    return (
-                      <Option value={name} key={name}>
-                        <div className="flex-between">
-                          <span>{name}</span>
-                          <img src={logo} width="20" height="20" alt="" />
-                        </div>
-                      </Option>
-                    );
-                  })}
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row justify="end">
-            <Col>
-              <Form.Item>
-                <Space>
-                  <Button type="primary" htmlType="submit">
-                    {t('common.search')}
-                  </Button>
-                  <Button
-                    type="default"
-                    onClick={() => {
-                      form.resetFields();
-                      form.submit();
-                    }}
+    <Layout style={{ height: '100%' }} className="room-list">
+      <Sider width={350} theme="light">
+        <div className="room-list-sider">
+          <Title level={3} style={{ marginBottom: 32 }}>
+            {t('common.connections')}
+          </Title>
+          <Form layout="vertical" form={form} onFinish={onFormFinish}>
+            <Form.Item label={t('common.device-id')} name="address">
+              <Input placeholder={t('common.device-id')!} allowClear />
+            </Form.Item>
+            <Form.Item label={t('common.project')} name="project">
+              <Input placeholder={t('common.project')!} allowClear />
+            </Form.Item>
+            <Form.Item label={t('common.title')} name="title">
+              <Input placeholder={t('common.title')!} allowClear />
+            </Form.Item>
+            <Form.Item label={t('common.os')} name="os">
+              <Select placeholder={t('connections.select-os')} allowClear>
+                {Object.entries(OS_CONFIG).map(([name, conf]) => {
+                  return (
+                    <Option value={name} key={name}>
+                      <div className="flex-between">
+                        <span>{conf.label}</span>
+                        <img src={conf.logo} height="20" alt="" />
+                      </div>
+                    </Option>
+                  );
+                })}
+              </Select>
+            </Form.Item>
+            <Form.Item label={t('devtool.platform')} name="browser">
+              <Select
+                listHeight={500}
+                placeholder={t('connections.select-browser')}
+                allowClear
+              >
+                {!!BrowserOptions.length && (
+                  <Select.OptGroup label="Web" key="web">
+                    {BrowserOptions.map(({ name, logo, label }) => {
+                      return (
+                        <Option key={name} value={name}>
+                          <div className="flex-between">
+                            <span>{label}</span>
+                            <img src={logo} width="20" height="20" alt="" />
+                          </div>
+                        </Option>
+                      );
+                    })}
+                  </Select.OptGroup>
+                )}
+
+                {!!MPTypeOptions.length && (
+                  <Select.OptGroup
+                    label={t('common.miniprogram')}
+                    key="miniprogram"
                   >
-                    {t('common.reset')}
-                  </Button>
-                </Space>
-              </Form.Item>
-            </Col>
-          </Row>
-        </Form>
-        {mainContent}
-      </div>
-    </div>
+                    {MPTypeOptions.map(({ name, logo, label }) => {
+                      return (
+                        <Option key={name} value={name}>
+                          <div className="flex-between">
+                            <span>{label}</span>
+                            <img src={logo} width="20" height="20" alt="" />
+                          </div>
+                        </Option>
+                      );
+                    })}
+                  </Select.OptGroup>
+                )}
+              </Select>
+            </Form.Item>
+            <Row justify="end">
+              <Col>
+                <Form.Item>
+                  <Space>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      icon={<SearchOutlined />}
+                    >
+                      {t('common.search')}
+                    </Button>
+                    <Button
+                      type="default"
+                      icon={<ClearOutlined />}
+                      onClick={() => {
+                        form.resetFields();
+                        form.submit();
+                      }}
+                    >
+                      {t('common.reset')}
+                    </Button>
+                  </Space>
+                </Form.Item>
+              </Col>
+            </Row>
+
+            {showMaximumAlert && (
+              <div className="maximum-alert">
+                {t('connections.maximum-alert')}
+              </div>
+            )}
+          </Form>
+          {showDashboard && <Statistics data={connectionList} />}
+        </div>
+      </Sider>
+      <Content>{mainContent}</Content>
+    </Layout>
   );
 };

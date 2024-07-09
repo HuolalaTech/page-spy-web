@@ -14,9 +14,37 @@
     "device-id": "设备 ID",
     "os": "系统",
     "browser": "浏览器",
+    "miniprogram": "小程序",
+    "mpwechat": "微信小程序",
+    "mpalipay": "支付宝小程序",
+    "mpqq": "QQ小程序",
+    "mpdouyin": "抖音小程序",
+    "mptoutiao": "头条小程序",
+    "mpbaidu": "百度小程序",
+    "mpfeishu": "飞书小程序",
+    "mpkuaishou": "快手小程序",
+    "mpjd": "京东小程序",
+    "mptoutiaolt": "头条极速版小程序",
+    "mpdouyinlt": "抖音极速版小程序",
+    "mphuoshan": "抖音火山小程序",
+    "mpxigua": "西瓜小程序",
+    "mpppx": "皮皮虾小程序",
+    "mpdingtalk": "钉钉小程序",
+    "mpxhs": "小红书小程序",
     "project": "项目",
     "debug": "调试",
-    "title": "标题"
+    "title": "标题",
+    "start-debug": "开始调试",
+    "online-debug": "在线实时",
+    "offline-debug": "日志回放",
+    "createdAt": "创建时间",
+    "updatedAt": "更新时间",
+    "actions": "操作",
+    "delete": "删除",
+    "confirm": "确认",
+    "copied": "已复制",
+    "prev": "上一页",
+    "next": "下一页"
   },
   "error": {
     "oops": " 哎呀！发生错误～",
@@ -26,15 +54,36 @@
     "no-frames": "未找到有效的错误信息"
   },
   "inject": {
-    "load-script": "在测试项目中加载一个 <script>；",
-    "init-instance": "<0>紧接着，配置（可选的）并初始化；查看 </0><1>配置项；</1>",
+    "web": {
+      "title": "WEB",
+      "load-sdk": "在测试项目中加载一个 <script>；",
+      "init-sdk": "<0>紧接着初始化，查看</0> <1>配置项</1>：",
+      "plugins": "<0>PageSpy 可以按需集成插件，用于拓展 SDK 的能力，例如：</0><1>录制 DOM 变化</1>、<2>离线缓存</2> <3>等功能，如有需要可以查看</3> <4>插件详情</4>；"
+    },
+    "mp": {
+      "title": "小程序",
+      "request-host": "将 page-spy 服务域名填入小程序的 http、websocket 请求白名单中。注意除了开发环境，小程序强制要求使用 https 和 wss 协议。",
+      "install-sdk": "首先在项目中安装依赖。我们提供了几种小程序平台的 SDK，请根据需要安装：",
+      "init-sdk": "<0>在入口文件中引入 SDK 并实例化，查看</0> <1>配置项</1>："
+    },
+    "harmony": {
+      "title": "鸿蒙",
+      "install-sdk": "在待调试 HAP 目录下安装依赖：",
+      "init-sdk": "<0>在合适的位置引入 SDK 并初始化，这里以 EntryAbility 为例。查看</0> <1>配置项</1>："
+    },
+    "rn": {
+      "title": "React Native",
+      "install-sdk": "首先在项目中安装依赖:",
+      "init-sdk": "<0>在入口文件中引入 SDK 并实例化。 查看</0> <1>配置项</1>:",
+      "storage-plugin": "<0>如果你使用 @react-native-async-storage/async-storage，我们提供了</0><1>独立的插件</1>："
+    },
     "end": "以上就是全部。",
     "start-debug": "从顶部的 <1>房间列表</1> 菜单进入并开始调试！"
   },
   "banner": {
     "title": "多功能<br />远程调试工具",
     "desc": "像使用谷歌浏览器的控制台一样简单地开始远程调试。",
-    "goStart": "开始调试",
+    "goStart": "开始使用",
     "goGithub": "GitHub 仓库"
   },
   "intro": {
@@ -53,13 +102,18 @@
     "device": "设备",
     "system": "系统",
     "browser": "浏览器",
+    "platform": "平台",
     "version": "版本",
+    "eval-plugin-required": "若需在小程序环境动态执行代码，请在客户端安装 @huolala-tech/page-spy-mp-eval-plugin",
+    "mp-warning": "小程序提交审核时请务必删除代码中的 mp-eval-plugin，否则会导致审核失败。",
     "menu": {
       "Console": "输出",
       "Network": "网络",
       "System": "系统",
       "Page": "页面",
-      "Storage": "存储"
+      "Storage": "存储",
+      "MPPage": "小程序页面",
+      "MPSystem": "小程序系统"
     }
   },
   "shortcuts": {
@@ -75,6 +129,9 @@
     "run": "执行",
     "placeholder": "可执行代码",
     "newContent": "新消息",
+    "auto-scroll-on": "自动滚动",
+    "auto-scroll-off": "自动滚动关闭",
+    "mp-code-error": "代码格式不正确。友情提示：目前小程序环境仅支持ES5语法。",
     "error-trace": {
       "title": "错误详情",
       "hints": "使用须知",
@@ -111,9 +168,12 @@
     "data-be-stale": "数据可能已经过时",
     "total-entries": "总记录数"
   },
+  "mp-page": {
+    "page-stack": "页面栈"
+  },
   "socket": {
     "client-name": "客户端",
-    "client-not-in-connection": "当前连接不存在客户端",
+    "client-not-in-connection": "当前连接未找到待调试的客户端，请检查客户端的 WebSocket 连接",
     "client-not-found": "未找到客户端",
     "client-offline": "客户端已离线",
     "client-fail": "客户端的连接已断开，请联系相关测试人员。",
@@ -123,10 +183,48 @@
     "reconnect-fail-desc": "重连失败，您的连接已断开。请刷新页面或者重新选择。",
     "room-not-found": "房间不存在",
     "network-timeout": "网络故障，连接超时",
-    "server-down": "服务出错"
+    "server-down": "服务出错",
+    "room-secret": "房间密码",
+    "secret": "密码",
+    "secret-placeholder": "请输入 6 位数字的房间密码",
+    "invalid-secret": "密码错误"
   },
   "connections": {
     "select-os": "选择系统",
-    "select-browser": "选择浏览器"
+    "select-browser": "选择浏览器",
+    "select-mp": "选择小程序",
+    "maximum-alert": "当前待调试终端较多，请通过条件进一步筛选",
+    "status": {
+      "active": "调试中",
+      "wait": "待调试",
+      "inactive": "无法调试"
+    }
+  },
+  "replay": {
+    "list-title": "回放列表",
+    "title": "日志回放",
+    "intro": "<0>什么是</0> <1>日志回放</1>",
+    "invalid-params": "链接中未找到有效的参数 url",
+    "invalid-blob": "<0>url 里的参数读取失败，object 可能已经被清除</0><1><0></0></1>",
+    "related-time": "相对时间",
+    "absolute-time": "绝对时间",
+    "select-log": "选择日志",
+    "log-type": "选择日志",
+    "online-link": "在线链接",
+    "online-link-tips": "请输入在线日志的链接",
+    "local-file": "本地文件",
+    "local-file-tip": "请选择本地文件",
+    "file-info": "文件信息",
+    "file-status": "文件状态",
+    "file-size": "文件尺寸",
+    "debug": "回放",
+    "date": "日期",
+    "others": "其他日志",
+    "delete-title": "删除日志",
+    "delete-desc": "确认删除此条日志吗？",
+    "client": "客户端信息",
+    "download-file": "下载日志",
+    "update-layout": "调整布局",
+    "speed": "倍速"
   }
 }

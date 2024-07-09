@@ -14,9 +14,37 @@
     "device-id": "Device ID",
     "os": "OS",
     "browser": "Browser",
+    "miniprogram": "Mini Program",
+    "mpwechat": "WeChat Mini Program",
+    "mpqq": "QQ Mini Program",
+    "mpalipay": "Alipay Mini Program",
+    "mpdouyin": "Douyin Mini Program",
+    "mptoutiao": "Toutiao Mini Program",
+    "mpbaidu": "Baidu Mini Program",
+    "mpfeishu": "Feishu Mini Program",
+    "mpkuaishou": "Kuaishou Mini Program",
+    "mpjd": "Jingdong Mini Program",
+    "mptoutiaolt": "Toutiao Lite Mini Program",
+    "mpdouyinlt": "Douyin Lite Mini Program",
+    "mphuoshan": "Douyin Huoshan Mini Program",
+    "mpxigua": "Xigua Mini Program",
+    "mpppx": "Pipixia Mini Program",
+    "mpdingtalk": "Dingtalk Mini Program",
+    "mpxhs": "Xiaohongshu Mini Program",
     "project": "Project",
     "debug": "Debug",
-    "title": "Title"
+    "title": "Title",
+    "start-debug": "Debugging",
+    "online-debug": "RT Debug",
+    "offline-debug": "Log Replay",
+    "createdAt": "Creation Time",
+    "updatedAt": "Update Time",
+    "actions": "Actions",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "copied": "Copied",
+    "prev": "Previous",
+    "next": "Next"
   },
   "error": {
     "oops": "Oops! Errors happened~",
@@ -26,8 +54,30 @@
     "no-frames": "No valid error information found"
   },
   "inject": {
-    "load-script": "Load a <script> in the testing project;",
-    "init-instance": "<0>Next, configure (optional) and initialize; check </0><1>configuration options;</1>",
+    "web": {
+      "title": "WEB",
+      "load-sdk": "Load a <script> in the test project;",
+      "init-sdk": "<0>Then, initialize it and check the</0> <1>configuration options</1>:",
+      "plugins": "<0>PageSpy can integrate plugins on demand to extend the capabilities of the SDK, such as:</0> <1>DOM recording</1>, <2>offline caching</2>, <3>and more. If needed, you can check the</3> <4>plugin details</4>;"
+    },
+    "mp": {
+      "title": "Mini Program",
+      "request-host": "Add the page-spy server domain to the whitelist of the miniprogram http and websocket requests. Note that the miniprogram requires https and wss protocols, except for the development environment.",
+      "install-sdk": "First, install dependencies in the project. We provide SDKs for different platforms, you may choose the one you need:",
+      "init-sdk": "<0>Import the SDK in the entry file and initialize it，check the </0> <1>configuration options</1>："
+    },
+    "harmony": {
+      "title": "Harmony",
+      "install-sdk": "Install dependencies in the target HAP directory:",
+      "init-sdk": "<0>Import and initialize the SDK at the appropriate location, using EntryAbility as an example. Check the</0> <1>configuration options</1>:"
+    },
+    "rn": {
+      "title": "React Native",
+      "install-sdk": "First, install dependencies in the project:",
+      "init-sdk": "<0>Import and initialize the SDK at the appropriate location. Check the</0> <1>configuration options</1>:",
+      "storage-plugin": "<0>If you use the official recommended storage library @react-native-async-storage/async-storage, we provide an independent plugin for you:</0> <1>Async Storage plugin</1>"
+    },
+
     "end": "That's ALL.",
     "start-debug": "Start debugging by clicking the <1>Connections</1> menu at the top!"
   },
@@ -53,13 +103,18 @@
     "device": "Device",
     "system": "System",
     "browser": "Browser",
+    "platform": "Platform",
     "version": "Version",
+    "eval-plugin-required": "If you need to dynamically execute code in mini program, please use @huolala-tech/page-spy-mp-eval-plugin in client SDK.",
+    "mp-warning": "When submitting the mini program for review, DO REMEMBER to delete the mp-eval-plugin in the code, otherwise the review will fail.",
     "menu": {
       "Console": "Console",
       "Network": "Network",
       "System": "System",
       "Page": "Page",
-      "Storage": "Storage"
+      "Storage": "Storage",
+      "MPPage": "MP Page",
+      "MPSystem": "MP System"
     }
   },
   "shortcuts": {
@@ -75,6 +130,9 @@
     "run": "Run",
     "placeholder": "Executable code",
     "newContent": "New content",
+    "auto-scroll-on": "Auto Scroll On",
+    "auto-scroll-off": "Auto Scroll Off",
+    "mp-code-error": "Code format is incorrect. Friendly reminder: currently the mini program environment only supports ES5 syntax.",
     "error-trace": {
       "title": "Error detail",
       "hints": "HINTS",
@@ -111,9 +169,12 @@
     "data-be-stale": "Data may be stale",
     "total-entries": "Total entries"
   },
+  "mp-page": {
+    "page-stack": "Page Stack"
+  },
   "socket": {
     "client-name": "Client",
-    "client-not-in-connection": "No client in the current connection",
+    "client-not-in-connection": "No client in the current connection. Please check the WebSocket of the client.",
     "client-not-found": "Client not found",
     "client-offline": "Client is offline",
     "client-fail": "Client has lost the connection, please contact the relevant tester.",
@@ -123,10 +184,48 @@
     "reconnect-fail-desc": "Reconnect failed, you have lost the connection. Please refresh the page or select another.",
     "room-not-found": "Room is not found",
     "network-timeout": "Network timeout",
-    "server-down": "Server error"
+    "server-down": "Server error",
+    "room-secret": "Room Secret",
+    "secret": "Secret",
+    "secret-placeholder": "Please enter a 6-digit room password",
+    "invalid-secret": "Invalid Password"
   },
   "connections": {
     "select-os": "Select OS",
-    "select-browser": "Select browser"
+    "select-browser": "Select browser",
+    "select-mp": "Select Mini Program",
+    "maximum-alert": "Just show partial connections. Please further filter through the conditions.",
+    "status": {
+      "active": "Debugging",
+      "wait": "Pending Debug",
+      "inactive": "Unable to Debug"
+    }
+  },
+  "replay": {
+    "list-title": "Replay List",
+    "title": "Replay Log",
+    "intro": "<0>What's</0> <1>Replay Log</1>",
+    "invalid-params": "No valid URL parameters found in the link.",
+    "invalid-blob": "<0>Failed to read parameters from the URL; the object may have been cleared</0><1><0></0></1>",
+    "related-time": "Related Time",
+    "absolute-time": "Absolute Time",
+    "select-log": "Select Log",
+    "log-type": "Log Type",
+    "online-link": "Online Link",
+    "online-link-tips": "Please enter the link to the online log",
+    "local-file": "Local File",
+    "local-file-tip": "Please select a local file",
+    "file-info": "File Information",
+    "file-status": "File Status",
+    "file-size": "File Size",
+    "debug": "Replay",
+    "date": "Date",
+    "others": "Others log",
+    "delete-title": "Delete Log",
+    "delete-desc": "Are you sure you want to delete this log?",
+    "client": "Client Information",
+    "download-file": "Download Log",
+    "update-layout": "Update Layout",
+    "speed": "Speed"
   }
 }
