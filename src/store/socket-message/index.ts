@@ -115,7 +115,10 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       // 小程序 network 信息需要特别处理。
       // 你可能会担心，会不会有 network msg 先于 clientInfo 发送过来导致被遗漏？
       // 不会的，clientInfo 是在 socket 连接建立之后立马送过来的，之后才会 flush 历史数据。
-      if (get().clientInfo?.browser.type.startsWith('mp-')) {
+      const browserType = get().clientInfo?.browser.type || '';
+      const sdk = get().clientInfo?.sdk || '';
+      // uniapp 和 taro 可能会编译成 h5 或 app， 所以即使不是小程序，只要用了这两个 sdk 也要走这个逻辑
+      if (browserType.startsWith('mp-') || sdk === 'uniapp' || sdk === 'taro') {
         processMPNetworkMsg(data);
       }
       const cache = get().networkMsg;
