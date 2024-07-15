@@ -95,6 +95,6 @@
     "last 2 safari version"
   ],
   "optionalDependencies": {
-    "@huolala-tech/page-spy-api": "^1.2.2"
+    "@huolala-tech/page-spy-api": "^1.9.0"
   }
 }
