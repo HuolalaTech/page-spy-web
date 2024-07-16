@@ -61,6 +61,7 @@ export const RRWebPlayer = memo(() => {
           lineWidth: 5,
           strokeStyle: 'rgb(132, 52, 233)',
         },
+        UNSAFE_replayCanvas: true,
       },
     });
   }, [events]);
