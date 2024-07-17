@@ -104,8 +104,8 @@
     "browser": "ブラウザ",
     "platform": "プラットフォーム",
     "version": "バージョン",
-    "eval-plugin-required": "小プログラム環境で動的にコードを実行する必要がある場合、クライアント側で SDK プラグイン @huolala-tech/page-spy-mp-eval-plugin を使用してください",
-    "mp-warning": "レビューのためにミニ プログラムを送信するときは、必ずコード内の mp-eval-plugin を削除してください。削除しないと、レビューが失敗します。",
+    "eval-plugin-required": "小プログラム環境で動的にコードを実行する必要がある場合、クライアント側で SDK プラグイン @huolala-tech/page-spy-plugin-mp-eval を使用してください",
+    "mp-warning": "レビューのためにミニ プログラムを送信するときは、必ずコード内の plugin-mp-eval を削除してください。削除しないと、レビューが失敗します。",
     "menu": {
       "Console": "コンソール",
       "Network": "ネットワーク",
