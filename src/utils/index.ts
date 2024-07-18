@@ -84,7 +84,7 @@ export function resolveUrlInfo(url: string): ResolvedUrlInfo {
     };
   } /* c8 ignore start */ catch (e) {
     return {
-      name: '',
+      name: url,
       pathname: '',
       getData: null,
     };
