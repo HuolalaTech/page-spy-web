@@ -15,10 +15,10 @@ export const getSpyLogs = (params: {
   title?: string;
   roomId?: string;
   page: number;
+  size: number;
 }) => {
   return request.get<I.SpyLogList>(`/log/list`, {
     params: {
-      size: 10,
       ...params,
     },
   });

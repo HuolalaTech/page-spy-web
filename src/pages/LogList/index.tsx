@@ -76,7 +76,7 @@ export const LogList = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
 
-  const currentPage = useRef(1);
+  const currentPage = useRef({ page: 1, size: 10 });
   const {
     loading,
     data: logList = { data: [], total: 0, page: 1, size: 10 },
@@ -91,7 +91,7 @@ export const LogList = () => {
         deviceId,
         from: start?.startOf('date').unix(),
         end: end?.endOf('date').unix(),
-        page: currentPage.current,
+        ...currentPage.current,
       };
       getObjectKeys(params).forEach((k) => {
         if (!params[k] || params[k].toString().trim() === '') {
@@ -163,7 +163,7 @@ export const LogList = () => {
           layout="vertical"
           form={form}
           onFinish={() => {
-            currentPage.current = 1;
+            currentPage.current.page = 1;
             requestClientLogs();
           }}
         >
@@ -220,10 +220,14 @@ export const LogList = () => {
           }}
           pagination={{
             total: logList.total,
-            current: currentPage.current,
+            current: currentPage.current.page,
+            pageSize: currentPage.current.size,
           }}
-          onChange={({ current }) => {
-            currentPage.current = current || 1;
+          onChange={({ current, pageSize }) => {
+            currentPage.current = {
+              page: current || 1,
+              size: pageSize || 10,
+            };
             requestClientLogs();
           }}
           dataSource={logList.data}
