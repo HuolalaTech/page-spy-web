@@ -80,3 +80,27 @@ Go to the debugger, click the top menu "Debugging - Log Replay" to enter the rep
 DataHarborPlugin mainly collects and handles data. Additionally, PageSpy provides:
 
 - [RRWebPlugin]({VITE_PLUGIN_RRWEB}): Uses `rrweb` to record DOM mutations. In the "Log Replay" panel on the left side of the debugger, devepler can see the user interaction traces.
+
+### FAQ
+
+1. How to upload / download logs manually?
+
+```ts
+window.$harbor = new DataHarborPlugin();
+
+// Upload
+window.$harbor.onOfflineLog('upload');
+
+// Download
+window.$harbor.onOfflineLog('download');
+```
+
+2. Where is offline log data stored?
+
+After `DataHarborPlugin` receives the data, it first places it in an array in memory. When the data volume in the array reaches a threshold, it writes the data to a temporary file. By default, this threshold is 10MB. You can also configure it yourself:
+
+```ts
+new DataHarborPlugin({
+  maximum: 1 * 1024 * 1024, // Write to a temporary file when the data in memory reaches 1MB
+})
+```
