@@ -226,6 +226,7 @@
     "client": "Client Information",
     "download-file": "Download Log",
     "update-layout": "Update Layout",
-    "speed": "Speed"
+    "speed": "Speed",
+    "delete-select": "Delete Selected"
   }
 }

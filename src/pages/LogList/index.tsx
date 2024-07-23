@@ -23,7 +23,7 @@ import { Link } from 'react-router-dom';
 import { SelectLogButton } from './SelectLogButton';
 import dayjs, { type Dayjs } from 'dayjs';
 import request from '@/apis/request';
-import { ComponentType, useMemo, useRef } from 'react';
+import { ComponentType, useCallback, useRef, useState } from 'react';
 import {
   CheckCircleOutlined,
   ClearOutlined,
@@ -118,8 +118,18 @@ export const LogList = () => {
     },
   );
 
-  const deletingFileId = useRef('');
-  const { run: requestDeleteLog, loading: deleting } = useRequest(
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const footerContent = useCallback(() => {
+    if (selectedRowKeys.length) {
+      return (
+        <Button ghost danger>
+          {t('replay.delete-select')}
+        </Button>
+      );
+    }
+    return null;
+  }, [selectedRowKeys.length, t]);
+  const { run: requestDeleteLog } = useRequest(
     (fileId: string) => deleteSpyLog({ fileId }),
     {
       manual: true,
@@ -218,6 +228,13 @@ export const LogList = () => {
           scroll={{
             y: '70vh',
           }}
+          rowKey="fileId"
+          rowSelection={{
+            selectedRowKeys,
+            onChange: (keys) => {
+              setSelectedRowKeys(keys);
+            },
+          }}
           pagination={{
             total: logList.total,
             current: currentPage.current.page,
@@ -228,6 +245,7 @@ export const LogList = () => {
               page: current || 1,
               size: pageSize || 10,
             };
+            setSelectedRowKeys([]);
             requestClientLogs();
           }}
           dataSource={logList.data}
@@ -410,9 +428,6 @@ export const LogList = () => {
                         type="text"
                         size="small"
                         icon={<DeleteOutlined />}
-                        loading={
-                          row.fileId === deletingFileId.current && deleting
-                        }
                       >
                         {t('common.delete')}
                       </Button>
@@ -422,6 +437,7 @@ export const LogList = () => {
               },
             },
           ]}
+          footer={selectedRowKeys.length ? footerContent : undefined}
         />
       </Content>
     </Layout>

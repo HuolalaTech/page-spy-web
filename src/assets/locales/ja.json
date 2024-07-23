@@ -225,6 +225,7 @@
     "client": "クライアント情報",
     "download-file": "ログのダウンロード",
     "update-layout": "レイアウトの更新",
-    "speed": "倍速"
+    "speed": "倍速",
+    "delete-select": "選択されたものを削除"
   }
 }
