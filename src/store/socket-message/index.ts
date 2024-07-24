@@ -12,18 +12,16 @@ import {
   SpyClient,
 } from '@huolala-tech/page-spy-types';
 import { API_BASE_URL } from '@/apis/request';
-import { resolveProtocol, resolveUrlInfo } from '@/utils';
+import { ResolvedUrlInfo, resolveProtocol, resolveUrlInfo } from '@/utils';
 import { ElementContent } from 'hast';
 import { getFixedPageMsg, processMPNetworkMsg } from './utils';
 import { isArray, isEqual, isString, omit } from 'lodash-es';
-import {
-  parseClientInfo,
-  ParsedClientInfo,
-  parseUserAgent,
-} from '@/utils/brand';
+import { parseClientInfo, ParsedClientInfo } from '@/utils/brand';
 import { StorageType } from '../platform-config';
 
 const USER_ID = 'Debugger';
+
+export type NetworkMsgItem = SpyNetwork.RequestInfo & ResolvedUrlInfo;
 
 interface SocketMessage {
   socket: SocketStore | null;
@@ -31,7 +29,7 @@ interface SocketMessage {
   consoleMsg: SpyConsole.DataItem[];
   consoleMsgTypeFilter: string[];
   consoleMsgKeywordFilter: string;
-  networkMsg: SpyNetwork.RequestInfo[];
+  networkMsg: NetworkMsgItem[];
   systemMsg: SpySystem.DataItem[];
   connectMsg: string[];
   pageMsg: {
@@ -112,6 +110,14 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       );
     });
     socket.addListener('network', (data: SpyNetwork.RequestInfo) => {
+      const { name, pathname, getData } = resolveUrlInfo(data.url);
+
+      const newData: NetworkMsgItem = {
+        ...data,
+        name,
+        pathname,
+        getData,
+      };
       // 小程序 network 信息需要特别处理。
       // 你可能会担心，会不会有 network msg 先于 clientInfo 发送过来导致被遗漏？
       // 不会的，clientInfo 是在 socket 连接建立之后立马送过来的，之后才会 flush 历史数据。
@@ -119,21 +125,21 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       const sdk = get().clientInfo?.sdk || '';
       // uniapp 和 taro 可能会编译成 h5 或 app， 所以即使不是小程序，只要用了这两个 sdk 也要走这个逻辑
       if (browserType.startsWith('mp-') || sdk === 'uniapp' || sdk === 'taro') {
-        processMPNetworkMsg(data);
+        processMPNetworkMsg(newData);
       }
       const cache = get().networkMsg;
       // 整理 xhr 的消息
-      const { id } = data;
+      const { id } = newData;
       const index = cache.findIndex((item) => item.id === id);
       if (index !== -1) {
-        const { requestType, response = '', status, endTime } = data;
+        const { requestType, response = '', status, endTime } = newData;
         // eventsource 需要合并 response
         // eventsource 的 'open / error' 事件都没有 response，'message' 事件可能会带着 response
         // status === 200 是在 SDK 中硬编码的，和 'message' 事件对应
         if (requestType === 'eventsource' && status === 200) {
           const { response: cacheData, endTime: cacheTime } = cache[index];
           if (!cacheData) {
-            data.response = [
+            newData.response = [
               {
                 time: endTime,
                 data: response,
@@ -141,7 +147,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
             ];
           }
           if (isString(cacheData)) {
-            data.response = [
+            newData.response = [
               {
                 time: cacheTime,
                 data: cacheData,
@@ -153,7 +159,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
             ];
           }
           if (isArray(cache[index].response)) {
-            data.response = [
+            newData.response = [
               ...cache[index].response,
               {
                 time: endTime,
@@ -165,14 +171,14 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
 
         set(
           produce((state) => {
-            state.networkMsg.splice(index, 1, data);
+            state.networkMsg.splice(index, 1, newData);
           }),
         );
       } else {
         set(
           produce<SocketMessage>((state) => {
             state.networkMsg = produce(state.networkMsg, (draft) => {
-              draft.push(data);
+              draft.push(newData);
               return draft.sort((a, b) => a.startTime - b.startTime);
             });
           }),

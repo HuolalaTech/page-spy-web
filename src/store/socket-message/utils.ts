@@ -52,33 +52,30 @@ export const getFixedPageMsg = async (htmlText: string, base: string) => {
 
 // 处理小程序网络信息
 export const processMPNetworkMsg = (data: SpyNetwork.RequestInfo) => {
-  if (data.url) {
-    const urlInfo = resolveUrlInfo(data.url);
-    data.name = urlInfo.name;
-    data.getData = urlInfo.query;
-    data.url = urlInfo.url;
-    // why the requestPayload should be string? because the js object will be stringified in sdk.
-    if (
-      data.method.toUpperCase() === 'GET' &&
-      data.requestPayload &&
-      typeof data.requestPayload === 'string'
-    ) {
-      try {
-        const obj = JSON.parse(data.requestPayload);
-        if (data.getData) {
-          data.getData.forEach(([k, v]) => {
-            if (!Reflect.has(obj, k)) {
-              obj[k] = JSON.stringify(v);
-            }
-          });
-        }
-        data.getData = Object.entries(obj);
-        data.url =
-          urlInfo.rawUrl + '?' + new URLSearchParams(data.getData).toString();
-        data.requestPayload = null;
-      } catch (e) {
-        // do nothing
+  // why the requestPayload should be string? because the js object will be stringified in sdk.
+  if (
+    data.url &&
+    data.method.toUpperCase() === 'GET' &&
+    data.requestPayload &&
+    typeof data.requestPayload === 'string'
+  ) {
+    try {
+      const obj = JSON.parse(data.requestPayload);
+      if (data.getData) {
+        data.getData.forEach(([k, v]) => {
+          if (!Reflect.has(obj, k)) {
+            obj[k] = JSON.stringify(v);
+          }
+        });
       }
+      data.getData = Object.entries(obj);
+      data.requestPayload = null;
+
+      const { origin, pathname } = new URL(data.url);
+      const query = new URLSearchParams(data.getData).toString();
+      data.url = `${origin}${pathname}?${query}`;
+    } catch (e) {
+      // do nothing
     }
   }
 };
