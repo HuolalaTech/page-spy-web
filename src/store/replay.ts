@@ -252,39 +252,36 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     const { allNetworkMsg, networkMsg } = get();
 
     let networkIndex = 0;
-    const eventSourceData: Record<string, SpyNetwork.RequestInfo> = {};
-    const showedNetworkMsg: SpyNetwork.RequestInfo[] = [];
+    const showedNetworkMsg: Map<string, SpyNetwork.RequestInfo> = new Map();
     while (
       networkIndex < allNetworkMsg.length &&
       allNetworkMsg[networkIndex].timestamp <= currentTime
     ) {
       const { data } = allNetworkMsg[networkIndex];
       const { id, requestType, endTime, response } = data;
-      // @ts-ignore
+
       if (requestType === 'eventsource') {
-        if (!eventSourceData[id]) {
+        if (!showedNetworkMsg.has(id)) {
           const result = {
             ...data,
             response: [{ time: endTime, data: response }],
           };
-          eventSourceData[id] = result;
-          showedNetworkMsg.push(result);
+          showedNetworkMsg.set(id, result);
         } else {
-          // 通过 response 数组引用直接修改
-          eventSourceData[id].response.push({
+          showedNetworkMsg.get(id)!.response.push({
             time: endTime,
             data: response,
           });
         }
       } else {
-        showedNetworkMsg.push(data);
+        showedNetworkMsg.set(id, data);
       }
       networkIndex += 1;
     }
 
     set(
       produce((state) => {
-        state.networkMsg = showedNetworkMsg;
+        state.networkMsg = [...showedNetworkMsg.values()];
       }),
     );
   },

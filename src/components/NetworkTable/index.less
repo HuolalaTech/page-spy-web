@@ -32,24 +32,6 @@
       &.active {
         background-color: @tbody-select-bg;
       }
-      &:nth-child(1) {
-        width: 20%;
-      }
-      &:nth-child(2) {
-        width: 38%;
-      }
-      &:nth-child(3) {
-        width: 12%;
-      }
-      &:nth-child(4) {
-        width: 10%;
-      }
-      &:nth-child(5) {
-        width: 10%;
-      }
-      &:nth-child(6) {
-        width: 10%;
-      }
       &:last-child {
         border-right: none;
       }
@@ -77,6 +59,26 @@
   }
 
   .network-list {
+    td {
+      &:nth-child(1) {
+        width: 20%;
+      }
+      &:nth-child(2) {
+        width: 38%;
+      }
+      &:nth-child(3) {
+        width: 12%;
+      }
+      &:nth-child(4) {
+        width: 10%;
+      }
+      &:nth-child(5) {
+        width: 10%;
+      }
+      &:nth-child(6) {
+        width: 10%;
+      }
+    }
     &__header {
       position: sticky;
       top: 0;
@@ -225,7 +227,7 @@
             width: 8%;
           }
           &:nth-child(4) {
-            width: 15%;
+            width: 100px;
           }
         }
       }
