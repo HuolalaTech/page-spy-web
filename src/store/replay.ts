@@ -10,6 +10,7 @@ import { eventWithTime } from '@rrweb/types';
 import { produce } from 'immer';
 import { isEqual, omit } from 'lodash-es';
 import { REPLAY_STATUS_CHANGE } from '@/pages/Replay/events';
+import { resolveUrlInfo } from '@/utils';
 
 const isCaredActivity = (activity: HarborDataItem) => {
   const { type, data } = activity;
@@ -147,7 +148,14 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
           acc.allConsoleMsg.push(cur);
           break;
         case 'network':
-          acc.allNetworkMsg.push(cur);
+          acc.allNetworkMsg.push({
+            type,
+            timestamp,
+            data: {
+              ...data,
+              ...resolveUrlInfo(data.url),
+            },
+          });
           break;
         case 'rrweb-event':
           acc.allRRwebEvent.push(data);
