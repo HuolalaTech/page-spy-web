@@ -17,13 +17,14 @@ ohpm install @huolala/page-spy-harmony@^2
 
 在合适的位置引入 SDK 并初始化，这里以 `EntryAbility` 为例。初始化参数提供了可选的 [配置项]({VITE_SDK_HARMONY_REPO}) 用于自定义 SDK 的行为：
 
-```js
+```ts
 import { PageSpy } from '@huolala/page-spy-harmony';
 import axiosInstance from 'path/to/your/axios-instance';
 
 export default class EntryAbility extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage) {
     new PageSpy({
+      context: this.context,
       api: "{deployPath}",
       enableSSL: true,
       axios: axiosInstance

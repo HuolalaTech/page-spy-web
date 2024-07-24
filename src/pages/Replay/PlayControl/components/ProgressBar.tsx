@@ -1,4 +1,4 @@
-import { Activity, useReplayStore } from '@/store/replay';
+import { useReplayStore } from '@/store/replay';
 import { Tooltip } from 'antd';
 import { useRef, useEffect, useMemo, memo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
@@ -6,10 +6,14 @@ import { useShallow } from 'zustand/react/shallow';
 const ONE_MINUTE = 60 * 1000;
 const TEN_MINUTES = 10 * ONE_MINUTE;
 const HALF_ONE_HOUR = 30 * ONE_MINUTE;
-const ONE_HOUR = 60 * ONE_MINUTE;
+const ACTIVITY_EVENT_NAME_MAP = {
+  console: 'Error',
+  'rrweb-event': 'Click',
+};
 
 export const ProgressBar = memo(() => {
   const [
+    rrwebStartTime,
     activity,
     startTime,
     duration,
@@ -18,6 +22,7 @@ export const ProgressBar = memo(() => {
     flushActiveData,
   ] = useReplayStore(
     useShallow((state) => [
+      state.rrwebStartTime,
       state.activity,
       state.startTime,
       state.duration,
@@ -48,27 +53,6 @@ export const ProgressBar = memo(() => {
       }),
     [decimalPlaces],
   );
-
-  const activityPoints = useMemo(() => {
-    return activity.map((a) => {
-      const itemDuration = a[a.length - 1].timestamp - a[0].timestamp;
-      const timeOffset = (a[0].timestamp - startTime) / duration;
-      const timeDuration =
-        itemDuration === 0 ? 0.0001 : itemDuration / duration;
-      const eventsCount = a.reduce((acc, cur) => {
-        if (!acc[cur.type]) {
-          acc[cur.type] = 0;
-        }
-        acc[cur.type] += 1;
-        return acc;
-      }, {} as Record<Activity[number]['type'], number>);
-      return {
-        timeOffset,
-        timeDuration,
-        eventsCount,
-      };
-    });
-  }, [activity, duration, startTime]);
 
   // "Skip" in timeline by click
   useEffect(() => {
@@ -157,22 +141,18 @@ export const ProgressBar = memo(() => {
   return (
     <div className="play-timeline" ref={timelineEl}>
       <div className="play-current-point" ref={pointEl} />
-      {activityPoints.map((a) => {
+      {activity.map((a, index) => {
+        const title = ACTIVITY_EVENT_NAME_MAP[a.type];
+        const startTimestamp =
+          a.type === 'rrweb-event' ? rrwebStartTime : startTime;
+        const left = (a.timestamp - startTimestamp) / duration;
         return (
-          <Tooltip
-            key={a.timeOffset}
-            title={Object.entries(a.eventsCount).map(([event, count]) => (
-              <div key={event}>
-                <b>{event}: </b>
-                <span>{count}</span>
-              </div>
-            ))}
-          >
+          <Tooltip key={a.timestamp + index} title={title}>
             <div
               className="point-item"
+              data-event={title}
               style={{
-                width: `${a.timeDuration * 100}%`,
-                left: `${a.timeOffset * 100}%`,
+                left: `${left * 100}%`,
               }}
             />
           </Tooltip>

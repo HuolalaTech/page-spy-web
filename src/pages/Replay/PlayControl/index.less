@@ -61,11 +61,20 @@
         }
       }
       .point-item {
+        @size: 14px;
         position: absolute;
-        min-width: 2px;
-        height: 12px;
-        transform: translateY(-2px);
-        background-color: #ff7676;
+        width: @size;
+        height: @size;
+        background-size: @size;
+        background-repeat: no-repeat;
+        &[data-event='Click'] {
+          background-image: url('@/assets/image/click.svg');
+          transform: translate(-50%, 60%);
+        }
+        &[data-event='Error'] {
+          background-image: url('@/assets/image/error-outline.svg');
+          transform: translate(-50%, 60%) rotateZ(180deg);
+        }
       }
     }
   }
