@@ -25,10 +25,7 @@ export interface HarborDataItem<T = any> {
   data: T;
 }
 
-export interface Activity {
-  type: 'console' | 'rrweb-event';
-  timestamp: number;
-}
+export type Activity = Omit<HarborDataItem, 'data'>[];
 
 export enum TIME_MODE {
   RELATED = 'HH:mm:ss:SSS',
@@ -139,7 +136,21 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     } = data.reduce((acc, cur) => {
       const { type, data, timestamp } = cur;
       if (isCaredActivity(cur)) {
-        acc.activity.push({ type, timestamp } as Activity);
+        if (!acc.activity.length) {
+          acc.activity.push([{ type, timestamp }]);
+        } else {
+          const lastFrame = acc.activity[acc.activity.length - 1];
+          const lastItemInLastFrame = lastFrame[lastFrame.length - 1];
+          // Generate a new 'activity point' if time diff > 500ms
+          if (
+            lastItemInLastFrame.type === type &&
+            timestamp - lastItemInLastFrame.timestamp < 2000
+          ) {
+            lastFrame.push({ type, timestamp });
+          } else {
+            acc.activity.push([{ type, timestamp }]);
+          }
+        }
       }
       switch (type) {
         case 'console':

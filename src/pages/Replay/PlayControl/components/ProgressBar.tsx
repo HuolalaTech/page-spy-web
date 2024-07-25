@@ -1,4 +1,4 @@
-import { useReplayStore } from '@/store/replay';
+import { Activity, HarborDataItem, useReplayStore } from '@/store/replay';
 import { Tooltip } from 'antd';
 import { useRef, useEffect, useMemo, memo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
@@ -9,7 +9,7 @@ const HALF_ONE_HOUR = 30 * ONE_MINUTE;
 const ACTIVITY_EVENT_NAME_MAP = {
   console: 'Error',
   'rrweb-event': 'Click',
-};
+} as Record<HarborDataItem['type'], string>;
 
 export const ProgressBar = memo(() => {
   const [
@@ -53,6 +53,23 @@ export const ProgressBar = memo(() => {
       }),
     [decimalPlaces],
   );
+
+  const activityPoints = useMemo(() => {
+    return activity.map((a) => {
+      const startTimestamp =
+        a[0].type === 'rrweb-event' ? rrwebStartTime : startTime;
+      const itemDuration = a[a.length - 1].timestamp - a[0].timestamp;
+      const timeOffset = (a[0].timestamp - startTimestamp) / duration;
+      const timeDuration =
+        itemDuration === 0 ? 0.0001 : itemDuration / duration;
+      return {
+        timeOffset,
+        timeDuration,
+        eventType: a[0].type,
+        eventCount: a.length,
+      };
+    });
+  }, [activity, duration, rrwebStartTime, startTime]);
 
   // "Skip" in timeline by click
   useEffect(() => {
@@ -141,18 +158,24 @@ export const ProgressBar = memo(() => {
   return (
     <div className="play-timeline" ref={timelineEl}>
       <div className="play-current-point" ref={pointEl} />
-      {activity.map((a, index) => {
-        const title = ACTIVITY_EVENT_NAME_MAP[a.type];
-        const startTimestamp =
-          a.type === 'rrweb-event' ? rrwebStartTime : startTime;
-        const left = (a.timestamp - startTimestamp) / duration;
+      {activityPoints.map((a) => {
+        const title = ACTIVITY_EVENT_NAME_MAP[a.eventType] || 'undefined';
         return (
-          <Tooltip key={a.timestamp + index} title={title}>
+          <Tooltip
+            key={a.timeOffset}
+            title={
+              <div key={a.timeOffset}>
+                <b>{title}: </b>
+                <span>{a.eventCount}</span>
+              </div>
+            }
+          >
             <div
               className="point-item"
               data-event={title}
               style={{
-                left: `${left * 100}%`,
+                width: `${a.timeDuration * 100}%`,
+                left: `${a.timeOffset * 100}%`,
               }}
             />
           </Tooltip>
