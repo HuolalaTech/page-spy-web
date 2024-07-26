@@ -17,13 +17,14 @@ ohpm install @huolala/page-spy-harmony@^2
 
 Import and initialize the SDK at an appropriate place. Here, EntryAbility is used as an example. The initialization parameters provide optional [configuration]({VITE_SDK_HARMONY_REPO}) options to customize the SDK's behavior:
 
-```js
+```ts
 import { PageSpy } from '@huolala/page-spy-harmony';
 import axiosInstance from 'path/to/your/axios-instance';
 
 export default class EntryAbility extends UIAbility {
   onWindowStageCreate(windowStage: window.WindowStage) {
     new PageSpy({
+      context: this.context,
       api: "{deployPath}",
       enableSSL: true,
       axios: axiosInstance

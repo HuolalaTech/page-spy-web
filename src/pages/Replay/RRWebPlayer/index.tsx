@@ -5,13 +5,8 @@ import { useReplayStore } from '@/store/replay';
 import rrwebPlayer from 'rrweb-player';
 import './index.less';
 import { useShallow } from 'zustand/react/shallow';
-import {
-  EventType,
-  incrementalSnapshotEvent,
-  IncrementalSource,
-  MouseInteractions,
-  ReplayerEvents,
-} from '@rrweb/types';
+import { ReplayerEvents } from '@rrweb/types';
+import { isRRWebClickEvent } from '@/utils';
 
 const ClickEffectSvg = `
   <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -24,8 +19,12 @@ const ClickEffectSvg = `
 export const RRWebPlayer = memo(() => {
   const rootEl = useRef<HTMLDivElement | null>(null);
   const playerInstance = useRef<rrwebPlayer>();
-  const [allRRwebEvent, speed] = useReplayStore(
-    useShallow((state) => [state.allRRwebEvent, state.speed]),
+  const [allRRwebEvent, speed, setRRWebStartTime] = useReplayStore(
+    useShallow((state) => [
+      state.allRRwebEvent,
+      state.speed,
+      state.setRRWebStartTime,
+    ]),
   );
 
   const events = useMemo(() => {
@@ -90,19 +89,16 @@ export const RRWebPlayer = memo(() => {
       },
     });
     const replayer = playerInstance.current.getReplayer();
+    const { startTime } = replayer.getMetaData();
+    setRRWebStartTime(startTime);
     const doc = replayer.iframe.contentDocument!;
     const div = document.createElement('div');
     div.classList.add('click-effect');
     div.innerHTML = ClickEffectSvg;
 
     replayer.on(ReplayerEvents.EventCast, (event) => {
-      const { type, data } = event as incrementalSnapshotEvent;
-      if (
-        type === EventType.IncrementalSnapshot &&
-        data.source === IncrementalSource.MouseInteraction &&
-        data.type === MouseInteractions.Click
-      ) {
-        const { x, y } = data;
+      if (isRRWebClickEvent(event)) {
+        const { x, y } = event.data;
         div.style.left = `${x}px`;
         div.style.top = `${y}px`;
 

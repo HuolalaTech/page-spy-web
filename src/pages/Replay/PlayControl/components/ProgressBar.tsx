@@ -1,4 +1,4 @@
-import { Activity, useReplayStore } from '@/store/replay';
+import { Activity, HarborDataItem, useReplayStore } from '@/store/replay';
 import { Tooltip } from 'antd';
 import { useRef, useEffect, useMemo, memo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
@@ -6,10 +6,14 @@ import { useShallow } from 'zustand/react/shallow';
 const ONE_MINUTE = 60 * 1000;
 const TEN_MINUTES = 10 * ONE_MINUTE;
 const HALF_ONE_HOUR = 30 * ONE_MINUTE;
-const ONE_HOUR = 60 * ONE_MINUTE;
+const ACTIVITY_EVENT_NAME_MAP = {
+  console: 'Error',
+  'rrweb-event': 'Click',
+} as Record<HarborDataItem['type'], string>;
 
 export const ProgressBar = memo(() => {
   const [
+    rrwebStartTime,
     activity,
     startTime,
     duration,
@@ -18,6 +22,7 @@ export const ProgressBar = memo(() => {
     flushActiveData,
   ] = useReplayStore(
     useShallow((state) => [
+      state.rrwebStartTime,
       state.activity,
       state.startTime,
       state.duration,
@@ -51,24 +56,20 @@ export const ProgressBar = memo(() => {
 
   const activityPoints = useMemo(() => {
     return activity.map((a) => {
+      const startTimestamp =
+        a[0].type === 'rrweb-event' ? rrwebStartTime : startTime;
       const itemDuration = a[a.length - 1].timestamp - a[0].timestamp;
-      const timeOffset = (a[0].timestamp - startTime) / duration;
+      const timeOffset = (a[0].timestamp - startTimestamp) / duration;
       const timeDuration =
         itemDuration === 0 ? 0.0001 : itemDuration / duration;
-      const eventsCount = a.reduce((acc, cur) => {
-        if (!acc[cur.type]) {
-          acc[cur.type] = 0;
-        }
-        acc[cur.type] += 1;
-        return acc;
-      }, {} as Record<Activity[number]['type'], number>);
       return {
         timeOffset,
         timeDuration,
-        eventsCount,
+        eventType: a[0].type,
+        eventCount: a.length,
       };
     });
-  }, [activity, duration, startTime]);
+  }, [activity, duration, rrwebStartTime, startTime]);
 
   // "Skip" in timeline by click
   useEffect(() => {
@@ -158,18 +159,20 @@ export const ProgressBar = memo(() => {
     <div className="play-timeline" ref={timelineEl}>
       <div className="play-current-point" ref={pointEl} />
       {activityPoints.map((a) => {
+        const title = ACTIVITY_EVENT_NAME_MAP[a.eventType] || 'undefined';
         return (
           <Tooltip
             key={a.timeOffset}
-            title={Object.entries(a.eventsCount).map(([event, count]) => (
-              <div key={event}>
-                <b>{event}: </b>
-                <span>{count}</span>
+            title={
+              <div key={a.timeOffset}>
+                <b>{title}: </b>
+                <span>{a.eventCount}</span>
               </div>
-            ))}
+            }
           >
             <div
               className="point-item"
+              data-event={title}
               style={{
                 width: `${a.timeDuration * 100}%`,
                 left: `${a.timeOffset * 100}%`,

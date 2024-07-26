@@ -1,3 +1,10 @@
+import {
+  EventType,
+  eventWithTime,
+  IncrementalSource,
+  mouseInteractionData,
+  MouseInteractions,
+} from '@rrweb/types';
 import { isString } from 'lodash-es';
 
 export function getObjectKeys<T extends Record<string, any>>(data: T) {
@@ -90,3 +97,24 @@ export function resolveUrlInfo(url: string): ResolvedUrlInfo {
     };
   } /* c8 ignore stop */
 }
+
+interface RRWebClickEvent {
+  type: EventType.IncrementalSnapshot;
+  data: mouseInteractionData & {
+    type: MouseInteractions.Click;
+  };
+  timestamp: number;
+  delay?: number;
+}
+export const isRRWebClickEvent = (event: unknown): event is RRWebClickEvent => {
+  const { type, data } = event as eventWithTime;
+  if (
+    type === EventType.IncrementalSnapshot &&
+    data.source === IncrementalSource.MouseInteraction &&
+    data.type === MouseInteractions.Click
+  ) {
+    return true;
+  }
+
+  return false;
+};
