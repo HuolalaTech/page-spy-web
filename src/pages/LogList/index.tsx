@@ -90,7 +90,7 @@ export const LogList = () => {
         title,
         deviceId,
         from: start?.startOf('date').unix(),
-        end: end?.endOf('date').unix(),
+        to: end?.endOf('date').unix(),
         ...currentPage.current,
       };
       getObjectKeys(params).forEach((k) => {
