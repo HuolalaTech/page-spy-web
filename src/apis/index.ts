@@ -24,10 +24,12 @@ export const getSpyLogs = (params: {
   });
 };
 
-export const deleteSpyLog = (params: { fileId: string }) => {
-  return request.delete<I.SpyLogList>(`/log/delete`, {
-    params,
-  });
+export const deleteSpyLog = (fileIds: string[]) => {
+  const params = Object.values(fileIds).reduce((acc, cur) => {
+    acc.append('fileId', cur);
+    return acc;
+  }, new URLSearchParams());
+  return request.delete<I.SpyLogList>(`/log/delete?${params.toString()}`);
 };
 
 export const checkRoomSecret = (params: {

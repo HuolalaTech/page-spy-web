@@ -226,6 +226,7 @@
     "download-file": "ログのダウンロード",
     "update-layout": "レイアウトの更新",
     "speed": "倍速",
-    "delete-select": "選択されたものを削除"
+    "delete-select": "選択されたものを削除",
+    "delete-select-desc": "選択したログを削除してもよろしいですか？"
   }
 }

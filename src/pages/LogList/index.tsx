@@ -119,18 +119,8 @@ export const LogList = () => {
   );
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-  const footerContent = useCallback(() => {
-    if (selectedRowKeys.length) {
-      return (
-        <Button ghost danger>
-          {t('replay.delete-select')}
-        </Button>
-      );
-    }
-    return null;
-  }, [selectedRowKeys.length, t]);
   const { run: requestDeleteLog } = useRequest(
-    (fileId: string) => deleteSpyLog({ fileId }),
+    (fileId: string[]) => deleteSpyLog(fileId),
     {
       manual: true,
       onSuccess() {
@@ -138,6 +128,24 @@ export const LogList = () => {
       },
     },
   );
+  const footerContent = useCallback(() => {
+    if (selectedRowKeys.length) {
+      return (
+        <Popconfirm
+          title={t('replay.delete-title')}
+          description={t('replay.delete-select-desc')}
+          onConfirm={() => requestDeleteLog(selectedRowKeys as string[])}
+          okText={t('common.confirm')}
+          cancelText={t('common.cancel')}
+        >
+          <Button ghost danger size="small">
+            {t('replay.delete-select')}
+          </Button>
+        </Popconfirm>
+      );
+    }
+    return null;
+  }, [requestDeleteLog, selectedRowKeys, t]);
 
   return (
     <Layout style={{ height: '100%' }} className="log-list">
@@ -226,7 +234,7 @@ export const LogList = () => {
           bordered
           loading={loading}
           scroll={{
-            y: '70vh',
+            y: '65vh',
           }}
           rowKey="fileId"
           rowSelection={{
@@ -419,7 +427,7 @@ export const LogList = () => {
                     <Popconfirm
                       title={t('replay.delete-title')}
                       description={t('replay.delete-desc')}
-                      onConfirm={() => requestDeleteLog(row.fileId)}
+                      onConfirm={() => requestDeleteLog([row.fileId])}
                       okText={t('common.confirm')}
                       cancelText={t('common.cancel')}
                     >
