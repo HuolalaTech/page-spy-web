@@ -227,6 +227,8 @@
     "client": "Client Information",
     "download-file": "Download Log",
     "update-layout": "Update Layout",
-    "speed": "Speed"
+    "speed": "Speed",
+    "delete-select": "Delete Selected",
+    "delete-select-desc": "Are you sure you want to delete selected logs?"
   }
 }

@@ -226,6 +226,8 @@
     "client": "客户端信息",
     "download-file": "下载日志",
     "update-layout": "调整布局",
-    "speed": "倍速"
+    "speed": "倍速",
+    "delete-select": "删除已选",
+    "delete-select-desc": "确认删除所有已选择的日志吗？"
   }
 }
