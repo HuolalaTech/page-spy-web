@@ -766,10 +766,10 @@
   resolved "https://registry.npmjs.org/@huolala-tech/page-spy-types/-/page-spy-types-1.9.0.tgz#d09cc0b4702bb38f5d4620a80fdbd27db75a9253"
   integrity sha512-1WouAJF+WAHBhG2y/xRpENF+g9Y7gfYmb1BVE/73fyyLRrHYb1mUIk7j/QTlqFi7v5/p2j7yLOmAV3xVS469+w==
 
-"@huolala-tech/react-json-view@^1.2.4":
-  version "1.2.4"
-  resolved "https://registry.npmjs.org/@huolala-tech/react-json-view/-/react-json-view-1.2.4.tgz#7e8bec7fa16a42d90ffc406f327848b116d4efe0"
-  integrity sha512-90Oc40JUm4TZnjNzcu3BECk9Rs1nkciGiOsdjuCJFsXntKeLTpp7S0xNxISvr3+R/PsGdlb1c9HWvBp7EYUSpw==
+"@huolala-tech/react-json-view@^1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/react-json-view/-/react-json-view-1.2.5.tgz#fa593f8bff9ac30a4c21f7f9cd5987d7f9ed3199"
+  integrity sha512-54KSj2BHLPzWpRhPaLO9k6COgrcLkU8XN8HYaP0KHWBnrdjdwCv8Ola4R8il+iC1UxDcR0KLLzSA+ze51XgLFg==
   dependencies:
     copy-to-clipboard "^3.3.3"
 
