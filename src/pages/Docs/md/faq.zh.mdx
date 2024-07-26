@@ -336,20 +336,22 @@ SDK 可以对页面进行 “截图” 并发送到调试端，但由于：
 
 ### 如何修改 API 服务配置？#api-config
 
-当你通过 NPM package 的部署方式在命令行中执行 `page-spy-api` 时，会在运行目录下面生成配置文件 `config.json`，该文件支持配置运行端口和多实例部署：
+当你通过 NPM package 的部署方式在命令行中执行 `page-spy-api` 时，会在运行目录下面默认生成配置文件 `config.json`，该文件支持配置运行端口和多实例部署：
 
 - 修改配置
 
   ```json
   {
-    "port": "6752",
-    "maxLogFileSizeOfMB": "10240",
-    "maxLogLifeTimeOfHour": "720",
+    "port": "6752", //监听端口
+    "maxLogFileSizeOfMB": 10240, //日志回放文件保存大小（mb）
+    "maxLogLifeTimeOfHour": 720, //日志回放文件保存最长时间 （hour）
+    "notAllowedDeleteLog": false, //是否允许删除日志回放
+    "maxRoomNumber": 500, //最大允许房间数量
     "corsConfig": {
-      "allowOrigins": string[],
-      "allowHeaders": string[],
-      "allowMethods": string[],
-      "exposeHeaders": string[]
+      "allowOrigins": ["https://test.huolala.com"], // 默认配置允许所有域名跨域
+      "allowHeaders": ["Origin", "Authorization", "Content-Length", "X-Request-Id", "Content-Type", "Referer", "User-Agent", "Host"],
+      "allowMethods": ["HEAD", "POST", "GET", "OPTIONS", "PUT", "DELETE", "UPDATE"],
+      "exposeHeaders": ["X-Request-Id"]
     }
   }
   ```

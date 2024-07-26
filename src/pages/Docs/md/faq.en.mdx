@@ -332,20 +332,22 @@ Therefore, Page panel styles are for reference only.
 
 ### How to modify API service configuration? #api-config
 
-When executing `page-spy-api` via NPM package deployment in the command line, a configuration file config.json is generated in the runtime directory, supporting configuration of runtime ports and multi-instance deployment:
+When you execute page-spy-api via the NPM package deployment method in the command line, a default configuration file config.json will be generated in the running directory. This file supports configuring the running port and multi-instance deployment:
 
 - Modify configuration:
 
   ```json
   {
-    "port": "6752",
-    "maxLogFileSizeOfMB": "10240",
-    "maxLogLifeTimeOfHour": "720",
+    "port": "6752", // Listening port
+    "maxLogFileSizeOfMB": 10240, // Log replay file save size (MB)
+    "maxLogLifeTimeOfHour": 720, // Maximum log replay file save time (hour)
+    "notAllowedDeleteLog": false, // Whether log replay deletion is allowed
+    "maxRoomNumber": 500, // Maximum allowed number of rooms
     "corsConfig": {
-      "allowOrigins": string[],
-      "allowHeaders": string[],
-      "allowMethods": string[],
-      "exposeHeaders": string[]
+      "allowOrigins": ["https://test.huolala.com"], // Default configuration allows all domains for cross-origin requests
+      "allowHeaders": ["Origin", "Authorization", "Content-Length", "X-Request-Id", "Content-Type", "Referer", "User-Agent", "Host"],
+      "allowMethods": ["HEAD", "POST", "GET", "OPTIONS", "PUT", "DELETE", "UPDATE"],
+      "exposeHeaders": ["X-Request-Id"]
     }
   }
   ```
