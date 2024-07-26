@@ -1,3 +1,24 @@
+## v1.9.1
+- 🆕 实例化参数新增 `serializeData: boolean` 选项，用于指定 SDK 在收集离线数据时，对于非基本类型的数据是否允许序列化，默认值 `false`。查看详情：[HuolalaTech/page-spy-web#241](https://github.com/HuolalaTech/page-spy-web/pull/241) / [HuolalaTech/page-spy#103](https://github.com/HuolalaTech/page-spy/pull/103)。
+
+  开启后，console 打印的数据在日志回放面板上支持展开查看，使用方式：
+  ```ts
+  window.$pageSpy = new PageSpy({
+    ...
+    // 注意，序列化过程可能会产生副作用，为了安全起见，默认不序列化；
+    serializeData: true
+  })
+  ```
+- 🆕 优化 Network 面板上的信息展示，查看详情：[HuolalaTech/page-spy-web#239](https://github.com/HuolalaTech/page-spy-web/pull/239)；
+- 🆕 回放面板支持回放 canvas 内容，查看详情：[HuolalaTech/page-spy-web#238](https://github.com/HuolalaTech/page-spy-web/pull/238)；
+- 🆕 回放时左侧的操作轨迹展示点击动作；进度条上现在只展示点击、报错，其他数据活动通过 Tab 通知。查看详情：[HuolalaTech/page-spy-web#244](https://github.com/HuolalaTech/page-spy-web/pull/244) / [HuolalaTech/page-spy-web#247](https://github.com/HuolalaTech/page-spy-web/pull/247)
+- 🐛 修复回放日志列表的交互，查看详情：[HuolalaTech/page-spy-web#242](https://github.com/HuolalaTech/page-spy-web/pull/242)；
+- 🐛 修复一些问题：
+  - 服务端跨域配置不生效；
+  - 服务端日志删除速度过慢；
+  - 离线日志现在记录网络请求的完整生命周期；
+  - 格式化 SDK 下载的文件名；
+
 ## v1.9.0
 
 - 🆕 全新的文档页面；

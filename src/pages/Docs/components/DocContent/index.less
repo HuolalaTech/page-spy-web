@@ -67,15 +67,18 @@
   a,
   u {
     text-decoration: underline;
-    text-underline-offset: 0.25em;
+    text-underline-offset: 0.1em;
   }
-  a,
+  a {
+    color: #aaa;
+    font-family: Cascadia Code, Menlo, Courier, monospace;
+    &:hover {
+      color: #ddd;
+    }
+  }
   code {
     color: #b392f0;
     font-family: Cascadia Code, Menlo, Courier, monospace;
-  }
-  a:hover {
-    color: #c3a5fb;
   }
   ul,
   ol {

@@ -3,6 +3,10 @@
   "version": "1.9.0",
   "description": "All-In-One Remote Debugging Tool",
   "homepage": "https://huolalatech.github.io/page-spy-web",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HuolalaTech/page-spy-web.git"
+  },
   "license": "MIT",
   "scripts": {
     "postinstall": "bash scripts/public-files.sh",

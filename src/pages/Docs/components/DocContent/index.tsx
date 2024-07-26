@@ -9,7 +9,6 @@ import React, {
 import './index.less';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { DOC_MENUS, ORDER_DOC_MENUS, OrderDocMenus } from '../DocMenus';
-import { notification } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as BeforeSvg } from '@/assets/image/before.svg';
 import { ReactComponent as NextSvg } from '@/assets/image/next.svg';
