@@ -1,7 +1,9 @@
 ## v1.9.1
-- 🆕 实例化参数新增 `serializeData: boolean` 选项，用于指定 SDK 在收集离线数据时，对于非基本类型的数据是否允许序列化，默认值 `false`。查看详情：[HuolalaTech/page-spy-web#241](https://github.com/HuolalaTech/page-spy-web/pull/241) / [HuolalaTech/page-spy#103](https://github.com/HuolalaTech/page-spy/pull/103)。
+
+- 🆕 实例化参数新增 `serializeData: boolean` 选项，用于指定是否允许 SDK 在收集离线日志时，序列化非基本类型的数据，默认值 `false`。查看详情：https://github.com/HuolalaTech/page-spy-web/pull/241 / https://github.com/HuolalaTech/page-spy/pull/103 ；
 
   开启后，console 打印的数据在日志回放面板上支持展开查看，使用方式：
+
   ```ts
   window.$pageSpy = new PageSpy({
     ...
@@ -9,10 +11,10 @@
     serializeData: true
   })
   ```
-- 🆕 优化 Network 面板上的信息展示，查看详情：[HuolalaTech/page-spy-web#239](https://github.com/HuolalaTech/page-spy-web/pull/239)；
-- 🆕 回放面板支持回放 canvas 内容，查看详情：[HuolalaTech/page-spy-web#238](https://github.com/HuolalaTech/page-spy-web/pull/238)；
-- 🆕 回放时左侧的操作轨迹展示点击动作；进度条上现在只展示点击、报错，其他数据活动通过 Tab 通知。查看详情：[HuolalaTech/page-spy-web#244](https://github.com/HuolalaTech/page-spy-web/pull/244) / [HuolalaTech/page-spy-web#247](https://github.com/HuolalaTech/page-spy-web/pull/247)
-- 🐛 修复回放日志列表的交互，查看详情：[HuolalaTech/page-spy-web#242](https://github.com/HuolalaTech/page-spy-web/pull/242)；
+- 🆕 优化 Network 面板上的信息展示，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/239 ；
+- 🆕 回放面板支持回放 canvas 内容，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/238 ；
+- 🆕 回放时左侧的操作轨迹展示点击动作；进度条上现在只展示点击、报错，其他数据活动通过 Tab 通知。查看详情：https://github.com/HuolalaTech/page-spy-web/pull/244 / https://github.com/HuolalaTech/page-spy-web/pull/247
+- 🐛 修复回放日志列表的交互，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/242 ；
 - 🐛 修复一些问题：
   - 服务端跨域配置不生效；
   - 服务端日志删除速度过慢；
@@ -23,50 +25,50 @@
 
 - 🆕 全新的文档页面；
 - 🆕 将动态执行代码能力从小程序 SDK 中拆出，封装为独立插件 [@huolala-tech/page-spy-plugin-mp-eval](https://www.npmjs.com/package/@huolala-tech/page-spy-plugin-mp-eval)，以减少对小程序审核的影响；
-- 🆕 兼容小程序能力：GET 请求自动将 body 转为 query string: [#199](https://github.com/HuolalaTech/page-spy-web/issues/199)；
-- 🐛 修复小程序 `getAccountInfoSync` 兼容性问题: [#213](https://github.com/HuolalaTech/page-spy-web/issues/213)；
-- 🐛 修复小程序 没有透传 `updateRoomInfo` 类型定义: [#213](https://github.com/HuolalaTech/page-spy-web/issues/213)；
+- 🆕 兼容小程序能力：GET 请求自动将 body 转为 query string: https://github.com/HuolalaTech/page-spy-web/issues/199 ；
+- 🐛 修复小程序 `getAccountInfoSync` 兼容性问题: https://github.com/HuolalaTech/page-spy-web/issues/213 ；
+- 🐛 修复小程序 没有透传 `updateRoomInfo` 类型定义: https://github.com/HuolalaTech/page-spy-web/issues/213 ；
 
 ## v1.8.10
 
 本次更新主要针对「错误定位源码」功能做了许多优化。具体内容如下：
 
 - 🆕 「日志回放页面」的 error 也支持定位源码；
-- 🆕 之前仅支持对捕获的错误定位源码，现在 console.xxx(`Error`) 也可以定位源码，查看详情 [#212](https://github.com/HuolalaTech/page-spy-web/pull/212)；
+- 🆕 之前仅支持对捕获的错误定位源码，现在 console.xxx(`Error`) 也可以定位源码，查看详情 https://github.com/HuolalaTech/page-spy-web/pull/212 ；
 - 🆕 源码中如果存在 `\t`，提供选项让大家选择 1 个制表符 = N 个空格；
-- 🐛 修复 logo 交互问题，查看详情 [#211](https://github.com/HuolalaTech/page-spy-web/issues/211)；
+- 🐛 修复 logo 交互问题，查看详情 https://github.com/HuolalaTech/page-spy-web/issues/211 ；
 
 ## v1.8.9
 
-- 🆕 支持调试 [`React Native`](./react-native) 应用，查看详情 [HuolalaTech/page-spy#87](https://github.com/HuolalaTech/page-spy/pull/87) / [#190](https://github.com/HuolalaTech/page-spy-web/pull/190)；
-- 🆕 支持调试 [鸿蒙 App](./harmony) 应用，查看详情 [#191](https://github.com/HuolalaTech/page-spy-web/pull/191) / [HuolalaTech/page-spy#88](HuolalaTech/page-spy#88)；
-- 🆕 Web 应用支持查看 `EventSource` 请求响应数据，优化网络面板布局，查看详情 [#206](https://github.com/HuolalaTech/page-spy-web/pull/206) / [#202](https://github.com/HuolalaTech/page-spy-web/issues/202) / [#183](https://github.com/HuolalaTech/page-spy-web/issues/183)；
-- 🆕 优化消息类型，调试端界面响应更快，查看详情 [HuolalaTech/page-spy#91](https://github.com/HuolalaTech/page-spy/pull/91) / [#201](https://github.com/HuolalaTech/page-spy-web/pull/201)；
-- 🆕 房间列表页面限制最多展示 30 个面板，查看详情 [#204](https://github.com/HuolalaTech/page-spy-web/pull/204)；
-- 🐛 修复 `$pageSpy.abort()` 误清除事件，查看详情 [#205](https://github.com/HuolalaTech/page-spy-web/issues/205) / [HuolalaTech/page-spy#95](https://github.com/HuolalaTech/page-spy/pull/95)；
+- 🆕 支持调试 [`React Native`](./react-native) 应用，查看详情 https://github.com/HuolalaTech/page-spy/pull/87 / https://github.com/HuolalaTech/page-spy-web/pull/190 ；
+- 🆕 支持调试 [鸿蒙 App](./harmony) 应用，查看详情 https://github.com/HuolalaTech/page-spy-web/pull/191 / https://github.com/HuolalaTech/page-spy/pull/88；
+- 🆕 Web 应用支持查看 `EventSource` 请求响应数据，优化网络面板布局，查看详情 https://github.com/HuolalaTech/page-spy-web/pull/206 / https://github.com/HuolalaTech/page-spy-web/issues/202 / https://github.com/HuolalaTech/page-spy-web/issues/183 ；
+- 🆕 优化消息类型，调试端界面响应更快，查看详情 https://github.com/HuolalaTech/page-spy/pull/91 / https://github.com/HuolalaTech/page-spy-web/pull/201 ；
+- 🆕 房间列表页面限制最多展示 30 个面板，查看详情 https://github.com/HuolalaTech/page-spy-web/pull/204 ；
+- 🐛 修复 `$pageSpy.abort()` 误清除事件，查看详情 https://github.com/HuolalaTech/page-spy-web/issues/205 / https://github.com/HuolalaTech/page-spy/pull/95 ；
 
 ## v1.8.8
 
-- 🆕 重构日志回放页，回放长时间、大体积的离线日志数据时的交互更加丝滑，查看详情 [#186](https://github.com/HuolalaTech/page-spy-web/issues/186)；
-- 🆕 适配 UniApp 打包成原生 App，查看详情 [HuolalaTech/page-spy#90](https://github.com/HuolalaTech/page-spy/pull/90) / [#197](https://github.com/HuolalaTech/page-spy-web/pull/197)；
-- 🐛 修复网络请求头中存在自引用导致 Network 插件异常，查看详情 [HuolalaTech/page-spy#89](https://github.com/HuolalaTech/page-spy/pull/89) / [#193](https://github.com/HuolalaTech/page-spy-web/issues/193)；
-- 🐛 修复 Page 面板上的 html 标签展示 [#196](https://github.com/HuolalaTech/page-spy-web/pull/196)；
+- 🆕 重构日志回放页，回放长时间、大体积的离线日志数据时的交互更加丝滑，查看详情 https://github.com/HuolalaTech/page-spy-web/issues/186 ；
+- 🆕 适配 UniApp 打包成原生 App，查看详情 https://github.com/HuolalaTech/page-spy/pull/90 / https://github.com/HuolalaTech/page-spy-web/pull/197 ；
+- 🐛 修复网络请求头中存在自引用导致 Network 插件异常，查看详情 https://github.com/HuolalaTech/page-spy/pull/89 / https://github.com/HuolalaTech/page-spy-web/issues/193 ；
+- 🐛 修复 Page 面板上的 html 标签展示 https://github.com/HuolalaTech/page-spy-web/pull/196 ；
 
 ## v1.8.7
 
-- 🆕 SDK 优化发送消息时机，查看详情 [HuolalaTech/page-spy#84](https://github.com/HuolalaTech/page-spy/pull/84)；
+- 🆕 SDK 优化发送消息时机，查看详情 https://github.com/HuolalaTech/page-spy/pull/84 ；
 - 🐛 修复 SDK 重连异常的问题；
 
 ## v1.8.6
 
-- 🆕 SDK 断连后会指数重试建立连接（强制创建房间），重试时间的间隔最多不超过 (1.5 ** 4 * 2000)ms，查看详情 [HuolalaTech/page-spy#78](https://github.com/HuolalaTech/page-spy/pull/78)；
-- 🆕 SDK 新增 useSecret 参数，默认值 false。设置 true 后 SDK 会为房间生成 6 位数的随机密码，调试端需要获知密码后才可进入调试房间，查看详情 [HuolalaTech/page-spy#78](https://github.com/HuolalaTech/page-spy/pull/78)；
-- 🆕 支持动态更新 title / project 参数，通过 window.$pageSpy.updateRoomInfo(\{ title: 'xxx', project: 'xxx' \})，查看详情 [HuolalaTech/page-spy#78](https://github.com/HuolalaTech/page-spy/pull/78)；
-- 🆕 浏览器 SDK 渲染的悬浮球拖拽到上、下、左、右侧后会自动收起，查看详情 [HuolalaTech/page-spy#80](https://github.com/HuolalaTech/page-spy/pull/80)；
+- 🆕 SDK 断连后会指数重试建立连接（强制创建房间），重试时间的间隔最多不超过 (1.5 ** 4 * 2000)ms，查看详情 https://github.com/HuolalaTech/page-spy/pull/78 ；
+- 🆕 SDK 新增 useSecret 参数，默认值 false。设置 true 后 SDK 会为房间生成 6 位数的随机密码，调试端需要获知密码后才可进入调试房间，查看详情 https://github.com/HuolalaTech/page-spy/pull/78 ；
+- 🆕 支持动态更新 title / project 参数，通过 window.$pageSpy.updateRoomInfo(\{ title: 'xxx', project: 'xxx' \})，查看详情 https://github.com/HuolalaTech/page-spy/pull/78 ；
+- 🆕 浏览器 SDK 渲染的悬浮球拖拽到上、下、左、右侧后会自动收起，查看详情 https://github.com/HuolalaTech/page-spy/pull/80 ；
 - 🆕 调试端优化房间列表展示；
 - 🆕 服务端不再序列化数据，性能大幅提升；
 - 🐛 修复 docker 重新部署日志卷数据未正确找到的问题；
-- 🐛 修复其他一些问题，查看详情 [#172](https://github.com/HuolalaTech/page-spy-web/issues/172) / [HuolalaTech/page-spy#79](https://github.com/HuolalaTech/page-spy/pull/79)；
+- 🐛 修复其他一些问题，查看详情 https://github.com/HuolalaTech/page-spy-web/issues/172 / https://github.com/HuolalaTech/page-spy/pull/79 ；
 
 ## v1.8.5
 
@@ -74,9 +76,9 @@
 
 ## v1.8.4
 
-- 🆕 SDK 优化缓存策略，避免客户端缓存导致的运行内存过大 [#169](https://github.com/HuolalaTech/page-spy-web/issues/169)
+- 🆕 SDK 优化缓存策略，避免客户端缓存导致的运行内存过大 https://github.com/HuolalaTech/page-spy-web/issues/169
 
-## v1.8.3 
+## v1.8.3
 
 - 🆕 支持调试 Taro 小程序，查看 [@huolala-tech/page-spy-taro](https://github.com/HuolalaTech/page-spy/tree/main/packages/page-spy-taro);
 - 🆕 支持调试鸿蒙 App，查看 [@huolala/page-spy-harmony](https://ohpm.openharmony.cn/#/cn/detail/@huolala%2Fpage-spy-harmony)；
