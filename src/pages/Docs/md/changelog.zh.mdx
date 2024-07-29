@@ -7,11 +7,11 @@
   ```ts
   window.$pageSpy = new PageSpy({
     ...
-    // 注意，序列化过程可能会产生副作用，为了安全起见，默认不序列化；
+    // 注意，序列化过程可能会产生副作用，为了安全起见，默认 false 不序列化；
     serializeData: true
   })
   ```
-- 🆕 优化 Network 面板上的信息展示，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/239 ；
+- 🆕 优化 Network 展示的信息，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/239 ；
 - 🆕 回放面板支持回放 canvas 内容，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/238 ；
 - 🆕 回放时左侧的操作轨迹展示点击动作；进度条上现在只展示点击、报错，其他数据活动通过 Tab 通知。查看详情：https://github.com/HuolalaTech/page-spy-web/pull/244 / https://github.com/HuolalaTech/page-spy-web/pull/247
 - 🐛 修复回放日志列表的交互，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/242 ；
