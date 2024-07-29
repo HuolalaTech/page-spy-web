@@ -2,9 +2,10 @@ module github.com/HuolalaTech/page-spy-web/backend
 
 go 1.21
 
-require github.com/HuolalaTech/page-spy-api v1.6.0
+require github.com/HuolalaTech/page-spy-api v1.7.0
 
 require (
+	github.com/aws/aws-sdk-go v1.54.8 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/glebarez/go-sqlite v1.21.2 // indirect
 	github.com/glebarez/sqlite v1.11.0 // indirect
@@ -18,6 +19,7 @@ require (
 	github.com/imroc/req/v2 v2.1.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
+	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/labstack/echo/v4 v4.9.1 // indirect
 	github.com/labstack/gommon v0.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.11 // indirect

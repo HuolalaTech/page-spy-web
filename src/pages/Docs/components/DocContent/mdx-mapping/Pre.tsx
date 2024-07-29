@@ -1,15 +1,11 @@
-import { ReactElement } from 'react';
+import { PropsWithChildren, ReactElement } from 'react';
 import { CodeBlock } from '@/components/CodeBlock';
 import { useTranslation } from 'react-i18next';
 import { deployPath, deployUrl } from '@/utils/constants';
 
-interface Props {
-  children: ReactElement;
-}
-
-const Pre = (props: Props) => {
+const Pre = (props: PropsWithChildren<unknown>) => {
   const { t } = useTranslation();
-  const { className, children } = props.children.props;
+  const { className, children } = (props.children as ReactElement).props;
 
   const language = className?.match(/language-(.*)/)?.[1] || 'html';
 

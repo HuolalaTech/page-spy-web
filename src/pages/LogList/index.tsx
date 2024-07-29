@@ -23,7 +23,7 @@ import { Link } from 'react-router-dom';
 import { SelectLogButton } from './SelectLogButton';
 import dayjs, { type Dayjs } from 'dayjs';
 import request from '@/apis/request';
-import { ComponentType, useMemo, useRef } from 'react';
+import { ComponentType, useCallback, useRef, useState } from 'react';
 import {
   CheckCircleOutlined,
   ClearOutlined,
@@ -76,7 +76,7 @@ export const LogList = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
 
-  const currentPage = useRef(1);
+  const currentPage = useRef({ page: 1, size: 10 });
   const {
     loading,
     data: logList = { data: [], total: 0, page: 1, size: 10 },
@@ -90,8 +90,8 @@ export const LogList = () => {
         title,
         deviceId,
         from: start?.startOf('date').unix(),
-        end: end?.endOf('date').unix(),
-        page: currentPage.current,
+        to: end?.endOf('date').unix(),
+        ...currentPage.current,
       };
       getObjectKeys(params).forEach((k) => {
         if (!params[k] || params[k].toString().trim() === '') {
@@ -118,16 +118,37 @@ export const LogList = () => {
     },
   );
 
-  const deletingFileId = useRef('');
-  const { run: requestDeleteLog, loading: deleting } = useRequest(
-    (fileId: string) => deleteSpyLog({ fileId }),
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const { run: requestDeleteLog } = useRequest(
+    (fileId: string[]) => deleteSpyLog(fileId),
     {
       manual: true,
       onSuccess() {
         requestClientLogs();
       },
+      onError(e) {
+        message.error(e.message);
+      },
     },
   );
+  const footerContent = useCallback(() => {
+    if (selectedRowKeys.length) {
+      return (
+        <Popconfirm
+          title={t('replay.delete-title')}
+          description={t('replay.delete-select-desc')}
+          onConfirm={() => requestDeleteLog(selectedRowKeys as string[])}
+          okText={t('common.confirm')}
+          cancelText={t('common.cancel')}
+        >
+          <Button ghost danger size="small">
+            {t('replay.delete-select')}
+          </Button>
+        </Popconfirm>
+      );
+    }
+    return null;
+  }, [requestDeleteLog, selectedRowKeys, t]);
 
   return (
     <Layout style={{ height: '100%' }} className="log-list">
@@ -163,7 +184,7 @@ export const LogList = () => {
           layout="vertical"
           form={form}
           onFinish={() => {
-            currentPage.current = 1;
+            currentPage.current.page = 1;
             requestClientLogs();
           }}
         >
@@ -216,14 +237,26 @@ export const LogList = () => {
           bordered
           loading={loading}
           scroll={{
-            y: '70vh',
+            y: '65vh',
+          }}
+          rowKey="fileId"
+          rowSelection={{
+            selectedRowKeys,
+            onChange: (keys) => {
+              setSelectedRowKeys(keys);
+            },
           }}
           pagination={{
             total: logList.total,
-            current: currentPage.current,
+            current: currentPage.current.page,
+            pageSize: currentPage.current.size,
           }}
-          onChange={({ current }) => {
-            currentPage.current = current || 1;
+          onChange={({ current, pageSize }) => {
+            currentPage.current = {
+              page: current || 1,
+              size: pageSize || 10,
+            };
+            setSelectedRowKeys([]);
             requestClientLogs();
           }}
           dataSource={logList.data}
@@ -397,7 +430,7 @@ export const LogList = () => {
                     <Popconfirm
                       title={t('replay.delete-title')}
                       description={t('replay.delete-desc')}
-                      onConfirm={() => requestDeleteLog(row.fileId)}
+                      onConfirm={() => requestDeleteLog([row.fileId])}
                       okText={t('common.confirm')}
                       cancelText={t('common.cancel')}
                     >
@@ -406,9 +439,6 @@ export const LogList = () => {
                         type="text"
                         size="small"
                         icon={<DeleteOutlined />}
-                        loading={
-                          row.fileId === deletingFileId.current && deleting
-                        }
                       >
                         {t('common.delete')}
                       </Button>
@@ -418,6 +448,7 @@ export const LogList = () => {
               },
             },
           ]}
+          footer={selectedRowKeys.length ? footerContent : undefined}
         />
       </Content>
     </Layout>

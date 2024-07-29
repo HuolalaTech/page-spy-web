@@ -1,5 +1,4 @@
-
-
+import pluginsImg from '@/assets/image/screenshot/plugins.png';
 
 ### Type Definitions #definition
 
@@ -56,6 +55,8 @@ export interface OnMountedParams {
 ### Behavioral Conventions #convention
 
 If a plugin collects (or want to publicly expose) certain platform "data", in addition to broadcasting data via `socketStore`, it is conventionally required to dispatch an `"public-data"` internal event on the `socketStore` instance. This allows plugins with statistical or persistence requirements to uniformly collect data from this event. Plugins that think certain data should not be "public" are not required to dispatch the `"public-data"` event.
+
+<img src={pluginsImg} />
 
 ### Example Implementation of Plugins #demo
 

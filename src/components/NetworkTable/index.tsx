@@ -9,6 +9,7 @@ import { getStatusText, getTime } from './utils';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { NetworkDetail } from './NetworkDetail';
+import { NetworkMsgItem } from '@/store/socket-message';
 
 const networkTitle = ['Name', 'Path', 'Method', 'Status', 'Type', 'Time(≈)'];
 const generalFieldMap = {
@@ -25,7 +26,7 @@ const getContentType = (headers: SpyNetwork.RequestInfo['requestHeader']) => {
 };
 
 interface NetworkTableProps {
-  data: SpyNetwork.RequestInfo[];
+  data: NetworkMsgItem[];
   cookie?: SpyStorage.GetTypeDataItem['data'];
 }
 
@@ -221,7 +222,7 @@ export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
                       >
                         {row.name}
                       </td>
-                      <td title={row.url}>{row.url}</td>
+                      <td title={row.pathname}>{row.pathname}</td>
                       <td title={row.method}>{row.method}</td>
                       <td title={String(row.status)}>{getStatusText(row)}</td>
                       <td title={row.requestType}>{row.requestType}</td>

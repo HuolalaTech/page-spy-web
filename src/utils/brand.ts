@@ -30,7 +30,6 @@ import reactSvg from '@/assets/image/react.svg';
 import uniSvg from '@/assets/image/uni.svg';
 import { SpyClient } from '@huolala-tech/page-spy-types';
 import { t } from 'i18next';
-import { Browser, Framework } from '@huolala-tech/page-spy-types/lib/client';
 
 interface OSInfo {
   type: SpyClient.OS;
@@ -49,7 +48,7 @@ export interface ParsedClientInfo {
   ua: string;
   os: OSInfo;
   browser: BrowserInfo;
-  framework?: Framework;
+  framework?: SpyClient.Framework;
   sdk: SpyClient.SDKType;
   isDevTools?: boolean;
   plugins: string[];

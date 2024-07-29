@@ -1,3 +1,12 @@
+import {
+  EventType,
+  eventWithTime,
+  IncrementalSource,
+  mouseInteractionData,
+  MouseInteractions,
+} from '@rrweb/types';
+import { isString } from 'lodash-es';
+
 export function getObjectKeys<T extends Record<string, any>>(data: T) {
   return Object.keys(data) as Exclude<keyof T, symbol>[];
 }
@@ -51,14 +60,21 @@ export function getLogUrl(url?: string) {
   return '/';
 }
 
-export function resolveUrlInfo(target: URL | string, base?: string | URL) {
+export interface ResolvedUrlInfo {
+  name: string;
+  pathname: string;
+  getData: [string, string][] | null;
+}
+export function resolveUrlInfo(url: string): ResolvedUrlInfo {
+  if (isString(url) && url.startsWith('data:')) {
+    return {
+      name: url,
+      pathname: '',
+      getData: null,
+    };
+  }
   try {
-    let url: string;
-    let query: [string, string][];
-
-    const { searchParams, href, origin, pathname } = new URL(target, base);
-    url = href;
-    query = [...searchParams.entries()];
+    const { searchParams, pathname } = new URL(url);
 
     // https://exp.com => "exp.com/"
     // https://exp.com/ => "exp.com/"
@@ -69,17 +85,36 @@ export function resolveUrlInfo(target: URL | string, base?: string | URL) {
     const name = url.replace(/^.*?([^/]+)(\/)*(\?.*?)?$/, '$1$2$3') || '';
 
     return {
-      url,
       name,
-      query,
-      rawUrl: origin + pathname,
+      pathname,
+      getData: [...searchParams.entries()],
     };
   } /* c8 ignore start */ catch (e) {
     return {
-      url: 'Unknown',
-      name: 'Unknown',
-      query: null,
-      rawUrl: 'Unknown',
+      name: url,
+      pathname: '',
+      getData: null,
     };
   } /* c8 ignore stop */
 }
+
+interface RRWebClickEvent {
+  type: EventType.IncrementalSnapshot;
+  data: mouseInteractionData & {
+    type: MouseInteractions.Click;
+  };
+  timestamp: number;
+  delay?: number;
+}
+export const isRRWebClickEvent = (event: unknown): event is RRWebClickEvent => {
+  const { type, data } = event as eventWithTime;
+  if (
+    type === EventType.IncrementalSnapshot &&
+    data.source === IncrementalSource.MouseInteraction &&
+    data.type === MouseInteractions.Click
+  ) {
+    return true;
+  }
+
+  return false;
+};

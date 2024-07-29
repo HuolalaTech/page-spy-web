@@ -105,8 +105,8 @@
     "browser": "Browser",
     "platform": "Platform",
     "version": "Version",
-    "eval-plugin-required": "If you need to dynamically execute code in mini program, please use @huolala-tech/page-spy-mp-eval-plugin in client SDK.",
-    "mp-warning": "When submitting the mini program for review, DO REMEMBER to delete the mp-eval-plugin in the code, otherwise the review will fail.",
+    "eval-plugin-required": "If you need to dynamically execute code in mini program, please use @huolala-tech/page-spy-plugin-mp-eval in client SDK.",
+    "mp-warning": "When submitting the mini program for review, DO REMEMBER to delete the plugin-mp-eval in the code, otherwise the review will fail.",
     "menu": {
       "Console": "Console",
       "Network": "Network",
@@ -146,7 +146,8 @@
       "failed-advice": "Here are some suggestions to fix and improve the situation:",
       "fix-suggestion-1": "<0>1. Ensure file existence: When locating the source code for each error stack, two files need to be requested - the compressed file and the sourcemap file. The rule for obtaining the sourcemap file is based on the address indicated by</0> <1>//# sourceMappingURL=*</1> <2>in the contents of the compressed file;</2>",
       "fix-suggestion-2": "2. Troubleshoot network issues: If there are access restrictions on the server where your source files are located, it may lead to failed requests when trying to access the resources. You can open the devtool to check if the network is working properly."
-    }
+    },
+    "non-serializable": "<non-serializable>"
   },
   "network": {
     "open-in-new-tab": "Open in new tab",
@@ -226,6 +227,8 @@
     "client": "Client Information",
     "download-file": "Download Log",
     "update-layout": "Update Layout",
-    "speed": "Speed"
+    "speed": "Speed",
+    "delete-select": "Delete Selected",
+    "delete-select-desc": "Are you sure you want to delete selected logs?"
   }
 }

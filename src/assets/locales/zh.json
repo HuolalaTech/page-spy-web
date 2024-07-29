@@ -104,8 +104,8 @@
     "browser": "浏览器",
     "platform": "平台",
     "version": "版本",
-    "eval-plugin-required": "若需在小程序环境动态执行代码，请在客户端安装 @huolala-tech/page-spy-mp-eval-plugin",
-    "mp-warning": "小程序提交审核时请务必删除代码中的 mp-eval-plugin，否则会导致审核失败。",
+    "eval-plugin-required": "若需在小程序环境动态执行代码，请在客户端安装 @huolala-tech/page-spy-plugin-mp-eval",
+    "mp-warning": "小程序提交审核时请务必删除代码中的 plugin-mp-eval，否则会导致审核失败。",
     "menu": {
       "Console": "输出",
       "Network": "网络",
@@ -145,7 +145,8 @@
       "failed-advice": "以下是修复和改进的建议：",
       "fix-suggestion-1": "<0>1. 确保文件存在：每个错误栈定位源码时都需要请求两个文件，分别是压缩文件和 sourcemap 文件，sourcemap 文件的获取规则是根据压缩文件内容中的</0><1>//# sourceMappingURL=*</1><2>所指向的地址；</2>",
       "fix-suggestion-2": "2. 排除网络故障：如果你的源文件所在服务器有限制访问规则，则可能导致请求资源时出现失败，你可以打开控制台查看网络请求是否正常。"
-    }
+    },
+    "non-serializable": "<数据序列化失败>"
   },
   "network": {
     "open-in-new-tab": "新窗口打开",
@@ -225,6 +226,8 @@
     "client": "客户端信息",
     "download-file": "下载日志",
     "update-layout": "调整布局",
-    "speed": "倍速"
+    "speed": "倍速",
+    "delete-select": "删除已选",
+    "delete-select-desc": "确认删除所有已选择的日志吗？"
   }
 }

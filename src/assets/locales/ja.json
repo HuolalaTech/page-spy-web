@@ -104,8 +104,8 @@
     "browser": "ブラウザ",
     "platform": "プラットフォーム",
     "version": "バージョン",
-    "eval-plugin-required": "小プログラム環境で動的にコードを実行する必要がある場合、クライアント側で SDK プラグイン @huolala-tech/page-spy-mp-eval-plugin を使用してください",
-    "mp-warning": "レビューのためにミニ プログラムを送信するときは、必ずコード内の mp-eval-plugin を削除してください。削除しないと、レビューが失敗します。",
+    "eval-plugin-required": "小プログラム環境で動的にコードを実行する必要がある場合、クライアント側で SDK プラグイン @huolala-tech/page-spy-plugin-mp-eval を使用してください",
+    "mp-warning": "レビューのためにミニ プログラムを送信するときは、必ずコード内の plugin-mp-eval を削除してください。削除しないと、レビューが失敗します。",
     "menu": {
       "Console": "コンソール",
       "Network": "ネットワーク",
@@ -145,7 +145,8 @@
       "failed-advice": "以下は修正と改善の提案です：",
       "fix-suggestion-1": "<0>1. ファイルの存在を確認：各エラースタックでソースコードを特定するためには、2つのファイル（圧縮ファイルとソースマップファイル）が要求されます。ソースマップファイルの取得規則は圧縮ファイル内の</0><1>//# sourceMappingURL=*</1><2>に指定されたアドレスに従います；</2>",
       "fix-suggestion-2": "2. ネットワークの問題を除外：ソースファイルが存在するサーバーにアクセス制限がある場合、リソースの取得に失敗する可能性があるため、ネットワークリクエストが正常かどうかをコンソールで確認できます。"
-    }
+    },
+    "non-serializable": "<non-serializable>"
   },
   "network": {
     "open-in-new-tab": "新しいタブで開く",
@@ -225,6 +226,8 @@
     "client": "クライアント情報",
     "download-file": "ログのダウンロード",
     "update-layout": "レイアウトの更新",
-    "speed": "倍速"
+    "speed": "倍速",
+    "delete-select": "選択されたものを削除",
+    "delete-select-desc": "選択したログを削除してもよろしいですか？"
   }
 }

@@ -61,11 +61,22 @@
         }
       }
       .point-item {
+        @size: 14px;
         position: absolute;
         min-width: 2px;
         height: 12px;
         transform: translateY(-2px);
-        background-color: #ff7676;
+        &[data-event='Click'] {
+          background-color: #279bd5;
+        }
+        &[data-event='Error'] {
+          background-color: #fc4d4d;
+        }
+
+        // width: @size;
+        // height: @size;
+        // background-size: @size;
+        // background-repeat: no-repeat;
       }
     }
   }

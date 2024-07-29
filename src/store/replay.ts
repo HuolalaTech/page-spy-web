@@ -1,3 +1,4 @@
+/* eslint-disable no-implicit-coercion */
 import {
   SpyConsole,
   SpyMessage,
@@ -10,15 +11,29 @@ import { eventWithTime } from '@rrweb/types';
 import { produce } from 'immer';
 import { isEqual, omit } from 'lodash-es';
 import { REPLAY_STATUS_CHANGE } from '@/pages/Replay/events';
+import { isRRWebClickEvent, resolveUrlInfo } from '@/utils';
 
 const isCaredActivity = (activity: HarborDataItem) => {
   const { type, data } = activity;
-  if (type === 'rrweb-event') return false;
-  if (type === 'storage') {
-    if (data.action === 'get') return false;
-    if (data.name && data.name === 'page-spy-room') return false;
-  }
-  return true;
+  if (type === 'console' && data.logType === 'error') return true;
+  if (type === 'rrweb-event' && isRRWebClickEvent(data)) return true;
+  return false;
+};
+
+// 决定 activity point 是否聚合
+// 两个 activity point 的时间差和回放时长正相关；
+// 或者说，时长越短、越要减少聚合；
+const getActivityPointTimeDiff = (duration: number) => {
+  const second = 1000;
+  const minute = 60 * second;
+
+  if (duration < 10 * second) return 0.1 * second;
+  if (duration < 1 * minute) return 0.5 * second;
+  if (duration < 5 * minute) return 1 * second;
+  if (duration < 10 * minute) return 2 * second;
+  if (duration < 30 * minute) return 5 * second;
+  if (duration < 60 * minute) return 10 * second;
+  return 20 * second;
 };
 
 export interface HarborDataItem<T = any> {
@@ -36,6 +51,8 @@ export enum TIME_MODE {
 
 export interface ReplayStore {
   // data
+  rrwebStartTime: number;
+  setRRWebStartTime: (timestamp: number) => void;
   activity: Activity[];
   allConsoleMsg: HarborDataItem<SpyConsole.DataItem>[];
   allNetworkMsg: HarborDataItem<SpyNetwork.RequestInfo>[];
@@ -77,6 +94,14 @@ export const fixProgress = (progress: number) => {
 };
 
 export const useReplayStore = create<ReplayStore>((set, get) => ({
+  rrwebStartTime: 0,
+  setRRWebStartTime: (t) => {
+    set(
+      produce((state) => {
+        state.rrwebStartTime = t;
+      }),
+    );
+  },
   activity: [],
   allConsoleMsg: [],
   allNetworkMsg: [],
@@ -101,6 +126,8 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
 
     const start = data[0].timestamp;
     const end = data[data.length - 1].timestamp;
+    const duration = end - start;
+    const activityPointTimeDiff = getActivityPointTimeDiff(duration);
 
     const result: Pick<
       ReplayStore,
@@ -133,9 +160,10 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
         } else {
           const lastFrame = acc.activity[acc.activity.length - 1];
           const lastItemInLastFrame = lastFrame[lastFrame.length - 1];
-          const timeDiff = timestamp - lastItemInLastFrame.timestamp;
-          // Generate a new 'activity point' if time diff > 500ms
-          if (timeDiff < 500) {
+          if (
+            lastItemInLastFrame.type === type &&
+            timestamp - lastItemInLastFrame.timestamp < activityPointTimeDiff
+          ) {
             lastFrame.push({ type, timestamp });
           } else {
             acc.activity.push([{ type, timestamp }]);
@@ -147,7 +175,14 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
           acc.allConsoleMsg.push(cur);
           break;
         case 'network':
-          acc.allNetworkMsg.push(cur);
+          acc.allNetworkMsg.push({
+            type,
+            timestamp,
+            data: {
+              ...data,
+              ...resolveUrlInfo(data.url),
+            },
+          });
           break;
         case 'rrweb-event':
           acc.allRRwebEvent.push(data);
@@ -172,7 +207,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
         state.allStorageMsg = allStorageMsg;
         state.startTime = start;
         state.endTime = end;
-        state.duration = end - start;
+        state.duration = duration;
       }),
     );
   },
@@ -244,39 +279,36 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     const { allNetworkMsg, networkMsg } = get();
 
     let networkIndex = 0;
-    const eventSourceData: Record<string, SpyNetwork.RequestInfo> = {};
-    const showedNetworkMsg: SpyNetwork.RequestInfo[] = [];
+    const showedNetworkMsg: Map<string, SpyNetwork.RequestInfo> = new Map();
     while (
       networkIndex < allNetworkMsg.length &&
       allNetworkMsg[networkIndex].timestamp <= currentTime
     ) {
       const { data } = allNetworkMsg[networkIndex];
       const { id, requestType, endTime, response } = data;
-      // @ts-ignore
+
       if (requestType === 'eventsource') {
-        if (!eventSourceData[id]) {
+        if (!showedNetworkMsg.has(id)) {
           const result = {
             ...data,
             response: [{ time: endTime, data: response }],
           };
-          eventSourceData[id] = result;
-          showedNetworkMsg.push(result);
+          showedNetworkMsg.set(id, result);
         } else {
-          // 通过 response 数组引用直接修改
-          eventSourceData[id].response.push({
+          showedNetworkMsg.get(id)!.response.push({
             time: endTime,
             data: response,
           });
         }
       } else {
-        showedNetworkMsg.push(data);
+        showedNetworkMsg.set(id, data);
       }
       networkIndex += 1;
     }
 
     set(
       produce((state) => {
-        state.networkMsg = showedNetworkMsg;
+        state.networkMsg = [...showedNetworkMsg.values()];
       }),
     );
   },

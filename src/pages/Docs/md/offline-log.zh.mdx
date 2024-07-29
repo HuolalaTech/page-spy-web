@@ -30,7 +30,7 @@ import replayGif from '@/assets/image/screenshot/replay-page.gif';
 > 
 > 心智模型：PageSpy 产生的数据会源源不断的被送到 “数据港口”，在对数据进行整理、打包、压缩后，“数据港口” 将数据存放在 “集装箱”（内存或本地临时文件）中，等待下一步指示。
 
-它在内部监听 "public-data" 事件（[什么是 `"public-data"` 事件？](./plugins#convention)），进而实现离线缓存数据的功能，同时在 SDK 渲染的控件中提供上传、下载数据的功能。当客户端发现问题时，测试同学可以直接上传或者下载数据，这一创新打破了以往「客户端和调试端必须同时在线」的前提要求。
+它在内部监听 `"public-data"` 事件（[什么是 "public-data" 事件？](./plugins#convention)），进而实现离线缓存数据的功能，同时在 SDK 渲染的控件中提供上传、下载数据的功能。当客户端发现问题时，测试同学可以直接上传或者下载数据，这一创新打破了以往「客户端和调试端必须同时在线」的前提要求。
 
 ### 如何使用#how-to-use
 
@@ -42,13 +42,11 @@ import replayGif from '@/assets/image/screenshot/replay-page.gif';
 <html>
   <head>
     <!-- 1. 加载 PageSpy -->
-    <script src="https://<your-pagespy-host>/page-spy/index.min.js"></script>
-
-    <!-- 2. 加载 DataHarbor 插件，实现缓存离线数据，下载或上传日志数据 -->
-    <script src="https://<your-pagespy-host>/plugin/data-harbor/index.min.js"></script>
-
-    <!-- 3. 同时可以加载 RRWeb 插件，实现将用户操作轨迹记录到离线日志中 -->
-    <script src="https://<your-pagespy-host>/plugin/rrweb/index.min.js"></script>
+    <script src="{deployUrl}/page-spy/index.min.js"></script>
+    <!-- 2. 加载 DataHarbor 插件：缓存离线日志数据，提供下载 / 上传日志功能 -->
+    <script src="{deployUrl}/plugin/data-harbor/index.min.js"></script>
+    <!-- 3. 同时可以加载 RRWeb 插件，将用户操作轨迹记录到离线日志中 -->
+    <script src="{deployUrl}/plugin/rrweb/index.min.js"></script>
 
     <script>
       // 4. 注册插件，config 信息查看：https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor
@@ -80,3 +78,27 @@ import replayGif from '@/assets/image/screenshot/replay-page.gif';
 DataHarborPlugin 本身只收集数据、提供数据处理的功能，PageSpy 另外还提供了：
 
 - [RRWebPlugin]({VITE_PLUGIN_RRWEB}): 使用 `rrweb` 记录 DOM 更新，在调试端的「日志回放」面板左侧用户可以看到页面的操作轨迹；
+
+### FAQ
+
+1. 如何手动操作上传 / 下载日志？
+
+```ts
+window.$harbor = new DataHarborPlugin();
+
+// 上传
+window.$harbor.onOfflineLog('upload');
+
+// 下载
+window.$harbor.onOfflineLog('download');
+```
+
+2. 离线日志存储在哪里？
+
+`DataHarborPlugin` 收到数据后，会先放入内存的数组中，当数组里存储的数据体积达到临界值时会将数据写入临时文件，这个临界值默认情况下是 10M。你也可以自行配置:
+
+```ts
+new DataHarborPlugin({
+  maximum: 1 * 1024 * 1024, // 内存中的数据记录达到 1M 时写入临时文件
+})
+```
