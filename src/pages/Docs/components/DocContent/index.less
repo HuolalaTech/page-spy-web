@@ -59,23 +59,38 @@
     p {
     margin-bottom: @paragraph-space;
   }
+  li {
+    > p {
+      margin-bottom: @paragraph-space;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
   b,
   strong {
     font-weight: 700;
     color: #f3f3f3;
   }
-  a,
-  u {
-    text-decoration: underline;
-    text-underline-offset: 0.25em;
-  }
-  a,
-  code {
+  a {
     color: #b392f0;
     font-family: Cascadia Code, Menlo, Courier, monospace;
+    &:hover {
+      text-decoration: underline;
+    }
   }
-  a:hover {
-    color: #c3a5fb;
+  code {
+    color: #d1d1d1;
+    padding: 2px 6px;
+    border-radius: 5px;
+    background-color: #444;
+    font-family: Cascadia Code, Menlo, Courier, monospace;
+  }
+  pre code {
+    color: initial;
+    padding: initial;
+    border-radius: initial;
+    background-color: initial;
   }
   ul,
   ol {

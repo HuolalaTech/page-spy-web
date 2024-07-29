@@ -126,6 +126,9 @@ export const LogList = () => {
       onSuccess() {
         requestClientLogs();
       },
+      onError(e) {
+        message.error(e.message);
+      },
     },
   );
   const footerContent = useCallback(() => {
