@@ -70,6 +70,22 @@ window.$pageSpy = new PageSpy({
 
   // 设置 logo 样式
   logoStyle: {}, // 仅适用浏览器环境的 SDK
+
+  // PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些插件
+  disabledPlugins: [],
+
+  // 是否允许 SDK 在收集离线日志时，序列化非基本类型的数据，序列化的目的是方便在回放时查看
+  serializeData: false,
+
+  // 是否启用权限认证功能。启用后，SDK 会生成 6 位数的随机 “密钥”；调试端进入房间时要求输入对应的密钥
+  useSecret: false,
+
+  // SDK 在调试端进入房间之前会在内存中缓存数据，以便于调试端进入房间后可以看到之前的数据。
+  // 但数据体积会越来越大，因此可以指定 SDK 在本地最多缓存多少条数据记录。
+  messageCapacity: 1000,
+
+  // 生产环境禁用
+  disabledOnProd: true, // 仅适用小程序环境的 SDK
 })
 ```
 
@@ -414,7 +430,7 @@ SDK 可以对页面进行 “截图” 并发送到调试端，但由于：
 
 ### 房间连接什么情况下会自动销毁？#auto-destroy
 
-> 查看配置：[`https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323`](https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323)
+> 查看配置：https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323
 
 - 房间创建后，无 SDK 或调试端进入，1 分钟后销毁（实际使用过程中，该场景不存在）；
 - SDK 和调试端都已断开连接，1 分钟后销毁；

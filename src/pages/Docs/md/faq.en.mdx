@@ -68,6 +68,23 @@ window.$pageSpy = new PageSpy({
 
   // Set logo style
   logoStyle: {}, // Only applicable for browser environment
+
+  // All internal plugins are carried with PageSpy by default out of the box. You can disable some plugins as needed.
+  disabledPlugins: [],
+
+  // Specify whether the SDK is allowed to serialize non-primitive data types when collecting offline data
+  serializeData: false,
+
+  // Indicate whether authorization is required. If enabled, PageSpy generates a 6-digit random number (below "secret") as a password for the debug room,
+  // which is required for developers to access the debug room
+  useSecret: false,
+
+  // Specify how many messages to cache.
+  // The data is primarily used to configure the maximum number of historical data the SDK can send after the debugging terminal goes online.
+  messageCapacity: 1000,
+
+  // Disable on production environment
+  disabledOnProd: true, // Only applicable for miniprogram
 })
 ```
 
@@ -410,7 +427,7 @@ pm2 restart page-spy-api
 
 ### Under what conditions will a room connection be automatically destroyed? #auto-destroy
 
-> View configuration: [`https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323`](https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323)
+> View configuration: https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323
 
 - If a room is created and no SDK or debugging end enters, it will be destroyed after 1 minute (this scenario does not exist in actual use).
 - If both SDK and debugging end disconnect, it will be destroyed after 1 minute.
