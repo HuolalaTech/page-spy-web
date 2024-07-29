@@ -60,7 +60,7 @@ export const ConsoleItem = ({ data }: Props) => {
           <Col style={{ flexShrink: 0 }}>
             <Timestamp time={data.time} />
           </Col>
-          <Col flex={1} style={{ display: 'flex' }}>
+          <Col flex={1} style={{ display: 'flex', flexWrap: 'wrap' }}>
             {content}
           </Col>
         </Row>
