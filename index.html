@@ -12,7 +12,6 @@
       const decoded = decodeURIComponent(href);
       if (href !== decoded) {
         window.location.href = decoded;
-        return;
       }
       
       // Resolve the correct address from different deployment base paths.
