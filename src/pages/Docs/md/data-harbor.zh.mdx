@@ -1,0 +1,61 @@
+
+## DataHarborPlugin API#api
+
+#### constructor()#constructor
+
+- 类型
+
+  ```ts
+  interface DataHarborConfig {
+    // 离线日志数据会优先记录在内存中，当体积达到多大时写入临时文件
+    // 默认 10M (10 * 1024 * 1024)
+    maximum?: number;
+
+    // 指定缓存哪些类型的数据
+    caredData?: Record<DataType, boolean>;
+
+    // 指定离线日志文件名，默认是根据当前时间命名
+    filename?: () => string;
+
+    // 自定义下载逻辑
+    onDownload?: (data: CacheMessageItem[]) => void;
+  }
+
+  delcare class DataHarborPlugin implements PageSpyPlugin {
+    constructor(config?: DataHarborConfig);
+  }
+  ```
+
+
+
+#### onOfflineLog()#onOfflineLog
+
+手动操作离线日志的下载、上传。
+
+- 类型
+
+  ```ts
+  declare class DataHarborPlugin {
+    onOfflineLog(type: 'download' | 'upload'): Promise<string | null | undefined>;
+  }
+  ```
+
+- 详细信息
+
+  如果隐藏了自动渲染的 UI 控件，或者希望在某些时候自动触发队离线日志的操作，可以通过该方法实现。
+  
+  每次调用都是当前会话的完整日志。上传完成后会返回回放的 URL，并打印到控制台。
+
+- 示例
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  // 上传
+  const url = await window.$harbor.onOfflineLog('upload');
+
+  // 下载
+  window.$harbor.onOfflineLog('download');
+  ```
+
+

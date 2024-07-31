@@ -149,9 +149,17 @@ export const DocContent = () => {
   const { hash, pathname } = useLocation();
   const scrollIntoAnchor = useCallback(() => {
     if (!hash) return;
-    rootRef.current?.querySelector(decodeURIComponent(hash))?.scrollIntoView({
-      block: 'center',
-    });
+
+    const container = rootRef.current;
+    const node = container?.querySelector(hash) as HTMLElement;
+    if (!container || !node) return;
+
+    setTimeout(() => {
+      const top = node.offsetTop - 100;
+      container.scrollTo({
+        top,
+      });
+    }, 100);
   }, [hash]);
   useEventListener(LOAD_DOC_EVENT, (e) => {
     const { detail } = e as CustomEvent;
@@ -159,10 +167,13 @@ export const DocContent = () => {
       scrollIntoAnchor();
     }
   });
+
+  // 切换文档，回到顶部
   useEffect(() => {
     if (hash) return;
     rootRef.current?.scrollTo(0, 0);
   }, [hash, pathname]);
+
   // 点击锚点
   useEffect(scrollIntoAnchor, [scrollIntoAnchor]);
 

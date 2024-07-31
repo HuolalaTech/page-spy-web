@@ -5,6 +5,17 @@ import '@/assets/style/initial.less';
 import '@/assets/locales/index';
 import './init';
 
-const root = ReactDOM.createRoot(document.querySelector('#root')!);
+function main() {
+  const { href } = window.location;
+  const decoded = decodeURIComponent(href);
+  if (href !== decoded) {
+    window.location.href = decoded;
+    return;
+  }
 
-root.render(<App />);
+  const root = ReactDOM.createRoot(document.querySelector('#root')!);
+
+  root.render(<App />);
+}
+
+main();
