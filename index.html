@@ -7,6 +7,14 @@
     <title>PageSpy</title>
     <link rel="icon" href="/favicon.ico" />
     <link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      const { href } = window.location;
+      const decoded = decodeURIComponent(href);
+      if (href !== decoded) {
+        window.location.href = decoded;
+        return;
+      }
+    </script>
     <% if (isDoc) { %>
     <!-- Google tag (gtag.js) -->
     <script
@@ -19,7 +27,6 @@
         dataLayer.push(arguments);
       }
       gtag('js', new Date());
-
       gtag('config', 'G-TFP524RRV2');
     </script>
     <% } %>
