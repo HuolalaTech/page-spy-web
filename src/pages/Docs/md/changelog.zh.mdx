@@ -1,9 +1,9 @@
 ## v1.9.1
 
 - 🆕 实例化参数新增 `serializeData: boolean` 选项，用于指定是否允许 SDK 在收集离线日志时，序列化非基本类型的数据，默认值 `false`。查看详情：https://github.com/HuolalaTech/page-spy-web/pull/241 / https://github.com/HuolalaTech/page-spy/pull/103 ；
-
+  
   开启后，console 打印的数据在日志回放面板上支持展开查看，使用方式：
-
+  
   ```ts
   window.$pageSpy = new PageSpy({
     ...
@@ -11,6 +11,7 @@
     serializeData: true
   })
   ```
+
 - 🆕 优化 Network 展示的信息，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/239 ；
 - 🆕 回放面板支持回放 canvas 内容，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/238 ；
 - 🆕 回放时左侧的操作轨迹展示点击动作；进度条上现在只展示点击、报错，其他数据活动通过 Tab 通知。查看详情：https://github.com/HuolalaTech/page-spy-web/pull/244 / https://github.com/HuolalaTech/page-spy-web/pull/247

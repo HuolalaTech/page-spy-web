@@ -86,6 +86,10 @@ export const DOC_MENUS = [
     },
     children: [
       {
+        label: 'API',
+        doc: 'api',
+      },
+      {
         label: {
           zh: '离线日志回放',
           en: 'Offline Log',

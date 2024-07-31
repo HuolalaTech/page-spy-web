@@ -1,0 +1,59 @@
+
+## DataHarborPlugin API#api
+
+#### constructor()#constructor
+
+- Type
+
+  ```ts
+  interface DataHarborConfig {
+    // Specify the maximum bytes of offline log in memory.
+    // Default 10MB.
+    maximum?: number;
+
+    // Specit which types of data to cache
+    caredData?: Record<DataType, boolean>;
+
+    // Specify the offline log filename, with the default being named according to the current time
+    filename?: () => string;
+
+    // Custom the behavior of download
+    onDownload?: (data: CacheMessageItem[]) => void;
+  }
+
+  delcare class DataHarborPlugin implements PageSpyPlugin {
+    constructor(config?: DataHarborConfig);
+  }
+  ```
+
+#### onOfflineLog()#onOfflineLog
+
+Upload / download log manaually.
+
+- Type
+
+  ```ts
+  declare class DataHarborPlugin {
+    onOfflineLog(type: 'download' | 'upload'): Promise<string | null | undefined>;
+  }
+  ```
+
+- Details
+
+  If you hide the automatically rendered floating or want to automatically trigger offline log operations at certain times, you can achieve through this method.
+
+  Each invocation logs the entire current session. Once the upload is complete, a replay URL will be returned.
+
+- Example
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  // upload
+  const url = await window.$harbor.onOfflineLog('upload');
+
+  // download
+  window.$harbor.onOfflineLog('download');
+  ```
+
+

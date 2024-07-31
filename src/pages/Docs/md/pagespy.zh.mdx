@@ -1,0 +1,260 @@
+
+## PageSpy API#api
+
+#### constructor()#constructor
+
+- 类型及默认值
+
+  ```js
+  new PageSpy({
+    // SDK 会从引入的路径自动分析并决定 Server 的地址（api）和调试端的地址（clientOrigin）
+    // 假设你通过 <script src="https://example.com/page-spy/index.min.js"> 引入 SDK，那么 SDK 会在内部设置：
+    //   - api: "example.com"
+    //   - clientOrigin: "https://example.com"
+    // 如果你的服务部署在别处，就需要在这里手动指定去覆盖。
+    api: "",
+    clientOrigin: "", // 仅适用浏览器环境的 SDK
+    
+    // project 作为信息的一种聚合，可以在调试端房间列表进行搜索
+    project: "default",
+    
+    // title 供用户提供自定义参数，可以用于区分当前调试的客户端
+    // 对应的信息显示在每个调试连接面板的「设备id」下方
+    title: "--",
+    
+    // 指示 SDK 初始化完成，是否自动在客户端左下角渲染「圆形白底带 Logo」的控件
+    // 如果设置为 false, 可以调用 window.$pageSpy.render() 手动渲染
+    autoRender: true,  // 仅适用浏览器环境的 SDK
+    
+    // 手动指定 PageSpy 服务的 scheme。
+    // 这在 SDK 无法正确分析出 scheme 可以使用，例如 PageSpy 的浏览器插件
+    // 是通过 chrome-extension://xxx/sdk/index.min.js 引入 SDK，这会
+    // 被 SDK 解析成无效的 "chrome-extension://" 并回退到 ["http://", "ws://"]。
+    //   - （默认）传值 undefined 或者 null：SDK 会自动分析；
+    //   - 传递 boolean 值：
+    //     - true：SDK 将通过 ["https://", "wss://"] 访问 PageSpy 服务
+    //     - false：SDK 将通过 ["http://", "ws://"] 访问 PageSpy 服务
+    enableSSL: null,
+
+    // 在 PageSpy@1.7.4 支持离线回放功能后，客户端集成的 SDK 可以不用和调试端建立连接，
+    // 通过 DataHarborPlugin 收集数据、导出离线日志，成为新的使用方式。
+    // 默认值 false。用户设置为其他值时，会进入 "离线模式"，具体表现为 PageSpy 不会创建房间、建立 WebSocket 连接。
+    offline: false, // 仅适用浏览器环境的 SDK
+
+    // 自定义控件渲染的 logo
+    logo: '', // 仅适用浏览器环境的 SDK
+
+    // 设置 logo 样式
+    logoStyle: {}, // 仅适用浏览器环境的 SDK
+
+    // PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些插件
+    disabledPlugins: [],
+
+    // 是否允许 SDK 在收集离线日志时，序列化非基本类型的数据，序列化的目的是方便在回放时查看
+    serializeData: false,
+
+    // 是否启用权限认证功能。启用后，SDK 会生成 6 位数的随机 “密钥”；调试端进入房间时要求输入对应的密钥
+    useSecret: false,
+
+    // SDK 在调试端进入房间之前会在内存中缓存数据，以便于调试端进入房间后可以看到之前的数据。
+    // 但数据体积会越来越大，因此可以指定 SDK 在本地最多缓存多少条数据记录。
+    messageCapacity: 1000,
+
+    // 生产环境禁用
+    disabledOnProd: true, // 仅适用小程序环境的 SDK
+  })
+  ```
+
+#### registerPlugin()#registerPlugin
+
+静态方法，注册一个插件。
+
+- 类型
+
+  ```ts
+  declare class PageSpy {
+    static registerPlugin(plugin: PageSpyPlugin): void;
+  }
+  ```
+
+- 详细信息
+
+  在实例化 PageSpy 之前调用，参数是实现了 `PageSpyPlugin` 的插件实例，每个插件实例都应带有 `name` 属性。同样名称的插件如果重复注册，插件实例只会被注册一次，同时控制台会打印警告信息。
+
+- 示例
+
+  ```ts
+  class DataHarbrPlugin implements PageSpyPlugin {
+    name = 'DataHarborPlugin'
+
+    ... // 插件的实现
+  }
+
+  PageSpy.registerPlugin(new DataHarborPlugin());
+  
+  // 重复调用，插件只会被注册一次
+  // PageSpy.registerPlugin(new DataHarborPlugin());
+  ```
+
+#### pluginsWithOrder
+
+按插件的 `enforce` 属性排序的已注册插件列表。
+
+- 类型
+
+  ```ts
+  declare class PageSpy {
+    static plugins: Record<PluginOrder | 'normal', PageSpyPlugin[]>;
+    static get pluginsWithOrder(): PageSpyPlugin[];
+  }
+  ```
+
+- 详细信息
+
+  每个插件都应提供 `enforce: PluginOrder` 属性，如果未提供则默认为 `enforce: "normal"`，之后 PageSpy 会按照 `pre - normal - post` 的顺序维护插件列表。
+
+
+#### updateRoomInfo()#updateRoomInfo
+
+实例化之后，更新连接信息。
+
+- 类型
+
+  ```ts
+  type UpdateConfig = {
+      title?: string;
+      project?: string;
+  };
+
+  declare class PageSpy {
+    updateRoomInfo(obj: UpdateConfig): void;
+  }
+  ```
+
+- 详细信息
+
+  客户端的标识信息在 PageSpy 初始化的时候如果还不知道，之后可以通过这个方法更新。
+
+- 示例
+
+  ```ts
+  window.$pageSpy = new PageSpy({
+    title: '--',
+    project: '--'
+  })
+
+  async function YourCode() {
+    // 业务逻辑异步加载客户端标识，比如：当前用户、当前项目
+    const { title, project } = await xxx();
+
+    window.$pageSpy.updateRoomInfo({
+      title,
+      project
+    })
+  }
+  ```
+
+#### abort()#abort
+
+销毁当前实例。
+
+- 类型
+
+  ```ts
+  declare class PageSpy {
+    abort(): void;
+  }
+  ```
+
+- 详细信息
+
+  PageSpy 会断开连接、从文档中移除相关 DOM、清空已缓存的数据、调用所有已注册插件的 `onReset()` 方法。
+  
+  当前上下文中被代理或者被重写的 API，如浏览器中的 `window.fetch`，都会恢复到实例化 PageSpy 之前的状态。
+
+- 示例
+
+  ```ts
+  window.$pageSpy = new PageSpy(...);
+
+  window.$pageSpy.abort();
+  ```
+
+#### version
+
+当前使用的 PageSpy 版本。
+
+- 类型
+
+  ```ts
+  declare class PageSpy {
+    version: string;
+  }
+  ```
+
+- 示例
+
+  ```ts
+  window.$pageSpy = new PageSpy(...);
+
+  console.log(window.$pageSpy.version);
+  ```
+
+#### config
+
+配置信息。配置因平台不同存在差异，比如小程序端特有的 `config.disableOnProd`。
+
+- 类型
+
+  ```ts
+  declare class PageSpy {
+    config: Config;
+  }
+  ```
+
+#### socketStore
+
+封装了 WebSocket 实例，提供注册消息事件、收到指定消息后触发回调，广播消息。
+
+- 类型
+
+  ```ts
+  interface SocketStoreType {
+    addListener(type: InteractiveType, fn: InteractiveEventCallback): void;
+    addListener(type: InternalType, fn: InternalEventCallback): void;
+
+    removeListener(type: InteractiveType, fn: InteractiveEventCallback): void;
+    removeListener(type: InternalType, fn: InternalEventCallback): void;
+
+    dispatchEvent(type: InteractiveType | InternalType, data: InteractiveEvent): void;
+    dispatchEvent(type: InternalType, data: any): void;
+
+    broadcastMessage(message: MessageItem, noCache?: boolean): void;
+  }
+  ```
+
+- 详细信息
+
+  `addListener() / removeListener() / dispatchEvent()` 的第一个参数是消息类型，我们把消息类型分为 **“交互式的”** 和 **“内部的”** 两种：
+  
+  - **“交互式的”** 消息类型用于和调试端交互，例如：调试端上线、发送代码到客户端执行、点击展开对象详情，这些都会作为消息事件发送到 SDK，SDK 按需做出响应；
+  - **“内部的”** 消息类型当前用于插件之间交互，例如各个插件产生数据后会通过 `socketStore.dispatchEvent('public-data')` 派发事件，同为插件的 `DataHarborPlugin` 监听了这个事件后可以对数据另作处理。
+
+  `broadcastMessage()` 广播消息。第一个参数是来自各个插件发给调试端的数据，第二个参数 `noCache` 用于插件告知 `socketStore` 当前发送的这条消息是否应该被缓存。把数据缓存下来的目的是当调试端 “上线” 后可以看到历史的消息，但并不是所有的数据都需要缓存，例如：客户端发起网络请求，无论成功或失败，只需要缓存最终态的。
+
+- 示例
+
+  ```ts
+  // ConsolePlugin 的具体实现请前往仓库查看
+  class ConsolePlugin implements PageSpyPlugin {
+    onInit({ socketStore }) {
+      socketStore.addListener('debug', ({ source }, reply) => {
+        ...
+      })
+
+      socketStore.broadcastMessage(...)
+    }
+  }
+  ```
+
+

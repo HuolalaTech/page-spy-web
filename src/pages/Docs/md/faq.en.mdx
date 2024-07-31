@@ -26,67 +26,7 @@ window.$pageSpy = new PageSpy({
 
 ### Instantiation Parameters and Their Purposes?#init-params
 
-> All parameters are optional. Below are explanations and default values for each parameter:
-
-```js
-window.$pageSpy = new PageSpy({
-  // SDK will automatically determine server address (api) and client origin (clientOrigin) from the imported path
-  // For example, if you import SDK via <script src="https://example.com/page-spy/index.min.js">,
-  // SDK will internally set:
-  //   - api: "example.com"
-  //   - clientOrigin: "https://example.com"
-  // If your service is deployed elsewhere, you need to manually specify it here to override.
-  api: "",
-  clientOrigin: "", // Only applicable for browser environment
-  
-  // Project serves as an aggregation of information, searchable in the room list
-  project: "default",
-  
-  // Title allows users to provide custom parameters for distinguishing the current client
-  // Corresponding information appears below the "device id" in each connection panel
-  title: "--",
-  
-  // Indicates whether SDK initializes and automatically renders "circular white logo on a white background" control in the lower left corner of the client
-  // If set to false, you can call window.$pageSpy.render() to render manually
-  autoRender: true,  // Only applicable for browser environment
-  
-  // Manually specify PageSpy service scheme.
-  // This can be used if SDK cannot correctly analyze the scheme, such as PageSpy's browser plugin
-  // is imported via chrome-extension://xxx/sdk/index.min.js, which SDK interprets as invalid "chrome-extension://" and falls back to ["http://", "ws://"].
-  //   - (Default) Pass undefined or null: SDK will analyze automatically;
-  //   - Pass boolean value:
-  //     - true: SDK will access PageSpy service via ["https://", "wss://"]
-  //     - false: SDK will access PageSpy service via ["http://", "ws://"]
-  enableSSL: null,
-
-  // After PageSpy@1.7.4 supports offline playback function, SDK integrated into the client can collect data, export offline logs, and become a new usage mode.
-  // Default value is false. When set to other values, it enters "offline mode", where PageSpy does not create rooms or establish WebSocket connections.
-  offline: false, // Only applicable for browser environment
-
-  // Custom control rendering logo
-  logo: '', // Only applicable for browser environment
-
-  // Set logo style
-  logoStyle: {}, // Only applicable for browser environment
-
-  // All internal plugins are carried with PageSpy by default out of the box. You can disable some plugins as needed.
-  disabledPlugins: [],
-
-  // Specify whether the SDK is allowed to serialize non-primitive data types when collecting offline data
-  serializeData: false,
-
-  // Indicate whether authorization is required. If enabled, PageSpy generates a 6-digit random number (below "secret") as a password for the debug room,
-  // which is required for developers to access the debug room
-  useSecret: false,
-
-  // Specify how many messages to cache.
-  // The data is primarily used to configure the maximum number of historical data the SDK can send after the debugging terminal goes online.
-  messageCapacity: 1000,
-
-  // Disable on production environment
-  disabledOnProd: true, // Only applicable for miniprogram
-})
-```
+See [PageSpy API](./pagespy#constructor).
 
 ### How to Update Initialization Parameters? #update-info
 
