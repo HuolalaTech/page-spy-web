@@ -57,6 +57,12 @@ Based on encapsulation of native web APIs, it filters and transforms the paramet
 
 ![Home](./.github/assets/dashboard-en.png)
 
+## Why is PageSpy?
+
+> A picture is worth a thousand words.
+
+![Why is PageSpy](./.github/assets/why-is-pagespy-en.png)
+
 ## When should I use?
 
 <u>It's **PageSpy** show time whenever you can't debug code with local devtools!</u> Let's see the following instances:

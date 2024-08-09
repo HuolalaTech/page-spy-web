@@ -57,6 +57,12 @@ PageSpy は、Web / Miniprogram / 鸿蒙（Harmony）OS APP プロジェクト�
 
 ![Home](./.github/assets/dashboard-en.png)
 
+## なぜ PageSpy なのか?
+
+> 百聞は一見にしかず。
+
+![Why is PageSpy](./.github/assets/why-is-pagespy-en.png)
+
 ## どのような場合に使うべきですか？
 
 <u>ローカルの devtools でコードをデバッグできないときは、いつでも **PageSpy** の出番です！</u>次の例を見てみましょう:
