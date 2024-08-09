@@ -57,6 +57,12 @@
 
 ![主页](./.github/assets/dashboard.png)
 
+## 为什么是 PageSpy ？
+
+> 一图胜千言。
+
+![Why is PageSpy](./.github/assets/why-is-pagespy-zh.png)
+
 ## 何时使用？
 
 <u>任何无法在本地使用控制台调试的场景，都是 **PageSpy** 可以大显身手的时候！</u>一起来看下面的例子：
