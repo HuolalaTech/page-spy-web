@@ -26,6 +26,7 @@ import mpDingtalkSvg from '@/assets/image/mp-dingtalk.svg';
 import mpAlipaySvg from '@/assets/image/mp-alipay.svg';
 import mpXhsSvg from '@/assets/image/mp-xhs.svg';
 import reactSvg from '@/assets/image/react.svg';
+import huaweiSvg from '@/assets/image/huawei-browser.svg';
 
 import uniSvg from '@/assets/image/uni.svg';
 import { SpyClient } from '@huolala-tech/page-spy-types';
@@ -144,7 +145,7 @@ export const BROWSER_CONFIG: Record<
   'mp-xhs': { logo: mpXhsSvg, label: t('common.mpxhs') },
   'mp-uni': { logo: uniSvg, label: 'Uni APP' },
   'uni-native': { logo: uniSvg, label: 'Uni APP' },
-  harmony: { logo: pcSvg, label: 'Harmony' },
+  harmony: { logo: huaweiSvg, label: 'Huawei' },
   'react-native': { logo: reactSvg, label: 'React Native' },
 };
 
@@ -177,13 +178,13 @@ const BROWSER_REGEXPS = {
   wechat: /MicroMessenger\/([\d.]+)/,
   qq: /(?:QQBrowser|MQQBrowser|QQ)\/([\d.]+)/,
   uc: /(?:UCBrowser|UCBS)\/([\d.]+)/,
+  harmony: /(?:HuaweiBrowser)\/([\d.]+)/,
   baidu: /(?:BIDUBrowser|baiduboxapp)[/]?([\d.]*)/,
   edge: /Edg(?:e|A|iOS)?\/([\d.]+)/,
   chrome: /(?:Chrome|CriOS)\/([\d.]+)/,
   firefox: /(?:Firefox|FxiOS)\/([\d.]+)/,
   safari: /Version\/([\d.]+).*Safari/,
   'uni-native': /uni-native\/([\d.]+)/,
-  harmony: /\sharmony\/(.*)$/,
   'react-native': /react-native\/([\d.]+)/,
   ...MP_REGEXPS,
 } as Record<SpyClient.Browser | 'harmony', RegExp>;
@@ -195,7 +196,7 @@ const OS_REGEXPS = {
   mac: /(Mac OS X |macos\/)([\d_.]+)/,
   android: /(Android |android\/)([\d_.]+)/,
   linux: /Linux/,
-  harmony: /(harmony\/)([\d_.]+[\(\w\)]*)/,
+  harmony: /(OpenHarmony )([\d_.]+)/,
 } as Record<SpyClient.OS, RegExp>;
 
 export function parseUserAgent(uaString: string = window.navigator.userAgent) {
@@ -247,35 +248,6 @@ export function parseUserAgent(uaString: string = window.navigator.userAgent) {
     browser: browserInfo,
   };
 }
-
-// export const parseDeviceInfo = (device: string): DeviceInfo => {
-//   const reg = /(.*)\/(.*)\s(.*)\/(.*)/;
-//   const result = device.match(reg);
-//   if (result === null)
-//     return {
-//       osName: 'unknown',
-//       osVersion: 'unknown',
-//       browserName: 'unknown',
-//       browserVersion: 'unknown',
-//     };
-
-//   const [_, osName, osVersion, browserName, browserVersion] = result;
-//   return {
-//     osName: osName.toLowerCase(),
-//     osVersion,
-//     browserName: browserName.toLowerCase(),
-//     browserVersion,
-//     osLogo: getOSLogo(osName.toLowerCase()),
-//     browserLogo: getBrowserLogo(browserName.toLowerCase()),
-//   } as DeviceInfo;
-// };
-
-// get client info from room info
-// export function getClientInfoFromRoom(room: I.SpyRoom) {
-//   const {name, tags} = room
-//   const ua = tags.ua || name
-//   return parseUserAgent(ua)
-// }
 
 // get client info from system message
 export function parseClientInfo(msg: SpyClient.DataItem): ParsedClientInfo {
