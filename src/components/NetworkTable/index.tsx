@@ -4,20 +4,16 @@ import { Dropdown, Empty } from 'antd';
 import clsx from 'clsx';
 import copy from 'copy-to-clipboard';
 import { isString } from 'lodash-es';
-import { useRef, useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { getStatusText, getTime } from './utils';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { NetworkDetail } from './NetworkDetail';
-import { NetworkMsgItem } from '@/store/socket-message';
+import { ResolvedNetworkInfo } from '@/utils';
 
 const networkTitle = ['Name', 'Path', 'Method', 'Status', 'Type', 'Time(≈)'];
-const generalFieldMap = {
-  'Request URL': 'url',
-  'Request Method': 'method',
-} as const;
 
-const getContentType = (headers: SpyNetwork.RequestInfo['requestHeader']) => {
+const getContentType = (headers: ResolvedNetworkInfo['requestHeader']) => {
   if (!headers) return 'text/plain';
   const contentType = headers.find(
     ([key]) => key.toLowerCase() === 'content-type',
@@ -26,48 +22,26 @@ const getContentType = (headers: SpyNetwork.RequestInfo['requestHeader']) => {
 };
 
 interface NetworkTableProps {
-  data: NetworkMsgItem[];
+  data: ResolvedNetworkInfo[];
   cookie?: SpyStorage.GetTypeDataItem['data'];
 }
 
 export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
   const { t: nt } = useTranslation('translation', { keyPrefix: 'network' });
 
-  const detailClicked = useRef<boolean>(false);
-  const [showDetail, setShowDetail] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [leftDistance, setLeftDistance] = useState('20%');
-  const detailData = useMemo<SpyNetwork.RequestInfo | null>(() => {
+  const detailData = useMemo<ResolvedNetworkInfo | null>(() => {
     if (activeIndex < 0) {
       return null;
     }
     return data[activeIndex];
   }, [activeIndex, data]);
-  useEffect(() => {
-    const listener = (evt: MouseEvent) => {
-      const dom = evt.target! as HTMLElement;
-      if (detailClicked.current) {
-        detailClicked.current = false;
-        return;
-      }
-      if (dom.tagName === 'TD' && dom.dataset.clickout) {
-        setShowDetail(true);
-      } else {
-        setShowDetail(false);
-      }
-    };
-
-    document.addEventListener('click', listener);
-    return () => {
-      document.removeEventListener('click', listener);
-    };
-  }, []);
   const hotKeyHandle = useCallback(
     (evt: KeyboardEvent) => {
       const { key } = evt;
       switch (key.toLocaleLowerCase()) {
         case 'escape':
-          setShowDetail(false);
           setActiveIndex(-1);
           break;
         case 'arrowup':
@@ -90,7 +64,7 @@ export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
   }, [hotKeyHandle]);
 
   const onMenuClick = useCallback(
-    (key: string, row: SpyNetwork.RequestInfo) => {
+    (key: string, row: ResolvedNetworkInfo) => {
       switch (key) {
         case 'copy-link':
           copy(row.url);
@@ -161,7 +135,7 @@ export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
           throw Error('Unknown key');
       }
     },
-    [],
+    [cookie],
   );
 
   return (
@@ -209,14 +183,12 @@ export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
                       })}
                     >
                       <td
-                        data-clickout
                         title={row.name}
                         className={clsx({
-                          active: showDetail && index === activeIndex,
+                          active: !!detailData && index === activeIndex,
                         })}
                         onClick={(evt: any) => {
                           setActiveIndex(index);
-                          // setDetailData(row);
                           setLeftDistance(evt.target.clientWidth);
                         }}
                       >
@@ -239,20 +211,17 @@ export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
           <Empty description={false} style={{ marginTop: 40 }} />
         )}
       </div>
-      {showDetail && detailData && (
+      {detailData && (
         <div
           className="network-detail"
           style={{
             left: leftDistance,
           }}
-          onClick={() => {
-            detailClicked.current = true;
-          }}
         >
           <NetworkDetail
             data={detailData}
             onClose={() => {
-              setShowDetail(false);
+              setActiveIndex(-1);
             }}
           />
         </div>

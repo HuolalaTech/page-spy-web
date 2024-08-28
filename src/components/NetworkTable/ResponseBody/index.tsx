@@ -1,7 +1,7 @@
+import { ResolvedNetworkInfo } from '@/utils';
 import { dataUrlToBlob, downloadFile, semanticSize } from '../utils';
 import { withPopup, usePopupRef } from '@/utils/withPopup';
 import { DownloadOutlined } from '@ant-design/icons';
-import { SpyNetwork } from '@huolala-tech/page-spy-types';
 import ReactJsonView from '@huolala-tech/react-json-view';
 import { Form, message, Modal, Input, Alert, Button } from 'antd';
 import dayjs from 'dayjs';
@@ -153,7 +153,7 @@ const EventStream = ({ data }: { data: EventData[] }) => {
 };
 
 interface ResponseBodyProps {
-  data: SpyNetwork.RequestInfo;
+  data: ResolvedNetworkInfo;
 }
 export const ResponseBody = ({ data }: ResponseBodyProps) => {
   const bodyContent = useMemo(() => {

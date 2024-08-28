@@ -1,5 +1,4 @@
-import { getObjectKeys } from '@/utils';
-import { SpyNetwork } from '@huolala-tech/page-spy-types';
+import { getObjectKeys, ResolvedNetworkInfo } from '@/utils';
 
 export function downloadFile(filename: string, url: string) {
   const aTag = document.createElement('a');
@@ -39,7 +38,7 @@ export function semanticSize(size: number) {
   return `${(size / oneMB).toFixed(1)} MB`;
 }
 
-export function getStatusText(row: SpyNetwork.RequestInfo) {
+export function getStatusText(row: ResolvedNetworkInfo) {
   if (row.readyState === 0 || row.readyState === 1) return 'Pending';
   if (row.readyState === 4) {
     if (row.status === 0) return 'Failed';
