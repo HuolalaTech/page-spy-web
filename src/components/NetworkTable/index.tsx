@@ -3,7 +3,7 @@ import { SpyStorage } from '@huolala-tech/page-spy-types';
 import { Dropdown, Empty } from 'antd';
 import clsx from 'clsx';
 import copy from 'copy-to-clipboard';
-import { isArray, isString } from 'lodash-es';
+import { fromPairs, isArray, isString, map } from 'lodash-es';
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { getStatusText, getTime } from './utils';
 import { useTranslation } from 'react-i18next';
@@ -156,30 +156,27 @@ export const NetworkTable = ({
 
   const [columns, setColumns] = useState<Columns[]>(() => {
     const cache = localStorage.getItem(resizeCacheKey);
-    const value: Columns[] = cache && JSON.parse(cache);
-    if (value && isArray(value)) {
-      return value;
-    }
+    const value = cache && JSON.parse(cache);
     return [
       {
         children: 'Name',
-        width: 150,
+        width: value?.Name || 150,
       },
       {
         children: 'Path',
-        width: 300,
+        width: value?.Path || 300,
       },
       {
         children: 'Method',
-        width: 100,
+        width: value?.Meth || 100,
       },
       {
         children: 'Status',
-        width: 100,
+        width: value?.Stat || 100,
       },
       {
         children: 'Type',
-        width: 100,
+        width: value?.Type || 100,
       },
       {
         children: 'Time(≈)',
@@ -231,8 +228,8 @@ export const NetworkTable = ({
         setColumns(newCols);
       }) as React.ReactEventHandler<any>,
       onResizeStop: () => {
-        const value = JSON.stringify(columns);
-        localStorage.setItem(resizeCacheKey, value);
+        const value = fromPairs(map(columns, (c) => [c.children, c.width]));
+        localStorage.setItem(resizeCacheKey, JSON.stringify(value));
       },
     }));
   }, [columns, resizeCacheKey]);
