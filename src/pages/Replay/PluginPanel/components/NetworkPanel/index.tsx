@@ -7,5 +7,10 @@ import { useShallow } from 'zustand/react/shallow';
 export const NetworkPanel = memo(() => {
   const networkMsg = useReplayStore(useShallow((state) => state.networkMsg));
 
-  return <NetworkTable data={networkMsg} />;
+  return (
+    <NetworkTable
+      data={networkMsg}
+      resizeCacheKey="offline:pagespy-network-table-resize-config"
+    />
+  );
 });

@@ -42,6 +42,7 @@ const NetworkPanel = memo(() => {
         <NetworkTable
           data={networkMsg.current}
           cookie={storageMsg.current.cookie}
+          resizeCacheKey="online:pagespy-network-table-resize-config"
         />
       </div>
     </div>
