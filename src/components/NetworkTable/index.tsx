@@ -33,7 +33,7 @@ type Columns = Omit<
 interface NetworkTableProps {
   data: ResolvedNetworkInfo[];
   cookie?: SpyStorage.GetTypeDataItem['data'];
-  resizeCacheKey?: string;
+  resizeCacheKey: string;
 }
 
 export const NetworkTable = ({
@@ -155,12 +155,10 @@ export const NetworkTable = ({
   );
 
   const [columns, setColumns] = useState<Columns[]>(() => {
-    if (resizeCacheKey) {
-      const cache = localStorage.getItem(resizeCacheKey);
-      const value: Columns[] = cache && JSON.parse(cache);
-      if (value && isArray(value) && value.every((i) => i.children)) {
-        return value;
-      }
+    const cache = localStorage.getItem(resizeCacheKey);
+    const value: Columns[] = cache && JSON.parse(cache);
+    if (value && isArray(value)) {
+      return value;
     }
     return [
       {
@@ -233,10 +231,8 @@ export const NetworkTable = ({
         setColumns(newCols);
       }) as React.ReactEventHandler<any>,
       onResizeStop: () => {
-        if (resizeCacheKey) {
-          const value = JSON.stringify(columns);
-          localStorage.setItem(resizeCacheKey, value);
-        }
+        const value = JSON.stringify(columns);
+        localStorage.setItem(resizeCacheKey, value);
       },
     }));
   }, [columns, resizeCacheKey]);

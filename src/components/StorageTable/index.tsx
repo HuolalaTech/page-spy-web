@@ -1,11 +1,12 @@
 import { useCacheDetailStore } from '@/store/cache-detail';
 import { StorageType } from '@/store/platform-config';
 import { SpyStorage } from '@huolala-tech/page-spy-types';
-import { Table, TableColumnsType, Tooltip } from 'antd';
+import { Table, Tooltip } from 'antd';
 import { capitalize } from 'lodash-es';
 import { useMemo, useRef, useState } from 'react';
 import { ResizableTitle } from '../ResizableTitle';
 import { ResizeCallbackData } from 'react-resizable';
+import { ColumnType } from 'antd/es/table/interface';
 
 const allCols = [
   {
@@ -82,7 +83,6 @@ export const StorageTable = ({
     return Object.values(storageMsg[activeTab]);
   }, [activeTab, storageMsg]);
   const hasDetail = useMemo(() => {
-    console.log({ data });
     const { name, value, ...rest } = data[0] || {};
     return Object.keys(rest).length > 0;
   }, [data]);
@@ -94,7 +94,7 @@ export const StorageTable = ({
   const cacheWidthRef = useRef<Record<string, { [title: string]: number }>>({});
 
   const [columns, setColumns] =
-    useState<TableColumnsType<SpyStorage.Data>>(allCols);
+    useState<ColumnType<SpyStorage.Data>[]>(allCols);
 
   // Init width from cache
   useMemo(() => {
@@ -132,7 +132,7 @@ export const StorageTable = ({
 
     return renderCols.map((c, index) => ({
       ...c,
-      onHeaderCell: (column: TableColumnsType<SpyStorage.Data>[number]) => ({
+      onHeaderCell: (column: ColumnType<SpyStorage.Data>) => ({
         width: c.width,
         onResize: ((
           _: React.SyntheticEvent<Element>,
@@ -160,8 +160,6 @@ export const StorageTable = ({
   }, [columns, hasDetail, unionCacheKey]);
 
   const setDetailInfo = useCacheDetailStore((state) => state.setCurrentDetail);
-
-  console.log({ data, mergedColumns });
 
   return (
     <Table
