@@ -1,3 +1,48 @@
+import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';
+
+## v1.9.2
+
+- 🆕 实例化参数新增 `dataProcessor` 选项用于过滤或者处理数据。查看详情：https://github.com/HuolalaTech/page-spy/pull/106 ；
+
+  > <details>
+  >   <summary>点击展开查看示例。</summary>
+  > 
+  >   ```ts
+  >   window.$pageSpy = new PageSpy({
+  >     ...,
+  >     dataProcessor: {
+  >       console: (data) => {
+  >         // 打印内容中如果有 "secret" 字符则忽略（不会发送到调试端）
+  >         if (data.logs.some(i => typeof i === 'string' && i.includes('secret'))) return false;
+  >       },
+  >       network: (data) => {
+  >         // 忽略数据打点类的请求
+  >         if (/(sentry|metric|collect)/.test(data.url)) return false
+  >       },,
+  >       storage: (data) => {
+  >         // cookie 中的键如果是下划线开头，让调试端看到的值为 "*******"
+  >         if (data.type === "cookie" && data.action === "get") {
+  >           data.data.forEach((i) => {
+  >             if (i.name.startsWith("_")) {
+  >               i.value = "*******";
+  >             }
+  >           });
+  >         }
+  >       },
+  >     },
+  >   });
+  >   ```
+  > </details>
+
+- 🆕 调整上传的日志数据，查看详情：https://github.com/HuolalaTech/page-spy/pull/107 ；
+
+  <img src={offlineLogImg} />
+
+- 🆕 交互调整。
+  - 点击日志回放的进度条保持播放状态，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/258 ；
+  - 表格现在支持拖拽，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/257 ；
+  - 支持识别华为浏览器，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/256 ；
+
 ## v1.9.1
 
 - 🆕 实例化参数新增 `serializeData: boolean` 选项，用于指定是否允许 SDK 在收集离线日志时，序列化非基本类型的数据，默认值 `false`。查看详情：https://github.com/HuolalaTech/page-spy-web/pull/241 / https://github.com/HuolalaTech/page-spy/pull/103 ；
