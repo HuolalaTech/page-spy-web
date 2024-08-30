@@ -91,8 +91,7 @@ export const DBTable = () => {
 
   const [columns, setColumns] = useState<ColumnType<DBItem>[]>(() => {
     const cache = localStorage.getItem(ONLINE_DB_CACHE);
-    const value: { keyPath: string; index: number } =
-      cache && JSON.parse(cache);
+    const value = cache && JSON.parse(cache);
 
     return [
       {
