@@ -1,6 +1,5 @@
 import { EntriesBody } from '@/components/EntriesBody';
-import { getObjectKeys } from '@/utils';
-import { SpyNetwork } from '@huolala-tech/page-spy-types';
+import { getObjectKeys, ResolvedNetworkInfo } from '@/utils';
 import { Empty, Space } from 'antd';
 import { ReactNode, memo, useEffect, useMemo, useState } from 'react';
 import { PartOfHeader } from '../PartOfHeader';
@@ -14,7 +13,7 @@ import Icon from '@ant-design/icons';
 import { ReactComponent as CloseSvg } from '@/assets/image/close.svg';
 
 interface Props {
-  data: SpyNetwork.RequestInfo;
+  data: ResolvedNetworkInfo;
   onClose: () => void;
 }
 
@@ -25,8 +24,8 @@ const generalFieldMap = {
 
 interface TabItem {
   title: string;
-  visible: (data: SpyNetwork.RequestInfo) => boolean;
-  content: (data: SpyNetwork.RequestInfo) => ReactNode;
+  visible: (data: ResolvedNetworkInfo) => boolean;
+  content: (data: ResolvedNetworkInfo) => ReactNode;
 }
 
 const TABS: TabItem[] = [

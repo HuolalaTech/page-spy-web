@@ -1,8 +1,8 @@
-import { SpyNetwork } from '@huolala-tech/page-spy-types';
+import { ResolvedNetworkInfo } from '@/utils';
 import { Space } from 'antd';
 import clsx from 'clsx';
 
-export const StatusCode = ({ data }: { data: SpyNetwork.RequestInfo }) => {
+export const StatusCode = ({ data }: { data: ResolvedNetworkInfo }) => {
   const { readyState, status } = data;
   let statusClass = '';
   let statusText = status;

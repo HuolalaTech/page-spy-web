@@ -1,3 +1,4 @@
+import { SpyNetwork } from '@huolala-tech/page-spy-types';
 import {
   EventType,
   eventWithTime,
@@ -89,14 +90,16 @@ export function resolveUrlInfo(url: string): ResolvedUrlInfo {
       pathname,
       getData: [...searchParams.entries()],
     };
-  } /* c8 ignore start */ catch (e) {
+  } catch (e) {
     return {
       name: url,
       pathname: '',
       getData: null,
     };
-  } /* c8 ignore stop */
+  }
 }
+
+export type ResolvedNetworkInfo = SpyNetwork.RequestInfo & ResolvedUrlInfo;
 
 interface RRWebClickEvent {
   type: EventType.IncrementalSnapshot;

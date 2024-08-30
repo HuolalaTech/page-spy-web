@@ -1,3 +1,48 @@
+import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';
+
+## v1.9.2
+
+- The init parameters now include a `dataProcessor` option for filtering or processing data. See details: https://github.com/HuolalaTech/page-spy/pull/106;
+
+  > <details>
+  >  <summary>Click to expand and view examples.</summary>
+  > 
+  >   ```ts
+  >   window.$pageSpy = new PageSpy({
+  >     ...,
+  >     dataProcessor: {
+  >       console: (data) => {
+  >         // log will be ignored if the content includes 'secret'
+  >         if (data.logs.some(i => typeof i === 'string' && i.includes('secret'))) return false;
+  >       },
+  >       network: (data) => {
+  >         // ignore metric requests
+  >         if (/(sentry|metric|collect)/.test(data.url)) return false
+  >       },,
+  >       storage: (data) => {
+  >         // change the cookie to "******" if the name starts with _
+  >         if (data.type === "cookie" && data.action === "get") {
+  >           data.data.forEach((i) => {
+  >             if (i.name.startsWith("_")) {
+  >               i.value = "*******";
+  >             }
+  >           });
+  >         }
+  >       },
+  >     },
+  >   });
+  >   ```
+  > </details>
+
+- 🆕 Adjusted the uploaded log data, see details: https://github.com/HuolalaTech/page-spy/pull/107;
+
+  <img src={offlineLogImg} />
+
+- 🆕 Interaction adjustments:
+  - Clicking on the log replay progress bar now maintains the playback state. See details: https://github.com/HuolalaTech/page-spy-web/pull/258;
+  - The table header supports dragging, see details: https://github.com/HuolalaTech/page-spy-web/pull/257;
+  - Added support for recognizing the Huawei browser, see details: https://github.com/HuolalaTech/page-spy-web/pull/256;
+
 ## v1.9.1
 
 - 🆕 Added the `serializeData: boolean` option to the instantiation parameters, which specifies whether the SDK is allowed to serialize non-primitive data types when collecting offline data. Default is `false`. For more details, see: https://github.com/HuolalaTech/page-spy/pull/103.

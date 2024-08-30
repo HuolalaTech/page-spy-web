@@ -1,5 +1,4 @@
-import { resolveUrlInfo } from '@/utils';
-import { SpyNetwork } from '@huolala-tech/page-spy-types';
+import { ResolvedNetworkInfo } from '@/utils';
 import { ElementContent, Root } from 'hast';
 import rehypeParse from 'rehype-parse';
 import rehypeStringify from 'rehype-stringify';
@@ -51,7 +50,7 @@ export const getFixedPageMsg = async (htmlText: string, base: string) => {
 };
 
 // 处理小程序网络信息
-export const processMPNetworkMsg = (data: SpyNetwork.RequestInfo) => {
+export const processMPNetworkMsg = (data: ResolvedNetworkInfo) => {
   // why the requestPayload should be string? because the js object will be stringified in sdk.
   if (
     data.url &&

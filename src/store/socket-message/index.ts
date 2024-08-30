@@ -12,7 +12,7 @@ import {
   SpyClient,
 } from '@huolala-tech/page-spy-types';
 import { API_BASE_URL } from '@/apis/request';
-import { ResolvedUrlInfo, resolveProtocol, resolveUrlInfo } from '@/utils';
+import { ResolvedNetworkInfo, resolveProtocol, resolveUrlInfo } from '@/utils';
 import { ElementContent } from 'hast';
 import { getFixedPageMsg, processMPNetworkMsg } from './utils';
 import { isArray, isEqual, isString, omit } from 'lodash-es';
@@ -21,15 +21,13 @@ import { StorageType } from '../platform-config';
 
 const USER_ID = 'Debugger';
 
-export type NetworkMsgItem = SpyNetwork.RequestInfo & ResolvedUrlInfo;
-
 interface SocketMessage {
   socket: SocketStore | null;
   clientInfo: ParsedClientInfo | null;
   consoleMsg: SpyConsole.DataItem[];
   consoleMsgTypeFilter: string[];
   consoleMsgKeywordFilter: string;
-  networkMsg: NetworkMsgItem[];
+  networkMsg: ResolvedNetworkInfo[];
   systemMsg: SpySystem.DataItem[];
   connectMsg: string[];
   pageMsg: {
@@ -112,7 +110,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     socket.addListener('network', (data: SpyNetwork.RequestInfo) => {
       const { name, pathname, getData } = resolveUrlInfo(data.url);
 
-      const newData: NetworkMsgItem = {
+      const newData: ResolvedNetworkInfo = {
         ...data,
         name,
         pathname,

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { NetworkTable } from '@/components/NetworkTable';
 import { useForceThrottleRender } from '@/utils/useForceRender';
+import { ONLINE_NETWORK_CACHE } from '@/components/ResizableTitle/cache-key';
 
 const NetworkPanel = memo(() => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
@@ -42,6 +43,7 @@ const NetworkPanel = memo(() => {
         <NetworkTable
           data={networkMsg.current}
           cookie={storageMsg.current.cookie}
+          resizeCacheKey={ONLINE_NETWORK_CACHE}
         />
       </div>
     </div>

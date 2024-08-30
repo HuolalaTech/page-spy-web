@@ -1,6 +1,10 @@
 import { useEventListener } from '@/utils/useEventListener';
-import { memo, useEffect, useMemo, useRef } from 'react';
-import { PLAYER_SIZE_CHANGE, REPLAY_STATUS_CHANGE } from '../events';
+import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import {
+  PLAYER_SIZE_CHANGE,
+  REPLAY_PROGRESS_SKIP,
+  REPLAY_STATUS_CHANGE,
+} from '../events';
 import { useReplayStore } from '@/store/replay';
 import rrwebPlayer from 'rrweb-player';
 import './index.less';
@@ -32,13 +36,16 @@ export const RRWebPlayer = memo(() => {
     return JSON.parse(JSON.stringify(allRRwebEvent));
   }, [allRRwebEvent]);
 
-  useEventListener(REPLAY_STATUS_CHANGE, (evt) => {
-    const { status, elapsed } = (evt as CustomEvent).detail;
+  const onGoto = useCallback(() => {
     const player = playerInstance.current;
     if (!player) return;
 
-    player.goto(elapsed, status === 'playing');
-  });
+    const { isPlaying, progress, duration } = useReplayStore.getState();
+    player.goto(progress * duration, isPlaying);
+  }, []);
+
+  useEventListener(REPLAY_STATUS_CHANGE, onGoto);
+  useEventListener(REPLAY_PROGRESS_SKIP, onGoto);
 
   useEventListener(PLAYER_SIZE_CHANGE, () => {
     const { width, height } = rootEl.current!.getBoundingClientRect();

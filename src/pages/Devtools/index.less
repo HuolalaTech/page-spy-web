@@ -49,18 +49,16 @@
   &__logo {
     width: 46px;
     height: 46px;
-    transition: all ease-in-out 0.3s;
-    &:hover {
-      filter: drop-shadow(0 0.1em 0.3em #646cffaa);
-    }
+    filter: drop-shadow(0 2px 1px #999);
+    transform: translateY(-2px);
   }
   .page-spy-id {
     background-image: repeating-linear-gradient(
       -45deg,
       white,
       white 5px,
-      #dedede,
-      #dedede 10px
+      lighten(@primary-color, 38%),
+      lighten(@primary-color, 38%) 10px
     );
     background-repeat: repeat;
     b {
