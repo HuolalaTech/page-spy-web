@@ -133,7 +133,7 @@ export const StorageTable = ({
     return renderCols.map((c, index) => ({
       ...c,
       onHeaderCell: (column: ColumnType<SpyStorage.Data>) => ({
-        width: c.width,
+        width: column.width,
         onResize: ((
           _: React.SyntheticEvent<Element>,
           data: ResizeCallbackData,
@@ -168,12 +168,8 @@ export const StorageTable = ({
       bordered={false}
       dataSource={data}
       pagination={false}
-      tableLayout="fixed"
       size="small"
       columns={mergedColumns}
-      style={{
-        overflowX: 'hidden',
-      }}
       onRow={(record) => {
         return {
           onClick() {
