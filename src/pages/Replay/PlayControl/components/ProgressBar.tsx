@@ -1,7 +1,8 @@
-import { Activity, HarborDataItem, useReplayStore } from '@/store/replay';
+import { HarborDataItem, useReplayStore } from '@/store/replay';
 import { Tooltip } from 'antd';
 import { useRef, useEffect, useMemo, memo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
+import { REPLAY_PROGRESS_SKIP } from '../../events';
 
 const ONE_MINUTE = 60 * 1000;
 const TEN_MINUTES = 10 * ONE_MINUTE;
@@ -81,15 +82,14 @@ export const ProgressBar = memo(() => {
       const diff = evt.clientX - left;
       const progress = Math.min(diff / width, 1);
 
-      setIsPlaying(false);
       setProgress(progress);
-      flushActiveData();
+      window.dispatchEvent(new CustomEvent(REPLAY_PROGRESS_SKIP));
     };
     el.addEventListener('click', listener);
     return () => {
       el.removeEventListener('click', listener);
     };
-  }, [flushActiveData, setIsPlaying, setProgress]);
+  }, [setIsPlaying, setProgress]);
 
   // "Skip" in timeline by drag
   useEffect(() => {

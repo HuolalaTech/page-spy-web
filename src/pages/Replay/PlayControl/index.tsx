@@ -1,6 +1,5 @@
 import './index.less';
 import { memo, useCallback, useEffect, useRef } from 'react';
-import { REPLAY_END, REPLAY_PROGRESS_CHANGE } from '../events';
 import { fixProgress, useReplayStore } from '@/store/replay';
 import { useEventListener } from '@/utils/useEventListener';
 import { CurrentTime } from './components/CurrentTime';
@@ -9,6 +8,7 @@ import { Actions } from './components/Actions';
 import { Duration } from './components/Duration';
 import { useShallow } from 'zustand/react/shallow';
 import { throttle } from 'lodash-es';
+import { REPLAY_PROGRESS_SKIP } from '../events';
 
 export const PlayControl = memo(() => {
   const [duration, speed, isPlaying, setIsPlaying, setProgress] =
@@ -21,11 +21,6 @@ export const PlayControl = memo(() => {
         state.setProgress,
       ]),
     );
-  const flushActiveData = useRef(
-    throttle(useReplayStore.getState().flushActiveData, 100),
-  );
-  const elapsed = useRef(0);
-  const raf = useRef(0);
 
   useEventListener(
     'keyup',
@@ -37,6 +32,17 @@ export const PlayControl = memo(() => {
     },
     { target: document },
   );
+  const flushActiveData = useRef(
+    throttle(useReplayStore.getState().flushActiveData, 100),
+  );
+  const elapsed = useRef(0);
+  const raf = useRef(0);
+
+  useEventListener(REPLAY_PROGRESS_SKIP, () => {
+    const { progress, duration } = useReplayStore.getState();
+    elapsed.current = progress * duration;
+    flushActiveData.current();
+  });
 
   const rafHandler = useCallback(() => {
     if (!duration) return;
@@ -44,16 +50,8 @@ export const PlayControl = memo(() => {
 
     const progress = fixProgress(elapsed.current / duration);
     setProgress(progress);
-
     if (progress === 1) {
       setIsPlaying(false);
-      window.dispatchEvent(new CustomEvent(REPLAY_END));
-    } else {
-      window.dispatchEvent(
-        new CustomEvent(REPLAY_PROGRESS_CHANGE, {
-          detail: elapsed.current,
-        }),
-      );
     }
     flushActiveData.current();
 

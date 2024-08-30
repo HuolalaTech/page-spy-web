@@ -399,15 +399,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
         state.isPlaying = value;
       }),
     );
-    const { progress, duration } = get();
-    window.dispatchEvent(
-      new CustomEvent(REPLAY_STATUS_CHANGE, {
-        detail: {
-          status: value ? 'playing' : 'paused',
-          elapsed: progress * duration,
-        },
-      }),
-    );
+    window.dispatchEvent(new CustomEvent(REPLAY_STATUS_CHANGE));
   },
   timeMode: TIME_MODE.RELATED,
   setTimeMode(mode) {
