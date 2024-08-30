@@ -24,9 +24,19 @@ import { useTranslation } from 'react-i18next';
 import './index.less';
 import { useEventListener } from '@/utils/useEventListener';
 import { CUSTOM_EVENT } from '@/store/socket-message/socket';
+import { ResizeCallbackData } from 'react-resizable';
+import { ResizableTitle } from '../ResizableTitle';
+import { ONLINE_DB_CACHE } from '../ResizableTitle/cache-key';
+import { fromPairs, map } from 'lodash-es';
+import { ColumnType } from 'antd/es/table/interface';
 
-const { Column } = Table;
 const { Option } = Select;
+
+interface DBItem {
+  index: number;
+  keyPath: string;
+  value: string;
+}
 
 export const DBTable = () => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
@@ -79,12 +89,79 @@ export const DBTable = () => {
     }
   });
 
+  const [columns, setColumns] = useState<ColumnType<DBItem>[]>(() => {
+    const cache = localStorage.getItem(ONLINE_DB_CACHE);
+    const value = cache && JSON.parse(cache);
+
+    return [
+      {
+        dataIndex: 'index',
+        title: '#',
+        width: value?.index || 80,
+      },
+      {
+        dataIndex: 'keyPath',
+        width: value?.keyPath || 300,
+        title: (
+          <Space size={2}>
+            Key{' '}
+            {dbMsg?.store?.keyPath && (
+              <Space size={0}>
+                <span>(Key path: </span>
+                <ReactJsonView
+                  source={dbMsg.store.keyPath}
+                  copyable={false}
+                  expandable={false}
+                />
+                <span>)</span>
+              </Space>
+            )}
+          </Space>
+        ),
+        render: (value: string) => (
+          <ReactJsonView source={value} maxTitleSize={20} />
+        ),
+      },
+      {
+        dataIndex: 'value',
+        title: 'Value',
+        render: (value: string) => (
+          <ReactJsonView source={value} maxTitleSize={50} />
+        ),
+      },
+    ];
+  });
+
+  const mergedColumns = useMemo(() => {
+    return columns.map((c, index) => ({
+      ...c,
+      onHeaderCell: () => ({
+        width: c.width,
+        onResize: ((
+          _: React.SyntheticEvent<Element>,
+          { size }: ResizeCallbackData,
+        ) => {
+          const newCols = [...columns];
+          newCols[index] = {
+            ...newCols[index],
+            width: size.width,
+          };
+          setColumns(newCols);
+        }) as React.ReactEventHandler<any>,
+        onResizeStop: () => {
+          const value = fromPairs(map(columns, (c) => [c.dataIndex, c.width]));
+          localStorage.setItem(ONLINE_DB_CACHE, JSON.stringify(value));
+        },
+      }),
+    }));
+  }, [columns]);
+
   const tableData = useMemo(() => {
     if (!dbMsg) return [];
     const { page, data } = dbMsg;
     const result = data.map((val: any, idx: number) => {
       const index = 50 * (page.current - 1) + idx;
-      const item: any = {
+      const item = {
         index,
         keyPath: val.key,
         value: val.value,
@@ -115,6 +192,7 @@ export const DBTable = () => {
                 onChange={() => {
                   form.setFieldValue('store', undefined);
                 }}
+                optionLabelProp="name"
               >
                 {basicInfo?.map((i) => {
                   return (
@@ -247,37 +325,16 @@ export const DBTable = () => {
         rowKey="index"
         bordered
         dataSource={tableData}
+        columns={mergedColumns}
         pagination={false}
         tableLayout="fixed"
         size="small"
-      >
-        <Column title="#" dataIndex="index" width={80} />
-        <Column
-          title={
-            <Space size={2}>
-              Key{' '}
-              {dbMsg?.store?.keyPath && (
-                <Space size={0}>
-                  <span>(Key path: </span>
-                  <ReactJsonView
-                    source={dbMsg.store.keyPath}
-                    copyable={false}
-                    expandable={false}
-                  />
-                  <span>)</span>
-                </Space>
-              )}
-            </Space>
-          }
-          render={(value) => <ReactJsonView source={value} maxTitleSize={20} />}
-          dataIndex="keyPath"
-        />
-        <Column
-          title="Value"
-          dataIndex="value"
-          render={(value) => <ReactJsonView source={value} maxTitleSize={50} />}
-        />
-      </Table>
+        components={{
+          header: {
+            cell: ResizableTitle,
+          },
+        }}
+      />
       <p className="database-total-entries">
         {t('total-entries')}: {dbMsg?.total || 0}
       </p>

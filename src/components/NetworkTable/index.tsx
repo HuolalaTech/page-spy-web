@@ -1,23 +1,23 @@
 /* eslint-disable no-case-declarations */
-import { SpyNetwork, SpyStorage } from '@huolala-tech/page-spy-types';
+import { SpyStorage } from '@huolala-tech/page-spy-types';
 import { Dropdown, Empty } from 'antd';
 import clsx from 'clsx';
 import copy from 'copy-to-clipboard';
-import { isString } from 'lodash-es';
-import { useRef, useState, useMemo, useEffect, useCallback } from 'react';
+import { fromPairs, isArray, isString, map } from 'lodash-es';
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { getStatusText, getTime } from './utils';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { NetworkDetail } from './NetworkDetail';
-import { NetworkMsgItem } from '@/store/socket-message';
+import { ResolvedNetworkInfo } from '@/utils';
+import {
+  ResizableTitle,
+  ResizableTitleProps,
+  WIDTH_CONSTRAINTS,
+} from '@/components/ResizableTitle';
+import { ResizeCallbackData } from 'react-resizable';
 
-const networkTitle = ['Name', 'Path', 'Method', 'Status', 'Type', 'Time(≈)'];
-const generalFieldMap = {
-  'Request URL': 'url',
-  'Request Method': 'method',
-} as const;
-
-const getContentType = (headers: SpyNetwork.RequestInfo['requestHeader']) => {
+const getContentType = (headers: ResolvedNetworkInfo['requestHeader']) => {
   if (!headers) return 'text/plain';
   const contentType = headers.find(
     ([key]) => key.toLowerCase() === 'content-type',
@@ -25,49 +25,39 @@ const getContentType = (headers: SpyNetwork.RequestInfo['requestHeader']) => {
   return contentType?.[1] || 'text/plain';
 };
 
+type Columns = Omit<
+  ResizableTitleProps,
+  'onResize' | 'onResizeStart' | 'onResizeStop'
+>;
+
 interface NetworkTableProps {
-  data: NetworkMsgItem[];
+  data: ResolvedNetworkInfo[];
   cookie?: SpyStorage.GetTypeDataItem['data'];
+  resizeCacheKey: string;
 }
 
-export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
+export const NetworkTable = ({
+  data,
+  cookie,
+  resizeCacheKey,
+}: NetworkTableProps) => {
   const { t: nt } = useTranslation('translation', { keyPrefix: 'network' });
 
-  const detailClicked = useRef<boolean>(false);
-  const [showDetail, setShowDetail] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
   const [activeIndex, setActiveIndex] = useState(-1);
   const [leftDistance, setLeftDistance] = useState('20%');
-  const detailData = useMemo<SpyNetwork.RequestInfo | null>(() => {
+  const detailData = useMemo<ResolvedNetworkInfo | null>(() => {
     if (activeIndex < 0) {
       return null;
     }
     return data[activeIndex];
   }, [activeIndex, data]);
-  useEffect(() => {
-    const listener = (evt: MouseEvent) => {
-      const dom = evt.target! as HTMLElement;
-      if (detailClicked.current) {
-        detailClicked.current = false;
-        return;
-      }
-      if (dom.tagName === 'TD' && dom.dataset.clickout) {
-        setShowDetail(true);
-      } else {
-        setShowDetail(false);
-      }
-    };
-
-    document.addEventListener('click', listener);
-    return () => {
-      document.removeEventListener('click', listener);
-    };
-  }, []);
   const hotKeyHandle = useCallback(
     (evt: KeyboardEvent) => {
       const { key } = evt;
       switch (key.toLocaleLowerCase()) {
         case 'escape':
-          setShowDetail(false);
           setActiveIndex(-1);
           break;
         case 'arrowup':
@@ -90,7 +80,7 @@ export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
   }, [hotKeyHandle]);
 
   const onMenuClick = useCallback(
-    (key: string, row: SpyNetwork.RequestInfo) => {
+    (key: string, row: ResolvedNetworkInfo) => {
       switch (key) {
         case 'copy-link':
           copy(row.url);
@@ -161,25 +151,103 @@ export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
           throw Error('Unknown key');
       }
     },
-    [],
+    [cookie],
   );
 
+  const [columns, setColumns] = useState<Columns[]>(() => {
+    const cache = localStorage.getItem(resizeCacheKey);
+    const value = cache && JSON.parse(cache);
+    return [
+      {
+        children: 'Name',
+        width: value?.Name || 150,
+      },
+      {
+        children: 'Path',
+        width: value?.Path || 300,
+      },
+      {
+        children: 'Method',
+        width: value?.Meth || 100,
+      },
+      {
+        children: 'Status',
+        width: value?.Stat || 100,
+      },
+      {
+        children: 'Type',
+        width: value?.Type || 100,
+      },
+      {
+        children: 'Time(≈)',
+      },
+    ];
+  });
+
+  const mergedColumns = useMemo(() => {
+    return columns.map((c, index) => ({
+      ...c,
+      onResizeStart: () => {
+        const container = containerRef.current!;
+
+        const lastColWidth = container.querySelector(
+          'thead tr th:last-child',
+        )?.clientWidth;
+        if (!lastColWidth) return;
+
+        const currentColWidth = container.querySelector(
+          `thead tr th:nth-child(${index + 1})`,
+        )?.clientWidth;
+        if (!currentColWidth) return;
+
+        const [min, max] = WIDTH_CONSTRAINTS;
+        const diffValue = lastColWidth - min;
+        const newCols = [...columns];
+
+        let currentColMax = currentColWidth;
+        if (diffValue > 0) {
+          newCols[index].widthConstraints = [
+            min,
+            Math.min(max, currentColMax + diffValue),
+          ];
+        }
+        setColumns(newCols);
+      },
+      onResize: ((
+        _: React.SyntheticEvent<Element>,
+        { size }: ResizeCallbackData,
+      ) => {
+        const newCols = [...columns];
+        newCols[index] = {
+          ...newCols[index],
+          width: size.width,
+        };
+        if (index === 0) {
+          setLeftDistance(`${size.width}px`);
+        }
+        setColumns(newCols);
+      }) as React.ReactEventHandler<any>,
+      onResizeStop: () => {
+        const value = fromPairs(map(columns, (c) => [c.children, c.width]));
+        localStorage.setItem(resizeCacheKey, JSON.stringify(value));
+      },
+    }));
+  }, [columns, resizeCacheKey]);
+
   return (
-    <div className="network-table">
+    <div className="network-table" ref={containerRef}>
       <div className="network-list">
-        <table className="network-list__header">
+        <table>
           <thead>
             <tr>
-              {networkTitle.map((t) => {
-                return <td key={t}>{t}</td>;
+              {mergedColumns.map((t) => {
+                return <ResizableTitle key={t.children as string} {...t} />;
               })}
             </tr>
           </thead>
-        </table>
-        {data.length > 0 ? (
-          <table className="network-list__body">
-            <tbody>
-              {data.map((row, index) => {
+          <tbody>
+            {data.length > 0 ? (
+              data.map((row, index) => {
                 return (
                   <Dropdown
                     key={row.id}
@@ -209,14 +277,12 @@ export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
                       })}
                     >
                       <td
-                        data-clickout
                         title={row.name}
                         className={clsx({
-                          active: showDetail && index === activeIndex,
+                          active: !!detailData && index === activeIndex,
                         })}
                         onClick={(evt: any) => {
                           setActiveIndex(index);
-                          // setDetailData(row);
                           setLeftDistance(evt.target.clientWidth);
                         }}
                       >
@@ -232,27 +298,24 @@ export const NetworkTable = ({ data, cookie }: NetworkTableProps) => {
                     </tr>
                   </Dropdown>
                 );
-              })}
-            </tbody>
-          </table>
-        ) : (
-          <Empty description={false} style={{ marginTop: 40 }} />
-        )}
+              })
+            ) : (
+              <Empty description={false} className="empty-table-placeholder" />
+            )}
+          </tbody>
+        </table>
       </div>
-      {showDetail && detailData && (
+      {detailData && (
         <div
           className="network-detail"
           style={{
             left: leftDistance,
           }}
-          onClick={() => {
-            detailClicked.current = true;
-          }}
         >
           <NetworkDetail
             data={detailData}
             onClose={() => {
-              setShowDetail(false);
+              setActiveIndex(-1);
             }}
           />
         </div>

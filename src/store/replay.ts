@@ -2,7 +2,6 @@
 import {
   SpyConsole,
   SpyMessage,
-  SpyNetwork,
   SpyStorage,
   SpySystem,
 } from '@huolala-tech/page-spy-types';
@@ -11,7 +10,11 @@ import { eventWithTime } from '@rrweb/types';
 import { produce } from 'immer';
 import { isEqual, omit } from 'lodash-es';
 import { REPLAY_STATUS_CHANGE } from '@/pages/Replay/events';
-import { isRRWebClickEvent, resolveUrlInfo } from '@/utils';
+import {
+  isRRWebClickEvent,
+  ResolvedNetworkInfo,
+  resolveUrlInfo,
+} from '@/utils';
 
 const isCaredActivity = (activity: HarborDataItem) => {
   const { type, data } = activity;
@@ -55,7 +58,7 @@ export interface ReplayStore {
   setRRWebStartTime: (timestamp: number) => void;
   activity: Activity[];
   allConsoleMsg: HarborDataItem<SpyConsole.DataItem>[];
-  allNetworkMsg: HarborDataItem<SpyNetwork.RequestInfo>[];
+  allNetworkMsg: HarborDataItem<ResolvedNetworkInfo>[];
   allRRwebEvent: eventWithTime[];
   allStorageMsg: HarborDataItem<SpyStorage.DataItem>[];
   allSystemMsg: SpySystem.DataItem[];
@@ -63,7 +66,7 @@ export interface ReplayStore {
   endTime: number;
   duration: number;
   consoleMsg: SpyConsole.DataItem[];
-  networkMsg: SpyNetwork.RequestInfo[];
+  networkMsg: ResolvedNetworkInfo[];
   storageMsg: Record<SpyStorage.DataType, SpyStorage.GetTypeDataItem['data']>;
   setAllData: (data: HarborDataItem[]) => void;
   flushActiveData: () => void;
@@ -279,7 +282,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     const { allNetworkMsg, networkMsg } = get();
 
     let networkIndex = 0;
-    const showedNetworkMsg: Map<string, SpyNetwork.RequestInfo> = new Map();
+    const showedNetworkMsg: Map<string, ResolvedNetworkInfo> = new Map();
     while (
       networkIndex < allNetworkMsg.length &&
       allNetworkMsg[networkIndex].timestamp <= currentTime

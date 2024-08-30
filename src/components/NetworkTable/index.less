@@ -15,7 +15,7 @@
 
 .network-table {
   height: 100%;
-  overflow: auto;
+  overflow-x: hidden;
   background-color: #fff;
 
   table {
@@ -24,9 +24,8 @@
     font-size: 13px;
     color: #4a4b4d;
     border-collapse: collapse;
-    // border: 1px solid @table-border-color;
+    th,
     td {
-      #mixin > .ellipsis;
       border-right: 1px solid @table-border-color;
       padding: 6px 6px;
       &.active {
@@ -36,8 +35,26 @@
         border-right: none;
       }
     }
-    thead tr {
+    thead {
+      position: sticky;
+      top: 0;
+      height: 30px;
       background-color: @thead-bg;
+      th {
+        text-align: left;
+        border-bottom: 1px solid @table-border-color;
+      }
+    }
+    tbody {
+      td {
+        #mixin > .ellipsis;
+        &:nth-child(1) {
+          cursor: pointer;
+        }
+        &:nth-child(6) {
+          text-align: right;
+        }
+      }
     }
     tbody {
       tr {
@@ -57,44 +74,11 @@
       }
     }
   }
-
-  .network-list {
-    td {
-      &:nth-child(1) {
-        width: 20%;
-      }
-      &:nth-child(2) {
-        width: 38%;
-      }
-      &:nth-child(3) {
-        width: 12%;
-      }
-      &:nth-child(4) {
-        width: 10%;
-      }
-      &:nth-child(5) {
-        width: 10%;
-      }
-      &:nth-child(6) {
-        width: 10%;
-      }
-    }
-    &__header {
-      position: sticky;
-      top: 0;
-      height: 30px;
-      td {
-        border-bottom: 1px solid @table-border-color;
-      }
-    }
-    &__body {
-      td:nth-child(1) {
-        cursor: pointer;
-      }
-      td:nth-child(6) {
-        text-align: right;
-      }
-    }
+  .empty-table-placeholder {
+    position: absolute;
+    left: 50%;
+    top: 80px;
+    transform: translateX(-50%);
   }
   .network-detail {
     position: absolute;
