@@ -125,4 +125,4 @@ docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:675
 
 ## FAQ
 
-点击查看 [常见问题解答](https://github.com/HuolalaTech/page-spy-web/wiki/%F0%9F%90%9E-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E8%A7%A3%E7%AD%94)。
+点击查看 [常见问题解答](https://www.pagespy.org/#/docs/faq)。
