@@ -93,7 +93,7 @@ yarn global add @huolala-tech/page-spy-api@latest
 npm install -g @huolala-tech/page-spy-api@latest
 ```
 
-安装完成之后你可以在命令行中直接执行 `page-spy-api` 启动服务。部署完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
+安装完成之后你可以在命令行中直接执行 `page-spy-api` 启动服务。启动完成后，打开浏览器访问 `http://localhost:6752` 体验，本地测试完成后即可部署到服务器上。
 
 ### 第二种：使用 Docker 部署
 
@@ -105,7 +105,7 @@ npm install -g @huolala-tech/page-spy-api@latest
 docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
 ```
 
-启动完成后浏览器访问 `<host>:6752`，页面顶部会出现 `接入 SDK` 菜单，点击菜单查看如何在业务项目中配置并集成。
+启动完成后，打开浏览器访问 `http://localhost:6752` 体验，本地测试完成后即可部署到服务器上。
 
 ## 技术支持
 

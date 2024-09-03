@@ -93,7 +93,7 @@ yarn global add @huolala-tech/page-spy-api@latest
 npm install -g @huolala-tech/page-spy-api@latest
 ```
 
-ダウンロードが完了したら、コマンドラインで `page-spy-api` を直接実行してサービスを開始することができます。デプロイが成功したら、ブラウザを開いて `<host>:6752` にアクセスすると、上部に `Inject SDK` メニューが表示され、メニューをクリックすると、ビジネスプロジェクトに設定および統合する方法が表示されます。
+ダウンロードが完了したら、コマンドラインで `page-spy-api` を直接実行してサービスを開始することができます。起動完了後、ブラウザで `http://localhost:6752` にアクセスし、ローカルテストが完了したらサーバーにデプロイすることができます。
 
 ### オプション 2: docker によるデプロイ
 
@@ -105,7 +105,15 @@ npm install -g @huolala-tech/page-spy-api@latest
 docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
 ```
 
-デプロイが成功したら、ブラウザを開いて `<host>:6752` にアクセスすると、上部に `Inject SDK` メニューが表示され、メニューをクリックすると、ビジネスプロジェクトに設定および統合する方法が表示されます。
+起動完了後、ブラウザで `http://localhost:6752` にアクセスし、ローカルテストが完了したらサーバーにデプロイすることができます。
+
+## コントリビュートするには？
+
+クリックして [Contributing](./CONTRIBUTING.md) をご覧ください。
+
+## FAQ
+
+クリックして [FAQ](https://www.pagespy.org/#/docs/faq) をご覧ください。
 
 ## コミュニティ
 
@@ -114,11 +122,3 @@ docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:675
 ## ロードマップ
 
 クリックして [Roadmap](https://github.com/orgs/HuolalaTech/projects/1) をご覧ください。
-
-## コントリビュートするには？
-
-クリックして [Contributing](./CONTRIBUTING.md) をご覧ください。
-
-## FAQ
-
-クリックして [FAQ](https://github.com/HuolalaTech/page-spy-web/wiki/faq) をご覧ください。
