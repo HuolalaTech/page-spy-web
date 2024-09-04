@@ -5,6 +5,7 @@ import {
   Menu,
   message,
   Row,
+  Skeleton,
   Tooltip,
   Typography,
 } from 'antd';
@@ -107,7 +108,7 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
   const clientInfo = useSocketMessageStore((socket) => socket.clientInfo);
 
   const menuItems = useMemo(() => {
-    if (!clientInfo) return [];
+    if (!clientInfo) return;
     return Object.entries(MENU_COMPONENTS)
       .filter(([key, item]) => {
         // Menu filter by some conditions``
@@ -140,6 +141,18 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
         };
       });
   }, [clientInfo, badge, navigate, search, t]);
+
+  if (!clientInfo) {
+    return Object.keys(MENU_COMPONENTS).map((_, index) => {
+      return (
+        <Skeleton.Button
+          key={index}
+          active
+          style={{ display: 'block', width: '90%', margin: '12px auto 0' }}
+        />
+      );
+    });
+  }
 
   return (
     <Menu
