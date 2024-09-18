@@ -1,5 +1,5 @@
 import { Menu } from 'antd';
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ConsolePanel } from '../ConsolePanel';
@@ -48,32 +48,36 @@ export const SiderMenu = memo(({ active }: SiderMenuProps) => {
     Storage: 0,
     System: 0,
   });
-  useEffect(
-    () =>
-      useReplayStore.subscribe(
-        throttle((state: ReplayStore) => {
-          const { Console, Network, Storage, System } =
-            backwardDataSize.current;
-          const current = {
-            Console: state.consoleMsg.length,
-            Network: state.networkMsg.length,
-            Storage: Object.values(state.storageMsg).reduce(
-              (acc, cur) => acc + cur.length,
-              0,
-            ),
-            System: state.allSystemMsg.length,
-          };
-          backwardDataSize.current[active] = current[active];
-          setBadge({
-            Console: Console !== current.Console,
-            Network: Network !== current.Network,
-            Storage: Storage !== current.Storage,
-            System: System !== current.System,
-          });
-        }, 500),
-      ),
+  const handleStateUpdate = useCallback(
+    (state: ReplayStore) => {
+      const current = {
+        Console: state.consoleMsg.length,
+        Network: state.networkMsg.length,
+        Storage: Object.values(state.storageMsg).reduce(
+          (acc, cur) => acc + cur.length,
+          0,
+        ),
+        System: state.allSystemMsg.length,
+      };
+      backwardDataSize.current[active] = current[active];
+      const { Console, Network, Storage, System } = backwardDataSize.current;
+      const result = {
+        Console: Console !== current.Console,
+        Network: Network !== current.Network,
+        Storage: Storage !== current.Storage,
+        System: System !== current.System,
+      };
+      setBadge(result);
+    },
     [active],
   );
+  useEffect(() => {
+    // tab changes
+    handleStateUpdate(useReplayStore.getState());
+    // state changes
+    const unFn = useReplayStore.subscribe(throttle(handleStateUpdate, 500));
+    return unFn;
+  }, [active, handleStateUpdate]);
 
   const menuItems = useMemo(() => {
     return Object.entries(MENU_COMPONENTS).map(([key, item]) => {
