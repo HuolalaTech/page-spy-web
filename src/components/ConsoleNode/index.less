@@ -41,6 +41,10 @@
 
 .atom-node {
   cursor: default;
+  &.disabled {
+    color: #8c8c8c;
+    cursor: not-allowed;
+  }
   .spread-controller {
     transform: rotateZ(0);
     transition: transform linear 0.1s;

@@ -228,6 +228,7 @@
     "update-layout": "调整布局",
     "speed": "倍速",
     "delete-select": "删除已选",
-    "delete-select-desc": "确认删除所有已选择的日志吗？"
+    "delete-select-desc": "确认删除所有已选择的日志吗？",
+    "unsupport-spread": "离线模式无法展开对象"
   }
 }

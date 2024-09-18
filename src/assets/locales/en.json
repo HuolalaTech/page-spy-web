@@ -229,6 +229,7 @@
     "update-layout": "Update Layout",
     "speed": "Speed",
     "delete-select": "Delete Selected",
-    "delete-select-desc": "Are you sure you want to delete selected logs?"
+    "delete-select-desc": "Are you sure you want to delete selected logs?",
+    "unsupport-spread": "Cannot spread object in offline mode"
   }
 }
