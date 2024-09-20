@@ -85,6 +85,8 @@ export interface ReplayStore {
   setIsPlaying: (value: boolean) => void;
   timeMode: TIME_MODE;
   setTimeMode: (mode: TIME_MODE) => void;
+  autoScroll: boolean;
+  setAutoScroll: (value: boolean) => void;
 }
 
 export const fixProgress = (progress: number) => {
@@ -406,6 +408,14 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     set(
       produce((state) => {
         state.timeMode = mode;
+      }),
+    );
+  },
+  autoScroll: false,
+  setAutoScroll(value) {
+    set(
+      produce((state) => {
+        state.autoScroll = value;
       }),
     );
   },

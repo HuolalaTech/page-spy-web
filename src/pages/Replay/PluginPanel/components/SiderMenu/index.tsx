@@ -1,8 +1,16 @@
 import { Menu } from 'antd';
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  ComponentType,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ConsolePanel } from '../ConsolePanel';
+import { ConsoleActions, ConsolePanel } from '../ConsolePanel';
 import { NetworkPanel } from '../NetworkPanel';
 import { SystemPanel } from '../SystemPanel';
 import { StoragePanel } from '../StoragePanel';
@@ -10,22 +18,26 @@ import { throttle } from 'lodash-es';
 import { ReplayStore, useReplayStore } from '@/store/replay';
 import clsx from 'clsx';
 
-export const MENU_COMPONENTS = {
+export type MenuType = 'Console' | 'Network' | 'Storage' | 'System';
+
+export const MENU_COMPONENTS: Record<
+  MenuType,
+  { Content: ComponentType; Extra?: ComponentType }
+> = {
   Console: {
-    component: ConsolePanel,
+    Content: ConsolePanel,
+    Extra: ConsoleActions,
   },
   Network: {
-    component: NetworkPanel,
+    Content: NetworkPanel,
   },
   Storage: {
-    component: StoragePanel,
+    Content: StoragePanel,
   },
   System: {
-    component: SystemPanel,
+    Content: SystemPanel,
   },
-} as const;
-
-export type MenuType = keyof typeof MENU_COMPONENTS;
+};
 
 interface SiderMenuProps {
   active: MenuType;
@@ -102,5 +114,12 @@ export const SiderMenu = memo(({ active }: SiderMenuProps) => {
     });
   }, [active, badge, navigate, search, t]);
 
-  return <Menu mode="horizontal" selectedKeys={[active]} items={menuItems} />;
+  return (
+    <Menu
+      mode="horizontal"
+      selectedKeys={[active]}
+      items={menuItems}
+      style={{ border: 'none' }}
+    />
+  );
 });
