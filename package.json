@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@huolala-tech/page-spy-browser": "^1.9.8",
+    "@huolala-tech/page-spy-browser": "^1.9.10",
     "@huolala-tech/page-spy-plugin-data-harbor": "^1.3.7",
     "@huolala-tech/page-spy-plugin-rrweb": "^1.2.7",
     "@huolala-tech/page-spy-types": "^1.9.6",

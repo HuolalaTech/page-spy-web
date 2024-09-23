@@ -742,10 +742,10 @@
   dependencies:
     "@huolala-tech/page-spy-types" "^1.9.6"
 
-"@huolala-tech/page-spy-browser@^1.9.8":
-  version "1.9.8"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-browser/-/page-spy-browser-1.9.8.tgz#56772a20bf31d1d82e44b242133509e83de60ae1"
-  integrity sha512-l1BHrwBNMIK4m6V++olgAp+Le0lCMMJuMB1PwGQgIWzyErlxf4b23/DFeAtW0bv4IfETTwUb+s4NktuVDVryrw==
+"@huolala-tech/page-spy-browser@^1.9.10":
+  version "1.9.10"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-browser/-/page-spy-browser-1.9.10.tgz#278bbcb42ab3b5d97e691e65e2a7d16c0b15052d"
+  integrity sha512-IFqtJErngj6rkKEwhwdITJzAxn2Q3cWrWhqcwNQEDiLbGXfZ8YsBVD0sYWN24TBsSivqBrMuSGYACDizjyXVgA==
   dependencies:
     "@babel/runtime" "^7.13.0"
     "@huolala-tech/page-spy-base" "^1.0.6"
