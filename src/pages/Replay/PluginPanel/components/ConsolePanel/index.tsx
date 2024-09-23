@@ -58,6 +58,8 @@ export const ConsolePanel = memo(() => {
       const value = parent.scrollTop;
       if (value < scrollY) {
         setAutoScroll(false);
+      } else {
+        setAutoScroll(true);
       }
       scrollY = value;
     };
