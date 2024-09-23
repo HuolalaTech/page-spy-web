@@ -1,4 +1,4 @@
-import { Layout } from 'antd';
+import { Col, Layout, Row } from 'antd';
 import { MENU_COMPONENTS, MenuType, SiderMenu } from './components/SiderMenu';
 import { useLocation } from 'react-router-dom';
 import { memo, useMemo } from 'react';
@@ -17,16 +17,24 @@ export const PluginPanel = memo(() => {
     return value as MenuType;
   }, [hash]);
 
-  const ActiveContent = useMemo(() => {
-    const content = MENU_COMPONENTS[hashKey];
-    return content.component || ConsolePanel;
+  const Active = useMemo(() => {
+    return MENU_COMPONENTS[hashKey] || MENU_COMPONENTS.Console;
   }, [hashKey]);
 
   return (
     <Layout className="plugin-panel">
-      <SiderMenu active={hashKey} />
+      <Row
+        justify="space-between"
+        align="middle"
+        style={{ paddingRight: 16, borderBottom: '1px solid rgb(5 5 5 / 6%)' }}
+      >
+        <Col>
+          <SiderMenu active={hashKey} />
+        </Col>
+        <Col>{Active.Extra && <Active.Extra />}</Col>
+      </Row>
       <Content style={{ position: 'relative', flex: '1 1 0' }}>
-        <ActiveContent />
+        <Active.Content />
       </Content>
     </Layout>
   );

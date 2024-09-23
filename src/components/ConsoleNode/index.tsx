@@ -8,6 +8,9 @@ import CopyContent from '../CopyContent';
 import type { SpyAtom } from '@huolala-tech/page-spy-types';
 import { LoadMore } from './LoadMore';
 import { useSocketMessageStore } from '@/store/socket-message';
+import { useConfig } from '../ConfigProvider';
+import { Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 function isAtomNode(data: SpyAtom.Overview) {
   return data && data.type === 'atom' && data.__atomId !== undefined;
@@ -156,12 +159,15 @@ interface AtomNodeProps {
   showArrow?: boolean;
 }
 function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
+  const { offline } = useConfig();
+  const { t } = useTranslation();
   const socket = useSocketMessageStore((state) => state.socket);
   const [spread, setSpread] = useState(false);
   const [property, setProperty] = useState<Record<string, SpyAtom.Overview>>(
     {},
   );
   useEffect(() => {
+    if (offline) return;
     if (socket) {
       socket.addListener(`atom-detail-${id}`, (data: any) => {
         setProperty(data);
@@ -170,7 +176,7 @@ function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
     return () => {
       socket?.removeListener(`atom-detail-${id}`);
     };
-  }, [socket, id]);
+  }, [socket, id, offline]);
 
   const PropertyPanel = useCallback(() => {
     let prototypeFlag = false;
@@ -205,7 +211,7 @@ function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
   }, [id, property, spread]);
 
   const getAtomDetail = useCallback(() => {
-    if (!id) return;
+    if (offline || !id) return;
     if (socket && Object.keys(property).length === 0) {
       socket.unicastMessage({
         type: 'atom-detail',
@@ -213,18 +219,24 @@ function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
       });
     }
     setSpread(!spread);
-  }, [socket, property, spread, id]);
+  }, [offline, id, socket, property, spread]);
 
   return (
-    <div className="atom-node">
-      <code className="console-node atom" onClick={getAtomDetail}>
-        {showArrow && (
-          <CaretRightOutlined
-            className={clsx(['spread-controller', spread && 'spread'])}
-          />
-        )}
-        <i>{value}</i>
-      </code>
+    <div
+      className={clsx('atom-node', {
+        disabled: offline,
+      })}
+    >
+      <Tooltip title={offline && t('replay.unsupport-spread')}>
+        <code className="console-node atom" onClick={getAtomDetail}>
+          {showArrow && (
+            <CaretRightOutlined
+              className={clsx(['spread-controller', spread && 'spread'])}
+            />
+          )}
+          <i>{value}</i>
+        </code>
+      </Tooltip>
       <PropertyPanel />
     </div>
   );
