@@ -228,6 +228,7 @@
     "update-layout": "레이아웃 업데이트",
     "speed": "속도",
     "delete-select": "선택 항목 삭제",
-    "delete-select-desc": "선택한 로그를 삭제하시겠습니까?"
+    "delete-select-desc": "선택한 로그를 삭제하시겠습니까?",
+    "unsupport-spread": "오프라인 모드에서는 객체를 펼칠 수 없습니다"
   }
 }

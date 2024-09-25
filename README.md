@@ -93,7 +93,7 @@ yarn global add @huolala-tech/page-spy-api@latest
 npm install -g @huolala-tech/page-spy-api@latest
 ```
 
-After the download is complete, you can directly execute `page-spy-api` in the command line to start the service. Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
+After the download is complete, you can directly execute `page-spy-api` in the command line to start the service. After the startup is complete, visit `http://localhost:6752` on the browser. Once local testing is complete, you can deploy it to the server.
 
 ### Option 2: deploy by docker
 
@@ -105,7 +105,15 @@ After the download is complete, you can directly execute `page-spy-api` in the c
 docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
 ```
 
-Once the deployment is successful, you can open the browser and access `<host>:6752`, the `Inject SDK` menu will be at the top, and you can find how to configure and integrate in the business project by click the menu.
+After the startup is complete, visit `http://localhost:6752` on the browser. Once local testing is complete, you can deploy it to the server.
+
+## How to contribute?
+
+Click to see the [Contributing](./CONTRIBUTING.md).
+
+## FAQ
+
+Click to see the [FAQ](https://www.pagespy.org/#/docs/faq).
 
 ## Community
 
@@ -114,11 +122,3 @@ Join us on our [Official Discord Server](https://discord.gg/ERPpNZkX)!
 ## Roadmap
 
 Click to see the [Roadmap](https://github.com/orgs/HuolalaTech/projects/1).
-
-## How to contribute?
-
-Click to see the [Contributing](./CONTRIBUTING.md).
-
-## FAQ
-
-Click to see the [FAQ](https://github.com/HuolalaTech/page-spy-web/wiki/faq).
