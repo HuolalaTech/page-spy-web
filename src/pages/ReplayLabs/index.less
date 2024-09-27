@@ -13,17 +13,28 @@
   }
   h2 {
     font-size: 42px;
-    color: #e0e0e0;
+  }
+  h3 {
+    font-size: 32px;
+  }
+  h4 {
+    font-size: 20px;
+  }
+  @media screen and (max-width: 768px) {
+    h1 {
+      font-size: 46px;
+    }
+    .statement {
+      font-size: 12px;
+    }
   }
   .code-block {
-    display: inline-block;
     margin-block: 40px;
     code * {
-      font-size: 18px;
+      font-size: 16px;
     }
   }
   .statement {
-    text-align: right;
     &:before {
       content: '*';
       margin-right: 4px;
