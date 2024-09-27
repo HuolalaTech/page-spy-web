@@ -232,5 +232,20 @@
     "delete-select": "Delete Selected",
     "delete-select-desc": "Are you sure you want to delete selected logs?",
     "unsupport-spread": "Cannot spread object in offline mode"
+  },
+  "lab": {
+    "welcome": "Welcome to the Replay Lab!",
+    "statement": "The log data is processed entirely on your local client without being transmitted to any server, so you can use it with confidence.",
+    "only-pc": "Please visit the PC version for the best experience :)",
+    "one-line": "With just one line,",
+    "load-pageSpy": "you can integrate PageSpy into your project.",
+    "then": "Once integrated,",
+    "feedback-demo": "a \"Feedback\" widget will appear at the bottom right of the page as shown.",
+    "try-click": "Try clicking it to check it out!",
+    "after": "Once everything is set,",
+    "click-upload": "click the button below to upload the file you just exported.",
+    "upload-btn": "Upload File",
+    "congratulation": "Good luck, developers!",
+    "desc": "(This only demonstrates the log replay functionality. PageSpy also supports real-time online debugging. For more details, please check the documentation.)"
   }
 }

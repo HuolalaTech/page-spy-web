@@ -7,9 +7,15 @@ import '@huolala-tech/page-spy-plugin-whole-bundle/dist/index.css';
 import { useEffect } from 'react';
 import { getReplayUrl } from '../LogList/SelectLogButton';
 import { isDoc } from '@/utils/constants';
+import { useThreshold } from '@/utils/useThreshold';
+import { useTranslation } from 'react-i18next';
 
 export const ReplayLabs = () => {
+  const { t } = useTranslation('translation', { keyPrefix: 'lab' });
+  const isMobile = useThreshold();
+
   useEffect(() => {
+    if (isMobile) return;
     const $wholeBundle = new WholeBundle({
       replayLabUrl: isDoc
         ? 'https://pagespy.org/#/replay-lab'
@@ -18,54 +24,64 @@ export const ReplayLabs = () => {
     return () => {
       $wholeBundle.abort();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="replay-lab">
-      <h1 style={{ textAlign: 'right' }}>欢迎来到回放实验室！</h1>
-      <div className="statement">
-        您的日志数据不会经过服务器传输、完全在您本地客户端运行，可放心使用
-      </div>
-      <h2 style={{ marginTop: 150 }}>一行代码，</h2>
-      <h2>在项目中接入 PageSpy</h2>
-      <CodeBlock code='<script src="https://pagespy.org/plugin/whole-bundle/index.min.js" crossorigin="anonymous"></script>' />
-
-      <h2 style={{ marginTop: '50vh' }}>接入之后，</h2>
-      <h2>页面会出现右下角所示的 &quot;问题反馈&quot; 组件</h2>
-      <h2>试着玩一下～</h2>
-
-      <h2 style={{ marginTop: '50vh' }}>一切就绪，</h2>
-      <h2>点击下方按钮，上传刚刚导出的文件</h2>
-      <Upload
-        accept=".json"
-        maxCount={1}
-        customRequest={async (file) => {
-          const url = URL.createObjectURL(file.file as File);
-          let replayURL = getReplayUrl(url);
-          if (isDoc) {
-            replayURL = `https://pagespy.org/#/replay?url=${url}#Console`;
-          }
-          setTimeout(() => {
-            window.open(replayURL);
-          }, 50);
-          return null;
-        }}
-        itemRender={() => null}
+      <h1 style={{ textAlign: isMobile ? 'center' : 'right' }}>
+        {t('welcome')}
+      </h1>
+      <div
+        className="statement"
+        style={{ textAlign: isMobile ? 'center' : 'right' }}
       >
-        <Button
-          size="large"
-          icon={<UploadOutlined />}
-          style={{ marginTop: 40, fontWeight: 700 }}
-        >
-          上传文件
-        </Button>
-      </Upload>
+        {t('statement')}
+      </div>
 
-      <h2 style={{ marginTop: '50vh' }}>开发者，祝你好运！</h2>
-      <h2>Talk is cheap, the code is shown.</h2>
-      <h3 style={{ marginTop: 20 }}>
-        （顺便说一下，PageSpy
-        支持离线日志回放、实时在线调试，更多内容请通过文档查看详情。）
-      </h3>
+      {isMobile ? (
+        <h3 style={{ marginTop: 150 }}>{t('only-pc')}</h3>
+      ) : (
+        <>
+          <h2 style={{ marginTop: 150 }}>{t('one-line')}</h2>
+          <h2>{t('load-pageSpy')}</h2>
+          <CodeBlock code='<script src="https://pagespy.org/plugin/whole-bundle/index.min.js" crossorigin="anonymous"></script>' />
+
+          <h2 style={{ marginTop: '50vh' }}>{t('then')}</h2>
+          <h2>{t('feedback-demo')}</h2>
+          <h2>{t('try-click')}</h2>
+
+          <h2 style={{ marginTop: '50vh' }}>{t('after')}</h2>
+          <h2>{t('click-upload')}</h2>
+          <Upload
+            accept=".json"
+            maxCount={1}
+            customRequest={async (file) => {
+              const url = URL.createObjectURL(file.file as File);
+              let replayURL = getReplayUrl(url);
+              if (isDoc) {
+                replayURL = `https://pagespy.org/#/replay?url=${url}#Console`;
+              }
+              setTimeout(() => {
+                window.open(replayURL);
+              }, 50);
+              return null;
+            }}
+            itemRender={() => null}
+          >
+            <Button
+              size="large"
+              icon={<UploadOutlined />}
+              style={{ marginTop: 40, fontWeight: 700 }}
+            >
+              {t('upload-btn')}
+            </Button>
+          </Upload>
+
+          <h2 style={{ marginTop: '50vh' }}>{t('congratulation')}</h2>
+          <h2>Talk is cheap, the code is shown.</h2>
+          <h4 style={{ marginTop: 20 }}>{t('desc')}</h4>
+        </>
+      )}
     </div>
   );
 };
