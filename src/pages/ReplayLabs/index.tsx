@@ -2,8 +2,17 @@ import { CodeBlock } from '@/components/CodeBlock';
 import './index.less';
 import { Button, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import WholeBundle from '@huolala-tech/page-spy-plugin-whole-bundle';
+import '@huolala-tech/page-spy-plugin-whole-bundle/dist/index.css';
+import { useEffect } from 'react';
 
 export const ReplayLabs = () => {
+  useEffect(() => {
+    const $wholeBundle = new WholeBundle();
+    return () => {
+      $wholeBundle.abort();
+    };
+  }, []);
   return (
     <div className="replay-labs">
       <h1 style={{ textAlign: 'right' }}>欢迎来到回放实验室！</h1>
