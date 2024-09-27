@@ -1,4 +1,4 @@
-import { isClient } from '@/utils/constants';
+import { isClient, isDoc } from '@/utils/constants';
 import { langType, useLanguage } from '@/utils/useLanguage';
 import Icon, { GithubOutlined } from '@ant-design/icons';
 import { Space, Divider, MenuProps, Dropdown, ConfigProvider } from 'antd';
@@ -61,6 +61,16 @@ export const NavMenuOnPc = () => {
         'is-dark': isDark,
       })}
     >
+      {/* Replay labs */}
+      {isDoc && (
+        <Link to="/replay-labs" className="menu-item labs">
+          <Space align="center">
+            <Icon component={ReplaySvg} style={{ fontSize: 18 }} />
+            <span>{t('common.replay-labs')}</span>
+          </Space>
+        </Link>
+      )}
+      <Divider type="vertical" className="divider-bg" />
       {/* Docs */}
       <Link to="/docs" className="menu-item doc">
         <Space align="center">
