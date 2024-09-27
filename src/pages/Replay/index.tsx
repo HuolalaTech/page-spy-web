@@ -21,7 +21,7 @@ import { useEventListener } from '@/utils/useEventListener';
 import { useShallow } from 'zustand/react/shallow';
 import { ErrorDetailDrawer } from '@/components/ErrorDetailDrawer';
 
-const Replay = () => {
+export const Replay = () => {
   const { t } = useTranslation();
   const { url } = useSearch();
   const setAllData = useReplayStore((state) => state.setAllData);
@@ -147,5 +147,3 @@ const Replay = () => {
     </div>
   );
 };
-
-export default Replay;

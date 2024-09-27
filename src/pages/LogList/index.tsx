@@ -72,7 +72,7 @@ const FILE_STATUS: Record<
   },
 };
 
-const LogList = () => {
+export const LogList = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
 
@@ -454,5 +454,3 @@ const LogList = () => {
     </Layout>
   );
 };
-
-export default LogList;

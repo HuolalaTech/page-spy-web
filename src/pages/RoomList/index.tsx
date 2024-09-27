@@ -85,7 +85,7 @@ const filterConnections = (
     });
 };
 
-const RoomList = () => {
+export const RoomList = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
 
@@ -310,5 +310,3 @@ const RoomList = () => {
     </Layout>
   );
 };
-
-export default RoomList;
