@@ -3,7 +3,7 @@ import './index.less';
 import { Button, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 
-export const ReplayLabs = () => {
+const ReplayLabs = () => {
   return (
     <div className="replay-labs">
       <h1 style={{ textAlign: 'right' }}>欢迎来到回放实验室！</h1>
@@ -47,3 +47,5 @@ export const ReplayLabs = () => {
     </div>
   );
 };
+
+export default ReplayLabs;
