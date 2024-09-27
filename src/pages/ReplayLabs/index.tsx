@@ -62,6 +62,10 @@ export const ReplayLabs = () => {
 
       <h2 style={{ marginTop: '50vh' }}>开发者，祝你好运！</h2>
       <h2>Talk is cheap, the code is shown.</h2>
+      <h3 style={{ marginTop: 20 }}>
+        （顺便说一下，PageSpy
+        支持离线日志回放、实时在线调试，更多内容请通过文档查看详情。）
+      </h3>
     </div>
   );
 };
