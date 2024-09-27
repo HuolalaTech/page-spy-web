@@ -44,7 +44,8 @@
     "confirm": "Confirm",
     "copied": "Copied",
     "prev": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "replay-labs": "Replay Labs"
   },
   "error": {
     "oops": "Oops! Errors happened~",

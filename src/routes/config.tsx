@@ -10,6 +10,7 @@ import { RoomList } from '@/pages/RoomList';
 import { Docs } from '@/pages/Docs';
 import { Replay } from '@/pages/Replay';
 import { LogList } from '@/pages/LogList';
+import { ReplayLabs } from '@/pages/ReplayLabs';
 
 const Devtools = React.lazy(() => import('@/pages/Devtools'));
 
@@ -49,6 +50,10 @@ const routes: RouteObject[] = [
       {
         path: '/replay',
         element: <Replay />,
+      },
+      {
+        path: '/replay-labs',
+        element: <ReplayLabs />,
       },
     ],
   },
