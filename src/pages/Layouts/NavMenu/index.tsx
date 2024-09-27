@@ -63,10 +63,10 @@ export const NavMenuOnPc = () => {
     >
       {/* Replay labs */}
       {isDoc && (
-        <Link to="/replay-labs" className="menu-item labs">
+        <Link to="/replay-lab" className="menu-item labs">
           <Space align="center">
             <Icon component={ReplaySvg} style={{ fontSize: 18 }} />
-            <span>{t('common.replay-labs')}</span>
+            <span>{t('common.replay-lab')}</span>
           </Space>
         </Link>
       )}

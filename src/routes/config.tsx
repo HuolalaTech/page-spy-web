@@ -52,7 +52,7 @@ const routes: RouteObject[] = [
         element: <Replay />,
       },
       {
-        path: '/replay-labs',
+        path: '/replay-lab',
         element: <ReplayLabs />,
       },
     ],

@@ -5,16 +5,17 @@ import { UploadOutlined } from '@ant-design/icons';
 import WholeBundle from '@huolala-tech/page-spy-plugin-whole-bundle';
 import '@huolala-tech/page-spy-plugin-whole-bundle/dist/index.css';
 import { useEffect } from 'react';
+import { getReplayUrl } from '../LogList/SelectLogButton';
 
 export const ReplayLabs = () => {
   useEffect(() => {
-    const $wholeBundle = new WholeBundle();
+    const $wholeBundle = new WholeBundle({});
     return () => {
       $wholeBundle.abort();
     };
   }, []);
   return (
-    <div className="replay-labs">
+    <div className="replay-lab">
       <h1 style={{ textAlign: 'right' }}>欢迎来到回放实验室！</h1>
       <div className="statement">
         您的日志数据不会经过服务器传输、完全在您本地客户端运行，可放心使用
@@ -34,7 +35,7 @@ export const ReplayLabs = () => {
         maxCount={1}
         customRequest={async (file) => {
           const url = URL.createObjectURL(file.file as File);
-          const replayURL = `https://pagespy.org/#/replay?url=${url}#Console`;
+          const replayURL = getReplayUrl(url);
           setTimeout(() => {
             window.open(replayURL);
           }, 50);
@@ -45,7 +46,7 @@ export const ReplayLabs = () => {
         <Button
           size="large"
           icon={<UploadOutlined />}
-          style={{ marginTop: 40 }}
+          style={{ marginTop: 40, fontWeight: 700 }}
         >
           上传文件
         </Button>
