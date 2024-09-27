@@ -10,7 +10,11 @@ import { isDoc } from '@/utils/constants';
 
 export const ReplayLabs = () => {
   useEffect(() => {
-    const $wholeBundle = new WholeBundle({});
+    const $wholeBundle = new WholeBundle({
+      replayLabUrl: isDoc
+        ? 'https://pagespy.org/#/replay-lab'
+        : `${location.protocol}//${window.DEPLOY_BASE_PATH}/#/replay-lab`,
+    });
     return () => {
       $wholeBundle.abort();
     };
@@ -30,7 +34,7 @@ export const ReplayLabs = () => {
       <h2>试着玩一下～</h2>
 
       <h2 style={{ marginTop: '50vh' }}>一切就绪，</h2>
-      <h2>点击下方按钮，上传导出的文件</h2>
+      <h2>点击下方按钮，上传刚刚导出的文件</h2>
       <Upload
         accept=".json"
         maxCount={1}
