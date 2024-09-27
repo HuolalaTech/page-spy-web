@@ -6,6 +6,7 @@ import WholeBundle from '@huolala-tech/page-spy-plugin-whole-bundle';
 import '@huolala-tech/page-spy-plugin-whole-bundle/dist/index.css';
 import { useEffect } from 'react';
 import { getReplayUrl } from '../LogList/SelectLogButton';
+import { isDoc } from '@/utils/constants';
 
 export const ReplayLabs = () => {
   useEffect(() => {
@@ -35,7 +36,10 @@ export const ReplayLabs = () => {
         maxCount={1}
         customRequest={async (file) => {
           const url = URL.createObjectURL(file.file as File);
-          const replayURL = getReplayUrl(url);
+          let replayURL = getReplayUrl(url);
+          if (isDoc) {
+            replayURL = `https://pagespy.org/#/replay?url=${url}#Console`;
+          }
           setTimeout(() => {
             window.open(replayURL);
           }, 50);
