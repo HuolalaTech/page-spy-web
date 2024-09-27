@@ -6,7 +6,7 @@ export const useDarkTheme = () => {
   const isDark = useMemo(() => {
     if (
       pathname === '/' ||
-      ['/docs', '/replay-labs'].some((i) => pathname.startsWith(i))
+      ['/docs', '/replay-lab'].some((i) => pathname.startsWith(i))
     )
       return true;
     return false;
