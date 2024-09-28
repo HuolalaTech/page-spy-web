@@ -44,7 +44,7 @@ export const ReplayLabs = () => {
         <>
           <h2 style={{ marginTop: 150 }}>{t('one-line')}</h2>
           <h2>{t('load-pageSpy')}</h2>
-          <CodeBlock code='<script src="https://pagespy.org/plugin/whole-bundle/index.min.js" crossorigin="anonymous"></script>' />
+          <CodeBlock code='<script src="https://www.pagespy.org/plugin/whole-bundle/index.min.js" crossorigin="anonymous"></script>' />
 
           <h2 style={{ marginTop: '50vh' }}>{t('then')}</h2>
           <h2>{t('feedback-demo')}</h2>
