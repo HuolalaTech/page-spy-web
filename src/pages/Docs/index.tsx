@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import { LoadingFallback } from '@/components/LoadingFallback';
 import { TransitionContextWrapper } from '@/components/Transition';
 
-export const Docs = () => {
+const Docs = () => {
   return (
     <div className="docs">
       <Suspense fallback={<LoadingFallback />}>
@@ -17,3 +17,5 @@ export const Docs = () => {
     </div>
   );
 };
+
+export default Docs;
