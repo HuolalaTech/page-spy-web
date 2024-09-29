@@ -10,7 +10,7 @@ import { isDoc } from '@/utils/constants';
 import { useThreshold } from '@/utils/useThreshold';
 import { useTranslation } from 'react-i18next';
 
-export const ReplayLabs = () => {
+const ReplayLabs = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'lab' });
   const isMobile = useThreshold();
 
@@ -85,3 +85,5 @@ export const ReplayLabs = () => {
     </div>
   );
 };
+
+export default ReplayLabs;

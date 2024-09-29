@@ -17,6 +17,15 @@ export default ({ mode, command }) => {
       target: ['chrome100'],
       sourcemap: isProd ? 'hidden' : true,
       outDir: isDoc ? 'docs-dist' : 'dist',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            react: ['react'],
+            'react-dom': ['react-dom'],
+            'react-router-dom': ['react-router-dom'],
+          },
+        },
+      },
     },
     resolve: {
       alias: [{ find: '@', replacement: path.join(__dirname, './src') }],

@@ -63,14 +63,16 @@ export const NavMenuOnPc = () => {
     >
       {/* Replay labs */}
       {isDoc && (
-        <Link to="/replay-lab" className="menu-item labs">
-          <Space align="center">
-            <Icon component={ReplaySvg} style={{ fontSize: 18 }} />
-            <span>{t('common.replay-lab')}</span>
-          </Space>
-        </Link>
+        <>
+          <Link to="/replay-lab" className="menu-item labs">
+            <Space align="center">
+              <Icon component={ReplaySvg} style={{ fontSize: 18 }} />
+              <span>{t('common.replay-lab')}</span>
+            </Space>
+          </Link>
+          <Divider type="vertical" className="divider-bg" />
+        </>
       )}
-      <Divider type="vertical" className="divider-bg" />
       {/* Docs */}
       <Link to="/docs" className="menu-item doc">
         <Space align="center">
