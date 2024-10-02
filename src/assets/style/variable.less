@@ -17,9 +17,12 @@
 
 #compose {
   .gradient-text() {
-    background: @gradient;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: @primary-color;
+    @supports (background-clip: text) {
+      background: @gradient;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
   }
 }
 
