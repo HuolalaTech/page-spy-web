@@ -40,6 +40,7 @@ export const Layouts = () => {
                 <a
                   href="https://www.producthunt.com/posts/pagespy?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pagespy"
                   target="_blank"
+                  className="producthunt-brand"
                 >
                   <img
                     src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=429852&theme=light"
