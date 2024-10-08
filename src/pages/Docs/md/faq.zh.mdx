@@ -51,9 +51,9 @@ PageSpy 借助 CodeSandbox 平台发布了与当下流行的所有框架的接�
 - **Nextjs**：[CodeSandbox - PageSpy in Nextjs](https://codesandbox.io/p/sandbox/page-spy-with-nextjs-5htxv5)
 - **Nuxtjs**：[CodeSandbox - PageSpy in Nuxtjs](https://codesandbox.io/p/sandbox/page-spy-with-nuxtjs-8znq22)
 
-### test.jikejishu.com 是官方提供的域名吗？一直可以用吗？#test-domain
+### pagespy.jikejishu.com 是官方提供的域名吗？一直可以用吗？#test-domain
 
-[https://test.jikejishu.com](https://test.jikejishu.com) 是我们为了让大家能够在线体验、学习 PageSpy 临时搭建的服务，**不保证 24 小时可用性、不保证数据安全、造成的损失自负**，强烈建议大家在体验后前往私服、内网中自行部署。
+[https://pagespy.jikejishu.com](https://pagespy.jikejishu.com) 是我们为了让大家能够在线体验、学习 PageSpy 临时搭建的服务，**不保证 24 小时可用性、不保证数据安全、造成的损失自负**，强烈建议大家在体验后前往私服、内网中自行部署。
 
 ### 为什么本地 6752 端口可以访问，部署到服务器上就不行了？#server-port
 
@@ -68,19 +68,19 @@ PageSpy 借助 CodeSandbox 平台发布了与当下流行的所有框架的接�
 
 ### 部署的时候 nginx 该怎么配置？#nginx
 
-这里贴出 `https://test.jikejishu.com` 的 nginx 配置供大家参考：
+这里贴出 `https://pagespy.jikejishu.com` 的 nginx 配置供大家参考：
 
 ```nginx
 server {
   listen 443 ssl;
-  server_name test.jikejishu.com;
+  server_name pagespy.jikejishu.com;
 
   if ($scheme != https) {
       rewrite ^(.*)$  https://$host$1 permanent;
   }
   
-  ssl_certificate /etc/letsencrypt/live/test.jikejishu.com/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/test.jikejishu.com/privkey.pem;
+  ssl_certificate /etc/letsencrypt/live/pagespy.jikejishu.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/pagespy.jikejishu.com/privkey.pem;
 
   location / {
       proxy_pass http://127.0.0.1:6752;
@@ -91,13 +91,13 @@ server {
 }
 
 server {
-  if ($host = test.jikejishu.com) {
+  if ($host = pagespy.jikejishu.com) {
       return 301 https://$host$request_uri;
   }
 
   listen 80;
   listen [::]:80;
-  server_name test.jikejishu.com;
+  server_name pagespy.jikejishu.com;
   return 404;
 }
 ```
@@ -226,7 +226,7 @@ PageSpy 为大家准备了浏览器插件，插件提供了以下特性：
     var script1 = document.createElement('script');
     script1.setAttribute('crossorigin', 'anonymous');
     // 实际项目中请替换 SDK 的地址连接
-    script1.src = 'https://test.jikejishu.com/page-spy/index.min.js';
+    script1.src = 'https://pagespy.jikejishu.com/page-spy/index.min.js';
 
     var script2 = document.createElement('script');
     script2.textContent = 'window.$pageSpy = new PageSpy();';

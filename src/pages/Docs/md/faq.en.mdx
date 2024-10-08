@@ -50,9 +50,9 @@ PageSpy has published integration guides for all popular frameworks on the CodeS
 - **Nextjs**：[CodeSandbox - PageSpy in Nextjs](https://codesandbox.io/p/sandbox/page-spy-with-nextjs-5htxv5)
 - **Nuxtjs**：[CodeSandbox - PageSpy in Nuxtjs](https://codesandbox.io/p/sandbox/page-spy-with-nuxtjs-8znq22)
 
-### Is test.jikejishu.com an Officially Provided Domain? Will It Always Be Available? #test-domain
+### Is pagespy.jikejishu.com an Officially Provided Domain? Will It Always Be Available? #test-domain
 
-[https://test.jikejishu.com](https://test.jikejishu.com) is a temporary service set up by us to allow everyone to experience and learn PageSpy online. We do not guarantee 24-hour availability, data security, or assume responsibility for any losses. We strongly recommend deploying privately or within an intranet after experiencing.
+[https://pagespy.jikejishu.com](https://pagespy.jikejishu.com) is a temporary service set up by us to allow everyone to experience and learn PageSpy online. We do not guarantee 24-hour availability, data security, or assume responsibility for any losses. We strongly recommend deploying privately or within an intranet after experiencing.
 
 ### Why Can Local Port 6752 Be Accessed, But Not When Deployed on a Server? #server-port
 
@@ -67,19 +67,19 @@ This usually indicates that the SDK successfully created a room but failed to jo
 
 ### How Should nginx Be Configured During Deployment? #nginx
 
-Here's an nginx configuration for https://test.jikejishu.com:
+Here's an nginx configuration for https://pagespy.jikejishu.com:
 
 ```nginx
 server {
   listen 443 ssl;
-  server_name test.jikejishu.com;
+  server_name pagespy.jikejishu.com;
 
   if ($scheme != https) {
       rewrite ^(.*)$  https://$host$1 permanent;
   }
   
-  ssl_certificate /etc/letsencrypt/live/test.jikejishu.com/fullchain.pem;
-  ssl_certificate_key /etc/letsencrypt/live/test.jikejishu.com/privkey.pem;
+  ssl_certificate /etc/letsencrypt/live/pagespy.jikejishu.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/pagespy.jikejishu.com/privkey.pem;
 
   location / {
       proxy_pass http://127.0.0.1:6752;
@@ -90,13 +90,13 @@ server {
 }
 
 server {
-  if ($host = test.jikejishu.com) {
+  if ($host = pagespy.jikejishu.com) {
       return 301 https://$host$request_uri;
   }
 
   listen 80;
   listen [::]:80;
-  server_name test.jikejishu.com;
+  server_name pagespy.jikejishu.com;
   return 404;
 }
 ```
@@ -224,7 +224,7 @@ Refer to the following content:
     var script1 = document.createElement('script');
     script1.setAttribute('crossorigin', 'anonymous');
     // Replace the SDK URL with the actual project URL
-    script1.src = 'https://test.jikejishu.com/page-spy/index.min.js';
+    script1.src = 'https://pagespy.jikejishu.com/page-spy/index.min.js';
 
     var script2 = document.createElement('script');
     script2.textContent = 'window.$pageSpy = new PageSpy();';
