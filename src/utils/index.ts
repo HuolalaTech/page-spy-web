@@ -19,10 +19,9 @@ export function getFileExtension(url: string) {
   // 移除查询参数
   const pathWithoutQuery = origin.split('?')[0];
 
-  const lastDotIndex = pathWithoutQuery.lastIndexOf('.');
-  if (lastDotIndex === -1) return '';
+  const ext = pathWithoutQuery.match(/\.([^.\/\\]+)$/);
 
-  return pathWithoutQuery.substring(lastDotIndex + 1);
+  return ext?.[1];
 }
 
 export function resolveProtocol() {
