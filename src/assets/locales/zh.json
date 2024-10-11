@@ -92,6 +92,8 @@
     "doesTitle": "检测运行时，<br />远程操作！",
     "provides": "我们提供",
     "providesTitle": "开箱即用的 <1>SDK</1> 和<br /> <4>调试的客户端</4>",
+    "load-script": "首先，引入文件",
+    "init-instance": "然后，配置（可选的）并初始化",
     "welcome": "欢迎使用 PageSpy"
   },
   "selConn": {

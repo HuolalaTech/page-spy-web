@@ -92,6 +92,8 @@
     "doesTitle": "ランタイムの検出、<br />リモート操作！",
     "provides": "提供するもの",
     "providesTitle": "使用準備の整った <1>SDK</1> および<br /> <4>クライアントデバッグ</4>",
+    "load-script": "まず、ファイルを読み込む",
+    "init-instance": "次に、設定（任意）して初期化する",
     "welcome": "PageSpyへようこそ"
   },
   "selConn": {
