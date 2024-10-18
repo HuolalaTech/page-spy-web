@@ -2,7 +2,7 @@ import { langType, useLanguage } from '@/utils/useLanguage';
 import { useNavigate, useParams } from 'react-router-dom';
 import './index.less';
 import clsx from 'clsx';
-import { memo, useEffect, useTransition } from 'react';
+import { Children, memo, useEffect, useTransition } from 'react';
 import { useSidebarStore } from '@/store/doc-sidebar';
 import { useShallow } from 'zustand/react/shallow';
 import { TransitionLink } from '@/components/Transition';
@@ -25,15 +25,61 @@ export const DOC_MENUS = [
         },
         doc: 'introduction',
       },
+    ],
+  },
+  {
+    group: {
+      zh: '服务部署',
+      en: 'Deploy',
+      ja: 'Deploy',
+      ko: 'Deploy',
+    },
+    children: [
       {
         label: {
-          zh: '服务部署',
-          en: 'Deploy',
-          ja: 'Deploy',
-          ko: 'Deploy',
+          zh: '部署说明',
+          en: 'Guide',
+          ja: '使用説明',
+          ko: '사용 설명',
         },
-        doc: 'deploy',
+        doc: 'deploy-guide',
       },
+      {
+        label: {
+          zh: '使用 Node 部署',
+          en: 'Deploy with Node',
+          ja: 'Node を使用してデプロイ',
+          ko: 'Node로 배포',
+        },
+        doc: 'deploy-with-node',
+      },
+      {
+        label: {
+          zh: '使用 Docker 部署',
+          en: 'Deploy with Docker',
+          ja: 'Docker を使用してデプロイ',
+          ko: 'Docker로 배포',
+        },
+        doc: 'deploy-with-docker',
+      },
+      {
+        label: {
+          zh: '使用 宝塔 部署',
+          en: 'Deploy with Baota',
+          ja: '宝塔を使用してデプロイ',
+          ko: 'Baota로 배포',
+        },
+        doc: 'deploy-with-baota',
+      },
+      // {
+      //   label: {
+      //     zh: '使用 1Panel 部署',
+      //     en: 'Deploy with 1Panel',
+      //     ja: '1Panel を使用してデプロイ',
+      //     ko: '1Panel로 배포',
+      //   },
+      //   doc: 'deploy-with-1panel',
+      // },
     ],
   },
   {
