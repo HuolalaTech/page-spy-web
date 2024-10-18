@@ -182,7 +182,7 @@ You can protect the server by setting an IP whitelist in nginx or using HTTP Aut
       proxy_set_header      Connection "upgrade";
     }
 
-    location ~ /(api|page-spy) {
+    location ~ /(api|page-spy|plugin) {
       proxy_pass http://127.0.0.1:6752;
       proxy_http_version    1.1;
       proxy_set_header      Upgrade $http_upgrade;

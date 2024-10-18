@@ -1,5 +1,3 @@
-
-
 import moduleImg from '@/assets/image/screenshot/module.png';
 import dynamicInjectImg from '@/assets/image/screenshot/dynamic-inject.png';
 import pnpmInstallImg from '@/assets/image/screenshot/pnpm-install.png';
@@ -15,14 +13,13 @@ PageSpy 模块间的依赖关系和交互示意图：
 - 浏览器 SDK 的兼容性目标设置的是 [`["chrome > 75","safari > 12", "> 0.1%", "not dead","not op_mini all"]`](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-browser/package.json#L66-L72)，其他 SDK 可以前往各自的仓库查看；
 - 调试端主要是开发者使用，对于浏览器的新特性使用我们保持开放的态度。所以建议使用最新版本的浏览器，设置的兼容性目标是 [`["last 2 chrome version", "last 2 firefox version", "last 2 safari version"]`](https://github.com/HuolalaTech/page-spy-web/blob/main/package.json#L92-L96)。
 
-
 ### 如何隐藏 SDK 渲染的图标？#hide-logo
 
 ```js
 window.$pageSpy = new PageSpy({
   // ... 其他配置参数
-  autoRender: false
-})
+  autoRender: false,
+});
 ```
 
 ### 实例化都可以传哪些参数，它们的作用分别是什么？#init-params
@@ -78,7 +75,7 @@ server {
   if ($scheme != https) {
       rewrite ^(.*)$  https://$host$1 permanent;
   }
-  
+
   ssl_certificate /etc/letsencrypt/live/pagespy.jikejishu.com/fullchain.pem;
   ssl_certificate_key /etc/letsencrypt/live/pagespy.jikejishu.com/privkey.pem;
 
@@ -135,12 +132,11 @@ server {
 ```js
 window.$pageSpy = new PageSpy({
   // 例如 api: "example.com/pagespy"
-  api: "<host>/<sub-path>",
+  api: '<host>/<sub-path>',
 
   // 例如 clientOrigin: "https://example.com/pagespy"
-  clientOrigin: "<scheme>://<host>/<sub-path>"
-
-})
+  clientOrigin: '<scheme>://<host>/<sub-path>',
+});
 ```
 
 ### 调试端如何加一些安全认证的保护，开发者通过认证才可以访问？#basic-auth
@@ -184,7 +180,7 @@ window.$pageSpy = new PageSpy({
       proxy_set_header      Connection "upgrade";
     }
 
-    location ~ /(api|page-spy) {
+    location ~ /(api|page-spy|plugin) {
       proxy_pass http://127.0.0.1:6752;
       proxy_http_version    1.1;
       proxy_set_header      Upgrade $http_upgrade;
@@ -199,7 +195,7 @@ window.$pageSpy = new PageSpy({
 
 PageSpy 为大家准备了浏览器插件，插件提供了以下特性：
 
-- 自动注入最新版本的 SDK；
+- 自动注入最新版本的  SDK；
 - 自动完成实例化操作；
 - 提供注入的域名配置规则；
 
@@ -220,21 +216,21 @@ PageSpy 为大家准备了浏览器插件，插件提供了以下特性：
 // @grant        none
 // ==/UserScript==
 
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    var script1 = document.createElement('script');
-    script1.setAttribute('crossorigin', 'anonymous');
-    // 实际项目中请替换 SDK 的地址连接
-    script1.src = 'https://pagespy.jikejishu.com/page-spy/index.min.js';
+  var script1 = document.createElement('script');
+  script1.setAttribute('crossorigin', 'anonymous');
+  // 实际项目中请替换 SDK 的地址连接
+  script1.src = 'https://pagespy.jikejishu.com/page-spy/index.min.js';
 
-    var script2 = document.createElement('script');
-    script2.textContent = 'window.$pageSpy = new PageSpy();';
+  var script2 = document.createElement('script');
+  script2.textContent = 'window.$pageSpy = new PageSpy();';
 
-    document.head.prepend(script1);
-    script1.onload = () => {
-        document.head.appendChild(script2);
-    }
+  document.head.prepend(script1);
+  script1.onload = () => {
+    document.head.appendChild(script2);
+  };
 })();
 ```
 
@@ -305,8 +301,25 @@ SDK 可以对页面进行 “截图” 并发送到调试端，但由于：
     "maxRoomNumber": 500, //最大允许房间数量
     "corsConfig": {
       "allowOrigins": ["https://test.huolala.com"], // 默认配置允许所有域名跨域
-      "allowHeaders": ["Origin", "Authorization", "Content-Length", "X-Request-Id", "Content-Type", "Referer", "User-Agent", "Host"],
-      "allowMethods": ["HEAD", "POST", "GET", "OPTIONS", "PUT", "DELETE", "UPDATE"],
+      "allowHeaders": [
+        "Origin",
+        "Authorization",
+        "Content-Length",
+        "X-Request-Id",
+        "Content-Type",
+        "Referer",
+        "User-Agent",
+        "Host"
+      ],
+      "allowMethods": [
+        "HEAD",
+        "POST",
+        "GET",
+        "OPTIONS",
+        "PUT",
+        "DELETE",
+        "UPDATE"
+      ],
       "exposeHeaders": ["X-Request-Id"]
     }
   }
@@ -387,5 +400,4 @@ SDK 可以对页面进行 “截图” 并发送到调试端，但由于：
 ### 为什么上传的文件日志不见了？#offline-log
 
 - 上传的文件日志默认最多保存最新的 10 G，以及 30 天，可以通过修改配置来自定义。
-- 上传日志保存在运行目录的 log 目录下，docker 运行时候，如果 docker 被销毁日志也会丢失，可以用目录映射 `-v ./log:/app/log -v ./data:/app/data` 来持久话。
-
+- 上传日志保存在运行目录的 log 目录下，docker 运行时候，如果 docker 被销毁日志也会丢失，可以用目录映射 `-v ./log:/app/log -v ./data:/app/data` 来持久化。
