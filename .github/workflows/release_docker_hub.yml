@@ -7,12 +7,11 @@
 # To get a newer version, you will need to update the SHA.
 # You can also reference a tag or branch, but the action may change without warning.
 
-name: Docker hub Create and publish a dev Docker image
+name: Docker hub Create and publish a Docker image
 
 on:
   push:
-    branches: ["main"]
-
+    branches: ["release"]
 env:
   USER_NAME: huolalatech
   IMAGE_NAME: page-spy-web
@@ -55,13 +54,20 @@ jobs:
         with:
           images: ${{ env.USER_NAME }}/${{ env.IMAGE_NAME }}
 
-      - name: Build and push Docker hub image
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
 
       - name: Lark bot notify
         env:
