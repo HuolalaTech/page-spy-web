@@ -1,5 +1,3 @@
-
-
 import moduleImg from '@/assets/image/screenshot/module.png';
 import dynamicInjectImg from '@/assets/image/screenshot/dynamic-inject.png';
 import pnpmInstallImg from '@/assets/image/screenshot/pnpm-install.png';
@@ -20,8 +18,8 @@ Dependency and interaction diagram between PageSpy modules:
 ```js
 window.$pageSpy = new PageSpy({
   // ... other configuration parameters
-  autoRender: false
-})
+  autoRender: false,
+});
 ```
 
 ### Instantiation Parameters and Their Purposes?#init-params
@@ -77,7 +75,7 @@ server {
   if ($scheme != https) {
       rewrite ^(.*)$  https://$host$1 permanent;
   }
-  
+
   ssl_certificate /etc/letsencrypt/live/pagespy.jikejishu.com/fullchain.pem;
   ssl_certificate_key /etc/letsencrypt/live/pagespy.jikejishu.com/privkey.pem;
 
@@ -134,12 +132,11 @@ After adjusting the configuration, restart nginx to access via the subpath. Duri
 ```js
 window.$pageSpy = new PageSpy({
   // For example api: "example.com/pagespy"
-  api: "<host>/<sub-path>",
+  api: '<host>/<sub-path>',
 
   // For example clientOrigin: "https://example.com/pagespy"
-  clientOrigin: "<scheme>://<host>/<sub-path>"
-
-})
+  clientOrigin: '<scheme>://<host>/<sub-path>',
+});
 ```
 
 ### How Can the Debug Terminal Be Protected with Some Authentication Mechanism to Allow Access Only to Authenticated Developers? #basic-auth
@@ -218,21 +215,21 @@ Refer to the following content:
 // @grant        none
 // ==/UserScript==
 
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    var script1 = document.createElement('script');
-    script1.setAttribute('crossorigin', 'anonymous');
-    // Replace the SDK URL with the actual project URL
-    script1.src = 'https://pagespy.jikejishu.com/page-spy/index.min.js';
+  var script1 = document.createElement('script');
+  script1.setAttribute('crossorigin', 'anonymous');
+  // Replace the SDK URL with the actual project URL
+  script1.src = 'https://pagespy.jikejishu.com/page-spy/index.min.js';
 
-    var script2 = document.createElement('script');
-    script2.textContent = 'window.$pageSpy = new PageSpy();';
+  var script2 = document.createElement('script');
+  script2.textContent = 'window.$pageSpy = new PageSpy();';
 
-    document.head.prepend(script1);
-    script1.onload = () => {
-        document.head.appendChild(script2);
-    }
+  document.head.prepend(script1);
+  script1.onload = () => {
+    document.head.appendChild(script2);
+  };
 })();
 ```
 
@@ -302,8 +299,25 @@ When you execute page-spy-api via the NPM package deployment method in the comma
     "maxRoomNumber": 500, // Maximum allowed number of rooms
     "corsConfig": {
       "allowOrigins": ["https://test.huolala.com"], // Default configuration allows all domains for cross-origin requests
-      "allowHeaders": ["Origin", "Authorization", "Content-Length", "X-Request-Id", "Content-Type", "Referer", "User-Agent", "Host"],
-      "allowMethods": ["HEAD", "POST", "GET", "OPTIONS", "PUT", "DELETE", "UPDATE"],
+      "allowHeaders": [
+        "Origin",
+        "Authorization",
+        "Content-Length",
+        "X-Request-Id",
+        "Content-Type",
+        "Referer",
+        "User-Agent",
+        "Host"
+      ],
+      "allowMethods": [
+        "HEAD",
+        "POST",
+        "GET",
+        "OPTIONS",
+        "PUT",
+        "DELETE",
+        "UPDATE"
+      ],
       "exposeHeaders": ["X-Request-Id"]
     }
   }
