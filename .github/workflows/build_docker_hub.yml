@@ -7,15 +7,15 @@
 # To get a newer version, you will need to update the SHA.
 # You can also reference a tag or branch, but the action may change without warning.
 
-name: Create and publish a dev Docker image
+name: docker hub Create and publish a dev Docker image
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "feat/add_docker_hub_spport"]
 
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  USER_NAME: huolalatech
+  IMAGE_NAME: page-spy-web
 
 jobs:
   build-and-push-image:
@@ -43,20 +43,19 @@ jobs:
           yarn run build:client
           cp -r dist backend/dist
 
-      - name: Log in to the Container registry
+      - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ env.USER_NAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.USER_NAME }}/${{ env.IMAGE_NAME }}
 
-      - name: Build and push Docker image
+      - name: Build and push Docker hub image
         uses: docker/build-push-action@v4
         with:
           context: .
