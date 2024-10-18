@@ -25,6 +25,11 @@
 [api-ver-url]: https://github.com/HuolalaTech/page-spy-api/tags
 [api-go-img]: https://img.shields.io/github/go-mod/go-version/HuolalaTech/page-spy-api?label=go
 [api-go-url]: https://github.com/HuolalaTech/page-spy-api/blob/master/go.mod
+[npm-install]: https://img.shields.io/badge/NPM_Deploy-Support-20a53a
+
+[npm-install-url]:
+[bt-install]: https://img.shields.io/badge/BT_Deploy-Install-20a53a
+[bt-site]: https://www.bt.cn/new/index.html
 
 <div align="center">
   <img src="./logo.svg" height="100" />
@@ -36,10 +41,11 @@
 [![Build Status][sdk-build-img]][sdk-build-url] <br />
 [![Browser SDK version][browser-ver-img]][browser-ver-url]
 [![Wechat SDK version][wechat-ver-img]][wechat-ver-url]
-[![Alipay SDK version][alipay-ver-img]][alipay-ver-url] <br />
+[![Alipay SDK version][alipay-ver-img]][alipay-ver-url]
 [![UniApp SDK version][uniapp-ver-img]][uniapp-ver-url]
 [![Taro SDK version][taro-ver-img]][taro-ver-url]
 [![Harmony SDK version][harmony-ver-img]][harmony-ver-url] <br />
+[![Install in BT][bt-install]][bt-site]
 [![API Version][api-ver-img]][api-ver-url]
 [![Go Version][api-go-img]][api-go-url]
 
