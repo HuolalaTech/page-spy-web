@@ -11,7 +11,7 @@ name: Create and publish a dev Docker image
 
 on:
   push:
-    branches: ['main']
+    branches: ["main", "feat/add_docker_hub_spport"]
 
 env:
   REGISTRY: ghcr.io
@@ -64,6 +64,21 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: huolalatech
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
       - name: Lark bot notify
         env:
           TOKEN: ${{ secrets.LARK_BOT_TOKEN }}
@@ -72,4 +87,3 @@ jobs:
           curl "https://pagespy.blucas.me/lark/ci?branch=$BRANCH_NAME&actionId=$GITHUB_RUN_ID" \
             -X POST \
             -H "token: $TOKEN"
-            
