@@ -21,11 +21,10 @@
     onDownload?: (data: CacheMessageItem[]) => void;
   }
 
-  delcare class DataHarborPlugin implements PageSpyPlugin {
+  declare class DataHarborPlugin implements PageSpyPlugin {
     constructor(config?: DataHarborConfig);
   }
   ```
-
 
 
 #### onOfflineLog()#onOfflineLog
@@ -36,7 +35,7 @@
 
   ```ts
   declare class DataHarborPlugin {
-    onOfflineLog(type: 'download' | 'upload'): Promise<string | null | undefined>;
+    onOfflineLog(type: 'download' | 'upload', clearCache?: boolean): Promise<string | null | undefined>;
   }
   ```
 
@@ -44,18 +43,106 @@
 
   如果隐藏了自动渲染的 UI 控件，或者希望在某些时候自动触发队离线日志的操作，可以通过该方法实现。
   
-  每次调用都是当前会话的完整日志。上传完成后会返回回放的 URL，并打印到控制台。
+  每次调用后，默认会清除已记录的日志数据、并重新开始记录；与之相反，用户通过 UI 弹窗上的按钮操作日志上传 / 下载多次都是当前会话从头到尾的完整日志。你也可以通过第二个参数 `clearCache: boolean` 自行控制。
+  
+  上传完成后会返回回放的 URL，并打印到控制台。
 
 - 示例
 
   ```ts
   window.$harbor = new DataHarborPlugin();
 
-  // 上传
+  // 上传（清除已有数据、并重新记录）
   const url = await window.$harbor.onOfflineLog('upload');
+
+  // 上传（不清除数据）
+  const url = await window.$harbor.onOfflineLog('upload', false);
 
   // 下载
   window.$harbor.onOfflineLog('download');
+  ```
+
+
+#### pause()#pause
+
+暂停记录。
+
+- 类型
+
+  ```ts
+  declare class DataHarborPlugin {
+    pause(): void;
+  }
+  ```
+
+- 详细信息
+
+  更加灵活的控制记录日志的行为。
+  
+  暂停后程序产生的数据不会被记录，执行 `$harbor.resume()` 恢复。
+
+- 示例
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  // 暂停
+  window.$harbor.pause();
+
+  // 恢复
+  window.$harbor.resume();
+  ```
+
+
+#### resume()#resume
+
+恢复记录。
+
+- 类型
+
+  ```ts
+  declare class DataHarborPlugin {
+    resume(): void;
+  }
+  ```
+
+- 详细信息
+
+  更加灵活的控制记录日志的行为。
+  
+  &lt;暂停 - 恢复&gt; 期间的数据不会被记录。
+
+- 示例
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  // 暂停
+  window.$harbor.pause();
+
+  // 恢复
+  window.$harbor.resume();
+  ```
+
+
+#### reharbor()#reharbor
+
+清空已记录的数据，并继续记录。简而言之，重新制作。
+
+- 类型
+
+  ```ts
+  declare class DataHarborPlugin {
+    reharbor(): void;
+  }
+  ```
+
+- 示例
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  window.$harbor.reharbor();
   ```
 
 

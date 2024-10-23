@@ -28,7 +28,7 @@ export const PluginPanel = memo(() => {
         align="middle"
         style={{ paddingRight: 16, borderBottom: '1px solid rgb(5 5 5 / 6%)' }}
       >
-        <Col>
+        <Col flex={1}>
           <SiderMenu active={hashKey} />
         </Col>
         <Col>{Active.Extra && <Active.Extra />}</Col>

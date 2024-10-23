@@ -106,12 +106,24 @@ const TABS: TabItem[] = [
       return !!requestPayload?.length || validEntries(getData);
     },
     content: (data) => {
-      const { getData, requestPayload } = data;
+      const { getData, requestPayload, requestHeader } = data;
+      const isFormUrlencoded = requestHeader?.some(([name, value]) => {
+        if (
+          name.toLowerCase() === 'content-type' &&
+          value.includes('application/x-www-form-urlencoded')
+        )
+          return true;
+        return false;
+      });
+
       return (
         <>
           {/* Request Payload */}
           {!!requestPayload?.length && (
-            <RequestPayloadBlock data={requestPayload} />
+            <RequestPayloadBlock
+              data={requestPayload}
+              urlencoded={isFormUrlencoded}
+            />
           )}
 
           {/* Query String Parametes */}

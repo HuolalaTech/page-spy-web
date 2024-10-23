@@ -1,5 +1,14 @@
 import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';
 
+## v1.9.6
+
+- 🆕 DataHarborPlugin 插件新增原型方法。查看详情：https://github.com/HuolalaTech/page-spy/pull/110 ；
+  - `$harbor.pause()`：暂停记录；
+  - `$harbor.resume()`: 恢复记录，和 `pause()` 对应；
+  - `$harbor.reharbor()`：清空已记录的数据并重新制作。
+- 🆕 回放页面对于「对象不可展开」新增提示；
+- 🐛 修复 `application/x-www-form-urlencoded` 展示的 Payload。查看详情：https://github.com/HuolalaTech/page-spy-web/issues/267 ；
+
 ## v1.9.5
 
 - 🆕 新增 DockerHub 镜像: https://hub.docker.com/r/huolalatech/page-spy-web;

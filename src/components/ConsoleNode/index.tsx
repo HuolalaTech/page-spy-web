@@ -10,7 +10,7 @@ import { LoadMore } from './LoadMore';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { useConfig } from '../ConfigProvider';
 import { Tooltip } from 'antd';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 function isAtomNode(data: SpyAtom.Overview) {
   return data && data.type === 'atom' && data.__atomId !== undefined;
@@ -227,7 +227,24 @@ function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
         disabled: offline,
       })}
     >
-      <Tooltip title={offline && t('replay.unsupport-spread')}>
+      <Tooltip
+        title={
+          offline && (
+            <Trans i18nKey="replay.unsupport-spread">
+              <p>
+                Objects cannot be expanded by default. Set
+                <a
+                  href="https://www.pagespy.org/#/docs/pagespy#constructor"
+                  target="_blank"
+                >
+                  <code>serializeData: true</code>
+                </a>
+                to enable.
+              </p>
+            </Trans>
+          )
+        }
+      >
         <code className="console-node atom" onClick={getAtomDetail}>
           {showArrow && (
             <CaretRightOutlined

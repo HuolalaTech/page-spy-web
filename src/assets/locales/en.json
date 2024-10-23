@@ -233,7 +233,7 @@
     "speed": "Speed",
     "delete-select": "Delete Selected",
     "delete-select-desc": "Are you sure you want to delete selected logs?",
-    "unsupport-spread": "Cannot spread object in offline mode"
+    "unsupport-spread": "<0>Objects cannot be expanded by default. Set <1><0>serializeData: true</0></1> to enable.</0>"
   },
   "lab": {
     "welcome": "Welcome to the Replay Lab!",
