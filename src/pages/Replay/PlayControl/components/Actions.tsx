@@ -55,11 +55,13 @@ export const Actions = memo(() => {
       <Space size="small" className="right-actions">
         <Select
           size="middle"
-          variant="borderless"
           defaultValue={speed}
           placeholder={t('replay.speed')}
-          style={{ width: 65 }}
-          suffixIcon={null}
+          style={{ width: 70 }}
+          labelRender={({ label, value }) => {
+            if (value === 1) return t('replay.speed');
+            return label;
+          }}
           options={[
             { label: '0.5x', value: 0.5 },
             { label: '1.0x', value: 1 },
