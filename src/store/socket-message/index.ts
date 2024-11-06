@@ -4,7 +4,6 @@ import { produce } from 'immer';
 import { CUSTOM_EVENT, SocketStore } from './socket';
 import {
   SpyConsole,
-  SpyNetwork,
   SpySystem,
   SpyPage,
   SpyStorage,
@@ -18,6 +17,7 @@ import { getFixedPageMsg, processMPNetworkMsg } from './utils';
 import { isArray, isEqual, isString, omit } from 'lodash-es';
 import { parseClientInfo, ParsedClientInfo } from '@/utils/brand';
 import { StorageType } from '../platform-config';
+import type { RequestItem } from '@huolala-tech/page-spy-base';
 
 const USER_ID = 'Debugger';
 
@@ -107,7 +107,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         }),
       );
     });
-    socket.addListener('network', (data: SpyNetwork.RequestInfo) => {
+    socket.addListener('network', (data: RequestItem) => {
       const { name, pathname, getData } = resolveUrlInfo(data.url);
 
       const newData: ResolvedNetworkInfo = {
@@ -125,41 +125,46 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       if (browserType.startsWith('mp-') || sdk === 'uniapp' || sdk === 'taro') {
         processMPNetworkMsg(newData);
       }
-      const cache = get().networkMsg;
       // 整理 xhr 的消息
       const { id } = newData;
+      const cache = get().networkMsg;
       const index = cache.findIndex((item) => item.id === id);
       if (index !== -1) {
-        const { requestType, response = '', status, endTime } = newData;
+        const {
+          requestType,
+          response = '',
+          status,
+          endTime,
+          lastEventId,
+        } = newData;
         // eventsource 需要合并 response
         // eventsource 的 'open / error' 事件都没有 response，'message' 事件可能会带着 response
         // status === 200 是在 SDK 中硬编码的，和 'message' 事件对应
         if (requestType === 'eventsource' && status === 200) {
-          const { response: cacheData, endTime: cacheTime } = cache[index];
-          if (!cacheData) {
-            newData.response = [
-              {
-                time: endTime,
-                data: response,
-              },
-            ];
-          }
+          const {
+            response: cacheData,
+            endTime: cacheTime,
+            lastEventId: cacheId,
+          } = cache[index];
           if (isString(cacheData)) {
             newData.response = [
               {
+                id: cacheId,
                 time: cacheTime,
                 data: cacheData,
               },
               {
+                id: lastEventId,
                 time: endTime,
                 data: response,
               },
             ];
           }
-          if (isArray(cache[index].response)) {
+          if (isArray(cacheData)) {
             newData.response = [
-              ...cache[index].response,
+              ...cacheData,
               {
+                id: lastEventId,
                 time: endTime,
                 data: response,
               },

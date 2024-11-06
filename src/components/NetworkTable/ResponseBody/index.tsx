@@ -120,6 +120,7 @@ const MediaWidget = ({ dataUrl }: MediaWidgetProps) => {
 };
 
 interface EventData {
+  id: string;
   time: number;
   data: string;
 }
@@ -138,7 +139,7 @@ const EventStream = ({ data }: { data: EventData[] }) => {
         <tbody>
           {data.map((item, index) => (
             <tr key={index}>
-              <td>--</td>
+              <td>{item.id}</td>
               <td>message</td>
               <td>
                 <ReactJsonView source={item.data} />
