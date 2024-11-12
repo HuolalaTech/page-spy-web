@@ -29,7 +29,11 @@ const Replay = () => {
     if (!url) return null;
     const res = await (await fetch(url)).json();
     const result = res.map((i: any) => {
-      i.data = JSON.parse(strFromU8(unzlibSync(strToU8(i.data, true))));
+      // if string, it's compressed by zlib
+      // or it will be plain object
+      if (typeof i.data === 'string') {
+        i.data = JSON.parse(strFromU8(unzlibSync(strToU8(i.data, true))));
+      }
       return i;
     }) as HarborDataItem[];
     setAllData(result);

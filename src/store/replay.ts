@@ -15,6 +15,7 @@ import {
   ResolvedNetworkInfo,
   resolveUrlInfo,
 } from '@/utils';
+import { parseClientInfo, ParsedClientInfo } from '@/utils/brand';
 
 const isCaredActivity = (activity: HarborDataItem) => {
   const { type, data } = activity;
@@ -57,6 +58,7 @@ export interface ReplayStore {
   rrwebStartTime: number;
   setRRWebStartTime: (timestamp: number) => void;
   activity: Activity[];
+  clientInfo: ParsedClientInfo | null;
   allConsoleMsg: HarborDataItem<SpyConsole.DataItem>[];
   allNetworkMsg: HarborDataItem<ResolvedNetworkInfo>[];
   allRRwebEvent: eventWithTime[];
@@ -108,6 +110,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     );
   },
   activity: [],
+  clientInfo: null,
   allConsoleMsg: [],
   allNetworkMsg: [],
   allRRwebEvent: [],
@@ -142,6 +145,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       | 'allRRwebEvent'
       | 'allStorageMsg'
       | 'allSystemMsg'
+      | 'clientInfo'
     > = {
       activity: [],
       allConsoleMsg: [],
@@ -157,6 +161,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       allRRwebEvent,
       allSystemMsg,
       allStorageMsg,
+      clientInfo,
     } = data.reduce((acc, cur) => {
       const { type, data, timestamp } = cur;
       if (isCaredActivity(cur)) {
@@ -198,6 +203,8 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
         case 'system':
           acc.allSystemMsg.push(data);
           break;
+        case 'client-info':
+          acc.clientInfo = parseClientInfo(data);
       }
       return acc;
     }, result);
@@ -205,6 +212,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     set(
       produce((state) => {
         state.activity = activity;
+        state.clientInfo = clientInfo;
         state.allConsoleMsg = allConsoleMsg;
         state.allNetworkMsg = allNetworkMsg;
         state.allRRwebEvent = allRRwebEvent;
