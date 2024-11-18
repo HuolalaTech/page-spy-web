@@ -29,8 +29,10 @@ const Replay = () => {
     if (!url) return null;
     const res = await (await fetch(url)).json();
     const result = res.map((i: any) => {
-      i.data = JSON.parse(strFromU8(unzlibSync(strToU8(i.data, true))));
-      return i;
+      return {
+        ...i,
+        data: JSON.parse(strFromU8(unzlibSync(strToU8(i.data, true)))),
+      };
     }) as HarborDataItem[];
     setAllData(result);
     return result;

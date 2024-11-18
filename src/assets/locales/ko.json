@@ -232,7 +232,8 @@
     "speed": "속도",
     "delete-select": "선택 항목 삭제",
     "delete-select-desc": "선택한 로그를 삭제하시겠습니까?",
-    "unsupport-spread": "<0>기본적으로 객체를 확장할 수 없습니다. <1><0>serializeData: true</0></1> 을 설정하여 활성화하십시오.</0>"
+    "unsupport-spread": "<0>기본적으로 객체를 확장할 수 없습니다. <1><0>serializeData: true</0></1> 을 설정하여 활성화하십시오.</0>",
+    "remark": "비고"
   },
   "lab": {
     "welcome": "리플레이 실험실에 오신 것을 환영합니다!",

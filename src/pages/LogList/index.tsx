@@ -345,6 +345,20 @@ const LogList = () => {
                 </Tooltip>
               ),
             },
+            // Remark
+            {
+              title: () => t('common.remark'),
+              width: 150,
+              dataIndex: 'remark',
+              ellipsis: {
+                showTitle: false,
+              },
+              render: (remark) => (
+                <Tooltip placement="topLeft" title={remark}>
+                  {remark || '--'}
+                </Tooltip>
+              ),
+            },
             // 文件信息
             {
               title: () => t('replay.file-info'),

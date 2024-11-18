@@ -15,6 +15,7 @@ import {
   ResolvedNetworkInfo,
   resolveUrlInfo,
 } from '@/utils';
+import { DataType } from '@huolala-tech/page-spy-plugin-data-harbor/dist/types/harbor/base';
 
 const isCaredActivity = (activity: HarborDataItem) => {
   const { type, data } = activity;
@@ -40,10 +41,22 @@ const getActivityPointTimeDiff = (duration: number) => {
 };
 
 export interface HarborDataItem<T = any> {
-  type: SpyMessage.DataType | 'rrweb-event';
+  type: DataType | 'meta'; // TODO
   timestamp: number;
   data: T;
 }
+
+export interface MetaInfo {
+  title?: string;
+  url?: string;
+  remark?: string;
+  startTime?: number;
+  endTime?: number;
+}
+
+const isMetaInfo = (data: HarborDataItem): data is HarborDataItem<MetaInfo> => {
+  return data.type === 'meta';
+};
 
 export type Activity = Omit<HarborDataItem, 'data'>[];
 
@@ -68,6 +81,7 @@ export interface ReplayStore {
   consoleMsg: SpyConsole.DataItem[];
   networkMsg: ResolvedNetworkInfo[];
   storageMsg: Record<SpyStorage.DataType, SpyStorage.GetTypeDataItem['data']>;
+  metaMsg: MetaInfo | null;
   setAllData: (data: HarborDataItem[]) => void;
   flushActiveData: () => void;
   updateConsoleMsg: (currentTime: number) => void;
@@ -126,11 +140,25 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     mpStorage: [],
     asyncStorage: [],
   },
+  metaMsg: null,
   setAllData(data) {
     if (!data?.length) return;
 
-    const start = data[0].timestamp;
-    const end = data[data.length - 1].timestamp;
+    let start = data[0].timestamp;
+    let end = data[data.length - 1].timestamp;
+
+    const lastData = data[data.length - 1];
+    if (isMetaInfo(lastData)) {
+      set(
+        produce((state) => {
+          state.metaMsg = lastData.data;
+        }),
+      );
+      const { data } = lastData;
+      data.startTime && (start = data.startTime);
+      data.endTime && (end = data.endTime);
+    }
+
     const duration = end - start;
     const activityPointTimeDiff = getActivityPointTimeDiff(duration);
 
@@ -159,6 +187,13 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       allStorageMsg,
     } = data.reduce((acc, cur) => {
       const { type, data, timestamp } = cur;
+      if (timestamp < start) {
+        if (type === 'rrweb-event') {
+          acc.allRRwebEvent.push(data);
+        }
+        return acc;
+      }
+
       if (isCaredActivity(cur)) {
         if (!acc.activity.length) {
           acc.activity.push([{ type, timestamp }]);
