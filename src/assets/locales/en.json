@@ -234,7 +234,14 @@
     "delete-select": "Delete Selected",
     "delete-select-desc": "Are you sure you want to delete selected logs?",
     "unsupport-spread": "<0>Objects cannot be expanded by default. Set <1><0>serializeData: true</0></1> to enable.</0>",
-    "remark": "Remarks"
+    "remark": "Remarks",
+    "meta-info": "Basic Information",
+    "meta": {
+      "ua": "UserAgent",
+      "title": "Title",
+      "url": "Link",
+      "remark": "Remark"
+    }
   },
   "lab": {
     "welcome": "Welcome to the Replay Lab!",

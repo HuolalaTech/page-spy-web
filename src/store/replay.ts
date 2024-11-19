@@ -47,6 +47,7 @@ export interface HarborDataItem<T = any> {
 }
 
 export interface MetaInfo {
+  ua?: string;
   title?: string;
   url?: string;
   remark?: string;

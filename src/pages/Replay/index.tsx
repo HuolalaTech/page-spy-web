@@ -1,5 +1,5 @@
 import useSearch from '@/utils/useSearch';
-import { message, Row, Col, Space, Empty } from 'antd';
+import { message, Row, Col, Space, Empty, Card } from 'antd';
 import './index.less';
 import { useRequest } from 'ahooks';
 import { LoadingFallback } from '@/components/LoadingFallback';
@@ -20,6 +20,7 @@ import { PLAYER_SIZE_CHANGE } from './events';
 import { useEventListener } from '@/utils/useEventListener';
 import { useShallow } from 'zustand/react/shallow';
 import { ErrorDetailDrawer } from '@/components/ErrorDetailDrawer';
+import { Meta } from './Meta';
 
 const Replay = () => {
   const { t } = useTranslation();
@@ -112,7 +113,7 @@ const Replay = () => {
 
   return (
     <div className="replay">
-      <Row className="replay-header" justify="start">
+      <Row className="replay-header" justify="space-between" align="middle">
         <Col>
           <Space>
             <Link to={{ pathname: '/log-list' }} className="back-list">
@@ -120,6 +121,9 @@ const Replay = () => {
             </Link>
             <span className="replay-header__title">{t('replay.title')}</span>
           </Space>
+        </Col>
+        <Col>
+          <Meta />
         </Col>
       </Row>
       <div className="replay-main">

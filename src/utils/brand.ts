@@ -199,7 +199,7 @@ const OS_REGEXPS = {
   harmony: /(OpenHarmony )([\d_.]+)/,
 } as Record<SpyClient.OS, RegExp>;
 
-export function parseUserAgent(uaString: string = window.navigator.userAgent) {
+export function parseUserAgent(uaString: string = '') {
   const osInfo: OSInfo = {
     type: 'unknown',
     name: 'Unknown',
@@ -210,6 +210,12 @@ export function parseUserAgent(uaString: string = window.navigator.userAgent) {
     name: 'Unknown',
     version: 'Unknown',
   };
+
+  if (!uaString)
+    return {
+      os: osInfo,
+      browser: browserInfo,
+    };
 
   // 判断操作系统
   for (const key in OS_REGEXPS) {

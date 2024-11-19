@@ -347,7 +347,7 @@ const LogList = () => {
             },
             // Remark
             {
-              title: () => t('common.remark'),
+              title: () => t('replay.remark'),
               width: 150,
               dataIndex: 'remark',
               ellipsis: {

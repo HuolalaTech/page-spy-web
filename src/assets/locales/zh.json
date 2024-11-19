@@ -233,7 +233,14 @@
     "delete-select": "删除已选",
     "delete-select-desc": "确认删除所有已选择的日志吗？",
     "unsupport-spread": "<0>默认无法展开对象，设置 <1><0>serializeData: true</0></1> 以启用。</0>",
-    "remark": "备注"
+    "remark": "备注",
+    "meta-info": "基本信息",
+    "meta": {
+      "ua": "UserAgent",
+      "title": "标题",
+      "url": "链接",
+      "remark": "备注"
+    }
   },
   "lab": {
     "welcome": "欢迎来到回放实验室！",
