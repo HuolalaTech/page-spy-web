@@ -1,5 +1,5 @@
 import useSearch from '@/utils/useSearch';
-import { message, Row, Col, Space, Empty, Card } from 'antd';
+import { message, Row, Col, Space, Empty, Card, Flex } from 'antd';
 import './index.less';
 import { useRequest } from 'ahooks';
 import { LoadingFallback } from '@/components/LoadingFallback';
@@ -113,8 +113,8 @@ const Replay = () => {
 
   return (
     <div className="replay">
-      <Row className="replay-header" justify="space-between" align="middle">
-        <Col>
+      <Row className="replay-header" align="middle">
+        <Col span={8}>
           <Space>
             <Link to={{ pathname: '/log-list' }} className="back-list">
               <LeftArrowSvg style={{ fontSize: 18 }} />
@@ -122,8 +122,10 @@ const Replay = () => {
             <span className="replay-header__title">{t('replay.title')}</span>
           </Space>
         </Col>
-        <Col>
-          <Meta />
+        <Col span={8}>
+          <Flex justify="center">
+            <Meta />
+          </Flex>
         </Col>
       </Row>
       <div className="replay-main">

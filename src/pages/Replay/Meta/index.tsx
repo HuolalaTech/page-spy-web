@@ -1,11 +1,22 @@
 import { MetaInfo, useReplayStore } from '@/store/replay';
 import { parseUserAgent } from '@/utils/brand';
-import { Button, Flex, Popover, Space, Tooltip } from 'antd';
+import {
+  Button,
+  ConfigProvider,
+  Divider,
+  Flex,
+  Popover,
+  Space,
+  Tooltip,
+  Typography,
+} from 'antd';
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 import './index.less';
 import CopyContent from '@/components/CopyContent';
+
+const { Paragraph, Title } = Typography;
 
 const renderOrder = ['ua', 'title', 'url', 'remark'] as const;
 
@@ -20,25 +31,44 @@ const MetaRender = ({ name, value }: RenderProps) => {
   if (name === 'ua') {
     const { os, browser } = parseUserAgent(value);
     return (
-      <Space>
-        <Tooltip title={`${os.name} ${os.version}`}>
-          <img src={os.logo} alt="os logo" />
-        </Tooltip>
+      <Flex vertical>
+        <Space>
+          <Tooltip title={`${os.name} ${os.version}`}>
+            <img src={os.logo} alt="os logo" className="meta-brand-logo" />
+          </Tooltip>
 
-        <Tooltip title={`${browser.name} ${browser.version}`}>
-          <img src={browser.logo} alt="browser logo" />
-        </Tooltip>
-      </Space>
+          <Divider type="vertical" />
+
+          <Tooltip title={`${browser.name} ${browser.version}`}>
+            <img
+              src={browser.logo}
+              alt="browser logo"
+              className="meta-brand-logo"
+            />
+          </Tooltip>
+        </Space>
+        <Paragraph ellipsis={{ rows: 3, expandable: true }}>
+          {value || '--'}
+        </Paragraph>
+      </Flex>
     );
   }
   if (name === 'title') {
-    return <span>{value || '--'}</span>;
+    return <Paragraph>{value || '--'}</Paragraph>;
   }
   if (name === 'url') {
-    return <CopyContent content={value || ''} />;
+    return (
+      <Paragraph copyable ellipsis={{ rows: 3 }}>
+        {value}
+      </Paragraph>
+    );
   }
   if (name === 'remark') {
-    return <span>{value || '--'}</span>;
+    return (
+      <Paragraph ellipsis={{ rows: 3, expandable: true }}>
+        {value || '--'}
+      </Paragraph>
+    );
   }
   return null;
 };
@@ -50,25 +80,38 @@ export const Meta = memo(() => {
   const metaContent = useMemo(() => {
     if (!metaMsg) return null;
     return (
-      <div>
+      <ConfigProvider
+        theme={{
+          components: {
+            Typography: {
+              titleMarginBottom: 6,
+            },
+          },
+        }}
+      >
         {renderOrder.map((key) => {
           if (!Object.hasOwn(metaMsg, key)) return null;
 
           return (
             <div className="meta-item" key={key}>
-              <b>{t(`replay.meta.${key}`)}</b>
+              <Title level={5}>{t(`replay.meta.${key}`)}</Title>
               <MetaRender name={key} value={metaMsg[key]} />
             </div>
           );
         })}
-      </div>
+      </ConfigProvider>
     );
   }, [metaMsg, t]);
 
   if (!metaMsg) return null;
 
   return (
-    <Popover content={metaContent} trigger="click" placement="bottomLeft">
+    <Popover
+      content={metaContent}
+      trigger="click"
+      placement="bottom"
+      getPopupContainer={(node) => node.parentElement!}
+    >
       <Button>{t('replay.meta-info')}</Button>
     </Popover>
   );
