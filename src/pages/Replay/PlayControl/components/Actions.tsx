@@ -57,7 +57,7 @@ export const Actions = memo(() => {
           size="middle"
           defaultValue={speed}
           placeholder={t('replay.speed')}
-          style={{ width: 70 }}
+          style={{ width: 85 }}
           labelRender={({ label, value }) => {
             if (value === 1) return t('replay.speed');
             return label;

@@ -22,10 +22,6 @@
     // 对应的信息显示在每个调试连接面板的「设备id」下方
     title: "--",
     
-    // 指示 SDK 初始化完成，是否自动在客户端左下角渲染「圆形白底带 Logo」的控件
-    // 如果设置为 false, 可以调用 window.$pageSpy.render() 手动渲染
-    autoRender: true,  // 仅适用浏览器环境的 SDK
-    
     // 手动指定 PageSpy 服务的 scheme。
     // 这在 SDK 无法正确分析出 scheme 可以使用，例如 PageSpy 的浏览器插件
     // 是通过 chrome-extension://xxx/sdk/index.min.js 引入 SDK，这会
@@ -35,17 +31,6 @@
     //     - true：SDK 将通过 ["https://", "wss://"] 访问 PageSpy 服务
     //     - false：SDK 将通过 ["http://", "ws://"] 访问 PageSpy 服务
     enableSSL: null,
-
-    // 在 PageSpy@1.7.4 支持离线回放功能后，客户端集成的 SDK 可以不用和调试端建立连接，
-    // 通过 DataHarborPlugin 收集数据、导出离线日志，成为新的使用方式。
-    // 默认值 false。用户设置为其他值时，会进入 "离线模式"，具体表现为 PageSpy 不会创建房间、建立 WebSocket 连接。
-    offline: false, // 仅适用浏览器环境的 SDK
-
-    // 自定义控件渲染的 logo
-    logo: '', // 仅适用浏览器环境的 SDK
-
-    // 设置 logo 样式
-    logoStyle: {}, // 仅适用浏览器环境的 SDK
 
     // PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些插件
     disabledPlugins: [],
@@ -60,12 +45,34 @@
     // 但数据体积会越来越大，因此可以指定 SDK 在本地最多缓存多少条数据记录。
     messageCapacity: 1000,
 
-    // 生产环境禁用
-    disabledOnProd: true, // 仅适用小程序环境的 SDK
-
     // 数据处理，用户可以通过该属性自定义修改、忽略数据。
     // 查看详情：https://www.pagespy.org/#/docs/changelog#v1_9_2
-    dataProcessor: {}
+    dataProcessor: {},
+
+    // 生产环境禁用
+    disabledOnProd: true, // 仅适用小程序环境的 SDK
+    
+    // 指示 SDK 初始化完成，是否自动在客户端左下角渲染「圆形白底带 Logo」的控件
+    // 如果设置为 false, 可以调用 window.$pageSpy.render() 手动渲染
+    autoRender: true,  // 仅适用浏览器环境的 SDK
+
+    // 在 PageSpy@1.7.4 支持离线回放功能后，客户端集成的 SDK 可以不用和调试端建立连接，
+    // 通过 DataHarborPlugin 收集数据、导出离线日志，成为新的使用方式。
+    // 默认值 false。用户设置为其他值时，会进入 "离线模式"，具体表现为 PageSpy 不会创建房间、建立 WebSocket 连接。
+    offline: false, // 仅适用浏览器环境的 SDK
+
+    // 自定义控件渲染的 logo
+    logo: '', // 仅适用浏览器环境的 SDK
+
+    // 设置主题色，用于 modal 和 toast 中
+    primaryColor: '#8434e9', // 仅适用浏览器环境的 SDK
+
+    // 设置 modal 里的 logo 和 title
+    // 仅适用浏览器环境的 SDK
+    modal: {
+      logo: '',
+      title: 'PageSpy',
+    },
   })
   ```
 
@@ -88,7 +95,7 @@
 - 示例
 
   ```ts
-  class DataHarbrPlugin implements PageSpyPlugin {
+  class DataHarborPlugin implements PageSpyPlugin {
     name = 'DataHarborPlugin'
 
     ... // 插件的实现

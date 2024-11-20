@@ -33,6 +33,7 @@ export const App = () => {
             locale={localeConfig[lang]}
             theme={{
               token: {
+                colorLink: 'rgb(132, 52, 233)',
                 colorPrimary: 'rgb(132, 52, 233)',
                 colorPrimaryBg: 'rgb(247, 241, 255)',
               },

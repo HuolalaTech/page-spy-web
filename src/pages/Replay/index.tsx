@@ -1,5 +1,5 @@
 import useSearch from '@/utils/useSearch';
-import { message, Row, Col, Space, Empty } from 'antd';
+import { message, Row, Col, Space, Empty, Card, Flex } from 'antd';
 import './index.less';
 import { useRequest } from 'ahooks';
 import { LoadingFallback } from '@/components/LoadingFallback';
@@ -20,6 +20,7 @@ import { PLAYER_SIZE_CHANGE } from './events';
 import { useEventListener } from '@/utils/useEventListener';
 import { useShallow } from 'zustand/react/shallow';
 import { ErrorDetailDrawer } from '@/components/ErrorDetailDrawer';
+import { Meta } from './Meta';
 
 const Replay = () => {
   const { t } = useTranslation();
@@ -29,8 +30,10 @@ const Replay = () => {
     if (!url) return null;
     const res = await (await fetch(url)).json();
     const result = res.map((i: any) => {
-      i.data = JSON.parse(strFromU8(unzlibSync(strToU8(i.data, true))));
-      return i;
+      return {
+        ...i,
+        data: JSON.parse(strFromU8(unzlibSync(strToU8(i.data, true)))),
+      };
     }) as HarborDataItem[];
     setAllData(result);
     return result;
@@ -110,14 +113,19 @@ const Replay = () => {
 
   return (
     <div className="replay">
-      <Row className="replay-header" justify="start">
-        <Col>
+      <Row className="replay-header" align="middle">
+        <Col span={8}>
           <Space>
             <Link to={{ pathname: '/log-list' }} className="back-list">
               <LeftArrowSvg style={{ fontSize: 18 }} />
             </Link>
             <span className="replay-header__title">{t('replay.title')}</span>
           </Space>
+        </Col>
+        <Col span={8}>
+          <Flex justify="center">
+            <Meta />
+          </Flex>
         </Col>
       </Row>
       <div className="replay-main">
