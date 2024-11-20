@@ -184,7 +184,6 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       | 'allRRwebEvent'
       | 'allStorageMsg'
       | 'allSystemMsg'
-      | 'clientInfo'
     > = {
       activity: [],
       allConsoleMsg: [],
@@ -192,7 +191,6 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       allRRwebEvent: [],
       allStorageMsg: [],
       allSystemMsg: [],
-      clientInfo: null,
     };
     const {
       activity,
@@ -201,7 +199,6 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       allRRwebEvent,
       allSystemMsg,
       allStorageMsg,
-      clientInfo,
     } = data.reduce((acc, cur) => {
       const { type, data, timestamp } = cur;
       if (timestamp < start) {
@@ -257,7 +254,6 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     set(
       produce((state) => {
         state.activity = activity;
-        state.clientInfo = clientInfo;
         state.allConsoleMsg = allConsoleMsg;
         state.allNetworkMsg = allNetworkMsg;
         state.allRRwebEvent = allRRwebEvent;
