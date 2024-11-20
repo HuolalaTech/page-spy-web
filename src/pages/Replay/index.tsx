@@ -32,7 +32,12 @@ const Replay = () => {
     const result = res.map((i: any) => {
       return {
         ...i,
-        data: JSON.parse(strFromU8(unzlibSync(strToU8(i.data, true)))),
+        // if string, it's compressed by zlib
+        // or it will be plain object. because in mp env, zlib is not available
+        data:
+          typeof i.data === 'string'
+            ? JSON.parse(strFromU8(unzlibSync(strToU8(i.data, true))))
+            : i.data,
       };
     }) as HarborDataItem[];
     setAllData(result);

@@ -1,5 +1,6 @@
 /* eslint-disable no-implicit-coercion */
 import {
+  SpyClient,
   SpyConsole,
   SpyMessage,
   SpyStorage,
@@ -15,6 +16,7 @@ import {
   ResolvedNetworkInfo,
   resolveUrlInfo,
 } from '@/utils';
+import { parseClientInfo, ParsedClientInfo } from '@/utils/brand';
 import { DataType } from '@huolala-tech/page-spy-plugin-data-harbor/dist/types/harbor/base';
 
 const isCaredActivity = (activity: HarborDataItem) => {
@@ -46,14 +48,13 @@ export interface HarborDataItem<T = any> {
   data: T;
 }
 
-export interface MetaInfo {
-  ua?: string;
+export type MetaInfo = {
   title?: string;
   url?: string;
   remark?: string;
   startTime?: number;
   endTime?: number;
-}
+} & SpyClient.DataItem;
 
 const isMetaInfo = (data: HarborDataItem): data is HarborDataItem<MetaInfo> => {
   return data.type === 'meta';
@@ -71,6 +72,7 @@ export interface ReplayStore {
   rrwebStartTime: number;
   setRRWebStartTime: (timestamp: number) => void;
   activity: Activity[];
+  clientInfo: ParsedClientInfo | null;
   allConsoleMsg: HarborDataItem<SpyConsole.DataItem>[];
   allNetworkMsg: HarborDataItem<ResolvedNetworkInfo>[];
   allRRwebEvent: eventWithTime[];
@@ -123,6 +125,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     );
   },
   activity: [],
+  clientInfo: null,
   allConsoleMsg: [],
   allNetworkMsg: [],
   allRRwebEvent: [],
@@ -149,6 +152,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     let end = data[data.length - 1].timestamp;
 
     const lastData = data[data.length - 1];
+
     if (isMetaInfo(lastData)) {
       set(
         produce((state) => {
@@ -156,8 +160,17 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
         }),
       );
       const { data } = lastData;
-      data.startTime && (start = data.startTime);
-      data.endTime && (end = data.endTime);
+      if (data.startTime && data.endTime) {
+        data.startTime && (start = data.startTime);
+        data.endTime && (end = data.endTime);
+      }
+      if (data.ua) {
+        set(
+          produce((state) => {
+            state.clientInfo = parseClientInfo(data);
+          }),
+        );
+      }
     }
 
     const duration = end - start;
@@ -171,6 +184,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       | 'allRRwebEvent'
       | 'allStorageMsg'
       | 'allSystemMsg'
+      | 'clientInfo'
     > = {
       activity: [],
       allConsoleMsg: [],
@@ -178,6 +192,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       allRRwebEvent: [],
       allStorageMsg: [],
       allSystemMsg: [],
+      clientInfo: null,
     };
     const {
       activity,
@@ -186,6 +201,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       allRRwebEvent,
       allSystemMsg,
       allStorageMsg,
+      clientInfo,
     } = data.reduce((acc, cur) => {
       const { type, data, timestamp } = cur;
       if (timestamp < start) {
@@ -241,6 +257,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
     set(
       produce((state) => {
         state.activity = activity;
+        state.clientInfo = clientInfo;
         state.allConsoleMsg = allConsoleMsg;
         state.allNetworkMsg = allNetworkMsg;
         state.allRRwebEvent = allRRwebEvent;
