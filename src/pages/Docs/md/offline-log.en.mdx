@@ -81,6 +81,56 @@ DataHarborPlugin mainly collects and handles data. Additionally, PageSpy provide
 
 - [RRWebPlugin]({VITE_PLUGIN_RRWEB}): Uses `rrweb` to record DOM mutations. In the "Log Replay" panel on the left side of the debugger, devepler can see the user interaction traces.
 
+
+### Mini Program#mp
+
+The ***Log Replay*** feature also works in Mini Program. Please follow the steps below:
+
+#### Step 1: Install the DataHarbor plugin for miniprogram #mp-step-1
+
+```bash
+yarn add @huolala-tech/page-spy-plugin-mp-data-harbor
+```
+
+#### Step 2: Register the plugin:#mp-step-2
+```ts
+import PageSpy from '@huolala-tech/page-spy-wechat';
+import DataHarborPlugin from '@huolala-tech/page-spy-plugin-mp-data-harbor';
+
+// register the plugin, see config details at：https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-mp-data-harbor
+const $dataHarborPlugin = new DataHarborPlugin(config)
+PageSpy.registerPlugin($dataHarborPlugin);
+
+const $pageSpy = new PageSpy({
+  // ...
+})
+
+```
+
+#### Step 3: Upload Offline Logs#mp-step-3
+
+There are two ways to upload offline logs:
+
+1. Call the `upload()` method of the plugin instance directly:
+```ts
+$dataHarborPlugin.upload().then(() => {
+  console.log('Upload successfully');
+})
+```
+
+2. With the DataHarbor plugin registered, there will be a new action button for offline log uploading on PageSpy panel:
+
+<img src={mpDataHarborImg} />
+
+#### Differences
+
+1. DOM recording is not supported in miniprogram env, thus there is no `RRWebPlugin` for miniprogram。
+
+2. The offline log in miniprogram env supports uploading only, no downloading.
+
+
+
+
 ### FAQ
 
 1. How to upload / download logs manually?

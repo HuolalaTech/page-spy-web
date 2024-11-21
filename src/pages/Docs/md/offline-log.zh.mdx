@@ -4,6 +4,7 @@
 import modalImg from '@/assets/image/screenshot/modal.png';
 import replayImg from '@/assets/image/screenshot/replay-page.png';
 import replayGif from '@/assets/image/screenshot/replay-page.gif';
+import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
 
 **日志回放**，顾名思义是重新播放之前产生的日志。那么为什么要播放之前的日志？之前的日志从哪来？如何重新播放？我们一一来看。
 
@@ -78,6 +79,52 @@ import replayGif from '@/assets/image/screenshot/replay-page.gif';
 DataHarborPlugin 本身只收集数据、提供数据处理的功能，PageSpy 另外还提供了：
 
 - [RRWebPlugin]({VITE_PLUGIN_RRWEB}): 使用 `rrweb` 记录 DOM 更新，在调试端的「日志回放」面板左侧用户可以看到页面的操作轨迹；
+
+
+### 小程序#mp
+
+小程序环境也支持离线日志回放，步骤如下：
+
+#### 第一步：安装小程序专用插件：#mp-step-1
+```bash
+yarn add @huolala-tech/page-spy-plugin-mp-data-harbor
+```
+
+#### 第二步：注册该插件：#mp-step-2
+```ts
+import PageSpy from '@huolala-tech/page-spy-wechat';
+import DataHarborPlugin from '@huolala-tech/page-spy-plugin-mp-data-harbor';
+
+// 注册插件，config 信息查看：https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-mp-data-harbor
+const $dataHarborPlugin = new DataHarborPlugin(config)
+PageSpy.registerPlugin($dataHarborPlugin);
+
+const $pageSpy = new PageSpy({
+  // ...
+})
+
+```
+
+#### 第三步：上传离线日志
+
+有两种方式可以上传离线日志：
+
+1. 调用插件实例上的 `upload()` 方法：
+```ts
+$dataHarborPlugin.upload().then(() => {
+  console.log('上传成功');
+})
+```
+
+2. 注册小程序 DataHarbor 插件后，PageSpy 的调试菜单中会出现一个 「上传离线日志」按钮，点击即可上传离线日志：
+
+<img style={{width: 375}} src={mpDataHarborImg} />
+
+#### 差异
+
+1. 小程序环境不支持界面录制，也没有配套的 `RRWebPlugin`。
+
+2. 小程序环境离线日志仅支持上传，不支持下载。
 
 ### FAQ
 

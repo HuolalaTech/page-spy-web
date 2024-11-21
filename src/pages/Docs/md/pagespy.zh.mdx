@@ -1,12 +1,15 @@
+import mpPanelImg from '@/assets/image/screenshot/mp-panel.png';
+import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
+import {Tag} from 'antd'
 
 ## PageSpy API#api
 
-#### constructor()#constructor
+### constructor()#constructor
 
 - 类型及默认值
 
   ```js
-  new PageSpy({
+  new PageSpy(config)
     // SDK 会从引入的路径自动分析并决定 Server 的地址（api）和调试端的地址（clientOrigin）
     // 假设你通过 <script src="https://example.com/page-spy/index.min.js"> 引入 SDK，那么 SDK 会在内部设置：
     //   - api: "example.com"
@@ -73,8 +76,158 @@
       logo: '',
       title: 'PageSpy',
     },
-  })
   ```
+
+  #### config 字段定义：
+  > 字段右侧的标签标识该 API 的独享环境，如 `浏览器` 表示该 API 只能在浏览器环境下使用。
+
+  - **api: string**
+    
+    服务端地址。
+
+    - 浏览器：
+
+      SDK 会从引入的路径自动分析并决定 Server 的地址`api`和调试端的地址`clientOrigin`。假设你通过 `<script src="https://example.com/page-spy/index.min.js">` 引入 SDK，那么 SDK 会在内部设置：
+      - api: `"example.com"`
+      - clientOrigin: `"https://example.com"`
+
+      如果你的服务部署在别处，就需要在这里手动指定去覆盖。
+
+    - 小程序、RN、鸿蒙：
+
+      该字段为必填。
+
+    <br/>
+
+  - **clientOrigin: string** <Tag>浏览器</Tag>
+
+    参考上面 `api`
+
+    <br/>
+
+  - **project: string**
+    
+    默认值： "default"
+
+    作为信息的一种聚合，可以在调试端房间列表进行搜索
+
+    <br/>
+    
+  - **title: string**
+
+    默认值： "--"
+
+    用户自定义参数，可以用于区分当前调试的客户端。
+
+    对应的信息显示在每个调试连接面板的「设备id」下方
+
+    <br/>
+
+  - **enableSSL: boolean | undefined**
+
+
+    手动指定 PageSpy 服务的 scheme。
+
+    - 浏览器：
+
+      默认值：`undefined`。SDK 会根据页面所在的地址自动分析。
+      
+      传递 boolean 值：
+       - true：SDK 将通过 ["https://", "wss://"] 访问 PageSpy 服务
+       - false：SDK 将通过 ["http://", "ws://"] 访问 PageSpy 服务
+
+      这在 SDK 无法正确分析出 scheme 可以使用，例如 PageSpy 的浏览器插件是通过 chrome-extension://xxx/sdk/index.min.js 引入 SDK，这会被 SDK 解析成无效的 "chrome-extension://" 并回退到["http://", "ws://"]。
+
+    - 小程序、RN、鸿蒙：
+
+      默认值：`true`。这些环境一般强制要求 https，如果需支持 http（一般是在开发环境中），可以设置为 false。
+
+    <br/>
+  
+  - **disabledPlugins: string[]**
+
+    默认值：[]
+
+    PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些插件。
+
+    <br/>
+
+  - **serializeData: boolean**
+
+    默认值：false
+
+    是否允许 SDK 在收集离线日志时，序列化非基本类型的数据，序列化的目的是方便在回放时查看。
+
+    <br/>
+
+  - **useSecret: boolean**
+
+    默认值：false
+
+    是否启用权限认证功能。启用后，SDK会生成 6 位数的随机 “密钥”；调试端进入房间时要求输入对应的密钥。
+
+    <br/>
+  
+  - **messageCapacity: number**
+
+    默认值：1000
+
+    SDK 在调试端进入房间之前会在内存中缓存数据，以便于调试端进入房间后可以看到之前的数据。
+
+    但数据体积会越来越大，因此可以指定 SDK 在本地最多缓存多少条数据记录。
+
+    <br/>
+
+  - **dataProcessor: DataProcessor**
+
+    默认值：{}
+
+    数据处理，用户可以通过该属性自定义修改、忽略数据。
+
+    查看详情：https://www.pagespy.org/#/docs/changelog#v1_9_2
+
+    <br/>
+
+  - **disabledOnProd: boolean** <Tag>浏览器</Tag>
+
+    默认值：true
+
+    生产环境禁用。
+
+    <br/>
+
+  - **offline: boolean** <Tag>浏览器</Tag>
+
+    默认值：`false`
+
+   仅适用浏览器环境的 SDK
+
+    <br/>
+
+  - **autoRender: boolean** <Tag>浏览器</Tag>
+
+    指示 SDK 初始化完成，是否自动在客户端左下角渲染「圆形白底带 Logo」的控件。
+
+    如果设置为 false, 可以调用 `window.$pageSpy.render()` 手动渲染。
+
+    <br/>
+
+  - **logo: string** <Tag>浏览器</Tag>
+
+    设置主题色，用于 modal 和 toast 中。
+
+    仅适用浏览器环境的 SDK
+
+    <br/>
+
+  - **modal: ModalConfig** <Tag>浏览器</Tag>
+
+    设置 modal 里的 logo 和 title。
+
+    仅适用浏览器环境的 SDK
+
+    <br/>
+
 
 #### registerPlugin()#registerPlugin
 
@@ -267,5 +420,22 @@
     }
   }
   ```
+
+#### showPanel() 
+`小程序` 
+
+- 类型
+```
+  showPanel(): void;
+```
+- 详细信息
+
+在小程序环境中弹出调试面板。
+
+<img src={mpPanelImg} style={{width: 375}} />
+
+该面板支持插件注册自定义按钮，例如如果注册了 [DataHarborPlugin](./offline-log#mp)，该面板中会出现一个「上传离线日志」按钮：
+
+<img src={mpDataHarborImg} style={{width: 375}} />
 
 
