@@ -14,6 +14,7 @@
     "device-id": "Device ID",
     "os": "OS",
     "browser": "Browser",
+    "harmony": "HarmonyOS",
     "miniprogram": "Mini Program",
     "mpwechat": "WeChat Mini Program",
     "mpqq": "QQ Mini Program",

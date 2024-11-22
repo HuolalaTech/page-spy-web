@@ -1,232 +1,234 @@
 import mpPanelImg from '@/assets/image/screenshot/mp-panel.png';
 import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
 import {Tag} from 'antd'
+import { LinkOutlined } from '@ant-design/icons';
+import PlatformTag from '../components/PlatformTag'
 
 ## PageSpy API#api
 
-### constructor()#constructor
+> - API 标题右侧的标签表示该 API 的独享环境，例如：
+>
+>   <LinkOutlined/> **config.clientOrigin  <PlatformTag type="browser" />**
+>
+>   表示该 API 只能在浏览器环境下使用。
+> - API 详情中的标签则表示该 API 在各个平台的差异。
 
-- 类型及默认值
 
-  ```js
-  new PageSpy(config)
-    // SDK 会从引入的路径自动分析并决定 Server 的地址（api）和调试端的地址（clientOrigin）
-    // 假设你通过 <script src="https://example.com/page-spy/index.min.js"> 引入 SDK，那么 SDK 会在内部设置：
-    //   - api: "example.com"
-    //   - clientOrigin: "https://example.com"
-    // 如果你的服务部署在别处，就需要在这里手动指定去覆盖。
-    api: "",
-    clientOrigin: "", // 仅适用浏览器环境的 SDK
-    
-    // project 作为信息的一种聚合，可以在调试端房间列表进行搜索
-    project: "default",
-    
-    // title 供用户提供自定义参数，可以用于区分当前调试的客户端
-    // 对应的信息显示在每个调试连接面板的「设备id」下方
-    title: "--",
-    
-    // 手动指定 PageSpy 服务的 scheme。
-    // 这在 SDK 无法正确分析出 scheme 可以使用，例如 PageSpy 的浏览器插件
-    // 是通过 chrome-extension://xxx/sdk/index.min.js 引入 SDK，这会
-    // 被 SDK 解析成无效的 "chrome-extension://" 并回退到 ["http://", "ws://"]。
-    //   - （默认）传值 undefined 或者 null：SDK 会自动分析；
-    //   - 传递 boolean 值：
-    //     - true：SDK 将通过 ["https://", "wss://"] 访问 PageSpy 服务
-    //     - false：SDK 将通过 ["http://", "ws://"] 访问 PageSpy 服务
-    enableSSL: null,
+#### constructor()#constructor
 
-    // PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些插件
-    disabledPlugins: [],
+创建一个 PageSpy 实例。
 
-    // 是否允许 SDK 在收集离线日志时，序列化非基本类型的数据，序列化的目的是方便在回放时查看
-    serializeData: false,
+- 类型
 
-    // 是否启用权限认证功能。启用后，SDK 会生成 6 位数的随机 “密钥”；调试端进入房间时要求输入对应的密钥
-    useSecret: false,
-
-    // SDK 在调试端进入房间之前会在内存中缓存数据，以便于调试端进入房间后可以看到之前的数据。
-    // 但数据体积会越来越大，因此可以指定 SDK 在本地最多缓存多少条数据记录。
-    messageCapacity: 1000,
-
-    // 数据处理，用户可以通过该属性自定义修改、忽略数据。
-    // 查看详情：https://www.pagespy.org/#/docs/changelog#v1_9_2
-    dataProcessor: {},
-
-    // 生产环境禁用
-    disabledOnProd: true, // 仅适用小程序环境的 SDK
-    
-    // 指示 SDK 初始化完成，是否自动在客户端左下角渲染「圆形白底带 Logo」的控件
-    // 如果设置为 false, 可以调用 window.$pageSpy.render() 手动渲染
-    autoRender: true,  // 仅适用浏览器环境的 SDK
-
-    // 在 PageSpy@1.7.4 支持离线回放功能后，客户端集成的 SDK 可以不用和调试端建立连接，
-    // 通过 DataHarborPlugin 收集数据、导出离线日志，成为新的使用方式。
-    // 默认值 false。用户设置为其他值时，会进入 "离线模式"，具体表现为 PageSpy 不会创建房间、建立 WebSocket 连接。
-    offline: false, // 仅适用浏览器环境的 SDK
-
-    // 自定义控件渲染的 logo
-    logo: '', // 仅适用浏览器环境的 SDK
-
-    // 设置主题色，用于 modal 和 toast 中
-    primaryColor: '#8434e9', // 仅适用浏览器环境的 SDK
-
-    // 设置 modal 里的 logo 和 title
-    // 仅适用浏览器环境的 SDK
-    modal: {
-      logo: '',
-      title: 'PageSpy',
-    },
+  ```ts
+  declare class PageSpy {
+    constructor(config: InitConfig)
+  }
   ```
 
-  #### config 字段定义：
-  > 字段右侧的标签标识该 API 的独享环境，如 `浏览器` 表示该 API 只能在浏览器环境下使用。
+- 详细信息
 
-  - **api: string**
-    
-    服务端地址。
+  构造函数接受一个 `config` 对象作为初始化参数。
 
-    - 浏览器：
+#### config.api
 
-      SDK 会从引入的路径自动分析并决定 Server 的地址`api`和调试端的地址`clientOrigin`。假设你通过 `<script src="https://example.com/page-spy/index.min.js">` 引入 SDK，那么 SDK 会在内部设置：
-      - api: `"example.com"`
-      - clientOrigin: `"https://example.com"`
+服务端地址。
 
-      如果你的服务部署在别处，就需要在这里手动指定去覆盖。
+- 类型：`string`
 
-    - 小程序、RN、鸿蒙：
+- **<PlatformTag type="browser" />**
 
-      该字段为必填。
+  SDK 会从引入的路径自动分析并决定 Server 的地址`api`和调试端的地址`clientOrigin`。假设你通过 `<script src="https://example.com/page-spy/index.min.js">` 引入 SDK，那么 SDK 会在内部设置：
+  - api: `"example.com"`
+  - clientOrigin: `"https://example.com"`
 
-    <br/>
+  如果你的服务部署在别处，就需要在这里手动指定去覆盖。
 
-  - **clientOrigin: string** <Tag>浏览器</Tag>
+- **<PlatformTag type="mp" /> <PlatformTag type="rn" /> <PlatformTag type="harmony" />**
 
-    参考上面 `api`
+  该字段为必填。
 
-    <br/>
+#### config.clientOrigin <PlatformTag type="browser" />
 
-  - **project: string**
-    
-    默认值： "default"
-
-    作为信息的一种聚合，可以在调试端房间列表进行搜索
-
-    <br/>
-    
-  - **title: string**
-
-    默认值： "--"
-
-    用户自定义参数，可以用于区分当前调试的客户端。
-
-    对应的信息显示在每个调试连接面板的「设备id」下方
-
-    <br/>
-
-  - **enableSSL: boolean | undefined**
-
-
-    手动指定 PageSpy 服务的 scheme。
-
-    - 浏览器：
-
-      默认值：`undefined`。SDK 会根据页面所在的地址自动分析。
-      
-      传递 boolean 值：
-       - true：SDK 将通过 ["https://", "wss://"] 访问 PageSpy 服务
-       - false：SDK 将通过 ["http://", "ws://"] 访问 PageSpy 服务
-
-      这在 SDK 无法正确分析出 scheme 可以使用，例如 PageSpy 的浏览器插件是通过 chrome-extension://xxx/sdk/index.min.js 引入 SDK，这会被 SDK 解析成无效的 "chrome-extension://" 并回退到["http://", "ws://"]。
-
-    - 小程序、RN、鸿蒙：
-
-      默认值：`true`。这些环境一般强制要求 https，如果需支持 http（一般是在开发环境中），可以设置为 false。
-
-    <br/>
+- 类型：`string`
   
-  - **disabledPlugins: string[]**
 
-    默认值：[]
+#### config.project
 
-    PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些插件。
-
-    <br/>
-
-  - **serializeData: boolean**
-
-    默认值：false
-
-    是否允许 SDK 在收集离线日志时，序列化非基本类型的数据，序列化的目的是方便在回放时查看。
-
-    <br/>
-
-  - **useSecret: boolean**
-
-    默认值：false
-
-    是否启用权限认证功能。启用后，SDK会生成 6 位数的随机 “密钥”；调试端进入房间时要求输入对应的密钥。
-
-    <br/>
+作为信息的一种聚合，可以在调试端房间列表进行搜索
   
-  - **messageCapacity: number**
+- 类型：`string`
+- 默认值：`default`
 
-    默认值：1000
+    
+    
+#### config.title
 
-    SDK 在调试端进入房间之前会在内存中缓存数据，以便于调试端进入房间后可以看到之前的数据。
+用户自定义参数，可以用于区分当前调试的客户端。
 
-    但数据体积会越来越大，因此可以指定 SDK 在本地最多缓存多少条数据记录。
+对应的信息显示在每个调试连接面板的「设备id」下方。
 
-    <br/>
+- 类型：`string`
+- 默认值：`--`
 
-  - **dataProcessor: DataProcessor**
+    
+#### config.enableSSL
 
-    默认值：{}
+手动指定 PageSpy 服务的 scheme。
 
-    数据处理，用户可以通过该属性自定义修改、忽略数据。
+- 类型：`boolean`  
 
-    查看详情：https://www.pagespy.org/#/docs/changelog#v1_9_2
+- 详细信息
 
-    <br/>
+  传递 boolean 值：
+    - true：SDK 将通过 ["https://", "wss://"] 访问 PageSpy 服务
+    - false：SDK 将通过 ["http://", "ws://"] 访问 PageSpy 服务
 
-  - **disabledOnProd: boolean** <Tag>浏览器</Tag>
+- **<PlatformTag type="browser" />**
 
-    默认值：true
+  不设置该值，SDK 会根据页面所在的地址自动分析。
 
-    生产环境禁用。
+  在 SDK 无法正确分析出 scheme 时，例如 PageSpy 的浏览器插件是通过 chrome-extension://xxx/sdk/index.min.js 引入 SDK，这会被 SDK 解析成无效的 "chrome-extension://" 并回退到["http://", "ws://"]。此时可以手动设定该字段。
 
-    <br/>
+- **<PlatformTag type="mp" /> <PlatformTag type="rn" /> <PlatformTag type="harmony" />**
 
-  - **offline: boolean** <Tag>浏览器</Tag>
+  这些环境一般强制要求 https，因此默认为 `true`。如果需支持 http（一般是在开发环境中），可以设置为 false。
 
-    默认值：`false`
 
-   仅适用浏览器环境的 SDK
+  
+#### config.disabledPlugins
 
-    <br/>
+PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些插件。
 
-  - **autoRender: boolean** <Tag>浏览器</Tag>
+- 类型：`string[]`
 
-    指示 SDK 初始化完成，是否自动在客户端左下角渲染「圆形白底带 Logo」的控件。
 
-    如果设置为 false, 可以调用 `window.$pageSpy.render()` 手动渲染。
+#### config.serializeData
 
-    <br/>
+是否允许 SDK 在收集离线日志时，序列化非基本类型的数据，序列化的目的是方便在回放时查看。
 
-  - **logo: string** <Tag>浏览器</Tag>
+- 类型：`boolean`
+- 默认值：`false`
 
-    设置主题色，用于 modal 和 toast 中。
 
-    仅适用浏览器环境的 SDK
+#### config.useSecret
 
-    <br/>
+是否启用权限认证功能。
 
-  - **modal: ModalConfig** <Tag>浏览器</Tag>
+- 类型：`boolean`
+- 默认值：`false`
+- 详细信息：
 
-    设置 modal 里的 logo 和 title。
+  启用后，SDK会生成 6 位数的随机 “密钥”；调试端进入房间时要求输入对应的密钥。
+  
+#### config.messageCapacity
 
-    仅适用浏览器环境的 SDK
+缓存数据的最大数量。
 
-    <br/>
+- 类型：`number`
+- 默认值：`1000`
+- 详细信息：
+
+  SDK 在调试端进入房间之前会在内存中缓存数据，以便于调试端进入房间后可以看到之前的数据。
+
+  但数据体积会越来越大，因此可以指定 SDK 在本地最多缓存多少条数据记录。
+
+
+#### config.dataProcessor
+
+数据处理，用户可以通过该属性自定义修改、忽略数据。
+
+- 类型：
+  ```ts
+  declare interface DataProcessor {
+    console?: (data: ConsoleData) => boolean;
+    network?: (data: RequestItem) => boolean;
+    storage?: (data: StorageData) => boolean;
+    database?: (data: DatabaseData) => boolean;
+    page?: (data: PageData) => boolean;
+    system?: (data: SystemData) => boolean;
+  }
+  ```
+
+- 详细信息
+
+  处理函数分别对应各个内置的插件，用户可以在函数中直接修改数据，函数执行完成后 PageSpy 处理修改后的数据。如果函数返回 false，PageSpy 会 忽略掉该条数据：这意味着在两种模式下的调试端都不会看到这条数据。
+
+  查看详情：https://www.pagespy.org/#/docs/changelog#v1_9_2
+
+
+#### config.disabledOnProd <PlatformTag type="mp" />
+
+在小程序的生产环境禁用 PageSpy。
+
+- 类型：`boolean`
+- 默认值：`true`
+- 详细信息：
+
+  PageSpy 作为一款调试工具，主要应用于开发测试环节，不建议在生产环境使用，且小程序平台一般对性能更为敏感，因此该字段默认为 true。
+
+
+#### config.offline <PlatformTag type="browser" />
+
+离线模式。
+
+- 类型：`boolean`
+
+- 默认值：`false`
+
+- 详细信息：
+
+  在 PageSpy@1.7.4 支持离线回放功能后，客户端集成的 SDK 可以不用和调试端建立连接，通过 DataHarborPlugin 收集数据、导出离线日志，成为新的使用方式。
+  默认值 false。用户设置为 Truthy 值，会进入 "离线模式"，具体表现为 PageSpy 不会创建房间、建立 WebSocket 连接。
+
+  目前仅适用浏览器环境的 SDK。
+
+
+#### config.autoRender <PlatformTag type="browser" />
+
+指示 SDK 初始化完成，是否自动在客户端左下角渲染「圆形白底带 Logo」的控件。
+
+- 类型：`boolean`
+
+- 默认值：`true`
+
+- 详细信息：
+
+  如果设置为 false, 可以调用 `window.$pageSpy.render()` 手动渲染。
+
+
+#### config.logo <PlatformTag type="browser" />
+
+自定义控件渲染的 logo
+
+- 类型：`string`
+
+#### config.primaryColor <PlatformTag type="browser" />
+
+设置主题色，用于 modal 和 toast 中。
+
+- 类型：`string`
+
+#### config.modal <PlatformTag type="browser" />
+
+设置 modal 里的 logo 和 title。
+
+- 类型：
+
+  ```ts
+  declare interface ModalConfig {
+    logo?: string;
+    title?: string;
+  }
+  ```
+- 默认值：
+```ts
+{
+  logo: "",
+  title: "PageSpy"
+}
+```
+
 
 
 #### registerPlugin()#registerPlugin
@@ -425,17 +427,19 @@ import {Tag} from 'antd'
 `小程序` 
 
 - 类型
-```
-  showPanel(): void;
-```
+  ```ts
+  declare class PageSpy {
+    showPanel(): void;
+  }
+  ```
 - 详细信息
 
-在小程序环境中弹出调试面板。
+  在小程序环境中弹出调试面板。
 
-<img src={mpPanelImg} style={{width: 375}} />
+  <img src={mpPanelImg} style={{width: 375}} />
 
-该面板支持插件注册自定义按钮，例如如果注册了 [DataHarborPlugin](./offline-log#mp)，该面板中会出现一个「上传离线日志」按钮：
+  该面板支持插件注册自定义按钮，例如如果注册了 [DataHarborPlugin](./offline-log#mp)，该面板中会出现一个「上传离线日志」按钮：
 
-<img src={mpDataHarborImg} style={{width: 375}} />
+  <img src={mpDataHarborImg} style={{width: 375}} />
 
 
