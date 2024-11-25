@@ -1,6 +1,5 @@
 import mpPanelImg from '@/assets/image/screenshot/mp-panel.png';
 import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
-import {Tag} from 'antd'
 import { LinkOutlined } from '@ant-design/icons';
 import PlatformTag from '../components/PlatformTag'
 
@@ -423,8 +422,9 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   }
   ```
 
-#### showPanel() 
-`小程序` 
+#### showPanel() <PlatformTag type="mp" />
+
+在小程序环境中弹出调试面板。
 
 - 类型
   ```ts
@@ -433,8 +433,6 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   }
   ```
 - 详细信息
-
-  在小程序环境中弹出调试面板。
 
   <img src={mpPanelImg} style={{width: 375}} />
 

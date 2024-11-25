@@ -1,4 +1,6 @@
 import { Tooltip } from 'antd'
+import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'
+
 
 #### Step 1#step-1
 
@@ -38,6 +40,14 @@ new PageSpy({
   api: "{deployPath}",
 })
 ```
+
+#### Debugging panel
+
+Call the `showPanel()` method on the created PageSpy instance to pop up a debugging menu for assistance with debugging:
+
+<img src={mpPanelImg} />
+
+<br/>
 
 That's the complete process to integrate PageSpy into a mini-program project.
 

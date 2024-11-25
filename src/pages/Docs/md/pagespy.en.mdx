@@ -1,89 +1,239 @@
+import mpPanelImg from '@/assets/image/screenshot/mp-panel.png';
+import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
+import { LinkOutlined } from '@ant-design/icons';
+import PlatformTag from '../components/PlatformTag'
+
 ## PageSpy API#api
+
+> - The tag on the right of each API title indicate the exclusive env for this API, for example:
+>
+>   <LinkOutlined/> **config.clientOrigin  <PlatformTag type="browser" />**
+>
+>   This tag indicates the API can only be used in the browser environment。
+> - The tags in the details below the API title indicate the platform differences of the API.
+
+
 
 #### constructor()#constructor
 
-- Details
+Create a PageSpy instance.
 
-  ```js
-  window.$pageSpy = new PageSpy({
-    // SDK will automatically determine server address (api) and client origin
-    // (clientOrigin) from the imported path. For example, if you import SDK
-    // via <script src="https://example.com/page-spy/index.min.js">, SDK will
-    // internally set:
-    // - api: "example.com"
-    // - clientOrigin: "https://example.com"
-    // If your service is deployed elsewhere, you need to manually specify to override.
-    api: "",
-    clientOrigin: "", // Only applicable for browser environment
+- Type:
 
-    // Project serves as an aggregation of information, searchable in the room list
-    project: "default",
-
-    // Title allows users to provide custom parameters for distinguishing the current client
-    // Corresponding information appears below the "device id" in each connection panel
-    title: "--",
-
-    // Manually specify PageSpy service scheme.
-    // This can be used if SDK cannot correctly analyze the scheme, such as
-    // PageSpy's browser plugin is imported via chrome-extension://xxx/sdk/index.min.js,
-    // which SDK interprets as invalid "chrome-extension://" and falls back
-    // to ["http://", "ws://"].
-    // - (Default) Pass undefined or null: SDK will analyze automatically;
-    // - Pass boolean value:
-    //   - true: SDK will access PageSpy service via ["https://", "wss://"]
-    //   - false: SDK will access PageSpy service via ["http://", "ws://"]
-    enableSSL: null,
-
-    // All internal plugins are carried with PageSpy by default out of the box.
-    // You can disable some plugins as needed.
-    disabledPlugins: [],
-
-    // Specify whether the SDK is allowed to serialize non-primitive data types
-    // when collecting offline data.
-    serializeData: false,
-
-    // Indicate whether authorization is required. If enabled, PageSpy generates a 6-digit
-    // random number (below "secret") as a password for the debug room, which is required
-    // for developers to access the debug room
-    useSecret: false,
-
-    // Specify how many messages to cache. The data is primarily used to configure
-    // the maximum number of historical data the SDK can send after the debugging
-    // terminal goes online.
-    messageCapacity: 1000,
-
-    // Data processing, users can customize, modify, or ignore data through this property.
-    // View details: https://www.pagespy.org/#/docs/changelog#v1_9_2
-    dataProcessor: {},
-
-    // Disable on production environment
-    disabledOnProd: true, // Only applicable for miniprogram
-
-    // Indicates whether SDK initializes and automatically renders "circular white
-    // logo on a white background" control in the lower left corner of the client
-    // If set to false, you can call window.$pageSpy.render() to render manually.
-    autoRender: true,  // Only applicable for browser environment
-
-    // After PageSpy@1.7.4 supports offline playback function, SDK integrated into the client
-    // can collect data, export offline logs, and become a new usage mode.
-    // Default value is false. When set to other values, it enters "offline mode",
-    // where PageSpy does not create rooms or establish WebSocket connections.
-    offline: false, // Only applicable for browser environment
-
-    // Custom control rendering logo
-    logo: '', // Only applicable for browser environment
-
-    // Set the theme color, which is used in modals and toasts.
-    primaryColor: '#8434e9'; // Only applicable for browser environment
-
-    // Set the logo and title in the modal.
-    // Only applicable for browser environment
-    modal: {
-      logo: '',
-      title: 'PageSpy',
-    }
-  })
+  ```ts
+  declare class PageSpy {
+    constructor(config: InitConfig)
+  }
   ```
+
+- Details: 
+
+  The constructor accepts an `config` object as the initialization parameter.
+
+  Before the initialization, the SDK will not hack any native API. 
+
+#### config.api
+
+The address of PageSpy service.
+
+- Type: `string`
+
+- **<PlatformTag type="browser" />**
+
+  SDK will automatically determine server address (api) and client origin (clientOrigin) from the imported path. For example, if you import SDK `<script src="https://example.com/page-spy/index.min.js">`, SDK will internally set:
+  - api: `"example.com"`
+  - clientOrigin: `"https://example.com"`
+
+  If your service is deployed elsewhere, you need to manually specify to override.
+
+- **<PlatformTag type="mp" /> <PlatformTag type="rn" /> <PlatformTag type="harmony" />**
+
+  This option is mandatory.
+
+#### config.clientOrigin <PlatformTag type="browser" />
+
+The origin of the debug panel.
+
+- Type: `string`
+
+- Details:
+
+  The value will be used when copy the debug url on the 
+
+  There could be a "Copy the debug url" button on the PageSpy popup, by default, the url uses the same origin as `api` option. By setting this option, you can specify the origin of the debug panel.
+
+  Only applicable for browser environment.
+  
+
+#### config.project
+
+Project serves as an aggregation of information, searchable in the room list.
+  
+- Type: `string`
+- Default: `default`
+
+    
+    
+#### config.title
+
+Title allows users to provide custom parameters for distinguishing the current client. It will appears below the "device id" in each connection panel.
+
+- Type: `string`
+- Default: `--`
+
+    
+#### config.enableSSL
+
+Manually specify PageSpy service scheme.
+
+- Type: `boolean`  
+
+- Details: 
+
+  Pass boolean value:
+    - true: SDK will access PageSpy service via ["https://", "wss://"]
+    - false: SDK will access PageSpy service via ["http://", "ws://"]
+
+- **<PlatformTag type="browser" />**
+
+  If not set, SDK will analyze automatically according to the page's protocol.
+
+  This can be used if SDK cannot correctly analyze the scheme, such as PageSpy's browser plugin is imported via chrome-extension://xxx/sdk/index.min.js, which SDK interprets as invalid "chrome-extension://" and falls back
+
+- **<PlatformTag type="mp" /> <PlatformTag type="rn" /> <PlatformTag type="harmony" />**
+
+  These platform normally require https mandatorily, so the default value is `true`. You may need to manually set to `false` in dev env.
+
+
+  
+#### config.disabledPlugins
+
+All internal plugins are carried with PageSpy by default out of the box. You can disable some plugins as needed.
+
+- Type: `string[]`
+
+
+#### config.serializeData
+
+Specify whether the SDK is allowed to serialize non-primitive data types when collecting offline data.
+
+- Type: `boolean`
+- Default: `false`
+
+
+#### config.useSecret
+
+Indicate whether authorization is required. 
+
+- Type: `boolean`
+- Default: `false`
+- Details: 
+
+  If enabled, PageSpy generates a 6-digit random number (below "secret") as a password for the debug room, which is required for developers to access the debug room.
+  
+#### config.messageCapacity
+
+Specify how many messages to cache.
+
+- Type: `number`
+- Default: `1000`
+- Details: 
+
+  The data is primarily used to configure the maximum number of historical data the SDK can send after the debugging terminal goes online.
+
+
+#### config.dataProcessor
+
+User can process the data to be collected.
+
+- Type: 
+  ```ts
+  declare interface DataProcessor {
+    console?: (data: ConsoleData) => boolean;
+    network?: (data: RequestItem) => boolean;
+    storage?: (data: StorageData) => boolean;
+    database?: (data: DatabaseData) => boolean;
+    page?: (data: PageData) => boolean;
+    system?: (data: SystemData) => boolean;
+  }
+  ```
+
+- Details: 
+
+  Each processing method corresponds to an internal plugin, each log will be passed to the process method defined by user, and user can customize, modify, or ignore it. If the function returns false, PageSpy will ignore the log, then the log will not in neither the online debug panel nor offline data replay.
+
+  View details: https://www.pagespy.org/#/docs/changelog#v1_9_2
+
+
+#### config.disabledOnProd <PlatformTag type="mp" />
+
+Disable the PageSpy in production env of miniprogram。
+
+- Type: `boolean`
+- Default: `true`
+- Details: 
+
+  As a debug tool, PageSpy is mainly for dev and debug phase, and is not recommended in production. Moreover, miniprogram platforms usually have strict audit rules.
+
+
+#### config.offline <PlatformTag type="browser" />
+
+- Type: `boolean`
+
+- Default: `false`
+
+- Details: 
+
+  After PageSpy@1.7.4 supports offline playback function, SDK integrated into the client can collect data, export offline logs, and become a new usage mode.
+  Default value is false. When set to other values, it enters "offline mode", where PageSpy does not create rooms or establish WebSocket connections.
+
+  Currently only support browser SDK。
+
+
+#### config.autoRender <PlatformTag type="browser" />
+
+Indicates whether SDK initializes and automatically renders "circular white logo on a white background" control in the lower left corner of the client.
+
+- Type: `boolean`
+
+- Default: `true`
+
+- Details: 
+
+  If set to false, you can call window.$pageSpy.render() to render manually.
+
+
+#### config.logo <PlatformTag type="browser" />
+
+Custom control rendering logo.
+
+- Type: `string`
+
+#### config.primaryColor <PlatformTag type="browser" />
+
+Set the theme color, which is used in modals and toasts.
+
+- Type: `string`
+
+#### config.modal <PlatformTag type="browser" />
+
+Set the logo and title in the modal.
+
+- Type: 
+
+  ```ts
+  declare interface ModalConfig {
+    logo?: string;
+    title?: string;
+  }
+  ```
+- Default: 
+```ts
+{
+  logo: "",
+  title: "PageSpy"
+}
+```
 
 #### registerPlugin()#registerPlugin
 
@@ -277,3 +427,24 @@ Encapsulates the WebSocket instance, provides message event listeners, triggers 
     }
   }
   ```
+
+
+#### showPanel() <PlatformTag type="mp" />
+
+Show the debugging panel in miniprogram.
+
+- Type:
+  ```ts
+  declare class PageSpy {
+    showPanel(): void;
+  }
+  ```
+- Details:
+
+  <img src={mpPanelImg} style={{width: 375}} />
+
+  This panel supports plugin registration of custom buttons, for example, if the [DataHarborPlugin](./offline-log#mp) is registered, a button of「Upload Offline Log」will appear in the panel:
+
+  <img src={mpDataHarborImg} style={{width: 375}} />
+
+
