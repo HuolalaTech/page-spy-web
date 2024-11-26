@@ -87,6 +87,9 @@
     "unist-util-visit": "^4.1.2",
     "zustand": "^4.5.2"
   },
+  "resolutions": {
+    "rollup": "npm:@rollup/wasm-node"
+  },
   "gitHooks": {
     "pre-commit": "lint-staged && node ./scripts/check-i18n.mjs"
   },
@@ -104,7 +107,6 @@
     "last 2 safari version"
   ],
   "optionalDependencies": {
-    "@huolala-tech/page-spy-api": "^1.9.0",
-    "@rollup/rollup-linux-x64-gnu": "4.9.5"
+    "@huolala-tech/page-spy-api": "^1.9.0"
   }
 }
