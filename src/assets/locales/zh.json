@@ -15,6 +15,7 @@
     "os": "系统",
     "browser": "浏览器",
     "harmony": "鸿蒙",
+    "rn": "React Native",
     "miniprogram": "小程序",
     "mpwechat": "微信小程序",
     "mpalipay": "支付宝小程序",
@@ -46,7 +47,8 @@
     "copied": "已复制",
     "prev": "上一页",
     "next": "下一页",
-    "replay-lab": "回放实验室"
+    "replay-lab": "回放实验室",
+    "toc": "本页目录"
   },
   "error": {
     "oops": " 哎呀！发生错误～",

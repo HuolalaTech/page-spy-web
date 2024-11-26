@@ -10,7 +10,7 @@ import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
 
 <img src={replayGif} />
 
-### 为什么#why
+## 为什么#why
 
 以往，PageSpy 在线调试解决了很多棘手的问题，但使用 PageSpy 有一个前提条件：「客户端和调试端必须同时在线」。这个前置条件不仅局限了 PageSpy 的使用场景，比如：
 
@@ -23,7 +23,7 @@ import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
 
 为了解决这些问题、使用时获得更大自由度，PageSpy 在 [1.7.3][release-1.7.3] 版本中提供了日志回放的功能！
 
-### 日志从哪来#where
+## 日志从哪来#where
 
 在 PageSpy 的 SDK 支持 [注册插件](./plugins) 后，开发团队第一时间推进 [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) 插件的研发。
 
@@ -33,9 +33,9 @@ import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
 
 它在内部监听 `"public-data"` 事件（[什么是 "public-data" 事件？](./plugins#convention)），进而实现离线缓存数据的功能，同时在 SDK 渲染的控件中提供上传、下载数据的功能。当客户端发现问题时，测试同学可以直接上传或者下载数据，这一创新打破了以往「客户端和调试端必须同时在线」的前提要求。
 
-### 如何使用#how-to-use
+## 如何使用#how-to-use
 
-> 当前可用于客户端运行在浏览器环境中的场景。
+### 在浏览器中使用#browser
 
 #### 第一步：客户端引入 SDK 和插件#step-1
 
@@ -74,23 +74,23 @@ import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
 
 <img src={replayImg} />
 
-### 配合其他插件使用#plugins
+#### 配合其他插件使用#plugins
 
 DataHarborPlugin 本身只收集数据、提供数据处理的功能，PageSpy 另外还提供了：
 
 - [RRWebPlugin]({VITE_PLUGIN_RRWEB}): 使用 `rrweb` 记录 DOM 更新，在调试端的「日志回放」面板左侧用户可以看到页面的操作轨迹；
 
 
-### 小程序#mp
+### 在小程序中使用#mp
 
 小程序环境也支持离线日志回放，步骤如下：
 
-#### 第一步：安装小程序专用插件：#mp-step-1
+#### 第一步：安装小程序专用插件#mp-step-1
 ```bash
 yarn add @huolala-tech/page-spy-plugin-mp-data-harbor
 ```
 
-#### 第二步：注册该插件：#mp-step-2
+#### 第二步：注册该插件#mp-step-2
 ```ts
 import PageSpy from '@huolala-tech/page-spy-wechat';
 import DataHarborPlugin from '@huolala-tech/page-spy-plugin-mp-data-harbor';
@@ -105,7 +105,7 @@ const $pageSpy = new PageSpy({
 
 ```
 
-#### 第三步：上传离线日志
+#### 第三步：上传离线日志#mp-step-3
 
 有两种方式可以上传离线日志：
 
@@ -120,13 +120,13 @@ $dataHarborPlugin.upload().then(() => {
 
 <img style={{width: 375}} src={mpDataHarborImg} />
 
-#### 差异
+### 差异#diff
 
 1. 小程序环境不支持界面录制，也没有配套的 `RRWebPlugin`。
 
 2. 小程序环境离线日志仅支持上传，不支持下载。
 
-### FAQ
+## FAQ
 
 1. 如何手动操作上传 / 下载日志？
 

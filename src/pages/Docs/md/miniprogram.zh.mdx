@@ -2,7 +2,7 @@
 import { Tooltip } from 'antd'
 import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'
 
-#### 第一步#step-1
+### 第一步#step-1
 
 在项目中安装依赖。我们提供了几种小程序平台的 SDK，请根据需要安装：
 
@@ -23,7 +23,7 @@ yarn add @huolala-tech/page-spy-uniapp@latest
 yarn add @huolala-tech/page-spy-taro@latest
 ```
 
-#### 第二步#step-2
+### 第二步#step-2
 
 将 PageSpy 服务域名填入小程序的 http、websocket 请求白名单中。注意除了开发环境，小程序强制要求使用 https 和 wss 协议：
 
@@ -32,7 +32,7 @@ https://<your-pagespy-host>
 wss://<your-pagespy-host>
 ```
 
-#### 第三步#step-3
+### 第三步#step-3
 
 在入口文件中引入 SDK 并实例化，初始化参数提供了可选的 [配置项]({VITE_SDK_WECHAT_REPO}) 用于自定义 SDK 的行为：
 
@@ -44,13 +44,10 @@ const $pageSpy = new PageSpy({
 })
 ```
 
-#### 调试菜单
+### 调试菜单#menus
 
 在创建的 PageSpy 实例上调用 `showPanel()` 方法可以弹出一个调试菜单用于辅助调试：
 
-<img src={mpPanelImg} />
-
-
-<br/>
+<img src={mpPanelImg} style={{ maxWidth: 320 }} />
 
 以上就是在小程序项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 <Tooltip title="菜单默认隐藏，部署后可见" color="purple"><a href="javascript:void(0)">开始调试</a></Tooltip> 使用！

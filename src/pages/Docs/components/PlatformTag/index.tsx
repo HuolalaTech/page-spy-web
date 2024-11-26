@@ -2,9 +2,9 @@ import { Tag } from 'antd';
 import { t } from 'i18next';
 import React from 'react';
 
-type Props = {
+interface Props {
   type: PlatformType;
-};
+}
 
 type PlatformType = 'browser' | 'mp' | 'rn' | 'harmony';
 const PlatformMap: Record<
@@ -15,7 +15,7 @@ const PlatformMap: Record<
   }
 > = {
   browser: {
-    color: '#409EFF',
+    color: '#E54D21',
     label: t('common.browser'),
   },
   mp: {
@@ -23,18 +23,22 @@ const PlatformMap: Record<
     label: t('common.miniprogram'),
   },
   rn: {
-    color: '#61dafb',
-    label: 'RN',
+    color: '#58C4DC',
+    label: t('common.rn'),
   },
   harmony: {
-    color: '#000',
+    color: '#444444',
     label: t('common.harmony'),
   },
 };
 
 const PlatformTag = (props: Props) => {
   const platform = PlatformMap[props.type];
-  return <Tag color={platform.color}>{platform.label}</Tag>;
+  return (
+    <Tag color={platform.color}>
+      <b>{platform.label}</b>
+    </Tag>
+  );
 };
 
 export default PlatformTag;

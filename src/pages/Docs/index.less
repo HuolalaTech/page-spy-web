@@ -1,4 +1,8 @@
 .docs {
+  --doc-sidebar-width: 240px;
+  --doc-page-max-width: 1024px;
+  --doc-side-space: calc(100vw - var(--doc-page-max-width));
+
   position: relative;
   height: 100%;
   /* 整体样式 */
@@ -10,18 +14,5 @@
     .line {
       line-height: 1.5em;
     }
-  }
-
-  table {
-    border-collapse: collapse;
-    border: 1px solid #333;
-    border-radius: 4px;
-  }
-  th,
-  td {
-    border: 1px solid #333;
-    border-radius: 4px;
-
-    padding: 6px 14px;
   }
 }

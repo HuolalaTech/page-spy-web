@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import mdx from '@mdx-js/rollup';
 import remarkGfm from 'remark-gfm';
+import remarkToc from 'remark-toc';
 
 export default ({ mode, command }) => {
   const buildDoc = mode === 'doc';
@@ -20,10 +21,10 @@ export default ({ mode, command }) => {
           manualChunks: {
             react: ['react'],
             'react-dom': ['react-dom'],
-            'react-router-dom': ['react-router-dom']
-          }
-        }
-      }
+            'react-router-dom': ['react-router-dom'],
+          },
+        },
+      },
     },
     resolve: {
       alias: [{ find: '@', replacement: path.join(__dirname, './src') }],
@@ -42,7 +43,7 @@ export default ({ mode, command }) => {
       {
         enforce: 'pre',
         ...mdx({
-          remarkPlugins: [remarkGfm],
+          remarkPlugins: [remarkGfm, remarkToc],
         }),
       },
       react(),

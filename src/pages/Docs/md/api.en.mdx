@@ -1,3 +1,14 @@
+import PlatformTag from '../components/PlatformTag';
+
+> Some features are only available on specific platforms. We will differentiate them using the following tags:
+>
+> | Platform     | Tags                           |
+> | ------------ | ------------------------------ |
+> | Browser      | <PlatformTag type="browser" /> |
+> | Mini Program | <PlatformTag type="mp" />      |
+> | React Native | <PlatformTag type="rn" />      |
+> | OpenHarmony  | <PlatformTag type="harmony" /> |
+
 ### PageSpy#pagespy
 
 > The instance variable is named `$pageSpy = new PageSpy(...)`；
@@ -10,6 +21,7 @@
 - [$pageSpy.version](./pagespy#version)
 - [$pageSpy.config](./pagespy#config)
 - [$pageSpy.socketStore](./pagespy#socketStore)
+- [$pageSpy.showPanel()](./pagespy#showPanel) <PlatformTag type="mp" />
 
 ### Plugins#plugins
 

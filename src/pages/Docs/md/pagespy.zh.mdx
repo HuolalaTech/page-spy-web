@@ -1,19 +1,10 @@
 import mpPanelImg from '@/assets/image/screenshot/mp-panel.png';
 import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
-import { LinkOutlined } from '@ant-design/icons';
 import PlatformTag from '../components/PlatformTag'
 
-## PageSpy API#api
+# PageSpy API
 
-> - API 标题右侧的标签表示该 API 的独享环境，例如：
->
->   <LinkOutlined/> **config.clientOrigin  <PlatformTag type="browser" />**
->
->   表示该 API 只能在浏览器环境下使用。
-> - API 详情中的标签则表示该 API 在各个平台的差异。
-
-
-#### constructor()#constructor
+## constructor()
 
 创建一个 PageSpy 实例。
 
@@ -29,7 +20,7 @@ import PlatformTag from '../components/PlatformTag'
 
   构造函数接受一个 `config` 对象作为初始化参数。
 
-#### config.api
+### config.api
 
 服务端地址。
 
@@ -47,12 +38,12 @@ import PlatformTag from '../components/PlatformTag'
 
   该字段为必填。
 
-#### config.clientOrigin <PlatformTag type="browser" />
+### config.clientOrigin <PlatformTag type="browser" />
 
 - 类型：`string`
   
 
-#### config.project
+### config.project
 
 作为信息的一种聚合，可以在调试端房间列表进行搜索
   
@@ -61,7 +52,7 @@ import PlatformTag from '../components/PlatformTag'
 
     
     
-#### config.title
+### config.title
 
 用户自定义参数，可以用于区分当前调试的客户端。
 
@@ -71,11 +62,11 @@ import PlatformTag from '../components/PlatformTag'
 - 默认值：`--`
 
     
-#### config.enableSSL
+### config.enableSSL
 
 手动指定 PageSpy 服务的 scheme。
 
-- 类型：`boolean`  
+- 类型：`boolean`
 
 - 详细信息
 
@@ -83,26 +74,26 @@ import PlatformTag from '../components/PlatformTag'
     - true：SDK 将通过 ["https://", "wss://"] 访问 PageSpy 服务
     - false：SDK 将通过 ["http://", "ws://"] 访问 PageSpy 服务
 
-- **<PlatformTag type="browser" />**
+- <PlatformTag type="browser" />
 
   不设置该值，SDK 会根据页面所在的地址自动分析。
 
   在 SDK 无法正确分析出 scheme 时，例如 PageSpy 的浏览器插件是通过 chrome-extension://xxx/sdk/index.min.js 引入 SDK，这会被 SDK 解析成无效的 "chrome-extension://" 并回退到["http://", "ws://"]。此时可以手动设定该字段。
 
-- **<PlatformTag type="mp" /> <PlatformTag type="rn" /> <PlatformTag type="harmony" />**
+- <PlatformTag type="mp" /> <PlatformTag type="rn" /> <PlatformTag type="harmony" />
 
   这些环境一般强制要求 https，因此默认为 `true`。如果需支持 http（一般是在开发环境中），可以设置为 false。
 
 
   
-#### config.disabledPlugins
+### config.disabledPlugins
 
 PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些插件。
 
 - 类型：`string[]`
 
 
-#### config.serializeData
+### config.serializeData
 
 是否允许 SDK 在收集离线日志时，序列化非基本类型的数据，序列化的目的是方便在回放时查看。
 
@@ -110,7 +101,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
 - 默认值：`false`
 
 
-#### config.useSecret
+### config.useSecret
 
 是否启用权限认证功能。
 
@@ -120,7 +111,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
 
   启用后，SDK会生成 6 位数的随机 “密钥”；调试端进入房间时要求输入对应的密钥。
   
-#### config.messageCapacity
+### config.messageCapacity
 
 缓存数据的最大数量。
 
@@ -133,7 +124,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   但数据体积会越来越大，因此可以指定 SDK 在本地最多缓存多少条数据记录。
 
 
-#### config.dataProcessor
+### config.dataProcessor
 
 数据处理，用户可以通过该属性自定义修改、忽略数据。
 
@@ -156,7 +147,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   查看详情：https://www.pagespy.org/#/docs/changelog#v1_9_2
 
 
-#### config.disabledOnProd <PlatformTag type="mp" />
+### config.disabledOnProd <PlatformTag type="mp" />
 
 在小程序的生产环境禁用 PageSpy。
 
@@ -167,7 +158,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   PageSpy 作为一款调试工具，主要应用于开发测试环节，不建议在生产环境使用，且小程序平台一般对性能更为敏感，因此该字段默认为 true。
 
 
-#### config.offline <PlatformTag type="browser" />
+### config.offline <PlatformTag type="browser" />
 
 离线模式。
 
@@ -183,7 +174,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   目前仅适用浏览器环境的 SDK。
 
 
-#### config.autoRender <PlatformTag type="browser" />
+### config.autoRender <PlatformTag type="browser" />
 
 指示 SDK 初始化完成，是否自动在客户端左下角渲染「圆形白底带 Logo」的控件。
 
@@ -196,19 +187,19 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   如果设置为 false, 可以调用 `window.$pageSpy.render()` 手动渲染。
 
 
-#### config.logo <PlatformTag type="browser" />
+### config.logo <PlatformTag type="browser" />
 
 自定义控件渲染的 logo
 
 - 类型：`string`
 
-#### config.primaryColor <PlatformTag type="browser" />
+### config.primaryColor <PlatformTag type="browser" />
 
 设置主题色，用于 modal 和 toast 中。
 
 - 类型：`string`
 
-#### config.modal <PlatformTag type="browser" />
+### config.modal <PlatformTag type="browser" />
 
 设置 modal 里的 logo 和 title。
 
@@ -230,7 +221,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
 
 
 
-#### registerPlugin()#registerPlugin
+## registerPlugin()#registerPlugin
 
 静态方法，注册一个插件。
 
@@ -261,7 +252,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   // PageSpy.registerPlugin(new DataHarborPlugin());
   ```
 
-#### pluginsWithOrder
+## pluginsWithOrder
 
 按插件的 `enforce` 属性排序的已注册插件列表。
 
@@ -279,7 +270,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   每个插件都应提供 `enforce: PluginOrder` 属性，如果未提供则默认为 `enforce: "normal"`，之后 PageSpy 会按照 `pre - normal - post` 的顺序维护插件列表。
 
 
-#### updateRoomInfo()#updateRoomInfo
+## updateRoomInfo()#updateRoomInfo
 
 实例化之后，更新连接信息。
 
@@ -319,7 +310,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   }
   ```
 
-#### abort()#abort
+## abort()#abort
 
 销毁当前实例。
 
@@ -345,7 +336,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   window.$pageSpy.abort();
   ```
 
-#### version
+## version
 
 当前使用的 PageSpy 版本。
 
@@ -365,7 +356,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   console.log(window.$pageSpy.version);
   ```
 
-#### config
+## config
 
 配置信息。配置因平台不同存在差异，比如小程序端特有的 `config.disableOnProd`。
 
@@ -377,7 +368,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   }
   ```
 
-#### socketStore
+## socketStore
 
 封装了 WebSocket 实例，提供注册消息事件、收到指定消息后触发回调，广播消息。
 
@@ -422,7 +413,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   }
   ```
 
-#### showPanel() <PlatformTag type="mp" />
+### showPanel() <PlatformTag type="mp" />
 
 在小程序环境中弹出调试面板。
 
@@ -432,12 +423,13 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
     showPanel(): void;
   }
   ```
+  
 - 详细信息
 
   <img src={mpPanelImg} style={{width: 375}} />
 
   该面板支持插件注册自定义按钮，例如如果注册了 [DataHarborPlugin](./offline-log#mp)，该面板中会出现一个「上传离线日志」按钮：
 
-  <img src={mpDataHarborImg} style={{width: 375}} />
+  <img src={mpDataHarborImg} style={{maxWidth: 375}} />
 
 

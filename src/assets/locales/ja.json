@@ -15,6 +15,7 @@
     "os": "オペレーティング システム",
     "browser": "ブラウザ",
     "harmony": "HarmonyOS",
+    "rn": "React Native",
     "miniprogram": "Mini Program",
     "mpwechat": "WeChat Mini Program",
     "mpqq": "QQ Mini Program",
@@ -46,7 +47,8 @@
     "copied": "コピーされました",
     "prev": "前のページ",
     "next": "次のページ",
-    "replay-lab": "リプレイラボ"
+    "replay-lab": "リプレイラボ",
+    "toc": "目次"
   },
   "error": {
     "oops": "おっと！エラーが発生しました。",
