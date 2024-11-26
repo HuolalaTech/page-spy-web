@@ -104,6 +104,7 @@
     "last 2 safari version"
   ],
   "optionalDependencies": {
-    "@huolala-tech/page-spy-api": "^1.9.0"
+    "@huolala-tech/page-spy-api": "^1.9.0",
+    "@rollup/rollup-linux-x64-gnu": "4.27.4"
   }
 }
