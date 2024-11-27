@@ -10,16 +10,16 @@ interface Props {
 
 // 标题的格式和自动生成的锚点规则：
 // - 原文：### 标题
-//   结果：`#${formatSlug(<标题>)}` 作为锚点
+//   结果：<Link to={`#${formatSlug(<标题>)}`}>标题</Link>
 //
 // - 原文：### 标题#slug
-//   结果：`#${formatSlug(slug)}` 作为锚点
+//   结果：<Link to={`#${formatSlug(slug)}`}>标题</Link>
 //
 // - 原文：### 标题 <Component />
-//   结果：`#${formatSlug(<标题>)}` 作为锚点
+//   结果：<Link to={`#${formatSlug(<标题>)}`}>标题 <Component /></Link>
 //
 // - 原文：### 标题 <Component />#slug
-//   结果：`#${formatSlug(slug)}` 作为锚点
+//   结果：<Link to={`#${formatSlug(slug)}`}>标题 <Component /></Link>
 
 const Heading = ({ level, children }: PropsWithChildren<Props>) => {
   let slug = '';

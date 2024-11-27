@@ -20,6 +20,7 @@ interface NavItem {
 
 const processor = unified().use(remarkParse);
 
+// 目录生成规则参照 ../mdx-mapping/Heading.tsx
 const computeTocs = async (raw: () => Promise<string>) => {
   const navs: NavItem[] = [];
   try {
