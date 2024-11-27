@@ -47,22 +47,22 @@ Fork [HuolalaTech/page-spy-api][page-spy-api] 仓库并 clone 到本地，然后
    package main
 
    import (
-   	"log"
-   	"github.com/HuolalaTech/page-spy-api/config"
-   	"github.com/HuolalaTech/page-spy-api/container"
-   	"github.com/HuolalaTech/page-spy-api/serve"
+      "log"
+      "github.com/HuolalaTech/page-spy-api/config"
+      "github.com/HuolalaTech/page-spy-api/container"
+      "github.com/HuolalaTech/page-spy-api/serve"
    )
 
    func main() {
-   	container := container.Container()
+      container := container.Container()
       err := container.Provide(func() *config.StaticConfig {
          return &config.StaticConfig{}
       })
 
-   	if err != nil {
-   		log.Fatal(err)
-   	}
-   	serve.Run()
+      if err != nil {
+         log.Fatal(err)
+      }
+      serve.Run()
    }
    ```
 
@@ -155,7 +155,6 @@ Fork [HuolalaTech/page-spy][page-spy-sdk] 仓库并 clone 到本地，page-spy �
 3. 以下命令可以直接使用：
 
    - `npx lerna run build`：执行构建生成 SDK。产物将生成放在项目目录下的 dist 文件夹；
-   - `npx lerna run build:watch`：监听模式下的构建。当发现内容更新将自动构建；
    - `yarn test`：执行单元测试；
 
 ## 分情景调试
@@ -198,14 +197,14 @@ VITE_API_BASE=example.com
 
 > 请注意：这里的 "example.com" 只是假设你将服务部署在 https://example.com ，你应该替换为实际部署地址。
 
-等待服务启动后，在浏览器打开调试端地址 http://localhost:5173 ，端口可能不一样，请按照你本地服务打印的地址访问。点击顶部「接入 SDK」菜单，按照指引在测试项目中接入，其中实例化需要传入配置：
+等待服务启动后，在浏览器打开调试端地址 http://localhost:5173 ，端口可能不一样，请按照你本地服务打印的地址访问。点击「文档」菜单，按照指引在测试项目中接入，其中实例化需要传入配置：
 
 ```ts
 new PageSpy({
   api: 'example.com',
   clientOrigin: 'http://localhost:5173',
   project: '<任意名称>',
-  ......
+  ...
 });
 ```
 
@@ -218,7 +217,7 @@ new PageSpy({
 建议在监听构建命令后面指定 `--scope=` 参数，这样只有当你正在调整的代码在保存时会自动构建。例如：
 
 ```bash
-$ npx lerna run build:watch --scope=@huolala-tech/page-spy-wechat
+$ npx lerna run build --scope=@huolala-tech/page-spy-wechat -- -w
 ```
 
 这将在 `packages/*/dist` 目录下生成 SDK 产物，在测试项目中引入，实例化 PgaeSpy 需要传入配置：
@@ -232,4 +231,4 @@ new PageSpy({
 });
 ```
 
-之后就可以启动测试项目，页面左下角应该出现了 PageSpy 的标志（白色圆形容器，中间包含了 PageSpy logo）。通过 https://example.com 访问调试端顶部菜单「房间列表」，测试项目的调试房间应该出现在列表上了。现在你可以修改 SDK 代码，开始为 SDK 仓库贡献。
+之后就可以启动测试项目，页面右下角应该出现了 PageSpy 的标志（白色圆形容器，中间包含了 PageSpy logo）。通过 https://example.com 访问调试端顶部菜单「开始调试 - 在线实时」，测试项目的调试房间应该出现在列表上了。现在你可以修改 SDK 代码，开始为 SDK 仓库贡献。
