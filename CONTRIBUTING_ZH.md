@@ -4,6 +4,8 @@
 [install-go]: https://go.dev/doc/install 'Go Download'
 [github-release]: https://github.com/HuolalaTech/page-spy-web/releases/tag/v1.2.0 'PageSpy Release'
 [npm-package]: https://www.npmjs.com/package/@huolala-tech/page-spy-api 'NPM package'
+[docker-hub]: https://hub.docker.com/r/huolalatech/page-spy-web
+[github-package]: https://github.com/HuolalaTech/page-spy-web/pkgs/container/page-spy-web/293653916?tag=latest
 
 [English](./CONTRIBUTING.md) | 中文 | [日本語](./CONTRIBUTING_JA.md)
 
@@ -19,7 +21,7 @@ PageSpy 主要由三个仓库组成：
 
 <img src="./.github/assets/interaction.png" height="400" />
 
-提供服务的方式是托管在 GitHub Package 中的 Docker 镜像（推荐）、[NPM package][npm-package] 或者使用 [Release][github-release] 托管的可执行文件。
+提供服务的方式是托管在 [GitHub Package][github-package] 中的 Docker 镜像、和 [Docker Hub][docker-hub] 镜像、[NPM package][npm-package] 或者使用 [Release][github-release] 托管的可执行文件。
 
 ## Repo Setup
 
