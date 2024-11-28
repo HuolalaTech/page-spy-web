@@ -9,7 +9,7 @@
   interface DataHarborConfig {
     // 离线日志数据会优先记录在内存中，当体积达到多大时写入临时文件
     // 默认 10M (10 * 1024 * 1024)
-    maximum?: number;
+    maximum?: number; // 仅浏览器端支持
 
     // 指定缓存哪些类型的数据
     caredData?: Record<DataType, boolean>;
@@ -18,7 +18,7 @@
     filename?: () => string;
 
     // 自定义下载逻辑
-    onDownload?: (data: CacheMessageItem[]) => void;
+    onDownload?: (data: CacheMessageItem[]) => void; // 仅浏览器端支持
   }
 
   declare class DataHarborPlugin implements PageSpyPlugin {
@@ -27,7 +27,7 @@
   ```
 
 
-## onOfflineLog()#onOfflineLog
+## 手动操作日志#onOfflineLog
 
 手动操作离线日志的下载、上传。
 
@@ -46,10 +46,13 @@
   }
 
   declare class DataHarborPlugin {
-    onOfflineLog(type: 'upload', params?: WholeLogActionParams): Promise<string>;
-    onOfflineLog(type: 'download', params?: WholeLogActionParams): Promise<void>;
-    onOfflineLog(type: 'upload-periods', params: PeriodLogActionParams): Promise<string>;
-    onOfflineLog(type: 'download-periods', params: PeriodLogActionParams): Promise<void>;
+    // 全量日志
+    upload(params?: WholeLogActionParams): Promise<string>;
+    download(params?: WholeLogActionParams): Promise<void>;
+
+    // 时间段日志
+    uploadPeriods(params: PeriodLogActionParams): Promise<string>;
+    downloadPeriods(params: PeriodLogActionParams): Promise<void>;
   }
   ```
 
@@ -57,9 +60,9 @@
 
   如果隐藏了自动渲染的 UI 控件，或者希望在某些时候自动触发队离线日志的操作，可以通过该方法实现。
   
-  操作 **全量日志** 时（ `type: 'download' | 'upload'` ），用户每次通过 UI 弹窗上的按钮操作日志上传 / 下载都是当前会话从头到尾的完整日志；但手动调用时默认会清除已记录的日志数据、并重新开始记录。你可以通过第二个参数的 `clearCache: false` 自行控制。
+  操作 **全量日志** 时，用户每次通过 UI 弹窗上的按钮操作日志上传 / 下载都是当前会话从头到尾的完整日志；但手动调用时默认会清除已记录的日志数据、并重新开始记录。你可以通过第二个参数的 `clearCache: false` 自行控制。
 
-  操作 **时间段日志**（ `type: 'download-periods' | 'upload-periods'` ）不会清除任何数据。
+  操作 **时间段日志** 不会清除任何数据。
   
   上传完成后会返回回放的 URL，并打印到控制台。
 
@@ -69,11 +72,11 @@
   window.$harbor = new DataHarborPlugin();
 
   // 上传全部
-  const url = await window.$harbor.onOfflineLog('upload');
+  const url = await window.$harbor.upload();
 
   // 上传最近 3 分钟的日志
   const now = Date.now();
-  const url = await window.$harbor.onOfflineLog('upload-periods', {
+  const url = await window.$harbor.uploadPeriods({
     startTime: now - 3 * 60000,
     endTime: now,
     remark: '给这段日志中所出现的问题加个备注'
