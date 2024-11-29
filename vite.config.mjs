@@ -16,14 +16,21 @@ export default ({ mode, command }) => {
       sourcemap: isProd ? 'hidden' : true,
       outDir: buildDoc ? 'docs-dist' : 'dist',
       rollupOptions: {
+        onwarn(warning, defaultHandler) {
+          if (warning.code === 'SOURCEMAP_ERROR') {
+            return;
+          }
+
+          defaultHandler(warning);
+        },
         output: {
           manualChunks: {
             react: ['react'],
             'react-dom': ['react-dom'],
-            'react-router-dom': ['react-router-dom']
-          }
-        }
-      }
+            'react-router-dom': ['react-router-dom'],
+          },
+        },
+      },
     },
     resolve: {
       alias: [{ find: '@', replacement: path.join(__dirname, './src') }],

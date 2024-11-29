@@ -24,12 +24,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set Node.js 19.x
+      - name: Set Node.js 20.x
         uses: actions/setup-node@v3
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         with:
-          node-version: 19.x
+          node-version: 20.x
           registry-url: "https://registry.npmjs.org"
 
       - name: Run install

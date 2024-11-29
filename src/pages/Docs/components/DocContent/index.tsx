@@ -20,47 +20,8 @@ import { useSidebarStore } from '@/store/doc-sidebar';
 import { useShallow } from 'zustand/react/shallow';
 import { TransitionContext } from '@/components/Transition';
 import components from './mdx-mapping';
-import { DocNotFound } from '../DocNotFound';
-
-const modules = import.meta.glob('../../md/*.mdx') as Record<string, any>;
-
-const LOAD_DOC_EVENT = 'load-doc';
-const lazyDocWithNotification =
-  (doc: string, value: () => Promise<any>) => async () => {
-    window.dispatchEvent(
-      new CustomEvent(LOAD_DOC_EVENT, {
-        detail: {
-          doc,
-          loading: true,
-        },
-      }),
-    );
-    const result = await value();
-    setTimeout(() => {
-      window.dispatchEvent(
-        new CustomEvent(LOAD_DOC_EVENT, {
-          detail: {
-            doc,
-            loading: false,
-          },
-        }),
-      );
-    }, 100);
-    return result;
-  };
-const mdComponents = Object.entries(modules).reduce((acc, cur) => {
-  const [key, value] = cur;
-  const result = key.match(/md\/(.+)\.(.+)\.mdx$/);
-  if (!result) return acc;
-  const [, doc, lang] = result;
-  const lazyDoc = lazyDocWithNotification(doc, value);
-  if (!acc[doc]) {
-    acc[doc] = { [lang]: React.lazy(lazyDoc) };
-  } else {
-    acc[doc][lang] = React.lazy(lazyDoc);
-  }
-  return acc;
-}, {} as Record<string, Record<string, React.LazyExoticComponent<any>>>);
+import { getDocContent, LOAD_DOC_EVENT } from './content';
+import { ToC } from './toc';
 
 const FooterLink = ({
   menu,
@@ -105,13 +66,6 @@ export const DocContent = () => {
   const params = useParams();
   // route match rule "/docs/*"
   const doc = params['*'] || DOC_MENUS[0].children[0].doc;
-  const docContent = useMemo(() => {
-    const docData = mdComponents[doc][lang];
-    if (!docData) {
-      return DocNotFound;
-    }
-    return docData;
-  }, [doc, lang]);
 
   const { prev, current, next } = useMemo(() => {
     const navigation: Record<string, OrderDocMenus[number] | null> = {
@@ -191,7 +145,7 @@ export const DocContent = () => {
             </HeaderLink>
           )}
 
-          {React.createElement(docContent, {
+          {React.createElement(getDocContent(doc, lang), {
             key: doc,
             components,
           })}
@@ -213,6 +167,7 @@ export const DocContent = () => {
           </div>
         </div>
       </div>
+      <ToC doc={doc} lang={lang} />
     </main>
   );
 };

@@ -1,7 +1,7 @@
 
-## DataHarborPlugin API#api
+# DataHarborPlugin API#api
 
-#### constructor()#constructor
+## constructor()#constructor
 
 - Type
 
@@ -9,7 +9,7 @@
   interface DataHarborConfig {
     // Specify the maximum bytes of offline log in memory.
     // Default 10MB.
-    maximum?: number;
+    maximum?: number; // Only supported in browser
 
     // Specify which types of data to cache
     caredData?: Record<DataType, boolean>;
@@ -18,7 +18,7 @@
     filename?: () => string;
 
     // Custom the behavior of download
-    onDownload?: (data: CacheMessageItem[]) => void;
+    onDownload?: (data: CacheMessageItem[]) => void; // Only supported in browser
   }
 
   declare class DataHarborPlugin implements PageSpyPlugin {
@@ -27,7 +27,7 @@
   ```
 
 
-#### onOfflineLog()#onOfflineLog
+## Operate log manually#onOfflineLog
 
 Manually download / upload offline logs.
 
@@ -46,18 +46,21 @@ Manually download / upload offline logs.
   }
 
   declare class DataHarborPlugin {
-    onOfflineLog(type: 'upload', params?: WholeLogActionParams): Promise<string>;
-    onOfflineLog(type: 'download', params?: WholeLogActionParams): Promise<void>;
-    onOfflineLog(type: 'upload-periods', params: PeriodLogActionParams): Promise<string>;
-    onOfflineLog(type: 'download-periods', params: PeriodLogActionParams): Promise<void>;
+    // Full logs
+    upload(params?: WholeLogActionParams): Promise<string>;
+    download(params?: WholeLogActionParams): Promise<void>;
+
+    // time-period of logs
+    uploadPeriods(params: PeriodLogActionParams): Promise<string>;
+    downloadPeriods(params: PeriodLogActionParams): Promise<void>;
   }
   ```
 
   If the automatically rendered UI controls are hidden, or if you wish to automatically trigger operations on offline logs at certain times, this method can be used to achieve that.
 
-  When operating on full logs (`type: 'download' | 'upload'`), each time the user operates the log upload/download through the buttons on the modal, it is the complete log from the beginning to the end of the current session. However, when called manually, the recorded log data will be cleared by default and recording will start anew. You can control this by setting `clearCache: false` in the second parameter.
+  When operating on full logs, each time the user operates the log upload/download through the buttons on the modal, it is the complete log from the beginning to the end of the current session. However, when called manually, the recorded log data will be cleared by default and recording will start anew. You can control this by setting `clearCache: false` in the second parameter.
 
-  Operating on time-period logs (`type: 'download-periods' | 'upload-periods'`) will not clear any data.
+  Operating on time-period logs will not clear any data.
 
   After the upload is completed, the replay URL will be returned and printed to the console.
   
@@ -67,11 +70,11 @@ Manually download / upload offline logs.
   window.$harbor = new DataHarborPlugin();
 
   // Upload full logs and clear data and re-record
-  const url = await window.$harbor.onOfflineLog('upload');
+  const url = await window.$harbor.upload();
 
   // Upload the logs of the most recent three minutes.
   const now = Date.now();
-  const url = await window.$harbor.onOfflineLog('upload-periods', {
+  const url = await window.$harbor.uploadPeriods({
     startTime: now - 3 * 60000,
     endTime: now,
     remark: 'Add a remark to the problems that occur in this section of the log.'
@@ -79,7 +82,7 @@ Manually download / upload offline logs.
   ```
 
 
-#### pause()#pause
+## pause()#pause
 
 Pause recording.
 
@@ -108,7 +111,7 @@ Pause recording.
   ```
 
 
-#### resume()#resume
+## resume()#resume
 
 
 Resume records.
@@ -139,7 +142,7 @@ Resume records.
   window.$harbor.resume();
   ```
 
-#### reharbor()#reharbor
+## reharbor()#reharbor
 
 Clear the recorded data and continue recording. In short, remastered.
 

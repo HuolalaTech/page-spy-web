@@ -14,6 +14,8 @@
     "device-id": "장치 ID",
     "os": "운영 체제",
     "browser": "브라우저",
+    "harmony": "HarmonyOS",
+    "rn": "React Native",
     "miniprogram": "Mini Program",
     "mpwechat": "WeChat Mini Program",
     "mpqq": "QQ Mini Program",
@@ -45,7 +47,8 @@
     "copied": "복사되었습니다",
     "prev": "이전 페이지",
     "next": "다음 페이지",
-    "replay-lab": "리플레이 연구소"
+    "replay-lab": "리플레이 연구소",
+    "toc": "목차"
   },
   "error": {
     "oops": "이런! 오류가 발생했습니다.",

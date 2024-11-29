@@ -15,10 +15,18 @@
   }
 }
 
-@media screen and (min-width: @doc-page-max-width) {
+@media screen and (min-width: 1024px) {
   .sidebar {
     transform: translateX(0);
-    width: calc(var(--doc-sidebar-width) + var(--doc-side-space) / 2);
-    padding: 80px 24px 100px calc(var(--doc-side-space) / 2);
+    width: var(--doc-sidebar-width);
+    padding: 80px 24px 100px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .sidebar {
+    transform: translateX(0);
+    width: calc(var(--doc-sidebar-width) + var(--doc-side-space) / 3);
+    padding: 80px 24px 100px calc(var(--doc-side-space) / 3);
   }
 }

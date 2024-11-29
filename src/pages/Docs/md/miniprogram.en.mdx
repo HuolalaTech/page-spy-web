@@ -1,44 +1,55 @@
+
 import { Tooltip } from 'antd'
+import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'
 
-#### Step 1#step-1
+### Step 1#step-1
 
-Install the dependencies in your project. We provide SDKs for several mini-program platforms. Please install the one you need:
+Install the dependencies in the project. We provide SDKs for several mini-program platforms. Please install according to your needs:
 
+* Wechat Miniprogram
 ```bash
-# {t('common.mpwechat')}
 yarn add @huolala-tech/page-spy-wechat@latest
-
-# {t('common.mpalipay')}
+```
+* Alipay Miniprogram
+```bash
 yarn add @huolala-tech/page-spy-alipay@latest
-
-# UniAPP
+```
+* UniAPP
+```bash
 yarn add @huolala-tech/page-spy-uniapp@latest
-
-# Taro
+```
+* Taro
+```bash
 yarn add @huolala-tech/page-spy-taro@latest
 ```
 
-#### Step 2#step-2
+### Step 2#step-2
 
-Add the PageSpy service domain to the whitelist for HTTP and WebSocket requests in your mini-program. Note that except for the development environment, mini-programs must use HTTPS and WSS protocols:
+Add the PageSpy service domain name to the whitelist of http and websocket requests in the mini-program. Note that except for the development environment, the mini-program requires the use of https and wss protocols:
 
 ```
 https://<your-pagespy-host>
 wss://<your-pagespy-host>
 ```
 
-#### Step 3#step-3
+### Step 3#step-3
 
-Import and instantiate the SDK in the entry file. The initialization parameters provide optional [configuration]({VITE_SDK_WECHAT_REPO}) options to customize the SDK's behavior:
+Import the SDK in the entry file and instantiate it. The initialization parameters provide optional [configuration](./pagespy#constructor) to customize the behavior of the SDK:
 
 ```js
 import PageSpy from '@huolala-tech/page-spy-wechat';
 
-new PageSpy({
+const $pageSpy = new PageSpy({
   api: "{deployPath}",
 })
 ```
 
-That's the complete process to integrate PageSpy into a mini-program project.
+### Debugging panel#debugging
 
-Once integrated, click on the top menu <Tooltip title="Menu is hidden by default and will be visible after deployment." color="purple"><a href="javascript:void(0)">Debugging</a></Tooltip> to use it!
+Call the `showPanel()` method on the created PageSpy instance to pop up a debugging menu for assistance with debugging:
+
+<img src={mpPanelImg} style={{ maxWidth: 320 }} />
+
+<br/>
+
+That's the complete process to integrate PageSpy into a mini-program project.
