@@ -9,14 +9,14 @@ CHANGELOG_FILES=(
 
 for FILE in "${CHANGELOG_FILES[@]}"; do
   if ! grep -q "$PACKAGE_VERSION" "$FILE"; then
-    echo "❌ Cannot find the description about $PACKAGE_VERSION in the $FILE"
-    echo "Rollback the version..."
+    echo "❌ Cannot find the $PACKAGE_VERSION description in the changelog"
+    echo "⬅️ Rollback the version..."
 
     git reset --hard HEAD^
     git tag -d "v$PACKAGE_VERSION"
     PREV_VERSION=$(git describe --tags --abbrev=0)
 
-    echo "Version rollback to $PREV_VERSION"
+    echo "🟡 Version rollback to $PREV_VERSION"
     exit 1
   fi
 done
