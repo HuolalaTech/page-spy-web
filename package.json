@@ -16,7 +16,8 @@
     "build:doc": "vite build --mode doc",
     "build:client": "vite build --mode client",
     "preview": "vite preview",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src"
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
+    "postversion": "bash scripts/check-changelog.sh"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
