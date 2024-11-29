@@ -14,6 +14,8 @@
     "device-id": "设备 ID",
     "os": "系统",
     "browser": "浏览器",
+    "harmony": "鸿蒙",
+    "rn": "React Native",
     "miniprogram": "小程序",
     "mpwechat": "微信小程序",
     "mpalipay": "支付宝小程序",
@@ -45,7 +47,8 @@
     "copied": "已复制",
     "prev": "上一页",
     "next": "下一页",
-    "replay-lab": "回放实验室"
+    "replay-lab": "回放实验室",
+    "toc": "本页目录"
   },
   "error": {
     "oops": " 哎呀！发生错误～",
@@ -227,12 +230,20 @@
     "delete-title": "删除日志",
     "delete-desc": "确认删除此条日志吗？",
     "client": "客户端信息",
-    "download-file": "下载日志",
+    "download-file": "下载",
     "update-layout": "调整布局",
     "speed": "倍速",
     "delete-select": "删除已选",
     "delete-select-desc": "确认删除所有已选择的日志吗？",
-    "unsupport-spread": "<0>默认无法展开对象，设置 <1><0>serializeData: true</0></1> 以启用。</0>"
+    "unsupport-spread": "<0>默认无法展开对象，设置 <1><0>serializeData: true</0></1> 以启用。</0>",
+    "remark": "备注",
+    "meta-info": "基本信息",
+    "meta": {
+      "ua": "UserAgent",
+      "title": "标题",
+      "url": "链接",
+      "remark": "备注"
+    }
   },
   "lab": {
     "welcome": "欢迎来到回放实验室！",

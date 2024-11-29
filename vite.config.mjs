@@ -18,6 +18,13 @@ export default ({ mode, command }) => {
       sourcemap: isProd ? 'hidden' : true,
       outDir: isDoc ? 'docs-dist' : 'dist',
       rollupOptions: {
+        onwarn(warning, defaultHandler) {
+          if (warning.code === 'SOURCEMAP_ERROR') {
+            return;
+          }
+
+          defaultHandler(warning);
+        },
         output: {
           manualChunks: {
             react: ['react'],

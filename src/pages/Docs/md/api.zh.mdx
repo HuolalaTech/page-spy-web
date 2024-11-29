@@ -1,3 +1,14 @@
+import PlatformTag from '../components/PlatformTag';
+
+> 某些特性仅支持在特定平台中可用，对此我们将通过下方标识以区分：
+>
+> | 平台         | 标签                           |
+> | ------------ | ------------------------------ |
+> | 浏览器       | <PlatformTag type="browser" /> |
+> | 小程序       | <PlatformTag type="mp" />      |
+> | React Native | <PlatformTag type="rn" />      |
+> | 鸿蒙         | <PlatformTag type="harmony" /> |
+
 ### PageSpy#pagespy
 
 > 约定实例变量名称为 `$pageSpy = new PageSpy(...)`；
@@ -10,6 +21,8 @@
 - [$pageSpy.version](./pagespy#version)
 - [$pageSpy.config](./pagespy#config)
 - [$pageSpy.socketStore](./pagespy#socketStore)
+- [$pageSpy.showPanel()](./pagespy#showPanel) <PlatformTag type="mp" />
+
 
 ### 插件#plugins
 
@@ -18,7 +31,7 @@
 > 约定实例变量名称为 `$harbor = new DataHarborPlugin(...)`；
 
 - [constructor()](./data-harbor#constructor)
-- [$harbor.onOfflineLog()](./data-harbor#onOfflineLog)
+- [手动操作日志](./data-harbor#onOfflineLog)
 - [$harbor.pause()](./data-harbor#pause)
 - [$harbor.resume()](./data-harbor#resume)
 - [$harbor.reharbor()](./data-harbor#reharbor)

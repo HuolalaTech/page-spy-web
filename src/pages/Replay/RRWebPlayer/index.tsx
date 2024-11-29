@@ -23,13 +23,16 @@ const ClickEffectSvg = `
 export const RRWebPlayer = memo(() => {
   const rootEl = useRef<HTMLDivElement | null>(null);
   const playerInstance = useRef<rrwebPlayer>();
-  const [allRRwebEvent, speed, setRRWebStartTime] = useReplayStore(
-    useShallow((state) => [
-      state.allRRwebEvent,
-      state.speed,
-      state.setRRWebStartTime,
-    ]),
-  );
+  const [allRRwebEvent, speed, metaMsg, rrwebStartTime, setRRWebStartTime] =
+    useReplayStore(
+      useShallow((state) => [
+        state.allRRwebEvent,
+        state.speed,
+        state.metaMsg,
+        state.rrwebStartTime,
+        state.setRRWebStartTime,
+      ]),
+    );
 
   const events = useMemo(() => {
     if (!allRRwebEvent.length) return [];
@@ -41,8 +44,14 @@ export const RRWebPlayer = memo(() => {
     if (!player) return;
 
     const { isPlaying, progress, duration } = useReplayStore.getState();
-    player.goto(progress * duration, isPlaying);
-  }, []);
+
+    let where = progress * duration;
+    if (metaMsg?.startTime && metaMsg.startTime > rrwebStartTime) {
+      where += metaMsg.startTime - rrwebStartTime;
+    }
+
+    player.goto(where, isPlaying);
+  }, [metaMsg, rrwebStartTime]);
 
   useEventListener(REPLAY_STATUS_CHANGE, onGoto);
   useEventListener(REPLAY_PROGRESS_SKIP, onGoto);
@@ -88,6 +97,7 @@ export const RRWebPlayer = memo(() => {
             position: fixed;
             width: 50px;
             height: 50px;
+            font-size: 12px;
             pointer-events: none;
             transform: translate(-50%, -50%);
             z-index: 10000000;

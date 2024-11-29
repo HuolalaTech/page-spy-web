@@ -18,6 +18,7 @@ export const ProgressBar = memo(() => {
     activity,
     startTime,
     duration,
+    metaMsg,
     setProgress,
     setIsPlaying,
     flushActiveData,
@@ -27,6 +28,7 @@ export const ProgressBar = memo(() => {
       state.activity,
       state.startTime,
       state.duration,
+      state.metaMsg,
       state.setProgress,
       state.setIsPlaying,
       state.flushActiveData,
@@ -58,7 +60,8 @@ export const ProgressBar = memo(() => {
   const activityPoints = useMemo(() => {
     return activity.map((a) => {
       const startTimestamp =
-        a[0].type === 'rrweb-event' ? rrwebStartTime : startTime;
+        metaMsg?.startTime ??
+        (a[0].type === 'rrweb-event' ? rrwebStartTime : startTime);
       const itemDuration = a[a.length - 1].timestamp - a[0].timestamp;
       const timeOffset = (a[0].timestamp - startTimestamp) / duration;
       const timeDuration =
@@ -70,7 +73,7 @@ export const ProgressBar = memo(() => {
         eventCount: a.length,
       };
     });
-  }, [activity, duration, rrwebStartTime, startTime]);
+  }, [activity, duration, metaMsg, rrwebStartTime, startTime]);
 
   // "Skip" in timeline by click
   useEffect(() => {

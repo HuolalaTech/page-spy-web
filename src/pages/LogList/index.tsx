@@ -345,6 +345,20 @@ const LogList = () => {
                 </Tooltip>
               ),
             },
+            // Remark
+            {
+              title: () => t('replay.remark'),
+              width: 150,
+              dataIndex: 'remark',
+              ellipsis: {
+                showTitle: false,
+              },
+              render: (remark) => (
+                <Tooltip placement="left" title={remark}>
+                  {remark || '--'}
+                </Tooltip>
+              ),
+            },
             // 文件信息
             {
               title: () => t('replay.file-info'),
@@ -397,13 +411,13 @@ const LogList = () => {
             // 操作
             {
               title: () => t('common.actions'),
-              width: 350,
+              width: 300,
               fixed: 'right',
               key: 'actions',
               render: (_, row) => {
                 const logUrl = `${request.defaultPrefix}/log/download?fileId=${row.fileId}`;
                 return (
-                  <Space size="middle">
+                  <Space size="small">
                     <Link
                       to={{ pathname: '/replay', search: `?url=${logUrl}` }}
                       target="_blank"
