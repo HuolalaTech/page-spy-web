@@ -13,7 +13,7 @@ for FILE in "${CHANGELOG_FILES[@]}"; do
     echo "Rollback the version..."
 
     git reset --hard HEAD^
-    git tag -d "$PACKAGE_VERSION"
+    git tag -d "v$PACKAGE_VERSION"
     PREV_VERSION=$(git describe --tags --abbrev=0)
 
     echo "Version rollback to $PREV_VERSION"

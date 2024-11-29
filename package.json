@@ -17,6 +17,7 @@
     "build:client": "vite build --mode client",
     "preview": "vite preview",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
+    "preversion": "bash scripts/check-branch.sh",
     "postversion": "bash scripts/check-changelog.sh"
   },
   "devDependencies": {
