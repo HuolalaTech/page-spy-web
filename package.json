@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "All-In-One Remote Debugging Tool",
   "homepage": "https://huolalatech.github.io/page-spy-web",
   "repository": {
@@ -16,7 +16,9 @@
     "build:doc": "vite build --mode doc",
     "build:client": "vite build --mode client",
     "preview": "vite preview",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src"
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
+    "preversion": "bash scripts/check-branch.sh",
+    "postversion": "bash scripts/check-changelog.sh"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
@@ -50,10 +52,10 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@huolala-tech/page-spy-browser": "^2.0.0",
-    "@huolala-tech/page-spy-plugin-data-harbor": "^2.0.0",
+    "@huolala-tech/page-spy-browser": "^2.0.1",
+    "@huolala-tech/page-spy-plugin-data-harbor": "^2.0.1",
     "@huolala-tech/page-spy-plugin-rrweb": "^2.0.0",
-    "@huolala-tech/page-spy-plugin-whole-bundle": "^2.0.0",
+    "@huolala-tech/page-spy-plugin-whole-bundle": "^2.0.1",
     "@huolala-tech/page-spy-types": "^2.0.0",
     "@huolala-tech/react-json-view": "^1.2.5",
     "@huolala-tech/request": "^1.1.2",
@@ -108,6 +110,6 @@
     "last 2 safari version"
   ],
   "optionalDependencies": {
-    "@huolala-tech/page-spy-api": "^1.9.0"
+    "@huolala-tech/page-spy-api": "^2.0.0"
   }
 }
