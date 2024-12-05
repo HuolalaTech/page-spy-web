@@ -19,6 +19,10 @@
 
     // Custom the behavior of download
     onDownload?: (data: CacheMessageItem[]) => void; // Only supported in browser
+
+    // The callback of upload done, which can be used to extend
+    // additional functionalities, such as notifying the developer
+    onAfterUpload?: (replayUrl: string, remark: string) => void;
   }
 
   declare class DataHarborPlugin implements PageSpyPlugin {
@@ -45,6 +49,9 @@ Manually download / upload offline logs.
     remark?: string;
   }
 
+  // NOTE!
+  // - The browser supports the following 4 methods;
+  // - The mini-program currently only supports the upload() method;
   declare class DataHarborPlugin {
     // Full logs
     upload(params?: WholeLogActionParams): Promise<string>;

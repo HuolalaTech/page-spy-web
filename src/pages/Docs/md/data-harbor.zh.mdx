@@ -19,6 +19,9 @@
 
     // 自定义下载逻辑
     onDownload?: (data: CacheMessageItem[]) => void; // 仅浏览器端支持
+
+    // 上传成功后的回调，可用于拓展其他功能，例如通知开发者
+    onAfterUpload?: (replayUrl: string, remark: string) => void;
   }
 
   declare class DataHarborPlugin implements PageSpyPlugin {
@@ -45,6 +48,9 @@
     remark?: string;
   }
 
+  // 注意！
+  // - 浏览器端支持下面 4 种方法；
+  // - 小程序端当前仅支持 upload() 方法；
   declare class DataHarborPlugin {
     // 全量日志
     upload(params?: WholeLogActionParams): Promise<string>;
