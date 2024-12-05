@@ -52,9 +52,9 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@huolala-tech/page-spy-browser": "^2.0.1",
-    "@huolala-tech/page-spy-plugin-data-harbor": "^2.0.1",
+    "@huolala-tech/page-spy-plugin-data-harbor": "^2.0.2",
     "@huolala-tech/page-spy-plugin-rrweb": "^2.0.0",
-    "@huolala-tech/page-spy-plugin-whole-bundle": "^2.0.1",
+    "@huolala-tech/page-spy-plugin-whole-bundle": "^2.0.2",
     "@huolala-tech/page-spy-types": "^2.0.0",
     "@huolala-tech/react-json-view": "^1.2.5",
     "@huolala-tech/request": "^1.1.2",
