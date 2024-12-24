@@ -49,23 +49,24 @@ export const ConsolePanel = memo(() => {
     });
   }, [consoleMsg, autoScroll]);
 
+  const currentScrollTop = useRef<number>(0);
   useEffect(() => {
     const parent = panelRef.current?.parentElement;
     if (!parent) return;
 
-    let scrollY = 0;
-    const fn = () => {
-      const value = parent.scrollTop;
-      if (value < scrollY) {
+    const handleScroll = () => {
+      const direction =
+        parent.scrollTop > currentScrollTop.current ? 'down' : 'up';
+      currentScrollTop.current = parent.scrollTop;
+
+      if (direction === 'up') {
         setAutoScroll(false);
-      } else {
-        setAutoScroll(true);
+        return;
       }
-      scrollY = value;
     };
-    parent.addEventListener('scroll', fn);
+    parent.addEventListener('scroll', handleScroll);
     return () => {
-      parent.removeEventListener('scroll', fn);
+      parent.removeEventListener('scroll', handleScroll);
     };
   }, [setAutoScroll]);
 
