@@ -53,6 +53,9 @@ export interface ParsedClientInfo {
   sdk: SpyClient.SDKType;
   isDevTools?: boolean;
   plugins: string[];
+  // below for mp sdk
+  brand?: string;
+  model?: string;
 }
 
 export type ClientRoomInfo = I.SpyRoom & {
