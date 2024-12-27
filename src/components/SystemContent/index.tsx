@@ -7,6 +7,8 @@ import { useSocketMessageStore } from '@/store/socket-message';
 import { parseUserAgent } from '@/utils/brand';
 import { SpySystem } from '@huolala-tech/page-spy-types';
 import { useReplayStore } from '@/store/replay';
+import { flattenRecord } from '@/utils/tools';
+import MPSysInfo from './MPSysInfo';
 
 const { Title } = Typography;
 
@@ -16,7 +18,7 @@ interface SystemContentProps {
 
 const SystemContent = memo(({ data }: SystemContentProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'system' });
-  const { features, system } = data[0] || {};
+  const { features, system, mp } = data[0] || {};
   const clientInfo = useMemo(() => {
     return parseUserAgent(system?.ua);
   }, [system]);
@@ -50,6 +52,9 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
 
   if (data.length === 0) {
     return <Empty description={false} />;
+  }
+  if (mp) {
+    return <MPSysInfo sysInfo={mp} spanValue={spanValue} />;
   }
   return (
     <div className="system-content">

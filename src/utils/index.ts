@@ -26,10 +26,10 @@ export function getFileExtension(url: string) {
 
 export function resolveProtocol() {
   const { protocol } = window.location;
+  return ['http://', 'ws://'];
   if (protocol.startsWith('https')) {
     return ['https://', 'wss://'];
   }
-  return ['http://', 'ws://'];
   // TODO if web is seperated with backend service, the schema could be different.
 }
 
