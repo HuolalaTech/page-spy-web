@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.less';
 import '../index.less';
-import { Card, Typography, Grid, Row, Col } from 'antd';
+import { Card, Typography, Grid, Row, Col, Empty, Space, Divider } from 'antd';
 import {
   AppAuthSettings,
   AuthInfo,
@@ -28,13 +28,14 @@ const Schemas = [
     schema: DeviceInfo,
   },
   {
-    title: '手机系统信息',
-    schema: SysInfo,
-  },
-  {
     title: '应用授权',
     schema: AppAuthSettings,
   },
+  {
+    title: '手机系统信息',
+    schema: SysInfo,
+  },
+
   {
     title: '用户授权',
     schema: AuthInfo,
@@ -71,10 +72,22 @@ const MPSysInfo = (props: Props) => {
             <Col span={8}>
               <div className="mp-info-main">
                 <img className="info-icon" src={clientInfo?.os.logo} />
-                <span>
-                  {sysInfo?.brand} {sysInfo?.model} {clientInfo?.os.name}{' '}
-                  {clientInfo?.os.version}
-                </span>
+                <Space
+                  split={
+                    <Divider style={{ marginInline: 0 }} type="vertical" />
+                  }
+                  size="small"
+                >
+                  {[
+                    sysInfo?.brand,
+                    sysInfo?.model,
+                    clientInfo?.os.name + ' ' + clientInfo?.os.version,
+                  ]
+                    .filter((v) => v)
+                    .map((v, i) => (
+                      <span key={i}>{v}</span>
+                    ))}
+                </Space>
               </div>
             </Col>
             <Col span={16}>
@@ -89,39 +102,51 @@ const MPSysInfo = (props: Props) => {
         </Card>
       </div>
       {Schemas.map(({ title, schema }) => {
+        const items = schema
+          .map((item) => {
+            const key = item.keys.find(
+              (key) =>
+                // TODO: how to distinguish the real 'undefined' string?
+                sysInfo[key] !== undefined && sysInfo[key] !== 'undefined',
+            );
+            return { key, item };
+          })
+          .filter((item) => item.key);
+        if (!items.length) {
+          return (
+            <div key={title} className="system-info">
+              <Title level={3}>{title}</Title>
+              <Card>
+                <Empty description={false} />
+              </Card>
+            </div>
+          );
+        }
         return (
           <div key={title} className="system-info">
             <Title level={3}>{title}</Title>
             <Card>
               <Row>
-                {schema.map((item, index) => {
-                  const key = item.keys.find((key) =>
-                    Object.hasOwn(sysInfo, key),
-                  );
-                  if (key) {
-                    return (
-                      <Col
-                        key={key}
-                        span={spanValue?.featSpan}
-                        xxl={{
-                          span: spanValue?.xxlFeatSpan,
-                        }}
-                      >
-                        <div className="mp-info-item" key={key}>
-                          <div className="system-info__name">
-                            <div className="system-info__label">{key}</div>
-                            <div className="system-info__desc">
-                              {item.label}
-                            </div>
-                          </div>
-                          <div className="system-info__value">
-                            {renderValue(item, sysInfo[key])}
-                          </div>
+                {items.map(({ key, item }) => {
+                  return (
+                    <Col
+                      key={key}
+                      span={spanValue?.featSpan}
+                      xxl={{
+                        span: spanValue?.xxlFeatSpan,
+                      }}
+                    >
+                      <div className="mp-info-item" key={key}>
+                        <div className="system-info__name">
+                          <div className="system-info__label">{key}</div>
+                          <div className="system-info__desc">{item.label}</div>
                         </div>
-                      </Col>
-                    );
-                  }
-                  return <></>;
+                        <div className="system-info__value">
+                          {renderValue(item, sysInfo[key!])}
+                        </div>
+                      </div>
+                    </Col>
+                  );
                 })}
               </Row>
             </Card>
