@@ -143,59 +143,71 @@ export const AppAuthSettings: InfoItem[] = [
 
 export const AuthInfo: InfoItem[] = [
   {
-    keys: ['scope.userLocation'],
+    keys: ['scope.hostId'],
+    label: '授权抖音号',
+  },
+  {
+    keys: ['scope.userLocation', 'userLocation'],
     label: '精确地理位置',
   },
   {
-    keys: ['scope.userFuzzyLocation'],
+    keys: ['scope.userFuzzyLocation', 'userFuzzyLocation'],
     label: '模糊地理位置',
   },
   {
-    keys: ['scope.userLocationBackground'],
+    keys: ['scope.userLocationBackground', 'userLocationBackground'],
     label: '后台定位',
   },
   {
-    keys: ['scope.record'],
+    keys: ['scope.record', 'record'],
     label: '麦克风',
   },
   {
-    keys: ['scope.camera'],
+    keys: ['scope.camera', 'camera'],
     label: '摄像头',
   },
   {
-    keys: ['scope.bluetooth'],
+    keys: ['scope.bluetooth', 'bluetooth'],
     label: '蓝牙',
   },
   {
-    keys: ['scope.writePhotosAlbum'],
+    keys: ['scope.writePhotosAlbum', 'writePhotosAlbum'],
     label: '添加到相册',
   },
   {
-    keys: ['scope.addPhoneContact'],
+    keys: ['scope.album'],
+    label: '读取相册', // 抖音
+  },
+  {
+    keys: ['scope.addPhoneContact', 'addPhoneContact'],
     label: '添加到联系人',
   },
   {
-    keys: ['scope.addPhoneCalendar'],
+    keys: ['scope.addPhoneCalendar', 'addPhoneCalendar', 'scope.calendar'],
     label: '添加日历事件',
   },
   {
-    keys: ['scope.werun'],
+    keys: ['scope.werun', 'werun'],
     label: '微信运动步数',
   },
   {
-    keys: ['scope.address'],
+    keys: ['scope.address', 'address'],
     label: '通讯地址',
   },
   {
-    keys: ['scope.invoiceTitle'],
+    keys: ['scope.invoiceTitle', 'invoiceTitle'],
     label: '发票抬头',
   },
   {
-    keys: ['scope.invoice'],
+    keys: ['scope.invoice', 'invoice'],
     label: '获取发票',
   },
   {
-    keys: ['scope.userInfo'],
+    keys: ['scope.userInfo', 'userInfo'],
     label: '用户信息',
+  },
+  {
+    keys: ['scope.clipboard'],
+    label: '剪切板',
   },
 ];

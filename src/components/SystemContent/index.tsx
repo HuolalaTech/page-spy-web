@@ -22,6 +22,21 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
   const clientInfo = useMemo(() => {
     return parseUserAgent(system?.ua);
   }, [system]);
+
+  const mpSysInfo = useMemo(() => {
+    if (mp) {
+      try {
+        const sysInfo = JSON.parse(mp);
+        return sysInfo;
+      } catch (e) {
+        console.error(e);
+        // if parse error, the client is still mp, should display the mp panel.
+        return {};
+      }
+    }
+    return null;
+  }, [mp]);
+
   const noSupport = useMemo(() => {
     if (!features) return [];
     return Object.values(features).reduce((acc, cur) => {
@@ -53,8 +68,8 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
   if (data.length === 0) {
     return <Empty description={false} />;
   }
-  if (mp) {
-    return <MPSysInfo sysInfo={mp} spanValue={spanValue} />;
+  if (mpSysInfo) {
+    return <MPSysInfo sysInfo={mpSysInfo} spanValue={spanValue} />;
   }
   return (
     <div className="system-content">

@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next';
 
 const SystemPanel = memo(() => {
   const systemMsg = useSocketMessageStore((state) => state.systemMsg);
+  const refresh = useSocketMessageStore((state) => state.refresh);
+
   const { t } = useTranslation();
 
   if (systemMsg.length === 0) {
@@ -19,7 +21,7 @@ const SystemPanel = memo(() => {
           <Tooltip title={t('common.refresh')}>
             <Button
               onClick={() => {
-                refresh(activeTab);
+                refresh('system');
               }}
             >
               <ReloadOutlined />
