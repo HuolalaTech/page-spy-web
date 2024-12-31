@@ -69,7 +69,13 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
     return <Empty description={false} />;
   }
   if (mpSysInfo) {
-    return <MPSysInfo sysInfo={mpSysInfo} spanValue={spanValue} />;
+    return (
+      <MPSysInfo
+        sysInfo={mpSysInfo}
+        clientInfo={clientInfo}
+        spanValue={spanValue}
+      />
+    );
   }
   return (
     <div className="system-content">
