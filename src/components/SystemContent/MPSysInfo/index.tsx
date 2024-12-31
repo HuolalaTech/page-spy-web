@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './index.less';
 import '../index.less';
 import { Card, Typography, Grid, Row, Col, Empty, Space, Divider } from 'antd';
@@ -12,9 +12,11 @@ import {
 import Icon, { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { ReactComponent as SupportSvg } from '@/assets/image/support.svg';
 import { ReactComponent as UnsupportSvg } from '@/assets/image/unsupport.svg';
-import { useSocketMessageStore } from '@/store/socket-message';
+import { parseUserAgent } from '@/utils/brand';
+
 type Props = {
   sysInfo: Record<string, any>;
+  clientInfo: ReturnType<typeof parseUserAgent>;
   spanValue?: {
     featSpan: number;
     xxlFeatSpan: number;
@@ -43,8 +45,7 @@ const Schemas = [
 ];
 
 const MPSysInfo = (props: Props) => {
-  const { sysInfo, spanValue } = props;
-  const clientInfo = useSocketMessageStore((socket) => socket.clientInfo);
+  const { sysInfo, spanValue, clientInfo } = props;
 
   const renderValue = (item: InfoItem, v: any) => {
     if (item.render) {
@@ -69,7 +70,7 @@ const MPSysInfo = (props: Props) => {
         <Title level={3}>主要信息</Title>
         <Card>
           <Row>
-            <Col span={8}>
+            <Col span={12}>
               <div className="mp-info-main">
                 <img className="info-icon" src={clientInfo?.os.logo} />
                 <Space
@@ -90,7 +91,7 @@ const MPSysInfo = (props: Props) => {
                 </Space>
               </div>
             </Col>
-            <Col span={16}>
+            <Col span={12}>
               <div className="mp-info-main">
                 <img className="info-icon" src={clientInfo?.browser.logo} />
                 <span>
