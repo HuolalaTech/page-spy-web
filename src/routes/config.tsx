@@ -11,7 +11,7 @@ const RoomList = React.lazy(() => import('@/pages/RoomList'));
 const Docs = React.lazy(() => import('@/pages/Docs'));
 const Replay = React.lazy(() => import('@/pages/Replay'));
 const LogList = React.lazy(() => import('@/pages/LogList'));
-const ReplayLabs = React.lazy(() => import('@/pages/ReplayLabs'));
+const ReplayLab = React.lazy(() => import('@/pages/ReplayLab'));
 
 export interface RouteInfo {
   icon?: any;
@@ -52,7 +52,7 @@ const routes: RouteObject[] = [
       },
       {
         path: '/replay-lab',
-        element: <ReplayLabs />,
+        element: <ReplayLab />,
       },
     ],
   },
