@@ -4,21 +4,12 @@ import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
 import { SpyClient, SpyStorage } from '@huolala-tech/page-spy-types';
 import { FunctionComponent } from 'react';
 import { useSocketMessageStore } from './socket-message';
+import { AllBrowserTypes } from '@/utils/brand';
 
 export type StorageType = SpyStorage.DataType | 'AppStorage';
 
 export const isBrowser = (browser: SpyClient.Browser) => {
-  return [
-    'wechat',
-    'qq',
-    'uc',
-    'baidu',
-    'edge',
-    'chrome',
-    'firefox',
-    'safari',
-    'unknown',
-  ].includes(browser);
+  return AllBrowserTypes.includes(browser);
 };
 
 export const isMiniProgram = (browser: SpyClient.Browser) => {
@@ -30,7 +21,7 @@ export const isUniAppNative = (browser: SpyClient.Browser) => {
 };
 
 export const isHarmonyApp = (browser: SpyClient.Browser) => {
-  return browser.startsWith('harmony');
+  return browser === 'harmony';
 };
 
 export const isReactNative = (browser: SpyClient.Browser) => {
