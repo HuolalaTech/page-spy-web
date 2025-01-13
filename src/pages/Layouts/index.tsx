@@ -1,6 +1,6 @@
 import { Col, Layout, Row, Typography } from 'antd';
 import { Link, Outlet } from 'react-router-dom';
-import { ReactComponent as LogoSvg } from '@/assets/image/logo.svg';
+import LogoSvg from '@/assets/image/logo.svg?react';
 import './index.less';
 import clsx from 'clsx';
 import { Suspense } from 'react';

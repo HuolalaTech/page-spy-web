@@ -1,5 +1,5 @@
 import { SpyConsole } from '@huolala-tech/page-spy-types';
-import { ReactComponent as ErrorStackSvg } from '@/assets/image/error-stack.svg';
+import ErrorStackSvg from '@/assets/image/error-stack.svg?react';
 import './index.less';
 import Icon from '@ant-design/icons';
 import { useCallback, useMemo } from 'react';

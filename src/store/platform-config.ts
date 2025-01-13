@@ -1,6 +1,6 @@
-import { ReactComponent as StorageSvg } from '@/assets/image/storage.svg';
-import { ReactComponent as CookieSvg } from '@/assets/image/cookie.svg';
-import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
+import StorageSvg from '@/assets/image/storage.svg?react';
+import CookieSvg from '@/assets/image/cookie.svg?react';
+import DatabaseSvg from '@/assets/image/database.svg?react';
 import { SpyClient, SpyStorage } from '@huolala-tech/page-spy-types';
 import { FunctionComponent } from 'react';
 import { useSocketMessageStore } from './socket-message';

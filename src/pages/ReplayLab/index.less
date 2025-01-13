@@ -1,13 +1,14 @@
 .replay-lab {
-  padding: 40px 80px 400px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   color: white;
-  text-align: center;
   background: linear-gradient(-45deg, #ee7752, #e33d7d, #6d25e0, #23d5ab);
   background-size: 400% 400%;
-  animation: gradient 30s ease infinite;
-  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-  overflow: auto;
+  animation: gradient 45s ease infinite;
+  overflow: hidden;
   h1 {
     font-size: 58px;
   }
@@ -20,6 +21,9 @@
   h4 {
     font-size: 20px;
   }
+  h5 {
+    font-size: 16px;
+  }
   @media screen and (max-width: 768px) {
     h1 {
       font-size: 46px;
@@ -29,15 +33,24 @@
     }
   }
   .code-block {
-    margin-block: 40px;
     code * {
       font-size: 16px;
     }
   }
-  .statement {
-    &:before {
-      content: '*';
-      margin-right: 4px;
+  .step-actions {
+    position: fixed;
+    left: 80px;
+    bottom: 50px;
+    font-size: 24px;
+    user-select: none;
+    opacity: 0.65;
+    transition: opacity 0.1s linear;
+    &:hover {
+      opacity: 1;
+    }
+    [disabled] {
+      color: #bbb;
+      cursor: not-allowed;
     }
   }
 }

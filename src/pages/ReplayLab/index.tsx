@@ -1,89 +1,65 @@
-import { CodeBlock } from '@/components/CodeBlock';
 import './index.less';
-import { Button, Upload } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
-import WholeBundle from '@huolala-tech/page-spy-plugin-whole-bundle';
-import '@huolala-tech/page-spy-plugin-whole-bundle/dist/index.css';
-import { useEffect } from 'react';
-import { getReplayUrl } from '../LogList/SelectLogButton';
-import { isDoc } from '@/utils/constants';
+import { useMemo } from 'react';
 import { useThreshold } from '@/utils/useThreshold';
 import { useTranslation } from 'react-i18next';
+import { Welcome } from './components/Welcome';
+import Icon from '@ant-design/icons';
+import { Flex } from 'antd';
+import PrevSvg from '@/assets/image/prev.svg?react';
+import NextSvg from '@/assets/image/next.svg?react';
+import { useStepStore } from './components/store';
+import { ImportPackage } from './components/ImportPackage';
 
-const ReplayLabs = () => {
+const ReplayLab = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'lab' });
   const isMobile = useThreshold();
+  const { current, prev, next } = useStepStore();
 
-  useEffect(() => {
-    if (isMobile) return;
-    const $wholeBundle = new WholeBundle({
-      replayLabUrl: isDoc
-        ? 'https://pagespy.org/#/replay-lab'
-        : `${location.protocol}//${window.DEPLOY_BASE_PATH}/#/replay-lab`,
-    });
-    return () => {
-      $wholeBundle.abort();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  const contents = useMemo(() => {
+    return [
+      {
+        title: '欢迎',
+        content: <Welcome />,
+      },
+      {
+        title: '安装',
+        content: <ImportPackage />,
+      },
+      {
+        title: '回放',
+        content: null,
+      },
+    ];
   }, []);
+
   return (
     <div className="replay-lab">
-      <h1 style={{ textAlign: isMobile ? 'center' : 'right' }}>
-        {t('welcome')}
-      </h1>
-      <div
-        className="statement"
-        style={{ textAlign: isMobile ? 'center' : 'right' }}
-      >
-        {t('statement')}
-      </div>
-
       {isMobile ? (
-        <h3 style={{ marginTop: 150 }}>{t('only-pc')}</h3>
+        <h2>{t('only-pc')}</h2>
       ) : (
         <>
-          <h2 style={{ marginTop: 150 }}>{t('one-line')}</h2>
-          <h2>{t('load-pageSpy')}</h2>
-          <CodeBlock code='<script src="https://www.pagespy.org/plugin/whole-bundle/index.min.js" crossorigin="anonymous"></script>' />
-
-          <h2 style={{ marginTop: '50vh' }}>{t('then')}</h2>
-          <h2>{t('feedback-demo')}</h2>
-          <h2>{t('try-click')}</h2>
-
-          <h2 style={{ marginTop: '50vh' }}>{t('after')}</h2>
-          <h2>{t('click-upload')}</h2>
-          <Upload
-            accept=".json"
-            maxCount={1}
-            customRequest={async (file) => {
-              const url = URL.createObjectURL(file.file as File);
-              let replayURL = getReplayUrl(url);
-              if (isDoc) {
-                replayURL = `https://pagespy.org/#/replay?url=${url}#Console`;
-              }
-              setTimeout(() => {
-                window.open(replayURL);
-              }, 50);
-              return null;
-            }}
-            itemRender={() => null}
-          >
-            <Button
-              size="large"
-              icon={<UploadOutlined />}
-              style={{ marginTop: 40, fontWeight: 700 }}
-            >
-              {t('upload-btn')}
-            </Button>
-          </Upload>
-
-          <h2 style={{ marginTop: '50vh' }}>{t('congratulation')}</h2>
-          <h2>Talk is cheap, the code is shown.</h2>
-          <h4 style={{ marginTop: 20 }}>{t('desc')}</h4>
+          {contents[current].content}
+          <Flex className="step-actions" gap={8}>
+            <Icon
+              component={PrevSvg}
+              style={{ fontSize: 32 }}
+              disabled={current === 0}
+              onClick={prev}
+            />
+            <b>
+              {current + 1} - {contents[current].title}
+            </b>
+            <Icon
+              component={NextSvg}
+              style={{ fontSize: 32 }}
+              disabled={current === contents.length - 1}
+              onClick={next}
+            />
+          </Flex>
         </>
       )}
     </div>
   );
 };
 
-export default ReplayLabs;
+export default ReplayLab;
