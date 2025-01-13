@@ -12,7 +12,7 @@ import '@huolala-tech/react-json-view/dist/style.css';
 import { useTranslation } from 'react-i18next';
 import { InvalidObjectURL } from './InvalidObjectURL';
 import { Link } from 'react-router-dom';
-import { ReactComponent as LeftArrowSvg } from '@/assets/image/left-arrow.svg';
+import LeftArrowSvg from '@/assets/image/left-arrow.svg?react';
 import { RefCallback, useCallback, useRef, useState } from 'react';
 import useCallbackRef from '@/utils/useCallbackRef';
 import clsx from 'clsx';

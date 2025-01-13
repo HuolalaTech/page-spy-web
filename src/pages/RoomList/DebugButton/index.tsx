@@ -2,10 +2,10 @@ import { usePopupRef } from '@/utils/withPopup';
 import { Tooltip, Button, Space } from 'antd';
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useHref, useLocation } from 'react-router-dom';
+import { useHref } from 'react-router-dom';
 import { IArgs, SecretModal } from './SecretModal';
 import Icon from '@ant-design/icons';
-import { ReactComponent as LockSvg } from '@/assets/image/lock.svg';
+import LockSvg from '@/assets/image/lock.svg?react';
 
 interface Props {
   room: I.SpyRoom;

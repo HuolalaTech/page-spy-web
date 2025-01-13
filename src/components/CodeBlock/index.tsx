@@ -1,33 +1,62 @@
-import { useCallback, useEffect, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import './index.less';
 import copy from 'copy-to-clipboard';
-import { Space } from 'antd';
-import { CheckOutlined } from '@ant-design/icons';
+import { Divider, Space } from 'antd';
+import Icon from '@ant-design/icons';
 import sh from '@/utils/shiki-highlighter';
-import { useAsyncEffect } from 'ahooks';
-import type { Lang } from 'shiki';
+import { Highlighter, type Lang } from 'shiki';
+import CopySvg from '@/assets/image/copy.svg?react';
+import CopiedSvg from '@/assets/image/copied.svg?react';
+import clsx from 'clsx';
+import { LoadingFallback } from '../LoadingFallback';
 
-interface Props {
+interface SingleProps {
   code: string;
   lang?: Lang;
   showCopy?: boolean;
 }
 
-export const CodeBlock = ({
-  code = '',
-  lang = 'html',
-  showCopy = true,
-}: Props) => {
+type GroupItem = Omit<SingleProps, 'showCopy'> & { title: ReactNode };
+interface GroupProps {
+  group: GroupItem[];
+  showCopy?: boolean;
+}
+
+function isGroupBlock(p: unknown): p is GroupProps {
+  return !!(p as any).group;
+}
+
+export const CodeBlock = (data: SingleProps | GroupProps) => {
+  const { showCopy = true } = data;
+  const [active, setActive] = useState(0);
+  const [userCode, setUserCode] = useState('');
   const [codeContent, setCodeContent] = useState('');
-  useAsyncEffect(async () => {
-    const highlighter = await sh.get({
+  const [bg, setBg] = useState('');
+  const highlighter = useRef<Highlighter | null>(null);
+  const handleCodeContent = async ({
+    code,
+    lang,
+  }: Omit<SingleProps, 'showCopy'>) => {
+    if (!highlighter.current) {
+      highlighter.current = await sh.get({
+        lang,
+      });
+    }
+    const bg = highlighter.current.getBackgroundColor();
+    const html = highlighter.current.codeToHtml(code, {
       lang,
     });
-    const content = highlighter.codeToHtml(code, {
-      lang,
-    });
-    setCodeContent(content);
-  }, [code]);
+    setBg(bg);
+    setUserCode(code);
+    setCodeContent(html);
+  };
+  useEffect(() => {
+    if (isGroupBlock(data)) {
+      handleCodeContent(data.group[active]);
+    } else {
+      handleCodeContent(data);
+    }
+  }, [active, data]);
 
   const [copyStatus, setCopyStatus] = useState(false);
   useEffect(() => {
@@ -42,31 +71,52 @@ export const CodeBlock = ({
 
   const onCopy = useCallback(() => {
     if (copyStatus) return;
-    const res = copy(code);
-    setCopyStatus(true);
-  }, [code, copyStatus]);
+    const res = copy(userCode);
+    setCopyStatus(res);
+  }, [copyStatus, userCode]);
 
-  if (!code) return null;
+  if (!codeContent) return <LoadingFallback />;
 
   return (
-    <div className="code-block">
-      {showCopy && (
-        <button className="copy-code" onClick={onCopy}>
-          {copyStatus ? (
-            <Space>
-              <span>Copied</span>
-              <CheckOutlined />
-            </Space>
-          ) : (
-            'COPY'
-          )}
-        </button>
-      )}
-      <div
-        dangerouslySetInnerHTML={{
-          __html: codeContent,
-        }}
-      />
+    <div style={{ backgroundColor: bg }} className="code-block">
+      <div className="code-block-title">
+        {isGroupBlock(data) &&
+          data.group.map((c, index) => {
+            return (
+              <div
+                key={index}
+                className={clsx('title-item', {
+                  active: active === index,
+                })}
+                onClick={() => {
+                  setActive(index);
+                }}
+              >
+                {c.title}
+              </div>
+            );
+          })}
+      </div>
+      <div className="code-block-content">
+        {showCopy && (
+          <button className="copy-code" onClick={onCopy}>
+            {copyStatus ? (
+              <Space>
+                <span>Copied</span>
+                <Divider type="vertical" style={{ backgroundColor: '#666' }} />
+                <Icon component={CopiedSvg} style={{ fontSize: 18 }} />
+              </Space>
+            ) : (
+              <Icon component={CopySvg} style={{ fontSize: 18 }} />
+            )}
+          </button>
+        )}
+        <div
+          dangerouslySetInnerHTML={{
+            __html: codeContent,
+          }}
+        />
+      </div>
     </div>
   );
 };

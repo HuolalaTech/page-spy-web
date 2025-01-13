@@ -1,8 +1,6 @@
-// import { ReactComponent as EmptySvg } from '@/assets/image/empty.svg';
 import EmptySvg from '@/assets/image/empty.svg';
-import Icon from '@ant-design/icons';
 import './index.less';
-import { Row, Col, Empty, Button } from 'antd';
+import { Empty, Button } from 'antd';
 
 export const DocNotFound = () => {
   return (

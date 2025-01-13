@@ -10,7 +10,7 @@ import { RequestPayloadBlock } from '../RequestPayloadBlock';
 import { ResponseBody } from '../ResponseBody';
 import clsx from 'clsx';
 import Icon from '@ant-design/icons';
-import { ReactComponent as CloseSvg } from '@/assets/image/close.svg';
+import CloseSvg from '@/assets/image/close.svg?react';
 
 interface Props {
   data: ResolvedNetworkInfo;

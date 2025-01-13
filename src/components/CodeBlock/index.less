@@ -1,31 +1,55 @@
 .code-block {
   position: relative;
+  border-radius: 6px;
   overflow: hidden;
+  &-title {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    padding-inline: 20px;
+    border-bottom: 1px solid #444;
+    .title-item {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+      padding-inline: 4px;
+      color: #aaa;
+      height: 52px;
+      border-bottom: 2px solid transparent;
+      transition: all 100ms ease-in-out;
+      cursor: pointer;
+      font-weight: 500;
+      &.active {
+        color: white;
+        border-color: lighten(@primary-color, 20%);
+      }
+    }
+  }
+  &-content {
+    position: relative;
+  }
   pre {
-    padding: 20px 24px;
-    border-radius: 8px;
+    padding: 16px 20px;
     overflow: auto;
     code * {
       font-size: 14px;
       line-height: 1.2;
-      font-family: Cascadia Code, Menlo, Courier, monospace;
+      font-family: 'Cascadia Code', ui-monospace, 'Menlo', 'Monaco', 'Consolas',
+        'Liberation Mono', 'Courier New', monospace;
     }
   }
-
   .copy-code {
     visibility: hidden;
     position: absolute;
-    right: 0;
-    top: 0;
-    padding: 4px 12px;
-    border-bottom-left-radius: 8px;
-    border-top-right-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.3);
-    color: #fff;
-    font-size: 12px !important;
-    line-height: 1;
-    border: none;
+    right: 12px;
+    top: 6px;
+    padding: 8px;
+    color: #ccc;
+    border-radius: 6px;
+    border: 0.5px solid #777;
     cursor: pointer;
+    background-color: #4c4c4c;
   }
   &:hover {
     .copy-code {

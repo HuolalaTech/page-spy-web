@@ -10,9 +10,9 @@ import './index.less';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { DOC_MENUS, ORDER_DOC_MENUS, OrderDocMenus } from '../DocMenus';
 import { useTranslation } from 'react-i18next';
-import { ReactComponent as BeforeSvg } from '@/assets/image/before.svg';
-import { ReactComponent as NextSvg } from '@/assets/image/next.svg';
-import { ReactComponent as MenuSvg } from '@/assets/image/menu.svg';
+import PrevSvg from '@/assets/image/prev.svg?react';
+import NextSvg from '@/assets/image/next.svg?react';
+import MenuSvg from '@/assets/image/menu.svg?react';
 import Icon from '@ant-design/icons';
 import { HeaderLink } from '../HeaderLink';
 import { useEventListener } from '@/utils/useEventListener';
@@ -48,7 +48,7 @@ const FooterLink = ({
     >
       <div className="footer-link__head">
         {flag === 'prev' && (
-          <Icon component={BeforeSvg} style={{ fontSize: 12 }} />
+          <Icon component={PrevSvg} style={{ fontSize: 12 }} />
         )}
         <span>{flag === 'prev' ? t('common.prev') : t('common.next')}</span>
         {flag === 'next' && <Icon component={NextSvg} />}

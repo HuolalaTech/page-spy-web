@@ -4,10 +4,10 @@ import { Space, Select, Tooltip } from 'antd';
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
-import { ReactComponent as PlaySvg } from '@/assets/image/play.svg';
-import { ReactComponent as PauseSvg } from '@/assets/image/pause.svg';
-import { ReactComponent as RelateTimeSvg } from '@/assets/image/related-time.svg';
-import { ReactComponent as AbsoluteTimeSvg } from '@/assets/image/absolute-time.svg';
+import PlaySvg from '@/assets/image/play.svg?react';
+import PauseSvg from '@/assets/image/pause.svg?react';
+import RelateTimeSvg from '@/assets/image/related-time.svg?react';
+import AbsoluteTimeSvg from '@/assets/image/absolute-time.svg?react';
 
 export const Actions = memo(() => {
   const { t } = useTranslation();
