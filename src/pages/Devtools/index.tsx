@@ -28,7 +28,11 @@ import { throttle } from 'lodash-es';
 import { CUSTOM_EVENT } from '@/store/socket-message/socket';
 import { SpyClient } from '@huolala-tech/page-spy-types';
 import MPWarning from '@/components/MPWarning';
-import { isBrowser, isHarmonyApp } from '@/store/platform-config';
+import {
+  isBrowser,
+  isHarmonyApp,
+  isMiniProgram,
+} from '@/store/platform-config';
 import MPPagePanel from './MPPagePanel';
 
 const { Sider, Content } = Layout;
@@ -71,7 +75,9 @@ const MENU_COMPONENTS: Record<
   System: {
     component: SystemPanel,
     visible: ({ browser }) => {
-      return isBrowser(browser) || isHarmonyApp(browser);
+      return (
+        isBrowser(browser) || isHarmonyApp(browser) || isMiniProgram(browser)
+      );
     },
   },
   MPPage: {

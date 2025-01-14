@@ -7,6 +7,8 @@ import { useSocketMessageStore } from '@/store/socket-message';
 import { parseUserAgent } from '@/utils/brand';
 import { SpySystem } from '@huolala-tech/page-spy-types';
 import { useReplayStore } from '@/store/replay';
+import { flattenRecord } from '@/utils/tools';
+import MPSysInfo from './MPSysInfo';
 
 const { Title } = Typography;
 
@@ -16,10 +18,25 @@ interface SystemContentProps {
 
 const SystemContent = memo(({ data }: SystemContentProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'system' });
-  const { features, system } = data[0] || {};
+  const { features, system, mp } = data[0] || {};
   const clientInfo = useMemo(() => {
     return parseUserAgent(system?.ua);
   }, [system]);
+
+  const mpSysInfo = useMemo(() => {
+    if (mp) {
+      try {
+        const sysInfo = JSON.parse(mp);
+        return sysInfo;
+      } catch (e) {
+        console.error(e);
+        // if parse error, the client is still mp, should display the mp panel.
+        return {};
+      }
+    }
+    return null;
+  }, [mp]);
+
   const noSupport = useMemo(() => {
     if (!features) return [];
     return Object.values(features).reduce((acc, cur) => {
@@ -50,6 +67,15 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
 
   if (data.length === 0) {
     return <Empty description={false} />;
+  }
+  if (mpSysInfo) {
+    return (
+      <MPSysInfo
+        sysInfo={mpSysInfo}
+        clientInfo={clientInfo}
+        spanValue={spanValue}
+      />
+    );
   }
   return (
     <div className="system-content">
