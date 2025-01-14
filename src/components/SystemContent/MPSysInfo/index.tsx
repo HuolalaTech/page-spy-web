@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import './index.less';
 import '../index.less';
 import { Card, Typography, Grid, Row, Col, Empty, Space, Divider } from 'antd';
 import {
