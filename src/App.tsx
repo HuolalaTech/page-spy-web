@@ -1,4 +1,4 @@
-import { Calendar, ConfigProvider, DatePicker } from 'antd';
+import { ConfigProvider } from 'antd';
 import React, { useEffect } from 'react';
 import { HashRouter } from 'react-router-dom';
 import RouteConfig from './routes/config';
@@ -33,6 +33,7 @@ export const App = () => {
             locale={localeConfig[lang]}
             theme={{
               token: {
+                colorLink: 'rgb(132, 52, 233)',
                 colorPrimary: 'rgb(132, 52, 233)',
                 colorPrimaryBg: 'rgb(247, 241, 255)',
               },

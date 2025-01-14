@@ -45,22 +45,22 @@ PageSpy は、GitHub Package (推奨) / [NPM package][npm-package] にホスト�
    package main
 
    import (
-   	"log"
-   	"github.com/HuolalaTech/page-spy-api/config"
-   	"github.com/HuolalaTech/page-spy-api/container"
-   	"github.com/HuolalaTech/page-spy-api/serve"
+      "log"
+      "github.com/HuolalaTech/page-spy-api/config"
+      "github.com/HuolalaTech/page-spy-api/container"
+      "github.com/HuolalaTech/page-spy-api/serve"
    )
 
    func main() {
-   	container := container.Container()
+      container := container.Container()
       err := container.Provide(func() *config.StaticConfig {
          return &config.StaticConfig{}
       })
 
-   	if err != nil {
-   		log.Fatal(err)
-   	}
-   	serve.Run()
+      if err != nil {
+         log.Fatal(err)
+      }
+      serve.Run()
    }
    ```
 
@@ -153,7 +153,6 @@ PageSpy は、GitHub Package (推奨) / [NPM package][npm-package] にホスト�
 3. 以下のコマンドを直接使用することができます:：
 
    - `npx lerna run build`: SDK を生成するためのビルドを行う。製品が生成され、プロジェクトディレクトリの `dist` フォルダに配置される;
-   - `npx lerna run build:watch`: ウォッチモードでビルド。コンテンツが更新されると自動的にビルドされます;
    - `yarn test`: 単体テストの実行;
 
 ## さまざまなシナリオでのデバッグ
@@ -196,7 +195,7 @@ VITE_API_BASE=example.com
 
 > ヒント: "example.com" は、https://example.com、サービスをデプロイしたと仮定しているだけなので、実際のデプロイアドレスに置き換えてください。
 
-サービス開始後、ブラウザでデバッグ終了アドレス http://localhost:5173 を開いてください。ポートが異なる場合がありますので、各サービスが表示するアドレスに従ってアクセスしてください。上部にある "Inject SDK" メニューをクリックし、指示に従ってテストプロジェクトにアクセスします。インスタンス化には構成を渡す必要があります:
+サービス開始後、ブラウザでデバッグ終了アドレス http://localhost:5173 を開いてください。ポートが異なる場合がありますので、各サービスが表示するアドレスに従ってアクセスしてください。上部にある "Doc" メニューをクリックし、指示に従ってテストプロジェクトにアクセスします。インスタンス化には構成を渡す必要があります:
 
 ```ts
 new PageSpy({
@@ -216,7 +215,7 @@ SDK への貢献だけに集中したい場合は、[SDK セットアップ](#sd
 `--scope` パラメータを使用してターミナル コマンドを実行することをお勧めします。変更が発生すると自動的にビルドされます。例えば:
 
 ```bash
-$ npx lerna run build:watch --scope=@huolala-tech/page-spy-wechat
+$ npx lerna run build --scope=@huolala-tech/page-spy-wechat -- -w
 ```
 
 これにより、SDK 製品がビルドされ、`packages/*/dist` ディレクトリに生成されます。ビルドされた SDK 製品をテストプロジェクトにインポートし、PageSpy をインスタンス化するには、次の設定を渡す必要があります:
@@ -230,4 +229,4 @@ new PageSpy({
 });
 ```
 
-テストプロジェクトを開始します。テストプロジェクトのページの左下に PageSpy のロゴ（PageSpy のロゴが真ん中にある白い円形の容器）が表示されるはずです。https://example.com からテストプロジェクトの "Connections" にアクセスすると、テストプロジェクトのデバッグルームがリストに表示されるはずです。これで、SDK コードを修正し、SDK リポジトリにコントリビュートすることができます。
+テストプロジェクトを開始します。テストプロジェクトのページの右下に PageSpy のロゴ（PageSpy のロゴが真ん中にある白い円形の容器）が表示されるはずです。https://example.com からテストプロジェクトの "Connections" にアクセスすると、テストプロジェクトのデバッグルームがリストに表示されるはずです。これで、SDK コードを修正し、SDK リポジトリにコントリビュートすることができます。

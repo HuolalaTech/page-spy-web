@@ -1,5 +1,5 @@
 import useSearch from '@/utils/useSearch';
-import { message, Row, Col, Space } from 'antd';
+import { message, Row, Col, Space, Empty, Card, Flex } from 'antd';
 import './index.less';
 import { useRequest } from 'ahooks';
 import { LoadingFallback } from '@/components/LoadingFallback';
@@ -13,9 +13,16 @@ import { useTranslation } from 'react-i18next';
 import { InvalidObjectURL } from './InvalidObjectURL';
 import { Link } from 'react-router-dom';
 import { ReactComponent as LeftArrowSvg } from '@/assets/image/left-arrow.svg';
-import { useReplayerExpand } from '@/store/replayer-expand';
+import { RefCallback, useCallback, useRef, useState } from 'react';
+import useCallbackRef from '@/utils/useCallbackRef';
+import clsx from 'clsx';
+import { PLAYER_SIZE_CHANGE } from './events';
+import { useEventListener } from '@/utils/useEventListener';
+import { useShallow } from 'zustand/react/shallow';
+import { ErrorDetailDrawer } from '@/components/ErrorDetailDrawer';
+import { Meta } from './Meta';
 
-export const Replay = () => {
+const Replay = () => {
   const { t } = useTranslation();
   const { url } = useSearch();
   const setAllData = useReplayStore((state) => state.setAllData);
@@ -23,18 +30,77 @@ export const Replay = () => {
     if (!url) return null;
     const res = await (await fetch(url)).json();
     const result = res.map((i: any) => {
-      i.data = JSON.parse(strFromU8(unzlibSync(strToU8(i.data, true))));
-      return i;
+      return {
+        ...i,
+        // if string, it's compressed by zlib
+        // or it will be plain object. because in mp env, zlib is not available
+        data:
+          typeof i.data === 'string'
+            ? JSON.parse(strFromU8(unzlibSync(strToU8(i.data, true))))
+            : i.data,
+      };
     }) as HarborDataItem[];
     setAllData(result);
     return result;
   });
-  const [duration, allRRwebEvent] = useReplayStore((state) => [
-    state.duration,
-    state.allRRwebEvent,
-  ]);
+  const [duration, allRRwebEvent] = useReplayStore(
+    useShallow((state) => [state.duration, state.allRRwebEvent]),
+  );
 
-  const isExpand = useReplayerExpand((state) => state.isExpand);
+  // drag to resize
+  const setIsExpand = useReplayStore((state) => state.setIsExpand);
+  const [isDragging, setIsDragging] = useState(false);
+  const playerRef = useRef<HTMLDivElement | null>(null);
+  const bindPlayer = useCallback<RefCallback<HTMLDivElement>>((node) => {
+    playerRef.current = node;
+  }, []);
+  const bindDragger = useCallbackRef<HTMLDivElement>((node) => {
+    if (!node) return;
+    const info = {
+      touchX: 0,
+      playerWidth: 0,
+      playerMaxWidth: window.innerWidth * 0.8,
+      playerMinWidth: window.innerWidth * 0.3,
+    };
+    const mousedown = (e: MouseEvent) => {
+      if (!playerRef.current) return;
+      const { clientX } = e;
+      info.touchX = clientX;
+      info.playerWidth = playerRef.current.getBoundingClientRect().width;
+
+      setIsDragging(true);
+      window.addEventListener('mousemove', mousemove);
+      window.addEventListener('mouseup', mouseup);
+    };
+    const mousemove = (e: MouseEvent) => {
+      const diff = e.clientX - info.touchX;
+      const resultX = info.playerWidth + diff;
+      if (resultX >= info.playerMinWidth && resultX <= info.playerMaxWidth) {
+        playerRef.current!.style.flexBasis = `${resultX}px`;
+      }
+    };
+    const mouseup = (e: MouseEvent) => {
+      mousemove(e);
+      info.touchX = 0;
+      const { width } = playerRef.current!.getBoundingClientRect();
+      if (width >= window.innerWidth * 0.6) {
+        setIsExpand(true);
+      } else {
+        setIsExpand(false);
+      }
+      setIsDragging(false);
+      window.removeEventListener('mousemove', mousemove);
+      window.removeEventListener('mouseup', mouseup);
+      window.dispatchEvent(new CustomEvent(PLAYER_SIZE_CHANGE));
+    };
+    node.addEventListener('mousedown', mousedown);
+    return () => {
+      node.removeEventListener('mousedown', mousedown);
+    };
+  });
+  useEventListener('resize', () => {
+    window.dispatchEvent(new CustomEvent(PLAYER_SIZE_CHANGE));
+  });
 
   if (loading) {
     return <LoadingFallback />;
@@ -52,8 +118,8 @@ export const Replay = () => {
 
   return (
     <div className="replay">
-      <Row className="replay-header" justify="start">
-        <Col>
+      <Row className="replay-header" align="middle">
+        <Col span={8}>
           <Space>
             <Link to={{ pathname: '/log-list' }} className="back-list">
               <LeftArrowSvg style={{ fontSize: 18 }} />
@@ -61,23 +127,38 @@ export const Replay = () => {
             <span className="replay-header__title">{t('replay.title')}</span>
           </Space>
         </Col>
-      </Row>
-      <Row align="stretch" className="replay-main" gutter={24} wrap={false}>
-        {!!allRRwebEvent.length && (
-          <Col
-            className="replay-main__left"
-            style={{ width: isExpand ? '70vw' : '40vw' }}
-          >
-            <RRWebPlayer />
-          </Col>
-        )}
-        <Col flex="1" className="replay-main__right">
-          <PluginPanel />
+        <Col span={8}>
+          <Flex justify="center">
+            <Meta />
+          </Flex>
         </Col>
       </Row>
+      <div className="replay-main">
+        <div
+          className={clsx('replay-main__left', isDragging && 'no-select')}
+          ref={bindPlayer}
+        >
+          {/* Replayer need at least 2 events. */}
+          {allRRwebEvent.length >= 2 ? (
+            <RRWebPlayer />
+          ) : (
+            <div style={{ marginTop: 80 }}>
+              <Empty />
+            </div>
+          )}
+        </div>
+        <div className="replay-main__center" ref={bindDragger} />
+        <div className={clsx('replay-main__right', isDragging && 'no-select')}>
+          <PluginPanel />
+        </div>
+      </div>
       <div className="replay-footer">
         <PlayControl />
       </div>
+
+      <ErrorDetailDrawer />
     </div>
   );
 };
+
+export default Replay;

@@ -4,28 +4,31 @@ import { produce } from 'immer';
 import { CUSTOM_EVENT, SocketStore } from './socket';
 import {
   SpyConsole,
-  SpyNetwork,
   SpySystem,
   SpyMPPage,
   SpyPage,
   SpyStorage,
   SpyDatabase,
-  SpyMessage,
+  SpyClient,
 } from '@huolala-tech/page-spy-types';
 import { API_BASE_URL } from '@/apis/request';
-import { resolveProtocol } from '@/utils';
+import { ResolvedNetworkInfo, resolveProtocol, resolveUrlInfo } from '@/utils';
 import { ElementContent } from 'hast';
-import { getFixedPageMsg } from './utils';
-import { isEqual, omit } from 'lodash-es';
+import { getFixedPageMsg, processMPNetworkMsg } from './utils';
+import { isArray, isEqual, isString, omit } from 'lodash-es';
+import { parseClientInfo, ParsedClientInfo } from '@/utils/brand';
+import { StorageType } from '../platform-config';
+import type { RequestItem } from '@huolala-tech/page-spy-base';
 
 const USER_ID = 'Debugger';
 
 interface SocketMessage {
   socket: SocketStore | null;
+  clientInfo: ParsedClientInfo | null;
   consoleMsg: SpyConsole.DataItem[];
   consoleMsgTypeFilter: string[];
   consoleMsgKeywordFilter: string;
-  networkMsg: SpyNetwork.RequestInfo[];
+  networkMsg: ResolvedNetworkInfo[];
   systemMsg: SpySystem.DataItem[];
   connectMsg: string[];
   pageMsg: {
@@ -33,7 +36,7 @@ interface SocketMessage {
     tree: ElementContent[] | null;
     location: SpyPage.DataItem['location'] | null;
   };
-  storageMsg: Record<SpyStorage.DataType, SpyStorage.GetTypeDataItem['data']>;
+  storageMsg: Record<StorageType, SpyStorage.GetTypeDataItem['data']>;
   databaseMsg: {
     basicInfo: SpyDatabase.DBInfo[] | null;
     data: SpyDatabase.GetTypeDataItem | null;
@@ -41,7 +44,7 @@ interface SocketMessage {
   mpPageMsg: {
     pages: SpyMPPage.MPPageInfo[];
   };
-  initSocket: (url: string) => void;
+  initSocket: (args: Record<string, string>) => void;
   setConsoleMsgTypeFilter: (typeList: string[]) => void;
   setConsoleMsgKeywordFilter: (keyword: string) => void;
   clearRecord: (key: string) => void;
@@ -50,6 +53,7 @@ interface SocketMessage {
 
 export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
   socket: null,
+  clientInfo: null,
   consoleMsg: [],
   consoleMsgTypeFilter: [],
   consoleMsgKeywordFilter: '',
@@ -66,6 +70,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
     sessionStorage: [],
     cookie: [],
     mpStorage: [],
+    AppStorage: [],
     asyncStorage: [],
   },
   databaseMsg: {
@@ -75,20 +80,26 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
   mpPageMsg: {
     pages: [],
   },
-  mpMethodResult: [],
-  initSocket: (room: string) => {
-    if (!room) return;
-    const address = decodeURIComponent(room).split('#')[0] ?? '';
+  initSocket: ({ address, secret }: Record<string, string>) => {
     if (!address) return;
+    const roomID = decodeURIComponent(address).split('#')[0] ?? '';
+    if (!roomID) return;
 
     const _socket = get().socket;
     if (_socket) return;
 
     const [, protocol] = resolveProtocol();
-    const url = `${protocol}${API_BASE_URL}/api/v1/ws/room/join?address=${address}&userId=${USER_ID}`;
+    const url = `${protocol}${API_BASE_URL}/api/v1/ws/room/join?address=${roomID}&userId=${USER_ID}&secret=${secret}`;
 
     const socket = new SocketStore(url);
     set({ socket });
+    socket.addListener('client-info', (data: SpyClient.DataItem) => {
+      set(
+        produce<SocketMessage>((state) => {
+          state.clientInfo = parseClientInfo(data);
+        }),
+      );
+    });
     socket.addListener('console', (data: SpyConsole.DataItem) => {
       set(
         produce<SocketMessage>((state) => {
@@ -103,23 +114,81 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         }),
       );
     });
+    socket.addListener('network', (data: RequestItem) => {
+      const { name, pathname, getData } = resolveUrlInfo(data.url);
 
-    socket.addListener('network', (data: SpyNetwork.RequestInfo) => {
-      const cache = get().networkMsg;
+      const newData: ResolvedNetworkInfo = {
+        ...data,
+        name,
+        pathname,
+        getData,
+      };
+      // 小程序 network 信息需要特别处理。
+      // 你可能会担心，会不会有 network msg 先于 clientInfo 发送过来导致被遗漏？
+      // 不会的，clientInfo 是在 socket 连接建立之后立马送过来的，之后才会 flush 历史数据。
+      const browserType = get().clientInfo?.browser.type || '';
+      const sdk = get().clientInfo?.sdk || '';
+      // uniapp 和 taro 可能会编译成 h5 或 app， 所以即使不是小程序，只要用了这两个 sdk 也要走这个逻辑
+      if (browserType.startsWith('mp-') || sdk === 'uniapp' || sdk === 'taro') {
+        processMPNetworkMsg(newData);
+      }
       // 整理 xhr 的消息
-      const { id } = data;
+      const { id } = newData;
+      const cache = get().networkMsg;
       const index = cache.findIndex((item) => item.id === id);
       if (index !== -1) {
+        const {
+          requestType,
+          response = '',
+          status,
+          endTime,
+          lastEventId,
+        } = newData;
+        // eventsource 需要合并 response
+        // eventsource 的 'open / error' 事件都没有 response，'message' 事件可能会带着 response
+        // status === 200 是在 SDK 中硬编码的，和 'message' 事件对应
+        if (requestType === 'eventsource' && status === 200) {
+          const {
+            response: cacheData,
+            endTime: cacheTime,
+            lastEventId: cacheId,
+          } = cache[index];
+          if (isString(cacheData)) {
+            newData.response = [
+              {
+                id: cacheId,
+                time: cacheTime,
+                data: cacheData,
+              },
+              {
+                id: lastEventId,
+                time: endTime,
+                data: response,
+              },
+            ];
+          }
+          if (isArray(cacheData)) {
+            newData.response = [
+              ...cacheData,
+              {
+                id: lastEventId,
+                time: endTime,
+                data: response,
+              },
+            ];
+          }
+        }
+
         set(
           produce((state) => {
-            state.networkMsg.splice(index, 1, data);
+            state.networkMsg.splice(index, 1, newData);
           }),
         );
       } else {
         set(
           produce<SocketMessage>((state) => {
             state.networkMsg = produce(state.networkMsg, (draft) => {
-              draft.push(data);
+              draft.push(newData);
               return draft.sort((a, b) => a.startTime - b.startTime);
             });
           }),

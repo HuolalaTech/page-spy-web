@@ -1,9 +1,16 @@
 .play-control {
   .play-actions {
+    position: relative;
     width: 40vw;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    .right-actions {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
   }
   .play-action__btn {
     font-size: 24px;
@@ -44,13 +51,32 @@
         height: @size;
         left: 0;
         top: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate3d(-50%, -50%, 0);
         border-radius: 999px;
         background-color: @primary-color;
+        z-index: 10;
         &:hover {
           width: @size * 1.1;
           height: @size * 1.1;
         }
+      }
+      .point-item {
+        @size: 14px;
+        position: absolute;
+        min-width: 2px;
+        height: 12px;
+        transform: translateY(-2px);
+        &[data-event='Click'] {
+          background-color: #279bd5;
+        }
+        &[data-event='Error'] {
+          background-color: #fc4d4d;
+        }
+
+        // width: @size;
+        // height: @size;
+        // background-size: @size;
+        // background-repeat: no-repeat;
       }
     }
   }

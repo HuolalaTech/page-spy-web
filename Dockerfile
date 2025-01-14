@@ -3,7 +3,7 @@ WORKDIR /app
 COPY backend/go.mod backend/go.sum ./
 RUN go mod download
 COPY backend/. .
-RUN go build -ldflags "-linkmode external -extldflags -static"  -o main .
+RUN go build -o main .
 
 FROM debian:bullseye-slim
 WORKDIR /app

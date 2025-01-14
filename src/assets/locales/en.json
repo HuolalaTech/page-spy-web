@@ -14,6 +14,8 @@
     "device-id": "Device ID",
     "os": "OS",
     "browser": "Browser",
+    "harmony": "HarmonyOS",
+    "rn": "React Native",
     "miniprogram": "Mini Program",
     "mpwechat": "WeChat Mini Program",
     "mpqq": "QQ Mini Program",
@@ -42,7 +44,11 @@
     "actions": "Actions",
     "delete": "Delete",
     "confirm": "Confirm",
-    "copied": "Copied"
+    "copied": "Copied",
+    "prev": "Previous",
+    "next": "Next",
+    "replay-lab": "Replay Lab",
+    "toc": "Table of Contents"
   },
   "error": {
     "oops": "Oops! Errors happened~",
@@ -58,18 +64,24 @@
       "init-sdk": "<0>Then, initialize it and check the</0> <1>configuration options</1>:",
       "plugins": "<0>PageSpy can integrate plugins on demand to extend the capabilities of the SDK, such as:</0> <1>DOM recording</1>, <2>offline caching</2>, <3>and more. If needed, you can check the</3> <4>plugin details</4>;"
     },
-    "mp-wechat": {
+    "mp": {
       "title": "Mini Program",
       "request-host": "Add the page-spy server domain to the whitelist of the miniprogram http and websocket requests. Note that the miniprogram requires https and wss protocols, except for the development environment.",
-      "install-sdk": "First, install dependencies in the project:",
+      "install-sdk": "First, install dependencies in the project. We provide SDKs for different platforms, you may choose the one you need:",
       "init-sdk": "<0>Import the SDK in the entry file and initialize it，check the </0> <1>configuration options</1>："
     },
-    "mp-uniapp": {
-      "title": "Mini Program",
-      "request-host": "Add the page-spy server domain to the whitelist of the miniprogram http and websocket requests. Note that the miniprogram requires https and wss protocols, except for the development environment.",
-      "install-sdk": "First, install dependencies in the project:",
-      "init-sdk": "<0>Import the SDK in the entry file and initialize it，check the </0> <1>configuration options</1>："
+    "harmony": {
+      "title": "Harmony",
+      "install-sdk": "Install dependencies in the target HAP directory:",
+      "init-sdk": "<0>Import and initialize the SDK at the appropriate location, using EntryAbility as an example. Check the</0> <1>configuration options</1>:"
     },
+    "rn": {
+      "title": "React Native",
+      "install-sdk": "First, install dependencies in the project:",
+      "init-sdk": "<0>Import and initialize the SDK at the appropriate location. Check the</0> <1>configuration options</1>:",
+      "storage-plugin": "<0>If you use the official recommended storage library @react-native-async-storage/async-storage, we provide an independent plugin for you:</0> <1>Async Storage plugin</1>"
+    },
+
     "end": "That's ALL.",
     "start-debug": "Start debugging by clicking the <1>Connections</1> menu at the top!"
   },
@@ -84,6 +96,8 @@
     "doesTitle": "Inspect Runtime,<br/>Remote!",
     "provides": "What we provide",
     "providesTitle": "Out-of-box <1>SDK</1> and<br /> <4>debugger client</4>",
+    "load-script": "First, load the file",
+    "init-instance": "Then, configure (optional) and initialize",
     "welcome": "Welcome to use PageSpy"
   },
   "selConn": {
@@ -95,7 +109,10 @@
     "device": "Device",
     "system": "System",
     "browser": "Browser",
+    "platform": "Platform",
     "version": "Version",
+    "eval-plugin-required": "If you need to dynamically execute code in mini program, please use @huolala-tech/page-spy-plugin-mp-eval in client SDK.",
+    "mp-warning": "When submitting the mini program for review, DO REMEMBER to delete the plugin-mp-eval in the code, otherwise the review will fail.",
     "menu": {
       "Console": "Console",
       "Network": "Network",
@@ -135,7 +152,8 @@
       "failed-advice": "Here are some suggestions to fix and improve the situation:",
       "fix-suggestion-1": "<0>1. Ensure file existence: When locating the source code for each error stack, two files need to be requested - the compressed file and the sourcemap file. The rule for obtaining the sourcemap file is based on the address indicated by</0> <1>//# sourceMappingURL=*</1> <2>in the contents of the compressed file;</2>",
       "fix-suggestion-2": "2. Troubleshoot network issues: If there are access restrictions on the server where your source files are located, it may lead to failed requests when trying to access the resources. You can open the devtool to check if the network is working properly."
-    }
+    },
+    "non-serializable": "<non-serializable>"
   },
   "network": {
     "open-in-new-tab": "Open in new tab",
@@ -163,7 +181,7 @@
   },
   "socket": {
     "client-name": "Client",
-    "client-not-in-connection": "No client in the current connection",
+    "client-not-in-connection": "No client in the current connection. Please check the WebSocket of the client.",
     "client-not-found": "Client not found",
     "client-offline": "Client is offline",
     "client-fail": "Client has lost the connection, please contact the relevant tester.",
@@ -173,12 +191,22 @@
     "reconnect-fail-desc": "Reconnect failed, you have lost the connection. Please refresh the page or select another.",
     "room-not-found": "Room is not found",
     "network-timeout": "Network timeout",
-    "server-down": "Server error"
+    "server-down": "Server error",
+    "room-secret": "Room Secret",
+    "secret": "Secret",
+    "secret-placeholder": "Please enter a 6-digit room password",
+    "invalid-secret": "Invalid Password"
   },
   "connections": {
     "select-os": "Select OS",
     "select-browser": "Select browser",
-    "select-mp": "Select Mini Program"
+    "select-mp": "Select Mini Program",
+    "maximum-alert": "Just show partial connections. Please further filter through the conditions.",
+    "status": {
+      "active": "Debugging",
+      "wait": "Pending Debug",
+      "inactive": "Unable to Debug"
+    }
   },
   "replay": {
     "list-title": "Replay List",
@@ -203,7 +231,34 @@
     "delete-title": "Delete Log",
     "delete-desc": "Are you sure you want to delete this log?",
     "client": "Client Information",
-    "download-file": "Download Log",
-    "update-layout": "Update Layout"
+    "download-file": "Download",
+    "update-layout": "Update Layout",
+    "speed": "Speed",
+    "delete-select": "Delete Selected",
+    "delete-select-desc": "Are you sure you want to delete selected logs?",
+    "unsupport-spread": "<0>Objects cannot be expanded by default. Set <1><0>serializeData: true</0></1> to enable.</0>",
+    "remark": "Remarks",
+    "meta-info": "Basic Information",
+    "meta": {
+      "ua": "UserAgent",
+      "title": "Title",
+      "url": "Link",
+      "remark": "Remark"
+    }
+  },
+  "lab": {
+    "welcome": "Welcome to the Replay Lab!",
+    "statement": "The log data is processed entirely on your local client without being transmitted to any server, so you can use it with confidence.",
+    "only-pc": "Please visit the PC version for the best experience :)",
+    "one-line": "With just one line,",
+    "load-pageSpy": "you can integrate PageSpy into your project.",
+    "then": "Once integrated,",
+    "feedback-demo": "a \"Feedback\" widget will appear at the bottom right of the page as shown.",
+    "try-click": "Try clicking it to check it out!",
+    "after": "Once everything is set,",
+    "click-upload": "click the button below to upload the file you just exported.",
+    "upload-btn": "Upload File",
+    "congratulation": "Good luck, developers!",
+    "desc": "(This only demonstrates the log replay functionality. PageSpy also supports real-time online debugging. For more details, please check the documentation.)"
   }
 }

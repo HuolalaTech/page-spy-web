@@ -13,6 +13,7 @@ declare namespace I {
     name: string; // TODO this `name` is used for browser and os info, should be reconsidered.
     password: string;
     tags: Record<string, any>;
+    useSecret: boolean;
   }
 
   export interface SpyLog {

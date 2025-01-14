@@ -15,6 +15,7 @@ import {
   DatePicker,
   Popconfirm,
   Divider,
+  Layout,
 } from 'antd';
 import { Trans, useTranslation } from 'react-i18next';
 import './index.less';
@@ -22,7 +23,7 @@ import { Link } from 'react-router-dom';
 import { SelectLogButton } from './SelectLogButton';
 import dayjs, { type Dayjs } from 'dayjs';
 import request from '@/apis/request';
-import { ComponentType, useMemo, useRef } from 'react';
+import { ComponentType, useCallback, useRef, useState } from 'react';
 import {
   CheckCircleOutlined,
   ClearOutlined,
@@ -44,6 +45,7 @@ import { getObjectKeys } from '@/utils';
 
 const { Title } = Typography;
 const { RangePicker } = DatePicker;
+const { Sider, Content } = Layout;
 
 const FILE_STATUS: Record<
   I.SpyLog['status'],
@@ -70,17 +72,11 @@ const FILE_STATUS: Record<
   },
 };
 
-export const LogList = () => {
+const LogList = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
-  const tableScrollY = useMemo(() => {
-    if (window.innerWidth <= 1500) {
-      return '42vh';
-    }
-    return '53vh';
-  }, []);
 
-  const currentPage = useRef(1);
+  const currentPage = useRef({ page: 1, size: 10 });
   const {
     loading,
     data: logList = { data: [], total: 0, page: 1, size: 10 },
@@ -94,8 +90,8 @@ export const LogList = () => {
         title,
         deviceId,
         from: start?.startOf('date').unix(),
-        end: end?.endOf('date').unix(),
-        page: currentPage.current,
+        to: end?.endOf('date').unix(),
+        ...currentPage.current,
       };
       getObjectKeys(params).forEach((k) => {
         if (!params[k] || params[k].toString().trim() === '') {
@@ -122,21 +118,42 @@ export const LogList = () => {
     },
   );
 
-  const deletingFileId = useRef('');
-  const { run: requestDeleteLog, loading: deleting } = useRequest(
-    (fileId: string) => deleteSpyLog({ fileId }),
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const { run: requestDeleteLog } = useRequest(
+    (fileId: string[]) => deleteSpyLog(fileId),
     {
       manual: true,
       onSuccess() {
         requestClientLogs();
       },
+      onError(e) {
+        message.error(e.message);
+      },
     },
   );
+  const footerContent = useCallback(() => {
+    if (selectedRowKeys.length) {
+      return (
+        <Popconfirm
+          title={t('replay.delete-title')}
+          description={t('replay.delete-select-desc')}
+          onConfirm={() => requestDeleteLog(selectedRowKeys as string[])}
+          okText={t('common.confirm')}
+          cancelText={t('common.cancel')}
+        >
+          <Button ghost danger size="small">
+            {t('replay.delete-select')}
+          </Button>
+        </Popconfirm>
+      );
+    }
+    return null;
+  }, [requestDeleteLog, selectedRowKeys, t]);
 
   return (
-    <div className="log-list">
-      <div className="log-list-content">
-        <Title level={3} style={{ marginBottom: 12 }}>
+    <Layout style={{ height: '100%' }} className="log-list">
+      <Sider theme="light" width={350} style={{ padding: 24 }}>
+        <Title level={3} style={{ marginBottom: 32 }}>
           <Space>
             {t('replay.list-title')}
             <Tooltip
@@ -164,41 +181,29 @@ export const LogList = () => {
           </Space>
         </Title>
         <Form
+          layout="vertical"
           form={form}
           onFinish={() => {
-            currentPage.current = 1;
+            currentPage.current.page = 1;
             requestClientLogs();
           }}
-          labelCol={{
-            span: 6,
-          }}
         >
-          <Row gutter={24} wrap>
-            <Col span={8}>
-              <Form.Item label={t('replay.date')} name="date">
-                <RangePicker
-                  picker="date"
-                  style={{ width: '100%' }}
-                  format="YYYY/MM/DD"
-                />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.project')} name="project">
-                <Input placeholder={t('common.project')!} allowClear />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.title')} name="title">
-                <Input placeholder={t('common.title')!} allowClear />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
-              <Form.Item label={t('common.device-id')} name="deviceId">
-                <Input placeholder={t('common.device-id')!} allowClear />
-              </Form.Item>
-            </Col>
-          </Row>
+          <Form.Item label={t('replay.date')} name="date">
+            <RangePicker
+              picker="date"
+              style={{ width: '100%' }}
+              format="YYYY/MM/DD"
+            />
+          </Form.Item>
+          <Form.Item label={t('common.device-id')} name="deviceId">
+            <Input placeholder={t('common.device-id')!} allowClear />
+          </Form.Item>
+          <Form.Item label={t('common.project')} name="project">
+            <Input placeholder={t('common.project')!} allowClear />
+          </Form.Item>
+          <Form.Item label={t('common.title')} name="title">
+            <Input placeholder={t('common.title')!} allowClear />
+          </Form.Item>
           <Row justify="end">
             <Col>
               <Form.Item>
@@ -226,19 +231,32 @@ export const LogList = () => {
             </Col>
           </Row>
         </Form>
-
+      </Sider>
+      <Content style={{ padding: 24 }}>
         <Table
           bordered
           loading={loading}
           scroll={{
-            y: tableScrollY,
+            y: '65vh',
+          }}
+          rowKey="fileId"
+          rowSelection={{
+            selectedRowKeys,
+            onChange: (keys) => {
+              setSelectedRowKeys(keys);
+            },
           }}
           pagination={{
             total: logList.total,
-            current: currentPage.current,
+            current: currentPage.current.page,
+            pageSize: currentPage.current.size,
           }}
-          onChange={({ current }) => {
-            currentPage.current = current || 1;
+          onChange={({ current, pageSize }) => {
+            currentPage.current = {
+              page: current || 1,
+              size: pageSize || 10,
+            };
+            setSelectedRowKeys([]);
             requestClientLogs();
           }}
           dataSource={logList.data}
@@ -302,12 +320,13 @@ export const LogList = () => {
             // Project
             {
               title: () => t('common.project'),
+              width: 150,
               dataIndex: 'project',
               ellipsis: {
                 showTitle: false,
               },
               render: (project) => (
-                <Tooltip placement="topLeft" title={`Project: ${project}`}>
+                <Tooltip placement="topLeft" title={project}>
                   {project}
                 </Tooltip>
               ),
@@ -315,13 +334,28 @@ export const LogList = () => {
             // Title
             {
               title: () => t('common.title'),
+              width: 150,
               dataIndex: 'title',
               ellipsis: {
                 showTitle: false,
               },
               render: (title) => (
-                <Tooltip placement="topLeft" title={`Title: ${title}`}>
+                <Tooltip placement="topLeft" title={title}>
                   {title}
+                </Tooltip>
+              ),
+            },
+            // Remark
+            {
+              title: () => t('replay.remark'),
+              width: 150,
+              dataIndex: 'remark',
+              ellipsis: {
+                showTitle: false,
+              },
+              render: (remark) => (
+                <Tooltip placement="left" title={remark}>
+                  {remark || '--'}
                 </Tooltip>
               ),
             },
@@ -364,8 +398,15 @@ export const LogList = () => {
             // 创建时间
             {
               title: () => t('common.createdAt'),
+              width: 180,
               dataIndex: 'createdAt',
-              render: (value) => dayjs(value).format('YYYY-MM-DD HH:mm:ss'),
+              ellipsis: {
+                showTitle: false,
+              },
+              render: (value) => {
+                const title = dayjs(value).format('YYYY-MM-DD HH:mm:ss');
+                return <Tooltip title={title}>{title}</Tooltip>;
+              },
             },
             // 操作
             {
@@ -376,7 +417,7 @@ export const LogList = () => {
               render: (_, row) => {
                 const logUrl = `${request.defaultPrefix}/log/download?fileId=${row.fileId}`;
                 return (
-                  <Space size="middle">
+                  <Space size="small">
                     <Link
                       to={{ pathname: '/replay', search: `?url=${logUrl}` }}
                       target="_blank"
@@ -403,7 +444,7 @@ export const LogList = () => {
                     <Popconfirm
                       title={t('replay.delete-title')}
                       description={t('replay.delete-desc')}
-                      onConfirm={() => requestDeleteLog(row.fileId)}
+                      onConfirm={() => requestDeleteLog([row.fileId])}
                       okText={t('common.confirm')}
                       cancelText={t('common.cancel')}
                     >
@@ -412,9 +453,6 @@ export const LogList = () => {
                         type="text"
                         size="small"
                         icon={<DeleteOutlined />}
-                        loading={
-                          row.fileId === deletingFileId.current && deleting
-                        }
                       >
                         {t('common.delete')}
                       </Button>
@@ -424,8 +462,11 @@ export const LogList = () => {
               },
             },
           ]}
+          footer={selectedRowKeys.length ? footerContent : undefined}
         />
-      </div>
-    </div>
+      </Content>
+    </Layout>
   );
 };
+
+export default LogList;

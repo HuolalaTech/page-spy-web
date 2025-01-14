@@ -9,4 +9,20 @@
       height: 100%;
     }
   }
+  .circle-badge {
+    @size: 6px;
+    display: inline-block;
+    width: @size;
+    height: @size;
+    border-radius: @size;
+    background-color: red;
+    position: relative;
+    left: 4px;
+    top: -6px;
+    transform: scale(0);
+    transition: transform ease-out 0.3s;
+    &.show {
+      transform: scale(1);
+    }
+  }
 }

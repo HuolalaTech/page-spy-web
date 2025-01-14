@@ -9,6 +9,7 @@ import { NavMenuOnPc, NavMenuOnMobile } from './NavMenu';
 import { useDarkTheme } from '@/utils/useDarkTheme';
 import { version } from '../../../package.json';
 import { isClient, isDoc } from '@/utils/constants';
+import phSvg from '@/assets/image/producthunt.svg';
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -39,10 +40,14 @@ export const Layouts = () => {
                 <a
                   href="https://www.producthunt.com/posts/pagespy?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pagespy"
                   target="_blank"
+                  className="producthunt-brand"
                 >
                   <img
                     src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=429852&theme=light"
-                    alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Product Hunt"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = phSvg;
+                    }}
+                    alt="PageSpy | Product Hunt"
                     height="36"
                   />
                 </a>

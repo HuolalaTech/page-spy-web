@@ -1,6 +1,7 @@
+import { ResolvedNetworkInfo } from '@/utils';
 import { ElementContent, Root, Element } from 'hast';
 import rehypeParse from 'rehype-parse';
-import rehypeStrigify from 'rehype-stringify';
+import rehypeStringify from 'rehype-stringify';
 import { Plugin, unified } from 'unified';
 import { visit } from 'unist-util-visit';
 
@@ -28,7 +29,7 @@ export const getFixedPageMsg = async (htmlText: string, base: string) => {
     const processor = unified()
       .use(rehypeParse)
       .use(fixHtmlSourceUriPlugin, { base })
-      .use(rehypeStrigify)
+      .use(rehypeStringify)
       .data('settings', { fragment: false });
 
     const file = await processor.process(htmlText);
@@ -100,4 +101,33 @@ export const mpDomToElementTree = (
     });
   });
   return res;
+};
+// 处理小程序网络信息
+export const processMPNetworkMsg = (data: ResolvedNetworkInfo) => {
+  // why the requestPayload should be string? because the js object will be stringified in sdk.
+  if (
+    data.url &&
+    data.method.toUpperCase() === 'GET' &&
+    data.requestPayload &&
+    typeof data.requestPayload === 'string'
+  ) {
+    try {
+      const obj = JSON.parse(data.requestPayload);
+      if (data.getData) {
+        data.getData.forEach(([k, v]) => {
+          if (!Reflect.has(obj, k)) {
+            obj[k] = JSON.stringify(v);
+          }
+        });
+      }
+      data.getData = Object.entries(obj);
+      data.requestPayload = null;
+
+      const { origin, pathname } = new URL(data.url);
+      const query = new URLSearchParams(data.getData).toString();
+      data.url = `${origin}${pathname}?${query}`;
+    } catch (e) {
+      // do nothing
+    }
+  }
 };

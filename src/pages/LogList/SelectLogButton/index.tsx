@@ -14,7 +14,7 @@ import { t } from 'i18next';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-const getReplayUrl = (url: string) => {
+export const getReplayUrl = (url: string) => {
   return `${location.protocol}//${window.DEPLOY_BASE_PATH}/#/replay?url=${url}#Console`;
 };
 

@@ -28,10 +28,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set Node.js 19.x
+      - name: Set Node.js 20.x
         uses: actions/setup-node@v3
         with:
-          node-version: 19.x
+          node-version: 20.x
 
       - name: Run install
         uses: borales/actions-yarn@v4

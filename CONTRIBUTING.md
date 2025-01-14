@@ -45,22 +45,22 @@ To get started, fork the [HuolalaTech/page-spy-api][page-spy-api] repository and
    package main
 
    import (
-   	"log"
-   	"github.com/HuolalaTech/page-spy-api/config"
-   	"github.com/HuolalaTech/page-spy-api/container"
-   	"github.com/HuolalaTech/page-spy-api/serve"
+      "log"
+      "github.com/HuolalaTech/page-spy-api/config"
+      "github.com/HuolalaTech/page-spy-api/container"
+      "github.com/HuolalaTech/page-spy-api/serve"
    )
 
    func main() {
-   	container := container.Container()
+      container := container.Container()
       err := container.Provide(func() *config.StaticConfig {
          return &config.StaticConfig{}
       })
 
-   	if err != nil {
-   		log.Fatal(err)
-   	}
-   	serve.Run()
+      if err != nil {
+         log.Fatal(err)
+      }
+      serve.Run()
    }
    ```
 
@@ -153,7 +153,6 @@ Fork the [HuolalaTech/page-spy][page-spy-sdk] repository and clone it to your lo
 3. You can use the following commands directly:：
 
    - `npx lerna run build`: Performs the build to generate the SDK. The product will be generated and placed in the `dist` folder of the project directory;
-   - `npx lerna run build:watch`: Build in watch mode. It will automatically build when the content is updated;
    - `yarn test`: Runs unit tests;
 
 ## Debugging in Different Scenarios
@@ -196,7 +195,7 @@ VITE_API_BASE=example.com
 
 > HINT: the "example.com" is just assumed that you have deployed the service at https://example.com, you should replace it with the actual deployment address.
 
-After the service is started, open the debugging end address http://localhost:5173 in the browser. The port may be different, please access it according to the address printed by your local service. Click the "Inject SDK" menu at the top and follow the instructions to access it in the test project. The instantiation requires passing in the configuration:
+After the service is started, open the debugging end address http://localhost:5173 in the browser. The port may be different, please access it according to the address printed by your local service. Click the "Doc" menu at the top and follow the instructions to access it in the test project. The instantiation requires passing in the configuration:
 
 ```ts
 new PageSpy({
@@ -216,7 +215,7 @@ If you only want to focus on contributing to the SDK, follow the steps in [SDK S
 It is recommended to take the `--scope` params execute the terminal command, which will automatically build when changes occur. For example:
 
 ```bash
-$ npx lerna run build:watch --scope=@huolala-tech/page-spy-wechat
+$ npx lerna run build --scope=@huolala-tech/page-spy-wechat -- -w
 ```
 
 This will build and generate the SDK product in the `packages/*/dist` directory. Import the built SDK product into the test project, and instantiate PageSpy requires passing in the configuration:
@@ -230,4 +229,4 @@ new PageSpy({
 });
 ```
 
-Then start the test project. The PageSpy logo (white circular container with the PageSpy logo in the middle) should appear in the lower left corner of the test project page. Access the "Connections" of the test project through https://example.com, and the test project's debugging room should appear on the list. Now you can modify the SDK code and contribute to the SDK repository.
+Then start the test project. The PageSpy logo (white circular container with the PageSpy logo in the middle) should appear in the lower right corner of the test project page. Access the "Connections" of the test project through https://example.com, and the test project's debugging room should appear on the list. Now you can modify the SDK code and contribute to the SDK repository.

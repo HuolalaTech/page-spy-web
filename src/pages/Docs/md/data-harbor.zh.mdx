@@ -1,0 +1,175 @@
+
+# DataHarborPlugin API#api
+
+## constructor()#constructor
+
+- 类型
+
+  ```ts
+  interface DataHarborConfig {
+    // 离线日志数据会优先记录在内存中，当体积达到多大时写入临时文件
+    // 默认 10M (10 * 1024 * 1024)
+    maximum?: number; // 仅浏览器端支持
+
+    // 指定缓存哪些类型的数据
+    caredData?: Record<DataType, boolean>;
+
+    // 指定离线日志文件名，默认是根据当前时间命名
+    filename?: () => string;
+
+    // 自定义下载逻辑
+    onDownload?: (data: CacheMessageItem[]) => void; // 仅浏览器端支持
+
+    // 上传成功后的回调，可用于拓展其他功能，例如通知开发者
+    onAfterUpload?: (replayUrl: string, remark: string) => void;
+  }
+
+  declare class DataHarborPlugin implements PageSpyPlugin {
+    constructor(config?: DataHarborConfig);
+  }
+  ```
+
+
+## 手动操作日志#onOfflineLog
+
+手动操作离线日志的下载、上传。
+
+- 类型
+
+  ```ts
+  interface WholeLogActionParams {
+    clearCache?: boolean;
+    remark?: string;
+  }
+
+  interface PeriodLogActionParams {
+    startTime: number;
+    endTime: number;
+    remark?: string;
+  }
+
+  // 注意！
+  // - 浏览器端支持下面 4 种方法；
+  // - 小程序端当前仅支持 upload() 方法；
+  declare class DataHarborPlugin {
+    // 全量日志
+    upload(params?: WholeLogActionParams): Promise<string>;
+    download(params?: WholeLogActionParams): Promise<void>;
+
+    // 时间段日志
+    uploadPeriods(params: PeriodLogActionParams): Promise<string>;
+    downloadPeriods(params: PeriodLogActionParams): Promise<void>;
+  }
+  ```
+
+- 详细信息
+
+  如果隐藏了自动渲染的 UI 控件，或者希望在某些时候自动触发队离线日志的操作，可以通过该方法实现。
+  
+  操作 **全量日志** 时，用户每次通过 UI 弹窗上的按钮操作日志上传 / 下载都是当前会话从头到尾的完整日志；但手动调用时默认会清除已记录的日志数据、并重新开始记录。你可以通过第二个参数的 `clearCache: false` 自行控制。
+
+  操作 **时间段日志** 不会清除任何数据。
+  
+  上传完成后会返回回放的 URL，并打印到控制台。
+
+- 示例
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  // 上传全部
+  const url = await window.$harbor.upload();
+
+  // 上传最近 3 分钟的日志
+  const now = Date.now();
+  const url = await window.$harbor.uploadPeriods({
+    startTime: now - 3 * 60000,
+    endTime: now,
+    remark: '给这段日志中所出现的问题加个备注'
+  });
+  ```
+
+
+## pause()#pause
+
+暂停记录。
+
+- 类型
+
+  ```ts
+  declare class DataHarborPlugin {
+    pause(): void;
+  }
+  ```
+
+- 详细信息
+
+  更加灵活的控制记录日志的行为。
+  
+  暂停后程序产生的数据不会被记录，执行 `$harbor.resume()` 恢复。
+
+- 示例
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  // 暂停
+  window.$harbor.pause();
+
+  // 恢复
+  window.$harbor.resume();
+  ```
+
+
+## resume()#resume
+
+恢复记录。
+
+- 类型
+
+  ```ts
+  declare class DataHarborPlugin {
+    resume(): void;
+  }
+  ```
+
+- 详细信息
+
+  更加灵活的控制记录日志的行为。
+  
+  &lt;暂停 - 恢复&gt; 期间的数据不会被记录。
+
+- 示例
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  // 暂停
+  window.$harbor.pause();
+
+  // 恢复
+  window.$harbor.resume();
+  ```
+
+
+## reharbor()#reharbor
+
+清空已记录的数据，并继续记录。简而言之，重新制作。
+
+- 类型
+
+  ```ts
+  declare class DataHarborPlugin {
+    reharbor(): void;
+  }
+  ```
+
+- 示例
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  window.$harbor.reharbor();
+  ```
+
+

@@ -39,3 +39,7 @@ public/*
 *.njsproj
 *.sln
 *.sw*
+
+# page-spy-api
+/data
+/log

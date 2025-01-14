@@ -1,9 +1,10 @@
+import { ResolvedNetworkInfo } from '@/utils';
 import { dataUrlToBlob, downloadFile, semanticSize } from '../utils';
 import { withPopup, usePopupRef } from '@/utils/withPopup';
 import { DownloadOutlined } from '@ant-design/icons';
-import { SpyNetwork } from '@huolala-tech/page-spy-types';
 import ReactJsonView from '@huolala-tech/react-json-view';
 import { Form, message, Modal, Input, Alert, Button } from 'antd';
+import dayjs from 'dayjs';
 import { useMemo } from 'react';
 
 const FilenameModal = withPopup<void, string | false>(
@@ -118,15 +119,52 @@ const MediaWidget = ({ dataUrl }: MediaWidgetProps) => {
   );
 };
 
+interface EventData {
+  id: string;
+  time: number;
+  data: string;
+}
+const EventStream = ({ data }: { data: EventData[] }) => {
+  return (
+    <div className="event-stream">
+      <table>
+        <thead>
+          <tr>
+            <td>Id</td>
+            <td>Type</td>
+            <td>Data</td>
+            <td>Time</td>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr key={index}>
+              <td>{item.id}</td>
+              <td>message</td>
+              <td>
+                <ReactJsonView source={item.data} />
+              </td>
+              <td>{dayjs(item.time).format('HH:mm:ss:SSS')}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
 interface ResponseBodyProps {
-  data: SpyNetwork.RequestInfo;
+  data: ResolvedNetworkInfo;
 }
 export const ResponseBody = ({ data }: ResponseBodyProps) => {
   const bodyContent = useMemo(() => {
     // response ==> DataURL
-    const { response, responseType, responseReason } = data;
+    const { response, responseType, responseReason, requestType } = data;
 
     if (!response) return null;
+    if (requestType === 'eventsource') {
+      return <EventStream data={response} />;
+    }
     if (['blob', 'arraybuffer'].includes(responseType)) {
       if (responseReason) {
         return <Alert type="error" message={responseReason} />;

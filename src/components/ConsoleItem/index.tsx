@@ -1,6 +1,10 @@
 import { Row, Col } from 'antd';
 import ConsoleNode from '../ConsoleNode';
-import { isErrorTraceNode, ErrorTraceNode } from '../ConsoleNode/ErrorTrace';
+import {
+  ErrorTraceNode,
+  getStackFramesIfErrorTrace,
+  getStackFramesIfErrorConsole,
+} from '../ConsoleNode/ErrorTrace';
 import {
   isPlaceholderNode,
   PlaceholderNode,
@@ -10,12 +14,42 @@ import { SpyConsole } from '@huolala-tech/page-spy-types';
 import { getLogUrl } from '@/utils';
 import './index.less';
 import Timestamp from '../Timestamp';
+import { useMemo } from 'react';
+import ReactJsonView from '@huolala-tech/react-json-view';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   data: SpyConsole.DataItem;
 }
 
 export const ConsoleItem = ({ data }: Props) => {
+  const { t } = useTranslation();
+  const content = useMemo(() => {
+    if (isPlaceholderNode(data)) {
+      return <PlaceholderNode data={data.logs} />;
+    }
+    const framesOfErrorTrace = getStackFramesIfErrorTrace(data);
+    if (framesOfErrorTrace) {
+      return <ErrorTraceNode data={framesOfErrorTrace} />;
+    }
+    return data.logs?.map((log) => {
+      const framesOfErrorConsole = getStackFramesIfErrorConsole(log);
+      if (framesOfErrorConsole) {
+        return <ErrorTraceNode data={framesOfErrorConsole} key={log.id} />;
+      }
+      if (log.type === 'json') {
+        if (log.value === null) {
+          return (
+            <code key={log.id} className="non-serializable">
+              {t('console.non-serializable')}
+            </code>
+          );
+        }
+        return <ReactJsonView source={JSON.parse(log.value)} key={log.id} />;
+      }
+      return <ConsoleNode data={log} key={log.id} />;
+    });
+  }, [data, t]);
   return (
     <div className={`console-item ${data.logType}`} key={data.id}>
       <div className="console-item__title">
@@ -26,16 +60,8 @@ export const ConsoleItem = ({ data }: Props) => {
           <Col style={{ flexShrink: 0 }}>
             <Timestamp time={data.time} />
           </Col>
-          <Col flex={1}>
-            {isPlaceholderNode(data) ? (
-              <PlaceholderNode data={data.logs} />
-            ) : isErrorTraceNode(data) ? (
-              <ErrorTraceNode data={data} />
-            ) : (
-              data.logs?.map((log) => {
-                return <ConsoleNode data={log} key={log.id} />;
-              })
-            )}
+          <Col flex={1} style={{ display: 'flex', flexWrap: 'wrap' }}>
+            {content}
           </Col>
         </Row>
       </div>

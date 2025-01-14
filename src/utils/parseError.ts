@@ -32,6 +32,7 @@ export interface Fragments {
   end: number | null;
   sourceFile: string | null;
   sourceHTML: string | null;
+  useTabs: boolean;
 }
 
 const locateSourceCode = (data: {
@@ -57,6 +58,7 @@ const locateSourceCode = (data: {
             end: null,
             sourceFile: source,
             sourceHTML: null,
+            useTabs: false,
           });
           return;
         }
@@ -65,6 +67,8 @@ const locateSourceCode = (data: {
         const list =
           consumer.sourceContentFor(source)?.split('\n').slice(start, end) ||
           [];
+
+        const useTabs = list.some((i) => i.startsWith('\t'));
         const sourceContent = list.join('\n');
         const lang = getFileExtension(source) || 'js';
         const highlighter = await sh.get({
@@ -94,6 +98,7 @@ const locateSourceCode = (data: {
           end: end + 1,
           sourceFile: source,
           sourceHTML,
+          useTabs,
         });
       },
     );

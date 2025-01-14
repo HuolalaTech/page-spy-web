@@ -1,11 +1,11 @@
 import {
   Col,
   Divider,
-  Empty,
   Layout,
   Menu,
   message,
   Row,
+  Skeleton,
   Tooltip,
   Typography,
 } from 'antd';
@@ -15,22 +15,20 @@ import NetworkPanel from './NetworkPanel';
 import SystemPanel from './SystemPanel';
 import { useNavigate, useLocation } from 'react-router-dom';
 import PagePanel from './PagePanel';
-import { DownOutlined } from '@ant-design/icons';
-import { useRequest } from 'ahooks';
-import { getSpyRoom } from '@/apis';
 import clsx from 'clsx';
 import './index.less';
 import { StoragePanel } from './StoragePanel';
 import useSearch from '@/utils/useSearch';
 import { useEventListener } from '@/utils/useEventListener';
-import { parseUserAgent, useClientInfoFromMsg } from '@/utils/brand';
 import { useTranslation } from 'react-i18next';
 import { ConnectStatus } from './ConnectStatus';
 import { useSocketMessageStore } from '@/store/socket-message';
 import '@huolala-tech/react-json-view/dist/style.css';
 import { throttle } from 'lodash-es';
 import { CUSTOM_EVENT } from '@/store/socket-message/socket';
-import { SpyDevice } from '@huolala-tech/page-spy-types';
+import { SpyClient } from '@huolala-tech/page-spy-types';
+import MPWarning from '@/components/MPWarning';
+import { isBrowser, isHarmonyApp } from '@/store/platform-config';
 import MPPagePanel from './MPPagePanel';
 
 const { Sider, Content } = Layout;
@@ -49,7 +47,10 @@ const MENU_COMPONENTS: Record<
   MenuType,
   {
     component: React.FC;
-    visible?: (params: { browser: SpyDevice.Browser }) => boolean;
+    visible?: (params: {
+      browser: SpyClient.Browser;
+      os: SpyClient.OS;
+    }) => boolean;
   }
 > = {
   Console: {
@@ -60,8 +61,8 @@ const MENU_COMPONENTS: Record<
   },
   Page: {
     component: PagePanel,
-    visible: (params) => {
-      return !params.browser?.startsWith('mp-');
+    visible: ({ browser }) => {
+      return isBrowser(browser);
     },
   },
   Storage: {
@@ -69,8 +70,8 @@ const MENU_COMPONENTS: Record<
   },
   System: {
     component: SystemPanel,
-    visible: (params) => {
-      return !params.browser?.startsWith('mp-');
+    visible: ({ browser }) => {
+      return isBrowser(browser) || isHarmonyApp(browser);
     },
   },
   MPPage: {
@@ -126,15 +127,19 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
     }));
   }, [active]);
 
-  const clientInfo = useClientInfoFromMsg();
+  const clientInfo = useSocketMessageStore((socket) => socket.clientInfo);
 
   const menuItems = useMemo(() => {
-    if (!clientInfo) return [];
+    if (!clientInfo) return;
     return Object.entries(MENU_COMPONENTS)
       .filter(([key, item]) => {
         // Menu filter by some conditions``
         return (
-          !item.visible || item.visible({ browser: clientInfo.browser.type })
+          !item.visible ||
+          item.visible({
+            browser: clientInfo.browser.type,
+            os: clientInfo.os.type,
+          })
         );
       })
       .map(([key, item]) => {
@@ -159,97 +164,32 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
       });
   }, [clientInfo, badge, navigate, search, t]);
 
-  return <Menu mode="inline" selectedKeys={[active]} items={menuItems} />;
-});
-
-interface SiderRoomProps {
-  exclude: string;
-}
-const SiderRooms: React.FC<SiderRoomProps> = ({ exclude }) => {
-  const [collapsed, setCollapsed] = useState(false);
-  const { group } = useSearch();
-  const { data } = useRequest(
-    async () => {
-      const res = await getSpyRoom(group);
-      return res.data.filter((item) => {
-        return (
-          item.address !== exclude &&
-          item.connections &&
-          item.connections.length > 0
-        );
-      });
-    },
-    {
-      pollingInterval: 2000,
-      pollingWhenHidden: false,
-      onError(err) {
-        message.error(err.message);
-      },
-    },
-  );
-
-  const rooms = useMemo(() => {
-    const result =
-      data
-        ?.filter((item) => item.name && item.address)
-        .map((item) => {
-          const clientInfo = parseUserAgent(item.name);
-          return {
-            osLogo: clientInfo.os.logo,
-            browserLogo: clientInfo.browser.logo,
-            name: item.name,
-            address: item.address,
-            group: item.group,
-          };
-        }) || [];
-    if (result.length === 0) {
-      return <Empty description={false} imageStyle={{ height: 50 }} />;
-    }
-    return result.map((item) => (
-      <a
-        key={item.address}
-        className="room-item"
-        href={`${window.location.origin}/devtools?address=${item.address}&group=${item.group}`}
-      >
-        <div className="room-item__os">
-          <img src={item.osLogo} className="client-icon" />
-        </div>
-        <div className="room-item__browser">
-          <img src={item.browserLogo} className="client-icon" />
-        </div>
-        <div className="room-item__address">
-          <code>{item.address.slice(0, 4)}</code>
-        </div>
-      </a>
-    ));
-  }, [data]);
+  if (!clientInfo) {
+    return Object.keys(MENU_COMPONENTS).map((_, index) => {
+      return (
+        <Skeleton.Button
+          key={index}
+          active
+          style={{ display: 'block', width: '90%', margin: '12px auto 0' }}
+        />
+      );
+    });
+  }
 
   return (
-    <div
-      className={clsx('sider-rooms', {
-        collapsed,
-      })}
-    >
-      <div
-        className="sider-rooms__title"
-        onClick={() => setCollapsed(!collapsed)}
-      >
-        <Title level={4}>Rooms</Title>
-        <div className="trigger-icon">
-          <DownOutlined />
-        </div>
-      </div>
-      <div className="sider-rooms__content">
-        <div className="room-list">{rooms}</div>
-      </div>
-    </div>
+    <Menu
+      className="sider-menu"
+      mode="inline"
+      selectedKeys={[active]}
+      items={menuItems}
+    />
   );
-};
+});
 
 const ClientInfo = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
   const { address = '' } = useSearch();
-  const clientInfo = useClientInfoFromMsg();
+  const clientInfo = useSocketMessageStore((state) => state.clientInfo);
 
   return (
     <div className="client-info">
@@ -279,7 +219,7 @@ const ClientInfo = memo(() => {
           title={
             <>
               <span>
-                {t('browser')}: {clientInfo?.browser.name}
+                {t('platform')}: {clientInfo?.browser.name}
               </span>
               <br />
               <span>
@@ -307,16 +247,17 @@ const ClientInfo = memo(() => {
 
 export default function Devtools() {
   const { hash = '#Console' } = useLocation();
-  const { address = '' } = useSearch();
-  const [socket, initSocket] = useSocketMessageStore((state) => [
+  const { address = '', secret = '' } = useSearch();
+  const [socket, initSocket, clientInfo] = useSocketMessageStore((state) => [
     state.socket,
     state.initSocket,
+    state.clientInfo,
   ]);
 
   useEffect(() => {
     if (socket) return;
-    initSocket(address);
-  }, [address, initSocket, socket]);
+    initSocket({ address, secret });
+  }, [address, initSocket, secret, socket]);
 
   const hashKey = useMemo<MenuType>(() => {
     const value = hash.slice(1);
@@ -342,10 +283,10 @@ export default function Devtools() {
       <Sider theme="light">
         <div className="page-spy-devtools__sider">
           <ClientInfo />
+          {clientInfo?.plugins?.includes('MPEvalPlugin') && (
+            <MPWarning className="sider-warning" />
+          )}
           <BadgeMenu active={hashKey} />
-          {/* <div className="page-spy-devtools__sider-bottom">
-            <SiderRooms exclude={address} />
-          </div> */}
         </div>
       </Sider>
       <Content className="page-spy-devtools__content">

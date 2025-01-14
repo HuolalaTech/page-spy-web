@@ -2,16 +2,16 @@ import { RouteObject } from 'react-router-dom';
 import { useRoutes } from 'react-router-dom';
 
 import { Page404, To404 } from '@/404';
-// import Devtools from '@/pages/Devtools';
 import { Layouts } from '@/pages/Layouts';
 import { Home } from '@/pages/Home';
 import React from 'react';
-import { RoomList } from '@/pages/RoomList';
-import { Docs } from '@/pages/Docs';
-import { Replay } from '@/pages/Replay';
-import { LogList } from '@/pages/LogList';
 
 const Devtools = React.lazy(() => import('@/pages/Devtools'));
+const RoomList = React.lazy(() => import('@/pages/RoomList'));
+const Docs = React.lazy(() => import('@/pages/Docs'));
+const Replay = React.lazy(() => import('@/pages/Replay'));
+const LogList = React.lazy(() => import('@/pages/LogList'));
+const ReplayLabs = React.lazy(() => import('@/pages/ReplayLabs'));
 
 export interface RouteInfo {
   icon?: any;
@@ -43,12 +43,16 @@ const routes: RouteObject[] = [
         element: <LogList />,
       },
       {
-        path: '/docs',
+        path: '/docs/*',
         element: <Docs />,
       },
       {
         path: '/replay',
         element: <Replay />,
+      },
+      {
+        path: '/replay-lab',
+        element: <ReplayLabs />,
       },
     ],
   },

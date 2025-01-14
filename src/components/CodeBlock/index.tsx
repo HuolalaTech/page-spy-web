@@ -13,7 +13,11 @@ interface Props {
   showCopy?: boolean;
 }
 
-export const CodeBlock = ({ code, lang = 'html', showCopy = true }: Props) => {
+export const CodeBlock = ({
+  code = '',
+  lang = 'html',
+  showCopy = true,
+}: Props) => {
   const [codeContent, setCodeContent] = useState('');
   useAsyncEffect(async () => {
     const highlighter = await sh.get({

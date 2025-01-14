@@ -1,10 +1,10 @@
 import React, { ReactNode } from 'react';
 import './index.less';
 
-type Props = {
+interface Props {
   title?: string | ReactNode;
   children?: ReactNode;
-};
+}
 
 const DetailBlock = (props: Props) => {
   return (

@@ -31,15 +31,11 @@ const SDKPanel = () => {
   const steps = useMemo(() => {
     return [
       {
-        title: t('inject.load-script'),
+        title: t('intro.load-script'),
         code: `<script crossorigin="anonymous" src="https://{domain}/page-spy/index.min.js"></script>`,
       },
       {
-        title: (
-          <Trans i18nKey="inject.init-instance">
-            Then, config (optional) and init
-          </Trans>
-        ),
+        title: t('intro.init-instance'),
         code: `<script>
   new PageSpy();
 </script>`,

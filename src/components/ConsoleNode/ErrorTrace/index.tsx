@@ -4,40 +4,15 @@ import './index.less';
 import Icon from '@ant-design/icons';
 import { useCallback } from 'react';
 import ErrorStackParser from 'error-stack-parser';
-import { message as antdMessage } from 'antd';
-import { useTranslation } from 'react-i18next';
 
 export type RequiredFrames = Required<StackFrame>[];
 
-export const isErrorTraceNode = (
-  item: SpyConsole.DataItem,
-): item is RRequired<SpyConsole.DataItem> => {
-  if (
-    item.logType === 'error' &&
-    item.logs.length === 1 &&
-    item.errorDetail &&
-    item.errorDetail.stack
-  ) {
-    return true;
-  }
-  return false;
-};
-
-export const ErrorTraceNode = ({
-  data,
-}: {
-  data: RRequired<SpyConsole.DataItem>;
-}) => {
-  const { t } = useTranslation('translation', { keyPrefix: 'error' });
-
-  const onPopupDetail = useCallback(() => {
-    if (!data.errorDetail?.stack) {
-      return;
-    }
-
+// Caught exceptions, e.g. throw new Error()
+export const getStackFramesIfErrorTrace = (item: SpyConsole.DataItem) => {
+  if (item.logType === 'error' && item.errorDetail && item.errorDetail.stack) {
     const error = new Error();
 
-    const { name, message, stack } = data.errorDetail;
+    const { name, message, stack } = item.errorDetail;
     error.name = name;
     error.message = message;
     error.stack = stack;
@@ -46,20 +21,48 @@ export const ErrorTraceNode = ({
         return [fileName, lineNumber, columnNumber].every(Boolean);
       },
     ) as RequiredFrames;
-    if (!frames.length) {
-      antdMessage.warning(t('no-frames'));
-      return;
-    }
+    if (frames.length)
+      return {
+        error,
+        frames,
+      };
+  }
+  return false;
+};
 
+// console.error('Hello', new Error())
+//                        ⬆
+export const getStackFramesIfErrorConsole = (
+  log: SpyConsole.DataItem['logs'][number],
+) => {
+  if (log.type === 'error') {
+    const error = new Error();
+    error.stack = log.value;
+    const frames = ErrorStackParser.parse(error).filter(
+      ({ fileName, lineNumber, columnNumber }) => {
+        return [fileName, lineNumber, columnNumber].every(Boolean);
+      },
+    ) as RequiredFrames;
+    if (frames.length)
+      return {
+        error,
+        frames,
+      };
+  }
+  return false;
+};
+
+interface Props {
+  data: { error: Error; frames: RequiredFrames };
+}
+export const ErrorTraceNode = ({ data }: Props) => {
+  const onPopupDetail = useCallback(() => {
     window.dispatchEvent(
       new CustomEvent('source-code-detail', {
-        detail: {
-          error,
-          frames,
-        },
+        detail: data,
       }),
     );
-  }, [data.errorDetail, t]);
+  }, [data]);
 
   return (
     <div className="error-trace">
@@ -69,7 +72,7 @@ export const ErrorTraceNode = ({
         onClick={onPopupDetail}
       />
       <div className="error-trace-node">
-        <code>{data.errorDetail?.stack}</code>
+        <code>{data.error.stack}</code>
       </div>
     </div>
   );

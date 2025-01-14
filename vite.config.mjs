@@ -3,6 +3,7 @@ import path from 'path';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import mdx from '@mdx-js/rollup';
+import remarkGfm from 'remark-gfm';
 
 export default ({ mode, command }) => {
   const buildDoc = mode === 'doc';
@@ -14,6 +15,22 @@ export default ({ mode, command }) => {
       target: ['chrome100'],
       sourcemap: isProd ? 'hidden' : true,
       outDir: buildDoc ? 'docs-dist' : 'dist',
+      rollupOptions: {
+        onwarn(warning, defaultHandler) {
+          if (warning.code === 'SOURCEMAP_ERROR') {
+            return;
+          }
+
+          defaultHandler(warning);
+        },
+        output: {
+          manualChunks: {
+            react: ['react'],
+            'react-dom': ['react-dom'],
+            'react-router-dom': ['react-router-dom'],
+          },
+        },
+      },
     },
     resolve: {
       alias: [{ find: '@', replacement: path.join(__dirname, './src') }],
@@ -31,7 +48,9 @@ export default ({ mode, command }) => {
     plugins: [
       {
         enforce: 'pre',
-        ...mdx(),
+        ...mdx({
+          remarkPlugins: [remarkGfm],
+        }),
       },
       react(),
       svgr(),

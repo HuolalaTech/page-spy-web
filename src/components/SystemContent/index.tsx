@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { parseUserAgent } from '@/utils/brand';
 import { SpySystem } from '@huolala-tech/page-spy-types';
-import { useReplayerExpand } from '@/store/replayer-expand';
+import { useReplayStore } from '@/store/replay';
 
 const { Title } = Typography;
 
@@ -32,7 +32,7 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
     }, []);
   }, [features]);
 
-  const isExpand = useReplayerExpand((state) => state.isExpand);
+  const isExpand = useReplayStore((state) => state.isExpand);
   const spanValue = useMemo(() => {
     if (isExpand) {
       return {
@@ -64,7 +64,7 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
           </Row>
           <Row>
             <Col span={spanValue.overviewSpan} className="system-info__label">
-              Browser:
+              Platform:
             </Col>
             <Col className="system-info__value">{`${clientInfo?.browser.name}/${clientInfo?.browser.version}`}</Col>
           </Row>
@@ -77,52 +77,60 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
         </Card>
       </div>
 
-      <div className="system-info">
-        <Title level={3}>{t('feature')}</Title>
-        <Title level={5} style={{ color: 'rgb(216, 30, 6)' }}>
-          <span>{t('unsupport')}</span>
-        </Title>
-        <Card
-          style={{
-            borderColor: 'rgb(216, 30, 6)',
-            backgroundColor: 'rgba(216, 30, 6, 0.1)',
-          }}
-        >
-          <Row>
-            {noSupport.map((feature) => (
-              <Col
-                span={spanValue.featSpan}
-                xxl={{
-                  span: spanValue.xxlFeatSpan,
-                }}
-                key={feature.title}
-              >
-                <FeatureItem {...feature} />
-              </Col>
-            ))}
-          </Row>
-        </Card>
-      </div>
-      {Object.entries(features).map(([key, value]) => {
-        return (
-          <div className="system-info" key={key}>
-            <Title level={5}>{key}</Title>
-            <Card>
-              <Row>
-                {value.map((feature) => (
-                  <Col
-                    span={spanValue.featSpan}
-                    xxl={{ span: spanValue.xxlFeatSpan }}
-                    key={feature.title}
-                  >
-                    <FeatureItem {...feature} />
-                  </Col>
-                ))}
-              </Row>
-            </Card>
+      {Object.keys(features).length > 0 && (
+        <>
+          <div className="system-info">
+            <Title level={3}>{t('feature')}</Title>
+            {noSupport.length && (
+              <>
+                <Title level={5} style={{ color: 'rgb(216, 30, 6)' }}>
+                  <span>{t('unsupport')}</span>
+                </Title>
+                <Card
+                  style={{
+                    borderColor: 'rgb(216, 30, 6)',
+                    backgroundColor: 'rgba(216, 30, 6, 0.1)',
+                  }}
+                >
+                  <Row>
+                    {noSupport.map((feature) => (
+                      <Col
+                        span={spanValue.featSpan}
+                        xxl={{
+                          span: spanValue.xxlFeatSpan,
+                        }}
+                        key={feature.title}
+                      >
+                        <FeatureItem {...feature} />
+                      </Col>
+                    ))}
+                  </Row>
+                </Card>
+              </>
+            )}
           </div>
-        );
-      })}
+          {Object.entries(features).map(([key, value]) => {
+            return (
+              <div className="system-info" key={key}>
+                <Title level={5}>{key}</Title>
+                <Card>
+                  <Row>
+                    {value.map((feature) => (
+                      <Col
+                        span={spanValue.featSpan}
+                        xxl={{ span: spanValue.xxlFeatSpan }}
+                        key={feature.title}
+                      >
+                        <FeatureItem {...feature} />
+                      </Col>
+                    ))}
+                  </Row>
+                </Card>
+              </div>
+            );
+          })}
+        </>
+      )}
     </div>
   );
 });

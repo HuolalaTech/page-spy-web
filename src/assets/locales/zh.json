@@ -14,6 +14,8 @@
     "device-id": "设备 ID",
     "os": "系统",
     "browser": "浏览器",
+    "harmony": "鸿蒙",
+    "rn": "React Native",
     "miniprogram": "小程序",
     "mpwechat": "微信小程序",
     "mpalipay": "支付宝小程序",
@@ -42,7 +44,11 @@
     "actions": "操作",
     "delete": "删除",
     "confirm": "确认",
-    "copied": "已复制"
+    "copied": "已复制",
+    "prev": "上一页",
+    "next": "下一页",
+    "replay-lab": "回放实验室",
+    "toc": "本页目录"
   },
   "error": {
     "oops": " 哎呀！发生错误～",
@@ -58,17 +64,22 @@
       "init-sdk": "<0>紧接着初始化，查看</0> <1>配置项</1>：",
       "plugins": "<0>PageSpy 可以按需集成插件，用于拓展 SDK 的能力，例如：</0><1>录制 DOM 变化</1>、<2>离线缓存</2> <3>等功能，如有需要可以查看</3> <4>插件详情</4>；"
     },
-    "mp-wechat": {
-      "title": "微信小程序",
+    "mp": {
+      "title": "小程序",
       "request-host": "将 page-spy 服务域名填入小程序的 http、websocket 请求白名单中。注意除了开发环境，小程序强制要求使用 https 和 wss 协议。",
-      "install-sdk": "首先在项目中安装依赖：",
+      "install-sdk": "首先在项目中安装依赖。我们提供了几种小程序平台的 SDK，请根据需要安装：",
       "init-sdk": "<0>在入口文件中引入 SDK 并实例化，查看</0> <1>配置项</1>："
     },
-    "mp-uniapp": {
-      "title": "UniAPP 小程序",
-      "request-host": "将 page-spy 服务域名填入小程序的 http、websocket 请求白名单中。注意除了开发环境，小程序强制要求使用 https 和 wss 协议。",
-      "install-sdk": "首先在项目中安装依赖：",
-      "init-sdk": "<0>在入口文件中引入 SDK 并实例化，查看</0> <1>配置项</1>："
+    "harmony": {
+      "title": "鸿蒙",
+      "install-sdk": "在待调试 HAP 目录下安装依赖：",
+      "init-sdk": "<0>在合适的位置引入 SDK 并初始化，这里以 EntryAbility 为例。查看</0> <1>配置项</1>："
+    },
+    "rn": {
+      "title": "React Native",
+      "install-sdk": "首先在项目中安装依赖:",
+      "init-sdk": "<0>在入口文件中引入 SDK 并实例化。 查看</0> <1>配置项</1>:",
+      "storage-plugin": "<0>如果你使用 @react-native-async-storage/async-storage，我们提供了</0><1>独立的插件</1>："
     },
     "end": "以上就是全部。",
     "start-debug": "从顶部的 <1>房间列表</1> 菜单进入并开始调试！"
@@ -76,7 +87,7 @@
   "banner": {
     "title": "多功能<br />远程调试工具",
     "desc": "像使用谷歌浏览器的控制台一样简单地开始远程调试。",
-    "goStart": "开始调试",
+    "goStart": "开始使用",
     "goGithub": "GitHub 仓库"
   },
   "intro": {
@@ -84,6 +95,8 @@
     "doesTitle": "检测运行时，<br />远程操作！",
     "provides": "我们提供",
     "providesTitle": "开箱即用的 <1>SDK</1> 和<br /> <4>调试的客户端</4>",
+    "load-script": "首先，引入文件",
+    "init-instance": "然后，配置（可选的）并初始化",
     "welcome": "欢迎使用 PageSpy"
   },
   "selConn": {
@@ -95,7 +108,10 @@
     "device": "设备",
     "system": "系统",
     "browser": "浏览器",
+    "platform": "平台",
     "version": "版本",
+    "eval-plugin-required": "若需在小程序环境动态执行代码，请在客户端安装 @huolala-tech/page-spy-plugin-mp-eval",
+    "mp-warning": "小程序提交审核时请务必删除代码中的 plugin-mp-eval，否则会导致审核失败。",
     "menu": {
       "Console": "输出",
       "Network": "网络",
@@ -135,7 +151,8 @@
       "failed-advice": "以下是修复和改进的建议：",
       "fix-suggestion-1": "<0>1. 确保文件存在：每个错误栈定位源码时都需要请求两个文件，分别是压缩文件和 sourcemap 文件，sourcemap 文件的获取规则是根据压缩文件内容中的</0><1>//# sourceMappingURL=*</1><2>所指向的地址；</2>",
       "fix-suggestion-2": "2. 排除网络故障：如果你的源文件所在服务器有限制访问规则，则可能导致请求资源时出现失败，你可以打开控制台查看网络请求是否正常。"
-    }
+    },
+    "non-serializable": "<数据序列化失败>"
   },
   "network": {
     "open-in-new-tab": "新窗口打开",
@@ -163,7 +180,7 @@
   },
   "socket": {
     "client-name": "客户端",
-    "client-not-in-connection": "当前连接不存在客户端",
+    "client-not-in-connection": "当前连接未找到待调试的客户端，请检查客户端的 WebSocket 连接",
     "client-not-found": "未找到客户端",
     "client-offline": "客户端已离线",
     "client-fail": "客户端的连接已断开，请联系相关测试人员。",
@@ -173,12 +190,22 @@
     "reconnect-fail-desc": "重连失败，您的连接已断开。请刷新页面或者重新选择。",
     "room-not-found": "房间不存在",
     "network-timeout": "网络故障，连接超时",
-    "server-down": "服务出错"
+    "server-down": "服务出错",
+    "room-secret": "房间密码",
+    "secret": "密码",
+    "secret-placeholder": "请输入 6 位数字的房间密码",
+    "invalid-secret": "密码错误"
   },
   "connections": {
     "select-os": "选择系统",
     "select-browser": "选择浏览器",
-    "select-mp": "选择小程序"
+    "select-mp": "选择小程序",
+    "maximum-alert": "当前待调试终端较多，请通过条件进一步筛选",
+    "status": {
+      "active": "调试中",
+      "wait": "待调试",
+      "inactive": "无法调试"
+    }
   },
   "replay": {
     "list-title": "回放列表",
@@ -203,7 +230,34 @@
     "delete-title": "删除日志",
     "delete-desc": "确认删除此条日志吗？",
     "client": "客户端信息",
-    "download-file": "下载日志",
-    "update-layout": "调整布局"
+    "download-file": "下载",
+    "update-layout": "调整布局",
+    "speed": "倍速",
+    "delete-select": "删除已选",
+    "delete-select-desc": "确认删除所有已选择的日志吗？",
+    "unsupport-spread": "<0>默认无法展开对象，设置 <1><0>serializeData: true</0></1> 以启用。</0>",
+    "remark": "备注",
+    "meta-info": "基本信息",
+    "meta": {
+      "ua": "UserAgent",
+      "title": "标题",
+      "url": "链接",
+      "remark": "备注"
+    }
+  },
+  "lab": {
+    "welcome": "欢迎来到回放实验室！",
+    "statement": "日志数据不会经过服务器传输、完全在您本地客户端运行，可放心使用",
+    "only-pc": "请前往 PC 端体验 ：）",
+    "one-line": "一行代码，",
+    "load-pageSpy": "即可在项目中接入 PageSpy",
+    "then": "接入之后，",
+    "feedback-demo": "页面会出现右下角所示的 \"问题反馈\" 组件",
+    "try-click": "试着点开看看～",
+    "after": "一切就绪，",
+    "click-upload": "点击下方按钮，上传刚刚导出的文件",
+    "upload-btn": "上传文件",
+    "congratulation": "开发者，祝你好运！",
+    "desc": "（这里仅展示了日志回放的能力，PageSpy 也支持实时在线调试，更多内容请通过文档查看详情。）"
   }
 }

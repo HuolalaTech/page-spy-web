@@ -28,7 +28,7 @@ i18next
   .use(languageDetector)
   .init({
     resources,
-    fallbackLng: 'en',
+    fallbackLng: 'zh',
     interpolation: {
       escapeValue: false,
     },
