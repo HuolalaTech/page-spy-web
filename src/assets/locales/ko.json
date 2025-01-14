@@ -175,8 +175,9 @@
     "data-be-stale": "데이터가 오래되었을 수 있습니다",
     "total-entries": "총 항목"
   },
-  "mp-page": {
-    "page-stack": "페이지 스택"
+  "mppage": {
+    "page-stack": "페이지 스택",
+    "current": "현재 페이지"
   },
   "socket": {
     "client-name": "클라이언트",

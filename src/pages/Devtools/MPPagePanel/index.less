@@ -13,7 +13,7 @@
 }
 
 .mp-page-stack {
-  width: 240px;
+  width: 300px;
   // height: 100%;
   border-right: 1px solid #eee;
   flex-shrink: 0;
@@ -23,6 +23,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px;
+    font-weight: bold;
   }
 }
 .mp-page-item {
@@ -31,10 +32,24 @@
   cursor: pointer;
   transition: background-color 0.2s;
   line-height: 1.5;
+  display: flex;
+
   &:hover,
   &.active {
     background-color: rgba(244, 244, 244, 0.9);
   }
+  .mp-page-index {
+    color: @primary-color;
+    font-weight: bold;
+    margin-right: 8px;
+  }
+  // .mp-page-tag {
+  //   color: @primary-color;
+  //   border-radius: 4px;
+  //   background-color: rgba(@primary-color, 0.1);
+  //   padding: 2px 6px;
+  //   font-size: 13px;
+  // }
 }
 
 .panel-section {

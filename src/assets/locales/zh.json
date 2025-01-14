@@ -175,8 +175,9 @@
     "data-be-stale": "数据可能已经过时",
     "total-entries": "总记录数"
   },
-  "mp-page": {
-    "page-stack": "页面栈"
+  "mppage": {
+    "page-stack": "页面栈",
+    "current": "当前页"
   },
   "socket": {
     "client-name": "客户端",

@@ -202,22 +202,38 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         }),
       );
     });
-    socket.addListener('page', async (data: SpyPage.DataItem) => {
-      const { tree, html } = await getFixedPageMsg(
-        data.html,
-        data.location.href,
-      );
-      set(
-        produce<SocketMessage>((state) => {
-          state.pageMsg = {
-            // eslint-disable-next-line no-new-wrappers
-            html: new String(html),
-            tree,
-            location: data.location,
-          };
-        }),
-      );
-    });
+    socket.addListener(
+      'page',
+      async (data: SpyPage.DataItem | SpyMPPage.DataItem) => {
+        const browserType = get().clientInfo?.browser.type || '';
+        if (browserType.startsWith('mp-')) {
+          const { pages } = data as SpyMPPage.DataItem;
+          set(
+            produce<SocketMessage>((state) => {
+              state.mpPageMsg = {
+                pages,
+              };
+            }),
+          );
+        } else {
+          const pageData = data as SpyPage.DataItem;
+          const { tree, html } = await getFixedPageMsg(
+            pageData.html,
+            pageData.location.href,
+          );
+          set(
+            produce<SocketMessage>((state) => {
+              state.pageMsg = {
+                // eslint-disable-next-line no-new-wrappers
+                html: new String(html),
+                tree,
+                location: pageData.location,
+              };
+            }),
+          );
+        }
+      },
+    );
     socket.addListener('storage', (data: SpyStorage.DataItem) => {
       const { type, action } = data;
       switch (action) {

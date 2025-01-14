@@ -175,8 +175,9 @@
     "data-be-stale": "データが古くなっている可能性があります",
     "total-entries": "合計エントリー"
   },
-  "mp-page": {
-    "page-stack": "ページスタック"
+  "mppage": {
+    "page-stack": "ページスタック",
+    "current": "現在のページ"
   },
   "socket": {
     "client-name": "クライアント",

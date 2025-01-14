@@ -176,8 +176,9 @@
     "data-be-stale": "Data may be stale",
     "total-entries": "Total entries"
   },
-  "mp-page": {
-    "page-stack": "Page Stack"
+  "mppage": {
+    "page-stack": "Page Stack",
+    "current": "Current"
   },
   "socket": {
     "client-name": "Client",

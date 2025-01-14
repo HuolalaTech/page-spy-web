@@ -2,12 +2,17 @@ import React, { useEffect, useMemo, useState } from 'react';
 import './index.less';
 import {
   Button,
+  Col,
   Descriptions,
   Divider,
   Form,
   Input,
   Popover,
+  Row,
   Tabs,
+  Tag,
+  Tooltip,
+  Typography,
 } from 'antd';
 import ReactJsonView from '@huolala-tech/react-json-view';
 import { SpyMPPage, SpyMessage } from '@huolala-tech/page-spy-types';
@@ -19,7 +24,6 @@ import DetailBlock from '@/components/DetailBlock';
 import PageMethodPanel from './components/MethodPanel';
 import MPDom from './components/MPDom';
 import { useTranslation } from 'react-i18next';
-import { useClientInfoFromMsg } from '@/utils/brand';
 
 type Props = {};
 
@@ -34,8 +38,8 @@ const MPPanel = (props: Props) => {
     state.socket,
     state.refresh,
   ]);
-  const mpPages = useSocketMessageStore((state) => state.mpPageMsg);
-  const { t } = useTranslation('translation', { keyPrefix: 'mp-page' });
+  const { pages } = useSocketMessageStore((state) => state.mpPageMsg);
+  const { t } = useTranslation();
 
   const [pageId, setPageId] = useState<number | null>(null);
 
@@ -48,28 +52,20 @@ const MPPanel = (props: Props) => {
   }, [socket]);
 
   useEffect(() => {
-    if (pageId !== null && !mpPages.stack.find((p) => p.id === pageId)) {
+    if (pageId !== null && !pages.find((p) => p.id === pageId)) {
       setPageId(null);
     }
-    if (mpPages.stack.length > 0 && pageId === null) {
-      getPageInfo(mpPages.stack[0].id);
+    if (pages.length > 0 && pageId === null) {
+      getPageInfo(pages[0].id);
     }
     console.log('stack changed');
-  }, [mpPages.stack]);
+  }, [pages, pageId]);
 
   const sendUnicast = (type: SpyMessage.InteractiveType, data: any) => {
     socket?.unicastMessage({
       type,
       data,
     });
-  };
-
-  const getPageDetail = (id: number) => {
-    sendUnicast('mp-page-detail', { id });
-  };
-
-  const getPageDom = (id: number) => {
-    sendUnicast('mp-page-dom', { id });
   };
 
   // const callMethod = (name: string, params: any[] = []) => {
@@ -82,73 +78,82 @@ const MPPanel = (props: Props) => {
 
   const getPageInfo = (id: number) => {
     setPageId(id);
-    getPageDetail(id);
-    getPageDom(id);
   };
 
   const currentPage = useMemo(() => {
-    return mpPages.stack.find((item) => item.id === pageId);
-  }, [pageId, mpPages.stack]);
+    return pages.find((page) => page.id === pageId);
+  }, [pageId, pages]);
+
+  const refresh = useSocketMessageStore((state) => state.refresh);
 
   return (
     <div className="mp-panel">
+      <Row justify="end" style={{ marginBottom: 8 }}>
+        <Col>
+          <Tooltip title={t('common.refresh')}>
+            <Button
+              onClick={() => {
+                refresh('page');
+              }}
+            >
+              <ReloadOutlined />
+            </Button>
+          </Tooltip>
+        </Col>
+      </Row>
       <div className="mp-page">
         <div className="mp-page-stack">
           <div className="title">
-            <span>{t('page-stack')}</span>{' '}
-            <Button
-              onClick={() => {
-                socket?.unicastMessage({
-                  type: 'mp-page-stack',
-                });
-              }}
-              icon={<ReloadOutlined />}
-            />
+            <span>{t('mppage.page-stack')}</span>{' '}
           </div>
-          {mpPages.stack.map((item, index) => {
+          {[...pages].reverse().map((page, index) => {
             return (
               <div
-                key={item.route + index}
-                className={`mp-page-item ${pageId === item.id ? 'active' : ''}`}
-                onClick={() => getPageInfo(item.id)}
+                key={page.route + index}
+                className={`mp-page-item ${pageId === page.id ? 'active' : ''}`}
+                onClick={() => getPageInfo(page.id)}
               >
-                <div className="mp-page-route">{item.route}</div>
+                <div className="mp-page-index">{index + 1}.</div>
+                <div className="mp-page-route">
+                  <div>
+                    {page.route}
+                    {index === 0 && (
+                      <Tag
+                        style={{ marginLeft: 6 }}
+                        color="purple"
+                        bordered={false}
+                      >
+                        {t('mppage.current')}
+                      </Tag>
+                    )}
+                  </div>
+                  {/* {
+                    index === 0 &&  <div style={{marginTop: 6}} >
+                      <Tag className='mp-page-tag' color='purple' bordered={false} >{t('mppage.current')}</Tag>
+                    </div>
+                    
+                  } */}
+                </div>
+
                 <div className="mp-page-query">
-                  {buildQueryString(item.options || {})}
+                  {/* {buildQueryString(page.options || {})} */}
                 </div>
               </div>
             );
           })}
         </div>
         <div className="mp-page-detail">
-          <Tabs
-            style={{ height: '100%' }}
-            tabBarExtraContent={
-              pageId !== null && (
-                <Button
-                  onClick={() => {
-                    getPageInfo(pageId);
-                  }}
-                  icon={<ReloadOutlined />}
-                />
-              )
-            }
-          >
+          <Tabs style={{ height: '100%' }}>
             {
               // currently only mp-wechat built with uniapp is supported
               // clientInfo?.framework === 'uniapp' &&
               //   clientInfo?.browser.type === 'mp-wechat' && (
               //   )
-              <Tabs.TabPane tab="Elements" key="elements">
-                <MPDom dom={currentPage?.dom} />
-              </Tabs.TabPane>
+              // <Tabs.TabPane tab="Elements" key="elements">
+              //   <MPDom dom={currentPage?.dom} />
+              // </Tabs.TabPane>
             }
             <Tabs.TabPane tab="App Data" key="state">
-              <DetailBlock title="Options">
-                <EntriesBody
-                  data={Object.entries(currentPage?.options || {})}
-                />
-              </DetailBlock>
               <DetailBlock title="Data">
                 <ReactJsonView
                   defaultExpand
