@@ -19,6 +19,7 @@ import DetailBlock from '@/components/DetailBlock';
 import PageMethodPanel from './components/MethodPanel';
 import MPDom from './components/MPDom';
 import { useTranslation } from 'react-i18next';
+import { useClientInfoFromMsg } from '@/utils/brand';
 
 type Props = {};
 
@@ -133,9 +134,15 @@ const MPPanel = (props: Props) => {
               )
             }
           >
-            <Tabs.TabPane tab="Elements" key="elements">
-              <MPDom dom={currentPage?.dom} />
-            </Tabs.TabPane>
+            {
+              // currently only mp-wechat built with uniapp is supported
+              // clientInfo?.framework === 'uniapp' &&
+              //   clientInfo?.browser.type === 'mp-wechat' && (
+              //   )
+              <Tabs.TabPane tab="Elements" key="elements">
+                <MPDom dom={currentPage?.dom} />
+              </Tabs.TabPane>
+            }
             <Tabs.TabPane tab="App Data" key="state">
               <DetailBlock title="Options">
                 <EntriesBody
