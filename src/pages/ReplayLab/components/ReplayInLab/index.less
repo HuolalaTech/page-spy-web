@@ -1,0 +1,17 @@
+.replay-in-lab {
+  position: relative;
+  height: 100%;
+  .replayer-wrapper {
+    height: 100%;
+    &.pending {
+      filter: blur(5px);
+      opacity: 0.5;
+    }
+  }
+  .select-local-file {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

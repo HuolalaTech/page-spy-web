@@ -1,14 +1,15 @@
 .replay-lab {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100%;
   color: white;
   background: linear-gradient(-45deg, #ee7752, #e33d7d, #6d25e0, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradient 45s ease infinite;
+  background-size: 100% 100%;
+  // animation: gradient 45s ease infinite;
   overflow: hidden;
+  ::selection {
+    background-color: #fff;
+    color: @primary-color;
+  }
   h1 {
     font-size: 58px;
   }
@@ -39,12 +40,17 @@
   }
   .step-actions {
     position: fixed;
-    left: 80px;
-    bottom: 50px;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
     font-size: 24px;
     user-select: none;
     opacity: 0.65;
     transition: opacity 0.1s linear;
+    @media screen and (min-width: 440px) {
+      left: 30px;
+      transform: none;
+    }
     &:hover {
       opacity: 1;
     }
@@ -52,6 +58,27 @@
       color: #bbb;
       cursor: not-allowed;
     }
+  }
+
+  .fade-enter-active,
+  .fade-exit-active {
+    transition: all ease-out 300ms;
+  }
+  .fade-enter {
+    opacity: 0;
+    transform: translate3d(40px, 0, 0);
+  }
+  .fade-enter-active {
+    opacity: 1;
+    transform: translate3d(0px, 0, 0);
+  }
+  .fade-exit {
+    opacity: 1;
+    transform: translate3d(0px, 0, 0);
+  }
+  .fade-exit-active {
+    opacity: 0;
+    transform: translate3d(-40px, 0, 0);
   }
 }
 

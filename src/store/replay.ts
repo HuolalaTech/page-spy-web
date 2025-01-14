@@ -2,7 +2,6 @@
 import {
   SpyClient,
   SpyConsole,
-  SpyMessage,
   SpyStorage,
   SpySystem,
 } from '@huolala-tech/page-spy-types';
@@ -10,7 +9,7 @@ import { create } from 'zustand';
 import { eventWithTime } from '@rrweb/types';
 import { produce } from 'immer';
 import { isEqual, omit } from 'lodash-es';
-import { REPLAY_STATUS_CHANGE } from '@/pages/Replay/events';
+import { REPLAY_STATUS_CHANGE } from '@/components/LogReplayer/events';
 import {
   isRRWebClickEvent,
   ResolvedNetworkInfo,

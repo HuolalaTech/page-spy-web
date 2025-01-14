@@ -1,5 +1,5 @@
 .import-package {
-  margin-top: -60px;
+  height: 100%;
   .method-title {
     display: inline-flex;
     justify-content: center;
@@ -14,6 +14,24 @@
     &.active {
       color: @primary-color;
       background-color: #fff;
+    }
+  }
+  .import-code {
+    width: 95vw;
+  }
+  @media screen and (min-width: 768px) {
+    .import-code {
+      width: 90vw;
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    .import-code {
+      width: 80vw;
+    }
+  }
+  @media screen and (min-width: 1440px) {
+    .import-code {
+      width: 70vw;
     }
   }
 }
