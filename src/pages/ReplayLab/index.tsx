@@ -29,23 +29,23 @@ const ReplayLab = () => {
   const contents = useMemo(() => {
     return [
       {
-        title: '欢迎',
+        title: t('welcome'),
         content: <Welcome />,
       },
       {
-        title: '安装',
+        title: t('install'),
         content: <ImportPackage />,
       },
       {
-        title: '定制',
+        title: t('customize'),
         content: <Customize />,
       },
       {
-        title: '回放',
+        title: t('replay'),
         content: <ReplayInLab />,
       },
     ];
-  }, []);
+  }, [t]);
 
   return (
     <div className="replay-lab">

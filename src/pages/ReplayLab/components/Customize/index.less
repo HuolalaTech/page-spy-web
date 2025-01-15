@@ -1,11 +1,11 @@
 .customize {
-  margin-top: 60px;
   &-left,
   &-right {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    margin-top: 40px;
   }
   &-left {
     .examples {
@@ -38,9 +38,6 @@
       }
     }
   }
-  &-right {
-    margin-top: 40px;
-  }
 }
 
 @media screen and (min-width: 768px) {
@@ -51,25 +48,31 @@
   }
 }
 
+@media screen and (min-width: 992px) {
+  .customize {
+    &-left {
+      .examples {
+        width: 85%;
+      }
+    }
+  }
+}
+
 @media screen and (min-width: 1200px) {
   .customize {
     display: flex;
-    align-items: flex-start;
-    gap: 24px;
+    gap: 40px;
     padding-inline: 60px;
     &-left,
     &-right {
+      flex: 1;
       align-items: flex-start;
+      margin-top: 80px;
     }
     &-left {
-      flex: 1;
       .examples {
         width: 100%;
       }
-    }
-    &-right {
-      flex: 2;
-      margin-top: 0;
     }
   }
 }
