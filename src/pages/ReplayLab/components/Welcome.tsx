@@ -1,9 +1,9 @@
-import { Button, Flex, Typography } from 'antd';
+import { Button, Flex } from 'antd';
 import { useStepStore } from './store';
-
-const { Title } = Typography;
+import { Trans, useTranslation } from 'react-i18next';
 
 export const Welcome = () => {
+  const { t } = useTranslation();
   const next = useStepStore((state) => state.next);
 
   return (
@@ -15,17 +15,21 @@ export const Welcome = () => {
       style={{ height: '100%' }}
     >
       <h1 style={{ textAlign: 'center' }}>
-        欢迎来到
-        <br />
-        回放实验室
+        <Trans i18nKey="lab.welcome-title">
+          欢迎来到
+          <br />
+          回放实验室
+        </Trans>
       </h1>
       <h5 style={{ textAlign: 'center', letterSpacing: 0.5 }}>
-        几行代码，让系统拥有强大的「问题反馈」能力
-        <br />
-        数据都在本地，不经过网络传输，无需担心隐私泄露
+        <Trans i18nKey="lab.welcome-desc">
+          几行代码，让系统拥有强大的「问题反馈」能力
+          <br />
+          数据都在本地，不经过网络传输，无需担心隐私泄露
+        </Trans>
       </h5>
       <Button size="large" onClick={next}>
-        <b>立刻体验</b>
+        <b>{t('lab.take-try')}</b>
       </Button>
     </Flex>
   );

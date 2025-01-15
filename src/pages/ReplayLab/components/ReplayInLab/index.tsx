@@ -23,7 +23,7 @@ export const ReplayInLab = () => {
     return (
       <Space>
         <Button icon={<ArrowLeftOutlined />} onClick={() => goto(0)}>
-          接入指引
+          {t('lab.guide')}
         </Button>
         <Upload
           accept=".json"
@@ -53,7 +53,6 @@ export const ReplayInLab = () => {
     <div
       className="replay-in-lab"
       onWheel={(e) => {
-        e.preventDefault();
         e.stopPropagation();
       }}
     >

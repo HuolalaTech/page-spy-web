@@ -1,10 +1,14 @@
-import { Spin } from 'antd';
+import { Spin, SpinProps } from 'antd';
 import './index.less';
 
-export const LoadingFallback = () => {
+export const LoadingFallback = ({
+  style = {},
+}: {
+  style?: SpinProps['style'];
+}) => {
   return (
     <div className="loading-fallback">
-      <Spin />
+      <Spin style={style} />
     </div>
   );
 };

@@ -6,38 +6,39 @@ import { Flex, Button, Row, Col } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import './index.less';
 import { CodeBlock } from '@/components/CodeBlock';
+import { Trans, useTranslation } from 'react-i18next';
 
 type Theme = Omit<Config, 'autoRender'>;
 const THEMES: Theme[] = [
   {
     primaryColor: 'red',
     title: '问题反馈',
-    logo: 'https://i.imgur.com/swwCg9z.png',
+    logo: 'https://static.huolala.cn/image/783a566204f23cebb56cd3759954c9590f478aaa.png',
   },
   {
     primaryColor: '#f60',
     title: '货拉拉',
-    logo: 'https://i.imgur.com/CVLAXbn.png',
+    logo: 'https://static.huolala.cn/image/b9d3a2facbd188056c2a3e5cb3ebc749023fbfbe.png',
   },
   {
     primaryColor: '#328e17',
     title: 'BugZap',
-    logo: 'https://i.imgur.com/Yop3Vqe.png',
+    logo: 'https://static.huolala.cn/image/6d7315a89a653f8b4d6c29d2c759491d21854788.png',
   },
   {
     primaryColor: '#d732d2',
     title: 'DebugX',
-    logo: 'https://i.imgur.com/nqOV2fs.png',
+    logo: 'https://static.huolala.cn/image/2ae2e7034b6f7775882953e708fb2351d2cbc690.png',
   },
   {
     primaryColor: '#468bed',
     title: '強力殺虫',
-    logo: 'https://i.imgur.com/jOaAmSA.png',
+    logo: 'https://static.huolala.cn/image/d76e7d734ecb1b21b7e68f907b43cbf2ea06d3e4.png',
   },
   {
     primaryColor: '#FB9D22',
     title: '故障排查',
-    logo: 'https://i.imgur.com/h05kDdW.png',
+    logo: 'https://static.huolala.cn/image/4b469ad461600b0ed519809947dc2d8edf092000.png',
   },
 ];
 
@@ -52,6 +53,7 @@ const translations = [
   'مرحبًا، أنا PageSpy. الوقت الحالي:', // 阿拉伯语 (العربية)
 ];
 export const Customize = () => {
+  const { t } = useTranslation('translation', { keyPrefix: 'lab' });
   const [themeIndex, setThemeIndex] = useState(0);
   const consoleTimer = useRef<number | null>(null);
   useEffect(() => {
@@ -110,10 +112,8 @@ export const Customize = () => {
   return (
     <div className="customize">
       <div className="customize-left">
-        <h1>个性化</h1>
-        <h5 style={{ textAlign: 'center' }}>
-          主题色、LOGO、标题支持定制，下面是参考的案例
-        </h5>
+        <h1>{t('customize-lTitle')}</h1>
+        <h5 style={{ textAlign: 'center' }}>{t('customize-lDesc')}</h5>
         <div className="examples">
           <div className="examples-wrapper">
             {THEMES.map((t, index) => {
@@ -145,17 +145,19 @@ export const Customize = () => {
         </div>
       </div>
       <div className="customize-right">
-        <h1>初体验</h1>
+        <h1>{t('customize-rTitle')}</h1>
         <h5 style={{ letterSpacing: 0.5 }}>
-          一切准备就绪！点开右下方渲染的控件看看。
-          <br />
-          在弹窗中试着输入备注信息、并导出日志，
-          <br />
-          稍后我将带你{' '}
-          <u style={{ textUnderlineOffset: 5, fontStyle: 'italic' }}>
-            查看你自己的操作回放
-          </u>{' '}
-          ！
+          <Trans i18nKey="lab.customize-rDesc">
+            一切准备就绪！点开右下方渲染的控件看看。
+            <br />
+            在弹窗中试着输入备注信息、并导出日志，
+            <br />
+            稍后我将带你
+            <u style={{ textUnderlineOffset: 5, fontStyle: 'italic' }}>
+              查看你自己的操作回放
+            </u>
+            ！
+          </Trans>
         </h5>
       </div>
     </div>
