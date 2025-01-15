@@ -102,7 +102,9 @@ export const PCFrame = ({
     if (!clientInfo) return;
     if (['ios', 'ipad', 'android'].indexOf(clientInfo.os.type) >= 0) {
       setEnableDevice(true);
+      onRefresh();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clientInfo]);
 
   return (
