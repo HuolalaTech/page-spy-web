@@ -15,25 +15,26 @@ const NetworkPanel = memo(() => {
 
   const storeRef = useRef(useSocketMessageStore.getState());
   const clearRecord = useRef(storeRef.current.clearRecord);
-  const [networkRequestPathName, setNetworkRequestPathName] = useState('');
+  const [filterKeyword, setFilterKeyword] = useState('');
 
   const [networkMsg, storageMsg] = useSocketMessageStore(
     useShallow((state) => [state.networkMsg, state.storageMsg]),
   );
 
   const filteredNetworkMsg = useMemo(() => {
-    if (networkRequestPathName.length === 0) {
+    const keyword = filterKeyword.trim().toLocaleLowerCase();
+    if (!keyword) {
       return networkMsg;
     }
 
     return networkMsg.filter((msg) =>
-      msg.pathname.includes(networkRequestPathName),
+      msg.url.toLocaleLowerCase().includes(keyword),
     );
-  }, [networkRequestPathName, networkMsg]);
+  }, [filterKeyword, networkMsg]);
 
-  const debounceRequestNameFilter = useCallback(
+  const debounceFilter = useCallback(
     debounce((e) => {
-      setNetworkRequestPathName(e.target.value);
+      setFilterKeyword(e.target.value);
     }, 300),
     [],
   );
@@ -44,8 +45,8 @@ const NetworkPanel = memo(() => {
         <Col>
           <Space>
             <Input
-              onChange={debounceRequestNameFilter}
-              placeholder="Request Path Name Filter"
+              onChange={debounceFilter}
+              placeholder={ct('filter')!}
               allowClear={true}
               style={{ width: 200 }}
             />

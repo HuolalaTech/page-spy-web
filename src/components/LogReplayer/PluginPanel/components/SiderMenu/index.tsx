@@ -11,7 +11,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ConsoleActions, ConsolePanel } from '../ConsolePanel';
-import { NetworkPanel } from '../NetworkPanel';
+import { NetworkActions, NetworkPanel } from '../NetworkPanel';
 import { SystemPanel } from '../SystemPanel';
 import { StoragePanel } from '../StoragePanel';
 import { throttle } from 'lodash-es';
@@ -30,6 +30,7 @@ export const MENU_COMPONENTS: Record<
   },
   Network: {
     Content: NetworkPanel,
+    Extra: NetworkActions,
   },
   Storage: {
     Content: StoragePanel,
