@@ -57,7 +57,7 @@ export const FooterInput = memo(() => {
     if (trimedCode) {
       const browserType = clientInfo?.browser.type;
       if (browserType?.startsWith('mp-') || browserType === 'uni-native') {
-        let nodes: Program = {};
+        let nodes = {} as Program;
         try {
           nodes = parse(trimedCode, {
             ecmaVersion: 5,
@@ -208,11 +208,12 @@ export const FooterInput = memo(() => {
           <Input.TextArea
             spellCheck="false"
             placeholder={t('placeholder')!}
-            bordered={false}
+            variant="borderless"
             autoSize
             ref={inputRef}
             value={code}
             onChange={(evt) => setCode(evt.target.value)}
+            className="mono-code"
             onKeyDown={onTextareaKeyDown}
           />
         </code>
