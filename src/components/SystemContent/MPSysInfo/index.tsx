@@ -1,6 +1,5 @@
-import React, { useMemo } from 'react';
 import '../index.less';
-import { Card, Typography, Grid, Row, Col, Empty, Space, Divider } from 'antd';
+import { Card, Typography, Row, Col, Empty, Space, Divider } from 'antd';
 import {
   AppAuthSettings,
   AuthInfo,
@@ -8,19 +7,19 @@ import {
   InfoItem,
   SysInfo,
 } from './infoSchema';
-import Icon, { CheckOutlined, CloseOutlined } from '@ant-design/icons';
-import { ReactComponent as SupportSvg } from '@/assets/image/support.svg';
-import { ReactComponent as UnsupportSvg } from '@/assets/image/unsupport.svg';
+import Icon from '@ant-design/icons';
+import SupportSvg from '@/assets/image/support.svg?react';
+import UnsupportSvg from '@/assets/image/unsupport.svg?react';
 import { parseUserAgent } from '@/utils/brand';
 
-type Props = {
+interface Props {
   sysInfo: Record<string, any>;
   clientInfo: ReturnType<typeof parseUserAgent>;
   spanValue?: {
     featSpan: number;
     xxlFeatSpan: number;
   };
-};
+}
 const { Title } = Typography;
 
 const Schemas = [

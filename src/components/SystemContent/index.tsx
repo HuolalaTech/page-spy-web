@@ -107,7 +107,7 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
         <>
           <div className="system-info">
             <Title level={3}>{t('feature')}</Title>
-            {noSupport.length && (
+            {!!noSupport.length && (
               <>
                 <Title level={5} style={{ color: 'rgb(216, 30, 6)' }}>
                   <span>{t('unsupport')}</span>
