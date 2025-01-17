@@ -69,18 +69,20 @@
       color: #f3f3f3;
     }
     a {
-      color: #b392f0;
+      color: lighten(@primary-color, 9%);
       font-family: Cascadia Code, Menlo, Courier, monospace;
+      text-decoration: underline;
+      text-underline-offset: 4px;
       &:hover {
-        text-decoration: underline;
+        color: lighten(@primary-color, 15%);
       }
     }
     code {
-      color: #d1d1d1;
+      color: lighten(@primary-color, 17%);
+      font-size: 14px;
       padding: 2px 6px;
       border-radius: 5px;
-      background-color: #444;
-      font-family: Cascadia Code, Menlo, Courier, monospace;
+      background-color: #282828;
     }
     pre code {
       color: initial;
@@ -140,7 +142,7 @@
     > div {
       cursor: pointer;
       &:hover .footer-link__title {
-        color: #b67cff;
+        color: lighten(@primary-color, 15%);
       }
     }
     &-menus {
@@ -166,10 +168,10 @@
       }
       &__title {
         margin-top: 6px !important;
-        color: #9e51ff;
+        color: lighten(@primary-color, 9%);
         font-size: 16px;
         font-weight: 700;
-        transition: color linear 0.3s;
+        transition: color linear 100ms;
       }
     }
     &-next .footer-link {
@@ -196,7 +198,7 @@
     }
     a {
       color: #808080;
-      transition: color ease-in-out 150ms;
+      transition: color ease-in-out 100ms;
 
       &:hover {
         color: #ddd;

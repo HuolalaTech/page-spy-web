@@ -91,6 +91,7 @@ export const AllBrowserTypes: SpyClient.Browser[] = [
   'wechat',
   'qq',
   'uni-native',
+  'huawei',
   'unknown',
 ];
 
@@ -112,7 +113,7 @@ export const OS_CONFIG: Record<
 };
 
 export const BROWSER_CONFIG: Record<
-  SpyClient.Browser | 'harmony',
+  SpyClient.Browser,
   {
     logo: string;
     label: string;
@@ -145,8 +146,9 @@ export const BROWSER_CONFIG: Record<
   'mp-xhs': { logo: mpXhsSvg, label: t('common.mpxhs') },
   'mp-uni': { logo: uniSvg, label: 'Uni APP' },
   'uni-native': { logo: uniSvg, label: 'Uni APP' },
-  harmony: { logo: huaweiSvg, label: 'Huawei' },
+  huawei: { logo: huaweiSvg, label: 'Huawei' },
   'react-native': { logo: reactSvg, label: 'React Native' },
+  harmony: { logo: harmonySvg, label: 'Harmony APP' },
 };
 
 export const getOSName = (os: string) => {
@@ -178,7 +180,7 @@ const BROWSER_REGEXPS = {
   wechat: /MicroMessenger\/([\d.]+)/,
   qq: /(?:QQBrowser|MQQBrowser|QQ)\/([\d.]+)/,
   uc: /(?:UCBrowser|UCBS)\/([\d.]+)/,
-  harmony: /(?:HuaweiBrowser)\/([\d.]+)/,
+  huawei: /(?:HuaweiBrowser)\/([\d.]+)/,
   baidu: /(?:BIDUBrowser|baiduboxapp)[/]?([\d.]*)/,
   edge: /Edg(?:e|A|iOS)?\/([\d.]+)/,
   chrome: /(?:Chrome|CriOS)\/([\d.]+)/,
@@ -186,8 +188,9 @@ const BROWSER_REGEXPS = {
   safari: /Version\/([\d.]+).*Safari/,
   'uni-native': /uni-native\/([\d.]+)/,
   'react-native': /react-native\/([\d.]+)/,
+  harmony: /API\/([\d.]+)/,
   ...MP_REGEXPS,
-} as Record<SpyClient.Browser | 'harmony', RegExp>;
+} as Record<SpyClient.Browser, RegExp>;
 
 const OS_REGEXPS = {
   windows: /(Windows NT |windows\/)([\d_.]+)/,

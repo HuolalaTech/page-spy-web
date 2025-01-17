@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { ReactComponent as SupportSvg } from '@/assets/image/support.svg';
-import { ReactComponent as UnsupportSvg } from '@/assets/image/unsupport.svg';
+import SupportSvg from '@/assets/image/support.svg?react';
+import UnsupportSvg from '@/assets/image/unsupport.svg?react';
 import Icon from '@ant-design/icons';
 import './index.less';
 import { Tooltip } from 'antd';

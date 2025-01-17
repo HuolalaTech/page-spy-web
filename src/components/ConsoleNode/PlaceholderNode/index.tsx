@@ -14,7 +14,7 @@ import './index.less';
  */
 export const isPlaceholderNode = (item: SpyConsole.DataItem) => {
   if (
-    ['log', 'info', 'error', 'warn'].includes(item.logType) &&
+    ['log', 'info', 'error', 'warn', 'debug'].includes(item.logType) &&
     item.logs.length > 1 &&
     item.logs[0].type === 'string' &&
     isString(item.logs[0].value)

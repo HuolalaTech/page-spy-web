@@ -1,12 +1,16 @@
 .system-content {
-  padding-right: 12px;
+  // padding-right: 12px;
   overflow-y: auto;
   .system-info {
     margin-bottom: 24px;
     &__label {
+      word-break: break-all;
       font-weight: 700;
       font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
         monospace;
+    }
+    &__desc {
+      color: #999;
     }
     &__value {
       color: #333;
@@ -16,4 +20,29 @@
       word-break: break-word;
     }
   }
+}
+.mp-info-main {
+  display: flex;
+  align-items: center;
+  .info-icon {
+    margin-right: 10px;
+    height: 36px;
+  }
+}
+.mp-info-item {
+  padding: 8px 16px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mp-info-title {
+  font-weight: bold;
+}
+.mp-info-desc {
+  color: #999;
+}
+
+.mp-info-value {
+  font-size: 16px;
 }

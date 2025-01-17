@@ -1,8 +1,8 @@
 import { SpyConsole } from '@huolala-tech/page-spy-types';
-import { ReactComponent as ErrorStackSvg } from '@/assets/image/error-stack.svg';
+import ErrorStackSvg from '@/assets/image/error-stack.svg?react';
 import './index.less';
 import Icon from '@ant-design/icons';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import ErrorStackParser from 'error-stack-parser';
 
 export type RequiredFrames = Required<StackFrame>[];
@@ -64,6 +64,16 @@ export const ErrorTraceNode = ({ data }: Props) => {
     );
   }, [data]);
 
+  const errorMessage = useMemo(() => {
+    const { error } = data;
+    if (error) {
+      return [error.name, error.message].every((i) => error.stack?.includes(i))
+        ? error.stack
+        : `${error.name}: ${error.message}\n${error.stack}`;
+    }
+    return '';
+  }, [data]);
+
   return (
     <div className="error-trace">
       <Icon
@@ -72,7 +82,7 @@ export const ErrorTraceNode = ({ data }: Props) => {
         onClick={onPopupDetail}
       />
       <div className="error-trace-node">
-        <code>{data.error.stack}</code>
+        <code>{errorMessage}</code>
       </div>
     </div>
   );

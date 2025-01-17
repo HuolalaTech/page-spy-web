@@ -11,8 +11,8 @@ import {
   Tooltip,
 } from 'antd';
 import { useMemo, useCallback, useState } from 'react';
-import { ReactComponent as DatabaseSvg } from '@/assets/image/database.svg';
-import { ReactComponent as StorageSvg } from '@/assets/image/storage.svg';
+import DatabaseSvg from '@/assets/image/database.svg?react';
+import StorageSvg from '@/assets/image/storage.svg?react';
 import Icon, {
   CaretLeftOutlined,
   CaretRightOutlined,

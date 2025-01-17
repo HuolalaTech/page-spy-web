@@ -78,7 +78,8 @@ const ErrorStackItem = ({ frame }: { frame: Required<StackFrame> }) => {
         </Result>
       );
     }
-    if (!data?.sourceHTML) {
+
+    if (!data?.highlightedHTML) {
       return null;
     }
 
@@ -88,12 +89,13 @@ const ErrorStackItem = ({ frame }: { frame: Required<StackFrame> }) => {
           className="fragments-header"
           justify="space-between"
           align="middle"
+          wrap={false}
         >
-          <Col>
-            <code className="origin-filename">
+          <Col className="origin-filename">
+            <code>
               <span>{t('source-filename')}: </span>
               <span>
-                {data.sourceFile}({data.line}:{data.column})
+                {data.source}({data.line}:{data.column})
               </span>
             </code>
           </Col>
@@ -117,7 +119,8 @@ const ErrorStackItem = ({ frame }: { frame: Required<StackFrame> }) => {
             '--error-line': data.line,
           }}
           dangerouslySetInnerHTML={{
-            __html: data.sourceHTML.replace(/\t/g, ' '.repeat(tabSize)) || '',
+            __html:
+              data.highlightedHTML.replace(/\t/g, ' '.repeat(tabSize)) || '',
           }}
         />
       </div>
@@ -134,7 +137,9 @@ const ErrorStackItem = ({ frame }: { frame: Required<StackFrame> }) => {
         }}
       >
         <Col>
-          <code className="stack-filename">{frame.fileName}</code>
+          <code className="stack-filename">
+            {frame.fileName}({`${frame.lineNumber}:${frame.columnNumber}`})
+          </code>
         </Col>
         <Col>
           <AimOutlined
@@ -157,6 +162,14 @@ export const ErrorDetailDrawer = memo(() => {
   });
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const errorMessage = useMemo(() => {
+    if (error) {
+      return [error.name, error.message].every((i) => error.stack?.includes(i))
+        ? error.stack
+        : `${error.name}: ${error.message}\n${error.stack}`;
+    }
+    return '';
+  }, [error]);
   const [frames, setFrames] = useState<RequiredFrames>([]);
 
   useEventListener('source-code-detail', (evt) => {
@@ -189,10 +202,10 @@ export const ErrorDetailDrawer = memo(() => {
       }
     >
       <BlockTitle title={t('message-title')} />
-      {error ? (
+      {errorMessage ? (
         <div className="error-message-box">
           <pre>
-            <code>{error.stack}</code>
+            <code>{errorMessage}</code>
           </pre>
         </div>
       ) : (

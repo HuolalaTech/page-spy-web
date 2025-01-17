@@ -2,7 +2,6 @@ import { Col, Layout, Row } from 'antd';
 import { MENU_COMPONENTS, MenuType, SiderMenu } from './components/SiderMenu';
 import { useLocation } from 'react-router-dom';
 import { memo, useMemo } from 'react';
-import { ConsolePanel } from './components/ConsolePanel';
 import './index.less';
 
 const { Content } = Layout;

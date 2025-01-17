@@ -1,5 +1,5 @@
 import { Typography } from 'antd';
-import debugImg from '@/assets/image/debugger.png';
+import debugImg from '@/assets/image/screenshot/console-panel.png';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { PropsWithChildren, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
@@ -55,7 +55,7 @@ const SDKPanel = () => {
             <p className="sdk-step__title">
               {index + 1}. {title}
             </p>
-            <CodeBlock code={code} />
+            {!!code && <CodeBlock code={code} />}
           </div>
         );
       })}
@@ -65,8 +65,8 @@ const SDKPanel = () => {
 
 const ClientPanel = () => {
   return (
-    <div className="client-panle">
-      <img width={400} src={debugImg} alt="" />
+    <div className="client-panel">
+      <img width={600} src={debugImg} alt="" />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { usePopupRef, withPopup } from '@/utils/withPopup';
-import { ReactComponent as KeyboardSvg } from '@/assets/image/keyboard.svg';
+import KeyboardSvg from '@/assets/image/keyboard.svg?react';
 import Icon from '@ant-design/icons';
 import { Col, Modal, Row, Space } from 'antd';
 import { Fragment, memo, useMemo } from 'react';

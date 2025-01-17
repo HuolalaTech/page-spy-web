@@ -71,6 +71,8 @@ export const MainContent = memo(() => {
         messageLength.current !== data.length
       ) {
         setNewTips(true);
+      } else {
+        setNewTips(false);
       }
     }
   }, [isUpdated, scrollToBottom, isAutoScroll]);

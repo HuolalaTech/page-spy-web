@@ -6,13 +6,26 @@
   position: relative;
   height: 100%;
   /* 整体样式 */
-  background-color: #1a1a1a;
+  background-color: @dark-bg;
   color: #c4c4c4;
   letter-spacing: 0.8px;
   pre {
     letter-spacing: 0px;
     .line {
       line-height: 1.5em;
+    }
+  }
+  .badges p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 0 !important;
+    img {
+      width: auto;
+      border-radius: 4px;
+      margin-bottom: 0;
     }
   }
 }

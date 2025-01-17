@@ -5,9 +5,8 @@ import './index.less';
 import { Link } from 'react-router-dom';
 import { ArrowLeftOutlined, ReloadOutlined } from '@ant-design/icons';
 
-export const InvalidObjectURL = () => {
+export const InvalidObjectURL = ({ url }: { url: string }) => {
   const { t } = useTranslation();
-  const { url } = useSearch();
 
   return (
     <div className="invalid-object-url">
