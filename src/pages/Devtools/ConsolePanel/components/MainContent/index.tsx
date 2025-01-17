@@ -35,14 +35,14 @@ export const MainContent = memo(() => {
   const storeRef = useRef(useSocketMessageStore.getState());
   const consoleMessages = useRef(storeRef.current.consoleMsg);
   const consoleFilter = useRef(storeRef.current.consoleMsgTypeFilter);
-  const consoleKeywordFilter = useRef(storeRef.current.consoleMsgKeywordFilter)
+  const consoleKeywordFilter = useRef(storeRef.current.consoleMsgKeywordFilter);
   const { isUpdated, throttleRender } = useForceThrottleRender();
   useEffect(
     () =>
       useSocketMessageStore.subscribe((state) => {
         consoleMessages.current = state.consoleMsg;
         consoleFilter.current = state.consoleMsgTypeFilter;
-        consoleKeywordFilter.current = state.consoleMsgKeywordFilter
+        consoleKeywordFilter.current = state.consoleMsgKeywordFilter;
         throttleRender();
       }),
     [throttleRender],
@@ -71,6 +71,8 @@ export const MainContent = memo(() => {
         messageLength.current !== data.length
       ) {
         setNewTips(true);
+      } else {
+        setNewTips(false);
       }
     }
   }, [isUpdated, scrollToBottom, isAutoScroll]);
@@ -122,10 +124,15 @@ export const MainContent = memo(() => {
   const consoleDataList = useMemo(() => {
     const data = consoleMessages.current;
     const logLevels = consoleFilter.current;
-    const keyword = consoleKeywordFilter.current
+    const keyword = consoleKeywordFilter.current;
     return data.filter((item) => {
-      return (!logLevels.length || logLevels.includes(item.logType)) &&
-              item.logs.map((item) => item.value).join('').indexOf(keyword) !== -1
+      return (
+        (!logLevels.length || logLevels.includes(item.logType)) &&
+        item.logs
+          .map((item) => item.value)
+          .join('')
+          .indexOf(keyword) !== -1
+      );
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUpdated]);
