@@ -69,10 +69,13 @@
       color: #f3f3f3;
     }
     a {
-      color: #b392f0;
+      color: lighten(@primary-color, 9%);
       font-family: Cascadia Code, Menlo, Courier, monospace;
       text-decoration: underline;
       text-underline-offset: 4px;
+      &:hover {
+        color: lighten(@primary-color, 15%);
+      }
     }
     code {
       color: lighten(@primary-color, 17%);
@@ -139,7 +142,7 @@
     > div {
       cursor: pointer;
       &:hover .footer-link__title {
-        color: #b67cff;
+        color: lighten(@primary-color, 15%);
       }
     }
     &-menus {
@@ -165,10 +168,10 @@
       }
       &__title {
         margin-top: 6px !important;
-        color: #9e51ff;
+        color: lighten(@primary-color, 9%);
         font-size: 16px;
         font-weight: 700;
-        transition: color linear 0.3s;
+        transition: color linear 100ms;
       }
     }
     &-next .footer-link {
@@ -195,7 +198,7 @@
     }
     a {
       color: #808080;
-      transition: color ease-in-out 150ms;
+      transition: color ease-in-out 100ms;
 
       &:hover {
         color: #ddd;

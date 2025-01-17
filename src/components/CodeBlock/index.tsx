@@ -35,7 +35,7 @@ export const CodeBlock = (data: SingleProps | GroupProps) => {
   const highlighter = useRef<Highlighter | null>(null);
   const handleCodeContent = async ({
     code,
-    lang,
+    lang = 'javascript',
   }: Omit<SingleProps, 'showCopy'>) => {
     if (!highlighter.current) {
       highlighter.current = await sh.get({
