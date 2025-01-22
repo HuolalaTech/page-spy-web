@@ -5,7 +5,12 @@ import clsx from 'clsx';
 import copy from 'copy-to-clipboard';
 import { fromPairs, isArray, isString, map } from 'lodash-es';
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
-import { getStatusText, getTime } from './utils';
+import {
+  getContentType,
+  getRowClassName,
+  getStatusText,
+  getTime,
+} from './utils';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { NetworkDetail } from './NetworkDetail';
@@ -16,14 +21,6 @@ import {
   WIDTH_CONSTRAINTS,
 } from '@/components/ResizableTitle';
 import { ResizeCallbackData } from 'react-resizable';
-
-const getContentType = (headers: ResolvedNetworkInfo['requestHeader']) => {
-  if (!headers) return 'text/plain';
-  const contentType = headers.find(
-    ([key]) => key.toLowerCase() === 'content-type',
-  );
-  return contentType?.[1] || 'text/plain';
-};
 
 type Columns = Omit<
   ResizableTitleProps,
@@ -172,7 +169,7 @@ export const NetworkTable = ({
       },
       {
         children: 'Status',
-        width: value?.Stat || 100,
+        width: value?.Status || 100,
       },
       {
         children: 'Type',
@@ -269,13 +266,7 @@ export const NetworkTable = ({
                     }}
                     trigger={['contextMenu']}
                   >
-                    <tr
-                      className={clsx({
-                        error:
-                          row.readyState === 4 &&
-                          (row.status === 0 || Number(row.status) >= 400),
-                      })}
-                    >
+                    <tr className={getRowClassName(row)}>
                       <td
                         title={row.name}
                         className={clsx({

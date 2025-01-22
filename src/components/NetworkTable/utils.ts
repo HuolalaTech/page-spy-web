@@ -41,14 +41,17 @@ export function semanticSize(size: number) {
 export function getStatusText(row: ResolvedNetworkInfo) {
   if (row.readyState === 0 || row.readyState === 1) return 'Pending';
   if (row.readyState === 4) {
-    if (row.status === 0) return 'Failed';
+    if (row.status === 0) {
+      if (row.responseType === 'resource') return 'Unknown';
+      return 'Failed';
+    }
   }
   return row.status;
 }
 
 export function getTime(time: number) {
-  if (time < 1000) return `${time} ms`;
-  if (time < 60 * 1000) return `${(time / 1000).toFixed(1)} s`;
+  if (time < 1000) return `${Math.ceil(time)} ms`;
+  if (time < 60 * 1000) return `${(time / 1000).toFixed(2)} s`;
   return `${(time / 60 / 1000).toFixed(1)} min`;
 }
 
@@ -62,3 +65,22 @@ export function validEntries(
   if (value !== null && value.length > 0) return true;
   return false;
 }
+
+export const getContentType = (
+  headers: ResolvedNetworkInfo['requestHeader'],
+) => {
+  if (!headers) return 'text/plain';
+  const contentType = headers.find(
+    ([key]) => key.toLowerCase() === 'content-type',
+  );
+  return contentType?.[1] || 'text/plain';
+};
+
+export const getRowClassName = (row: ResolvedNetworkInfo) => {
+  if (row.responseType === 'resource' && row.status === 0) return 'unknown';
+
+  if (row.readyState === 4 && (row.status === 0 || Number(row.status) >= 400))
+    return 'error';
+
+  return '';
+};
