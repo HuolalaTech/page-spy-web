@@ -721,15 +721,16 @@
   dependencies:
     "@huolala-tech/page-spy-types" "^2.1.0"
 
-"@huolala-tech/page-spy-browser@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-browser/-/page-spy-browser-2.1.0.tgz#bfc0f3da8e0691c1a2261908f641e1492c7a94b9"
-  integrity sha512-hi72fuTT1epPH4lOe6YVZZaDwTgX0/5l21K21WZhd5j+X7d5qThhEUEfdHtqmvO9t9WgpBOcxYhwbaRPpR//Aw==
+"@huolala-tech/page-spy-browser@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-browser/-/page-spy-browser-2.1.1.tgz#ce35290210b362882f10e466325853bfc1914dbe"
+  integrity sha512-kGaRCJtSIXGPu56OkEwePb/OJ20FbEqnesqffLtYzSp9j76BsFBRt/871AAtXbR1zAloLhHNdhsItXnrKgt9PQ==
   dependencies:
     "@babel/runtime" "^7.13.0"
     "@huolala-tech/page-spy-base" "^2.1.0"
     "@huolala-tech/page-spy-types" "^2.1.0"
     copy-to-clipboard "^3.3.1"
+    iseedeadpeople "^1.0.0"
 
 "@huolala-tech/page-spy-plugin-data-harbor@^2.1.0":
   version "2.1.0"
@@ -751,13 +752,13 @@
     "@huolala-tech/page-spy-types" "^2.1.0"
     rrweb "^2.0.0-alpha.4"
 
-"@huolala-tech/page-spy-plugin-whole-bundle@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-whole-bundle/-/page-spy-plugin-whole-bundle-2.1.0.tgz#cdd925528586ca5fb9af0bb4872e931233fc1367"
-  integrity sha512-nBoV5jq+PyzULiFxkonBrpwNSTep8sR1RVn30qen2vcH5k2KdZmE0rUiLBhDWbotwSRfhnOawyt58gQWejTFOw==
+"@huolala-tech/page-spy-plugin-whole-bundle@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-whole-bundle/-/page-spy-plugin-whole-bundle-2.1.1.tgz#3e66c164378748425025eb047d99ea91f1d917ee"
+  integrity sha512-55ER2OoRpnrIqPvPu7BaCqnc4fmiC0scMnPZ+CzsidquYv0sQK9VlZ0IdsvvJNj0QV9Nu9eSHW6iQoLOibjTOA==
   dependencies:
     "@huolala-tech/page-spy-base" "^2.1.0"
-    "@huolala-tech/page-spy-browser" "^2.1.0"
+    "@huolala-tech/page-spy-browser" "^2.1.1"
     "@huolala-tech/page-spy-plugin-data-harbor" "^2.1.0"
     "@huolala-tech/page-spy-plugin-rrweb" "^2.1.0"
     "@huolala-tech/page-spy-types" "^2.1.0"
@@ -3138,6 +3139,11 @@ is-what@^3.14.1:
   version "3.14.1"
   resolved "https://registry.yarnpkg.com/is-what/-/is-what-3.14.1.tgz#e1222f46ddda85dead0fd1c9df131760e77755c1"
   integrity sha512-sNxgpk9793nzSs7bA6JQJGeIuRBQhAaNGG77kzYQgMkrID+lS6SlK07K5LaptscDlSaIgH+GPFzf+d75FVxozA==
+
+iseedeadpeople@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/iseedeadpeople/-/iseedeadpeople-1.0.0.tgz#6ee20c9d207951294329e076a9a0d9cb7a211625"
+  integrity sha512-S/edvIn1spM9cyrsd3tMWF3wGIs59/gSUwo5ByQsOfzOEsY/AwMjcXGaLTr6QrOjWEcnl+MT1i3GjDOkS/cqGg==
 
 isexe@^2.0.0:
   version "2.0.0"
