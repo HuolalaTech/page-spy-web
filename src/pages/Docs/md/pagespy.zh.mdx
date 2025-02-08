@@ -212,13 +212,40 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
   }
   ```
 - 默认值：
-```ts
-{
-  logo: "",
-  title: "PageSpy"
-}
-```
 
+  ```ts
+  {
+    logo: "",
+    title: "PageSpy"
+  }
+  ```
+
+### config.gesture <PlatformTag type="browser" />
+
+通过手势操作或键盘方向键启用 PageSpy。
+
+- 类型：`Command | null`。
+
+  手势识别依赖于 [iseedeadpeople](https://github.com/YanagiEiichi/iseedeadpeople)，其 Command 定义如下：
+
+  ```ts
+  declare const DIRECTION_CHARACTERS: readonly ["U", "R", "D", "L"];
+  type Direction = (typeof DIRECTION_CHARACTERS)[number];
+
+  type Command = readonly Direction[];
+  ```
+  
+- 默认值：`null`，禁用手势。
+
+- 示例
+
+  ```ts
+  new PageSpy({
+    ...,
+    // 仅当用户完成 "上上下下左右左右" 的手势或方向键输入时，PageSpy 才会启用
+    gesture: ['U', 'U', 'D', 'D', 'L', 'R', 'L', 'R'],
+  })
+  ```
 
 
 ## registerPlugin()#registerPlugin
