@@ -205,6 +205,35 @@ Configure the logo and title for the modal.
   }
   ```
 
+### config.gesture <PlatformTag type="browser" />
+
+PageSpy can be activated via gestures or keyboard arrow keys.
+
+- Type: `Command | null`。
+
+  Gesture recognition relies on [iseedeadpeople](https://github.com/YanagiEiichi/iseedeadpeople), where the Command type is defined as follows.
+
+  ```ts
+  declare const DIRECTION_CHARACTERS: readonly ["U", "R", "D", "L"];
+  type Direction = (typeof DIRECTION_CHARACTERS)[number];
+
+  type Command = readonly Direction[];
+  ```
+  
+- Default: `null` (gestures disabled).
+
+- Example
+
+  ```ts
+  new PageSpy({
+    ...,
+    // PageSpy will only activate after the user completes the "Up, Up, Down, Down, Left, Right, Left, Right" input
+    // On mobile, this is done via gestures; on PC, it is triggered by arrow key inputs
+    gesture: ['U', 'U', 'D', 'D', 'L', 'R', 'L', 'R'],
+  })
+  ```
+
+
 ## registerPlugin()#registerPlugin
 
 Static method, register a plugin.
