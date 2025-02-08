@@ -38,15 +38,39 @@ export function semanticSize(size: number) {
   return `${(size / oneMB).toFixed(1)} MB`;
 }
 
-export function getStatusText(row: ResolvedNetworkInfo) {
-  if (row.readyState === 0 || row.readyState === 1) return 'Pending';
-  if (row.readyState === 4) {
-    if (row.status === 0) {
-      if (row.responseType === 'resource') return 'Unknown';
-      return 'Failed';
+export interface StatusInfo {
+  status: 'unknown' | 'pending' | 'success' | 'error' | 'redirect';
+  text: 'Unknown' | 'Pending' | 'Failed' | string | number;
+}
+export function getStatusInfo(row: ResolvedNetworkInfo): StatusInfo {
+  let statusType: StatusInfo['status'] = 'unknown';
+  let statusText: StatusInfo['text'] = 'Unknown';
+
+  const { readyState, status, responseType } = row;
+  const code = Number(status);
+  if (code < 200) {
+    if (readyState <= 1) {
+      statusType = 'pending';
+      statusText = 'Pending';
+    } else {
+      const isResource = responseType === 'resource';
+      statusType = isResource ? 'unknown' : 'error';
+      statusText = isResource ? 'Unknown' : 'Failed';
     }
+  } else {
+    if (code < 300) {
+      statusType = 'success';
+    } else if (code < 400) {
+      statusType = 'redirect';
+    } else {
+      statusType = 'error';
+    }
+    statusText = code;
   }
-  return row.status;
+  return {
+    status: statusType,
+    text: statusText,
+  };
 }
 
 export function getTime(time: number) {

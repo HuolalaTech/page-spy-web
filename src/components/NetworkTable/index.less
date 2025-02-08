@@ -168,7 +168,8 @@
       width: @circleSize;
       height: @circleSize;
       background-repeat: no-repeat;
-      &.pending {
+      &.pending,
+      &.unknown {
         background-image: url('@/assets/image/status-code-pending.svg');
       }
       &.error {

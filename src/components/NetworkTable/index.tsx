@@ -1,14 +1,14 @@
 /* eslint-disable no-case-declarations */
 import { SpyStorage } from '@huolala-tech/page-spy-types';
-import { Dropdown, Empty } from 'antd';
+import { Dropdown, Empty, Space, Tooltip } from 'antd';
 import clsx from 'clsx';
 import copy from 'copy-to-clipboard';
-import { fromPairs, isArray, isString, map } from 'lodash-es';
+import { fromPairs, isString, map } from 'lodash-es';
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import {
   getContentType,
   getRowClassName,
-  getStatusText,
+  getStatusInfo,
   getTime,
 } from './utils';
 import { useTranslation } from 'react-i18next';
@@ -21,6 +21,7 @@ import {
   WIDTH_CONSTRAINTS,
 } from '@/components/ResizableTitle';
 import { ResizeCallbackData } from 'react-resizable';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 type Columns = Omit<
   ResizableTitleProps,
@@ -214,17 +215,22 @@ export const NetworkTable = ({
         _: React.SyntheticEvent<Element>,
         { size }: ResizeCallbackData,
       ) => {
-        const newCols = [...columns];
-        newCols[index] = {
-          ...newCols[index],
-          width: size.width,
-        };
+        requestAnimationFrame(() => {
+          const newCols = [...columns];
+          newCols[index] = {
+            ...newCols[index],
+            width: size.width,
+          };
+          setColumns(newCols);
+        });
+      }) as React.ReactEventHandler<any>,
+      onResizeStop: (
+        _: React.SyntheticEvent<Element>,
+        { size }: ResizeCallbackData,
+      ) => {
         if (index === 0) {
           setLeftDistance(`${size.width}px`);
         }
-        setColumns(newCols);
-      }) as React.ReactEventHandler<any>,
-      onResizeStop: () => {
         const value = fromPairs(map(columns, (c) => [c.children, c.width]));
         localStorage.setItem(resizeCacheKey, JSON.stringify(value));
       },
@@ -245,6 +251,7 @@ export const NetworkTable = ({
           <tbody>
             {data.length > 0 ? (
               data.map((row, index) => {
+                const { status, text } = getStatusInfo(row);
                 return (
                   <Dropdown
                     key={row.id}
@@ -281,7 +288,36 @@ export const NetworkTable = ({
                       </td>
                       <td title={row.pathname}>{row.pathname}</td>
                       <td title={row.method}>{row.method}</td>
-                      <td title={String(row.status)}>{getStatusText(row)}</td>
+                      <td title={status}>
+                        {status === 'unknown' ? (
+                          <Space>
+                            <span>{text}</span>
+                            <Tooltip
+                              title={
+                                <span>
+                                  The status code is {row.status}, see{' '}
+                                  <a
+                                    style={{
+                                      color: 'white',
+                                      textDecoration: 'underline',
+                                      textUnderlineOffset: 3,
+                                    }}
+                                    href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/responseStatus"
+                                    target="_blank"
+                                  >
+                                    MDN
+                                  </a>
+                                  .
+                                </span>
+                              }
+                            >
+                              <InfoCircleOutlined />
+                            </Tooltip>
+                          </Space>
+                        ) : (
+                          text
+                        )}
+                      </td>
                       <td title={row.requestType}>{row.requestType}</td>
                       <td title={getTime(row.costTime)}>
                         {getTime(row.costTime)}
