@@ -87,20 +87,14 @@ export const Banner = () => {
         <div className="banner-actions">
           <Link to="/docs">
             <Button type="primary" size="large" shape="round">
-              <Space>
-                {t('banner.goStart')}
-                <ArrowRightOutlined />
-              </Space>
+              <Space>{t('banner.get-start')}</Space>
             </Button>
           </Link>
-          <a href={import.meta.env.VITE_GITHUB_REPO} target="_blank">
+          <Link to="/replay-lab">
             <Button size="large" shape="round">
-              <Space>
-                {t('banner.goGithub')}
-                <GithubOutlined style={{ fontSize: 18 }} />
-              </Space>
+              <Space>{t('banner.take-try')}</Space>
             </Button>
-          </a>
+          </Link>
         </div>
         <Waves />
       </div>

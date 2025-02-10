@@ -66,7 +66,7 @@ const SDKPanel = () => {
 const ClientPanel = () => {
   return (
     <div className="client-panel">
-      <img width={600} src={debugImg} alt="" />
+      <img src={debugImg} alt="" />
     </div>
   );
 };

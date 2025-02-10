@@ -88,8 +88,8 @@
   "banner": {
     "title": "多機能<br />リモートデバッグツール",
     "desc": "Google Chromeのコンソールのように簡単にリモートデバッグを開始します。",
-    "goStart": "デバッグを開始",
-    "goGithub": "GitHub リポジトリ"
+    "get-start": "クイックスタート",
+    "take-try": "今すぐ体験"
   },
   "intro": {
     "does": "PageSpyでできること",

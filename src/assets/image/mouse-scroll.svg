@@ -1,0 +1,10 @@
+<svg viewBox="0 0 100 160" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <!-- 鼠标外框 -->
+  <rect x="10" y="10" width="70" height="140" rx="30" stroke="currentColor" stroke-width="4" fill="none" />
+
+  <!-- 滚轮 -->
+  <rect x="40" y="50" width="8" height="20" rx="3">
+    <!-- <animate attributeName="opacity" from="0" to="1" dur="1.5s" repeatCount="indefinite" /> -->
+    <animate attributeName="y" values="60;30" dur="1.5s" repeatCount="indefinite" />
+  </rect>
+</svg>

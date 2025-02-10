@@ -12,6 +12,7 @@ import { Customize } from './components/Customize';
 import { ReplayInLab } from './components/ReplayInLab';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { useEventListener } from '@/utils/useEventListener';
+import { MouseTip } from './components/MouseTip';
 
 const ReplayLab = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'lab' });
@@ -78,6 +79,7 @@ const ReplayLab = () => {
           onClick={next}
         />
       </Flex>
+      {current !== contents.length - 1 && <MouseTip />}
     </div>
   );
 };
