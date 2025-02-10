@@ -1,0 +1,16 @@
+.mouse-tip {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .mouse-tip {
+    display: block;
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    svg {
+      width: 40px;
+    }
+  }
+}

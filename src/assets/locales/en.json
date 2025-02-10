@@ -89,8 +89,8 @@
   "banner": {
     "title": "All-In-One<br />Remote Debugging Tool",
     "desc": "Debug remotely and easily with a range of features like chrome devtool.",
-    "goStart": "Start debugging",
-    "goGithub": "View on GitHub"
+    "get-start": "Quick Start",
+    "take-try": "Try Now"
   },
   "intro": {
     "does": "What PageSpy does",
