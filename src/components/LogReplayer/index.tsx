@@ -60,6 +60,9 @@ export const LogReplayer = ({ url, backSlot = null }: Props) => {
               : i.data,
         };
       }) as HarborDataItem[];
+      if (localStorage.getItem('page-spy-replay-debug')) {
+        console.log(result);
+      }
       setAllData(result);
       return result;
     },
