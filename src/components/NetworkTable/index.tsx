@@ -3,30 +3,16 @@ import { SpyStorage } from '@huolala-tech/page-spy-types';
 import { Dropdown, Empty, Space, Tooltip } from 'antd';
 import clsx from 'clsx';
 import copy from 'copy-to-clipboard';
-import { fromPairs, isString, map } from 'lodash-es';
+import { isString, throttle } from 'lodash-es';
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
-import {
-  getContentType,
-  getRowClassName,
-  getStatusInfo,
-  getTime,
-} from './utils';
+import { getContentType, getStatusInfo, getTime } from './utils';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { NetworkDetail } from './NetworkDetail';
 import { ResolvedNetworkInfo } from '@/utils';
-import {
-  ResizableTitle,
-  ResizableTitleProps,
-  WIDTH_CONSTRAINTS,
-} from '@/components/ResizableTitle';
-import { ResizeCallbackData } from 'react-resizable';
 import { InfoCircleOutlined } from '@ant-design/icons';
-
-type Columns = Omit<
-  ResizableTitleProps,
-  'onResize' | 'onResizeStart' | 'onResizeStop'
->;
+import { Table, Column, AutoSizer, TableCellRenderer } from 'react-virtualized';
+import 'react-virtualized/styles.css';
 
 interface NetworkTableProps {
   data: ResolvedNetworkInfo[];
@@ -152,186 +138,160 @@ export const NetworkTable = ({
     [cookie],
   );
 
-  const [columns, setColumns] = useState<Columns[]>(() => {
-    const cache = localStorage.getItem(resizeCacheKey);
-    const value = cache && JSON.parse(cache);
-    return [
-      {
-        children: 'Name',
-        width: value?.Name || 150,
-      },
-      {
-        children: 'Path',
-        width: value?.Path || 300,
-      },
-      {
-        children: 'Method',
-        width: value?.Meth || 100,
-      },
-      {
-        children: 'Status',
-        width: value?.Status || 100,
-      },
-      {
-        children: 'Type',
-        width: value?.Type || 100,
-      },
-      {
-        children: 'Time(≈)',
-      },
-    ];
-  });
+  const tableRef = useRef<Table | null>(null);
+  useEffect(() => {
+    const observer = new ResizeObserver(
+      throttle(() => {
+        // @ts-ignore
+        tableRef.current?.recomputeGridSize();
+      }, 150),
+    );
+    observer.observe(containerRef.current!);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
-  const mergedColumns = useMemo(() => {
-    return columns.map((c, index) => ({
-      ...c,
-      onResizeStart: () => {
-        const container = containerRef.current!;
-
-        const lastColWidth = container.querySelector(
-          'thead tr th:last-child',
-        )?.clientWidth;
-        if (!lastColWidth) return;
-
-        const currentColWidth = container.querySelector(
-          `thead tr th:nth-child(${index + 1})`,
-        )?.clientWidth;
-        if (!currentColWidth) return;
-
-        const [min, max] = WIDTH_CONSTRAINTS;
-        const diffValue = lastColWidth - min;
-        const newCols = [...columns];
-
-        let currentColMax = currentColWidth;
-        if (diffValue > 0) {
-          newCols[index].widthConstraints = [
-            min,
-            Math.min(max, currentColMax + diffValue),
-          ];
-        }
-        setColumns(newCols);
-      },
-      onResize: ((
-        _: React.SyntheticEvent<Element>,
-        { size }: ResizeCallbackData,
-      ) => {
-        requestAnimationFrame(() => {
-          const newCols = [...columns];
-          newCols[index] = {
-            ...newCols[index],
-            width: size.width,
-          };
-          setColumns(newCols);
-        });
-      }) as React.ReactEventHandler<any>,
-      onResizeStop: (
-        _: React.SyntheticEvent<Element>,
-        { size }: ResizeCallbackData,
-      ) => {
-        if (index === 0) {
-          setLeftDistance(`${size.width}px`);
-        }
-        const value = fromPairs(map(columns, (c) => [c.children, c.width]));
-        localStorage.setItem(resizeCacheKey, JSON.stringify(value));
-      },
-    }));
-  }, [columns, resizeCacheKey]);
+  const NameColumn = useCallback<TableCellRenderer>(
+    ({ rowData, rowIndex }) => {
+      return (
+        <Dropdown
+          menu={{
+            items: [
+              {
+                key: 'open-in-new-tab',
+                label: nt('open-in-new-tab'),
+              },
+              {
+                key: 'copy-link',
+                label: nt('copy-link-address'),
+              },
+              { key: 'copy-cURL', label: nt('copy-as-curl') },
+            ],
+            onClick: ({ key }) => {
+              onMenuClick(key, rowData);
+            },
+          }}
+          trigger={['contextMenu']}
+        >
+          <div
+            title={rowData.name}
+            onClick={(evt: any) => {
+              setActiveIndex(rowIndex);
+              setLeftDistance(evt.target.clientWidth);
+            }}
+            style={{
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {rowData.name}
+          </div>
+        </Dropdown>
+      );
+    },
+    [nt, onMenuClick],
+  );
+  const StatusColumn = useCallback<TableCellRenderer>(({ rowData }) => {
+    const { status, text } = getStatusInfo(rowData);
+    return status === 'unknown' ? (
+      <Space>
+        <span>{text}</span>
+        <Tooltip
+          title={
+            <span>
+              The status code is {rowData.status}, see{' '}
+              <a
+                style={{
+                  color: 'white',
+                  textDecoration: 'underline',
+                  textUnderlineOffset: 3,
+                }}
+                href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/responseStatus"
+                target="_blank"
+              >
+                MDN
+              </a>
+              .
+            </span>
+          }
+        >
+          <InfoCircleOutlined />
+        </Tooltip>
+      </Space>
+    ) : (
+      text
+    );
+  }, []);
+  const NoData = useCallback(
+    () => <Empty description={false} className="empty-table-placeholder" />,
+    [],
+  );
 
   return (
     <div className="network-table" ref={containerRef}>
-      <div className="network-list">
-        <table>
-          <thead>
-            <tr>
-              {mergedColumns.map((t) => {
-                return <ResizableTitle key={t.children as string} {...t} />;
-              })}
-            </tr>
-          </thead>
-          <tbody>
-            {data.length > 0 ? (
-              data.map((row, index) => {
-                const { status, text } = getStatusInfo(row);
-                return (
-                  <Dropdown
-                    key={row.id}
-                    menu={{
-                      items: [
-                        {
-                          key: 'open-in-new-tab',
-                          label: nt('open-in-new-tab'),
-                        },
-                        {
-                          key: 'copy-link',
-                          label: nt('copy-link-address'),
-                        },
-                        { key: 'copy-cURL', label: nt('copy-as-curl') },
-                      ],
-                      onClick: ({ key }) => {
-                        onMenuClick(key, row);
-                      },
-                    }}
-                    trigger={['contextMenu']}
-                  >
-                    <tr className={getRowClassName(row)}>
-                      <td
-                        title={row.name}
-                        className={clsx({
-                          active: !!detailData && index === activeIndex,
-                        })}
-                        onClick={(evt: any) => {
-                          setActiveIndex(index);
-                          setLeftDistance(evt.target.clientWidth);
-                        }}
-                      >
-                        {row.name}
-                      </td>
-                      <td title={row.pathname}>{row.pathname}</td>
-                      <td title={row.method}>{row.method}</td>
-                      <td title={status}>
-                        {status === 'unknown' ? (
-                          <Space>
-                            <span>{text}</span>
-                            <Tooltip
-                              title={
-                                <span>
-                                  The status code is {row.status}, see{' '}
-                                  <a
-                                    style={{
-                                      color: 'white',
-                                      textDecoration: 'underline',
-                                      textUnderlineOffset: 3,
-                                    }}
-                                    href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/responseStatus"
-                                    target="_blank"
-                                  >
-                                    MDN
-                                  </a>
-                                  .
-                                </span>
-                              }
-                            >
-                              <InfoCircleOutlined />
-                            </Tooltip>
-                          </Space>
-                        ) : (
-                          text
-                        )}
-                      </td>
-                      <td title={row.requestType}>{row.requestType}</td>
-                      <td title={getTime(row.costTime)}>
-                        {getTime(row.costTime)}
-                      </td>
-                    </tr>
-                  </Dropdown>
-                );
+      <AutoSizer>
+        {({ width, height }) => (
+          <Table
+            ref={tableRef}
+            width={width}
+            height={height}
+            headerHeight={30}
+            rowHeight={28}
+            rowCount={data.length}
+            rowGetter={({ index }) => data[index]}
+            noRowsRenderer={NoData}
+            rowClassName={({ index }) =>
+              clsx(index % 2 ? 'odd' : 'even', {
+                active: !!detailData && index === activeIndex,
               })
-            ) : (
-              <Empty description={false} className="empty-table-placeholder" />
-            )}
-          </tbody>
-        </table>
-      </div>
+            }
+          >
+            <Column
+              dataKey="pathname"
+              label="Name"
+              width={width * 0.3}
+              // flexGrow={1}
+              cellRenderer={NameColumn}
+            />
+            <Column
+              dataKey="pathname"
+              label="Path"
+              width={width * 0.3}
+              flexGrow={1}
+            />
+            <Column
+              dataKey="method"
+              label="Method"
+              width={width * 0.1}
+              maxWidth={150}
+            />
+            <Column
+              dataKey="status"
+              label="Status"
+              width={width * 0.1}
+              maxWidth={150}
+              cellRenderer={StatusColumn}
+            />
+            <Column
+              dataKey="requestType"
+              label="Type"
+              width={width * 0.1}
+              maxWidth={150}
+            />
+            <Column
+              dataKey="costTime"
+              label="Time(≈)"
+              width={width * 0.1}
+              maxWidth={150}
+              cellRenderer={({ cellData }) => {
+                return getTime(cellData);
+              }}
+            />
+          </Table>
+        )}
+      </AutoSizer>
       {detailData && (
         <div
           className="network-detail"

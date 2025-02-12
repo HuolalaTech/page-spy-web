@@ -46,7 +46,7 @@ const NetworkPanel = memo(() => {
   const storeRef = useRef(useSocketMessageStore.getState());
   const clearRecord = useRef(storeRef.current.clearRecord);
   const [filterKeyword, setFilterKeyword] = useState('');
-  const [filterType, setFilterType] = useState('Fetch');
+  const [filterType, setFilterType] = useState('All');
 
   const [networkMsg, storageMsg] = useSocketMessageStore(
     useShallow((state) => [state.networkMsg, state.storageMsg]),

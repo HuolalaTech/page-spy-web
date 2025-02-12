@@ -15,65 +15,19 @@
 
 .network-table {
   height: 100%;
-  overflow-x: hidden;
   background-color: #fff;
 
-  table {
-    width: 100%;
-    table-layout: fixed;
-    font-size: 13px;
-    color: #4a4b4d;
-    border-collapse: collapse;
-    th,
-    td {
-      border-right: 1px solid @table-border-color;
-      padding: 6px 6px;
-      &.active {
-        background-color: @tbody-select-bg;
-      }
-      &:last-child {
-        border-right: none;
-      }
-    }
-    thead {
-      position: sticky;
-      top: 0;
-      height: 30px;
-      background-color: @thead-bg;
-      th {
-        text-align: left;
-        border-bottom: 1px solid @table-border-color;
-      }
-    }
-    tbody {
-      td {
-        #mixin > .ellipsis;
-        &:nth-child(1) {
-          cursor: pointer;
-        }
-        &:nth-child(6) {
-          text-align: right;
-        }
-      }
-    }
-    tbody {
-      tr {
-        &:nth-child(odd) {
-          background-color: #f5f5f5;
-        }
-        &.error {
-          color: rgb(236, 48, 29);
-          .active {
-            color: rgb(236, 48, 29);
-            background-color: #f3cec9;
-          }
-        }
-        &:hover {
-          background-color: @tbody-hover-bg;
-        }
-      }
-    }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
   }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+  }
+  ::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, 0.25);
+  }
+
   .empty-table-placeholder {
     position: absolute;
     left: 50%;
@@ -216,6 +170,37 @@
           }
         }
       }
+    }
+  }
+  // thead > tr
+  .ReactVirtualized__Table__headerRow {
+    background-color: @thead-bg;
+    text-align: left;
+    border-bottom: 1px solid @table-border-color;
+  }
+  // thead > tr > td
+  .ReactVirtualized__Table__headerColumn {
+    text-transform: none;
+  }
+  // tbody > tr
+  .ReactVirtualized__Table__row {
+    &:hover {
+      background-color: @tbody-hover-bg;
+    }
+    &.odd {
+      background-color: #f5f5f5;
+    }
+    &.active {
+      background-color: @tbody-select-bg;
+    }
+    > div:nth-child(1) {
+      cursor: pointer;
+    }
+  }
+  // tbody > tr > td
+  .ReactVirtualized__Table__rowColumn {
+    &:nth-child(6) {
+      text-align: right;
     }
   }
 }
