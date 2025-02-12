@@ -3,7 +3,7 @@ import { dataUrlToBlob, downloadFile, semanticSize } from '../utils';
 import { withPopup, usePopupRef } from '@/utils/withPopup';
 import { DownloadOutlined } from '@ant-design/icons';
 import ReactJsonView from '@huolala-tech/react-json-view';
-import { Form, message, Modal, Input, Alert, Button } from 'antd';
+import { Form, message, Modal, Input, Alert, Button, Empty } from 'antd';
 import dayjs from 'dayjs';
 import { useMemo } from 'react';
 
@@ -161,7 +161,15 @@ export const ResponseBody = ({ data }: ResponseBodyProps) => {
     // response ==> DataURL
     const { response, responseType, responseReason, requestType } = data;
 
-    if (!response) return null;
+    if (!response)
+      return (
+        <Empty
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
+          description={false}
+          style={{ margin: '40px 0' }}
+          imageStyle={{ height: 40 }}
+        />
+      );
     if (requestType === 'eventsource') {
       return <EventStream data={response} />;
     }

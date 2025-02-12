@@ -38,17 +38,44 @@ export function semanticSize(size: number) {
   return `${(size / oneMB).toFixed(1)} MB`;
 }
 
-export function getStatusText(row: ResolvedNetworkInfo) {
-  if (row.readyState === 0 || row.readyState === 1) return 'Pending';
-  if (row.readyState === 4) {
-    if (row.status === 0) return 'Failed';
+export interface StatusInfo {
+  status: 'unknown' | 'pending' | 'success' | 'error' | 'redirect';
+  text: 'Unknown' | 'Pending' | 'Failed' | string | number;
+}
+export function getStatusInfo(row: ResolvedNetworkInfo): StatusInfo {
+  let statusType: StatusInfo['status'] = 'unknown';
+  let statusText: StatusInfo['text'] = 'Unknown';
+
+  const { readyState, status, responseType } = row;
+  const code = Number(status);
+  if (code < 200) {
+    if (readyState <= 1) {
+      statusType = 'pending';
+      statusText = 'Pending';
+    } else {
+      const isResource = responseType === 'resource';
+      statusType = isResource ? 'unknown' : 'error';
+      statusText = isResource ? 'Unknown' : 'Failed';
+    }
+  } else {
+    if (code < 300) {
+      statusType = 'success';
+    } else if (code < 400) {
+      statusType = 'redirect';
+    } else {
+      statusType = 'error';
+    }
+    statusText = code;
   }
-  return row.status;
+  return {
+    status: statusType,
+    text: statusText,
+  };
 }
 
 export function getTime(time: number) {
-  if (time < 1000) return `${time} ms`;
-  if (time < 60 * 1000) return `${(time / 1000).toFixed(1)} s`;
+  if (time < 1000) return `${Math.ceil(time)} ms`;
+  if (time < 60 * 1000) return `${(time / 1000).toFixed(2)} s`;
   return `${(time / 60 / 1000).toFixed(1)} min`;
 }
 
@@ -62,3 +89,22 @@ export function validEntries(
   if (value !== null && value.length > 0) return true;
   return false;
 }
+
+export const getContentType = (
+  headers: ResolvedNetworkInfo['requestHeader'],
+) => {
+  if (!headers) return 'text/plain';
+  const contentType = headers.find(
+    ([key]) => key.toLowerCase() === 'content-type',
+  );
+  return contentType?.[1] || 'text/plain';
+};
+
+export const getRowClassName = (row: ResolvedNetworkInfo) => {
+  if (row.responseType === 'resource' && row.status === 0) return 'unknown';
+
+  if (row.readyState === 4 && (row.status === 0 || Number(row.status) >= 400))
+    return 'error';
+
+  return '';
+};
