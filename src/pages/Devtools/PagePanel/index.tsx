@@ -37,7 +37,24 @@ const PagePanel = () => {
         frameDocument.documentElement.setAttribute(name, value);
       });
 
-      insertStyle(frameDocument!, `a { pointer-events: none} `);
+      insertStyle(
+        frameDocument!,
+        `
+        a {
+          pointer-events: none;
+        }
+        ::-webkit-scrollbar {
+          width: 10px;
+          height: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.15);
+        }
+        ::-webkit-scrollbar-thumb:active {
+          background: rgba(0, 0, 0, 0.25);
+        }
+      `,
+      );
       const frameBody = frameDocument!.querySelector('body');
       frameBody?.addEventListener(
         'click',

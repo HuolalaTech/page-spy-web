@@ -250,6 +250,18 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       return acc;
     }, result);
 
+    if (localStorage.getItem('page-spy-replay-debug')) {
+      console.log({
+        rrweb: allRRwebEvent,
+        console: allConsoleMsg,
+        network: allNetworkMsg,
+        storage: allStorageMsg,
+        system: allSystemMsg,
+        startTime: start,
+        endTime: end,
+        duration,
+      });
+    }
     set(
       produce((state) => {
         state.activity = activity;

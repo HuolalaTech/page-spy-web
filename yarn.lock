@@ -405,6 +405,13 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@babel/runtime@^7.7.2":
+  version "7.26.7"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.26.7.tgz#f4e7fe527cd710f8dc0618610b61b4b060c3c341"
+  integrity sha512-AOPI3D+a8dXnja+iwsUqGRjr1BbZIe771sXdapOtYI531gSqpi92vXivKcq2asu/DFpdl1ceFAKZyRzK2PCVcQ==
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
 "@babel/template@^7.22.5":
   version "7.22.5"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.22.5.tgz#0c8c4d944509875849bd0344ff0050756eefc6ec"
@@ -714,61 +721,61 @@
     "@huolala-tech/page-spy-api-win32-arm" "2.0.0"
     "@huolala-tech/page-spy-api-win32-arm64" "2.0.0"
 
-"@huolala-tech/page-spy-base@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-base/-/page-spy-base-2.1.0.tgz#45c6d0f904ac42c58024634cc0574f84f8c1bb91"
-  integrity sha512-2pF/fxnBY4xH8dLkhyoQ9gH0JsSRFL+cEjYdO6XpPfqeuQhi88lYWfGVZuPvbgxWqJg6NkprqTnMpaAiXqqDzw==
-  dependencies:
-    "@huolala-tech/page-spy-types" "^2.1.0"
-
-"@huolala-tech/page-spy-browser@^2.1.1":
+"@huolala-tech/page-spy-base@^2.1.1":
   version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-browser/-/page-spy-browser-2.1.1.tgz#ce35290210b362882f10e466325853bfc1914dbe"
-  integrity sha512-kGaRCJtSIXGPu56OkEwePb/OJ20FbEqnesqffLtYzSp9j76BsFBRt/871AAtXbR1zAloLhHNdhsItXnrKgt9PQ==
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-base/-/page-spy-base-2.1.1.tgz#0d97032b4c5e2f045113b49722947e756058202c"
+  integrity sha512-vkAXgo1a7kMsR47UrXAZ0h5/r6AEtjycD6fEv3SCLBcZz0GsolmPnCEXceKpcec+DD518+wSAQEfyanOkrEV5w==
+  dependencies:
+    "@huolala-tech/page-spy-types" "^2.1.1"
+
+"@huolala-tech/page-spy-browser@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-browser/-/page-spy-browser-2.1.2.tgz#b92bd147c09e316d148ea9db6230f4992fa7d20c"
+  integrity sha512-KbimibhbZaAtmuk9Ttvs5b9NQNFIjmX0guhLNpzn6+n9AqKp+h4fhFKLl0o6nVPR+Beeg4WvT1xXzv0Y3zC8wA==
   dependencies:
     "@babel/runtime" "^7.13.0"
-    "@huolala-tech/page-spy-base" "^2.1.0"
-    "@huolala-tech/page-spy-types" "^2.1.0"
+    "@huolala-tech/page-spy-base" "^2.1.1"
+    "@huolala-tech/page-spy-types" "^2.1.1"
     copy-to-clipboard "^3.3.1"
     iseedeadpeople "^1.0.0"
 
-"@huolala-tech/page-spy-plugin-data-harbor@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-data-harbor/-/page-spy-plugin-data-harbor-2.1.0.tgz#4384d3b55267a65bc7d1d65dc8dd9648c355962f"
-  integrity sha512-v9YEQsLZivb1cnJVCTum5++GZ428I1F7ucqotYjbMv396GLxejooQBPbEbsnm3e9n9YehgzY2jguFZ0hZTxMyQ==
+"@huolala-tech/page-spy-plugin-data-harbor@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-data-harbor/-/page-spy-plugin-data-harbor-2.1.1.tgz#1f02c4cb4e3db064b8a9e780b36dd2e6a9cb2e68"
+  integrity sha512-yBR22E9hBojwmuXhNQFWXJYjSONdePzRYmj6th1QD5ZH8xgEFxRSuB6bdPPPuUG8uRtT0YiGejJn1XTC3tO4sw==
   dependencies:
     "@babel/runtime" "^7.13.0"
-    "@huolala-tech/page-spy-base" "^2.1.0"
+    "@huolala-tech/page-spy-base" "^2.1.1"
     copy-to-clipboard "^3.3.3"
     fflate "^0.8.1"
 
-"@huolala-tech/page-spy-plugin-rrweb@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-rrweb/-/page-spy-plugin-rrweb-2.1.0.tgz#82da28f65eef19bde7b696b795fbd77c9d7ee365"
-  integrity sha512-cIyKVPLZuCl3svWbsdfvOqgqUZ09inxMTogXT07ZuNVAW2LjMtj3Is3m9Iy9G7zbT+XuUEY3gW4uiPGhBh9Bfg==
+"@huolala-tech/page-spy-plugin-rrweb@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-rrweb/-/page-spy-plugin-rrweb-2.1.1.tgz#19dbcca2ebb03794ecf82c809bde62f3f72d573a"
+  integrity sha512-SAABdH1zIUePVpsTOFY+EbroY/DJgWKCvOtFB0hLY8F0Fc3cJG9bVyXu4ImkAcwVgcYZbqiBQIMno+a5jfRhjg==
   dependencies:
     "@babel/runtime" "^7.13.0"
-    "@huolala-tech/page-spy-base" "^2.1.0"
-    "@huolala-tech/page-spy-types" "^2.1.0"
+    "@huolala-tech/page-spy-base" "^2.1.1"
+    "@huolala-tech/page-spy-types" "^2.1.1"
     rrweb "^2.0.0-alpha.4"
 
-"@huolala-tech/page-spy-plugin-whole-bundle@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-whole-bundle/-/page-spy-plugin-whole-bundle-2.1.1.tgz#3e66c164378748425025eb047d99ea91f1d917ee"
-  integrity sha512-55ER2OoRpnrIqPvPu7BaCqnc4fmiC0scMnPZ+CzsidquYv0sQK9VlZ0IdsvvJNj0QV9Nu9eSHW6iQoLOibjTOA==
+"@huolala-tech/page-spy-plugin-whole-bundle@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-whole-bundle/-/page-spy-plugin-whole-bundle-2.1.2.tgz#625310d78b6237f959be2e46fb5cf2cf79bd4a37"
+  integrity sha512-oOVMwX7JSD+3gW+cThYcfVL+d7zudC4dTibtplIFLeeeJQ8RcG5NyP9evIymeUcEgk1hlWokUFu6vFDW26S4nQ==
   dependencies:
-    "@huolala-tech/page-spy-base" "^2.1.0"
-    "@huolala-tech/page-spy-browser" "^2.1.1"
-    "@huolala-tech/page-spy-plugin-data-harbor" "^2.1.0"
-    "@huolala-tech/page-spy-plugin-rrweb" "^2.1.0"
-    "@huolala-tech/page-spy-types" "^2.1.0"
+    "@huolala-tech/page-spy-base" "^2.1.1"
+    "@huolala-tech/page-spy-browser" "^2.1.2"
+    "@huolala-tech/page-spy-plugin-data-harbor" "^2.1.1"
+    "@huolala-tech/page-spy-plugin-rrweb" "^2.1.1"
+    "@huolala-tech/page-spy-types" "^2.1.1"
 
-"@huolala-tech/page-spy-types@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-types/-/page-spy-types-2.1.0.tgz#aee688e2f8680933fb8b6621981fd1f557f5cd7d"
-  integrity sha512-KpJEMLyIBe/brmb9h9WrG1CRR6Jlft1Fkzxa/EpfaDvQ9D1WmZNDox0D6Mv3YWccZhxzR2Cepr2XJjMC+tiQjQ==
+"@huolala-tech/page-spy-types@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-types/-/page-spy-types-2.1.1.tgz#7429d3f012f30cffd1c458c84ba771337d0ed4b5"
+  integrity sha512-kbQ5kvNuMF1bAIHuxZE08pjPR+cHKgsul6tBwTs0I6x4e1FOGXbRcPPKZ6OvsH9rOTI1g1vDKtylpCyi1TydFg==
   dependencies:
-    "@huolala-tech/page-spy-base" "^2.1.0"
+    "@huolala-tech/page-spy-base" "^2.1.1"
 
 "@huolala-tech/react-json-view@^1.2.5":
   version "1.2.5"
@@ -1231,6 +1238,14 @@
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.6.tgz#18187bcda5281f8e10dfc48f0943e2fdf4f75e2e"
   integrity sha512-VnCdSxfcm08KjsJVQcfBmhEQAPnLB8G08hAxn39azX1qYBQ/5RVQuoHuKIcfKOdncuaUvEpFKFzEvbtIMsfVew==
   dependencies:
+    "@types/react" "*"
+
+"@types/react-virtualized@^9.22.0":
+  version "9.22.0"
+  resolved "https://registry.yarnpkg.com/@types/react-virtualized/-/react-virtualized-9.22.0.tgz#2ff9b3692fa04a429df24ffc7d181d9f33b3831d"
+  integrity sha512-JL/YCCFZ123za//cj10Apk54F0UGFMrjOE0QHTuXt1KBMFrzLOGv9/x6Uc/pZ0Gaf4o6w61Fostvlw0DwuPXig==
+  dependencies:
+    "@types/prop-types" "*"
     "@types/react" "*"
 
 "@types/react@*":
@@ -1801,7 +1816,7 @@ cli-truncate@^3.1.0:
     slice-ansi "^5.0.0"
     string-width "^5.0.0"
 
-clsx@^1.1.1, clsx@^1.2.1:
+clsx@^1.0.4, clsx@^1.1.1, clsx@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
   integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
@@ -2006,7 +2021,7 @@ doctrine@^3.0.0:
   dependencies:
     esutils "^2.0.2"
 
-dom-helpers@^5.0.1:
+dom-helpers@^5.0.1, dom-helpers@^5.1.3:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-5.2.1.tgz#d9400536b2bf8225ad98fe052e029451ac40e902"
   integrity sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==
@@ -4352,7 +4367,7 @@ pretty-bytes@^6.1.1:
   resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-6.1.1.tgz#38cd6bb46f47afbf667c202cfc754bffd2016a3b"
   integrity sha512-mQUvGU6aUFQ+rNvTIAcZuWGRT9a6f6Yrg9bHs4ImKF+HZCEK+plBvnAZYSIQztknZF2qnzNtr6F8s0+IuptdlQ==
 
-prop-types@15.x, prop-types@^15.6.2, prop-types@^15.8.1:
+prop-types@15.x, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -4813,6 +4828,11 @@ react-is@^18.2.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.3.1.tgz#e83557dc12eae63a99e003a46388b1dcbb44db7e"
   integrity sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==
 
+react-lifecycles-compat@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
+  integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
 react-refresh@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.0.tgz#4e02825378a5f227079554d4284889354e5f553e"
@@ -4850,6 +4870,18 @@ react-transition-group@^4.4.5:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-virtualized@^9.22.6:
+  version "9.22.6"
+  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.22.6.tgz#3ae2aa69eca61cf3af332e2f9d6b4aa5638786d5"
+  integrity sha512-U5j7KuUQt3AaMatlMJ0UJddqSiX+Km0YJxSqbAzIiGw5EmNz0khMyqP2hzgu4+QUtm+QPIrxzUX4raJxmVJnHg==
+  dependencies:
+    "@babel/runtime" "^7.7.2"
+    clsx "^1.0.4"
+    dom-helpers "^5.1.3"
+    loose-envify "^1.4.0"
+    prop-types "^15.7.2"
+    react-lifecycles-compat "^3.0.4"
 
 react@^18.2.0:
   version "18.2.0"

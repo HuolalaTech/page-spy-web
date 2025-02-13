@@ -2,6 +2,7 @@
   --doc-sidebar-width: 240px;
   --doc-page-max-width: 1024px;
   --doc-side-space: calc(100vw - var(--doc-page-max-width));
+  #scrollbar.dark();
 
   position: relative;
   height: 100%;
@@ -27,17 +28,5 @@
       border-radius: 4px;
       margin-bottom: 0;
     }
-  }
-  ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-  }
-
-  ::-webkit-scrollbar-thumb:active {
-    background: rgba(255, 255, 255, 0.2);
   }
 }
