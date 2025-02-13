@@ -25,6 +25,7 @@ export const PluginPanel = memo(() => {
       <Row
         justify="space-between"
         align="middle"
+        wrap={false}
         style={{ paddingRight: 16, borderBottom: '1px solid rgb(5 5 5 / 6%)' }}
       >
         <Col flex={1}>

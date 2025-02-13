@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { SpyStorage } from '@huolala-tech/page-spy-types';
+import { SpyNetwork, SpyStorage } from '@huolala-tech/page-spy-types';
 import { Dropdown, Empty, Space, Tooltip } from 'antd';
 import clsx from 'clsx';
 import copy from 'copy-to-clipboard';
@@ -14,18 +14,65 @@ import { InfoCircleOutlined } from '@ant-design/icons';
 import { Table, Column, AutoSizer, TableCellRenderer } from 'react-virtualized';
 import 'react-virtualized/styles.css';
 
+export type NetworkType =
+  | 'All'
+  | 'Fetch'
+  | 'CSS'
+  | 'JS'
+  | 'Img'
+  | 'Media'
+  | 'Other';
+
+export const RESOURCE_TYPE: Map<
+  NetworkType,
+  (type: SpyNetwork.RequestType) => boolean
+> = new Map([
+  ['All', (type) => /.*/.test(type)],
+  [
+    'Fetch',
+    (type) => /(fetch|xhr|mp-request|mp-upload|eventsource)/.test(type),
+  ],
+  ['CSS', (type) => /css/.test(type)],
+  ['JS', (type) => /script/.test(type)],
+  ['Img', (type) => /img/.test(type)],
+  ['Media', (type) => /(audio|video)/.test(type)],
+  [
+    'Other',
+    (type) =>
+      !/(fetch|xhr|mp-request|mp-upload|eventsource|css|script|img|audio|video)/.test(
+        type,
+      ),
+  ],
+]);
+
 interface NetworkTableProps {
   data: ResolvedNetworkInfo[];
+  filterType: NetworkType;
+  filterKeyword: string;
   cookie?: SpyStorage.GetTypeDataItem['data'];
   resizeCacheKey: string;
 }
 
 export const NetworkTable = ({
-  data,
+  data: originData,
   cookie,
+  filterType = 'All',
+  filterKeyword = '',
   resizeCacheKey,
 }: NetworkTableProps) => {
   const { t: nt } = useTranslation('translation', { keyPrefix: 'network' });
+
+  const data = useMemo(() => {
+    const keyword = filterKeyword.trim().toLocaleLowerCase();
+    if (!keyword && filterType === 'All') {
+      return originData;
+    }
+    return originData.filter(
+      (msg) =>
+        RESOURCE_TYPE.get(filterType)?.(msg.requestType) &&
+        msg.url.toLocaleLowerCase().includes(keyword),
+    );
+  }, [filterKeyword, filterType, originData]);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
