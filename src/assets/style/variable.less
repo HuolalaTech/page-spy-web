@@ -29,33 +29,37 @@
 
 #scrollbar {
   .light() {
-    ::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
-    }
-    ::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.05);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.15);
-    }
-    ::-webkit-scrollbar-thumb:active {
-      background: rgba(0, 0, 0, 0.25);
+    @media screen and (min-width: 1200px) {
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.05);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.15);
+      }
+      ::-webkit-scrollbar-thumb:active {
+        background: rgba(0, 0, 0, 0.25);
+      }
     }
   }
   .dark() {
-    ::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
-    }
-    ::-webkit-scrollbar-track {
-      background: rgba(255, 255, 255, 0.05);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.15);
-    }
-    ::-webkit-scrollbar-thumb:active {
-      background: rgba(255, 255, 255, 0.2);
+    @media screen and (min-width: 1200px) {
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.15);
+      }
+      ::-webkit-scrollbar-thumb:active {
+        background: rgba(255, 255, 255, 0.2);
+      }
     }
   }
 }
