@@ -22,6 +22,7 @@ yarn-error.log*
 test.ts
 public/*
 !public/favicon*
+!public/googlea4248a0cfc45c4e9.html
 
 # misc
 .DS_Store
