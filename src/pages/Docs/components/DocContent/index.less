@@ -6,7 +6,7 @@
   gap: 40px;
   padding-inline: 24px;
   height: 100%;
-  overflow: auto;
+  overflow: hidden auto;
   transition: filter ease-in-out 100ms;
   &.loading {
     filter: blur(3px);
@@ -136,11 +136,12 @@
 
   .navigation {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 2fr 1fr 2fr;
     margin-top: 80px;
     background-color: var(--dark-background);
     > div {
       cursor: pointer;
+      overflow: hidden;
       &:hover .footer-link__title {
         color: lighten(@primary-color, 15%);
       }
@@ -172,6 +173,9 @@
         font-size: 16px;
         font-weight: 700;
         transition: color linear 100ms;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
     &-next .footer-link {
@@ -237,7 +241,7 @@
     position: sticky;
     bottom: 0;
     width: 100vw;
-    padding: 24px;
+    padding: 24px 24px 40px;
     transform: translate(-24px, 24px);
     border-top: 1px solid @dark-border;
   }

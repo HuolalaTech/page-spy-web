@@ -1,10 +1,8 @@
 import { langType, useLanguage } from '@/utils/useLanguage';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './index.less';
 import clsx from 'clsx';
-import { Children, memo, useEffect, useTransition } from 'react';
-import { useSidebarStore } from '@/store/doc-sidebar';
-import { useShallow } from 'zustand/react/shallow';
+import { memo } from 'react';
 import { TransitionLink } from '@/components/Transition';
 
 export const DOC_MENUS = [

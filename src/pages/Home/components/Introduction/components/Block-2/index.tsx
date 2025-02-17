@@ -106,7 +106,7 @@ export const IntroBlock2 = () => {
           classNames="fade"
           timeout={300}
         >
-          <div ref={nodeRef} style={{ width: 400, height: 400 }}>
+          <div ref={nodeRef} style={{ maxWidth: '100%' }}>
             {activeKey === 'sdk' ? <SDKPanel /> : <ClientPanel />}
           </div>
         </CSSTransition>
