@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@huolala-tech/custom-error": "^1.0.0",
     "@huolala-tech/page-spy-browser": "^2.1.2",
     "@huolala-tech/page-spy-plugin-data-harbor": "^2.1.1",
     "@huolala-tech/page-spy-plugin-rrweb": "^2.1.1",
