@@ -1,5 +1,10 @@
 import BaotaPageSpy from '@/assets/image/screenshot/baota-pagespy.png';
 import BaotaInstall from '@/assets/image/screenshot/baota-install.png';
+import GenerateHtpasswd from '@/assets/image/screenshot/generate-htpasswd.png';
+import BaotaDockerWebsiteNone from '@/assets/image/screenshot/baota-docker-website-none.png';
+import BaotaWebsiteCreate from '@/assets/image/screenshot/baota-website-create.png';
+import BaotaWebsiteEdit from '@/assets/image/screenshot/baota-website-edit.png';
+import BaotaWebsiteEditReverseProxy from '@/assets/image/screenshot/baota-website-edit-reverse-proxy.png';
 import { DeployNext } from '../components/DeployNext';
 
 PageSpy 支持在宝塔面板的 Docker 应用商店一键部署。
@@ -19,6 +24,71 @@ PageSpy 支持在宝塔面板的 Docker 应用商店一键部署。
 <img src={BaotaInstall} />
 
 3. 面板会自动进行应用初始化，大概需要 1 分钟左右，初始化完成后即可通过 6752 端口访问。
+
+
+### 配置域名等信息 (重要)
+本部分内容是针对想要**绑定域名访问** 且 想要**使用 Auth 认证**通过后授权访问的用户。  
+本部分文档对于当前宝塔版本 `v9.4.0` 及以前版本的用户有效，后续新版本可能会修复这个问题。
+
+> **为什么需要这样配置？**  
+> 由于未知原因，如果直接通过宝塔面板的「Docker - 网站」里的「HTTP 认证」等方式进行配置，最终会导致 PageSpy 服务无法正常访问。
+> 可以参考本 [GitHub Issue](https://github.com/HuolalaTech/page-spy-web/issues/310)了解问题。
+> 包括但不限于：
+> - 配置了根目录 `/` HTTP认证，访问没问题，但是通过 SDK 调用后会发现请求 401 出错
+> - 未知原因导致无论配置 `/#/room-list` 还是 `/room-list/` 都没有出现认证弹窗
+> - 无法添加 Nginx 配置文件，导致验证无法忽略某些需要公开的请求，例如 `/api` `/page-spy` `/plugin` 等
+> 故研究出下面这种有些看似繁琐的配置方式，但是可以保证 PageSpy 服务正常访问且可以通过 Auth 认证。
+
+
+1. 首先，创建一个 `htpasswd` 文件，用于存放用户名和密码。在终端中执行以下命令，生成一个 `htpasswd` 文件。  
+```bash
+htpasswd -c /www/server/pass/yourDomain.com/Auth.htpasswd yourUsername
+```
+请将 `yourDomain.com` 替换为你的域名，或保存到其他位置，`yourUsername` 替换为你的用户名。  
+生成后会要求输入密码，**如果命令行提示找不到 htpasswd，则使用下面方法在线生成**
+
+2. 在线生成 `htpasswd` 文件。  
+可以直接浏览器搜索 `在线生成htpasswd` 找一个在线工具。下面使用其中一个进行演示。  
+<img src={GenerateHtpasswd} />  
+填写用户名和密码，选择 `Crypt`算法，之后将生成的内容保存到上一步的目录文件中，例如 `/www/server/pass/yourDomain.com/Auth.htpasswd`。
+
+3. 前往「Docker - 网站」中确保没有任何域名与当前需要的 PageSpy 容器绑定。如果有请先删除。  
+<img src={BaotaDockerWebsiteNone} />
+
+4. 前往「网站 - PHP项目」中添加一个新的站点，填写域名等信息，并选择 PHP 版本为 `纯静态`。  
+<img src={BaotaWebsiteCreate} />
+
+5. 编辑站点，找到 `反向代理` 随后 `添加反向代理`，自定义一个名称，并填写代理地址为 `http://localhost:6752`或`http://127.0.0.1:6752`，保存。  
+<img src={BaotaWebsiteEdit} />
+
+6. 找到刚创建的反向代理，点击 `配置文件` 随后按照下面代码和图片示例进行修改，保存。  
+需要修改一处，将 `location ^~ /` 改为 `location /`。  
+随后插入两处内容。  
+> 参考 [常见问题解答 - 调试端如何加一些安全认证的保护，开发者通过认证才可以访问？](./faq#basic-auth)。  
+
+```nginx
+#PROXY-START/
+# 修改下面（宝塔配置文件第四行）的 "location ^~ /" 为 "location /"
+location /
+{
+    #......其他配置
+    auth_basic "请输入用户名和密码以访问 PageSpy 服务";
+    auth_basic_user_file /www/server/pass/yourDomain.com/Auth.htpasswd;
+}
+
+# 新增下面内容
+location ~ /(api|page-spy|plugin) {
+    proxy_pass http://127.0.0.1:6752;
+    proxy_http_version    1.1;
+    proxy_set_header      Upgrade $http_upgrade;
+    proxy_set_header      Connection "upgrade";
+}
+#PROXY-END/
+```
+<img src={BaotaWebsiteEditReverseProxy} />
+
+7. 大功告成，现在可以通过你的域名访问 PageSpy 前端测试了 :)
+
 
 ### 接下来#next
 
