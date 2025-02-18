@@ -1,5 +1,10 @@
 import BaotaPageSpy from '@/assets/image/screenshot/baota-pagespy.png';
 import BaotaInstall from '@/assets/image/screenshot/baota-install.png';
+import GenerateHtpasswd from '@/assets/image/screenshot/generate-htpasswd.png';
+import BaotaDockerWebsiteNone from '@/assets/image/screenshot/baota-docker-website-none.png';
+import BaotaWebsiteCreate from '@/assets/image/screenshot/baota-website-create.png';
+import BaotaWebsiteEdit from '@/assets/image/screenshot/baota-website-edit.png';
+import BaotaWebsiteEditReverseProxy from '@/assets/image/screenshot/baota-website-edit-reverse-proxy.png';
 import { DeployNext } from '../components/DeployNext';
 
 PageSpy supports one-click deployment in the Baota Panel's Docker appstore.
@@ -11,14 +16,76 @@ Install the Baota Panel by visiting the [Baota Panel](https://www.bt.cn/new/inde
 ### Installation#install
 
 1. Go to "Docker - App Store," find PageSpy, and click install.
-
-   <img src={BaotaPageSpy} />
+<img src={BaotaPageSpy} />
 
 2. Set the basic information and click "Confirm."
+<img src={BaotaInstall} />
 
-   <img src={BaotaInstall} />
+3. The panel will automatically initialize the app, which takes about 1 minute. After initialization, the service will be accessible via port 6752.
 
-3. The panel will automatically initialize the app, which takes about 1 minutes. After initialization, the service will be accessible via port 6752.
+### Configuration of Domain and Other Information (Important)
+
+This section is for users who want to **bind a domain for access** and **use Auth authentication** for authorized access.  
+This documentation is valid for the current Baota version `v9.4.0` and earlier versions. Future versions may fix this issue.
+
+> **Why is this configuration needed?**  
+> For unknown reasons, if you configure through the "Docker - Website" section in the Baota Panel using "HTTP Authentication" and other methods, the PageSpy service will not be accessible.  
+> You can refer to this [GitHub Issue](https://github.com/HuolalaTech/page-spy-web/issues/310) to understand the problem.  
+> Including but not limited to:
+> - Configured root directory `/` HTTP authentication works, but SDK calls result in 401 errors.
+> - For unknown reasons, configuring `/#/room-list` or `/room-list/` does not trigger the authentication popup.
+> - Unable to add Nginx configuration files, making it impossible to bypass authentication for certain public requests like `/api`, `/page-spy`, `/plugin`, etc.
+> Therefore, the following seemingly cumbersome configuration method is provided to ensure that the PageSpy service is accessible and can be authenticated through Auth.
+
+1. First, create an `htpasswd` file to store the username and password. Execute the following command in the terminal to generate an `htpasswd` file.  
+```bash
+htpasswd -c /www/server/pass/yourDomain.com/Auth.htpasswd yourUsername
+```
+Replace `yourDomain.com` with your domain or save it to another location, and replace `yourUsername` with your username.  
+After generation, you will be prompted to enter a password. **If the command line indicates that htpasswd is not found, use the following method to generate it online.**
+
+2. Generate the `htpasswd` file online.  
+You can search for `online htpasswd generator` in your browser and use an online tool. Here is an example of one such tool.  
+<img src={GenerateHtpasswd} />  
+Fill in the username and password, select the `Crypt` algorithm, and then save the generated content to the directory file from the previous step, such as `/www/server/pass/yourDomain.com/Auth.htpasswd`.
+
+3. Go to "Docker - Website" and ensure that no domain is bound to the current PageSpy container. If there is, please delete it first.  
+<img src={BaotaDockerWebsiteNone} />
+
+4. Go to "Website - PHP Project" and add a new site, fill in the domain information, and select the PHP version as `Pure Static`.  
+<img src={BaotaWebsiteCreate} />
+
+5. Edit the site, find `Reverse Proxy`, then `Add Reverse Proxy`, customize a name, and fill in the proxy address as `http://localhost:6752` or `http://127.0.0.1:6752`, and save.  
+<img src={BaotaWebsiteEdit} />
+
+6. Find the newly created reverse proxy, click `Configuration File`, and then modify it according to the following code and image example, and save.  
+You need to modify one place, change `location ^~ /` to `location /`.  
+Then insert two pieces of content.  
+> Refer to [FAQ - How to add some security authentication protection to the debugging end so that developers can access it through authentication?](./faq#basic-auth).  
+
+```nginx
+#PROXY-START/
+# Modify the following (fourth line of the Baota configuration file) "location ^~ /" to "location /"
+location /
+{
+   #......other configurations
+   auth_basic "Please enter username and password to access PageSpy service";
+   auth_basic_user_file /www/server/pass/yourDomain.com/Auth.htpasswd;
+}
+
+# Add the following content
+location ~ /(api|page-spy|plugin) {
+   proxy_pass http://127.0.0.1:6752;
+   proxy_http_version    1.1;
+   proxy_set_header      Upgrade $http_upgrade;
+   proxy_set_header      Connection "upgrade";
+}
+#PROXY-END/
+```
+<img src={BaotaWebsiteEditReverseProxy} />
+
+7. Done, now you can access the PageSpy frontend through your domain for testing :)
+
 
 ### Next#next
 
