@@ -261,13 +261,9 @@
     "comment-autoRender": "Call $feedback.open() to open the popup if set to false",
     "install-1st": "First, install the dependency:",
     "install-2nd": "Next, create an instance:",
-    "customize": "Customize",
-    "customize-lTitle": "Personalization",
-    "customize-lDesc": "Theme color, logo, and title are customizable. Below are reference cases.",
-    "customize-rTitle": "First Experience",
-    "customize-rDesc": "Everything is ready! Click the float ball rendered at the bottom right.<br />Try entering a comment in the popup and export the logs.<br />Soon, I'll guide you to <5>review your own replay</5>!",
+    "install-result": "After installation, a widget will appear in the bottom right corner. Click to open the popup, enter a note, and export the log.",
     "replay": "Replay",
-    "guide": "Integration Guide",
+    "guide": "Back to Guide",
     "only-pc": "Please visit on PC :)"
   }
 }

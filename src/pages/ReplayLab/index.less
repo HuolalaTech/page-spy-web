@@ -45,18 +45,19 @@
     transform: translateX(-50%);
     font-size: 24px;
     user-select: none;
-    opacity: 0.65;
+    opacity: 0.85;
     transition: opacity 0.1s linear;
-    @media screen and (min-width: 440px) {
-      left: 30px;
-      transform: none;
-    }
+    white-space: nowrap;
     &:hover {
       opacity: 1;
     }
-    [disabled] {
-      color: #bbb;
-      cursor: not-allowed;
+    &__item {
+      font-size: 32px;
+      padding: 12px;
+      &[disabled] {
+        color: #bbb;
+        cursor: not-allowed;
+      }
     }
   }
 

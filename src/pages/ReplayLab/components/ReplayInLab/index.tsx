@@ -5,7 +5,7 @@ import './index.less';
 import { Button, Flex, Space, Upload, UploadProps } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeftOutlined, FileSearchOutlined } from '@ant-design/icons';
-import { REPLAY_LAB_TRIED, useStepStore } from '../store';
+import { useStepStore } from '../store';
 import { useThreshold } from '@/utils/useThreshold';
 
 export const ReplayInLab = () => {
@@ -15,7 +15,6 @@ export const ReplayInLab = () => {
   const uploadCustomRequest: UploadProps['customRequest'] = (file) => {
     const blob = URL.createObjectURL(file.file as File);
     setUrl(blob);
-    localStorage.setItem(REPLAY_LAB_TRIED, '1');
     return null;
   };
   const goto = useStepStore((state) => state.goto);

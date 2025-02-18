@@ -86,7 +86,7 @@ ${INIT_CODE}`}
       vertical
       justify="center"
       align="center"
-      gap={24}
+      gap={20}
       className="import-package"
     >
       <h1 style={{ textAlign: 'center' }}>{t('install-title')}</h1>
@@ -106,13 +106,11 @@ ${INIT_CODE}`}
           </strong>
         ))}
       </Flex>
-      <div
-        className="import-code"
-        onWheel={(e) => {
-          e.stopPropagation();
-        }}
-      >
+      <div className="import-code">
         {activeMethod?.code}
+        <h5 style={{ marginTop: 12, textAlign: 'center' }}>
+          {t('install-result')}
+        </h5>
       </div>
     </Flex>
   );
