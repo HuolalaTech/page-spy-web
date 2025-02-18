@@ -250,7 +250,7 @@
     "welcome": "欢迎",
     "welcome-title": "欢迎来到<br />回放实验室",
     "welcome-desc": "几行代码，让系统拥有强大的「问题反馈」能力<br />数据都在本地，不经过网络传输，无需担心隐私泄露",
-    "take-try": "立刻体验",
+    "take-try": "开始体验",
     "install": "安装",
     "install-title": "随心选择引入方式",
     "install-desc": "与框架无关，你可以任选一种方式在项目中引入",
@@ -260,13 +260,9 @@
     "comment-autoRender": "默认渲染悬浮球，设置为 false 后可调用 $feedback.open() 打开弹窗",
     "install-1st": "首先安装依赖：",
     "install-2nd": "接着实例化：",
-    "customize": "定制",
-    "customize-lTitle": "个性化",
-    "customize-lDesc": "主题色、LOGO、标题支持定制，下面是参考的案例",
-    "customize-rTitle": "初体验",
-    "customize-rDesc": "一切准备就绪！点开右下方渲染的控件看看。<br />在弹窗中试着输入备注信息、并导出日志，<br />稍后我将带你 <5>查看你自己的操作回放</5> ！",
+    "install-result": "引入后会出现右下角所示控件，点开弹窗输入备注信息、并导出日志。",
     "replay": "回放",
-    "guide": "接入指引",
+    "guide": "返回指引",
     "only-pc": "请前往 PC 端体验 ：）"
   }
 }

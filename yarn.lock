@@ -759,10 +759,10 @@
     "@huolala-tech/page-spy-types" "^2.1.1"
     rrweb "^2.0.0-alpha.4"
 
-"@huolala-tech/page-spy-plugin-whole-bundle@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-whole-bundle/-/page-spy-plugin-whole-bundle-2.1.2.tgz#625310d78b6237f959be2e46fb5cf2cf79bd4a37"
-  integrity sha512-oOVMwX7JSD+3gW+cThYcfVL+d7zudC4dTibtplIFLeeeJQ8RcG5NyP9evIymeUcEgk1hlWokUFu6vFDW26S4nQ==
+"@huolala-tech/page-spy-plugin-whole-bundle@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-whole-bundle/-/page-spy-plugin-whole-bundle-2.1.3.tgz#7eb6474f94f15b42eb48e33cc836141d87aa6e74"
+  integrity sha512-shhaHEPfWgZeJTrA59m5n8mfxg7LUhmMSq55yC/nkb8E1AzbSLS72+nm9aZyCKm8aL/4zyOsdEc351aFW3QIQQ==
   dependencies:
     "@huolala-tech/page-spy-base" "^2.1.1"
     "@huolala-tech/page-spy-browser" "^2.1.2"
