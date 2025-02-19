@@ -85,6 +85,7 @@ export interface ReplayStore {
   storageMsg: Record<SpyStorage.DataType, SpyStorage.GetTypeDataItem['data']>;
   metaMsg: MetaInfo | null;
   setAllData: (data: HarborDataItem[]) => void;
+  resetState: () => void;
   flushActiveData: () => void;
   updateConsoleMsg: (currentTime: number) => void;
   updateNetworkMsg: (currentTime: number) => void;
@@ -146,6 +147,7 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
   metaMsg: null,
   setAllData(data) {
     if (!data?.length) return;
+    get().resetState();
 
     let start = data[0].timestamp;
     let end = data[data.length - 1].timestamp;
@@ -273,6 +275,13 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
         state.startTime = start;
         state.endTime = end;
         state.duration = duration;
+      }),
+    );
+  },
+  resetState() {
+    set(
+      produce((state) => {
+        Object.assign(state, useReplayStore.getInitialState());
       }),
     );
   },
