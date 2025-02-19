@@ -2,11 +2,10 @@ import WholeBundle, {
   Config,
 } from '@huolala-tech/page-spy-plugin-whole-bundle';
 import '@huolala-tech/page-spy-plugin-whole-bundle/dist/index.css';
-import { Flex, Button, Row, Col } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import './index.less';
 import { CodeBlock } from '@/components/CodeBlock';
-import { Trans, useTranslation } from 'react-i18next';
+import { useInViewport } from 'ahooks';
 
 type Theme = Omit<Config, 'autoRender'>;
 const THEMES: Theme[] = [
@@ -42,31 +41,31 @@ const THEMES: Theme[] = [
   },
 ];
 
-const translations = [
-  '你好，我是 PageSpy。当前时间：', // 中文 (简体中文)
-  'Hello, I am PageSpy. Current time:', // 英语 (English)
-  'Hola, soy PageSpy. Hora actual:', // 西班牙语 (Español)
-  'Bonjour, je suis PageSpy. Heure actuelle :', // 法语 (Français)
-  'Hallo, ich bin PageSpy. Aktuelle Uhrzeit:', // 德语 (Deutsch)
-  'Olá, eu sou o PageSpy. Hora atual:', // 葡萄牙语 (Português)
-  'Привет, я PageSpy. Текущее время:', // 俄语 (Русский)
-  'مرحبًا، أنا PageSpy. الوقت الحالي:', // 阿拉伯语 (العربية)
-];
-export const Customize = () => {
-  const { t } = useTranslation('translation', { keyPrefix: 'lab' });
-  const [themeIndex, setThemeIndex] = useState(0);
-  const consoleTimer = useRef<number | null>(null);
+export const CustomizeExample = () => {
   useEffect(() => {
     const $feedback = new WholeBundle();
     return () => {
       $feedback.abort();
     };
   }, []);
+
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView] = useInViewport(ref);
+
+  const [themeIndex, setThemeIndex] = useState(0);
   useEffect(() => {
     const theme = THEMES[themeIndex];
     const root = document.querySelector(
       '#page-spy-feedback-root',
     ) as HTMLDivElement;
+
+    if (!root) return;
+    if (!inView) {
+      root.style.visibility = 'hidden';
+    } else {
+      root.style.visibility = 'visible';
+    }
+
     const floatLogo = root.querySelector(
       '[class^="_float"] img',
     ) as HTMLImageElement;
@@ -92,74 +91,37 @@ export const Customize = () => {
         modalTitle.textContent = title;
       }
     }
-  }, [themeIndex]);
-  useEffect(() => {
-    let index = 0;
-    const { length } = translations;
-    consoleTimer.current = setInterval(() => {
-      console.log(
-        `${translations[index++ % length]} ${new Date().toLocaleString()}`,
-      );
-    }, 1000);
-    return () => {
-      if (consoleTimer.current) {
-        clearInterval(consoleTimer.current);
-        consoleTimer.current = null;
-      }
-    };
-  }, []);
+  }, [inView, themeIndex]);
 
   return (
-    <div className="customize">
-      <div className="customize-left">
-        <h1>{t('customize-lTitle')}</h1>
-        <h5 style={{ textAlign: 'center' }}>{t('customize-lDesc')}</h5>
-        <div className="examples">
-          <div className="examples-wrapper">
-            {THEMES.map((t, index) => {
-              const active = themeIndex === index;
-              return (
-                <div
-                  key={index}
-                  className="example-item"
-                  style={{
-                    color: active ? t.primaryColor : '#fff',
-                    borderColor: active ? t.primaryColor : 'transparent',
-                  }}
-                  onClick={() => setThemeIndex(index)}
-                >
-                  <img src={t.logo} />
-                  <b>{t.title}</b>
-                </div>
-              );
-            })}
-          </div>
-          <CodeBlock
-            code={`new WholeBundle(${JSON.stringify(
-              { ...THEMES[themeIndex], autoRender: true },
-              null,
-              2,
-            )})`}
-            lang="js"
-          />
-        </div>
+    <div className="examples" ref={ref}>
+      <div className="examples-wrapper">
+        {THEMES.map((t, index) => {
+          const active = themeIndex === index;
+          return (
+            <div
+              key={index}
+              className="example-item"
+              style={{
+                color: active ? t.primaryColor : '#fff',
+                borderColor: active ? t.primaryColor : 'transparent',
+              }}
+              onClick={() => setThemeIndex(index)}
+            >
+              <img src={t.logo} />
+              <b>{t.title}</b>
+            </div>
+          );
+        })}
       </div>
-      <div className="customize-right">
-        <h1>{t('customize-rTitle')}</h1>
-        <h5 style={{ letterSpacing: 0.5 }}>
-          <Trans i18nKey="lab.customize-rDesc">
-            一切准备就绪！点开右下方渲染的控件看看。
-            <br />
-            在弹窗中试着输入备注信息、并导出日志，
-            <br />
-            稍后我将带你
-            <u style={{ textUnderlineOffset: 5, fontStyle: 'italic' }}>
-              查看你自己的操作回放
-            </u>
-            ！
-          </Trans>
-        </h5>
-      </div>
+      <CodeBlock
+        code={`new WholeBundle(${JSON.stringify(
+          { ...THEMES[themeIndex], autoRender: true },
+          null,
+          2,
+        )})`}
+        lang="js"
+      />
     </div>
   );
 };

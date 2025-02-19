@@ -1,6 +1,4 @@
-import { useTranslation } from 'react-i18next';
 import { create } from 'zustand';
-import { Welcome } from './Welcome';
 import { debounce } from 'lodash-es';
 
 interface StepStore {
@@ -8,6 +6,9 @@ interface StepStore {
   goto: (c: number) => void;
   prev: () => void;
   next: () => void;
+
+  replayUrl: string;
+  setReplayUrl: (replayUrl: string) => void;
 }
 
 export const useStepStore = create<StepStore>((set, get) => {
@@ -18,6 +19,17 @@ export const useStepStore = create<StepStore>((set, get) => {
       trailing: false,
     }),
     prev: () => get().goto(Math.max(0, get().current - 1)),
-    next: () => get().goto(Math.min(2, get().current + 1)),
+    next: () => get().goto(Math.min(1, get().current + 1)),
+
+    replayUrl: '',
+    setReplayUrl(replayUrl) {
+      const prev = get().replayUrl;
+      if (prev?.startsWith('blob:')) {
+        URL.revokeObjectURL(prev);
+      }
+      if (replayUrl) {
+        set({ replayUrl });
+      }
+    },
   };
 });

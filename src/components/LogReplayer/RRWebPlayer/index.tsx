@@ -107,6 +107,7 @@ export const RRWebPlayer = memo(() => {
     });
     const replayer = playerInstance.current.getReplayer();
     const { startTime } = replayer.getMetaData();
+
     setRRWebStartTime(startTime);
     const doc = replayer.iframe.contentDocument!;
     const div = document.createElement('div');
@@ -126,7 +127,7 @@ export const RRWebPlayer = memo(() => {
         }, 150);
       }
     });
-  }, [events]);
+  }, [events, setRRWebStartTime]);
 
   return <div className="rrweb-player" ref={rootEl} />;
 });

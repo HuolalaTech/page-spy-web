@@ -1,17 +1,14 @@
-import { Flex, Space } from 'antd';
+import { CodeBlock } from '@/components/CodeBlock';
+import Icon from '@ant-design/icons';
+import { Space, Flex } from 'antd';
 import clsx from 'clsx';
 import { useMemo, useState } from 'react';
-import './index.less';
-import { CodeBlock } from '@/components/CodeBlock';
+import { useTranslation } from 'react-i18next';
 import JsDelivrSvg from '@/assets/image/jsdelivr.svg?react';
 import UnpkgSvg from '@/assets/image/unpkg.svg?react';
-import Icon from '@ant-design/icons';
-import { useTranslation } from 'react-i18next';
-import { useThreshold } from '@/utils/useThreshold';
 
-export const ImportPackage = () => {
+export const ImportGuide = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'lab' });
-  const isMobile = useThreshold();
   const methods = useMemo(() => {
     const INIT_CODE = `const $feedback = new WholeBundle({
   title?: string; // ${t('comment-title')}
@@ -58,12 +55,12 @@ ${INIT_CODE}`,
         title: 'NPM',
         code: (
           <Flex vertical gap={12}>
-            <h5>{t('install-1st')}</h5>
+            <p style={{ margin: 0 }}>{t('install-1st')}</p>
             <CodeBlock
               lang="bash"
               code="yarn add @huolala-tech/page-spy-plugin-whole-bundle"
             />
-            <h5>{t('install-2nd')}</h5>
+            <p style={{ margin: 0 }}>{t('install-2nd')}</p>
             <CodeBlock
               lang="javascript"
               code={`import WholeBundle from '@huolala-tech/page-spy-plugin-whole-bundle';
@@ -75,20 +72,12 @@ ${INIT_CODE}`}
         ),
       },
     ];
-  }, []);
+  }, [t]);
   const [active, setActive] = useState<string>(methods[0].title);
   const activeMethod = methods.find((i) => i.title === active);
   return (
-    <Flex
-      vertical
-      justify="center"
-      align="center"
-      gap={20}
-      className="import-package"
-    >
-      <h1 style={{ textAlign: 'center' }}>{t('install-title')}</h1>
-      <h5>{t('install-desc')}</h5>
-      <Flex gap={8}>
+    <div className="import-guide">
+      <Flex gap={8} justify="center">
         {methods.map(({ title }) => (
           <strong
             key={title}
@@ -103,14 +92,12 @@ ${INIT_CODE}`}
           </strong>
         ))}
       </Flex>
-      <div className="import-code">
+      <div
+        className="import-code"
+        style={{ marginTop: active === methods[0].title ? 20 : 0 }}
+      >
         {activeMethod?.code}
-        {!isMobile && (
-          <h5 style={{ marginTop: 12, textAlign: 'center' }}>
-            {t('install-result')}
-          </h5>
-        )}
       </div>
-    </Flex>
+    </div>
   );
 };
