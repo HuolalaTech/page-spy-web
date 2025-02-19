@@ -7,9 +7,11 @@ import JsDelivrSvg from '@/assets/image/jsdelivr.svg?react';
 import UnpkgSvg from '@/assets/image/unpkg.svg?react';
 import Icon from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import { useThreshold } from '@/utils/useThreshold';
 
 export const ImportPackage = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'lab' });
+  const isMobile = useThreshold();
   const methods = useMemo(() => {
     const INIT_CODE = `const $feedback = new WholeBundle({
   title?: string; // ${t('comment-title')}
@@ -17,6 +19,7 @@ export const ImportPackage = () => {
   primaryColor?: string; // ${t('comment-primaryColor')}
   autoRender?: boolean; // ${t('comment-autoRender')}
 })`;
+
     return [
       {
         title: 'CDN',
@@ -31,10 +34,7 @@ export const ImportPackage = () => {
                   </Space>
                 ),
                 lang: 'javascript',
-                code: `<script
-  src="https://cdn.jsdelivr.net/npm/@huolala-tech/page-spy-plugin-whole-bundle"
-  crossorigin="anonymous">
-</script>
+                code: `<script src="https://cdn.jsdelivr.net/npm/@huolala-tech/page-spy-plugin-whole-bundle" crossorigin="anonymous"></script>
 
 ${INIT_CODE}`,
               },
@@ -46,10 +46,7 @@ ${INIT_CODE}`,
                   </Space>
                 ),
                 lang: 'javascript',
-                code: `<script
-  src="https://unpkg.com/@huolala-tech/page-spy-plugin-whole-bundle"
-  crossorigin="anonymous">
-</script>
+                code: `<script src="https://unpkg.com/@huolala-tech/page-spy-plugin-whole-bundle" crossorigin="anonymous"></script>
 
 ${INIT_CODE}`,
               },
@@ -108,9 +105,11 @@ ${INIT_CODE}`}
       </Flex>
       <div className="import-code">
         {activeMethod?.code}
-        <h5 style={{ marginTop: 12, textAlign: 'center' }}>
-          {t('install-result')}
-        </h5>
+        {!isMobile && (
+          <h5 style={{ marginTop: 12, textAlign: 'center' }}>
+            {t('install-result')}
+          </h5>
+        )}
       </div>
     </Flex>
   );

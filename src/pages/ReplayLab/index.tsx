@@ -12,6 +12,7 @@ import { ReplayInLab } from './components/ReplayInLab';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import WholeBundle from '@huolala-tech/page-spy-plugin-whole-bundle';
 import '@huolala-tech/page-spy-plugin-whole-bundle/dist/index.css';
+import { useThreshold } from '@/utils/useThreshold';
 
 const translations = [
   '你好，我是 PageSpy。', // 中文 (简体中文)
@@ -37,16 +38,17 @@ const ReplayLab = () => {
       feedback.current = null;
     };
   }, []);
+  const isMobile = useThreshold();
   useEffect(() => {
     const $feedback = feedback.current;
     if (!$feedback) return;
 
     const { root } = $feedback;
     if (root) {
-      if (current !== 1) {
-        root.style.display = 'none';
-      } else {
+      if (current === 1 && !isMobile) {
         root.style.display = 'block';
+      } else {
+        root.style.display = 'none';
       }
     }
     if (current === 2) {
