@@ -9,6 +9,7 @@ import Icon from '@ant-design/icons';
 import { ImportGuide } from '../ImportGuide';
 import { useEffect } from 'react';
 import demo from './demo.json?url';
+import { useThreshold } from '@/utils/useThreshold';
 
 export const Welcome = () => {
   const { t } = useTranslation();
@@ -29,6 +30,8 @@ export const Welcome = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const isMobile = useThreshold(414);
 
   return (
     <Flex
@@ -52,33 +55,35 @@ export const Welcome = () => {
           数据都在本地，不经过网络传输，无需担心隐私泄露
         </Trans>
       </h5>
-      <Flex gap={12} align="center">
-        <Popover content={ImportGuide} trigger="click">
-          <Button
-            type="primary"
-            size="large"
-            icon={<Icon component={CodeBlockSvg} style={{ fontSize: 20 }} />}
-          >
-            <b>{t('common.inject-sdk')}</b>
-          </Button>
-        </Popover>
+      <Flex gap={12} vertical={isMobile} justify="center" align="center">
+        <Flex gap={12}>
+          <Popover content={ImportGuide} trigger="click">
+            <Button
+              type="primary"
+              size="large"
+              icon={<Icon component={CodeBlockSvg} style={{ fontSize: 20 }} />}
+            >
+              <b>{t('common.inject-sdk')}</b>
+            </Button>
+          </Popover>
 
-        <Upload
-          accept=".json"
-          maxCount={1}
-          customRequest={(file) => {
-            const blob = URL.createObjectURL(file.file as File);
-            gotoReplay(blob);
-          }}
-          itemRender={() => null}
-        >
-          <Button
-            size="large"
-            icon={<Icon component={PaperClipSvg} style={{ fontSize: 20 }} />}
+          <Upload
+            accept=".json"
+            maxCount={1}
+            customRequest={(file) => {
+              const blob = URL.createObjectURL(file.file as File);
+              gotoReplay(blob);
+            }}
+            itemRender={() => null}
           >
-            <b>{t('lab.select-log')}</b>
-          </Button>
-        </Upload>
+            <Button
+              size="large"
+              icon={<Icon component={PaperClipSvg} style={{ fontSize: 20 }} />}
+            >
+              <b>{t('lab.select-log')}</b>
+            </Button>
+          </Upload>
+        </Flex>
         <Link
           to="?demo"
           target="_blank"
