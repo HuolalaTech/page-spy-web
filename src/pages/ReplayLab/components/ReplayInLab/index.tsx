@@ -40,11 +40,21 @@ export const ReplayInLab = () => {
   if (isMobile) {
     return (
       <Flex
+        vertical
         justify="center"
         align="center"
         style={{ height: '100%', paddingInline: 20 }}
+        gap={24}
       >
         <h2>{t('lab.only-pc')}</h2>
+        <Button
+          icon={<ArrowLeftOutlined />}
+          onClick={() => {
+            goto(0);
+          }}
+        >
+          {t('common.back')}
+        </Button>
       </Flex>
     );
   }

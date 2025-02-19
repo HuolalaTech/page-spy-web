@@ -49,7 +49,8 @@
     "next": "Next",
     "replay-lab": "Replay Lab",
     "toc": "Table of Contents",
-    "filter": "Filter"
+    "filter": "Filter",
+    "back": "Back"
   },
   "error": {
     "oops": "Oops! Errors happened~",
