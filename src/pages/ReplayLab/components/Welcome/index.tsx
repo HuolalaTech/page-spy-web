@@ -1,9 +1,12 @@
-import { Button, Flex, Upload } from 'antd';
+import { Button, Flex, Popover, Upload } from 'antd';
 import { useStepStore } from '../store';
 import { Trans, useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import LinkSvg from '@/assets/image/link.svg?react';
-import Icon, { FileSearchOutlined } from '@ant-design/icons';
+import CodeBlockSvg from '@/assets/image/code-block.svg?react';
+import Icon, { PaperClipOutlined } from '@ant-design/icons';
+import { ImportGuide } from '../ImportGuide';
+import { useEffect } from 'react';
 import demo from './demo.json?url';
 
 export const Welcome = () => {
@@ -17,6 +20,14 @@ export const Welcome = () => {
     setReplayUrl(blob);
     next();
   };
+
+  const { search } = useLocation();
+  useEffect(() => {
+    if (search.includes('?demo')) {
+      gotoReplay(demo);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Flex
@@ -41,15 +52,15 @@ export const Welcome = () => {
         </Trans>
       </h5>
       <Flex gap={12} align="center">
-        <Button
-          type="primary"
-          size="large"
-          onClick={() => {
-            gotoReplay(demo);
-          }}
-        >
-          <b>体验 Demo</b>
-        </Button>
+        <Popover content={ImportGuide} trigger="click">
+          <Button
+            type="primary"
+            size="large"
+            icon={<Icon component={CodeBlockSvg} style={{ fontSize: 20 }} />}
+          >
+            <b>{t('common.inject-sdk')}</b>
+          </Button>
+        </Popover>
 
         <Upload
           accept=".json"
@@ -60,12 +71,13 @@ export const Welcome = () => {
           }}
           itemRender={() => null}
         >
-          <Button size="large">
+          <Button size="large" icon={<PaperClipOutlined />}>
             <b>{t('lab.select-log')}</b>
           </Button>
         </Upload>
         <Link
-          to="/docs"
+          to="?demo"
+          target="_blank"
           style={{
             color: 'white',
             textDecoration: 'underline',
@@ -73,7 +85,7 @@ export const Welcome = () => {
           }}
         >
           <Flex gap={4}>
-            <span>接入文档</span>
+            <span>{t('lab.take-try')}</span>
             <Icon component={LinkSvg} />
           </Flex>
         </Link>

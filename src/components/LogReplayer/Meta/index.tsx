@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
 import './index.less';
 import CopyContent from '@/components/CopyContent';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 const { Paragraph, Title } = Typography;
 
@@ -112,7 +113,7 @@ export const Meta = memo(() => {
       placement="bottom"
       getPopupContainer={(node) => node.parentElement!}
     >
-      <Button>{t('replay.meta-info')}</Button>
+      <Button icon={<InfoCircleOutlined />}>{t('replay.meta-info')}</Button>
     </Popover>
   );
 });
