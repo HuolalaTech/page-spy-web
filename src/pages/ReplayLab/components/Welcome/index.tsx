@@ -4,7 +4,8 @@ import { Trans, useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import LinkSvg from '@/assets/image/link.svg?react';
 import CodeBlockSvg from '@/assets/image/code-block.svg?react';
-import Icon, { PaperClipOutlined } from '@ant-design/icons';
+import PaperClipSvg from '@/assets/image/paper-clip.svg?react';
+import Icon from '@ant-design/icons';
 import { ImportGuide } from '../ImportGuide';
 import { useEffect } from 'react';
 import demo from './demo.json?url';
@@ -71,7 +72,10 @@ export const Welcome = () => {
           }}
           itemRender={() => null}
         >
-          <Button size="large" icon={<PaperClipOutlined />}>
+          <Button
+            size="large"
+            icon={<Icon component={PaperClipSvg} style={{ fontSize: 20 }} />}
+          >
             <b>{t('lab.select-log')}</b>
           </Button>
         </Upload>

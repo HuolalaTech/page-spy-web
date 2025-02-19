@@ -1,8 +1,10 @@
-import { ArrowRightOutlined, GithubOutlined } from '@ant-design/icons';
-import { Row, Col, Button, Space } from 'antd';
+import { Row, Col, Button } from 'antd';
 import './index.less';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import QuickStartSvg from '@/assets/image/quick-start.svg?react';
+import TakeTrySvg from '@/assets/image/take-try.svg?react';
+import Icon from '@ant-design/icons';
 
 const Waves = () => {
   return (
@@ -86,13 +88,20 @@ export const Banner = () => {
 
         <div className="banner-actions">
           <Link to="/docs">
-            <Button type="primary" size="large" shape="round">
-              <Space>{t('banner.get-start')}</Space>
+            <Button
+              type="primary"
+              size="large"
+              icon={<Icon component={QuickStartSvg} style={{ fontSize: 20 }} />}
+            >
+              <b>{t('banner.get-start')}</b>
             </Button>
           </Link>
           <Link to="/replay-lab">
-            <Button size="large" shape="round">
-              <Space>{t('banner.take-try')}</Space>
+            <Button
+              size="large"
+              icon={<Icon component={TakeTrySvg} style={{ fontSize: 20 }} />}
+            >
+              <b>{t('banner.take-try')}</b>
             </Button>
           </Link>
         </div>

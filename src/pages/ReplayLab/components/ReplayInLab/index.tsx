@@ -3,10 +3,12 @@ import { useMemo } from 'react';
 import './index.less';
 import { Button, Flex, Space, Upload, UploadProps } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeftOutlined, PaperClipOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useStepStore } from '../store';
 import { useThreshold } from '@/utils/useThreshold';
 import { useShallow } from 'zustand/react/shallow';
+import PaperClipSvg from '@/assets/image/paper-clip.svg?react';
+import Icon from '@ant-design/icons';
 
 export const ReplayInLab = () => {
   const { t } = useTranslation();
@@ -31,7 +33,10 @@ export const ReplayInLab = () => {
           customRequest={uploadCustomRequest}
           itemRender={() => null}
         >
-          <Button type="primary" icon={<PaperClipOutlined />}>
+          <Button
+            type="primary"
+            icon={<Icon component={PaperClipSvg} style={{ fontSize: 20 }} />}
+          >
             {t('replay.select-log')}
           </Button>
         </Upload>
