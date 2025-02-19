@@ -1,6 +1,4 @@
-import { useTranslation } from 'react-i18next';
 import { create } from 'zustand';
-import { Welcome } from './Welcome';
 import { debounce } from 'lodash-es';
 
 interface StepStore {
