@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import JsDelivrSvg from '@/assets/image/jsdelivr.svg?react';
 import UnpkgSvg from '@/assets/image/unpkg.svg?react';
+import './index.less';
 
 export const ImportGuide = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'lab' });
