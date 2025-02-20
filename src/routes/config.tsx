@@ -1,17 +1,18 @@
+import React from 'react';
 import { RouteObject } from 'react-router-dom';
 import { useRoutes } from 'react-router-dom';
 
 import { Page404, To404 } from '@/404';
 import { Layouts } from '@/pages/Layouts';
-import { Home } from '@/pages/Home';
-import React from 'react';
+import { Entry } from '@/pages/Entry';
+import { Main } from '@/pages/Main';
+import { OSpy } from '@/pages/OSpy';
 
 const Devtools = React.lazy(() => import('@/pages/Devtools'));
 const RoomList = React.lazy(() => import('@/pages/RoomList'));
 const Docs = React.lazy(() => import('@/pages/Docs'));
 const Replay = React.lazy(() => import('@/pages/Replay'));
 const LogList = React.lazy(() => import('@/pages/LogList'));
-const ReplayLab = React.lazy(() => import('@/pages/ReplayLab'));
 
 export interface RouteInfo {
   icon?: any;
@@ -28,31 +29,47 @@ const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Entry />,
+      },
+    ],
+  },
+  {
+    path: '/pagespy',
+    element: <Layouts />,
+    children: [
+      {
+        index: true,
+        element: <Main />,
       },
       {
-        path: '/devtools',
+        path: 'devtools',
         element: <Devtools />,
       },
       {
-        path: '/room-list',
+        path: 'room-list',
         element: <RoomList />,
       },
       {
-        path: '/log-list',
+        path: 'log-list',
         element: <LogList />,
       },
       {
-        path: '/docs/*',
+        path: 'docs/*',
         element: <Docs />,
       },
       {
-        path: '/replay',
+        path: 'replay',
         element: <Replay />,
       },
+    ],
+  },
+  {
+    path: '/o-spy',
+    element: <Layouts />,
+    children: [
       {
-        path: '/replay-lab',
-        element: <ReplayLab />,
+        index: true,
+        element: <OSpy />,
       },
     ],
   },

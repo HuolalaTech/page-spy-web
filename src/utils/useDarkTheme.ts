@@ -5,8 +5,8 @@ export const useDarkTheme = () => {
   const { pathname } = useLocation();
   const isDark = useMemo(() => {
     if (
-      pathname === '/' ||
-      ['/docs', '/replay-lab'].some((i) => pathname.startsWith(i))
+      ['/', '/pagespy', '/o-spy'].some((i) => i === pathname) ||
+      pathname.startsWith('/pagespy/docs')
     )
       return true;
     return false;

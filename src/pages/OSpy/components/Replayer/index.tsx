@@ -10,7 +10,7 @@ import { useShallow } from 'zustand/react/shallow';
 import PaperClipSvg from '@/assets/image/paper-clip.svg?react';
 import Icon from '@ant-design/icons';
 
-export const ReplayInLab = () => {
+export const Replayer = () => {
   const { t } = useTranslation();
   const isMobile = useThreshold();
   const [prev, replayUrl, setReplayUrl] = useStepStore(
@@ -61,10 +61,8 @@ export const ReplayInLab = () => {
     );
   }
   return (
-    <div className="replay-in-lab">
-      <div className="replay-container">
-        <LogReplayer url={replayUrl} backSlot={reusableButtons} />
-      </div>
+    <div className="replayer-container">
+      <LogReplayer url={replayUrl} backSlot={reusableButtons} />
     </div>
   );
 };
