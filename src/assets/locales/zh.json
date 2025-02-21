@@ -89,8 +89,8 @@
   "banner": {
     "title": "多功能<br />远程调试工具",
     "desc": "像使用谷歌浏览器的控制台一样简单地开始远程调试",
-    "get-start": "快速上手",
-    "take-try": "立刻体验"
+    "get-start": "开始使用",
+    "badge": "免部署版"
   },
   "intro": {
     "does": "PageSpy 可以做到",
@@ -247,13 +247,12 @@
       "remark": "备注"
     }
   },
-  "lab": {
-    "welcome": "欢迎",
-    "welcome-title": "欢迎来到<br />回放实验室",
-    "welcome-desc": "几行代码，让系统拥有强大的「问题反馈」能力<br />数据都在本地，不经过网络传输，无需担心隐私泄露",
-    "take-try": "体验 Demo",
+  "oSpy": {
+    "slogan": "离线优先<br />即插即用",
+    "desc": "几行代码，保留程序运行现场用于回放<br />数据都在本地，不经过网络传输，无需担心隐私泄露",
+    "import-use": "接入 O-Spy",
     "select-log": "选择日志回放",
-    "import-use": "接入使用",
+    "take-try": "体验 Demo",
     "install": "安装",
     "install-title": "随心选择引入方式",
     "install-desc": "与框架无关，你可以任选一种方式在项目中引入",

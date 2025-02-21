@@ -90,8 +90,8 @@
   "banner": {
     "title": "All-In-One<br />Remote Debugging Tool",
     "desc": "Debug remotely and easily with a range of features like chrome devtool.",
-    "get-start": "Quick Start",
-    "take-try": "Try Now"
+    "get-start": "Get Started",
+    "badge": "No Deploy"
   },
   "intro": {
     "does": "What PageSpy does",
@@ -248,13 +248,12 @@
       "remark": "Remark"
     }
   },
-  "lab": {
-    "welcome": "Welcome",
-    "welcome-title": "Welcome to<br />Replay Lab",
-    "welcome-desc": "With just a few lines of code, empower your system with robust 'feedback capabilities'.<br />All data stays local, with no network transmission, ensuring complete privacy.",
-    "take-try": "Try Demo",
+  "oSpy": {
+    "slogan": "Offline First<br />Plug and Play",
+    "desc": "Record and replay with a few lines of code.<br />All data stays local, no network transfer, no privacy risk.",
+    "import-use": "Integrate O-Spy",
     "select-log": "Select Log",
-    "import-use": "Integrate",
+    "take-try": "Try Demo",
     "install": "Install",
     "install-title": "Choose Preferred Integration",
     "install-desc": "Framework agnostic. Choose any method to integrate into your project.",

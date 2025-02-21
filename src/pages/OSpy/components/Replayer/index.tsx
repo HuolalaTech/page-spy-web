@@ -53,7 +53,7 @@ export const Replayer = () => {
         style={{ height: '100%', paddingInline: 20 }}
         gap={24}
       >
-        <h2>{t('lab.only-pc')}</h2>
+        <h2>{t('oSpy.only-pc')}</h2>
         <Button icon={<ArrowLeftOutlined />} onClick={prev}>
           {t('common.back')}
         </Button>

@@ -1,9 +1,9 @@
-import { Row, Col, Button } from 'antd';
+import { Row, Col, Button, Badge } from 'antd';
 import './index.less';
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import QuickStartSvg from '@/assets/image/quick-start.svg?react';
-import TakeTrySvg from '@/assets/image/take-try.svg?react';
+import OSpySvg from '@/assets/image/o-spy.svg?react';
 import Icon from '@ant-design/icons';
 
 const Waves = () => {
@@ -87,7 +87,7 @@ export const Banner = () => {
         <p className="slogan-desc text-center">{t('banner.desc')}</p>
 
         <div className="banner-actions">
-          <Link to="/docs">
+          <Link to="docs">
             <Button
               type="primary"
               size="large"
@@ -96,14 +96,16 @@ export const Banner = () => {
               <b>{t('banner.get-start')}</b>
             </Button>
           </Link>
-          <Link to="/replay-lab">
-            <Button
-              size="large"
-              icon={<Icon component={TakeTrySvg} style={{ fontSize: 20 }} />}
-            >
-              <b>{t('banner.take-try')}</b>
-            </Button>
-          </Link>
+          <Badge count={t('banner.badge')}>
+            <Link to="o-spy">
+              <Button
+                size="large"
+                icon={<Icon component={OSpySvg} style={{ fontSize: 20 }} />}
+              >
+                <b>O-Spy</b>
+              </Button>
+            </Link>
+          </Badge>
         </div>
         <Waves />
       </div>

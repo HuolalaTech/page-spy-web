@@ -1,16 +1,7 @@
-import { useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useWhere } from './useWhere';
 
 export const useDarkTheme = () => {
-  const { pathname } = useLocation();
-  const isDark = useMemo(() => {
-    if (
-      ['/', '/pagespy', '/o-spy'].some((i) => i === pathname) ||
-      pathname.startsWith('/pagespy/docs')
-    )
-      return true;
-    return false;
-  }, [pathname]);
+  const { isHome, isDocs, isOSpy } = useWhere();
 
-  return isDark;
+  return isHome || isDocs || isOSpy;
 };

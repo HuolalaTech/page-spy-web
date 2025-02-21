@@ -4,7 +4,6 @@ import { useRoutes } from 'react-router-dom';
 
 import { Page404, To404 } from '@/404';
 import { Layouts } from '@/pages/Layouts';
-import { Entry } from '@/pages/Entry';
 import { Main } from '@/pages/Main';
 import { OSpy } from '@/pages/OSpy';
 
@@ -25,16 +24,6 @@ export interface RouteInfo {
 const routes: RouteObject[] = [
   {
     path: '/',
-    element: <Layouts />,
-    children: [
-      {
-        index: true,
-        element: <Entry />,
-      },
-    ],
-  },
-  {
-    path: '/pagespy',
     element: <Layouts />,
     children: [
       {
@@ -71,6 +60,10 @@ const routes: RouteObject[] = [
         index: true,
         element: <OSpy />,
       },
+      {
+        path: 'docs/*',
+        element: <Docs />,
+      },
     ],
   },
   {
@@ -85,6 +78,8 @@ const routes: RouteObject[] = [
 
 const RouteConfig = () => {
   const routeContent = useRoutes(routes);
+
+  console.log(routeContent);
 
   return routeContent;
 };

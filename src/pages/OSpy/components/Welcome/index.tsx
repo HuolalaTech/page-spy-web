@@ -10,6 +10,7 @@ import { ImportGuide } from '../ImportGuide';
 import { useEffect } from 'react';
 import demo from './demo.json?url';
 import { useThreshold } from '@/utils/useThreshold';
+import './index.less';
 
 export const Welcome = () => {
   const { t } = useTranslation();
@@ -34,74 +35,80 @@ export const Welcome = () => {
   const isMobile = useThreshold(414);
 
   return (
-    <Flex
-      vertical
-      justify="center"
-      align="center"
-      gap={40}
-      style={{ height: '100%' }}
-    >
-      <h1 style={{ textAlign: 'center' }}>
-        <Trans i18nKey="lab.welcome-title">
-          欢迎来到
-          <br />
-          回放实验室
-        </Trans>
-      </h1>
-      <h4 style={{ textAlign: 'center', letterSpacing: 0.5 }}>
-        <Trans i18nKey="lab.welcome-desc">
-          几行代码，让系统拥有强大的「问题反馈」能力
-          <br />
-          数据都在本地，不经过网络传输，无需担心隐私泄露
-        </Trans>
-      </h4>
-      <Flex gap={24} vertical={isMobile} justify="center" align="center">
-        <Flex gap={24}>
-          <Popover
-            content={ImportGuide}
-            trigger="click"
-            overlayInnerStyle={{ maxWidth: 800 }}
-          >
-            <Button
-              type="primary"
-              size="large"
-              icon={<Icon component={CodeBlockSvg} style={{ fontSize: 20 }} />}
+    <Flex justify="center" align="center" className="welcome">
+      <Flex
+        vertical
+        justify="center"
+        align="center"
+        gap={40}
+        style={{ marginBottom: 100 }}
+      >
+        <p className="slogan">
+          <Trans i18nKey="oSpy.welcome-title">
+            离线优先
+            <br />
+            即插即用
+          </Trans>
+        </p>
+        <p className="slogan-desc">
+          <Trans i18nKey="oSpy.desc">
+            几行代码，回看程序运行现场
+            <br />
+            数据都在本地，不经过网络传输，无需担心隐私泄露
+          </Trans>
+        </p>
+        <Flex gap={24} vertical={isMobile} justify="center" align="center">
+          <Flex gap={24}>
+            <Popover
+              content={ImportGuide}
+              trigger="click"
+              overlayInnerStyle={{ maxWidth: 800 }}
             >
-              <b>{t('common.inject-sdk')}</b>
-            </Button>
-          </Popover>
+              <Button
+                type="primary"
+                size="large"
+                icon={
+                  <Icon component={CodeBlockSvg} style={{ fontSize: 20 }} />
+                }
+              >
+                <b>{t('oSpy.import-use')}</b>
+              </Button>
+            </Popover>
 
-          <Upload
-            accept=".json"
-            maxCount={1}
-            customRequest={(file) => {
-              const blob = URL.createObjectURL(file.file as File);
-              gotoReplay(blob);
-            }}
-            itemRender={() => null}
-          >
-            <Button
-              size="large"
-              icon={<Icon component={PaperClipSvg} style={{ fontSize: 20 }} />}
+            <Upload
+              accept=".json"
+              maxCount={1}
+              customRequest={(file) => {
+                const blob = URL.createObjectURL(file.file as File);
+                gotoReplay(blob);
+              }}
+              itemRender={() => null}
             >
-              <b>{t('lab.select-log')}</b>
-            </Button>
-          </Upload>
-        </Flex>
-        <Link
-          to="?demo"
-          target="_blank"
-          style={{
-            color: 'white',
-            textDecoration: 'underline',
-            textUnderlineOffset: 4,
-          }}
-        >
-          <Flex gap={4}>
-            <span>{t('lab.take-try')}</span>
-            <Icon component={LinkSvg} />
+              <Button
+                size="large"
+                icon={
+                  <Icon component={PaperClipSvg} style={{ fontSize: 20 }} />
+                }
+              >
+                <b>{t('oSpy.select-log')}</b>
+              </Button>
+            </Upload>
           </Flex>
-        </Link>
+          <Link
+            to="?demo"
+            target="_blank"
+            style={{
+              color: 'white',
+              textDecoration: 'underline',
+              textUnderlineOffset: 4,
+            }}
+          >
+            <Flex gap={4}>
+              <span>{t('oSpy.take-try')}</span>
+              <Icon component={LinkSvg} />
+            </Flex>
+          </Link>
+        </Flex>
       </Flex>
     </Flex>
   );

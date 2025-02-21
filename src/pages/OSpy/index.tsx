@@ -23,9 +23,5 @@ export const OSpy = () => {
     ];
   }, [t]);
 
-  return (
-    <div className="o-spy">
-      <div style={{ height: '100%' }}>{contents[current].content}</div>
-    </div>
-  );
+  return <div className="o-spy">{contents[current].content}</div>;
 };

@@ -62,17 +62,13 @@ export const NavMenuOnPc = () => {
       })}
     >
       {/* Docs */}
-      {!isHome && (
-        <>
-          <Link to="docs" className="menu-item doc">
-            <Space align="center">
-              <Icon component={DocsSvg} style={{ fontSize: 18 }} />
-              <span>{t('common.doc')}</span>
-            </Space>
-          </Link>
-          <Divider type="vertical" className="divider-bg" />
-        </>
-      )}
+      <Link to="docs" className="menu-item doc">
+        <Space align="center">
+          <Icon component={DocsSvg} style={{ fontSize: 18 }} />
+          <span>{t('common.doc')}</span>
+        </Space>
+      </Link>
+      <Divider type="vertical" className="divider-bg" />
       {isClient && (
         <div className="menu-item debug-type">
           <ConfigProvider theme={navDropdownConfig}>
@@ -201,20 +197,18 @@ export const NavMenuOnMobile = () => {
             })}
           >
             {/* Docs */}
-            {!isHome && (
-              <Link
-                to="docs"
-                className="menu-item doc"
-                onClick={() => {
-                  setExpand(false);
-                }}
-              >
-                <Space align="center">
-                  <Icon component={DocsSvg} style={{ fontSize: 18 }} />
-                  <span>{t('common.doc')}</span>
-                </Space>
-              </Link>
-            )}
+            <Link
+              to="docs"
+              className="menu-item doc"
+              onClick={() => {
+                setExpand(false);
+              }}
+            >
+              <Space align="center">
+                <Icon component={DocsSvg} style={{ fontSize: 18 }} />
+                <span>{t('common.doc')}</span>
+              </Space>
+            </Link>
             {isClient && (
               <>
                 {/* Connections */}

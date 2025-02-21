@@ -3,7 +3,6 @@ import { version } from '../../../../package.json';
 import { Link } from 'react-router-dom';
 import { useMemo } from 'react';
 import LogoSvg from '@/assets/image/logo.svg?react';
-import MainSpySvg from '@/assets/image/logo-pure.svg?react';
 import OSpySvg from '@/assets/image/o-spy.svg?react';
 import Icon from '@ant-design/icons';
 import Title from 'antd/es/typography/Title';
@@ -14,14 +13,7 @@ export const Logo = () => {
   const where = useWhere();
 
   const config = useMemo(() => {
-    const { isHome, isPageSpy, isOSpy } = where;
-    if (isPageSpy) {
-      return {
-        image: MainSpySvg,
-        name: 'PageSpy',
-        link: '/pagespy',
-      };
-    }
+    const { isOSpy } = where;
     if (isOSpy) {
       return {
         image: OSpySvg,

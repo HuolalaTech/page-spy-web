@@ -5,7 +5,7 @@ export const useWhere = () => {
 
   return {
     isHome: pathname === '/',
-    isPageSpy: pathname.startsWith('/pagespy'),
+    isDocs: pathname.startsWith('/docs'),
     isOSpy: pathname.startsWith('/o-spy'),
   };
 };
