@@ -1,17 +1,17 @@
-import PlatformTag from '../components/PlatformTag';
+import PlatformTag from '@/components/Docs/components/PlatformTag';
 
-> Some features are only available on specific platforms. We will differentiate them using the following tags:
+> 某些特性仅支持在特定平台中可用，对此我们将通过下方标识以区分：
 >
-> | Platform     | Tags                           |
+> | 平台         | 标签                           |
 > | ------------ | ------------------------------ |
-> | Browser      | <PlatformTag type="browser" /> |
-> | Mini Program | <PlatformTag type="mp" />      |
+> | 浏览器       | <PlatformTag type="browser" /> |
+> | 小程序       | <PlatformTag type="mp" />      |
 > | React Native | <PlatformTag type="rn" />      |
-> | OpenHarmony  | <PlatformTag type="harmony" /> |
+> | 鸿蒙         | <PlatformTag type="harmony" /> |
 
 ### PageSpy#pagespy
 
-> The instance variable is named `$pageSpy = new PageSpy(...)`；
+> 约定实例变量名称为 `$pageSpy = new PageSpy(...)`；
 
 - [constructor()](./pagespy#constructor)
 - [$pageSpy.updateRoomInfo()](./pagespy#updateRoomInfo)
@@ -23,20 +23,21 @@ import PlatformTag from '../components/PlatformTag';
 - [$pageSpy.socketStore](./pagespy#socketStore)
 - [$pageSpy.showPanel()](./pagespy#showPanel) <PlatformTag type="mp" />
 
-### Plugins#plugins
+
+### 插件#plugins
 
 #### DataHarborPlugin#harbor
 
-> The instance variable is named `$harbor = new DataHarborPlugin(...)`；
+> 约定实例变量名称为 `$harbor = new DataHarborPlugin(...)`；
 
 - [constructor()](./data-harbor#constructor)
-- [Operate log manually](./data-harbor#onOfflineLog)
+- [手动操作日志](./data-harbor#onOfflineLog)
 - [$harbor.pause()](./data-harbor#pause)
 - [$harbor.resume()](./data-harbor#resume)
 - [$harbor.reharbor()](./data-harbor#reharbor)
 
 #### RRWebPlugin#rrweb
 
-> The instance variable is named `$rrweb = new RRWebPlugin(...)`；
+> 约定实例变量名称为 `$rrweb = new RRWebPlugin(...)`；
 
 - [constructor()](./rrweb#constructor)

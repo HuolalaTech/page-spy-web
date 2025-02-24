@@ -4,16 +4,12 @@ import remarkParse from 'remark-parse';
 import { visit } from 'unist-util-visit';
 import { langType } from '@/utils/useLanguage';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { formatSlug } from '@/utils/docs';
+import { useDocContext } from '@/components/Docs/context';
 
-const modulesRawText = import.meta.glob('@/pages/Docs/md/*.mdx', {
-  query: '?raw',
-  import: 'default',
-}) as Record<string, () => Promise<string>>;
-
-interface NavItem {
+export interface NavItem {
   text: string;
   link: string;
 }
@@ -21,7 +17,7 @@ interface NavItem {
 const processor = unified().use(remarkParse);
 
 // 目录生成规则参照 ../mdx-mapping/Heading.tsx
-const computeTocs = async (raw: () => Promise<string>) => {
+export const computeTocs = async (raw: () => Promise<string>) => {
   const navs: NavItem[] = [];
   try {
     const content = await raw();
@@ -64,21 +60,8 @@ const computeTocs = async (raw: () => Promise<string>) => {
   return navs;
 };
 
-export const mdTocs = Object.entries(modulesRawText).reduce((acc, cur) => {
-  const [key, value] = cur;
-  const result = key.match(/md\/(.+)\.(zh|en|ja|ko)\.mdx$/);
-  if (!result) return acc;
-  const [, doc, lang] = result;
-  const tocs = computeTocs(value);
-  if (!acc[doc]) {
-    acc[doc] = { [lang]: tocs };
-  } else {
-    acc[doc][lang] = tocs;
-  }
-  return acc;
-}, {} as Record<string, Record<string, Promise<NavItem[]>>>);
-
 export const ToC = ({ doc, lang }: { doc: string; lang: langType }) => {
+  const { tocs } = useDocContext();
   const [navs, setNavs] = useState<NavItem[]>([]);
   const { t } = useTranslation();
   const { hash } = useLocation();
@@ -86,7 +69,7 @@ export const ToC = ({ doc, lang }: { doc: string; lang: langType }) => {
   useEffect(() => {
     const fn = async () => {
       try {
-        const p = mdTocs[doc][lang];
+        const p = tocs[doc][lang];
         if (!p) return;
 
         const data = await p;
@@ -96,7 +79,7 @@ export const ToC = ({ doc, lang }: { doc: string; lang: langType }) => {
       }
     };
     fn();
-  }, [doc, lang]);
+  }, [doc, lang, tocs]);
 
   return (
     <div className="toc">

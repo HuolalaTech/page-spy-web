@@ -8,7 +8,6 @@ import React, {
 } from 'react';
 import './index.less';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { DOC_MENUS, ORDER_DOC_MENUS, OrderDocMenus } from '../DocMenus';
 import { useTranslation } from 'react-i18next';
 import PrevSvg from '@/assets/image/prev.svg?react';
 import NextSvg from '@/assets/image/next.svg?react';
@@ -20,14 +19,14 @@ import { useSidebarStore } from '@/store/doc-sidebar';
 import { useShallow } from 'zustand/react/shallow';
 import { TransitionContext } from '@/components/Transition';
 import components from './mdx-mapping';
-import { getDocContent, LOAD_DOC_EVENT } from './content';
 import { ToC } from './toc';
+import { LOAD_DOC_EVENT, SidebarItem, useDocContext } from '../../context';
 
 const FooterLink = ({
   menu,
   flag,
 }: {
-  menu: OrderDocMenus[number] | null;
+  menu: SidebarItem | null;
   flag: 'prev' | 'next';
 }) => {
   const [lang] = useLanguage();
@@ -61,31 +60,32 @@ const FooterLink = ({
 };
 
 export const DocContent = () => {
-  const { t } = useTranslation();
   const [lang] = useLanguage();
+  const { orderDocMenus, getContent } = useDocContext();
   const params = useParams();
-  // route match rule "/docs/*"
-  const doc = params['*'] || DOC_MENUS[0].children[0].doc;
+  const currentDoc = useMemo(() => {
+    return params['*'] || orderDocMenus[0].doc;
+  }, [orderDocMenus, params]);
 
   const { prev, current, next } = useMemo(() => {
-    const navigation: Record<string, OrderDocMenus[number] | null> = {
+    const navigation: Record<string, SidebarItem | null> = {
       prev: null,
       current: null,
       next: null,
     };
-    const index = ORDER_DOC_MENUS.findIndex((o) => o.doc === doc);
+    const index = orderDocMenus.findIndex((o) => o.doc === currentDoc);
     if (index < 0) return navigation;
     if (index === 0) {
-      navigation.next = ORDER_DOC_MENUS[1];
-    } else if (index === ORDER_DOC_MENUS.length - 1) {
-      navigation.prev = ORDER_DOC_MENUS[index - 1];
+      navigation.next = orderDocMenus[1];
+    } else if (index === orderDocMenus.length - 1) {
+      navigation.prev = orderDocMenus[index - 1];
     } else {
-      navigation.prev = ORDER_DOC_MENUS[index - 1];
-      navigation.next = ORDER_DOC_MENUS[index + 1];
+      navigation.prev = orderDocMenus[index - 1];
+      navigation.next = orderDocMenus[index + 1];
     }
-    navigation.current = ORDER_DOC_MENUS[index];
+    navigation.current = orderDocMenus[index];
     return navigation;
-  }, [doc]);
+  }, [currentDoc, orderDocMenus]);
 
   const rootRef = useRef<HTMLElement | null>(null);
   // 侧边/底部导航：切换文档，处理状态过渡
@@ -117,6 +117,7 @@ export const DocContent = () => {
   }, [hash]);
   useEventListener(LOAD_DOC_EVENT, (e) => {
     const { detail } = e as CustomEvent;
+
     if (detail.loading === false) {
       scrollIntoAnchor();
     }
@@ -145,8 +146,8 @@ export const DocContent = () => {
             </HeaderLink>
           )}
 
-          {React.createElement(getDocContent(doc, lang), {
-            key: doc,
+          {React.createElement(getContent(currentDoc, lang), {
+            key: currentDoc,
             components,
           })}
         </div>
@@ -167,7 +168,7 @@ export const DocContent = () => {
           </div>
         </div>
       </div>
-      <ToC doc={doc} lang={lang} />
+      <ToC doc={currentDoc} lang={lang} />
     </main>
   );
 };

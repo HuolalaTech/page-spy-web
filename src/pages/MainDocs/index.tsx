@@ -1,11 +1,6 @@
-import { langType, useLanguage } from '@/utils/useLanguage';
-import { useParams } from 'react-router-dom';
-import './index.less';
-import clsx from 'clsx';
-import { memo } from 'react';
-import { TransitionLink } from '@/components/Transition';
+import Docs from '@/components/Docs';
 
-export const DOC_MENUS = [
+const sidebar = [
   {
     group: {
       zh: '指引',
@@ -173,47 +168,14 @@ export const DOC_MENUS = [
   },
 ];
 
-export type OrderDocMenus = {
-  doc: string;
-  label: string | Record<langType, string>;
-  group: Record<langType, string>;
-}[];
+const mdxComponents = import.meta.glob('./md/*.mdx');
+const mdRawContents = import.meta.glob('./md/*.mdx', {
+  import: 'default',
+  query: '?raw',
+}) as Record<string, () => Promise<string>>;
 
-export const ORDER_DOC_MENUS = DOC_MENUS.reduce((acc, cur) => {
-  const { children, group } = cur;
-  const menus = children.map((item) => ({ ...item, group }));
-  acc.push(...menus);
-  return acc;
-}, [] as OrderDocMenus);
+const MainDocs = () => {
+  return <Docs {...{ sidebar, mdxComponents, mdRawContents }} />;
+};
 
-export const DocMenus = memo(() => {
-  const [lang] = useLanguage();
-  const params = useParams();
-  // route match rule "/docs/*"
-  const docInUrl = params['*'] || DOC_MENUS[0].children[0].doc;
-
-  return (
-    <div className="doc-menus">
-      {DOC_MENUS.map(({ group, children }, index) => {
-        return (
-          <div className="doc-menus__group" key={index}>
-            <h4>{group[lang]}</h4>
-            {children.map(({ label, doc }) => {
-              return (
-                <TransitionLink
-                  to={doc}
-                  key={doc}
-                  className={clsx('menu-item', {
-                    active: docInUrl === doc,
-                  })}
-                >
-                  {typeof label === 'string' ? label : label[lang]}
-                </TransitionLink>
-              );
-            })}
-          </div>
-        );
-      })}
-    </div>
-  );
-});
+export default MainDocs;

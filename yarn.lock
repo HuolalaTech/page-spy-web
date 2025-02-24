@@ -749,6 +749,17 @@
     copy-to-clipboard "^3.3.3"
     fflate "^0.8.1"
 
+"@huolala-tech/page-spy-plugin-ospy@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-ospy/-/page-spy-plugin-ospy-2.1.4.tgz#2712d183f0328e28dafab888903f1c60b9cf472e"
+  integrity sha512-kRqtVUzMwRncYtGNpkxu5fKG6Ut6DfLLKwmeVJ8k8yqjyZi7UaqdmDUHCTxZW4fQA75Dp+dg1OEJt9UDqxCj1w==
+  dependencies:
+    "@huolala-tech/page-spy-base" "^2.1.1"
+    "@huolala-tech/page-spy-browser" "^2.1.2"
+    "@huolala-tech/page-spy-plugin-data-harbor" "^2.1.1"
+    "@huolala-tech/page-spy-plugin-rrweb" "^2.1.1"
+    "@huolala-tech/page-spy-types" "^2.1.1"
+
 "@huolala-tech/page-spy-plugin-rrweb@^2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-rrweb/-/page-spy-plugin-rrweb-2.1.1.tgz#19dbcca2ebb03794ecf82c809bde62f3f72d573a"

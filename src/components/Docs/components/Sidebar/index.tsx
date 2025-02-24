@@ -1,4 +1,4 @@
-import { DocMenus } from '../DocMenus';
+import { DocMenus } from './DocMenus';
 import './index.less';
 import { useRef } from 'react';
 import { useClickAway } from 'ahooks';

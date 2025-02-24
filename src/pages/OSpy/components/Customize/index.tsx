@@ -1,7 +1,5 @@
-import WholeBundle, {
-  Config,
-} from '@huolala-tech/page-spy-plugin-whole-bundle';
-import '@huolala-tech/page-spy-plugin-whole-bundle/dist/index.css';
+import OSpy, { Config } from '@huolala-tech/page-spy-plugin-ospy';
+import '@huolala-tech/page-spy-plugin-ospy/dist/index.css';
 import { useEffect, useRef, useState } from 'react';
 import './index.less';
 import { CodeBlock } from '@/components/CodeBlock';
@@ -11,12 +9,12 @@ type Theme = Omit<Config, 'autoRender'>;
 const THEMES: Theme[] = [
   {
     primaryColor: 'red',
-    title: '问题反馈',
+    title: 'Feedback',
     logo: 'https://static.huolala.cn/image/783a566204f23cebb56cd3759954c9590f478aaa.png',
   },
   {
     primaryColor: '#f60',
-    title: '货拉拉',
+    title: 'Huolala',
     logo: 'https://static.huolala.cn/image/b9d3a2facbd188056c2a3e5cb3ebc749023fbfbe.png',
   },
   {
@@ -29,21 +27,11 @@ const THEMES: Theme[] = [
     title: 'DebugX',
     logo: 'https://static.huolala.cn/image/2ae2e7034b6f7775882953e708fb2351d2cbc690.png',
   },
-  {
-    primaryColor: '#468bed',
-    title: '強力殺虫',
-    logo: 'https://static.huolala.cn/image/d76e7d734ecb1b21b7e68f907b43cbf2ea06d3e4.png',
-  },
-  {
-    primaryColor: '#FB9D22',
-    title: '故障排查',
-    logo: 'https://static.huolala.cn/image/4b469ad461600b0ed519809947dc2d8edf092000.png',
-  },
 ];
 
 export const CustomizeExample = () => {
   useEffect(() => {
-    const $feedback = new WholeBundle();
+    const $feedback = new OSpy();
     return () => {
       $feedback.abort();
     };
@@ -115,7 +103,7 @@ export const CustomizeExample = () => {
         })}
       </div>
       <CodeBlock
-        code={`new WholeBundle(${JSON.stringify(
+        code={`new OSpy(${JSON.stringify(
           { ...THEMES[themeIndex], autoRender: true },
           null,
           2,

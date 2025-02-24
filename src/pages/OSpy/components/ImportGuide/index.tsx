@@ -9,9 +9,9 @@ import UnpkgSvg from '@/assets/image/unpkg.svg?react';
 import './index.less';
 
 export const ImportGuide = () => {
-  const { t } = useTranslation('translation', { keyPrefix: 'lab' });
+  const { t } = useTranslation('translation', { keyPrefix: 'oSpy' });
   const methods = useMemo(() => {
-    const INIT_CODE = `const $feedback = new WholeBundle({
+    const INIT_CODE = `const $feedback = new OSpy({
   title?: string; // ${t('comment-title')}
   logo?: string; // ${t('comment-logo')}
   primaryColor?: string; // ${t('comment-primaryColor')}
@@ -32,7 +32,7 @@ export const ImportGuide = () => {
                   </Space>
                 ),
                 lang: 'javascript',
-                code: `<script src="https://cdn.jsdelivr.net/npm/@huolala-tech/page-spy-plugin-whole-bundle" crossorigin="anonymous"></script>
+                code: `<script src="https://cdn.jsdelivr.net/npm/@huolala-tech/page-spy-plugin-ospy" crossorigin="anonymous"></script>
 
 ${INIT_CODE}`,
               },
@@ -44,7 +44,7 @@ ${INIT_CODE}`,
                   </Space>
                 ),
                 lang: 'javascript',
-                code: `<script src="https://unpkg.com/@huolala-tech/page-spy-plugin-whole-bundle" crossorigin="anonymous"></script>
+                code: `<script src="https://unpkg.com/@huolala-tech/page-spy-plugin-ospy" crossorigin="anonymous"></script>
 
 ${INIT_CODE}`,
               },
@@ -59,13 +59,13 @@ ${INIT_CODE}`,
             <p style={{ margin: 0 }}>{t('install-1st')}</p>
             <CodeBlock
               lang="bash"
-              code="yarn add @huolala-tech/page-spy-plugin-whole-bundle"
+              code="yarn add @huolala-tech/page-spy-plugin-ospy"
             />
             <p style={{ margin: 0 }}>{t('install-2nd')}</p>
             <CodeBlock
               lang="javascript"
-              code={`import WholeBundle from '@huolala-tech/page-spy-plugin-whole-bundle';
-import '@huolala-tech/page-spy-plugin-whole-bundle/dist/index.css';
+              code={`import OSpy from '@huolala-tech/page-spy-plugin-ospy';
+import '@huolala-tech/page-spy-plugin-ospy/dist/index.css';
 
 ${INIT_CODE}`}
             />

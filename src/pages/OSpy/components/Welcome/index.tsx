@@ -44,8 +44,8 @@ export const Welcome = () => {
         style={{ marginBottom: 100 }}
       >
         <p className="slogan">
-          <Trans i18nKey="oSpy.welcome-title">
-            离线优先
+          <Trans i18nKey="oSpy.slogan">
+            离线记录
             <br />
             即插即用
           </Trans>

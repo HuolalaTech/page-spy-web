@@ -9,9 +9,10 @@ import { OSpy } from '@/pages/OSpy';
 
 const Devtools = React.lazy(() => import('@/pages/Devtools'));
 const RoomList = React.lazy(() => import('@/pages/RoomList'));
-const Docs = React.lazy(() => import('@/pages/Docs'));
+const MainDocs = React.lazy(() => import('@/pages/MainDocs'));
 const Replay = React.lazy(() => import('@/pages/Replay'));
 const LogList = React.lazy(() => import('@/pages/LogList'));
+const OSpyDocs = React.lazy(() => import('@/pages/OSpyDocs'));
 
 export interface RouteInfo {
   icon?: any;
@@ -44,7 +45,7 @@ const routes: RouteObject[] = [
       },
       {
         path: 'docs/*',
-        element: <Docs />,
+        element: <MainDocs />,
       },
       {
         path: 'replay',
@@ -62,7 +63,7 @@ const routes: RouteObject[] = [
       },
       {
         path: 'docs/*',
-        element: <Docs />,
+        element: <OSpyDocs />,
       },
     ],
   },
@@ -78,8 +79,6 @@ const routes: RouteObject[] = [
 
 const RouteConfig = () => {
   const routeContent = useRoutes(routes);
-
-  console.log(routeContent);
 
   return routeContent;
 };

@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Welcome } from './components/Welcome';
 import { useStepStore } from './components/store';
 import { Replayer } from './components/Replayer';
-import '@huolala-tech/page-spy-plugin-whole-bundle/dist/index.css';
 
 export const OSpy = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'lab' });

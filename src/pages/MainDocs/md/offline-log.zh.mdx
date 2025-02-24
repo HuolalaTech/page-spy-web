@@ -82,13 +82,13 @@ DataHarborPlugin 本身只收集数据、提供数据处理的功能，PageSpy �
 
 - [RRWebPlugin]({VITE_PLUGIN_RRWEB}): 使用 `rrweb` 记录 DOM 更新，在调试端的「日志回放」面板左侧用户可以看到页面的操作轨迹；
 
-### 回放实验室#replay-lab
+### 使用 O-Spy#o-spy
 
-[回放实验室](/replay-lab) 的 SDK 打包了 PageSpy / DataHarborPlugin / RRWebPlugin，内置 PageSpy 在离线状态下的最佳实践配置、同时支持自定义主题，使用非常简单。
+[回放实验室](/o-spy) 的 SDK 打包了 PageSpy / DataHarborPlugin / RRWebPlugin，内置 PageSpy 在离线状态下的最佳实践配置、同时支持自定义主题，使用非常简单。
 
 与框架无关，你可以任选一种方式在项目中引入。
 
-import { ImportGuide } from '@/pages/ReplayLab/components/ImportGuide';
+import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';
 
 <ImportGuide />
 
@@ -96,7 +96,7 @@ import { ImportGuide } from '@/pages/ReplayLab/components/ImportGuide';
 
 #### 自定义主题示例#customize-example
 
-import { CustomizeExample } from '@/pages/ReplayLab/components/Customize';
+import { CustomizeExample } from '@/pages/OSpy/components/Customize';
 
 <CustomizeExample />
 
