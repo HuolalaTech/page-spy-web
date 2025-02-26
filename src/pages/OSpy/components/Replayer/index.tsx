@@ -1,50 +1,51 @@
 import { LogReplayer } from '@/components/LogReplayer';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import './index.less';
-import { Button, Flex, Space, Upload, UploadProps } from 'antd';
+import { Button, Flex, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { useStepStore } from '../store';
-import { useThreshold } from '@/utils/useThreshold';
-import { useShallow } from 'zustand/react/shallow';
-import PaperClipSvg from '@/assets/image/paper-clip.svg?react';
-import Icon from '@ant-design/icons';
+import { useSize } from 'ahooks';
+import { Link, useNavigate } from 'react-router-dom';
+import useSearch from '@/utils/useSearch';
+import demo from './demo.json?url';
+import { SelectLogButton } from '@/components/SelectLogButton';
 
 export const Replayer = () => {
   const { t } = useTranslation();
-  const isMobile = useThreshold();
-  const [prev, replayUrl, setReplayUrl] = useStepStore(
-    useShallow((state) => [state.prev, state.replayUrl, state.setReplayUrl]),
+  const size = useSize(document.body);
+  const navigate = useNavigate();
+
+  const { url } = useSearch();
+  const replayUrl = useMemo(() => {
+    if (url === 'demo') return demo;
+    if (!url) return '';
+    return url;
+  }, [url]);
+  useEffect(
+    () => () => {
+      if (url.startsWith('blob://')) {
+        URL.revokeObjectURL(url);
+      }
+    },
+    [url],
   );
-  const uploadCustomRequest: UploadProps['customRequest'] = (file) => {
-    const blob = URL.createObjectURL(file.file as File);
-    setReplayUrl(blob);
-    return null;
-  };
-  const reusableButtons = useMemo(() => {
+
+  const backSlot = useMemo(() => {
     return (
       <Space>
-        <Button icon={<ArrowLeftOutlined />} onClick={prev}>
-          {t('common.back')}
-        </Button>
-        <Upload
-          accept=".json"
-          maxCount={1}
-          customRequest={uploadCustomRequest}
-          itemRender={() => null}
-        >
-          <Button
-            type="primary"
-            icon={<Icon component={PaperClipSvg} style={{ fontSize: 20 }} />}
-          >
-            {t('replay.select-log')}
-          </Button>
-        </Upload>
+        <Link to="/o-spy">
+          <Button icon={<ArrowLeftOutlined />}>{t('common.back')}</Button>
+        </Link>
+        <SelectLogButton
+          onSelect={(url) => {
+            navigate(`?url=${url}`);
+          }}
+        />
       </Space>
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [prev, t]);
-  if (isMobile) {
+  }, [navigate, t]);
+
+  if (Number(size?.width) <= 768) {
     return (
       <Flex
         vertical
@@ -54,7 +55,12 @@ export const Replayer = () => {
         gap={24}
       >
         <h2>{t('oSpy.only-pc')}</h2>
-        <Button icon={<ArrowLeftOutlined />} onClick={prev}>
+        <Button
+          icon={<ArrowLeftOutlined />}
+          onClick={() => {
+            navigate('/o-spy');
+          }}
+        >
           {t('common.back')}
         </Button>
       </Flex>
@@ -62,7 +68,7 @@ export const Replayer = () => {
   }
   return (
     <div className="replayer-container">
-      <LogReplayer url={replayUrl} backSlot={reusableButtons} />
+      <LogReplayer url={replayUrl} backSlot={backSlot} />
     </div>
   );
 };

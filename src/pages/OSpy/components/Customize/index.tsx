@@ -1,39 +1,43 @@
-import OSpy, { Config } from '@huolala-tech/page-spy-plugin-ospy';
+import OSpy from '@huolala-tech/page-spy-plugin-ospy';
 import '@huolala-tech/page-spy-plugin-ospy/dist/index.css';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import './index.less';
 import { CodeBlock } from '@/components/CodeBlock';
 import { useInViewport } from 'ahooks';
+import { Config } from '@huolala-tech/page-spy-plugin-ospy/dist/types/config';
+import { useTranslation } from 'react-i18next';
 
-type Theme = Omit<Config, 'autoRender'>;
+type Theme = Pick<Config, 'title' | 'logo' | 'primaryColor'>;
 const THEMES: Theme[] = [
   {
-    primaryColor: 'red',
-    title: 'Feedback',
-    logo: 'https://static.huolala.cn/image/783a566204f23cebb56cd3759954c9590f478aaa.png',
+    title: 'O-Spy',
+    logo: 'https://static.huolala.cn/image/21f7b74da110ab5c05d5366763c2efc30e3174fb.png',
+    primaryColor: '#8434E9',
   },
   {
-    primaryColor: '#f60',
     title: 'Huolala',
     logo: 'https://static.huolala.cn/image/b9d3a2facbd188056c2a3e5cb3ebc749023fbfbe.png',
+    primaryColor: '#f60',
   },
   {
-    primaryColor: '#328e17',
     title: 'BugZap',
     logo: 'https://static.huolala.cn/image/6d7315a89a653f8b4d6c29d2c759491d21854788.png',
+    primaryColor: '#328e17',
   },
   {
-    primaryColor: '#d732d2',
     title: 'DebugX',
     logo: 'https://static.huolala.cn/image/2ae2e7034b6f7775882953e708fb2351d2cbc690.png',
+    primaryColor: '#d732d2',
   },
 ];
 
 export const CustomizeExample = () => {
+  const { t } = useTranslation();
+  const $oSpy = useRef<OSpy | null>(null);
   useEffect(() => {
-    const $feedback = new OSpy();
+    $oSpy.current = new OSpy();
     return () => {
-      $feedback.abort();
+      $oSpy.current?.abort();
     };
   }, []);
 
@@ -41,11 +45,20 @@ export const CustomizeExample = () => {
   const [inView] = useInViewport(ref);
 
   const [themeIndex, setThemeIndex] = useState(0);
+  const theme = useMemo(() => THEMES[themeIndex], [themeIndex]);
+  const code = useMemo(() => {
+    if (themeIndex === 0)
+      return `// ${t('oSpy.comment-default-params')}
+new OSpy();`;
+
+    return `new OSpy(${JSON.stringify(
+      { ...theme, autoRender: true },
+      null,
+      2,
+    )})`;
+  }, [t, theme, themeIndex]);
   useEffect(() => {
-    const theme = THEMES[themeIndex];
-    const root = document.querySelector(
-      '#page-spy-feedback-root',
-    ) as HTMLDivElement;
+    const { root } = $oSpy.current || {};
 
     if (!root) return;
     if (!inView) {
@@ -67,7 +80,7 @@ export const CustomizeExample = () => {
       '[class^="_headerLeft"] [class^="_title"] b',
     ) as HTMLElement;
 
-    if (root && theme) {
+    if (theme) {
       const { primaryColor, logo, title } = theme;
       root.style.setProperty('--primary-color', primaryColor);
       if (floatLogo && floatTitle) {
@@ -79,7 +92,7 @@ export const CustomizeExample = () => {
         modalTitle.textContent = title;
       }
     }
-  }, [inView, themeIndex]);
+  }, [inView, theme]);
 
   return (
     <div className="examples" ref={ref}>
@@ -102,14 +115,7 @@ export const CustomizeExample = () => {
           );
         })}
       </div>
-      <CodeBlock
-        code={`new OSpy(${JSON.stringify(
-          { ...THEMES[themeIndex], autoRender: true },
-          null,
-          2,
-        )})`}
-        lang="js"
-      />
+      <CodeBlock code={code} lang="js" />
     </div>
   );
 };

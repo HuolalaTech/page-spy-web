@@ -1,0 +1,17 @@
+### O-Spy 和 PageSpy 是什么关系？#difference
+
+O-Spy 是基于 [PageSpy](/) 及其插件生态的能力构建而来，具体而言，它打包了以下三个依赖：
+
+- `@huolala-tech/page-spy-browser`：PageSpy 在 Web 环境中的 SDK，O-Spy 引入后开启离线模式；
+- `@huolala-tech/page-spy-plugin-rrweb`：记录用户在页面上的操作轨迹；
+- `@huolala-tech/page-spy-plugin-data-harbor`：对 PageSpy 捕获的数据进行处理，对外提供导出等操作；
+
+两者的区别主要体现在：
+
+|              | O-Spy        | PageSpy |
+| ------------ | ------------ | ------- |
+| 是否需要部署 | 否           | 是      |
+| 在线实时调试 | ❌            | ✅       |
+| 离线回放调试 | ✅            | ✅       |
+| 上传数据     | 🟡 需自行处理 | ✅       |
+| 下载数据     | ✅            | ✅       |

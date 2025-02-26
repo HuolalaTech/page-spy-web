@@ -49,7 +49,7 @@ const navDropdownConfig = {
 export const NavMenuOnPc = () => {
   const isDark = useDarkTheme();
   const [lang, setLang] = useLanguage();
-  const { isHome } = useWhere();
+  const { isOSpy } = useWhere();
   const { t } = useTranslation();
   const langMenus = useMemo(() => {
     return ALL_LANGS.filter((i) => i?.key !== lang);
@@ -69,7 +69,7 @@ export const NavMenuOnPc = () => {
         </Space>
       </Link>
       <Divider type="vertical" className="divider-bg" />
-      {isClient && (
+      {isClient && !isOSpy && (
         <div className="menu-item debug-type">
           <ConfigProvider theme={navDropdownConfig}>
             <Dropdown

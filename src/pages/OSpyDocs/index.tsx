@@ -18,6 +18,24 @@ const sidebar = [
         },
         doc: 'introduction',
       },
+      {
+        label: {
+          zh: '自定义主题',
+          en: 'Customize Theme',
+          ja: 'カスタムテーマ',
+          ko: '사용자 지정 테마',
+        },
+        doc: 'theme',
+      },
+      {
+        label: {
+          zh: '常见问题解答',
+          en: 'FAQ',
+          ja: 'よくある質問',
+          ko: '자주 묻는 질문',
+        },
+        doc: 'faq',
+      },
     ],
   },
 ];

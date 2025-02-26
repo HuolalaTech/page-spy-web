@@ -1,137 +1,61 @@
 
 [license-img]: https://img.shields.io/github/license/HuolalaTech/page-spy-web?label=License
 [license-url]: https://github.com/HuolalaTech/page-spy-web/blob/main/LICENSE
-[release-img]: https://img.shields.io/github/package-json/v/HuolalaTech/page-spy-web/release?label=Release
-[release-url]: https://github.com/HuolalaTech/page-spy-web/blob/release/package.json
-[browser-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-browser?label=Browser&color=orange
-[browser-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-browser
-[uniapp-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-uniapp?label=UniApp&color=green
-[uniapp-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-uniapp
-[wechat-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-wechat?label=Wechat&color=green
-[wechat-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-wechat
-[alipay-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-alipay?label=Alipay&color=blue
-[alipay-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-alipay
-[taro-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-taro?label=Taro&color=blue
-[taro-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-taro
-[harmony-ver-img]: https://harmony.blucas.me/badge/version/@huolala/page-spy-harmony?label=Harmony&color=black
-[harmony-ver-url]: https://ohpm.openharmony.cn/#/cn/detail/@huolala%2Fpage-spy-harmony
-[api-ver-img]: https://img.shields.io/github/v/tag/HuolalaTech/page-spy-api?label=API
-[api-ver-url]: https://github.com/HuolalaTech/page-spy-api/tags
-[node-deploy]: https://img.shields.io/badge/Node_Deploy-Install-CB3937
-[node-deploy-url]: https://pagespy.org/#/docs/deploy-with-node
-[docker-deploy]: https://img.shields.io/badge/Docker_Deploy-Install-1E63ED
-[docker-deploy-url]: https://pagespy.org/#/docs/deploy-with-docker
-[bt-deploy]: https://img.shields.io/badge/BT_Deploy-Install-20a53a
-[bt-deploy-url]: https://pagespy.org/#/docs/deploy-with-baota
+[sdk-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-plugin-ospy?label=OSpy&color=white
+[sdk-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-plugin-ospy
 
-
-import React from 'react';
-import { Flex } from 'antd';
-import bannerImg from '@/assets/image/doc-banner.png';
-
-import logo from '@/assets/image/logo.svg';
-import consoleImg from '@/assets/image/screenshot/console-panel.png';
-import networkImg from '@/assets/image/screenshot/network-panel.png';
-import pageImg from '@/assets/image/screenshot/page-panel.png';
-import storageImg from '@/assets/image/screenshot/storage-panel.png';
-import systemImg from '@/assets/image/screenshot/system-panel.png';
-import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-en.png';
-import offlineImg from '@/assets/image/screenshot/offline-panel.png';
-
-export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
-
+import Icon from '@ant-design/icons';
+import Logo from '@/assets/image/o-spy.svg?react';
+import workflow from '@/assets/image/screenshot/ospy-workflow.en.png';
+import { Link } from 'react-router-dom';
 
 <div align="center">
-  <img src={logo} height="100" />
-  <h1>Page Spy</h1>
-  <h5>A remote debugging platform you can definitely use.</h5>
+  <Icon component={Logo} style={{ fontSize: 100, color: '#fff' }} />
+  <h1>O-Spy</h1>
+  <h5>Offline recording, plug and play.</h5>
 </div>
 
 <div className='badges'>
-  [![Release][release-img]][release-url]
+  [![SDK version][sdk-ver-img]][sdk-ver-url]
   [![license][license-img]][license-url]
 </div>
 
-<div className="badges">
-  [![Browser SDK version][browser-ver-img]][browser-ver-url]
-  [![Wechat SDK version][wechat-ver-img]][wechat-ver-url]
-  [![Alipay SDK version][alipay-ver-img]][alipay-ver-url]
-  [![UniApp SDK version][uniapp-ver-img]][uniapp-ver-url]
-  [![Taro SDK version][taro-ver-img]][taro-ver-url]
-  [![Harmony SDK version][harmony-ver-img]][harmony-ver-url]
-  [![API Version][api-ver-img]][api-ver-url] <br />
-</div>
+## What is O-Spy? #what-is-ospy
 
-<div className="badges">
-  [![Deploy with Node][node-deploy]][node-deploy-url]
-  [![Deploy with Docker][docker-deploy]][docker-deploy-url]
-  [![Deploy with Baota][bt-deploy]][bt-deploy-url]
-</div>
+O-Spy (pronounced /əʊ spaɪ/, similar to **"Oh-Spy"**) is a debugging tool for **offline recording program runtime data** in web projects. The recorded data can be replayed using the O-Spy platform. [Click to see the demo](/o-spy?url=demo).
 
-### What is PageSpy?#what-is-page-spy
+The workflow is shown in the image below:
 
-**PageSpy** is an open-source debugging platform compatible with various platforms, including [Web](./browser), [Mini Program](./miniprogram), [React Native](./react-native), and [Harmony OS Apps](./harmony). It encapsulates native APIs, filtering and transforming the parameters when native methods are invoked, and organizes them into a specific format for the debugging client to consume. The debugging client then provides a devtools UI to display this data.
-
-### Why is PageSpy?#why-is-page-spy
-
-> A picture is worth a thousand words。
-
-<a href={whyIsPageSpyImg} target="_blank">
-  <img src={whyIsPageSpyImg} />
+<a href={workflow} target="_blank">
+  <img src={workflow} style={{width: '100%'}} />
 </a>
 
-### When to Use?#when-to-use
+## Quick Start
 
-_PageSpy shines in any scenario where local console debugging is not possible!_ Let's explore some use cases:
+#### Step 1: Import O-Spy #step-1
 
-- **Local Debugging of H5 and Webview Applications**: While some products provide panels for viewing information on H5, small screens in mobile often make operations inconvenient, the display less user-friendly, and information might get truncated.
+O-Spy is framework-agnostic, and you can integrate it into your project in any way you prefer.
 
-- **Remote Work and Cross-Region Collaboration**: Traditional communication methods like emails, phone calls, and video conferences often suffer from low efficiency, incomplete fault information, and can easily lead to misunderstandings and misjudgments.
+import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';
 
-- **White Screen Issues on User Terminals**: Traditional methods for locating issues, such as data monitoring and log analysis, rely on the troubleshooting team understanding the business requirements and technical implementations.
+<ImportGuide showConfig={false} />
 
-Yep, the goal of PageSpy is can help the people which in like above cases.
+Once successfully imported, you will see a draggable "O-Spy" widget at the bottom right of the screen. Try opening it :)
 
-### Feature Overview#feature-overview
+import { CallOSpy } from '../md-components/CallOSPy';
 
-#### Online Debugging
+<CallOSpy />
 
-- **Console Panel**: Displays logs from `console.<log | info | warn | error | debug>`, and allows sending code to be executed on the client side.
+#### Step 2: Export Data #step-2
 
-<a href={consoleImg} target="_blank">
-  <img src={consoleImg} />
-</a>
+This page already integrates O-Spy. Imagine it as your web page and let’s generate some data. Feel free to click the button below:
 
-- **Network Panel**: Shows information about network requests made by the client.
+import { MakeData } from '../md-components/MakeData'
 
-<a href={networkImg} target="_blank">
-  <img src={networkImg} />
-</a>
+<MakeData />
 
-- **Element Panel**: Displays the current client interface and allows viewing the HTML node tree.
+Then click the floating O-Spy button to open the popup and click "Export Log" to download a JSON file.
 
-<a href={pageImg} target="_blank">
-  <img src={pageImg} />
-</a>
+#### Step 3: Replay #step-3
 
-- **Storage Panel**: Allows viewing local cache data of the client.
-
-<a href={storageImg} target="_blank">
-  <img src={storageImg} />
-</a>
-
-- **System Panel**: Displays the client's system information and checks for compatibility.
-
-<a href={systemImg} target="_blank">
-  <img src={systemImg} />
-</a>
-
-Additionally, you will receive real-time notifications when new data is available or existing data changes.
-
-#### Offline Debugging
-
-<a href={offlineImg} target="_blank">
-  <img src={offlineImg} />
-</a>
-
-The replay progress is under your control. As the replayer plays, you can view the client's operation trajectory and the corresponding data.
+Go to <Link to="/o-spy?url=" target='_blank'>the replay page</Link>, click the "Select Log" button at the top left, choose the JSON file we just exported, and start the replay!

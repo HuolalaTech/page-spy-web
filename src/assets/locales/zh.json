@@ -249,7 +249,7 @@
   },
   "oSpy": {
     "slogan": "离线记录<br />即插即用",
-    "desc": "几行代码，记录程序运行现场用于回放<br />数据都在本地，不经过网络传输，无需担心隐私泄露",
+    "desc": "几行代码，记录程序现场用于回放<br />数据都在本地，不经过网络传输，无需担心隐私泄露",
     "import-use": "接入 O-Spy",
     "select-log": "选择日志回放",
     "take-try": "体验 Demo",
@@ -259,12 +259,18 @@
     "comment-title": "悬浮球和弹窗上显示的标题",
     "comment-logo": "Logo 的图片路径",
     "comment-primaryColor": "定制主题色",
-    "comment-autoRender": "默认渲染悬浮球，设置为 false 后可调用 $feedback.open() 打开弹窗",
+    "comment-autoRender": "默认渲染悬浮球，设置为 false 后可调用 $oSpy.open() 打开弹窗",
+    "comment-exportButtonText": "自定义弹窗内按钮上的文案",
+    "comment-onExportButtonClick": "自定义弹窗内按钮点击后的回调",
+    "comment-default-params": "所有参数都是可选的，你可按需使用",
     "install-1st": "首先安装依赖：",
     "install-2nd": "接着实例化：",
     "install-result": "引入后会出现右下角所示控件，点开弹窗输入备注信息、并导出日志。",
     "replay": "回放",
     "guide": "返回指引",
-    "only-pc": "请前往 PC 端体验 :)"
+    "only-pc": "请前往 PC 端体验 :)",
+    "console-output": "输出日志",
+    "network-request": "网络请求",
+    "modify-storage": "修改 Storage"
   }
 }

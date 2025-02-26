@@ -1,15 +1,7 @@
+import { SelectLogButton } from '@/components/SelectLogButton';
 import { usePopupRef, withPopup } from '@/utils/withPopup';
-import { PaperClipOutlined, UploadOutlined } from '@ant-design/icons';
-import {
-  Button,
-  Form,
-  Input,
-  Modal,
-  Radio,
-  Space,
-  Upload,
-  message,
-} from 'antd';
+import { PaperClipOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Modal, Radio, Space, message } from 'antd';
 import { t } from 'i18next';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -86,23 +78,17 @@ const SelectResource = withPopup(({ visible, resolve }) => {
               );
             }
             return (
-              <Upload
-                accept=".json"
-                maxCount={1}
-                customRequest={async (file) => {
-                  const url = URL.createObjectURL(file.file as File);
-                  const replayURL = getReplayUrl(url);
+              <SelectLogButton
+                onSelect={(url) => {
+                  const replayURL = new URL(
+                    `#/replay?url=${url}`,
+                    window.location.href,
+                  );
                   setTimeout(() => {
                     window.open(replayURL);
                   }, 50);
-                  return null;
                 }}
-                itemRender={() => null}
-              >
-                <Button type="primary" icon={<UploadOutlined />}>
-                  {t('replay.local-file-tip')}
-                </Button>
-              </Upload>
+              />
             );
           }}
         </Form.Item>
@@ -111,7 +97,7 @@ const SelectResource = withPopup(({ visible, resolve }) => {
   );
 });
 
-export const SelectLogButton = () => {
+export const ExtraLogButton = () => {
   const popRef = usePopupRef();
 
   return (

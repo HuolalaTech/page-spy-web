@@ -259,12 +259,18 @@
     "comment-title": "フローティングボタンとポップアップに表示されるタイトル",
     "comment-logo": "ロゴ画像のパス",
     "comment-primaryColor": "テーマカラーをカスタマイズ",
-    "comment-autoRender": "false に設定した場合、$feedback.open() を呼び出してポップアップを開けます。",
+    "comment-autoRender": "false に設定した場合、$oSpy.open() を呼び出してポップアップを開けます。",
+    "comment-exportButtonText": "ポップアップ内ボタンのカスタムテキスト",
+    "comment-onExportButtonClick": "ポップアップ内ボタンをクリックした後のカスタムコールバック",
+    "comment-default-params": "すべてのパラメーターはオプションです。必要に応じて使用してください。",
     "install-1st": "最初に依存関係をインストールしてください:",
     "install-2nd": "次にインスタンスを作成してください:",
     "install-result": "インストール後、右下にウィジェットが表示されます。クリックしてポップアップを開き、メモを入力してログをエクスポートしてください。",
     "replay": "リプレイ",
     "guide": "ガイドへ戻る",
-    "only-pc": "PCでご利用ください :)"
+    "only-pc": "PCでご利用ください :)",
+    "console-output": "コンソール出力",
+    "network-request": "ネットワークリクエスト",
+    "modify-storage": "Storage を変更"
   }
 }

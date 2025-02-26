@@ -15,10 +15,12 @@ cp "${root}/node_modules/@huolala-tech/page-spy-plugin-rrweb/dist/iife/index.min
 # @huolala-tech/page-spy-plugin-data-harbor
 mkdir -p "${target_plugin}/data-harbor"
 cp "${root}/node_modules/@huolala-tech/page-spy-plugin-data-harbor/dist/iife/index.min.js" "${root}/public/plugin/data-harbor/index.min.js"
+# @huolala-tech/page-spy-plugin-whole-bundle
+mkdir -p "${target_plugin}/whole-bundle"
+cp "${root}/node_modules/@huolala-tech/page-spy-plugin-whole-bundle/dist/iife/index.min.js" "${root}/public/plugin/whole-bundle/index.min.js"
 # @huolala-tech/page-spy-plugin-ospy
 mkdir -p "${target_plugin}/ospy"
 cp "${root}/node_modules/@huolala-tech/page-spy-plugin-ospy/dist/iife/index.min.js" "${root}/public/plugin/ospy/index.min.js"
-cp "${root}/node_modules/@huolala-tech/page-spy-plugin-ospy/dist/index.css" "${root}/public/plugin/ospy/index.css"
 
 # source-map
 target_sourcemap="${root}/public/source-map"

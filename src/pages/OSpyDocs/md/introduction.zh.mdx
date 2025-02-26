@@ -1,136 +1,63 @@
 
 [license-img]: https://img.shields.io/github/license/HuolalaTech/page-spy-web?label=License
 [license-url]: https://github.com/HuolalaTech/page-spy-web/blob/main/LICENSE
-[release-img]: https://img.shields.io/github/package-json/v/HuolalaTech/page-spy-web/release?label=Release
-[release-url]: https://github.com/HuolalaTech/page-spy-web/blob/release/package.json
-[browser-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-browser?label=Browser&color=orange
-[browser-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-browser
-[uniapp-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-uniapp?label=UniApp&color=green
-[uniapp-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-uniapp
-[wechat-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-wechat?label=Wechat&color=green
-[wechat-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-wechat
-[alipay-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-alipay?label=Alipay&color=blue
-[alipay-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-alipay
-[taro-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-taro?label=Taro&color=blue
-[taro-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-taro
-[harmony-ver-img]: https://harmony.blucas.me/badge/version/@huolala/page-spy-harmony?label=Harmony&color=black
-[harmony-ver-url]: https://ohpm.openharmony.cn/#/cn/detail/@huolala%2Fpage-spy-harmony
-[api-ver-img]: https://img.shields.io/github/v/tag/HuolalaTech/page-spy-api?label=API
-[api-ver-url]: https://github.com/HuolalaTech/page-spy-api/tags
-[node-deploy]: https://img.shields.io/badge/Node_Deploy-Install-CB3937
-[node-deploy-url]: https://pagespy.org/#/docs/deploy-with-node
-[docker-deploy]: https://img.shields.io/badge/Docker_Deploy-Install-1E63ED
-[docker-deploy-url]: https://pagespy.org/#/docs/deploy-with-docker
-[bt-deploy]: https://img.shields.io/badge/BT_Deploy-Install-20a53a
-[bt-deploy-url]: https://pagespy.org/#/docs/deploy-with-baota
+[sdk-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-plugin-ospy?label=OSpy&color=white
+[sdk-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-plugin-ospy
 
-
-import React from 'react';
-import { Flex } from 'antd';
-import bannerImg from '@/assets/image/doc-banner.png';
-
-import logo from '@/assets/image/o-spy.svg';
-import consoleImg from '@/assets/image/screenshot/console-panel.png';
-import networkImg from '@/assets/image/screenshot/network-panel.png';
-import pageImg from '@/assets/image/screenshot/page-panel.png';
-import storageImg from '@/assets/image/screenshot/storage-panel.png';
-import systemImg from '@/assets/image/screenshot/system-panel.png';
-import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-zh.png';
-import offlineImg from '@/assets/image/screenshot/offline-panel.png';
-
-export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
-
+import Icon from '@ant-design/icons';
+import Logo from '@/assets/image/o-spy.svg?react';
+import workflow from '@/assets/image/screenshot/ospy-workflow.zh.png';
+import { Link } from 'react-router-dom';
 
 <div align="center">
-  <img src={logo} height="100" />
-  <h1>Page Spy</h1>
-  <h5>你肯定能用上的远程调试平台。</h5>
+  <Icon component={Logo} style={{ fontSize: 100, color: '#fff' }} />
+  <h1>O-Spy</h1>
+  <h5>离线记录，即插即用。</h5>
 </div>
 
 <div className='badges'>
-  [![Release][release-img]][release-url]
+  [![SDK version][sdk-ver-img]][sdk-ver-url]
   [![license][license-img]][license-url]
 </div>
 
-<div className="badges">
-  [![Browser SDK version][browser-ver-img]][browser-ver-url]
-  [![Wechat SDK version][wechat-ver-img]][wechat-ver-url]
-  [![Alipay SDK version][alipay-ver-img]][alipay-ver-url]
-  [![UniApp SDK version][uniapp-ver-img]][uniapp-ver-url]
-  [![Taro SDK version][taro-ver-img]][taro-ver-url]
-  [![Harmony SDK version][harmony-ver-img]][harmony-ver-url]
-  [![API Version][api-ver-img]][api-ver-url] <br />
-</div>
 
-<div className="badges">
-  [![Deploy with Node][node-deploy]][node-deploy-url]
-  [![Deploy with Docker][docker-deploy]][docker-deploy-url]
-  [![Deploy with Baota][bt-deploy]][bt-deploy-url]
-</div>
+## 什么是 O-Spy？#what-is-ospy
 
-### 什么是 PageSpy？#what-is-page-spy
+O-Spy（发音 /əʊ spaɪ/，类似 **"Oh-Spy"**）是一个在 Web 项目中「离线记录程序运行数据」的调试工具，记录的数据可通过 O-Spy 平台回放，[点击查看演示](/o-spy?url=demo)。
 
-**PageSpy** 是一款兼容 [Web](./browser) / [小程序](./miniprogram) / [React Native](./react-native) / [鸿蒙 App](./harmony) 等平台项目的开源调试平台。基于对原生 API 的封装，它将调用原生方法时的参数进行过滤、转化，整理成一定格式的消息供调试端消费；调试端收到消息数据后，提供类似本地控制台的功能界面将数据呈现出来。
+工作流程如下图：
 
-### 为什么是 PageSpy?#why-is-page-spy
-
-> 一图胜千言。
-
-<a href={whyIsPageSpyImg} target="_blank">
-  <img src={whyIsPageSpyImg} />
+<a href={workflow} target="_blank">
+  <img src={workflow} style={{width: '100%'}} />
 </a>
 
-### 何时使用？#when-to-use
+## 快速上手
 
-*任何无法在本地使用控制台调试的场景，都是 **PageSpy** 可以大显身手的时候！*
-一起来看下面的几个场景案例：
+#### 第一步：引入 O-Spy#step-1
 
-- **本地调试 H5、Webview 应用**：以往有些产品提供了可以在 H5 上查看信息的面板，但移动端屏幕太小操作不便、显示不友好，以及信息被截断等问题；
-- **远程办公、跨地区协同**：传统沟通方式如邮件、电话、视频会议等，沟通效率不高、故障信息不全面，容易误解误判；
-- **用户终端上出现白屏问题**：传统定位问题的方式包括数据监控、日志分析等，这些方式依赖排障人员要理解业务需求场景、技术实现；
+与框架无关，你可以按你喜欢的方式在项目中引入。
 
-PageSpy 的目标，就是为包括以上场景的人员提供帮助。
+import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';
 
-### 界面概览#feature-overview
+<ImportGuide showConfig={false} />
 
-#### 在线调试
+项目引入成功后就会看到屏幕右下角所示的 "O-Spy" 可拖拽的组件，试着点开看看 :)
 
-- Console 面板: 显示 `console.<log | info | warn | error | debug>` 输出的日志信息，可以发送代码到客户端执行；
+import { CallOSpy } from '../md-components/CallOSPy';
 
-<a href={consoleImg} target="_blank">
-  <img src={consoleImg} />
-</a>
+<CallOSpy />
 
-- Network 面板: 显示客户端发出的网络请求信息；
+#### 第二步：导出数据#step-2
 
-<a href={networkImg} target="_blank">
-  <img src={networkImg} />
-</a>
+当前页面已经集成了 O-Spy，将它设想成你的项目页面，我们让程序产生一些数据。随意点击下方按钮：
 
-- Element 面板: 显示客户端当前界面，查看 HTML 节点树；
+import { MakeData } from '../md-components/MakeData'
 
-<a href={pageImg} target="_blank">
-  <img src={pageImg} />
-</a>
+<MakeData />
 
-- Storage 面板: 查看客户端本地的缓存数据；
+随后点击 O-Spy 悬浮按钮打开弹窗、点击 “导出日志”，这将会下载一个 json 文件。
 
-<a href={storageImg} target="_blank">
-  <img src={storageImg} />
-</a>
+#### 第三步：回放#step-3
 
-- Systems 面板: 显示客户端的系统信息，查看兼容性。
+前往 <Link to="/o-spy?url=" target='_blank'>回放页面</Link>，点击左上角的 “选择日志”、选择我们刚刚导出的 json 文件后即可开始回放！
 
-<a href={systemImg} target="_blank">
-  <img src={systemImg} />
-</a>
-
-除此之外，当有新的数据或者数据发生变化的时候会实时的收到通知。
-
-#### 离线回放
-
-<a href={offlineImg} target="_blank">
-  <img src={offlineImg} />
-</a>
-
-回放进度由你把控，随着进度条的播放，可以查看到客户端的操作轨迹，以及对应的数据。

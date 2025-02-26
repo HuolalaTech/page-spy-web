@@ -8,15 +8,25 @@ import JsDelivrSvg from '@/assets/image/jsdelivr.svg?react';
 import UnpkgSvg from '@/assets/image/unpkg.svg?react';
 import './index.less';
 
-export const ImportGuide = () => {
+interface Props {
+  showConfig?: boolean;
+}
+
+export const ImportGuide = ({ showConfig = true }: Props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'oSpy' });
   const methods = useMemo(() => {
-    const INIT_CODE = `const $feedback = new OSpy({
-  title?: string; // ${t('comment-title')}
-  logo?: string; // ${t('comment-logo')}
-  primaryColor?: string; // ${t('comment-primaryColor')}
-  autoRender?: boolean; // ${t('comment-autoRender')}
-})`;
+    const INIT_CODE = showConfig
+      ? `const $oSpy = new OSpy({
+    title?: string; // ${t('comment-title')}
+    logo?: string; // ${t('comment-logo')}
+    primaryColor?: string; // ${t('comment-primaryColor')}
+    autoRender?: boolean; // ${t('comment-autoRender')}
+    exportButtonText?: string; // ${t('comment-exportButtonText')}
+    onExportButtonClick?: (data: CacheMessageItem[]) => void; // ${t(
+      'comment-onExportButtonClick',
+    )}
+  });`
+      : `const $oSpy = new OSpy();`;
 
     return [
       {
@@ -34,7 +44,9 @@ export const ImportGuide = () => {
                 lang: 'javascript',
                 code: `<script src="https://cdn.jsdelivr.net/npm/@huolala-tech/page-spy-plugin-ospy" crossorigin="anonymous"></script>
 
-${INIT_CODE}`,
+<script>
+  ${INIT_CODE}
+</script>`,
               },
               {
                 title: (
@@ -46,7 +58,9 @@ ${INIT_CODE}`,
                 lang: 'javascript',
                 code: `<script src="https://unpkg.com/@huolala-tech/page-spy-plugin-ospy" crossorigin="anonymous"></script>
 
-${INIT_CODE}`,
+<script>
+  ${INIT_CODE}
+</script>`,
               },
             ]}
           />
