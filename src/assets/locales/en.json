@@ -100,7 +100,7 @@
     "providesTitle": "Out-of-box <1>SDK</1> and<br /> <4>debugger client</4>",
     "load-script": "First, load the file",
     "init-instance": "Then, configure (optional) and initialize",
-    "welcome": "Welcome to use PageSpy"
+    "community-comments": "<0>Loved by the community</0><1>Don't just take our word for it<br />Hear from real users in the PageSpy community</1>"
   },
   "selConn": {
     "title": "Select the connection",

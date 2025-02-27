@@ -99,7 +99,7 @@
     "providesTitle": "开箱即用的 <1>SDK</1> 和<br /> <4>调试的客户端</4>",
     "load-script": "首先，引入文件",
     "init-instance": "然后，配置（可选的）并初始化",
-    "welcome": "欢迎使用 PageSpy"
+    "community-comments": "<0>受社区广大用户青睐</0><1>不要只看我们说<br />来听听 PageSpy 社区中真实用户的声音</1>"
   },
   "selConn": {
     "title": "选择连接",

@@ -1,7 +1,48 @@
-.welcome-use {
-  display: flex;
-  gap: 12px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.block-3 {
+  background-color: #111;
+}
+.community-comments {
+  color: #dfdfdf;
+  h1 {
+    font-size: 50px;
+  }
+  h3 {
+    font-size: 18px;
+    margin-block: 12px 48px;
+  }
+  .comments-container {
+    width: 95%;
+    margin: 0 auto;
+
+    > div {
+      break-inside: avoid;
+      padding: 24px;
+      border-radius: 12px;
+      background-color: #fff;
+      margin-bottom: 24px;
+      background-color: #161616;
+      border: 1px solid rgba(252, 252, 252, 0.1);
+      color: #bfbfbf;
+      .username {
+        color: #eee;
+        font-size: 16px;
+      }
+      .comments-item {
+        text-align: left;
+        font-size: 15px;
+        letter-spacing: 0.5px;
+        line-height: 1.5;
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      column-count: 2;
+      column-gap: 24px;
+    }
+
+    @media screen and (min-width: 992px) {
+      width: 85%;
+      column-count: 3;
+    }
+  }
 }

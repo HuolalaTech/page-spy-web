@@ -99,7 +99,7 @@
     "providesTitle": "使用準備の整った <1>SDK</1> および<br /> <4>クライアントデバッグ</4>",
     "load-script": "まず、ファイルを読み込む",
     "init-instance": "次に、設定（任意）して初期化する",
-    "welcome": "PageSpyへようこそ"
+    "community-comments": "<0>コミュニティで高い評価</0><1>私たちの言葉だけでなく<br />PageSpy コミュニティのリアルな声を聞いてみましょう</1>"
   },
   "selConn": {
     "title": "接続を選択",

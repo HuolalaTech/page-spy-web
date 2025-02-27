@@ -99,7 +99,7 @@
     "providesTitle": "사용 준비가 된 <1>SDK</1><br />및 <4>클라이언트 디버그</4>",
     "load-script": "먼저, 파일을 로드합니다",
     "init-instance": "그런 다음, 설정(선택 사항)하고 초기화합니다",
-    "welcome": "PageSpy에 오신 것을 환영합니다."
+    "community-comments": "<0>커뮤니티에서 사랑받는 서비스</0><1>우리의 말만 믿지 마세요<br />PageSpy 커뮤니티의 실제 사용자들의 의견을 들어보세요</1>"
   },
   "selConn": {
     "title": "연결 선택",
