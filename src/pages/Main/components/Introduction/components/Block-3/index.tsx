@@ -12,7 +12,7 @@ export const IntroBlock3 = () => {
     <div className="intro-block block-3">
       <div className="community-comments" style={{ textAlign: 'center' }}>
         <Trans i18nKey="intro.community-comments">
-          <h1>受社区广大用户青睐</h1>
+          <h1>深受社区青睐</h1>
           <h3>
             不要只看我们说
             <br />

@@ -153,7 +153,7 @@ export const NavMenuOnPc = () => {
 };
 
 export const NavMenuOnMobile = () => {
-  const { isHome } = useWhere();
+  const { isOSpy } = useWhere();
   const [lang, setLang] = useLanguage();
   const { t } = useTranslation();
   const isDark = useDarkTheme();
@@ -209,7 +209,7 @@ export const NavMenuOnMobile = () => {
                 <span>{t('common.doc')}</span>
               </Space>
             </Link>
-            {isClient && (
+            {isClient && !isOSpy && (
               <>
                 {/* Connections */}
                 <Link
