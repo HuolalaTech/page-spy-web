@@ -249,7 +249,7 @@
     }
   },
   "oSpy": {
-    "slogan": "Offline Recording<br />Plug and Play",
+    "slogan": "Offline Recording<br />Complete Replay",
     "desc": "Record and replay with a few lines of code.<br />All data stays local, no network transfer, no privacy risk.",
     "import-use": "Integrate O-Spy",
     "select-log": "Select Log",
