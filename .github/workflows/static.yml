@@ -40,12 +40,12 @@ jobs:
       - name: Build
         run: yarn build:doc
       - name: Publish
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: 'page-spy-web'
-          directory: 'docs-dist'
+          environment: production
+          command: pages deploy ./docs-dist --project-name=page-spy-web
       # - name: try_files using 404.html
       #   run: cp ./docs-dist/index.html ./docs-dist/404.html
       # - name: Setup Pages
