@@ -45,23 +45,11 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy ./docs-dist --project-name=page-spy-web
-      # - name: try_files using 404.html
-      #   run: cp ./docs-dist/index.html ./docs-dist/404.html
-      # - name: Setup Pages
-      #   uses: actions/configure-pages@v3
-      # - name: Upload artifact
-      #   uses: actions/upload-pages-artifact@v3
-      #   with:
-      #     # Upload entire repository
-      #     path: './docs-dist'
-      # - name: Deploy to GitHub Pages
-      #   id: deployment
-      #   uses: actions/deploy-pages@v4
-      # - name: Lark bot notify
-      #   env:
-      #     TOKEN: ${{ secrets.LARK_BOT_TOKEN }}
-      #   run: |
-      #     BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
-      #     curl "https://pagespy.blucas.me/lark/ci?branch=$BRANCH_NAME&actionId=$GITHUB_RUN_ID" \
-      #       -X POST \
-      #       -H "token: $TOKEN"
+      - name: Lark bot notify
+        env:
+          TOKEN: ${{ secrets.LARK_BOT_TOKEN }}
+        run: |
+          BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
+          curl "https://pagespy.blucas.me/lark/ci?branch=$BRANCH_NAME&actionId=$GITHUB_RUN_ID" \
+            -X POST \
+            -H "token: $TOKEN"
