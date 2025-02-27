@@ -1,0 +1,63 @@
+
+[license-img]: https://img.shields.io/github/license/HuolalaTech/page-spy-web?label=License
+[license-url]: https://github.com/HuolalaTech/page-spy-web/blob/main/LICENSE
+[sdk-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-plugin-ospy?label=OSpy&color=white
+[sdk-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-plugin-ospy
+
+import Icon from '@ant-design/icons';
+import Logo from '@/assets/image/o-spy.svg?react';
+import workflow from '@/assets/image/screenshot/ospy-workflow.zh.png';
+import { Link } from 'react-router-dom';
+
+<div align="center">
+  <Icon component={Logo} style={{ fontSize: 100, color: '#fff' }} />
+  <h1>O-Spy</h1>
+  <h5>离线记录，即插即用。</h5>
+</div>
+
+<div className='badges'>
+  [![SDK version][sdk-ver-img]][sdk-ver-url]
+  [![license][license-img]][license-url]
+</div>
+
+
+## 什么是 O-Spy？#what-is-ospy
+
+O-Spy（发音 /əʊ spaɪ/，类似 **"Oh-Spy"**）是一个在 Web 项目中「离线记录程序运行数据」的调试工具，记录的数据可通过 O-Spy 平台回放，[点击查看演示](/o-spy?url=demo)。
+
+工作流程如下图：
+
+<a href={workflow} target="_blank">
+  <img src={workflow} style={{width: '100%'}} />
+</a>
+
+## 快速上手
+
+#### 第一步：引入 O-Spy#step-1
+
+与框架无关，你可以按你喜欢的方式在项目中引入。
+
+import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';
+
+<ImportGuide showConfig={false} />
+
+项目引入成功后就会看到屏幕右下角所示的 "O-Spy" 可拖拽的组件，试着点开看看 :)
+
+import { CallOSpy } from '../md-components/CallOSPy';
+
+<CallOSpy />
+
+#### 第二步：导出数据#step-2
+
+当前页面已经集成了 O-Spy，将它设想成你的项目页面，我们让程序产生一些数据。随意点击下方按钮：
+
+import { MakeData } from '../md-components/MakeData'
+
+<MakeData />
+
+随后点击 O-Spy 悬浮按钮打开弹窗、点击 “导出日志”，这将会下载一个 json 文件。
+
+#### 第三步：回放#step-3
+
+前往 <Link to="/o-spy?url=" target='_blank'>回放页面</Link>，点击左上角的 “选择日志”、选择我们刚刚导出的 json 文件后即可开始回放！
+

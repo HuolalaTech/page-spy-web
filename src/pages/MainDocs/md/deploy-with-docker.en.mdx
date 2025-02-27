@@ -1,0 +1,18 @@
+import { EmbedVideo } from '@/components/Docs/components/EmbedVideo';
+import { DeployNext } from '@/components/Docs/components/DeployNext';
+
+### Install#install
+
+```bash
+docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
+```
+
+After completion, open the browser and visit http://localhost:6752 to access the service.
+
+### Video tutorial#video
+
+<EmbedVideo title="deployWithDocker" />{' '}
+
+### Next#next
+
+<DeployNext />

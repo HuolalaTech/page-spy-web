@@ -47,7 +47,7 @@
     "copied": "コピーされました",
     "prev": "前のページ",
     "next": "次のページ",
-    "replay-lab": "リプレイラボ",
+    "o-spy": "oSpy",
     "toc": "目次",
     "filter": "フィルター",
     "back": "戻る"
@@ -89,8 +89,8 @@
   "banner": {
     "title": "多機能<br />リモートデバッグツール",
     "desc": "Google Chromeのコンソールのように簡単にリモートデバッグを開始します。",
-    "get-start": "クイックスタート",
-    "take-try": "今すぐ体験"
+    "get-start": "使い始める",
+    "badge": "デプロイ不要"
   },
   "intro": {
     "does": "PageSpyでできること",
@@ -99,7 +99,7 @@
     "providesTitle": "使用準備の整った <1>SDK</1> および<br /> <4>クライアントデバッグ</4>",
     "load-script": "まず、ファイルを読み込む",
     "init-instance": "次に、設定（任意）して初期化する",
-    "welcome": "PageSpyへようこそ"
+    "community-comments": "<0>コミュニティで高い評価</0><1>私たちの言葉だけでなく<br />PageSpy コミュニティのリアルな声を聞いてみましょう</1>"
   },
   "selConn": {
     "title": "接続を選択",
@@ -247,25 +247,30 @@
       "remark": "備考"
     }
   },
-  "lab": {
-    "welcome": "ようこそ",
-    "welcome-title": "リプレイラボへ<br />ようこそ",
-    "welcome-desc": "数行のコードでシステムに強力な「フィードバック機能」を追加できます。<br />データはすべてローカルに保存され、ネットワーク送信は不要で、プライバシーが完全に保護されます。",
-    "take-try": "デモ体験",
+  "oSpy": {
+    "slogan": "オフライン記録<br />プラグアンドプレイ",
+    "desc": "数行のコードで記録＆リプレイ。<br />データはローカルのみ、ネット転送なし、プライバシー安心。",
+    "import-use": "O-Spy 接続",
     "select-log": "ログ選択",
-    "import-use": "導入",
+    "take-try": "デモ体験",
     "install": "インストール",
     "install-title": "お好みの統合方法を選択してください",
     "install-desc": "フレームワークに依存しません。プロジェクトに最適な方法を自由に選べます。",
     "comment-title": "フローティングボタンとポップアップに表示されるタイトル",
     "comment-logo": "ロゴ画像のパス",
     "comment-primaryColor": "テーマカラーをカスタマイズ",
-    "comment-autoRender": "false に設定した場合、$feedback.open() を呼び出してポップアップを開けます。",
+    "comment-autoRender": "false に設定した場合、$oSpy.open() を呼び出してポップアップを開けます。",
+    "comment-exportButtonText": "ポップアップ内ボタンのカスタムテキスト",
+    "comment-onExportButtonClick": "ポップアップ内ボタンをクリックした後のカスタムコールバック",
+    "comment-default-params": "すべてのパラメーターはオプションです。必要に応じて使用してください。",
     "install-1st": "最初に依存関係をインストールしてください:",
     "install-2nd": "次にインスタンスを作成してください:",
     "install-result": "インストール後、右下にウィジェットが表示されます。クリックしてポップアップを開き、メモを入力してログをエクスポートしてください。",
     "replay": "リプレイ",
     "guide": "ガイドへ戻る",
-    "only-pc": "PCでご利用ください :)"
+    "only-pc": "PCでご利用ください :)",
+    "console-output": "コンソール出力",
+    "network-request": "ネットワークリクエスト",
+    "modify-storage": "Storage を変更"
   }
 }

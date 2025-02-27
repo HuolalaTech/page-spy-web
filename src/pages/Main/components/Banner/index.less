@@ -1,0 +1,89 @@
+.banner {
+  position: relative;
+  background-color: #111;
+  height: calc(100vh - 64px);
+  min-height: 500px;
+  .slogan {
+    > p {
+      margin-block: 6px;
+    }
+    p:nth-child(1) {
+      font-size: 76px;
+      font-weight: 700;
+      text-align: center;
+      #compose.gradient-text();
+    }
+  }
+  .slogan-desc {
+    margin-block: 42px;
+    font-size: 24px;
+    color: #ccc;
+  }
+  .banner-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    margin-top: 40px;
+  }
+}
+
+.waves {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+}
+
+.moving-waves > use {
+  animation: move 40s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+
+.moving-waves > use:first-child {
+  animation-delay: -2s;
+  animation-duration: 11s;
+}
+
+.moving-waves > use:nth-child(2) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+
+.moving-waves > use:nth-child(3) {
+  animation-delay: -3s;
+  animation-duration: 15s;
+}
+
+.moving-waves > use:nth-child(4) {
+  animation-delay: -4s;
+  animation-duration: 20s;
+}
+
+.moving-waves > use:nth-child(5) {
+  animation-delay: -4s;
+  animation-duration: 25s;
+}
+
+.moving-waves > use:nth-child(6) {
+  animation-delay: -3s;
+  animation-duration: 30s;
+}
+
+@keyframes move {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+
+  to {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .banner {
+    .slogan > p:nth-child(1) {
+      font-size: 56px;
+    }
+  }
+}
