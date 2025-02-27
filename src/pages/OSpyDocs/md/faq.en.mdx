@@ -1,0 +1,17 @@
+### Relation of the O-Spy and PageSpy? #difference
+
+O-Spy is built on top of the capabilities of [PageSpy](/) and its plugin ecosystem. Specifically, it packages the following three dependencies:
+
+- `@huolala-tech/page-spy-browser`: PageSpy's SDK for the Web environment, which enables offline mode in O-Spy;
+- `@huolala-tech/page-spy-plugin-rrweb`: Records user interaction traces on the page;
+- `@huolala-tech/page-spy-plugin-data-harbor`: Processes the data captured by PageSpy and provides export and other operations.
+
+The key differences between O-Spy and PageSpy are as follows:
+
+|                            | O-Spy                      | PageSpy |
+| -------------------------- | -------------------------- | ------- |
+| Requires deployment        | No                         | Yes     |
+| Online real-time debugging | ❌                          | ✅       |
+| Offline replay debugging   | ✅                          | ✅       |
+| Data upload                | 🟡 Handled manually         | ✅       |
+| Data download              | ✅                          | ✅       |

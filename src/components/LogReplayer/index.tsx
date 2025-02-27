@@ -1,4 +1,4 @@
-import { message, Row, Col, Space, Empty, Flex } from 'antd';
+import { message, Row, Col, Empty, Flex } from 'antd';
 import './index.less';
 import { useRequest } from 'ahooks';
 import { LoadingFallback } from '@/components/LoadingFallback';
@@ -8,10 +8,6 @@ import { HarborDataItem, useReplayStore } from '@/store/replay';
 import { RRWebPlayer } from './RRWebPlayer';
 import { PluginPanel } from './PluginPanel';
 import '@huolala-tech/react-json-view/dist/style.css';
-import { useTranslation } from 'react-i18next';
-import { InvalidObjectURL } from './InvalidObjectURL';
-import { Link } from 'react-router-dom';
-import LeftArrowSvg from '@/assets/image/left-arrow.svg?react';
 import {
   ReactNode,
   RefCallback,
@@ -34,7 +30,6 @@ interface Props {
 }
 
 export const LogReplayer = ({ url, backSlot = null }: Props) => {
-  const { t } = useTranslation();
   const [allRRwebEvent, setAllData, setIsExpand] = useReplayStore(
     useShallow((state) => [
       state.allRRwebEvent,
@@ -42,11 +37,7 @@ export const LogReplayer = ({ url, backSlot = null }: Props) => {
       state.setIsExpand,
     ]),
   );
-  const {
-    loading,
-    error,
-    run: requestLog,
-  } = useRequest(
+  const { loading, run: requestLog } = useRequest(
     async () => {
       const res = await (await fetch(url)).json();
       const result = res.map((i: any) => {
@@ -68,6 +59,9 @@ export const LogReplayer = ({ url, backSlot = null }: Props) => {
     },
     {
       manual: true,
+      onError(e) {
+        message.error(e.message);
+      },
     },
   );
   useEffect(() => {
@@ -134,24 +128,10 @@ export const LogReplayer = ({ url, backSlot = null }: Props) => {
     return <LoadingFallback />;
   }
 
-  if (error) {
-    message.error(error.message);
-    return <InvalidObjectURL url={url} />;
-  }
-
   return (
     <div className="replay">
       <Row className="replay-header" align="middle">
-        <Col span={8}>
-          {backSlot || (
-            <Space>
-              <Link to={{ pathname: '/log-list' }} className="back-list">
-                <LeftArrowSvg style={{ fontSize: 18 }} />
-              </Link>
-              <span className="replay-header__title">{t('replay.title')}</span>
-            </Space>
-          )}
-        </Col>
+        <Col span={8}>{backSlot}</Col>
         <Col span={8}>
           <Flex justify="center">
             <Meta />

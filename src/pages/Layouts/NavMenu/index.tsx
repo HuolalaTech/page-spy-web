@@ -16,6 +16,7 @@ import './index.less';
 import { useDarkTheme } from '@/utils/useDarkTheme';
 import { CSSTransition } from 'react-transition-group';
 import { createPortal } from 'react-dom';
+import { useWhere } from '@/utils/useWhere';
 
 const ALL_LANGS: MenuProps['items'] = [
   {
@@ -48,6 +49,7 @@ const navDropdownConfig = {
 export const NavMenuOnPc = () => {
   const isDark = useDarkTheme();
   const [lang, setLang] = useLanguage();
+  const { isOSpy } = useWhere();
   const { t } = useTranslation();
   const langMenus = useMemo(() => {
     return ALL_LANGS.filter((i) => i?.key !== lang);
@@ -59,27 +61,15 @@ export const NavMenuOnPc = () => {
         'is-dark': isDark,
       })}
     >
-      {/* Replay labs */}
-      {isDoc && (
-        <>
-          <Link to="/replay-lab" className="menu-item labs">
-            <Space align="center">
-              <Icon component={ReplaySvg} style={{ fontSize: 18 }} />
-              <span>{t('common.replay-lab')}</span>
-            </Space>
-          </Link>
-          <Divider type="vertical" className="divider-bg" />
-        </>
-      )}
       {/* Docs */}
-      <Link to="/docs" className="menu-item doc">
+      <Link to="docs" className="menu-item doc">
         <Space align="center">
           <Icon component={DocsSvg} style={{ fontSize: 18 }} />
           <span>{t('common.doc')}</span>
         </Space>
       </Link>
       <Divider type="vertical" className="divider-bg" />
-      {isClient && (
+      {isClient && !isOSpy && (
         <div className="menu-item debug-type">
           <ConfigProvider theme={navDropdownConfig}>
             <Dropdown
@@ -153,16 +143,17 @@ export const NavMenuOnPc = () => {
         target="_blank"
         className="menu-item"
       >
-        <Space>
-          <GithubOutlined style={{ fontSize: 16 }} />
-          <span>GitHub</span>
-        </Space>
+        <img
+          src="https://img.shields.io/github/stars/HuolalaTech/page-spy-web?style=social"
+          alt=""
+        />
       </a>
     </div>
   );
 };
 
 export const NavMenuOnMobile = () => {
+  const { isOSpy } = useWhere();
   const [lang, setLang] = useLanguage();
   const { t } = useTranslation();
   const isDark = useDarkTheme();
@@ -207,7 +198,7 @@ export const NavMenuOnMobile = () => {
           >
             {/* Docs */}
             <Link
-              to="/docs"
+              to="docs"
               className="menu-item doc"
               onClick={() => {
                 setExpand(false);
@@ -218,11 +209,11 @@ export const NavMenuOnMobile = () => {
                 <span>{t('common.doc')}</span>
               </Space>
             </Link>
-            {isClient && (
+            {isClient && !isOSpy && (
               <>
                 {/* Connections */}
                 <Link
-                  to="/room-list"
+                  to="room-list"
                   className="menu-item online"
                   onClick={() => {
                     setExpand(false);
@@ -253,10 +244,10 @@ export const NavMenuOnMobile = () => {
             {/* GitHub */}
             <div className="menu-item">
               <a href={import.meta.env.VITE_GITHUB_REPO} target="_blank">
-                <Space>
-                  <GithubOutlined style={{ fontSize: 16 }} />
-                  <span>GitHub</span>
-                </Space>
+                <img
+                  src="https://img.shields.io/github/stars/HuolalaTech/page-spy-web?style=social"
+                  alt=""
+                />
               </a>
             </div>
           </div>

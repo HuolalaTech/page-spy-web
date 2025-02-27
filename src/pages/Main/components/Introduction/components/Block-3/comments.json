@@ -1,0 +1,74 @@
+[
+  {
+    "html_url": "https://github.com/HuolalaTech/page-spy-web/issues/65#issuecomment-2065824476",
+    "user": {
+      "login": "HyperClockUp",
+      "avatar_url": "https://avatars.githubusercontent.com/u/36909196?v=4",
+      "html_url": "https://github.com/HyperClockUp"
+    },
+    "body": "我们有很多页面嵌在 pad 端或者硬件内部，调试和复现现场一直是个难题，但使用了 PageSpy 之后，省去了抓包流程，也不需要到设备现场就能轻松定位问题。而且开发团队更新和支持响应速度都非常快，也给我们使用者减少了维护的顾虑，大力支持 PageSpy，希望项目能越来越好，成为前端必备的调试工具！"
+  },
+  {
+    "html_url": "https://github.com/HuolalaTech/page-spy-web/issues/65#issuecomment-2065822351",
+    "user": {
+      "login": "SamWeichangyue",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30724369?v=4",
+      "html_url": "https://github.com/SamWeichangyue"
+    },
+    "body": "希望 PageSpy 越来越好，版本迭代清晰，也很迅速，刚要二开，结果发现功能上线嘞，这个项目带给我很多灵感"
+  },
+  {
+    "html_url": "https://github.com/HuolalaTech/page-spy-web/issues/65#issuecomment-2065828569",
+    "user": {
+      "login": "Jumping000",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34015788?v=4",
+      "html_url": "https://github.com/Jumping000"
+    },
+    "body": "目前用在个人外包项目，使用方便，支持的技术栈多，项目问题解决及时,快速定位问题，更新速度。很大程度优化开发扯皮环节，带来了便利，减少重复的工作，YYDS！"
+  },
+  {
+    "html_url": "https://github.com/HuolalaTech/page-spy-web/issues/65#issuecomment-2024627757",
+    "user": {
+      "login": "wuchaoxin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/52433086?v=4",
+      "html_url": "https://github.com/wuchaoxin"
+    },
+    "body": "使用 PageSpy 工具后，我们团队的前端开发人员和测试人员都对其赞不绝口。它极大地简化了我们的调试流程，不再需要在每一台手机上安装不同的证书来进行代理调试。这一工具的出现，为我们节省了大量宝贵的时间，让调试变得更加高效。从此，我们可以专注于开发和测试工作，而不必为繁琐的调试步骤而烦恼。这确实是一个非常棒的工具，为我们的团队带来了巨大的便利和效率提升。"
+  },
+  {
+    "html_url": "https://github.com/HuolalaTech/page-spy-web/issues/65#issuecomment-2065842345",
+    "user": {
+      "login": "zy1281539626",
+      "avatar_url": "https://avatars.githubusercontent.com/u/24648935?v=4",
+      "html_url": "https://github.com/zy1281539626"
+    },
+    "body": "PageSpy 确实能很大的方便开发调试，PC 端看日志是真的爽，直接截图给后端，再也不用拍照手机报错再上传了。"
+  },
+  {
+    "html_url": "https://github.com/HuolalaTech/page-spy-web/issues/65#issuecomment-2230426027",
+    "user": {
+      "login": "Niannianyouxinxin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/64892018?v=4",
+      "html_url": "https://github.com/Niannianyouxinxin"
+    },
+    "body": "没用过这么方便的，太方便了，多种部署方式部署非常方便，非常好用可以复现当时的场景和日志，人非常 nice，群里问题知无不言言无不尽，人帅技术好"
+  },
+  {
+    "html_url": "https://github.com/HuolalaTech/page-spy-web/issues/65#issuecomment-2065849082",
+    "user": {
+      "login": "wencai123",
+      "avatar_url": "https://avatars.githubusercontent.com/u/82213523?v=4",
+      "html_url": "https://github.com/wencai123"
+    },
+    "body": "PageSpy 的出现，解决了 H5 调试的数据查看、数据 copy、异地调试等痛点问题，支持离线上传日志、PC 端调试 H5，这在传统的 H5 调试工具库里是无法做到的，功能非常强大，极大的提高了调试效率，希望 PageSpy 越来越好，成为引领新一代 H5 调试的工具！"
+  },
+  {
+    "html_url": "https://github.com/HuolalaTech/page-spy-web/issues/65#issuecomment-2227990210",
+    "user": {
+      "login": "tiantangmowang",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11189379?v=4",
+      "html_url": "https://github.com/tiantangmowang"
+    },
+    "body": "近期真正有需求价值的开源项目，解决了公司在排查复杂客户环境问题上的一大痛点。这个工具大大节省了我们的时间，让调试变得更加高效。我们衷心希望 PageSpy 能不断改进，成为引领新一代 H5 调试的标杆工具！"
+  }
+]

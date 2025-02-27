@@ -18,6 +18,9 @@ cp "${root}/node_modules/@huolala-tech/page-spy-plugin-data-harbor/dist/iife/ind
 # @huolala-tech/page-spy-plugin-whole-bundle
 mkdir -p "${target_plugin}/whole-bundle"
 cp "${root}/node_modules/@huolala-tech/page-spy-plugin-whole-bundle/dist/iife/index.min.js" "${root}/public/plugin/whole-bundle/index.min.js"
+# @huolala-tech/page-spy-plugin-ospy
+mkdir -p "${target_plugin}/ospy"
+cp "${root}/node_modules/@huolala-tech/page-spy-plugin-ospy/dist/iife/index.min.js" "${root}/public/plugin/ospy/index.min.js"
 
 # source-map
 target_sourcemap="${root}/public/source-map"

@@ -1,0 +1,61 @@
+
+[license-img]: https://img.shields.io/github/license/HuolalaTech/page-spy-web?label=License
+[license-url]: https://github.com/HuolalaTech/page-spy-web/blob/main/LICENSE
+[sdk-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-plugin-ospy?label=OSpy&color=white
+[sdk-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-plugin-ospy
+
+import Icon from '@ant-design/icons';
+import Logo from '@/assets/image/o-spy.svg?react';
+import workflow from '@/assets/image/screenshot/ospy-workflow.en.png';
+import { Link } from 'react-router-dom';
+
+<div align="center">
+  <Icon component={Logo} style={{ fontSize: 100, color: '#fff' }} />
+  <h1>O-Spy</h1>
+  <h5>Offline recording, plug and play.</h5>
+</div>
+
+<div className='badges'>
+  [![SDK version][sdk-ver-img]][sdk-ver-url]
+  [![license][license-img]][license-url]
+</div>
+
+## What is O-Spy? #what-is-ospy
+
+O-Spy (pronounced /əʊ spaɪ/, similar to **"Oh-Spy"**) is a debugging tool for **offline recording program runtime data** in web projects. The recorded data can be replayed using the O-Spy platform. [Click to see the demo](/o-spy?url=demo).
+
+The workflow is shown in the image below:
+
+<a href={workflow} target="_blank">
+  <img src={workflow} style={{width: '100%'}} />
+</a>
+
+## Quick Start
+
+#### Step 1: Import O-Spy #step-1
+
+O-Spy is framework-agnostic, and you can integrate it into your project in any way you prefer.
+
+import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';
+
+<ImportGuide showConfig={false} />
+
+Once successfully imported, you will see a draggable "O-Spy" widget at the bottom right of the screen. Try opening it :)
+
+import { CallOSpy } from '../md-components/CallOSPy';
+
+<CallOSpy />
+
+#### Step 2: Export Data #step-2
+
+This page already integrates O-Spy. Imagine it as your web page and let’s generate some data. Feel free to click the button below:
+
+import { MakeData } from '../md-components/MakeData'
+
+<MakeData />
+
+Then click the floating O-Spy button to open the popup and click "Export Log" to download a JSON file.
+
+#### Step 3: Replay #step-3
+
+Go to <Link to="/o-spy?url=" target='_blank'>the replay page</Link>, click the "Select Log" button at the top left, choose the JSON file we just exported, and start the replay!

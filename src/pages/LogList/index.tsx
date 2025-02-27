@@ -20,7 +20,7 @@ import {
 import { Trans, useTranslation } from 'react-i18next';
 import './index.less';
 import { Link } from 'react-router-dom';
-import { SelectLogButton } from './SelectLogButton';
+import { ExtraLogButton } from './ExtraLogButton';
 import dayjs, { type Dayjs } from 'dayjs';
 import request from '@/apis/request';
 import { ComponentType, useCallback, useRef, useState } from 'react';
@@ -225,7 +225,7 @@ const LogList = () => {
                   >
                     {t('common.reset')}
                   </Button>
-                  <SelectLogButton />
+                  <ExtraLogButton />
                 </Space>
               </Form.Item>
             </Col>

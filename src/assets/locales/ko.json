@@ -47,7 +47,7 @@
     "copied": "복사되었습니다",
     "prev": "이전 페이지",
     "next": "다음 페이지",
-    "replay-lab": "리플레이 연구소",
+    "o-spy": "oSpy",
     "toc": "목차",
     "filter": "필터",
     "back": "돌아가기"
@@ -89,8 +89,8 @@
   "banner": {
     "title": "다기능<br />원격 디버깅 도구",
     "desc": "Google Chrome 콘솔을 사용하는 것처럼 간단히 원격 디버깅을 시작하세요.",
-    "get-start": "빠른 시작",
-    "take-try": "지금 체험"
+    "get-start": "시작하기",
+    "badge": "배포불필요"
   },
   "intro": {
     "does": "PageSpy가 할 수 있는 일",
@@ -99,7 +99,7 @@
     "providesTitle": "사용 준비가 된 <1>SDK</1><br />및 <4>클라이언트 디버그</4>",
     "load-script": "먼저, 파일을 로드합니다",
     "init-instance": "그런 다음, 설정(선택 사항)하고 초기화합니다",
-    "welcome": "PageSpy에 오신 것을 환영합니다."
+    "community-comments": "<0>커뮤니티에서 사랑받는 서비스</0><1>우리의 말만 믿지 마세요<br />PageSpy 커뮤니티의 실제 사용자들의 의견을 들어보세요</1>"
   },
   "selConn": {
     "title": "연결 선택",
@@ -247,25 +247,30 @@
       "remark": "비고"
     }
   },
-  "lab": {
-    "welcome": "환영합니다",
-    "welcome-title": "리플레이 랩에<br />오신 것을 환영합니다",
-    "welcome-desc": "몇 줄의 코드로 시스템에 강력한 '피드백 기능'을 추가하세요.<br />모든 데이터는 로컬에 저장되며, 네트워크 전송 없이 완벽한 개인정보 보호가 가능합니다.",
-    "take-try": "데모 체험",
+  "oSpy": {
+    "slogan": "오프라인 기록<br />플러그 앤 플레이",
+    "desc": "몇 줄의 코드로 기록 및 재생.<br />데이터는 로컬에만 저장, 네트워크 전송 없음, 개인정보 걱정 없음.",
+    "import-use": "O-Spy 연결",
     "select-log": "로그 선택",
-    "import-use": "연동",
+    "take-try": "데모 체험",
     "install": "설치",
     "install-title": "선호하는 통합 방식을 선택하세요",
     "install-desc": "프레임워크에 구애받지 않습니다. 프로젝트에 맞는 방식을 자유롭게 선택하세요.",
     "comment-title": "플로팅 버튼과 팝업에 표시되는 제목",
     "comment-logo": "로고 이미지 경로",
     "comment-primaryColor": "테마 색상 사용자 정의",
-    "comment-autoRender": "false로 설정 시 $feedback.open()을 호출하여 팝업을 열 수 있습니다.",
+    "comment-autoRender": "false로 설정 시 $oSpy.open()을 호출하여 팝업을 열 수 있습니다.",
+    "comment-exportButtonText": "팝업 내 버튼의 사용자 지정 텍스트",
+    "comment-onExportButtonClick": "팝업 내 버튼 클릭 후 사용자 지정 콜백",
+    "comment-default-params": "모든 매개변수는 선택 사항이며, 필요에 따라 사용하세요.",
     "install-1st": "먼저 의존성을 설치하세요:",
     "install-2nd": "다음으로 인스턴스를 생성하세요:",
     "install-result": "설치 후 오른쪽 하단에 위젯이 나타납니다. 클릭하여 팝업을 열고 메모를 입력한 후 로그를 내보내세요.",
     "replay": "재생",
     "guide": "가이드로 돌아가기",
-    "only-pc": "PC에서 방문해주세요 :)"
+    "only-pc": "PC에서 방문해주세요 :)",
+    "console-output": "콘솔 출력",
+    "network-request": "네트워크 요청",
+    "modify-storage": "Storage 수정"
   }
 }
