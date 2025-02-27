@@ -113,5 +113,6 @@
   ],
   "optionalDependencies": {
     "@huolala-tech/page-spy-api": "^2.0.0"
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }
