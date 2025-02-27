@@ -39,23 +39,30 @@ jobs:
         run: yarn --frozen-lockfile --ignore-optional
       - name: Build
         run: yarn build:doc
-      - name: try_files using 404.html
-        run: cp ./docs-dist/index.html ./docs-dist/404.html
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Publish
+        uses: cloudflare/pages-action@v1
         with:
-          # Upload entire repository
-          path: './docs-dist'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-      - name: Lark bot notify
-        env:
-          TOKEN: ${{ secrets.LARK_BOT_TOKEN }}
-        run: |
-          BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
-          curl "https://pagespy.blucas.me/lark/ci?branch=$BRANCH_NAME&actionId=$GITHUB_RUN_ID" \
-            -X POST \
-            -H "token: $TOKEN"
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: 'page-spy-web'
+          directory: 'docs-dist'
+      # - name: try_files using 404.html
+      #   run: cp ./docs-dist/index.html ./docs-dist/404.html
+      # - name: Setup Pages
+      #   uses: actions/configure-pages@v3
+      # - name: Upload artifact
+      #   uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     # Upload entire repository
+      #     path: './docs-dist'
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   uses: actions/deploy-pages@v4
+      # - name: Lark bot notify
+      #   env:
+      #     TOKEN: ${{ secrets.LARK_BOT_TOKEN }}
+      #   run: |
+      #     BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
+      #     curl "https://pagespy.blucas.me/lark/ci?branch=$BRANCH_NAME&actionId=$GITHUB_RUN_ID" \
+      #       -X POST \
+      #       -H "token: $TOKEN"
