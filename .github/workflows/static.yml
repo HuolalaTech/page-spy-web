@@ -51,3 +51,11 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Lark bot notify
+        env:
+          TOKEN: ${{ secrets.LARK_BOT_TOKEN }}
+        run: |
+          BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
+          curl "https://pagespy.blucas.me/lark/ci?branch=$BRANCH_NAME&actionId=$GITHUB_RUN_ID" \
+            -X POST \
+            -H "token: $TOKEN"
