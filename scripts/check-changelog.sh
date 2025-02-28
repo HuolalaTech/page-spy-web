@@ -3,8 +3,8 @@
 PACKAGE_VERSION=$(jq -r '.version' package.json)
 
 CHANGELOG_FILES=(
-  "src/pages/Docs/md/changelog.zh.mdx"
-  "src/pages/Docs/md/changelog.en.mdx"
+  "src/pages/MainDocs/md/changelog.zh.mdx"
+  "src/pages/MainDocs/md/changelog.en.mdx"
 )
 
 for FILE in "${CHANGELOG_FILES[@]}"; do
