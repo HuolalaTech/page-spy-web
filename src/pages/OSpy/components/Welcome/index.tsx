@@ -81,7 +81,7 @@ export const Welcome = () => {
           <Trans i18nKey="oSpy.slogan">
             离线记录
             <br />
-            即插即用
+            完整回放
           </Trans>
         </p>
         <p className="slogan-desc">
