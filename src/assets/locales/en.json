@@ -250,7 +250,7 @@
   },
   "oSpy": {
     "slogan": "Offline Recording<br />Complete Replay",
-    "desc": "Take a snapshot with one line of code, and store data locally with peace of mind.",
+    "desc": "Take a snapshot with one line of code,<br />and store data locally with peace of mind.",
     "import-use": "Integrate O-Spy",
     "select-log": "Select Log",
     "take-try": "Try Demo",
