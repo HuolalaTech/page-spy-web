@@ -79,16 +79,14 @@ export const Welcome = () => {
       >
         <p className="slogan">
           <Trans i18nKey="oSpy.slogan">
-            离线记录，
+            离线记录
             <br />
-            完整回放。
+            完整回放
           </Trans>
         </p>
         <p className="slogan-desc">
           <Trans i18nKey="oSpy.desc">
-            一行代码记录现场
-            <br />
-            本地数据安心存放
+            一行代码记录现场，本地数据安心存放。
           </Trans>
         </p>
         <Flex
