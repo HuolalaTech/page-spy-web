@@ -86,9 +86,9 @@ export const Welcome = () => {
         </p>
         <p className="slogan-desc">
           <Trans i18nKey="oSpy.desc">
-            几行代码，回看程序运行现场
+            一行代码记录现场
             <br />
-            数据都在本地，不经过网络传输，无需担心隐私泄露
+            本地数据安心存放
           </Trans>
         </p>
         <Flex
