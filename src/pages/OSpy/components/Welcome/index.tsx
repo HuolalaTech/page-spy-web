@@ -79,9 +79,9 @@ export const Welcome = () => {
       >
         <p className="slogan">
           <Trans i18nKey="oSpy.slogan">
-            离线记录
+            离线记录，
             <br />
-            完整回放
+            完整回放。
           </Trans>
         </p>
         <p className="slogan-desc">
