@@ -1,4 +1,4 @@
-import { Col, Layout, Row } from 'antd';
+import { Col, Flex, Layout, Row } from 'antd';
 import { Outlet } from 'react-router-dom';
 import './index.less';
 import clsx from 'clsx';
@@ -23,7 +23,7 @@ export const Layouts = () => {
           className={clsx('header', isDark && 'is-dark')}
         >
           <Col>
-            <div className="logo">
+            <Flex gap={20} align="center">
               <Logo />
               {isDoc && (
                 <a
@@ -34,11 +34,11 @@ export const Layouts = () => {
                   <img
                     src="https://trendshift.io/api/badge/repositories/5407"
                     alt="HuolalaTech/page-spy-web | Trendshift"
-                    height="36"
+                    style={{ height: 36 }}
                   />
                 </a>
               )}
-            </div>
+            </Flex>
           </Col>
           <Col>
             <NavMenuOnPc />

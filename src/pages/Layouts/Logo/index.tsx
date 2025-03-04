@@ -8,6 +8,7 @@ import Icon from '@ant-design/icons';
 import Title from 'antd/es/typography/Title';
 import './index.less';
 import { useWhere } from '@/utils/useWhere';
+import clsx from 'clsx';
 
 export const Logo = () => {
   const where = useWhere();
@@ -29,7 +30,12 @@ export const Logo = () => {
   }, [where]);
 
   return (
-    <Link to={config.link}>
+    <Link
+      to={config.link}
+      className={clsx('logo', {
+        'in-ospy': where.isOSpy,
+      })}
+    >
       <Icon component={config.image} className="logo-icon" />
       <Title level={4} className="logo-name">
         {config.name}

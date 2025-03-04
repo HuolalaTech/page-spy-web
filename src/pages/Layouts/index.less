@@ -12,7 +12,7 @@
   }
   .header {
     position: relative;
-    padding-inline: 48px;
+    padding-inline: 32px;
     height: var(--header-height);
     box-shadow: @light-box-shadow;
     background-color: var(--light-background);
@@ -26,13 +26,16 @@
         word-break: keep-all;
       }
     }
+    .third-brand {
+      line-height: 1;
+    }
   }
 }
 
 @media screen and (max-width: 768px) {
   .layouts {
     .header {
-      padding-inline: 24px;
+      padding-inline: 16px;
     }
   }
 }
