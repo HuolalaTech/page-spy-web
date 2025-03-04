@@ -1,7 +1,3 @@
-// import zh from './zh.json';
-// import en from './en.json';
-// import ja from './ja.json';
-// import ko from './ko.json';
 import { initReactI18next } from 'react-i18next';
 import i18next, { InitOptions } from 'i18next';
 import languageDetector from 'i18next-browser-languagedetector';
@@ -28,21 +24,21 @@ i18next
   .use(languageDetector)
   .init({
     resources,
-    fallbackLng: 'zh',
+    fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
     },
   });
 
 export const getTranslation = (key: string) => {
-  const lang = i18next.resolvedLanguage || 'zh';
+  const lang = i18next.resolvedLanguage || 'en';
   const res = i18next.getResource(lang, 'translation', key);
   return res || key;
 };
 
 export const isCN = () => {
   const lang = i18next.resolvedLanguage;
-  return ['zh-CN', 'zh-HK', 'zh-TW', 'zh'].some((l) => {
+  return ['zh', 'zh-CN', 'zh-Hans-CN'].some((l) => {
     return lang === l;
   });
 };

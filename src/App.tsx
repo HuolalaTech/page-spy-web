@@ -10,6 +10,7 @@ import { langType, useLanguage } from './utils/useLanguage';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import type { Locale } from 'antd/es/locale';
 import dayjs from 'dayjs';
+import { CNUserModal } from './components/CNUserModal';
 
 const localeConfig: Record<langType, Locale> = {
   zh,
@@ -39,6 +40,7 @@ export const App = () => {
               },
             }}
           >
+            <CNUserModal />
             <RouteConfig />
           </ConfigProvider>
         </ErrorBoundary>

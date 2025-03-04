@@ -9,7 +9,8 @@ import I18nSvg from '@/assets/image/i18n.svg?react';
 import BugSvg from '@/assets/image/bug.svg?react';
 import OnlineSvg from '@/assets/image/online.svg?react';
 import ReplaySvg from '@/assets/image/replay.svg?react';
-import i18n from '@/assets/locales';
+import RunSvg from '@/assets/image/run-right.svg?react';
+import i18n, { isCN } from '@/assets/locales';
 import { useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import './index.less';
@@ -17,6 +18,7 @@ import { useDarkTheme } from '@/utils/useDarkTheme';
 import { CSSTransition } from 'react-transition-group';
 import { createPortal } from 'react-dom';
 import { useWhere } from '@/utils/useWhere';
+import { CN_MIRROR_SITE } from '@/components/CNUserModal';
 
 const ALL_LANGS: MenuProps['items'] = [
   {
@@ -138,6 +140,18 @@ export const NavMenuOnPc = () => {
         </ConfigProvider>
       </div>
       <Divider type="vertical" className="divider-bg" />
+      {/* Mirror */}
+      {isDoc && isCN() && (
+        <>
+          <a href={CN_MIRROR_SITE} target="_blank" className="menu-item doc">
+            <Space align="center">
+              <Icon component={RunSvg} style={{ fontSize: 16 }} />
+              <span>国内镜像</span>
+            </Space>
+          </a>
+          <Divider type="vertical" className="divider-bg" />
+        </>
+      )}
       <a
         href={import.meta.env.VITE_GITHUB_REPO}
         target="_blank"
@@ -241,6 +255,19 @@ export const NavMenuOnMobile = () => {
                 <span>{t('common.lang')}</span>
               </Space>
             </div>
+            {/* Mirror */}
+            {isDoc && isCN() && (
+              <a
+                href={CN_MIRROR_SITE}
+                target="_blank"
+                className="menu-item doc"
+              >
+                <Space align="center">
+                  <Icon component={RunSvg} style={{ fontSize: 16 }} />
+                  <span>国内镜像</span>
+                </Space>
+              </a>
+            )}
             {/* GitHub */}
             <div className="menu-item">
               <a href={import.meta.env.VITE_GITHUB_REPO} target="_blank">

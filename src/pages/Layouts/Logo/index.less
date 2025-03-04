@@ -2,29 +2,18 @@
   height: var(--header-height);
   display: flex;
   align-items: center;
-  gap: 20px;
-  > a {
-    height: 100%;
-    display: inline-flex;
-    place-items: center;
-    color: #000;
+  &.in-ospy {
+    gap: 20px;
   }
   .logo-icon {
     font-size: 48px;
   }
   .logo-name {
-    margin-left: 12px;
     margin-bottom: 0;
   }
   .page-spy-version {
     display: inline-block;
     transform: translate(2px, -10px);
     font-size: 12px;
-  }
-  .producthunt-brand {
-    height: 36px;
-    @media screen and (max-width: 420px) {
-      display: none;
-    }
   }
 }
