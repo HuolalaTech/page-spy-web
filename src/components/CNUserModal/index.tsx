@@ -32,6 +32,7 @@ export const CNUserModal = () => {
     <Modal
       open={open}
       title="🚀 提示"
+      maskClosable={false}
       onCancel={() => {
         setOpen(false);
       }}
