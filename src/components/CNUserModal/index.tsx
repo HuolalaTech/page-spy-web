@@ -32,6 +32,9 @@ export const CNUserModal = () => {
     <Modal
       open={open}
       title="🚀 提示"
+      onCancel={() => {
+        setOpen(false);
+      }}
       footer={[
         <Button
           key="close"
