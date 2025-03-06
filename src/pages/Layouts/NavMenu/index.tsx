@@ -1,7 +1,7 @@
 import { isClient, isDoc } from '@/utils/constants';
 import { langType, useLanguage } from '@/utils/useLanguage';
-import Icon, { GithubOutlined } from '@ant-design/icons';
-import { Space, Divider, MenuProps, Dropdown, ConfigProvider } from 'antd';
+import Icon from '@ant-design/icons';
+import { Divider, MenuProps, Dropdown, ConfigProvider, Flex } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import DocsSvg from '@/assets/image/docs.svg?react';
@@ -65,59 +65,61 @@ export const NavMenuOnPc = () => {
     >
       {/* Docs */}
       <Link to="docs" className="menu-item doc">
-        <Space align="center">
+        <Flex align="center" gap={8}>
           <Icon component={DocsSvg} style={{ fontSize: 18 }} />
           <span>{t('common.doc')}</span>
-        </Space>
+        </Flex>
       </Link>
       <Divider type="vertical" className="divider-bg" />
       {isClient && !isOSpy && (
-        <div className="menu-item debug-type">
-          <ConfigProvider theme={navDropdownConfig}>
-            <Dropdown
-              arrow
-              trigger={['click']}
-              menu={{
-                items: [
-                  {
-                    key: 'online-debug',
-                    label: (
-                      <Link to="/room-list" className="menu-item online">
-                        <Space align="center">
-                          <Icon
-                            component={OnlineSvg}
-                            style={{ fontSize: 18 }}
-                          />
-                          <span>{t('common.online-debug')}</span>
-                        </Space>
-                      </Link>
-                    ),
-                  },
-                  {
-                    key: 'offline-debug',
-                    label: (
-                      <Link to="/log-list" className="menu-item offline">
-                        <Space align="center">
-                          <Icon
-                            component={ReplaySvg}
-                            style={{ fontSize: 18 }}
-                          />
-                          <span>{t('common.offline-debug')}</span>
-                        </Space>
-                      </Link>
-                    ),
-                  },
-                ],
-              }}
-            >
-              <Space align="center">
-                <Icon component={BugSvg} style={{ fontSize: 18 }} />
-                <span>{t('common.start-debug')}</span>
-              </Space>
-            </Dropdown>
-          </ConfigProvider>
+        <>
+          <div className="menu-item debug-type">
+            <ConfigProvider theme={navDropdownConfig}>
+              <Dropdown
+                arrow
+                trigger={['click']}
+                menu={{
+                  items: [
+                    {
+                      key: 'online-debug',
+                      label: (
+                        <Link to="/room-list" className="menu-item online">
+                          <Flex align="center" gap={8}>
+                            <Icon
+                              component={OnlineSvg}
+                              style={{ fontSize: 18 }}
+                            />
+                            <span>{t('common.online-debug')}</span>
+                          </Flex>
+                        </Link>
+                      ),
+                    },
+                    {
+                      key: 'offline-debug',
+                      label: (
+                        <Link to="/log-list" className="menu-item offline">
+                          <Flex align="center" gap={8}>
+                            <Icon
+                              component={ReplaySvg}
+                              style={{ fontSize: 18 }}
+                            />
+                            <span>{t('common.offline-debug')}</span>
+                          </Flex>
+                        </Link>
+                      ),
+                    },
+                  ],
+                }}
+              >
+                <Flex align="center" gap={8}>
+                  <Icon component={BugSvg} style={{ fontSize: 18 }} />
+                  <span>{t('common.start-debug')}</span>
+                </Flex>
+              </Dropdown>
+            </ConfigProvider>
+          </div>
           <Divider type="vertical" className="divider-bg" />
-        </div>
+        </>
       )}
       {/* i18n */}
       <div className="menu-item lang">
@@ -132,10 +134,10 @@ export const NavMenuOnPc = () => {
               },
             }}
           >
-            <Space align="center">
+            <Flex align="center" gap={8}>
               <Icon component={I18nSvg} style={{ fontSize: 18 }} />
               <span>{t('common.lang')}</span>
-            </Space>
+            </Flex>
           </Dropdown>
         </ConfigProvider>
       </div>
@@ -144,10 +146,10 @@ export const NavMenuOnPc = () => {
       {isDoc && isCN() && (
         <>
           <a href={CN_MIRROR_SITE} target="_blank" className="menu-item doc">
-            <Space align="center">
+            <Flex align="center" gap={8}>
               <Icon component={RunSvg} style={{ fontSize: 16 }} />
               <span>国内镜像</span>
-            </Space>
+            </Flex>
           </a>
           <Divider type="vertical" className="divider-bg" />
         </>
@@ -156,6 +158,7 @@ export const NavMenuOnPc = () => {
         href={import.meta.env.VITE_GITHUB_REPO}
         target="_blank"
         className="menu-item"
+        style={{ fontSize: 0 }}
       >
         <img
           src="https://img.shields.io/github/stars/HuolalaTech/page-spy-web?style=social"
@@ -218,10 +221,10 @@ export const NavMenuOnMobile = () => {
                 setExpand(false);
               }}
             >
-              <Space align="center">
+              <Flex align="center" gap={8}>
                 <Icon component={DocsSvg} style={{ fontSize: 18 }} />
                 <span>{t('common.doc')}</span>
-              </Space>
+              </Flex>
             </Link>
             {isClient && !isOSpy && (
               <>
@@ -233,10 +236,10 @@ export const NavMenuOnMobile = () => {
                     setExpand(false);
                   }}
                 >
-                  <Space align="center">
+                  <Flex align="center" gap={8}>
                     <Icon component={OnlineSvg} style={{ fontSize: 18 }} />
                     <span>{t('common.connections')}</span>
-                  </Space>
+                  </Flex>
                 </Link>
               </>
             )}
@@ -250,10 +253,10 @@ export const NavMenuOnMobile = () => {
                 setExpand(false);
               }}
             >
-              <Space align="center">
+              <Flex align="center" gap={8}>
                 <Icon component={I18nSvg} style={{ fontSize: 18 }} />
                 <span>{t('common.lang')}</span>
-              </Space>
+              </Flex>
             </div>
             {/* Mirror */}
             {isDoc && isCN() && (
@@ -262,10 +265,10 @@ export const NavMenuOnMobile = () => {
                 target="_blank"
                 className="menu-item doc"
               >
-                <Space align="center">
+                <Flex align="center" gap={8}>
                   <Icon component={RunSvg} style={{ fontSize: 16 }} />
                   <span>国内镜像</span>
-                </Space>
+                </Flex>
               </a>
             )}
             {/* GitHub */}

@@ -8,6 +8,7 @@ import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import { formatSlug } from '@/utils/docs';
 import { useDocContext } from '@/components/Docs/context';
+import { debug } from '@/utils/debug';
 
 export interface NavItem {
   text: string;
@@ -16,7 +17,7 @@ export interface NavItem {
 
 const processor = unified().use(remarkParse);
 
-// 目录生成规则参照 ../mdx-mapping/Heading.tsx
+// 目录的锚点生成规则参照 ../mdx-mapping/Heading.tsx
 export const computeTocs = async (raw: () => Promise<string>) => {
   const navs: NavItem[] = [];
   try {
@@ -26,25 +27,34 @@ export const computeTocs = async (raw: () => Promise<string>) => {
       if ([2, 3].includes(node.depth)) {
         // ## abcd     =>  text
         // ## <XYZ />  =>  html
+        // ## title <Component> title#slug => [text, html, text]
         const texts = node.children.filter((i) => i.type === 'text');
+        // if (texts.some((i) => i.value.includes('v2.2.0'))) {
+        //   console.log(texts, node);
+        // }
         if (!texts.length) {
-          console.error('当前 heading 自动提取 anchor 失败', node);
+          debug.panic('TOC 未找到合适的标题作为锚点', node);
           return;
         }
 
         let text: string = '';
         let link: string = '';
 
-        // ## title <Component>#slug => [text, html, text]
-        const customSlug = texts.findLast((i) => i.value.startsWith('#'));
-        if (customSlug) {
-          text = texts[0].value;
-          link = customSlug.value.slice(1);
-        } else {
-          // ## title
+        if (texts.length === 1) {
           const [head, anchor] = texts[0].value.split('#');
           text = head;
           link = anchor || head;
+        } else {
+          text = texts[0].value;
+          const lastNode = texts[texts.length - 1].value;
+          if (lastNode.indexOf('#') !== -1) {
+            link = lastNode.split('#')[1];
+          } else {
+            link = text.trim();
+          }
+        }
+        if (!link) {
+          debug.panic('TOC 未找到合适的锚点', node);
         }
 
         navs.push({
@@ -96,7 +106,7 @@ export const ToC = ({ doc, lang }: { doc: string; lang: langType }) => {
                   <Link
                     to={to}
                     className={clsx({
-                      active: hash === to,
+                      active: decodeURIComponent(hash) === to,
                     })}
                   >
                     {i.text}

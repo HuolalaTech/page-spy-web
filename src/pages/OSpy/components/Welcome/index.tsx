@@ -17,7 +17,7 @@ const InstallSdkButton = () => {
 
   if (!size) return null;
 
-  if (size.height <= 850) {
+  if (size.width <= 768) {
     return (
       <>
         <Modal
@@ -29,7 +29,7 @@ const InstallSdkButton = () => {
           footer={null}
           maskClosable
         >
-          <ImportGuide />
+          <ImportGuide showConfig={false} />
         </Modal>
         <Button
           type="primary"
@@ -47,9 +47,9 @@ const InstallSdkButton = () => {
   return (
     <Popover
       title={<h3>{t('oSpy.import-use')}</h3>}
-      content={<ImportGuide />}
+      content={<ImportGuide showConfig={false} />}
       trigger="click"
-      overlayInnerStyle={{ maxWidth: 800 }}
+      overlayInnerStyle={{ width: 800 }}
     >
       <Button
         type="primary"

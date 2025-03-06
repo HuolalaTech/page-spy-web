@@ -17,6 +17,7 @@ import {
 } from '@/utils';
 import { parseClientInfo, ParsedClientInfo } from '@/utils/brand';
 import { DataType } from '@huolala-tech/page-spy-plugin-data-harbor/dist/types/harbor/base';
+import { debug } from '@/utils/debug';
 
 const isCaredActivity = (activity: HarborDataItem) => {
   const { type, data } = activity;
@@ -251,19 +252,16 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       }
       return acc;
     }, result);
-
-    if (localStorage.getItem('page-spy-replay-debug')) {
-      console.log({
-        rrweb: allRRwebEvent,
-        console: allConsoleMsg,
-        network: allNetworkMsg,
-        storage: allStorageMsg,
-        system: allSystemMsg,
-        startTime: start,
-        endTime: end,
-        duration,
-      });
-    }
+    debug.log({
+      rrweb: allRRwebEvent,
+      console: allConsoleMsg,
+      network: allNetworkMsg,
+      storage: allStorageMsg,
+      system: allSystemMsg,
+      startTime: start,
+      endTime: end,
+      duration,
+    });
     set(
       produce((state) => {
         state.activity = activity;

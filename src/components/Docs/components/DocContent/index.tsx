@@ -105,7 +105,9 @@ export const DocContent = () => {
     if (!hash) return;
 
     const container = rootRef.current;
-    const node = container?.querySelector(hash) as HTMLElement;
+    const node = container?.querySelector(
+      decodeURIComponent(hash),
+    ) as HTMLElement;
     if (!container || !node) return;
 
     setTimeout(() => {
