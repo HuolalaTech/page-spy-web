@@ -8,11 +8,15 @@ import { NavMenuOnPc, NavMenuOnMobile } from './NavMenu';
 import { useDarkTheme } from '@/utils/useDarkTheme';
 import { isDoc } from '@/utils/constants';
 import { Logo } from './Logo';
+import { useWhere } from '@/utils/useWhere';
+import { useTitle } from 'ahooks';
 
 const { Header, Content } = Layout;
 
 export const Layouts = () => {
   const isDark = useDarkTheme();
+  const { isOSpy } = useWhere();
+  useTitle(isOSpy ? 'O-Spy' : 'PageSpy');
 
   return (
     <Layout className="layouts">

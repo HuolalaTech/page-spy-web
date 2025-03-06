@@ -667,126 +667,126 @@
   resolved "https://registry.yarnpkg.com/@huolala-tech/custom-error/-/custom-error-1.0.0.tgz#962726e0427753e4ebe637d79e69393dca70ed50"
   integrity sha512-VdDs0EWLK/kXUCcYX7kD0ol0tMnjGrTlELl/GG+rrYJVr1wzad7+J4/t71zkvPWp54YAqhCnkq0+Tl6TqJkGgg==
 
-"@huolala-tech/page-spy-api-darwin-amd64@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-darwin-amd64/-/page-spy-api-darwin-amd64-2.0.0.tgz#8aaa24185b22bf0e38a2a4fb06d3bb85a675f838"
-  integrity sha512-Kdl9OhChlpgNagPIxxffg9VFXAQLE4EAq52q9tPEtJ5pbQ+orwqNpjuErUMi0G6Rdqxe8xGplK1BwdFDgAfFVg==
+"@huolala-tech/page-spy-api-darwin-amd64@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-darwin-amd64/-/page-spy-api-darwin-amd64-2.2.0.tgz#687c3561e993430324d0773c38b636db2d7115fa"
+  integrity sha512-rVl9+UpKyQc5IOVmNROg0v/z3/w7o/crqb+gIjtE0kNEHXqked9GLeNibdQT7PHABEY1HnBeWfbbJIURFtL/lg==
 
-"@huolala-tech/page-spy-api-darwin-arm64@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-darwin-arm64/-/page-spy-api-darwin-arm64-2.0.0.tgz#b221b5224afec7c674de658def689e10167c03d8"
-  integrity sha512-sH1Nv27KrQZfOTA+1zzCHT1tyZ4v7zoiDw1Aj8O3No4iWvvBIakJsbr5dA2l93x7lq9HeEbYjQhrhtPJtzrroQ==
+"@huolala-tech/page-spy-api-darwin-arm64@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-darwin-arm64/-/page-spy-api-darwin-arm64-2.2.0.tgz#b14f86cd39e41b14c13d015f27e547883dfea1f3"
+  integrity sha512-sPnc0bnpcVan6OLsJ1ud8xz2iX88vnlbyIK3pZj9deGXiVOgNDzQRZFwoN7jAqf2+Oj7MNqCRC/p9KtnYvK41Q==
 
-"@huolala-tech/page-spy-api-linux-amd64@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-linux-amd64/-/page-spy-api-linux-amd64-2.0.0.tgz#5107c046965cfe21647b644bfd00886d6ef346e7"
-  integrity sha512-Tv8CprrmM1LhIAYtlkgTUhQJy7+BorI0NsLXCnBoG7MtQGQYQcivBggUSkMfkjYTY98iaCZ5HUR/5APsa1JzYA==
+"@huolala-tech/page-spy-api-linux-amd64@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-linux-amd64/-/page-spy-api-linux-amd64-2.2.0.tgz#ddf4e0c9fe711f07cfebd90958d11b02ed028e6c"
+  integrity sha512-ApIfJfEepxiwqRgwIBvMVSGXb454a88ged4YAs6ZekEbGRcB6Z1MlNGVq0sDtFijvIelCawCetc6gBQ1r6PLlg==
 
-"@huolala-tech/page-spy-api-linux-arm64@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-linux-arm64/-/page-spy-api-linux-arm64-2.0.0.tgz#6653d7876b29e0e075d815dde85334c79514ea22"
-  integrity sha512-FJGTFdaK8ZbM7sgQqXwUZdYZpSpEIX7KjLiDcfMn5GDQ/usJC+73QTp7O3WVvrADzuSZjcAabl+w3vX+7WNopQ==
+"@huolala-tech/page-spy-api-linux-arm64@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-linux-arm64/-/page-spy-api-linux-arm64-2.2.0.tgz#3edbb12a01fd927eb12573ae09a04ec1bb4b44c0"
+  integrity sha512-BXsONuInUGUGJMZrCzsAIr6F0Y6nqc53/9i5KypyLQUNywuaRXHXYPsoYkgV1WKMNfvK3r3Pb4EYRnM6BafDmQ==
 
-"@huolala-tech/page-spy-api-linux-arm@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-linux-arm/-/page-spy-api-linux-arm-2.0.0.tgz#af7146eed73ee680aabc58882bc3a3228b1e3c4e"
-  integrity sha512-FkAQ6z8Q+uxGjkwJiVLxIyFuNlm/GAuG8+Zq8/J9PQNQgYo5yAl+pAcVhdCYkTIpffs9Y2fcKnR164mOmpNmJw==
+"@huolala-tech/page-spy-api-linux-arm@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-linux-arm/-/page-spy-api-linux-arm-2.2.0.tgz#dbfc7d2876c9bf3de8279363fdf02930d18b1fff"
+  integrity sha512-jR8W0DAmFaghxTJ5HEnsboQwrK+xGmsPRAAVyeiIs/pKTDsijRLGR2uLT4Z1xYIwmtgbj5C5CtNNxHrZiBdjdQ==
 
-"@huolala-tech/page-spy-api-win32-amd64@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-win32-amd64/-/page-spy-api-win32-amd64-2.0.0.tgz#4732478f5dac5a6705bc2797afcd44dacaacb8f4"
-  integrity sha512-LYPkXkBSNOZKIN/W7l41zr2B6Y7f8QgctwuVgbJlsbNuzq84MmDUZYB4efOywDNh7Ae9cx1bSObcSXiwXkwUhQ==
+"@huolala-tech/page-spy-api-win32-amd64@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-win32-amd64/-/page-spy-api-win32-amd64-2.2.0.tgz#6a2d5b1e2ffcce0d9a2489c9a700d71c13189e7d"
+  integrity sha512-amL9kecq8YVmGOQfLGPuvgfTt3+xjdANqvae+p7BfoDW1tA8ySTymx/pvurK2GlmRM8as8EqfN7b399Z0sgcrw==
 
-"@huolala-tech/page-spy-api-win32-arm64@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-win32-arm64/-/page-spy-api-win32-arm64-2.0.0.tgz#f452f712b2bcd8c9f270ab2a7a44843b1bb9ea02"
-  integrity sha512-dUY2/iOZOHIuMz9W0lYRutU6dkLikRdi1MBENJ04T+8R6LFlZopiRgr1ZjnpJyCtl/vNC+M05JPX25psIA6tPA==
+"@huolala-tech/page-spy-api-win32-arm64@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-win32-arm64/-/page-spy-api-win32-arm64-2.2.0.tgz#f48ff109dcdae4056cf861a2db6e3cd1d7cafe41"
+  integrity sha512-BG02o4lEZmpwDAxJOkmFF9Qdiqnm2v7Tvt8PRnVrpGfnM00yTgjTmQRh4OxvbSbaz8/viarZt8CTFH0BNxq6ow==
 
-"@huolala-tech/page-spy-api-win32-arm@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-win32-arm/-/page-spy-api-win32-arm-2.0.0.tgz#d64caceeb42936ebc404a613c427ab9a562a8206"
-  integrity sha512-wQyDniPNKpdhugXGN8cD+EbV5Ljbp2vjTvQvM0O6QW4iXDzIJ3IoPF0UWofOa+PUmbcmbZBA7ldDlnWSrE99SA==
+"@huolala-tech/page-spy-api-win32-arm@2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api-win32-arm/-/page-spy-api-win32-arm-2.2.0.tgz#95928aef716e825110c5a426cd86b92ce1103cfc"
+  integrity sha512-tHc1Uy0lhtPiTXFp/6fKt3KTYsdIK7OIk0i/EcwgDCR4h8dNbcXjj7uZmJtCGxKFQCUgKqRnw/Yt85eMJItxUg==
 
-"@huolala-tech/page-spy-api@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api/-/page-spy-api-2.0.0.tgz#1c36743abd49c4e43d6b05724687d96a9b8c72f1"
-  integrity sha512-5a2N50v+kBor+bo77qrixML3O4QsCTUjsPfMlOVSIhGu54RQa96Qg39/MB3GP9fy4toKAO3cCBn/bWPAyCqXBw==
+"@huolala-tech/page-spy-api@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-api/-/page-spy-api-2.2.0.tgz#142fe342665ede74e872c1a4dfa6f3b9218a9ab5"
+  integrity sha512-ppDmQIX5j/qqMuQlamRNrWf/VJw3fFSzkUPPeyks4RTHkqcS+41RXNUziTmrYoIyVGRoTQHYQ5qAea3dQbXHbg==
   optionalDependencies:
-    "@huolala-tech/page-spy-api-darwin-amd64" "2.0.0"
-    "@huolala-tech/page-spy-api-darwin-arm64" "2.0.0"
-    "@huolala-tech/page-spy-api-linux-amd64" "2.0.0"
-    "@huolala-tech/page-spy-api-linux-arm" "2.0.0"
-    "@huolala-tech/page-spy-api-linux-arm64" "2.0.0"
-    "@huolala-tech/page-spy-api-win32-amd64" "2.0.0"
-    "@huolala-tech/page-spy-api-win32-arm" "2.0.0"
-    "@huolala-tech/page-spy-api-win32-arm64" "2.0.0"
+    "@huolala-tech/page-spy-api-darwin-amd64" "2.2.0"
+    "@huolala-tech/page-spy-api-darwin-arm64" "2.2.0"
+    "@huolala-tech/page-spy-api-linux-amd64" "2.2.0"
+    "@huolala-tech/page-spy-api-linux-arm" "2.2.0"
+    "@huolala-tech/page-spy-api-linux-arm64" "2.2.0"
+    "@huolala-tech/page-spy-api-win32-amd64" "2.2.0"
+    "@huolala-tech/page-spy-api-win32-arm" "2.2.0"
+    "@huolala-tech/page-spy-api-win32-arm64" "2.2.0"
 
-"@huolala-tech/page-spy-base@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-base/-/page-spy-base-2.1.2.tgz#3d13338f3c8fa0f13b037b45b8f3ac5a397d4986"
-  integrity sha512-cLE7LUUlZhFo7bIOl9qoJ+NV5jWjnfJG7QBlKr2CEeVmApLMtjre/ADrZgrNbL1ber+FH4r+KiT1uGyAPZ6tLw==
-  dependencies:
-    "@huolala-tech/page-spy-types" "^2.1.2"
-
-"@huolala-tech/page-spy-browser@^2.1.3":
+"@huolala-tech/page-spy-base@^2.1.3":
   version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-browser/-/page-spy-browser-2.1.3.tgz#2539bc03614f363dd284b75cb3db84a65f051257"
-  integrity sha512-B8ByAkQ+PN9hF/qjo5t4A1f4Fpppb6xl2++fhJp5lKmtoDEKDaU5S6WaaH/NAnjcKweJFKga+JvGve2ejwpk8A==
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-base/-/page-spy-base-2.1.3.tgz#ace445a2b43bd46807bd7d42bf8404ffaaf82116"
+  integrity sha512-MVFUiaCsetpGYF85T8qd4+FUxlUF8sKFGlOp0sVx5ubLKyNS06TLH+pV5VEWdDeqiIdLCQ4YEpLCUc7YrFjxSg==
+  dependencies:
+    "@huolala-tech/page-spy-types" "^2.1.3"
+
+"@huolala-tech/page-spy-browser@^2.1.6":
+  version "2.1.6"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-browser/-/page-spy-browser-2.1.6.tgz#609e7cb383e6c311f74ef9b12c8ace76c68f27da"
+  integrity sha512-pa2d+RbBdX0+bedtZknxDb0Vb+/W9dwI+HNpyZtgSy1FjoKV+/Yc4d/UScTHPGNdgG0/Sqjyb+xllLzjVB+oIA==
   dependencies:
     "@babel/runtime" "^7.13.0"
-    "@huolala-tech/page-spy-base" "^2.1.2"
-    "@huolala-tech/page-spy-types" "^2.1.2"
+    "@huolala-tech/page-spy-base" "^2.1.3"
+    "@huolala-tech/page-spy-types" "^2.1.3"
     copy-to-clipboard "^3.3.1"
     iseedeadpeople "^1.0.0"
 
-"@huolala-tech/page-spy-plugin-data-harbor@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-data-harbor/-/page-spy-plugin-data-harbor-2.1.2.tgz#2a9de77107ee8041604c5acf1f6e4d37ed10918b"
-  integrity sha512-C4FEVsSqwqP1At2LDJIAL0Mp27KYrFAe2vwZVr/+UQwzaqV4tvGU98UubTUuxuZIc0gYMoH43+KsDhP3ycVqXw==
+"@huolala-tech/page-spy-plugin-data-harbor@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-data-harbor/-/page-spy-plugin-data-harbor-2.1.3.tgz#8cc18bb48f7c83646eeeea37fb4f8e414cfdbe35"
+  integrity sha512-Dmb3VZqItsCnXxVCpwh5BG7mGuMG0zLDhuTVLlJGfBKng66evTIAP3vH7CEyqYt0orQEkkFR5FqRIq0HEl5/Iw==
   dependencies:
     "@babel/runtime" "^7.13.0"
-    "@huolala-tech/page-spy-base" "^2.1.2"
+    "@huolala-tech/page-spy-base" "^2.1.3"
     copy-to-clipboard "^3.3.3"
     fflate "^0.8.1"
 
-"@huolala-tech/page-spy-plugin-ospy@^2.1.7":
-  version "2.1.7"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-ospy/-/page-spy-plugin-ospy-2.1.7.tgz#6d1a08227594e52398f2794f96eff24cbe9fb82b"
-  integrity sha512-jRm+bdH0KgB+soYkMwfuMpXcJzVQ3hXl9gekIjlUxquiWeooL0Xn6NbE9JVdpXeiO+bhQ2katzgDHCK1LUmlmQ==
+"@huolala-tech/page-spy-plugin-ospy@^2.1.10":
+  version "2.1.10"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-ospy/-/page-spy-plugin-ospy-2.1.10.tgz#eff95e95a3dfc8c414f5dc9bbca7b492ed6462df"
+  integrity sha512-C33ji2hWDMz9mmHYA/mPe6QtjrakbEYLeJswyyPYsRj5RQ4tvYBGUHclUnppbMgnr9mD5+XE3hjdRsLUbFSVUg==
   dependencies:
-    "@huolala-tech/page-spy-base" "^2.1.2"
-    "@huolala-tech/page-spy-browser" "^2.1.3"
-    "@huolala-tech/page-spy-plugin-data-harbor" "^2.1.2"
-    "@huolala-tech/page-spy-plugin-rrweb" "^2.1.2"
-    "@huolala-tech/page-spy-types" "^2.1.2"
+    "@huolala-tech/page-spy-base" "^2.1.3"
+    "@huolala-tech/page-spy-browser" "^2.1.6"
+    "@huolala-tech/page-spy-plugin-data-harbor" "^2.1.3"
+    "@huolala-tech/page-spy-plugin-rrweb" "^2.1.3"
+    "@huolala-tech/page-spy-types" "^2.1.3"
 
-"@huolala-tech/page-spy-plugin-rrweb@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-rrweb/-/page-spy-plugin-rrweb-2.1.2.tgz#37c74d3e98a2d244299ff41e74f284e35c11b84f"
-  integrity sha512-W44GnyNn8rdhRUb5+R0TjgKNh4VlQAlPN96YWfR869rTiP+2rnKA8eQOQQXT/ih0aYVxlCqh7dnI/DaVdDot0Q==
+"@huolala-tech/page-spy-plugin-rrweb@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-rrweb/-/page-spy-plugin-rrweb-2.1.3.tgz#934f9a421147aed9fc22db3ac687274ac96a56eb"
+  integrity sha512-kGB0cpkKcHd1phKySDdkX6+MJT/bnIDhI/zM7bUvzikajcC5DhKIovp4N+1Q3TEAmUSJxCthZit10TIhNXRqbA==
   dependencies:
     "@babel/runtime" "^7.13.0"
-    "@huolala-tech/page-spy-base" "^2.1.2"
-    "@huolala-tech/page-spy-types" "^2.1.2"
+    "@huolala-tech/page-spy-base" "^2.1.3"
+    "@huolala-tech/page-spy-types" "^2.1.3"
     rrweb "^2.0.0-alpha.4"
 
-"@huolala-tech/page-spy-plugin-whole-bundle@^2.1.5":
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-whole-bundle/-/page-spy-plugin-whole-bundle-2.1.5.tgz#5e2b1eea030785b0ba6142bdb88f65a4f255a896"
-  integrity sha512-xLITfQ85wRk9GscGI3SbzYjEVH7vSmGxDEWDBaX7dbP4rnxJM6cYGTC2rg+y0Dvt67R9eU+3oXo9mwkPI1hcGQ==
+"@huolala-tech/page-spy-plugin-whole-bundle@^2.1.8":
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-plugin-whole-bundle/-/page-spy-plugin-whole-bundle-2.1.8.tgz#c73482a7ac9b9e2d2ba37932eeb992a08c900628"
+  integrity sha512-Pw9T3gt9kPMwdxQCyYKlfXqLgxzmPylKCOCuGkSbOjpTdBhDhTf4r5qGlyBaj4ceDO9aH9QNhbKUc3J89VM8Hg==
   dependencies:
-    "@huolala-tech/page-spy-base" "^2.1.2"
-    "@huolala-tech/page-spy-browser" "^2.1.3"
-    "@huolala-tech/page-spy-plugin-data-harbor" "^2.1.2"
-    "@huolala-tech/page-spy-plugin-rrweb" "^2.1.2"
-    "@huolala-tech/page-spy-types" "^2.1.2"
+    "@huolala-tech/page-spy-base" "^2.1.3"
+    "@huolala-tech/page-spy-browser" "^2.1.6"
+    "@huolala-tech/page-spy-plugin-data-harbor" "^2.1.3"
+    "@huolala-tech/page-spy-plugin-rrweb" "^2.1.3"
+    "@huolala-tech/page-spy-types" "^2.1.3"
 
-"@huolala-tech/page-spy-types@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-types/-/page-spy-types-2.1.2.tgz#261f44391a9715613eaaf0353a080ef1c6e7e2f6"
-  integrity sha512-Zh9MPcwGkHvrXXPHXFq26CAjLUd2GO0FfOfAUTJbonsvvNV0kl+jljUlsdgy2HPSqApqXqxBOOAGwULUAqFZng==
+"@huolala-tech/page-spy-types@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/@huolala-tech/page-spy-types/-/page-spy-types-2.1.3.tgz#293295f6669ec13cdce4250ee71236bad7da2314"
+  integrity sha512-3Crfh6ty+EbDeWKuDRkzAroA0SFsYHtwewsWZNDgOFN54DbcxTmesD0UWxLRzhcRoSsXK5pKlOBq/n7R3BmJuw==
   dependencies:
-    "@huolala-tech/page-spy-base" "^2.1.2"
+    "@huolala-tech/page-spy-base" "^2.1.3"
 
 "@huolala-tech/react-json-view@^1.2.5":
   version "1.2.5"

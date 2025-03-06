@@ -23,6 +23,7 @@ import { useEventListener } from '@/utils/useEventListener';
 import { useShallow } from 'zustand/react/shallow';
 import { ErrorDetailDrawer } from '@/components/ErrorDetailDrawer';
 import { Meta } from './Meta';
+import { debug } from '@/utils/debug';
 
 interface Props {
   url: string;
@@ -51,9 +52,7 @@ export const LogReplayer = ({ url, backSlot = null }: Props) => {
               : i.data,
         };
       }) as HarborDataItem[];
-      if (localStorage.getItem('page-spy-replay-debug')) {
-        console.log(result);
-      }
+      debug.log(result);
       setAllData(result);
       return result;
     },

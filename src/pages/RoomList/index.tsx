@@ -29,6 +29,7 @@ import { ClearOutlined, SearchOutlined } from '@ant-design/icons';
 import { RoomCard } from './RoomCard';
 import { Statistics } from './Statistics';
 import { LoadingFallback } from '@/components/LoadingFallback';
+import { debug } from '@/utils/debug';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -88,8 +89,6 @@ const filterConnections = (
 const RoomList = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
-
-  const showDashboard = localStorage.getItem('page-spy-dashboard') === '1';
 
   const [showMaximumAlert, setMaximumAlert] = useState(false);
   const showLoadingRef = useRef(false);
@@ -303,7 +302,7 @@ const RoomList = () => {
               </div>
             )}
           </Form>
-          {showDashboard && <Statistics data={connectionList} />}
+          {debug.enabled && <Statistics data={connectionList} />}
         </div>
       </Sider>
       <Content>{mainContent}</Content>

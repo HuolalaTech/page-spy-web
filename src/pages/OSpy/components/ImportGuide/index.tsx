@@ -31,6 +31,7 @@ export const ImportGuide = ({ showConfig = true }: Props) => {
       : `const $oSpy = new OSpy();`;
   }, [t, showConfig]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const cdnCode = (url: string) => {
     return `<script src="${url}" crossorigin="anonymous"></script>
     
@@ -55,7 +56,7 @@ ${INIT_CODE.split('\n')
                     <span>jsDelivr</span>
                   </Flex>
                 ),
-                lang: 'javascript',
+                lang: 'html',
                 code: cdnCode(
                   'https://cdn.jsdelivr.net/npm/@huolala-tech/page-spy-plugin-ospy',
                 ),
@@ -67,7 +68,7 @@ ${INIT_CODE.split('\n')
                     <span>unpkg</span>
                   </Flex>
                 ),
-                lang: 'javascript',
+                lang: 'html',
                 code: cdnCode(
                   'https://unpkg.com/@huolala-tech/page-spy-plugin-ospy',
                 ),
@@ -79,7 +80,7 @@ ${INIT_CODE.split('\n')
                     <span>国内</span>
                   </Flex>
                 ),
-                lang: 'javascript',
+                lang: 'html',
                 code: cdnCode(
                   'https://static.huolala.cn/libs/o-spy/2.1.9/index.min.js',
                 ),
@@ -109,7 +110,7 @@ ${INIT_CODE}`}
         ),
       },
     ];
-  }, [t]);
+  }, [INIT_CODE, cdnCode, t]);
   const [active, setActive] = useState<string>(methods[0].title);
   const activeMethod = methods.find((i) => i.title === active);
   return (

@@ -78,7 +78,26 @@ export const CodeBlock = (data: SingleProps | GroupProps) => {
   if (!codeContent) return <LoadingFallback />;
 
   return (
-    <div style={{ backgroundColor: bg }} className="code-block">
+    <div
+      style={{ backgroundColor: bg }}
+      className="code-block"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'a') {
+          e.preventDefault();
+          const selection = window.getSelection();
+          const codeContent = e.currentTarget.querySelector(
+            '.code-block-content',
+          );
+          if (selection && codeContent) {
+            const range = document.createRange();
+            range.selectNodeContents(codeContent);
+            selection.removeAllRanges();
+            selection.addRange(range);
+          }
+        }
+      }}
+    >
       <div className="code-block-title">
         {isGroupBlock(data) &&
           data.group.map((c, index) => {
