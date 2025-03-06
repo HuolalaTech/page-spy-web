@@ -2,7 +2,7 @@
   "private": true,
   "version": "2.2.0",
   "description": "All-In-One Remote Debugging Tool",
-  "homepage": "https://huolalatech.github.io/page-spy-web",
+  "homepage": "https://pagespy.org",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HuolalaTech/page-spy-web.git"
