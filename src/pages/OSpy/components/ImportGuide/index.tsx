@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import JsDelivrSvg from '@/assets/image/jsdelivr.svg?react';
 import UnpkgSvg from '@/assets/image/unpkg.svg?react';
+import ChinaSvg from '@/assets/image/china.svg?react';
 import './index.less';
 
 interface Props {
@@ -14,20 +15,33 @@ interface Props {
 
 export const ImportGuide = ({ showConfig = true }: Props) => {
   const { t } = useTranslation('translation', { keyPrefix: 'oSpy' });
-  const methods = useMemo(() => {
-    const INIT_CODE = showConfig
+  const INIT_CODE = useMemo(() => {
+    return showConfig
       ? `const $oSpy = new OSpy({
-    title?: string; // ${t('comment-title')}
-    logo?: string; // ${t('comment-logo')}
-    primaryColor?: string; // ${t('comment-primaryColor')}
-    autoRender?: boolean; // ${t('comment-autoRender')}
-    exportButtonText?: string; // ${t('comment-exportButtonText')}
-    onExportButtonClick?: (data: CacheMessageItem[]) => void; // ${t(
-      'comment-onExportButtonClick',
-    )}
-  });`
+  lang?: 'zh' | 'en';
+  title?: string; // ${t('comment-title')}
+  logo?: string; // ${t('comment-logo')}
+  primaryColor?: string; // ${t('comment-primaryColor')}
+  autoRender?: boolean; // ${t('comment-autoRender')}
+  exportButtonText?: string; // ${t('comment-exportButtonText')}
+  onExportButtonClick?: (data: CacheMessageItem[]) => void; // ${t(
+    'comment-onExportButtonClick',
+  )}
+});`
       : `const $oSpy = new OSpy();`;
+  }, [t, showConfig]);
 
+  const cdnCode = (url: string) => {
+    return `<script src="${url}" crossorigin="anonymous"></script>
+    
+<script>
+${INIT_CODE.split('\n')
+  .map((i) => `  ${i}`)
+  .join('\n')}
+</script>`;
+  };
+
+  const methods = useMemo(() => {
     return [
       {
         title: 'CDN',
@@ -36,31 +50,39 @@ export const ImportGuide = ({ showConfig = true }: Props) => {
             group={[
               {
                 title: (
-                  <Space>
+                  <Flex align="center" gap={8}>
                     <Icon component={JsDelivrSvg} style={{ fontSize: 20 }} />
                     <span>jsDelivr</span>
-                  </Space>
+                  </Flex>
                 ),
                 lang: 'javascript',
-                code: `<script src="https://cdn.jsdelivr.net/npm/@huolala-tech/page-spy-plugin-ospy" crossorigin="anonymous"></script>
-
-<script>
-  ${INIT_CODE}
-</script>`,
+                code: cdnCode(
+                  'https://cdn.jsdelivr.net/npm/@huolala-tech/page-spy-plugin-ospy',
+                ),
               },
               {
                 title: (
-                  <Space>
+                  <Flex align="center" gap={8}>
                     <Icon component={UnpkgSvg} style={{ fontSize: 20 }} />
                     <span>unpkg</span>
-                  </Space>
+                  </Flex>
                 ),
                 lang: 'javascript',
-                code: `<script src="https://unpkg.com/@huolala-tech/page-spy-plugin-ospy" crossorigin="anonymous"></script>
-
-<script>
-  ${INIT_CODE}
-</script>`,
+                code: cdnCode(
+                  'https://unpkg.com/@huolala-tech/page-spy-plugin-ospy',
+                ),
+              },
+              {
+                title: (
+                  <Flex align="center" gap={8}>
+                    <Icon component={ChinaSvg} style={{ fontSize: 20 }} />
+                    <span>国内</span>
+                  </Flex>
+                ),
+                lang: 'javascript',
+                code: cdnCode(
+                  'https://static.huolala.cn/libs/o-spy/2.1.9/index.min.js',
+                ),
               },
             ]}
           />
