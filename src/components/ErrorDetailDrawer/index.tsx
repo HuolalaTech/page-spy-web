@@ -13,6 +13,8 @@ import {
   Typography,
   Empty,
   Select,
+  Flex,
+  Tooltip,
 } from 'antd';
 import clsx from 'clsx';
 import { memo, useMemo, useState } from 'react';
@@ -47,6 +49,10 @@ const ErrorStackItem = ({ frame }: { frame: Required<StackFrame> }) => {
       },
     },
   );
+
+  const stackFilename = useMemo(() => {
+    return `${frame.fileName}(${frame.lineNumber}:${frame.columnNumber})`;
+  }, [frame]);
 
   const content = useMemo(() => {
     if (loading) {
@@ -129,27 +135,17 @@ const ErrorStackItem = ({ frame }: { frame: Required<StackFrame> }) => {
 
   return (
     <div className="error-stack-item">
-      <Row
-        align="middle"
-        gutter={12}
-        style={{
-          marginBottom: 12,
-        }}
-      >
-        <Col>
-          <code className="stack-filename">
-            {frame.fileName}({`${frame.lineNumber}:${frame.columnNumber}`})
-          </code>
-        </Col>
-        <Col>
-          <AimOutlined
-            className={clsx('locate-icon', {
-              loading,
-            })}
-            onClick={requestChunk}
-          />
-        </Col>
-      </Row>
+      <Flex gap={12} align="center" className="stack-filename" wrap={false}>
+        <Tooltip title={stackFilename}>
+          <code>{stackFilename}</code>
+        </Tooltip>
+        <AimOutlined
+          className={clsx('locate-icon', {
+            loading,
+          })}
+          onClick={requestChunk}
+        />
+      </Flex>
       {content}
     </div>
   );
@@ -186,6 +182,7 @@ export const ErrorDetailDrawer = memo(() => {
       destroyOnClose
       onClose={() => setOpen(false)}
       title={t('title')}
+      className="error-detail-drawer"
       footer={
         <Row justify="end">
           <Col>
