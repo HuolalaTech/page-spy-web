@@ -1,24 +1,32 @@
 /* eslint-disable no-case-declarations */
 import { SpyNetwork, SpyStorage } from '@huolala-tech/page-spy-types';
-import { Dropdown, Empty, Space, Tooltip } from 'antd';
+import { Dropdown, Empty, Space, Tooltip, Flex } from 'antd';
 import clsx from 'clsx';
 import copy from 'copy-to-clipboard';
-import { isString, throttle } from 'lodash-es';
+import { isString, sortBy, throttle } from 'lodash-es';
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { getContentType, getStatusInfo, getTime } from './utils';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import { NetworkDetail } from './NetworkDetail';
 import { ResolvedNetworkInfo } from '@/utils';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import {
+  CaretDownOutlined,
+  ArrowUpOutlined,
+  ArrowDownOutlined,
+  InfoCircleOutlined,
+  CaretUpOutlined,
+} from '@ant-design/icons';
 import {
   Table,
   Column,
   AutoSizer,
   TableCellRenderer,
   SortDirectionType,
+  TableHeaderRenderer,
 } from 'react-virtualized';
 import 'react-virtualized/styles.css';
+import Draggable from 'react-draggable';
 
 export type NetworkType =
   | 'All'
@@ -28,6 +36,16 @@ export type NetworkType =
   | 'Img'
   | 'Media'
   | 'Other';
+
+const columnField = [
+  'name',
+  'pathname',
+  'method',
+  'status',
+  'requestType',
+  'costTime',
+] as const;
+type ColumnField = (typeof columnField)[number];
 
 export const RESOURCE_TYPE: Map<
   NetworkType,
@@ -75,7 +93,6 @@ export const NetworkTable = ({
   const [sortDirection, setSortDirection] = useState<
     SortDirectionType | undefined
   >(undefined);
-
   const data = useMemo(() => {
     setActiveRow(null);
     const keyword = filterKeyword.trim().toLocaleLowerCase();
@@ -219,6 +236,83 @@ export const NetworkTable = ({
     };
   }, []);
 
+  const [columnsWidth, setColumnsWidth] = useState<Record<ColumnField, number>>(
+    {
+      name: 0.3,
+      pathname: 0.3,
+      method: 0.1,
+      status: 0.1,
+      requestType: 0.1,
+      costTime: 0.1,
+    },
+  );
+
+  const handleColumnResize = (
+    dataKey: ColumnField,
+    deltaX: number,
+    containerWidth: number,
+  ) => {
+    setColumnsWidth((prev) => {
+      const percentDelta = deltaX / containerWidth;
+      const newWidth = prev[dataKey] + percentDelta;
+      const nextDataKey = columnField[columnField.indexOf(dataKey) + 1];
+      const nextWidth = prev[nextDataKey] - percentDelta;
+      if (newWidth < 0.1 || nextWidth < 0.1) return prev;
+      return {
+        ...prev,
+        [dataKey]: newWidth,
+        [nextDataKey]: nextWidth,
+      };
+    });
+  };
+
+  const [isDragging, setIsDragging] = useState(false);
+  const headerRenderer = useCallback<TableHeaderRenderer>(
+    ({ dataKey, label }) => (
+      <Flex justify="space-between" align="center">
+        <div className="ReactVirtualized__Table__headerTruncatedText">
+          {label}
+        </div>
+        <Flex align="center" gap={4}>
+          {sortBy === dataKey &&
+            (sortDirection === 'ASC' ? (
+              <CaretUpOutlined />
+            ) : (
+              <CaretDownOutlined />
+            ))}
+          <Draggable
+            axis="x"
+            defaultClassName="DragHandle"
+            defaultClassNameDragging="DragHandleActive"
+            onStart={() => {
+              setIsDragging(true);
+            }}
+            onStop={() => {
+              setTimeout(() => {
+                setIsDragging(false);
+              }, 100);
+            }}
+            onDrag={(_, val) => {
+              const { deltaX } = val;
+              if (containerRef.current) {
+                handleColumnResize(
+                  dataKey as ColumnField,
+                  deltaX,
+                  containerRef.current.clientWidth,
+                );
+              }
+            }}
+            // @ts-ignore
+            position={{ x: 0 }}
+            zIndex={1000}
+          >
+            <span onClick={(e) => e.stopPropagation()}>⋮</span>
+          </Draggable>
+        </Flex>
+      </Flex>
+    ),
+    [sortBy, sortDirection],
+  );
   const NameColumn = useCallback<TableCellRenderer>(
     ({ rowData }) => {
       return (
@@ -332,43 +426,40 @@ export const NetworkTable = ({
             <Column
               dataKey="name"
               label="Name"
-              width={width * 0.3}
-              // flexGrow={1}
+              width={width * columnsWidth.name}
+              headerRenderer={headerRenderer}
               cellRenderer={NameColumn}
             />
             <Column
               dataKey="pathname"
               label="Path"
-              width={width * 0.3}
-              flexGrow={1}
+              width={width * columnsWidth.pathname}
+              headerRenderer={headerRenderer}
             />
             <Column
               dataKey="method"
               label="Method"
-              width={width * 0.1}
-              maxWidth={150}
+              width={width * columnsWidth.method}
+              headerRenderer={headerRenderer}
             />
             <Column
               dataKey="status"
               label="Status"
-              width={width * 0.1}
-              maxWidth={150}
+              width={width * columnsWidth.status}
+              headerRenderer={headerRenderer}
               cellRenderer={StatusColumn}
             />
             <Column
               dataKey="requestType"
               label="Type"
-              width={width * 0.1}
-              maxWidth={150}
+              width={width * columnsWidth.requestType}
+              headerRenderer={headerRenderer}
             />
             <Column
               dataKey="costTime"
               label="Time(≈)"
-              width={width * 0.1}
-              maxWidth={150}
-              cellRenderer={({ cellData }) => {
-                return getTime(cellData);
-              }}
+              width={width * columnsWidth.costTime}
+              cellRenderer={({ cellData }) => getTime(cellData)}
             />
           </Table>
         )}

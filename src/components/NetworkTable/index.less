@@ -171,16 +171,15 @@
   }
   // thead > tr > td
   .ReactVirtualized__Table__headerColumn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-transform: none;
-    &:hover {
-      background-color: @tbody-select-bg;
-    }
-    .ReactVirtualized__Table__sortableHeaderIcon {
-      width: 20px;
-      height: 20px;
+    .DragHandle {
+      flex: 0 0 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      cursor: col-resize;
+      color: @primary-color;
     }
   }
   // tbody > tr
