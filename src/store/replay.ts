@@ -10,14 +10,11 @@ import { eventWithTime } from '@rrweb/types';
 import { produce } from 'immer';
 import { isEqual, omit } from 'lodash-es';
 import { REPLAY_STATUS_CHANGE } from '@/components/LogReplayer/events';
-import {
-  isRRWebClickEvent,
-  ResolvedNetworkInfo,
-  resolveUrlInfo,
-} from '@/utils';
+import { ResolvedNetworkInfo, resolveUrlInfo } from '@/utils';
 import { parseClientInfo, ParsedClientInfo } from '@/utils/brand';
 import { DataType } from '@huolala-tech/page-spy-plugin-data-harbor/dist/types/harbor/base';
 import { debug } from '@/utils/debug';
+import { isRRWebClickEvent } from '@/utils/rrweb-event';
 
 const isCaredActivity = (activity: HarborDataItem) => {
   const { type, data } = activity;

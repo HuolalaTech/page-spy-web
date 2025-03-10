@@ -1,5 +1,5 @@
 import { useEventListener } from '@/utils/useEventListener';
-import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   PLAYER_SIZE_CHANGE,
   REPLAY_PROGRESS_SKIP,
@@ -10,15 +10,9 @@ import rrwebPlayer from 'rrweb-player';
 import './index.less';
 import { useShallow } from 'zustand/react/shallow';
 import { ReplayerEvents } from '@rrweb/types';
-import { isRRWebClickEvent } from '@/utils';
-
-const ClickEffectSvg = `
-  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="50" cy="50" r="42" fill="none" stroke="white" stroke-width="2"/>
-    <circle cx="50" cy="50" r="46" fill="none" stroke="black" stroke-width="4"/>
-    <circle cx="50" cy="50" r="48" fill="none" stroke="white" stroke-width="2"/>
-  </svg>
-`;
+import { isRRWebClickEvent, isRRWebMetaEvent } from '@/utils/rrweb-event';
+import ClickEffectSvg from '@/assets/image/click-effect.svg?raw';
+import clsx from 'clsx';
 
 export const RRWebPlayer = memo(() => {
   const rootEl = useRef<HTMLDivElement | null>(null);
@@ -69,6 +63,7 @@ export const RRWebPlayer = memo(() => {
     playerInstance.current?.setSpeed(speed);
   }, [speed]);
 
+  const [isPc, setIsPc] = useState(true);
   useEffect(() => {
     const root = rootEl.current;
     if (!root || !events.length || playerInstance.current) return;
@@ -88,15 +83,16 @@ export const RRWebPlayer = memo(() => {
         skipInactive: false,
         showController: false,
         mouseTail: {
-          lineWidth: 5,
+          lineWidth: 3,
           strokeStyle: 'rgb(132, 52, 233)',
+          duration: 400,
         },
         UNSAFE_replayCanvas: true,
         insertStyleRules: [
           `.click-effect {
             position: fixed;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             font-size: 12px;
             pointer-events: none;
             transform: translate(-50%, -50%);
@@ -110,17 +106,20 @@ export const RRWebPlayer = memo(() => {
 
     setRRWebStartTime(startTime);
     const doc = replayer.iframe.contentDocument!;
-    const div = document.createElement('div');
-    div.classList.add('click-effect');
-    div.innerHTML = ClickEffectSvg;
+    const clickEffect = document.createElement('div');
+    clickEffect.classList.add('click-effect');
+    clickEffect.innerHTML = ClickEffectSvg;
 
     replayer.on(ReplayerEvents.EventCast, (event) => {
+      if (isRRWebMetaEvent(event)) {
+        setIsPc(event.data.width > 820);
+      }
       if (isRRWebClickEvent(event)) {
         const { x, y } = event.data;
-        div.style.left = `${x}px`;
-        div.style.top = `${y}px`;
+        clickEffect.style.left = `${x}px`;
+        clickEffect.style.top = `${y}px`;
 
-        const appendDiv = doc.body.appendChild(div);
+        const appendDiv = doc.body.appendChild(clickEffect);
 
         setTimeout(() => {
           appendDiv.remove();
@@ -129,5 +128,10 @@ export const RRWebPlayer = memo(() => {
     });
   }, [events, setRRWebStartTime]);
 
-  return <div className="rrweb-player" ref={rootEl} />;
+  return (
+    <div
+      className={clsx('rrweb-player', isPc ? 'is-pc' : 'is-mobile')}
+      ref={rootEl}
+    />
+  );
 });
