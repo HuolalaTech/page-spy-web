@@ -167,19 +167,35 @@
   .ReactVirtualized__Table__headerRow {
     background-color: @thead-bg;
     text-align: left;
+    text-transform: none;
     border-bottom: 1px solid @table-border-color;
   }
   // thead > tr > td
   .ReactVirtualized__Table__headerColumn {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    margin: 0 !important;
+    padding-inline: 10px;
+    > div {
+      flex: 1;
+    }
     .DragHandle {
-      flex: 0 0 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 2;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      padding-inline: 2px;
       cursor: col-resize;
       color: @primary-color;
+      &::after {
+        content: '';
+        display: block;
+        width: 1px;
+        height: 100%;
+        background-color: @table-border-color;
+      }
     }
   }
   // tbody > tr
@@ -203,6 +219,8 @@
   }
   // tbody > tr > td
   .ReactVirtualized__Table__rowColumn {
+    margin: 0 !important;
+    padding-inline: 10px;
     &:nth-child(6) {
       text-align: right;
     }

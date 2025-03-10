@@ -84,6 +84,8 @@ export const NetworkTable = ({
   filterKeyword = '',
 }: NetworkTableProps) => {
   const { t: nt } = useTranslation('translation', { keyPrefix: 'network' });
+
+  const containerWidth = useRef(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [showDetail, setShowDetail] = useState(false);
   const [activeRow, setActiveRow] = useState<ResolvedNetworkInfo | null>(null);
@@ -247,13 +249,11 @@ export const NetworkTable = ({
     },
   );
 
-  const handleColumnResize = (
-    dataKey: ColumnField,
-    deltaX: number,
-    containerWidth: number,
-  ) => {
+  const handleColumnResize = (dataKey: ColumnField, deltaX: number) => {
+    if (!containerWidth.current) return;
+
     setColumnsWidth((prev) => {
-      const percentDelta = deltaX / containerWidth;
+      const percentDelta = deltaX / containerWidth.current;
       const newWidth = prev[dataKey] + percentDelta;
       const nextDataKey = columnField[columnField.indexOf(dataKey) + 1];
       const nextWidth = prev[nextDataKey] - percentDelta;
@@ -266,6 +266,7 @@ export const NetworkTable = ({
     });
   };
 
+  const xOfDragger = useRef(0);
   const [isDragging, setIsDragging] = useState(false);
   const headerRenderer = useCallback<TableHeaderRenderer>(
     ({ dataKey, label }) => (
@@ -273,42 +274,37 @@ export const NetworkTable = ({
         <div className="ReactVirtualized__Table__headerTruncatedText">
           {label}
         </div>
-        <Flex align="center" gap={4}>
-          {sortBy === dataKey &&
-            (sortDirection === 'ASC' ? (
-              <CaretUpOutlined />
-            ) : (
-              <CaretDownOutlined />
-            ))}
-          <Draggable
-            axis="x"
-            defaultClassName="DragHandle"
-            defaultClassNameDragging="DragHandleActive"
-            onStart={() => {
-              setIsDragging(true);
-            }}
-            onStop={() => {
-              setTimeout(() => {
-                setIsDragging(false);
-              }, 100);
-            }}
-            onDrag={(_, val) => {
-              const { deltaX } = val;
-              if (containerRef.current) {
-                handleColumnResize(
-                  dataKey as ColumnField,
-                  deltaX,
-                  containerRef.current.clientWidth,
-                );
-              }
-            }}
-            // @ts-ignore
-            position={{ x: 0 }}
-            zIndex={1000}
-          >
-            <span onClick={(e) => e.stopPropagation()}>⋮</span>
-          </Draggable>
-        </Flex>
+        {sortBy === dataKey &&
+          (sortDirection === 'ASC' ? (
+            <CaretUpOutlined />
+          ) : (
+            <CaretDownOutlined />
+          ))}
+        <Draggable
+          axis="x"
+          defaultClassName="DragHandle"
+          defaultClassNameDragging="DragHandleActive"
+          onStart={() => {
+            xOfDragger.current = 0;
+            setIsDragging(true);
+          }}
+          onStop={() => {
+            setTimeout(() => {
+              setIsDragging(false);
+            }, 100);
+          }}
+          onDrag={(_, val) => {
+            const deltaX = val.x - xOfDragger.current;
+            xOfDragger.current = val.x;
+            if (deltaX === 0) return;
+            handleColumnResize(dataKey as ColumnField, deltaX);
+          }}
+          // @ts-ignore
+          position={{ x: 0 }}
+          zIndex={1000}
+        >
+          <div onClick={(e) => e.stopPropagation()} />
+        </Draggable>
       </Flex>
     ),
     [sortBy, sortDirection],
@@ -389,80 +385,83 @@ export const NetworkTable = ({
     () => <Empty description={false} className="empty-table-placeholder" />,
     [],
   );
-
   return (
     <div className="network-table" ref={containerRef}>
       <AutoSizer>
-        {({ width, height }) => (
-          <Table
-            ref={tableRef}
-            width={width}
-            height={height}
-            headerHeight={30}
-            rowHeight={28}
-            rowCount={data.length}
-            rowGetter={({ index }) => data[index]}
-            noRowsRenderer={NoData}
-            rowClassName={({ index }) => {
-              if (index < 0) return '';
-              return clsx(
-                index % 2 ? 'odd' : 'even',
-                getStatusInfo(data[index]).status,
-                {
-                  active: data[index].id === activeRow?.id,
-                },
-              );
-            }}
-            onRowClick={({ rowData }) => {
-              setActiveRow(rowData);
-            }}
-            sort={({ sortBy, sortDirection }) => {
-              setSortBy(sortBy as keyof ResolvedNetworkInfo);
-              setSortDirection(sortDirection);
-            }}
-            sortBy={sortBy}
-            sortDirection={sortDirection}
-          >
-            <Column
-              dataKey="name"
-              label="Name"
-              width={width * columnsWidth.name}
-              headerRenderer={headerRenderer}
-              cellRenderer={NameColumn}
-            />
-            <Column
-              dataKey="pathname"
-              label="Path"
-              width={width * columnsWidth.pathname}
-              headerRenderer={headerRenderer}
-            />
-            <Column
-              dataKey="method"
-              label="Method"
-              width={width * columnsWidth.method}
-              headerRenderer={headerRenderer}
-            />
-            <Column
-              dataKey="status"
-              label="Status"
-              width={width * columnsWidth.status}
-              headerRenderer={headerRenderer}
-              cellRenderer={StatusColumn}
-            />
-            <Column
-              dataKey="requestType"
-              label="Type"
-              width={width * columnsWidth.requestType}
-              headerRenderer={headerRenderer}
-            />
-            <Column
-              dataKey="costTime"
-              label="Time(≈)"
-              width={width * columnsWidth.costTime}
-              cellRenderer={({ cellData }) => getTime(cellData)}
-            />
-          </Table>
-        )}
+        {({ width, height }) => {
+          containerWidth.current = width;
+          return (
+            <Table
+              ref={tableRef}
+              width={width}
+              height={height}
+              headerHeight={30}
+              rowHeight={28}
+              rowCount={data.length}
+              rowGetter={({ index }) => data[index]}
+              noRowsRenderer={NoData}
+              rowClassName={({ index }) => {
+                if (index < 0) return '';
+                return clsx(
+                  index % 2 ? 'odd' : 'even',
+                  getStatusInfo(data[index]).status,
+                  {
+                    active: data[index].id === activeRow?.id,
+                  },
+                );
+              }}
+              onRowClick={({ rowData }) => {
+                setActiveRow(rowData);
+              }}
+              sort={({ sortBy, sortDirection }) => {
+                if (isDragging) return;
+                setSortBy(sortBy as keyof ResolvedNetworkInfo);
+                setSortDirection(sortDirection);
+              }}
+              sortBy={sortBy}
+              sortDirection={sortDirection}
+            >
+              <Column
+                dataKey="name"
+                label="Name"
+                width={width * columnsWidth.name}
+                headerRenderer={headerRenderer}
+                cellRenderer={NameColumn}
+              />
+              <Column
+                dataKey="pathname"
+                label="Path"
+                width={width * columnsWidth.pathname}
+                headerRenderer={headerRenderer}
+              />
+              <Column
+                dataKey="method"
+                label="Method"
+                width={width * columnsWidth.method}
+                headerRenderer={headerRenderer}
+              />
+              <Column
+                dataKey="status"
+                label="Status"
+                width={width * columnsWidth.status}
+                headerRenderer={headerRenderer}
+                cellRenderer={StatusColumn}
+              />
+              <Column
+                dataKey="requestType"
+                label="Type"
+                width={width * columnsWidth.requestType}
+                headerRenderer={headerRenderer}
+              />
+              <Column
+                dataKey="costTime"
+                label="Time(≈)"
+                width={width * columnsWidth.costTime}
+                cellRenderer={({ cellData }) => getTime(cellData)}
+              />
+            </Table>
+          );
+        }}
       </AutoSizer>
       {showDetail && activeRow && (
         <div
