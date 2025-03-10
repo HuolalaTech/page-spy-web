@@ -11,12 +11,18 @@ import './index.less';
 import { NetworkDetail } from './NetworkDetail';
 import { ResolvedNetworkInfo } from '@/utils';
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { Table, Column, AutoSizer, TableCellRenderer } from 'react-virtualized';
+import {
+  Table,
+  Column,
+  AutoSizer,
+  TableCellRenderer,
+  SortDirectionType,
+} from 'react-virtualized';
 import 'react-virtualized/styles.css';
 
 export type NetworkType =
   | 'All'
-  | 'Fetch'
+  | 'Fetch/XHR'
   | 'CSS'
   | 'JS'
   | 'Img'
@@ -29,7 +35,7 @@ export const RESOURCE_TYPE: Map<
 > = new Map([
   ['All', (type) => /.*/.test(type)],
   [
-    'Fetch',
+    'Fetch/XHR',
     (type) => /(fetch|xhr|mp-request|mp-upload|eventsource)/.test(type),
   ],
   ['CSS', (type) => /css/.test(type)],
@@ -58,50 +64,64 @@ export const NetworkTable = ({
   cookie,
   filterType = 'All',
   filterKeyword = '',
-  resizeCacheKey,
 }: NetworkTableProps) => {
   const { t: nt } = useTranslation('translation', { keyPrefix: 'network' });
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [showDetail, setShowDetail] = useState(false);
+  const [activeRow, setActiveRow] = useState<ResolvedNetworkInfo | null>(null);
+  const [sortBy, setSortBy] = useState<keyof ResolvedNetworkInfo | undefined>(
+    undefined,
+  );
+  const [sortDirection, setSortDirection] = useState<
+    SortDirectionType | undefined
+  >(undefined);
 
   const data = useMemo(() => {
+    setActiveRow(null);
     const keyword = filterKeyword.trim().toLocaleLowerCase();
-    if (!keyword && filterType === 'All') {
+    if (!keyword && filterType === 'All' && !sortBy && !sortDirection) {
       return originData;
     }
-    return originData.filter(
+    const filteredData = originData.filter(
       (msg) =>
         RESOURCE_TYPE.get(filterType)?.(msg.requestType) &&
         msg.url.toLocaleLowerCase().includes(keyword),
     );
-  }, [filterKeyword, filterType, originData]);
-
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const [activeIndex, setActiveIndex] = useState(-1);
-  const [leftDistance, setLeftDistance] = useState('20%');
-  const detailData = useMemo<ResolvedNetworkInfo | null>(() => {
-    if (activeIndex < 0) {
-      return null;
+    if (sortBy && sortDirection) {
+      return filteredData.sort((a, b) => {
+        if (a[sortBy] < b[sortBy]) return sortDirection === 'ASC' ? -1 : 1;
+        if (a[sortBy] > b[sortBy]) return sortDirection === 'ASC' ? 1 : -1;
+        return 0;
+      });
     }
-    return data[activeIndex];
-  }, [activeIndex, data]);
+    return filteredData;
+  }, [filterKeyword, filterType, originData, sortBy, sortDirection]);
+
+  const [leftDistance, setLeftDistance] = useState('20%');
   const hotKeyHandle = useCallback(
     (evt: KeyboardEvent) => {
       const { key } = evt;
       switch (key.toLocaleLowerCase()) {
         case 'escape':
-          setActiveIndex(-1);
+          setShowDetail(false);
           break;
         case 'arrowup':
-          if (activeIndex > 0) setActiveIndex(activeIndex - 1);
+          if (activeRow) {
+            const index = data.findIndex((item) => item.id === activeRow.id);
+            if (index > 0) setActiveRow(data[index - 1]);
+          }
           break;
         case 'arrowdown':
-          if (activeIndex < data.length - 1) setActiveIndex(activeIndex + 1);
+          if (activeRow) {
+            const index = data.findIndex((item) => item.id === activeRow.id);
+            if (index < data.length - 1) setActiveRow(data[index + 1]);
+          }
           break;
         default:
           break;
       }
     },
-    [activeIndex, data.length],
+    [activeRow, data],
   );
   useEffect(() => {
     document.addEventListener('keyup', hotKeyHandle);
@@ -200,7 +220,7 @@ export const NetworkTable = ({
   }, []);
 
   const NameColumn = useCallback<TableCellRenderer>(
-    ({ rowData, rowIndex }) => {
+    ({ rowData }) => {
       return (
         <Dropdown
           menu={{
@@ -224,7 +244,7 @@ export const NetworkTable = ({
           <div
             title={rowData.name}
             onClick={(evt: any) => {
-              setActiveIndex(rowIndex);
+              setShowDetail(true);
               setLeftDistance(evt.target.clientWidth);
             }}
             style={{
@@ -289,14 +309,28 @@ export const NetworkTable = ({
             rowCount={data.length}
             rowGetter={({ index }) => data[index]}
             noRowsRenderer={NoData}
-            rowClassName={({ index }) =>
-              clsx(index % 2 ? 'odd' : 'even', {
-                active: !!detailData && index === activeIndex,
-              })
-            }
+            rowClassName={({ index }) => {
+              if (index < 0) return '';
+              return clsx(
+                index % 2 ? 'odd' : 'even',
+                getStatusInfo(data[index]).status,
+                {
+                  active: data[index].id === activeRow?.id,
+                },
+              );
+            }}
+            onRowClick={({ rowData }) => {
+              setActiveRow(rowData);
+            }}
+            sort={({ sortBy, sortDirection }) => {
+              setSortBy(sortBy as keyof ResolvedNetworkInfo);
+              setSortDirection(sortDirection);
+            }}
+            sortBy={sortBy}
+            sortDirection={sortDirection}
           >
             <Column
-              dataKey="pathname"
+              dataKey="name"
               label="Name"
               width={width * 0.3}
               // flexGrow={1}
@@ -339,7 +373,7 @@ export const NetworkTable = ({
           </Table>
         )}
       </AutoSizer>
-      {detailData && (
+      {showDetail && activeRow && (
         <div
           className="network-detail"
           style={{
@@ -347,9 +381,9 @@ export const NetworkTable = ({
           }}
         >
           <NetworkDetail
-            data={detailData}
+            data={activeRow}
             onClose={() => {
-              setActiveIndex(-1);
+              setShowDetail(false);
             }}
           />
         </div>
