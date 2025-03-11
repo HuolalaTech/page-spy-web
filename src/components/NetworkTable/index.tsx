@@ -337,12 +337,14 @@ export const NetworkTable = ({
             title={rowData.name}
             onClick={(evt: any) => {
               setShowDetail(true);
-              setLeftDistance(evt.target.clientWidth);
+              setLeftDistance(evt.target.parentElement?.clientWidth);
             }}
             style={{
               overflow: 'hidden',
               whiteSpace: 'nowrap',
               textOverflow: 'ellipsis',
+              height: '100%',
+              lineHeight: '30px',
             }}
           >
             {rowData.name}
@@ -398,7 +400,7 @@ export const NetworkTable = ({
               width={width}
               height={height}
               headerHeight={30}
-              rowHeight={28}
+              rowHeight={30}
               rowCount={data.length}
               rowGetter={({ index }) => data[index]}
               noRowsRenderer={NoData}
