@@ -1,37 +1,47 @@
 import { useCacheDetailStore } from '@/store/cache-detail';
 import { StorageType } from '@/store/platform-config';
 import { SpyStorage } from '@huolala-tech/page-spy-types';
-import { Table, Tooltip } from 'antd';
+import { Table, TableColumnsType, Tooltip } from 'antd';
 import { capitalize } from 'lodash-es';
 import { useMemo, useRef, useState } from 'react';
 import { ResizableTitle } from '../ResizableTitle';
 import { ResizeCallbackData } from 'react-resizable';
 import { ColumnType } from 'antd/es/table/interface';
 
-const allCols = [
+const allCols: TableColumnsType<SpyStorage.Data> = [
   {
     dataIndex: 'name',
     title: 'Name',
     ellipsis: true,
     width: 200,
+    sorter: (a, b) => a.name.localeCompare(b.name),
   },
   {
     dataIndex: 'value',
     title: 'Value',
     ellipsis: true,
     width: 300,
+    sorter: (a, b) => a.value.localeCompare(b.value),
   },
   {
     dataIndex: 'domain',
     title: 'Domain',
     ellipsis: true,
     width: 200,
+    sorter: (a, b) => {
+      if (!(a.domain && b.domain)) return 0;
+      return a.domain.localeCompare(b.domain);
+    },
   },
   {
     dataIndex: 'path',
     title: 'Path',
     ellipsis: true,
     width: 100,
+    sorter: (a, b) => {
+      if (!(a.path && b.path)) return 0;
+      return a.path.localeCompare(b.path);
+    },
   },
   {
     dataIndex: 'expires',
@@ -46,6 +56,10 @@ const allCols = [
         </Tooltip>
       );
     },
+    sorter: (a, b) => {
+      if (!(a.expires && b.expires)) return 0;
+      return a.expires.toString().localeCompare(b.expires.toString());
+    },
   },
   {
     dataIndex: 'secure',
@@ -53,6 +67,10 @@ const allCols = [
     ellipsis: true,
     width: 80,
     render: (bool: boolean) => bool && '✅',
+    sorter: (a, b) => {
+      if (!(a.secure && b.secure)) return 0;
+      return a.secure.toString().localeCompare(b.secure.toString());
+    },
   },
   {
     dataIndex: 'sameSite',
@@ -60,11 +78,19 @@ const allCols = [
     ellipsis: true,
     width: 80,
     render: (v: string) => capitalize(v),
+    sorter: (a, b) => {
+      if (!(a.sameSite && b.sameSite)) return 0;
+      return a.sameSite.toString().localeCompare(b.sameSite.toString());
+    },
   },
   {
     dataIndex: 'partitioned',
     title: 'Partitioned',
     ellipsis: true,
+    sorter: (a, b) => {
+      if (!(a.partitioned && b.partitioned)) return 0;
+      return a.partitioned.toString().localeCompare(b.partitioned.toString());
+    },
   },
 ];
 
