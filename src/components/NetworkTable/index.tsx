@@ -270,16 +270,18 @@ export const NetworkTable = ({
   const [isDragging, setIsDragging] = useState(false);
   const headerRenderer = useCallback<TableHeaderRenderer>(
     ({ dataKey, label }) => (
-      <Flex justify="space-between" align="center">
-        <div className="ReactVirtualized__Table__headerTruncatedText">
-          {label}
-        </div>
-        {sortBy === dataKey &&
-          (sortDirection === 'ASC' ? (
-            <CaretUpOutlined />
-          ) : (
-            <CaretDownOutlined />
-          ))}
+      <>
+        <Flex justify="space-between" align="center">
+          <div className="ReactVirtualized__Table__headerTruncatedText">
+            {label}
+          </div>
+          {sortBy === dataKey &&
+            (sortDirection === 'ASC' ? (
+              <CaretUpOutlined />
+            ) : (
+              <CaretDownOutlined />
+            ))}
+        </Flex>
         <Draggable
           axis="x"
           defaultClassName="DragHandle"
@@ -305,7 +307,7 @@ export const NetworkTable = ({
         >
           <div onClick={(e) => e.stopPropagation()} />
         </Draggable>
-      </Flex>
+      </>
     ),
     [sortBy, sortDirection],
   );
@@ -427,18 +429,22 @@ export const NetworkTable = ({
                 width={width * columnsWidth.name}
                 headerRenderer={headerRenderer}
                 cellRenderer={NameColumn}
+                minWidth={100}
               />
               <Column
                 dataKey="pathname"
                 label="Path"
                 width={width * columnsWidth.pathname}
                 headerRenderer={headerRenderer}
+                minWidth={100}
+                flexGrow={1}
               />
               <Column
                 dataKey="method"
                 label="Method"
                 width={width * columnsWidth.method}
                 headerRenderer={headerRenderer}
+                minWidth={80}
               />
               <Column
                 dataKey="status"
@@ -446,18 +452,21 @@ export const NetworkTable = ({
                 width={width * columnsWidth.status}
                 headerRenderer={headerRenderer}
                 cellRenderer={StatusColumn}
+                minWidth={80}
               />
               <Column
                 dataKey="requestType"
                 label="Type"
                 width={width * columnsWidth.requestType}
                 headerRenderer={headerRenderer}
+                minWidth={80}
               />
               <Column
                 dataKey="costTime"
                 label="Time(≈)"
                 width={width * columnsWidth.costTime}
                 cellRenderer={({ cellData }) => getTime(cellData)}
+                minWidth={80}
               />
             </Table>
           );
