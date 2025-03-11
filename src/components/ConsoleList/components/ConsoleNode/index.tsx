@@ -4,14 +4,14 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import './index.less';
 import clsx from 'clsx';
-import CopyContent from '../CopyContent';
 import type { SpyAtom } from '@huolala-tech/page-spy-types';
 import { LoadMore } from './LoadMore';
 import { useSocketMessageStore } from '@/store/socket-message';
-import { useConfig } from '../ConfigProvider';
+import { useDebugConfig } from '@/components/DebugConfigProvider';
 import { Tooltip } from 'antd';
-import { Trans, useTranslation } from 'react-i18next';
-
+import { Trans } from 'react-i18next';
+import CopyContent from '@/components/CopyContent';
+import { useShallow } from 'zustand/react/shallow';
 function isAtomNode(data: SpyAtom.Overview) {
   return data && data.type === 'atom' && data.__atomId !== undefined;
 }
@@ -23,7 +23,7 @@ interface GetterNodeProps {
   keyName: string;
 }
 function GetterNode({ id, parentId, instanceId, keyName }: GetterNodeProps) {
-  const socket = useSocketMessageStore((state) => state.socket);
+  const socket = useSocketMessageStore(useShallow((state) => state.socket));
   const [nodeData, setNodeData] = useState<SpyAtom.Overview>();
 
   useEffect(() => {
@@ -159,9 +159,8 @@ interface AtomNodeProps {
   showArrow?: boolean;
 }
 function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
-  const { offline } = useConfig();
-  const { t } = useTranslation();
-  const socket = useSocketMessageStore((state) => state.socket);
+  const { offline } = useDebugConfig();
+  const socket = useSocketMessageStore(useShallow((state) => state.socket));
   const [spread, setSpread] = useState(false);
   const [property, setProperty] = useState<Record<string, SpyAtom.Overview>>(
     {},

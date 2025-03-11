@@ -1,9 +1,9 @@
-import { ConsoleItem } from '@/components/ConsoleItem';
+import { ConsoleList } from '@/components/ConsoleList';
 import { useReplayStore } from '@/store/replay';
 import './index.less';
 import { memo, useEffect, useRef } from 'react';
 import { useShallow } from 'zustand/react/shallow';
-import { ConfigProvider } from '@/components/ConfigProvider';
+import { DebugConfigProvider } from '@/components/DebugConfigProvider';
 import { useTranslation } from 'react-i18next';
 import { CaretRightOutlined, PauseOutlined } from '@ant-design/icons';
 import { Tooltip, Button } from 'antd';
@@ -72,11 +72,9 @@ export const ConsolePanel = memo(() => {
 
   return (
     <div className="console-panel" ref={panelRef}>
-      <ConfigProvider offline>
-        {consoleMsg.map((data) => (
-          <ConsoleItem data={data} key={data.id} />
-        ))}
-      </ConfigProvider>
+      <DebugConfigProvider offline>
+        <ConsoleList data={consoleMsg} />
+      </DebugConfigProvider>
     </div>
   );
 });

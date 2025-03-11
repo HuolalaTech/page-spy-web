@@ -11,15 +11,17 @@ import UserSvg from '@/assets/image/user.svg?react';
 import DebugSvg from '@/assets/image/debug.svg?react';
 import './index.less';
 import { debounce } from 'lodash-es';
-
+import { useShallow } from 'zustand/react/shallow';
 export const HeaderActions = () => {
   const { t } = useTranslation();
   const [clearRecord, changeConsoleMsgFilter, setConsoleMsgKeywordFilter] =
-    useSocketMessageStore((state) => [
-      state.clearRecord,
-      state.setConsoleMsgTypeFilter,
-      state.setConsoleMsgKeywordFilter,
-    ]);
+    useSocketMessageStore(
+      useShallow((state) => [
+        state.clearRecord,
+        state.setConsoleMsgTypeFilter,
+        state.setConsoleMsgKeywordFilter,
+      ]),
+    );
 
   const logLevelList: Array<{
     label: string | React.ReactNode;

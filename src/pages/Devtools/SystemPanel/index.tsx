@@ -4,10 +4,12 @@ import { useSocketMessageStore } from '@/store/socket-message';
 import SystemContent from '@/components/SystemContent';
 import { ReloadOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import { useShallow } from 'zustand/react/shallow';
 
 const SystemPanel = memo(() => {
-  const systemMsg = useSocketMessageStore((state) => state.systemMsg);
-  const refresh = useSocketMessageStore((state) => state.refresh);
+  const [systemMsg, refresh] = useSocketMessageStore(
+    useShallow((state) => [state.systemMsg, state.refresh]),
+  );
 
   const { t } = useTranslation();
 

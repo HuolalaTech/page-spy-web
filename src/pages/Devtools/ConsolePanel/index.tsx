@@ -9,9 +9,15 @@ import { useSocketMessageStore } from '@/store/socket-message';
 import MPWarning from '@/components/MPWarning';
 import { InfoCircleFilled } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import { useShallow } from 'zustand/react/shallow';
 
 const ConsolePanel = () => {
-  const clientInfo = useSocketMessageStore((state) => state.clientInfo);
+  const clientInfo = useSocketMessageStore(
+    useShallow((state) => state.clientInfo),
+  );
+
+  console.count('ConsolePanel');
+
   const { dynamicalExecutable, isMP, hasEvalPlugin } = useMemo(() => {
     const { os, browser, plugins } = clientInfo || {};
     // TODO 纯血鸿蒙出来后需要额外判断是「鸿蒙上的 APP」

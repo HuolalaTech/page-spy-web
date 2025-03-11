@@ -3,7 +3,7 @@ import { SpyNetwork, SpyStorage } from '@huolala-tech/page-spy-types';
 import { Dropdown, Empty, Space, Tooltip, Flex } from 'antd';
 import clsx from 'clsx';
 import copy from 'copy-to-clipboard';
-import { isString, sortBy, throttle } from 'lodash-es';
+import { isString, throttle } from 'lodash-es';
 import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { getContentType, getStatusInfo, getTime } from './utils';
 import { useTranslation } from 'react-i18next';
@@ -12,8 +12,6 @@ import { NetworkDetail } from './NetworkDetail';
 import { ResolvedNetworkInfo } from '@/utils';
 import {
   CaretDownOutlined,
-  ArrowUpOutlined,
-  ArrowDownOutlined,
   InfoCircleOutlined,
   CaretUpOutlined,
 } from '@ant-design/icons';

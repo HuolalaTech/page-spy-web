@@ -9,7 +9,7 @@ import { useAsyncEffect } from 'ahooks';
 import sh from '@/utils/shiki-highlighter';
 import type { Lang } from 'shiki';
 import { isArray } from 'lodash-es';
-
+import { useShallow } from 'zustand/react/shallow';
 const tag2lang = {
   style: 'css',
   script: 'javascript',
@@ -167,7 +167,7 @@ function ElementNode({
 }
 
 export const ElementPanel = memo(() => {
-  const ast = useSocketMessageStore((state) => state.pageMsg.tree);
+  const ast = useSocketMessageStore(useShallow((state) => state.pageMsg.tree));
 
   if (!ast) return null;
   return (

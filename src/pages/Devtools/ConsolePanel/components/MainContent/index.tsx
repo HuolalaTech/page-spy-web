@@ -13,7 +13,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useMiscStore } from '@/store/misc';
 import { useForceThrottleRender } from '@/utils/useForceRender';
-import { ConsoleItem } from '@/components/ConsoleItem';
+import { ConsoleList } from '@/components/ConsoleList';
 
 export const MainContent = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'console' });
@@ -98,25 +98,23 @@ export const MainContent = memo(() => {
 
   const handleScroll: UIEventHandler<HTMLDivElement> = useCallback(
     (e) => {
-      const direction =
-        e.currentTarget.scrollTop > currentScrollTop.current ? 'down' : 'up';
-      currentScrollTop.current = e.currentTarget.scrollTop;
-
-      if (direction === 'up' && isAutoScroll) {
-        setIsAutoScroll(false);
-        return;
-      }
-
-      const isBottom =
-        Math.ceil(e.currentTarget.scrollTop) ===
-        e.currentTarget.scrollHeight - e.currentTarget.offsetHeight;
-      if (isBottom) {
-        messageLength.current = document.querySelectorAll(
-          '.console-list .console-item',
-        ).length;
-        // TODO
-        // setIsAutoScroll(true);
-      }
+      // const direction =
+      //   e.currentTarget.scrollTop > currentScrollTop.current ? 'down' : 'up';
+      // currentScrollTop.current = e.currentTarget.scrollTop;
+      // if (direction === 'up' && isAutoScroll) {
+      //   setIsAutoScroll(false);
+      //   return;
+      // }
+      // const isBottom =
+      //   Math.ceil(e.currentTarget.scrollTop) ===
+      //   e.currentTarget.scrollHeight - e.currentTarget.offsetHeight;
+      // if (isBottom) {
+      //   messageLength.current = document.querySelectorAll(
+      //     '.console-list .console-item',
+      //   ).length;
+      //   // TODO
+      //   // setIsAutoScroll(true);
+      // }
     },
     [setIsAutoScroll, isAutoScroll],
   );
@@ -138,12 +136,10 @@ export const MainContent = memo(() => {
   }, [isUpdated]);
 
   return (
-    <div className="console-list" ref={containerEl} onScroll={handleScroll}>
-      {consoleDataList.map((item) => (
-        <ConsoleItem data={item} key={item.id} />
-      ))}
+    <div className="main-content" ref={containerEl} onScroll={handleScroll}>
+      <ConsoleList data={consoleDataList} />
       {newTips && (
-        <div className="console-list__new" onClick={scrollToBottom}>
+        <div className="main-content__new" onClick={scrollToBottom}>
           <Button shape="round" type="primary">
             <DoubleRightOutlined rotate={90} />
             <span>{t('newContent')}</span>
