@@ -41,7 +41,10 @@ export const LogReplayer = ({ url, backSlot = null }: Props) => {
   const { loading, run: requestLog } = useRequest(
     async () => {
       const res = await (await fetch(url)).json();
-      const result = res.map((i: any) => {
+      if (res?.success === false) {
+        throw new Error(res?.message);
+      }
+      const result = res.data.map((i: any) => {
         return {
           ...i,
           // if string, it's compressed by zlib
