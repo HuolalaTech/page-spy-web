@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { PCFrame } from '../BrowserFrame';
 import './index.less';
 import { useSocketMessageStore } from '@/store/socket-message';
+import { useShallow } from 'zustand/react/shallow';
 
 function insertStyle(doc: Document, text: string) {
   const style = doc.createElement('style');
@@ -12,10 +13,9 @@ function insertStyle(doc: Document, text: string) {
 }
 
 const PagePanel = () => {
-  const [html, refresh] = useSocketMessageStore((state) => [
-    state.pageMsg.html,
-    state.refresh,
-  ]);
+  const [html, refresh] = useSocketMessageStore(
+    useShallow((state) => [state.pageMsg.html, state.refresh]),
+  );
   const [loading, setLoading] = useState(false);
   const parser = useRef<DOMParser>(new DOMParser());
   const frameRef = useRef<HTMLIFrameElement | null>(null);

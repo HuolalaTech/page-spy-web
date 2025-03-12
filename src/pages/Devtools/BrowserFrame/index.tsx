@@ -10,7 +10,7 @@ import { Button, Space, Spin } from 'antd';
 import { ElementPanel } from '../ElementPanel';
 import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
-
+import { useShallow } from 'zustand/react/shallow';
 function getTime() {
   const date = new Date();
   let hours = String(date.getHours());
@@ -33,10 +33,9 @@ export const PCFrame = ({
 }: PropsWithChildren<FrameWrapperProps>) => {
   const { t: ct } = useTranslation('translation', { keyPrefix: 'common' });
   const { t } = useTranslation('translation', { keyPrefix: 'page' });
-  const [pageLocation, clientInfo] = useSocketMessageStore((state) => [
-    state.pageMsg.location,
-    state.clientInfo,
-  ]);
+  const [pageLocation, clientInfo] = useSocketMessageStore(
+    useShallow((state) => [state.pageMsg.location, state.clientInfo]),
+  );
   const [elementVisible, setElementVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const dividerRef = useRef<HTMLDivElement | null>(null);
@@ -183,7 +182,9 @@ export const PCFrame = ({
 
 const IOSFrame = ({ children }: PropsWithChildren<unknown>) => {
   const time = getTime();
-  const pageLocation = useSocketMessageStore((state) => state.pageMsg.location);
+  const pageLocation = useSocketMessageStore(
+    useShallow((state) => state.pageMsg.location),
+  );
   return (
     <div className="ios-frame">
       <div className="ios-frame__hair">
@@ -213,7 +214,9 @@ const IOSFrame = ({ children }: PropsWithChildren<unknown>) => {
 
 const AndroidFrame = ({ children }: PropsWithChildren<unknown>) => {
   const time = getTime();
-  const pageLocation = useSocketMessageStore((state) => state.pageMsg.location);
+  const pageLocation = useSocketMessageStore(
+    useShallow((state) => state.pageMsg.location),
+  );
 
   return (
     <div className="android-frame">

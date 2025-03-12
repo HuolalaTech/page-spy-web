@@ -7,9 +7,36 @@
     transform-origin: top left;
     float: left;
     clear: both;
+    overflow: hidden;
     > iframe {
       border: none;
     }
+  }
+  &.is-pc {
+    .replayer-mouse {
+      width: 25px;
+      height: 25px;
+      background-size: contain;
+      background-position: 50%;
+      background-repeat: no-repeat;
+      background-image: url('@/assets/image/mouse-pointer.svg');
+    }
+  }
+  &.is-mobile {
+    .replayer-mouse {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      box-shadow: 0 0 4px 2px rgba(255, 255, 255, 0.6);
+      background: rgba(0, 0, 0, 0.5);
+      transform: translate(-50%, -50%);
+    }
+  }
+  .replayer-mouse {
+    position: absolute;
+    transition: 0.05s linear;
+    left: -999px;
+    top: -999px;
   }
   .replayer-mouse-tail {
     position: absolute;

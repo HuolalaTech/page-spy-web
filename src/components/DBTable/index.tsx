@@ -29,7 +29,7 @@ import { ResizableTitle } from '../ResizableTitle';
 import { ONLINE_DB_CACHE } from '../ResizableTitle/cache-key';
 import { fromPairs, map } from 'lodash-es';
 import { ColumnType } from 'antd/es/table/interface';
-
+import { useShallow } from 'zustand/react/shallow';
 const { Option } = Select;
 
 interface DBItem {
@@ -43,7 +43,7 @@ export const DBTable = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'storage' });
   const [form] = Form.useForm();
   const [socket, { basicInfo, data: dbMsg }] = useSocketMessageStore(
-    (state) => [state.socket, state.databaseMsg],
+    useShallow((state) => [state.socket, state.databaseMsg]),
   );
   const [isStale, setIsStale] = useState(false);
   const onGetIndexedDB = useCallback(

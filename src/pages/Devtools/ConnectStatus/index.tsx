@@ -7,6 +7,7 @@ import Icon from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useSocketMessageStore } from '@/store/socket-message';
 import { CUSTOM_EVENT } from '@/store/socket-message/socket';
+import { useShallow } from 'zustand/react/shallow';
 
 interface ConnectionStatus {
   client?: SpySocket.Connection | null;
@@ -19,7 +20,7 @@ const statusColor = (online: boolean) => {
 
 export const ConnectStatus = memo(() => {
   const { t } = useTranslation();
-  const socket = useSocketMessageStore((state) => state.socket);
+  const socket = useSocketMessageStore(useShallow((state) => state.socket));
   const [connections, setConnections] = useState<ConnectionStatus>(() => ({
     client: socket?.clientConnection,
     debug: socket?.socketConnection,

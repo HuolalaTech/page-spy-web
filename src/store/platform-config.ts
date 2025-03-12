@@ -5,7 +5,7 @@ import { SpyClient, SpyStorage } from '@huolala-tech/page-spy-types';
 import { FunctionComponent } from 'react';
 import { useSocketMessageStore } from './socket-message';
 import { AllBrowserTypes } from '@/utils/brand';
-
+import { useShallow } from 'zustand/react/shallow';
 export type StorageType = SpyStorage.DataType | 'AppStorage';
 
 export const isBrowser = (browser: SpyClient.Browser) => {
@@ -81,7 +81,9 @@ export const STORAGE_TYPES: {
 ];
 
 export const useStorageTypes = () => {
-  const clientInfo = useSocketMessageStore((state) => state.clientInfo);
+  const clientInfo = useSocketMessageStore(
+    useShallow((state) => state.clientInfo),
+  );
   return STORAGE_TYPES.filter((s) => {
     return s.visible(clientInfo?.browser.type || 'unknown');
   });

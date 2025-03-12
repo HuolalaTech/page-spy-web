@@ -271,3 +271,14 @@ export function parseClientInfo(msg: SpyClient.DataItem): ParsedClientInfo {
     isDevTools,
   };
 }
+
+const MOBILE_REGEXPS = [
+  OS_REGEXPS.android,
+  OS_REGEXPS.ios,
+  OS_REGEXPS.ipad,
+  OS_REGEXPS.harmony,
+];
+export function isMobile(ua?: string) {
+  if (!ua) return false;
+  return MOBILE_REGEXPS.some((reg) => reg.test(ua));
+}
