@@ -1,0 +1,35 @@
+import { Tooltip } from 'antd'
+
+### ステップ 1#step-1
+
+プロジェクトに依存関係をインストールします：
+
+```bash
+yarn add @huolala-tech/page-spy-react-native@latest
+```
+
+### ステップ 2#step-2
+
+エントリーファイルでSDKをインポートしてインスタンス化します。初期化パラメータには、SDKの動作をカスタマイズするためのオプションの[設定項目]({VITE_SDK_RN_REPO})が用意されています：
+
+```js
+import PageSpy from '@huolala-tech/page-spy-react-native';
+
+new PageSpy({
+  api: "{deployPath}",
+})
+```
+
+`@react-native-async-storage/async-storage`を使用している場合、独立した[プラグイン]({VITE_PLUGIN_RN_STORAGE})を提供しています：
+
+```js
+import { PageSpy } from '@huolala-tech/page-spy-react-native';
+import RNAsyncStoragePlugin from '@huolala-tech/page-spy-plugin-rn-async-storage';
+
+PageSpy.registerPlugin(new RNAsyncStoragePlugin())
+new PageSpy({
+  api: "{deployPath}",
+})
+```
+
+以上がReact NativeプロジェクトにPageSpyを導入する全手順です。導入完了後、トップメニューの<Tooltip title="メニューはデフォルトで非表示、デプロイ後に表示されます" color="purple"><a href="javascript:void(0)">デバッグを開始</a></Tooltip>をクリックして使用開始！ 

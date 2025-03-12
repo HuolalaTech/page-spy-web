@@ -15,3 +15,9 @@ The key differences between O-Spy and PageSpy are as follows:
 | Offline replay debugging   | ✅                          | ✅       |
 | Data upload                | 🟡 Handled manually         | ✅       |
 | Data download              | ✅                          | ✅       |
+
+### Where does the data recorded by O-Spy store? #where-data-stored
+
+All data is stored locally on the user's device, and will not be uploaded to any third-party server.
+
+The storage strategy: O-Spy stores data in an array in memory. When the volume of data in the array reaches a critical value, the data will be written to a temporary file. The critical value is 10M by default (click [here](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor/src/harbor/blob.ts#L18) to view the source code). When the page is refreshed, all data will be destroyed.

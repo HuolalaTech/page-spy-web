@@ -1,0 +1,23 @@
+### O-Spy와 PageSpy의 관계는 무엇인가요?#diff-with-page-spy
+
+O-Spy는 [PageSpy](/) 및 그 플러그인 생태계의 기능을 기반으로 구축되었으며, 구체적으로 다음 세 가지 의존성을 패키지화했습니다:
+
+- `@huolala-tech/page-spy-browser`
+- `@huolala-tech/page-spy-plugin-rrweb`
+- `@huolala-tech/page-spy-plugin-data-harbor`
+
+두 도구의 주요 차이점은 다음과 같습니다:
+
+|              | O-Spy        | PageSpy |
+| ------------ | ------------ | ------- |
+| 배포 필요 여부 | 아니오        | 예      |
+| 온라인 실시간 디버깅 | ❌        | ✅       |
+| 오프라인 재생 디버깅 | ✅        | ✅       |
+| 데이터 업로드 | 🟡 직접 처리 필요 | ✅       |
+| 데이터 다운로드 | ✅           | ✅       |
+
+### O-Spy에서 기록된 데이터는 어디에 저장되나요?#where-data-stored
+
+모든 데이터는 사용자의 로컬에 저장되며, 어떠한 제3자 서버에도 업로드되지 않습니다.
+
+데이터 저장 전략: O-Spy는 데이터를 수신하면 먼저 메모리 배열에 저장합니다. 배열에 저장된 데이터 용량이 임계값에 도달하면 데이터는 임시 파일에 기록됩니다. 이 임계값은 10MB입니다([소스 코드](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor/src/harbor/blob.ts#L18) 참조). 페이지를 새로고침하면 모든 데이터가 삭제됩니다. 

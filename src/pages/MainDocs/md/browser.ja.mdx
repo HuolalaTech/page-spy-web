@@ -1,0 +1,100 @@
+
+import { Tooltip } from 'antd'
+import extensionDesc from '@/assets/image/screenshot/extension-en.png';
+import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';
+
+### オンライン体験#online
+
+> 完全なコードを表示するにはクリックしてください: [Codesandbox](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
+
+<iframe
+  width="100%"
+  src="https://codesandbox.io/embed/k3pzzt?view=editor+%2B+preview&module=%2Fpublic%2Findex.html"
+  title="page-spy-with-react"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+/>
+
+### 使用方法#usage
+
+#### ステップ1#step-1
+
+クライアントプロジェクトに `<script>` をロードします:
+
+```html
+<!-- PageSpy SDK -->
+<script crossorigin="anonymous" src="{deployUrl}/page-spy/index.min.js"></script>
+
+<!-- プラグイン（必須ではありませんが、使用を推奨します） -->
+<script crossorigin="anonymous" src="{deployUrl}/plugin/data-harbor/index.min.js"></script>
+<script crossorigin="anonymous" src="{deployUrl}/plugin/rrweb/index.min.js"></script>
+```
+
+#### ステップ2#step-2
+
+PageSpy とプラグインを初期化します。それらの初期化パラメーターは、SDK の動作をカスタマイズするための[設定項目]({VITE_SDK_BROWSER_REPO})を提供します:
+
+<blockquote>
+  <details>
+    <summary>プラグインが提供する機能は？</summary>
+    <div>
+      [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) と [RRWebPlugin]({VITE_PLUGIN_RRWEB}) の2つのプラグインは、PageSpy の機能を拡張するためのものです:
+      - **DataHarborPlugin**：PageSpy はオンラインモードのみをサポートしています。DataHarborPlugin は PageSpy をオフラインモードに対応させることができます。[オフラインログの再生](./offline-log) を参照してください。
+      - **RRWebPlugin**：ユーザーの操作履歴を記録し、[rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.ja.md) を使用します。通常は DataHarborPlugin と組み合わせて使用されます。
+
+      独自の PageSpy プラグインを開発することも可能です！ 
+    </div>
+  </details>
+</blockquote>
+
+```html
+<script>
+  window.$harbor = new DataHarborPlugin();
+  window.$rrweb = new RRWebPlugin();
+</script>
+
+[window.$harbor, window.$rrweb].forEach(p => {
+  PageSpy.registerPlugin(p)
+})
+
+window.$pageSpy = new PageSpy();
+</script>
+```
+
+以上で、ブラウザプロジェクトで PageSpy を使用するためのすべての手順が完了です。ページの上部メニューをクリックして <Tooltip title="メニューはデフォルトでは非表示です。" color="purple"><a href="javascript:void(0)">開始デバッグ</a></Tooltip> を使用してください！
+
+### フレームワークで統合#framework
+
+PageSpy は、現在のところ、すべてのフレームワークの統合ガイドを CodeSandbox プラットフォームで公開しています。以下にアクセスして、オンラインで体験してください:
+
+- **React**：[CodeSandbox - PageSpy in React](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
+- **Vue**：[CodeSandbox - PageSpy in Vue](https://codesandbox.io/p/sandbox/page-spy-with-vue-ft35qs)
+- **Svelte**：[CodeSandbox - PageSpy in Svelte](https://codesandbox.io/p/sandbox/page-spy-with-svelte-p6mxd6)
+- **Angular**：[CodeSandbox - PageSpy in Angular](https://codesandbox.io/p/sandbox/page-spy-with-angular-6wg3ps)
+- **Nextjs**：[CodeSandbox - PageSpy in Nextjs](https://codesandbox.io/p/sandbox/page-spy-with-nextjs-5htxv5)
+- **Nuxtjs**：[CodeSandbox - PageSpy in Nuxtjs](https://codesandbox.io/p/sandbox/page-spy-with-nuxtjs-8znq22)
+
+### ブラウザ拡張機能#extension
+
+PageSpy は、ブラウザ拡張機能を提供して、ページをデバッグするためのコードを統合することなく、任意のページで PageSpy を使用できるようにします。
+
+はい、その通りです！PageSpy のブラウザ拡張機能を使用すると、ページをデバッグするためのコードを統合することなく、任意のページで PageSpy を使用できます。
+
+#### インストール#install-extension
+
+[ブラウザ拡張機能](https://github.com/HuolalaTech/page-spy-extension/tree/main/packages/online-pagespy-extension) リポジトリにアクセスし、README ドキュメントに従ってインストールしてください。
+
+#### パネルパラメーター#extension-panel
+
+<a href={extensionDesc} target="_blank">
+  <img src={extensionDesc} />
+</a>  
+
+<blockquote>
+  <details>
+    <summary>参考示例：バイデン大統領のホームページをデバッグ</summary>
+    <a href={debugBaidu} target="_blank">
+      <img src={debugBaidu} />
+    </a>
+  </details>
+</blockquote>

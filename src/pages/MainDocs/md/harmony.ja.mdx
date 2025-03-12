@@ -1,0 +1,35 @@
+import { Tooltip } from 'antd'
+
+### ステップ 1#step-1
+
+デバッグ対象のHAPディレクトリで依存関係をインストールします：
+
+```bash
+# API 9
+ohpm install @huolala/page-spy-harmony@^1.0.0
+
+# API 11
+ohpm install @huolala/page-spy-harmony@^2
+```
+
+### ステップ 2#step-2
+
+適切な場所でSDKをインポートして初期化します。ここでは`EntryAbility`を例として示します。初期化パラメータには、SDKの動作をカスタマイズするためのオプションの[設定項目]({VITE_SDK_HARMONY_REPO})が用意されています：
+
+```ts
+import { PageSpy } from '@huolala/page-spy-harmony';
+import axiosInstance from 'path/to/your/axios-instance';
+
+export default class EntryAbility extends UIAbility {
+  onWindowStageCreate(windowStage: window.WindowStage) {
+    new PageSpy({
+      context: this.context,
+      api: "{deployPath}",
+      enableSSL: true,
+      axios: axiosInstance
+    })
+  }
+}
+```
+
+以上がHarmonyOSアプリプロジェクトにPageSpyを導入する全手順です。導入完了後、トップメニューの<Tooltip title="メニューはデフォルトで非表示、デプロイ後に表示されます" color="purple"><a href="javascript:void(0)">デバッグを開始</a></Tooltip>をクリックして使用開始！

@@ -1,0 +1,74 @@
+import pluginsImg from '@/assets/image/screenshot/plugins.png';
+
+### 型定義#definition
+
+```ts
+export abstract class PageSpyPlugin {
+  /**
+   * 各プラグインには name の指定が必要で、これが現在のプラグインの「識別子」となります。
+   * PageSpy内部のプラグインの登録、無効化の機能は、すべてこのname属性に依存しています
+   */
+  public abstract name: string;
+
+  /**
+   * プラグインの読み込み順序を指定します。プラグインの呼び出し順序は以下の通りです：
+   *   1. enforce: "pre" 属性を持つプラグイン；
+   *   2. enforce 属性を持たないプラグイン；
+   *   3. enforce: "post" 属性を持つプラグイン；
+   */
+  public abstract enforce?: PluginOrder;
+
+  // new PageSpy() 時に呼び出されます
+  public abstract onInit: (params: OnInitParams) => any;
+
+  // PageSpyのレンダリング完了後に呼び出されます（レンダリングプロセスがある場合）
+  public abstract onMounted?: (params: OnMountedParams) => any;
+
+  // ユーザーがPageSpyを必要としなくなった時、プラグインはリセット/復元機能を持つべきです
+  public abstract onReset?: () => any;
+}
+
+export interface OnInitParams {
+  // ユーザーが渡したインスタンス化パラメータがマージされた設定情報
+  config: Required<InitConfig>;
+
+  // socketインスタンスをラップしたもので、プラグイン開発者はこのプロパティを通じてデバッグ側/APIと対話できます
+  socketStore: SocketStoreType;
+}
+
+export interface OnMountedParams {
+  // PageSpyがレンダリングするルートノード
+  root?: HTMLDivElement;
+
+  // PageSpyがレンダリングするポップアップのルートノード
+  content?: HTMLDivElement;
+
+  // socketインスタンスをラップしたもので、プラグイン開発者はこのプロパティを通じてデバッグ側/APIと対話できます
+  socketStore: SocketStoreType;
+}
+```
+
+### 動作規約#convention
+
+現在のプラグインがプラットフォームの特定の動作「データ」を収集する（または公開したい）場合、`socketStore`でデータをブロードキャストする以外に、プラグインが`socketStore`インスタンス上で追加の`"public-data"`内部イベント（Internal Event）を発行することを規約として定めています。この目的は、統計やデータの永続化が必要なプラグインがこのイベントから統一的にデータを収集できるようにするためです。プラグインが特定のデータを「公開」すべきでないと判断した場合は、`"public-data"`イベントを発行する必要はありません。
+
+<img src={pluginsImg} />
+
+### プラグイン実装例#demo
+
+[DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR})と[RRWebPlugin]({VITE_PLUGIN_RRWEB})を参照してください。
+
+### プラグインの使用方法#usage
+
+```html
+<!-- SDKを読み込む -->
+<script src="https://<your-pagespy-host>/page-spy/index.min.js"></script>
+<!-- プラグインを読み込む -->
+<script src="https://<your-pagespy-host>/plugin/xxx/index.min.js"></script>
+
+<!-- プラグインを登録 -->
+<script>
+  PageSpy.registerPlugin(new XXXPlugin());
+  window.$pageSpy = new PageSpy();
+</script>
+``` 

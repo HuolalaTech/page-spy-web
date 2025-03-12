@@ -1,0 +1,35 @@
+import { Tooltip } from 'antd'
+
+### 1단계#step-1
+
+디버그할 HAP 디렉토리에서 의존성을 설치합니다:
+
+```bash
+# API 9
+ohpm install @huolala/page-spy-harmony@^1.0.0
+
+# API 11
+ohpm install @huolala/page-spy-harmony@^2
+```
+
+### 2단계#step-2
+
+적절한 위치에서 SDK를 가져오고 초기화합니다. 여기서는 `EntryAbility`를 예시로 들겠습니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 선택적 [설정 옵션]({VITE_SDK_HARMONY_REPO})을 제공합니다:
+
+```ts
+import { PageSpy } from '@huolala/page-spy-harmony';
+import axiosInstance from 'path/to/your/axios-instance';
+
+export default class EntryAbility extends UIAbility {
+  onWindowStageCreate(windowStage: window.WindowStage) {
+    new PageSpy({
+      context: this.context,
+      api: "{deployPath}",
+      enableSSL: true,
+      axios: axiosInstance
+    })
+  }
+}
+```
+
+이상이 HarmonyOS 앱 프로젝트에 PageSpy를 연동하는 전체 과정입니다. 연동이 완료된 후 상단 메뉴의 <Tooltip title="메뉴는 기본적으로 숨겨져 있으며, 배포 후 표시됩니다" color="purple"><a href="javascript:void(0)">디버그 시작</a></Tooltip>을 클릭하여 사용하세요!

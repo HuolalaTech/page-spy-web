@@ -1,0 +1,43 @@
+import PlatformTag from '@/components/Docs/components/PlatformTag';
+
+> 일부 기능은 특정 플랫폼에서만 사용할 수 있으며, 다음과 같은 태그로 구분됩니다:
+>
+> | 플랫폼        | 태그                           |
+> | ------------ | ------------------------------ |
+> | 브라우저      | <PlatformTag type="browser" /> |
+> | 미니프로그램   | <PlatformTag type="mp" />      |
+> | React Native | <PlatformTag type="rn" />      |
+> | HarmonyOS    | <PlatformTag type="harmony" /> |
+
+### PageSpy#pagespy
+
+> 인스턴스 변수 이름을 `$pageSpy = new PageSpy(...)`로 정의합니다;
+
+- [constructor()](./pagespy#constructor)
+- [$pageSpy.updateRoomInfo()](./pagespy#updateRoomInfo)
+- [$pageSpy.abort()](./pagespy#abort)
+- [PageSpy.registerPlugin()](./pagespy#registerPlugin)
+- [PageSpy.pluginsWithOrder](./pagespy#pluginsWithOrder)
+- [$pageSpy.version](./pagespy#version)
+- [$pageSpy.config](./pagespy#config)
+- [$pageSpy.socketStore](./pagespy#socketStore)
+- [$pageSpy.showPanel()](./pagespy#showPanel) <PlatformTag type="mp" />
+
+
+### 플러그인#plugins
+
+#### DataHarborPlugin#harbor
+
+> 인스턴스 변수 이름을 `$harbor = new DataHarborPlugin(...)`로 정의합니다;
+
+- [constructor()](./data-harbor#constructor)
+- [수동 작업 로그](./data-harbor#onOfflineLog)
+- [$harbor.pause()](./data-harbor#pause)
+- [$harbor.resume()](./data-harbor#resume)
+- [$harbor.reharbor()](./data-harbor#reharbor)
+
+#### RRWebPlugin#rrweb
+
+> 인스턴스 변수 이름을 `$rrweb = new RRWebPlugin(...)`로 정의합니다;
+
+- [constructor()](./rrweb#constructor)

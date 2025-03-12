@@ -1,0 +1,113 @@
+[license-img]: https://img.shields.io/github/license/HuolalaTech/page-spy-web?label=License
+[license-url]: https://github.com/HuolalaTech/page-spy-web/blob/main/LICENSE
+[release-img]: https://img.shields.io/github/package-json/v/HuolalaTech/page-spy-web/release?label=Release
+[release-url]: https://github.com/HuolalaTech/page-spy-web/blob/release/package.json
+[browser-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-browser?label=Browser&color=orange
+[browser-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-browser
+[uniapp-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-uniapp?label=UniApp&color=green
+[uniapp-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-uniapp
+[wechat-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-wechat?label=Wechat&color=green
+[wechat-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-wechat
+[alipay-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-alipay?label=Alipay&color=blue
+[alipay-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-alipay
+[taro-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-taro?label=Taro&color=blue
+[taro-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-taro
+[harmony-ver-img]: https://harmony.blucas.me/badge/version/@huolala/page-spy-harmony?label=Harmony&color=black
+[harmony-ver-url]: https://ohpm.openharmony.cn/#/cn/detail/@huolala%2Fpage-spy-harmony
+[api-ver-img]: https://img.shields.io/github/v/tag/HuolalaTech/page-spy-api?label=API
+[api-ver-url]: https://github.com/HuolalaTech/page-spy-api/tags
+[node-deploy]: https://img.shields.io/badge/Node_Deploy-Install-CB3937
+[node-deploy-url]: https://pagespy.huolala.cn/#/docs/deploy-with-node
+[docker-deploy]: https://img.shields.io/badge/Docker_Deploy-Install-1E63ED
+[docker-deploy-url]: https://pagespy.huolala.cn/#/docs/deploy-with-docker
+[bt-deploy]: https://img.shields.io/badge/BT_Deploy-Install-20a53a
+[bt-deploy-url]: https://pagespy.huolala.cn/#/docs/deploy-with-baota
+
+
+import React from 'react';
+import { Flex } from 'antd';
+import bannerImg from '@/assets/image/doc-banner.png';
+
+import logo from '@/assets/image/logo.svg';
+import consoleImg from '@/assets/image/screenshot/console-panel.png';
+import networkImg from '@/assets/image/screenshot/network-panel.png';
+import pageImg from '@/assets/image/screenshot/page-panel.png';
+import storageImg from '@/assets/image/screenshot/storage-panel.png';
+import systemImg from '@/assets/image/screenshot/system-panel.png';
+import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-zh.png';
+import offlineImg from '@/assets/image/screenshot/offline-panel.png';
+
+export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
+
+<div align="center">
+  <img src={logo} height="100" />
+  <h1>Page Spy</h1>
+  <h5>必ず役立つリモートデバッグプラットフォーム。</h5>
+</div>
+
+### Page Spyとは？#what-is-page-spy
+
+**PageSpy**は[Web](./browser) / [ミニプログラム](./miniprogram) / [React Native](./react-native) / [HarmonyOS アプリ](./harmony)などのプラットフォームプロジェクトに対応したオープンソースのデバッグプラットフォームです。ネイティブAPIのラッパーに基づき、ネイティブメソッド呼び出し時のパラメータをフィルタリング・変換し、デバッグ側が消費できる特定のフォーマットのメッセージに整理します。デバッグ側はメッセージデータを受信後、ローカルコンソールに似たインターフェースでデータを表示します。
+
+### なぜPage Spyなのか？#why-is-page-spy
+
+> 百聞は一見にしかず。
+
+<a href={whyIsPageSpyImg} target="_blank">
+  <img src={whyIsPageSpyImg} />
+</a>
+
+### いつ使用するか？#when-to-use
+
+*ローカルでコンソールデバッグができないシーンは、すべて**PageSpy**が活躍できる場面です！*
+以下のようなシーンケースを見てみましょう：
+
+- **H5、Webviewアプリケーションのローカルデバッグ**：従来、H5上で情報を確認できるパネルを提供する製品もありましたが、モバイル端末の画面が小さく操作が不便、表示が不友好、情報が切り捨てられるなどの問題がありました。
+- **リモートワーク、地域間協力**：メール、電話、ビデオ会議などの従来のコミュニケーション方法では、コミュニケーション効率が低く、障害情報が不完全で、誤解や誤判断が生じやすい。
+- **ユーザー端末での白画面問題**：従来の問題特定方法には、データモニタリング、ログ分析などがありますが、これらの方法は、トラブルシューティング担当者がビジネス要件シーンや技術実装を理解する必要があります。
+
+PageSpyの目標は、上記のようなシーンに関わる人々をサポートすることです。
+
+### インターフェース概要#feature-overview
+
+#### オンラインデバッグ#online-debug
+
+- Consoleパネル: `console.<log | info | warn | error | debug>`で出力されたログ情報を表示し、クライアントに実行するコードを送信できます。
+
+<a href={consoleImg} target="_blank">
+  <img src={consoleImg} />
+</a>
+
+- Networkパネル: クライアントから送信されたネットワークリクエスト情報を表示します。
+
+<a href={networkImg} target="_blank">
+  <img src={networkImg} />
+</a>
+
+- Elementパネル: クライアントの現在のインターフェースを表示し、HTMLノードツリーを確認できます。
+
+<a href={pageImg} target="_blank">
+  <img src={pageImg} />
+</a>
+
+- Storageパネル: クライアントのローカルキャッシュデータを確認します。
+
+<a href={storageImg} target="_blank">
+  <img src={storageImg} />
+</a>
+
+- Systemsパネル: クライアントのシステム情報を表示し、互換性を確認します。
+
+<a href={systemImg} target="_blank">
+  <img src={systemImg} />
+</a>
+
+さらに、新しいデータが追加されたり、データが変更されたりした場合、リアルタイムで通知を受け取ることができます。
+
+#### オフラインリプレイ#offline-debugging
+
+<a href={offlineImg} target="_blank">
+  <img src={offlineImg} />
+</a>
+
+再生の進行状況はあなたがコントロールでき、プログレスバーの再生に合わせて、クライアントの操作軌跡と対応するデータを確認することができます。

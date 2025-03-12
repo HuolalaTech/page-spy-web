@@ -1,0 +1,161 @@
+[release-1.7.3]: https://github.com/HuolalaTech/page-spy-web/releases/tag/v1.7.3
+[public-data-event]: https://github.com/HuolalaTech/page-spy/blob/main/docs/plugin_zh.md#行為規約
+
+import modalImg from '@/assets/image/screenshot/modal.png';
+import replayImg from '@/assets/image/screenshot/replay-page.png';
+import replayGif from '@/assets/image/screenshot/replay-page.gif';
+import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
+
+**ログ再生**とは、その名の通り以前に生成されたログを再生することです。なぜログを再生する必要があるのか？以前のログはどこから来るのか？どのように再生するのか？順を追って見ていきましょう。
+
+<img src={replayGif} />
+
+## なぜ必要か#why
+
+これまで、PageSpyのオンラインデバッグは多くの厄介な問題を解決してきましたが、PageSpyを使用するには前提条件がありました：「クライアントとデバッグ側が同時にオンラインである必要がある」。この前提条件は、PageSpyの使用シーンを制限するだけでなく、例えば：
+
+- 一つの問題に対して開発者とテスターの二人の人員を同時に投入する必要がある；
+- デバッグ中にクライアントがバックグラウンドに移行して接続が切断される；
+
+同時にPageSpy自体にも制限をもたらしました、例えば：
+
+- 収集するデータの容量、ネットワーク転送の負荷を考慮する必要がある；
+
+これらの問題を解決し、より大きな自由度を得るために、PageSpyは[1.7.3][release-1.7.3]バージョンでログ再生機能を提供しました！
+
+## ログはどこから来るのか#where
+
+PageSpyのSDKが[プラグインの登録](./plugins)をサポートした後、開発チームは直ちに[DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR})プラグインの開発を推進しました。
+
+> `Data Harbor`、データハーバー。
+> 
+> メンタルモデル：PageSpyが生成するデータは絶え間なく「データハーバー」に送られ、データの整理、パッケージング、圧縮を行った後、「データハーバー」はデータを「コンテナ」（メモリまたはローカルの一時ファイル）に格納し、次の指示を待ちます。
+
+内部で`"public-data"`イベント（[「public-data」イベントとは？](./plugins#convention)）を監視し、オフラインデータのキャッシュ機能を実現すると同時に、SDKがレンダリングするコントロールにデータのアップロードとダウンロード機能を提供します。クライアントで問題が発見された場合、テスターは直接データをアップロードまたはダウンロードできます。この革新により、これまでの「クライアントとデバッグ側が同時にオンラインである必要がある」という前提条件が打破されました。
+
+## 使用方法#how-to-use
+
+### ブラウザでの使用#browser
+
+> PageSpyのオフラインログ再生機能のみが必要な場合は、より簡単に統合できる[O-Spy](#use-ospy)の使用をお勧めします。
+
+#### ステップ1：クライアントにSDKとプラグインを導入#step-1
+
+```html
+<html>
+  <head>
+    <!-- 1. PageSpyを読み込む -->
+    <script src="{deployUrl}/page-spy/index.min.js"></script>
+    <!-- 2. DataHarborプラグインを読み込む：オフラインログデータをキャッシュし、ダウンロード/アップロード機能を提供 -->
+    <script src="{deployUrl}/plugin/data-harbor/index.min.js"></script>
+    <!-- 3. RRWebプラグインも読み込んで、ユーザーの操作軌跡をオフラインログに記録できます -->
+    <script src="{deployUrl}/plugin/rrweb/index.min.js"></script>
+
+    <script>
+      // 4. プラグインを登録、config情報は以下を参照：https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor
+      PageSpy.registerPlugin(new DataHarborPlugin(config));
+      PageSpy.registerPlugin(new RRWebPlugin());
+
+      // 5. PageSpyをインスタンス化
+      window.$pageSpy = new PageSpy({
+        // SDKとデバッグ側がリアルタイム接続を確立したくない場合は、オフラインモードを有効にできます
+        // offline: true
+      });
+    </script>
+  </head>
+</html>
+```
+
+正常に導入されると、ページの右下にPageSpyのフローティングボールが表示され、フローティングボールをクリックすると表示されるダイアログにアップロードとダウンロードのボタンが含まれているはずです。
+
+<img src={modalImg} />
+
+#### ステップ2：ログの再生#step-2
+
+デバッグ側に入り、トップメニューの「デバッグを開始 - ログ再生」をクリックして再生リストページに入り、前のステップでアップロード/ダウンロードしたjsonデータを選択すれば再生機能を使用できます！
+
+<img src={replayImg} />
+
+#### 他のプラグインとの併用#plugins
+
+DataHarborPluginはデータの収集とデータ処理機能のみを提供します。PageSpyは他にも以下のプラグインを提供しています：
+
+- [RRWebPlugin]({VITE_PLUGIN_RRWEB}): `rrweb`を使用してDOMの更新を記録し、デバッグ側の「ログ再生」パネルの左側でユーザーの操作軌跡を確認できます。
+
+### O-Spyの使用#use-ospy
+
+[O-Spy](/o-spy)のSDKはプラグアンドプレイで、デプロイが不要です。PageSpy / DataHarborPlugin / RRWebPluginがパッケージされており、オフライン状態でのPageSpyのベストプラクティス設定が組み込まれています。同時にカスタムテーマもサポートしており、非常に簡単に使用できます。
+
+フレームワークに依存せず、プロジェクトへの導入方法を自由に選択できます。
+
+import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';
+
+<ImportGuide />
+
+正常に導入されると、右下に「問題フィードバック」というドラッグ可能なコンポーネントが表示されます。
+
+#### カスタマイズテーマの例#customize-example
+
+import { CustomizeExample } from '@/pages/OSpy/components/Customize';
+
+<CustomizeExample />
+
+### ミニプログラムでの使用#mp
+
+ミニプログラム環境でもオフラインログ再生をサポートしています。手順は以下の通りです：
+
+#### ステップ1：ミニプログラム専用プラグインのインストール#mp-step-1
+```bash
+yarn add @huolala-tech/page-spy-plugin-mp-data-harbor
+```
+
+#### ステップ2：プラグインの登録#mp-step-2
+```ts
+import PageSpy from '@huolala-tech/page-spy-wechat';
+import DataHarborPlugin from '@huolala-tech/page-spy-plugin-mp-data-harbor';
+
+// プラグインを登録、config情報は以下を参照：https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-mp-data-harbor
+const $dataHarborPlugin = new DataHarborPlugin(config)
+PageSpy.registerPlugin($dataHarborPlugin);
+
+const $pageSpy = new PageSpy({
+  // ...
+})
+```
+
+#### ステップ3：オフラインログのアップロード#mp-step-3
+
+オフラインログをアップロードするには2つの方法があります：
+
+1. プラグインインスタンスの`upload()`メソッドを呼び出す：
+```ts
+$dataHarborPlugin.upload().then(() => {
+  console.log('アップロード成功');
+})
+```
+
+2. ミニプログラムDataHarborプラグインを登録すると、PageSpyのデバッグメニューに「オフラインログをアップロード」ボタンが表示されます。クリックするとオフラインログをアップロードできます：
+
+<img style={{width: 375}} src={mpDataHarborImg} />
+
+### 相違点#diff
+
+1. ミニプログラム環境では画面録画をサポートしておらず、対応する`RRWebPlugin`もありません。
+
+2. ミニプログラム環境のオフラインログはアップロードのみをサポートし、ダウンロードはサポートしていません。
+
+## FAQ#faq
+
+1. ログの手動アップロード/ダウンロードはどのように行いますか？
+
+[こちらをご覧ください](./data-harbor#onOfflineLog)。
+
+2. オフラインログはどこに保存されますか？
+
+`DataHarborPlugin`がデータを受信すると、まずメモリの配列に格納されます。配列に格納されているデータの容量が臨界値に達すると、データは一時ファイルに書き込まれます。この臨界値はデフォルトで10MBです。以下のように自分で設定することもできます：
+
+```ts
+new DataHarborPlugin({
+  maximum: 1 * 1024 * 1024, // メモリ内のデータ記録が1MBに達したら一時ファイルに書き込む
+})
+```

@@ -1,0 +1,403 @@
+import moduleImg from '@/assets/image/screenshot/module.png';
+import dynamicInjectImg from '@/assets/image/screenshot/dynamic-inject.png';
+import pnpmInstallImg from '@/assets/image/screenshot/pnpm-install.png';
+
+### PageSpyのモジュール構成#module
+
+PageSpyモジュール間の依存関係と相互作用の概要図：
+
+<img alt="システムモジュール概要図" src={moduleImg} />
+
+### PageSpyの互換性#compatibility
+
+- ブラウザSDKの互換性ターゲットは[`["chrome > 75","safari > 12", "> 0.1%", "not dead","not op_mini all"]`](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-browser/package.json#L66-L72)に設定されています。他のSDKについては、それぞれのリポジトリをご確認ください。
+- デバッグ側は主に開発者が使用するため、ブラウザの新機能の使用に対してオープンな姿勢を取っています。そのため、最新バージョンのブラウザの使用を推奨しており、互換性ターゲットは[`["last 2 chrome version", "last 2 firefox version", "last 2 safari version"]`](https://github.com/HuolalaTech/page-spy-web/blob/main/package.json#L92-L96)に設定されています。
+
+### SDKによってレンダリングされるアイコンを非表示にするには？#hide-logo
+
+```js
+window.$pageSpy = new PageSpy({
+  // ... その他の設定パラメータ
+  autoRender: false,
+});
+```
+
+### インスタンス化時にどのようなパラメータを渡せますか？それぞれの役割は何ですか？#init-params
+
+[PageSpy API](./pagespy#constructor)を参照してください。
+
+### 初期化パラメータを更新するには？#update-info
+
+PageSpyはデバイスを識別するためのDevice IDを提供し、さらに`project`/`title`を提供して、開発者が初期化時にクライアントを識別するためのカスタム情報を設定できます。初期化後にこれらのパラメータ情報を更新したい場合は、以下のように操作します：
+
+```js
+window.$pageSpy = new PageSpy(...);
+
+// updateRoomInfoを呼び出してproject/titleを更新できます
+window.$pageSpy.updateRoomInfo({ project: 'xxx', title: 'xxx' });
+```
+
+### xxxフレームワークでの統合方法は？#framework
+
+PageSpyは、CodeSandboxプラットフォームを通じて、現在人気のあるすべてのフレームワークとの統合ガイドを公開しています。オンラインで体験できます：
+
+- **React**：[CodeSandbox - PageSpy in React](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
+- **Vue**：[CodeSandbox - PageSpy in Vue](https://codesandbox.io/p/sandbox/page-spy-with-vue-ft35qs)
+- **Svelte**：[CodeSandbox - PageSpy in Svelte](https://codesandbox.io/p/sandbox/page-spy-with-svelte-p6mxd6)
+- **Angular**：[CodeSandbox - PageSpy in Angular](https://codesandbox.io/p/sandbox/page-spy-with-angular-6wg3ps)
+- **Nextjs**：[CodeSandbox - PageSpy in Nextjs](https://codesandbox.io/p/sandbox/page-spy-with-nextjs-5htxv5)
+- **Nuxtjs**：[CodeSandbox - PageSpy in Nuxtjs](https://codesandbox.io/p/sandbox/page-spy-with-nuxtjs-8znq22)
+
+### pagespy.jikejishu.comは公式提供のドメインですか？常時利用可能ですか？#test-domain
+
+[https://pagespy.jikejishu.com](https://pagespy.jikejishu.com)は、PageSpyをオンラインで体験・学習できるように一時的に構築したサービスです。**24時間の可用性は保証されず、データの安全性も保証されません。損失は自己責任となります**。体験後は、プライベートサーバーやイントラネットに自身でデプロイすることを強く推奨します。
+
+### ローカルの6752ポートにはアクセスできるのに、サーバーにデプロイするとアクセスできないのはなぜ？#server-port
+
+サーバー上のファイアウォールまたはセキュリティグループのルールで6752ポートが開放されているか確認してください。
+
+### デバッグボタンが「現在の接続にはクライアントが存在しません」と表示されるのはなぜですか？#debug-disabled
+
+この状況は通常、SDKが正常にルームを作成したものの、WebSocketを介してルームに参加できない場合に発生します。以下の手順で確認してください：
+
+- SDKが存在するクライアントのコンソールを開き、エラーが表示されているか確認します。
+- コンソールに「WebSocket connect failed」関連の情報が表示される場合は、サーバーの設定が正しいか確認してください。
+
+### デプロイ時のnginxの設定方法は？#nginx
+
+参考として、`https://pagespy.jikejishu.com`のnginx設定を共有します：
+
+```nginx
+server {
+  listen 443 ssl;
+  server_name pagespy.jikejishu.com;
+
+  if ($scheme != https) {
+      rewrite ^(.*)$  https://$host$1 permanent;
+  }
+
+  ssl_certificate /etc/letsencrypt/live/pagespy.jikejishu.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/pagespy.jikejishu.com/privkey.pem;
+
+  location / {
+      proxy_pass http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+  }
+}
+
+server {
+  if ($host = pagespy.jikejishu.com) {
+      return 301 https://$host$request_uri;
+  }
+
+  listen 80;
+  listen [::]:80;
+  server_name pagespy.jikejishu.com;
+  return 404;
+}
+```
+
+### サブパスへのデプロイ方法は？#sub-path
+
+バージョン1.5.4からサブパスへのデプロイがサポートされています。インストール手順は変更ありませんが、`nginx`の設定を調整する必要があります：
+
+```nginx
+server {
+  # ...
+
+  # <sub-path>にデプロイしたいサブパスを入力
+  location /<sub-path>/  {
+      # ここの<sub-path>は上記と同じにします
+      rewrite ^/<sub-path>/(.*)$ /$1 break;
+      proxy_pass            http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+      proxy_set_header      Host $host;
+      proxy_set_header      X-Real-IP $remote_addr;
+      proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+
+  # ここの<sub-path>は上記と同じにします
+  location /<sub-path> {
+      return 301 $scheme://$host$request_uri/;
+  }
+}
+```
+
+設定を調整後、nginxを再起動するとサブパスでアクセスできるようになります。注意点として、インスタンス化時に`api`と`clientOrigin`パラメータを手動で渡してSDKにデプロイ先を伝える必要があります：
+
+```js
+window.$pageSpy = new PageSpy({
+  // 例：api: "example.com/pagespy"
+  api: '<host>/<sub-path>',
+
+  // 例：clientOrigin: "https://example.com/pagespy"
+  clientOrigin: '<scheme>://<host>/<sub-path>',
+});
+```
+
+### デバッグ側にセキュリティ認証を追加し、開発者が認証後にのみアクセスできるようにするには？#basic-auth
+
+サーバー上でIPホワイトリストを設定するか、HTTP認証を使用して保護することができます。
+
+- NginxでIPホワイトリストを設定する例：
+
+  ```nginx
+  server {
+    location / {
+      # アクセスを許可するIP
+      allow <ip>;
+
+      # allow以外のすべてのクライアントアクセスを拒否
+      deny all;
+    }
+  }
+  ```
+
+- NginxでHTTP認証を設定し、アクセス時にユーザー名とパスワードを要求する：
+
+  まず`htpasswd`でアカウントとパスワードファイルを生成：
+
+  ```bash
+  # 実行後、パスワードの入力と確認が求められます
+  htpasswd -c /etc/nginx/.htpasswd <ユーザー名>;
+  ```
+
+  次に、nginxファイルで`auth_basic`モジュールを設定：
+
+  ```nginx
+  server {
+    location / {
+      auth_basic "PageSpyサービスにアクセスするにはユーザー名とパスワードを入力してください";
+      auth_basic_user_file /etc/nginx/.htpasswd;
+
+      proxy_pass http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+    }
+
+    location ~ /(api|page-spy|plugin) {
+      proxy_pass http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+    }
+  }
+  ```
+
+  最後にnginxサービスを再起動します。
+
+### プロジェクトに手動で統合したくない場合、ビジネスプロジェクトコードを侵害せずに実装する方法はありますか？#extension
+
+PageSpyはブラウザ拡張機能を提供しており、以下の機能を備えています：
+
+- 最新バージョンのSDKを自動注入
+- インスタンス化操作を自動実行
+- 注入するドメインの設定ルールを提供
+
+使用するにはこちらをクリック：[HuolalaTech/page-spy-extension](https://github.com/HuolalaTech/page-spy-extension)
+
+### Tampermonkeyスクリプトは利用できますか？#tampermonkey
+
+以下の内容を参考にしてください：
+
+```js
+// ==UserScript==
+// @name         Inject PageSpy Script
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Inject script on xxx.yyy
+// @author       You
+// @match        <マッチングルール、例：example.com>
+// @grant        none
+// ==/UserScript==
+
+(function () {
+  'use strict';
+
+  var script1 = document.createElement('script');
+  script1.setAttribute('crossorigin', 'anonymous');
+  // 実際のプロジェクトではSDKのアドレスリンクを置き換えてください
+  script1.src = 'https://pagespy.jikejishu.com/page-spy/index.min.js';
+
+  var script2 = document.createElement('script');
+  script2.textContent = 'window.$pageSpy = new PageSpy();';
+
+  document.head.prepend(script1);
+  script1.onload = () => {
+    document.head.appendChild(script2);
+  };
+})();
+```
+
+### ビジネスプロジェクトがHTTPS、PageSpyがHTTPの場合、コンソールでエラーが発生するのはなぜですか？#http-error
+
+ブラウザはHTTPSサイトからのHTTPリソースの読み込みをブロックします。これは、HTTPとHTTPS間のデータ転送において、HTTPSは暗号化とセキュリティを提供しますが、HTTPは平文転送でセキュリティリスクがあるためです。
+
+PageSpyをHTTPSサービスにアップグレードすることで、この問題を完全に解決できます。
+
+### 特定のユーザーのみをデバッグする方法は？#prod-debug
+
+最も簡単な方法は、ユーザーに[PageSpyのブラウザ拡張機能](https://github.com/HuolalaTech/page-spy-extension)を使用してもらうことです。これは協力的なユーザーかつPCプロジェクトの場合に適していますが、この前提条件は明らかに非常に厳しいものです。
+
+では、H5プロジェクトで本番環境でPageSpyを使用したい場合はどうすればよいでしょうか？すべてのユーザーに対して有効にするのは明らかに現実的ではありません。
+
+PageSpyの有効化プロセスは2つのステップのみであることを考えてみましょう：
+
+1. `head`タグ内で`<script>`を使用してSDKを読み込む
+2. インスタンス化
+
+PageSpyは2番目のインスタンス化ステップまでは、読み込まれた`<script>`はプロジェクトに何の影響も与えません。特定のユーザーをデバッグしたい場合、鍵となるのは2番目のステップです：どのユーザーの端末でPageSpyをインスタンス化するか。これには2つの方法があります：
+
+- HTMLの動的レスポンス：ユーザーがHTMLをリクエストする際に、ユーザーの一意の識別子を取得でき、HTMLに動的に注入できる場合、ユーザーにHTMLを返す前に`<script>`とインスタンス化ロジックを注入するかどうかを決定できます。
+
+  <img src={dynamicInjectImg} />
+
+- ユーザーにジェスチャーで有効化させる：これは通常、ユーザーの積極的な協力が必要です。デフォルトではSDKを注入しますが、インスタンス化せず、ユーザーが特別なジェスチャーをトリガーした後にデバッグを開始します。
+
+注意：技術的な実装以外に、法的コンプライアンスなどのセキュリティリスクにも注意が必要です。
+
+### Pageパネルの原理は？#page-principle
+
+PageパネルはクライアントサイドのHTML（`document.documentElement.outerHTML`）をデバッグ側のiframeにレンダリングし、ローカルコンソールで直接要素を検査できるようにします。
+
+### Pageパネルでレンダリングされたクライアントと直接インタラクションできますか？#page-interactive
+
+直接のインタラクションはできません。特定のインタラクションを実行する必要がある場合は、Consoleパネルの下部でコードを入力して実行し、その後Pageパネルに戻って画面の反応を確認することができます。
+
+### Pageパネルのスタイルが正しくないのはなぜですか？#page-style
+
+- クライアントとデバッグ側のレンダリング環境が異なる場合（例：クライアントのブラウザバージョンがChrome 75で、デバッグ側のブラウザバージョンがChrome 120の場合）
+- デバッグ側がクライアントが参照するリソースにアクセスする際にネットワーク制限がある場合
+
+そのため、スタイルは参考程度としてください。
+
+### Pageパネルでクライアントの内容を100%再現することはできないのですか？#page-reset
+
+SDKはページの「スクリーンショット」を撮ってデバッグ側に送信することができますが、以下の理由により実装していません：
+
+- 「画像」はテキストよりもデータ量が大きく、ネットワーク転送のオーバーヘッドが増加します
+- SDKのサイズと複雑さが増加します
+- 「スタイルエラー」の場合、リモートコラボレーション時にテスト担当者が開発者に正確にフィードバックできます
+
+これらの理由により、Pageパネルのスタイルは参考程度としています。
+
+### APIサービスの設定を変更するには？#api-config
+
+NPMパッケージのデプロイ方法でコマンドラインで`page-spy-api`を実行すると、実行ディレクトリにデフォルトで設定ファイル`config.json`が生成されます。このファイルで実行ポートとマルチインスタンスデプロイを設定できます：
+
+- 設定の変更
+
+  ```json
+  {
+    "port": "6752", //リッスンポート
+    "maxLogFileSizeOfMB": 10240, //ログ再生ファイルの保存サイズ（MB）
+    "maxLogLifeTimeOfHour": 720, //ログ再生ファイルの最大保存時間（時間）
+    "notAllowedDeleteLog": false, //ログ再生の削除を許可するかどうか
+    "maxRoomNumber": 500, //最大許可ルーム数
+    "corsConfig": {
+      "allowOrigins": ["https://test.huolala.com"], // デフォルトですべてのドメインのCORSを許可
+      "allowHeaders": [
+        "Origin",
+        "Authorization",
+        "Content-Length",
+        "X-Request-Id",
+        "Content-Type",
+        "Referer",
+        "User-Agent",
+        "Host"
+      ],
+      "allowMethods": [
+        "HEAD",
+        "POST",
+        "GET",
+        "OPTIONS",
+        "PUT",
+        "DELETE",
+        "UPDATE"
+      ],
+      "exposeHeaders": ["X-Request-Id"]
+    }
+  }
+  ```
+
+- マルチインスタンスデプロイ（バージョン1.5.0以上が必要）
+
+  `rpcAddress`設定はマルチインスタンスデプロイ設定で、ipとportは複数のマシンのipとrpcポートです。複数のインスタンスはrpcを通じて通信し、プログラムはマシンのipに基づいてrpcサービスを起動します。そのため、ipが重複しないようにする必要があります。重複すると、メッセージの混乱や損失が発生する可能性があります。
+
+  ```json
+  {
+    "port": "6752",
+    "rpcAddress": [
+      {
+        "ip": "192.168.123.1",
+        "port": "20008"
+      },
+      {
+        "ip": "192.168.123.2",
+        "port": "20008"
+      }
+    ]
+  }
+  ```
+
+### pnpmでグローバルにインストールしたパッケージを`pm2`で起動するとエラーが発生するのはなぜですか？#pnpm
+
+`pnpm`でグローバルにインストールされたパッケージは、`pnpm`によってシェルスクリプトでラップされます。つまり、`pm2 start page-spy-api`を実行すると、実際にはシェルスクリプトが見つかり、`pm2`はそれを解釈実行できないためエラーが発生します。
+
+<img src={pnpmInstallImg} />
+
+`yarn`または`npm`を使用してインストールすることで、この問題を解決できます。関連する議論：[Unitech/pm2#5416](https://github.com/Unitech/pm2/issues/5416)
+
+### 新バージョンがリリースされた後、最新バージョンにアップグレードするには？#upgrade
+
+- dockerでデプロイした場合：
+
+  ```bash
+  # イメージを更新
+  docker pull ghcr.io/huolalatech/page-spy-web:latest
+
+  # 実行中のPageSpyコンテナを停止
+  docker stop pageSpy && docker rm -f pageSpy
+
+  # 再実行
+  docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
+  ```
+
+- NPMパッケージでデプロイした場合：
+
+  ```bash
+  # パッケージを更新（yarn）
+  yarn global upgrade @huolala-tech/page-spy-api@latest
+
+  # パッケージを更新（npm）
+  npm install -g @huolala-tech/page-spy-api@latest
+
+  # pm2で再起動
+  pm2 restart page-spy-api
+  ```
+
+### ルーム接続はどのような場合に自動的に破棄されますか？#auto-destroy
+
+> 設定の確認：https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323
+
+- ルーム作成後、SDKまたはデバッグ側が入室しない場合、1分後に破棄されます（実際の使用では、このシナリオは存在しません）
+- SDKとデバッグ側の両方が接続を切断した場合、1分後に破棄されます
+- データメッセージの交換がない状態が5分間続いた場合に破棄されます
+- 接続の使用が1時間を超えると自動的に破棄されます
+
+### なぜAlipayミニプログラムでリモートコード実行時に`my.getCurrentPages()`などのグローバルオブジェクトにアクセスできないのですか？#alipay-global
+
+Alipayミニプログラムは歴史的な理由により、グローバルオブジェクトへのアクセスに制限を設けています。ミニプログラムの設定ファイルまたはAlipayミニプログラムIDEで設定できます：
+
+- IDE：詳細 -> コンパイル設定 -> グローバルオブジェクト（global/globalThis）アクセスポリシー：アクセス可能（推奨）
+- 設定ファイル：[https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode](https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode)
+
+### アップロードしたファイルログが見つからないのはなぜですか？#offline-log
+
+- アップロードされたファイルログは、デフォルトで最新の10GBまで、および30日間保存されます。設定を変更してカスタマイズすることができます。
+- アップロードログは実行ディレクトリのlogディレクトリに保存されます。dockerで実行している場合、dockerが破棄されるとログも失われます。`-v ./log:/app/log -v ./data:/app/data`でディレクトリをマッピングして永続化することができます。

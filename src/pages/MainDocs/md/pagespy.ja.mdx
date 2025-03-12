@@ -1,0 +1,441 @@
+import mpPanelImg from '@/assets/image/screenshot/mp-panel.png';
+import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
+import PlatformTag from '@/components/Docs/components/PlatformTag'
+
+# PageSpy API
+
+## constructor()
+
+PageSpyインスタンスを作成します。
+
+- 型
+
+  ```ts
+  declare class PageSpy {
+    constructor(config: InitConfig)
+  }
+  ```
+
+- 詳細情報
+
+  コンストラクタは初期化パラメータとして`config`オブジェクトを受け取ります。
+
+### config.api
+
+サーバーのアドレス。
+
+- 型：`string`
+
+- **<PlatformTag type="browser" />**
+
+  SDKは読み込まれたパスから自動的にサーバーのアドレス`api`とデバッグ側のアドレス`clientOrigin`を分析して決定します。例えば、`<script src="https://example.com/page-spy/index.min.js">`でSDKを読み込んだ場合、SDKは内部で以下のように設定します：
+  - api: `"example.com"`
+  - clientOrigin: `"https://example.com"`
+
+  サービスが別の場所にデプロイされている場合は、ここで手動で指定して上書きする必要があります。
+
+- **<PlatformTag type="mp" /> <PlatformTag type="rn" /> <PlatformTag type="harmony" />**
+
+  このフィールドは必須です。
+
+### config.clientOrigin <PlatformTag type="browser" />
+
+- 型：`string`
+
+### config.project
+
+情報の一種の集約として、デバッグ側のルームリストで検索できます。
+
+- 型：`string`
+- デフォルト値：`default`
+
+### config.title
+
+ユーザーが現在デバッグしているクライアントを区別するためのカスタムパラメータ。
+
+対応する情報は各デバッグ接続パネルの「デバイスID」の下に表示されます。
+
+- 型：`string`
+- デフォルト値：`--` 
+
+### config.enableSSL
+
+PageSpyサービスのスキームを手動で指定します。
+
+- 型：`boolean`
+
+- 詳細情報
+
+  boolean値を渡します：
+    - true：SDKは ["https://", "wss://"] を使用してPageSpyサービスにアクセスします
+    - false：SDKは ["http://", "ws://"] を使用してPageSpyサービスにアクセスします
+
+- <PlatformTag type="browser" />
+
+  この値を設定しない場合、SDKはページのアドレスから自動的に分析します。
+
+  SDKがスキームを正しく分析できない場合、例えばPageSpyのブラウザ拡張機能が chrome-extension://xxx/sdk/index.min.js からSDKを読み込む場合、これはSDKによって無効な "chrome-extension://" として解析され、["http://", "ws://"] にフォールバックします。この場合、このフィールドを手動で設定できます。
+
+- <PlatformTag type="mp" /> <PlatformTag type="rn" /> <PlatformTag type="harmony" />
+
+  これらの環境は一般的にhttpsを強制するため、デフォルトは`true`です。http（通常は開発環境で）をサポートする必要がある場合は、falseに設定できます。
+
+### config.disabledPlugins
+
+PageSpyの組み込みプラグインはすべてすぐに使用できますが、手動で特定のプラグインを無効にすることができます。
+
+- 型：`string[]`
+
+### config.serializeData
+
+SDKがオフラインログを収集する際に、基本型以外のデータをシリアライズすることを許可するかどうか。シリアライズの目的は、再生時にデータを確認しやすくすることです。
+
+- 型：`boolean`
+- デフォルト値：`false`
+
+### config.useSecret
+
+権限認証機能を有効にするかどうか。
+
+- 型：`boolean`
+- デフォルト値：`false`
+- 詳細情報：
+
+  有効にすると、SDKは6桁のランダムな「シークレットキー」を生成します。デバッグ側がルームに入る際に、対応するシークレットキーの入力が必要になります。
+
+### config.messageCapacity
+
+キャッシュデータの最大数。
+
+- 型：`number`
+- デフォルト値：`1000`
+- 詳細情報：
+
+  SDKはデバッグ側がルームに入る前にメモリにデータをキャッシュし、デバッグ側がルームに入った後に以前のデータを見ることができるようにします。
+
+  ただし、データ量は増加し続けるため、SDKがローカルに最大何件のデータレコードをキャッシュするかを指定できます。 
+
+### config.dataProcessor
+
+データ処理。ユーザーはこのプロパティを通じてデータの修正や無視をカスタマイズできます。
+
+- 型：
+  ```ts
+  declare interface DataProcessor {
+    console?: (data: ConsoleData) => boolean;
+    network?: (data: RequestItem) => boolean;
+    storage?: (data: StorageData) => boolean;
+    database?: (data: DatabaseData) => boolean;
+    page?: (data: PageData) => boolean;
+    system?: (data: SystemData) => boolean;
+  }
+  ```
+
+- 詳細情報
+
+  処理関数はそれぞれ組み込みプラグインに対応しており、ユーザーは関数内で直接データを修正できます。関数の実行が完了すると、PageSpyは修正後のデータを処理します。関数がfalseを返す場合、PageSpyはそのデータを無視します：これは両方のモードのデバッグ側でそのデータが表示されないことを意味します。
+
+  詳細は：https://www.pagespy.org/#/docs/changelog#v1_9_2 をご覧ください。
+
+### config.disabledOnProd <PlatformTag type="mp" />
+
+ミニプログラムの本番環境でPageSpyを無効にします。
+
+- 型：`boolean`
+- デフォルト値：`true`
+- 詳細情報：
+
+  PageSpyはデバッグツールとして、主に開発テスト段階で使用され、本番環境での使用は推奨されません。また、ミニプログラムプラットフォームは一般的にパフォーマンスにより敏感であるため、このフィールドはデフォルトでtrueに設定されています。
+
+### config.offline <PlatformTag type="browser" />
+
+オフラインモード。
+
+- 型：`boolean`
+- デフォルト値：`false`
+- 詳細情報：
+
+  PageSpy@1.7.4でオフライン再生機能がサポートされた後、クライアント側に統合されたSDKはデバッグ側との接続を確立する必要がなく、DataHarborPluginを通じてデータを収集し、オフラインログをエクスポートする新しい使用方法が可能になりました。
+  デフォルト値はfalseです。ユーザーがTruthy値に設定すると、「オフラインモード」に入り、具体的にはPageSpyがルームを作成せず、WebSocket接続を確立しません。
+
+  現在はブラウザ環境のSDKにのみ適用されます。
+
+### config.autoRender <PlatformTag type="browser" />
+
+SDK初期化完了後、クライアントの左下に「円形の白背景にロゴ」のウィジェットを自動的にレンダリングするかどうかを指示します。
+
+- 型：`boolean`
+- デフォルト値：`true`
+- 詳細情報：
+
+  falseに設定した場合、`window.$pageSpy.render()`を呼び出して手動でレンダリングできます。 
+
+### config.logo <PlatformTag type="browser" />
+
+ウィジェットにレンダリングするカスタムロゴ
+
+- 型：`string`
+
+### config.primaryColor <PlatformTag type="browser" />
+
+モーダルとトーストで使用されるテーマカラーを設定します。
+
+- 型：`string`
+
+### config.modal <PlatformTag type="browser" />
+
+モーダル内のロゴとタイトルを設定します。
+
+- 型：
+
+  ```ts
+  declare interface ModalConfig {
+    logo?: string;
+    title?: string;
+  }
+  ```
+- デフォルト値：
+
+  ```ts
+  {
+    logo: "",
+    title: "PageSpy"
+  }
+  ```
+
+### config.gesture <PlatformTag type="browser" />
+
+ジェスチャー操作またはキーボードの方向キーでPageSpyを有効にします。
+
+- 型：`Command | null`
+
+  ジェスチャー認識は[iseedeadpeople](https://github.com/YanagiEiichi/iseedeadpeople)に依存しており、そのCommandは以下のように定義されています：
+
+  ```ts
+  declare const DIRECTION_CHARACTERS: readonly ["U", "R", "D", "L"];
+  type Direction = (typeof DIRECTION_CHARACTERS)[number];
+
+  type Command = readonly Direction[];
+  ```
+  
+- デフォルト値：`null`、ジェスチャーを無効にします。
+
+- 例
+
+  ```ts
+  new PageSpy({
+    ...,
+    // ユーザーが "上上下下左右左右" のジェスチャーまたは方向キー入力を完了した場合のみ、PageSpyが有効になります
+    gesture: ['U', 'U', 'D', 'D', 'L', 'R', 'L', 'R'],
+  })
+  ```
+
+## registerPlugin()#registerPlugin
+
+静的メソッド、プラグインを登録します。
+
+- 型
+
+  ```ts
+  declare class PageSpy {
+    static registerPlugin(plugin: PageSpyPlugin): void;
+  }
+  ```
+
+- 詳細情報
+
+  PageSpyのインスタンス化の前に呼び出し、パラメータは`PageSpyPlugin`を実装したプラグインインスタンスです。各プラグインインスタンスには`name`属性が必要です。同じ名前のプラグインが重複して登録された場合、プラグインインスタンスは一度だけ登録され、コンソールに警告メッセージが表示されます。 
+
+- 例
+
+  ```ts
+  class DataHarborPlugin implements PageSpyPlugin {
+    name = 'DataHarborPlugin'
+
+    ... // プラグインの実装
+  }
+
+  PageSpy.registerPlugin(new DataHarborPlugin());
+  
+  // 重複して呼び出した場合、プラグインは一度だけ登録されます
+  // PageSpy.registerPlugin(new DataHarborPlugin());
+  ```
+
+## pluginsWithOrder
+
+プラグインの`enforce`属性に従って並べ替えられた登録済みプラグインのリスト。
+
+- 型
+
+  ```ts
+  declare class PageSpy {
+    static plugins: Record<PluginOrder | 'normal', PageSpyPlugin[]>;
+    static get pluginsWithOrder(): PageSpyPlugin[];
+  }
+  ```
+
+- 詳細情報
+
+  各プラグインは`enforce: PluginOrder`属性を提供する必要があります。提供されない場合はデフォルトで`enforce: "normal"`となり、その後PageSpyは`pre - normal - post`の順序でプラグインリストを管理します。
+
+## updateRoomInfo()#updateRoomInfo
+
+インスタンス化後、接続情報を更新します。
+
+- 型
+
+  ```ts
+  type UpdateConfig = {
+      title?: string;
+      project?: string;
+  };
+
+  declare class PageSpy {
+    updateRoomInfo(obj: UpdateConfig): void;
+  }
+  ```
+
+- 詳細情報
+
+  クライアントの識別情報がPageSpy初期化時にまだ不明な場合、後でこのメソッドを使用して更新できます。
+
+- 例
+
+  ```ts
+  window.$pageSpy = new PageSpy({
+    title: '--',
+    project: '--'
+  })
+
+  async function YourCode() {
+    // ビジネスロジックが非同期でクライアント識別子を読み込む、例：現在のユーザー、現在のプロジェクト
+    const { title, project } = await xxx();
+
+    window.$pageSpy.updateRoomInfo({
+      title,
+      project
+    })
+  }
+  ``` 
+
+## abort()#abort
+
+現在のインスタンスを破棄します。
+
+- 型
+
+  ```ts
+  declare class PageSpy {
+    abort(): void;
+  }
+  ```
+
+- 詳細情報
+
+  PageSpyは接続を切断し、ドキュメントから関連するDOMを削除し、キャッシュされたデータをクリアし、登録されているすべてのプラグインの`onReset()`メソッドを呼び出します。
+  
+  現在のコンテキストでプロキシされたまたは書き換えられたAPI（ブラウザの`window.fetch`など）は、PageSpyのインスタンス化前の状態に戻ります。
+
+- 例
+
+  ```ts
+  window.$pageSpy = new PageSpy(...);
+
+  window.$pageSpy.abort();
+  ```
+
+## version
+
+現在使用中のPageSpyのバージョン。
+
+- 型
+
+  ```ts
+  declare class PageSpy {
+    version: string;
+  }
+  ```
+
+- 例
+
+  ```ts
+  window.$pageSpy = new PageSpy(...);
+
+  console.log(window.$pageSpy.version);
+  ```
+
+## config
+
+設定情報。設定はプラットフォームによって異なります。例えば、ミニプログラム向けの`config.disableOnProd`などがあります。
+
+- 型
+
+  ```ts
+  declare class PageSpy {
+    config: Config;
+  }
+  ``` 
+
+## socketStore
+
+WebSocketインスタンスをラップし、メッセージイベントの登録、指定されたメッセージ受信後のコールバックトリガー、メッセージのブロードキャストを提供します。
+
+- 型
+
+  ```ts
+  interface SocketStoreType {
+    addListener(type: InteractiveType, fn: InteractiveEventCallback): void;
+    addListener(type: InternalType, fn: InternalEventCallback): void;
+
+    removeListener(type: InteractiveType, fn: InteractiveEventCallback): void;
+    removeListener(type: InternalType, fn: InternalEventCallback): void;
+
+    dispatchEvent(type: InteractiveType | InternalType, data: InteractiveEvent): void;
+    dispatchEvent(type: InternalType, data: any): void;
+
+    broadcastMessage(message: MessageItem, noCache?: boolean): void;
+  }
+  ```
+
+- 詳細情報
+
+  `addListener() / removeListener() / dispatchEvent()`の第一引数はメッセージタイプで、メッセージタイプは**「対話型」**と**「内部型」**の2種類に分類されます：
+  
+  - **「対話型」**メッセージタイプはデバッグ側との対話に使用されます。例：デバッグ側のオンライン化、クライアントへのコード実行送信、オブジェクト詳細の展開クリックなど、これらはメッセージイベントとしてSDKに送信され、SDKは必要に応じて応答します。
+  - **「内部型」**メッセージタイプは現在、プラグイン間の対話に使用されます。例：各プラグインがデータを生成した後、`socketStore.dispatchEvent('public-data')`でイベントを発行し、同じくプラグインである`DataHarborPlugin`がこのイベントを監視してデータを別途処理します。
+
+  `broadcastMessage()`はメッセージをブロードキャストします。第一引数は各プラグインからデバッグ側に送信されるデータで、第二引数の`noCache`はプラグインが`socketStore`に現在送信中のメッセージをキャッシュすべきかどうかを通知するために使用されます。データをキャッシュする目的は、デバッグ側が「オンライン」になった後に履歴メッセージを確認できるようにすることですが、すべてのデータをキャッシュする必要はありません。例：クライアントがネットワークリクエストを開始した場合、成功または失敗にかかわらず、最終状態のみをキャッシュする必要があります。
+
+- 例
+
+  ```ts
+  // ConsolePluginの具体的な実装についてはリポジトリをご確認ください
+  class ConsolePlugin implements PageSpyPlugin {
+    onInit({ socketStore }) {
+      socketStore.addListener('debug', ({ source }, reply) => {
+        ...
+      })
+
+      socketStore.broadcastMessage(...)
+    }
+  }
+  ```
+
+### showPanel() <PlatformTag type="mp" />
+
+ミニプログラム環境でデバッグパネルを表示します。
+
+- 型
+  ```ts
+  declare class PageSpy {
+    showPanel(): void;
+  }
+  ```
+  
+- 詳細情報
+
+  <img src={mpPanelImg} style={{width: 375}} />
+
+  このパネルはプラグインがカスタムボタンを登録することをサポートしています。例えば、[DataHarborPlugin](./offline-log#mp)を登録すると、このパネルに「オフラインログのアップロード」ボタンが表示されます：
+
+  <img src={mpDataHarborImg} style={{maxWidth: 375}} /> 
