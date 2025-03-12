@@ -33,7 +33,7 @@ import {
   isHarmonyApp,
   isMiniProgram,
 } from '@/store/platform-config';
-
+import { useShallow } from 'zustand/react/shallow';
 const { Sider, Content } = Layout;
 const { Title } = Typography;
 
@@ -111,7 +111,9 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
     }));
   }, [active]);
 
-  const clientInfo = useSocketMessageStore((socket) => socket.clientInfo);
+  const clientInfo = useSocketMessageStore(
+    useShallow((state) => state.clientInfo),
+  );
 
   const menuItems = useMemo(() => {
     if (!clientInfo) return;
@@ -173,7 +175,9 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
 const ClientInfo = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
   const { address = '' } = useSearch();
-  const clientInfo = useSocketMessageStore((state) => state.clientInfo);
+  const clientInfo = useSocketMessageStore(
+    useShallow((state) => state.clientInfo),
+  );
 
   return (
     <div className="client-info">
@@ -232,11 +236,9 @@ const ClientInfo = memo(() => {
 export default function Devtools() {
   const { hash = '#Console' } = useLocation();
   const { address = '', secret = '' } = useSearch();
-  const [socket, initSocket, clientInfo] = useSocketMessageStore((state) => [
-    state.socket,
-    state.initSocket,
-    state.clientInfo,
-  ]);
+  const [socket, initSocket, clientInfo] = useSocketMessageStore(
+    useShallow((state) => [state.socket, state.initSocket, state.clientInfo]),
+  );
 
   useEffect(() => {
     if (socket) return;

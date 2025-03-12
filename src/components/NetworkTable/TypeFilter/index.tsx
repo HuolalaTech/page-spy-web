@@ -1,4 +1,4 @@
-import { Radio, RadioChangeEvent, RadioGroupProps, RadioProps } from 'antd';
+import { ConfigProvider, Radio, RadioChangeEvent, RadioGroupProps } from 'antd';
 import { NetworkType, RESOURCE_TYPE } from '..';
 import { useState } from 'react';
 
@@ -17,17 +17,25 @@ export const TypeFilter = ({
     return RESOURCE_TYPE.get(defaultValue) ? defaultValue : 'All';
   });
   return (
-    <Radio.Group
-      optionType="button"
-      options={[...RESOURCE_TYPE.keys()].map((key) => {
-        return { value: key, label: key };
-      })}
-      value={type}
-      size={size}
-      onChange={({ target: { value } }: RadioChangeEvent) => {
-        setType(value);
-        onChange(value);
+    <ConfigProvider
+      theme={{
+        token: {
+          fontSize: size === 'small' ? 12 : 14,
+        },
       }}
-    />
+    >
+      <Radio.Group
+        optionType="button"
+        options={[...RESOURCE_TYPE.keys()].map((key) => {
+          return { value: key, label: key };
+        })}
+        value={type}
+        size={size}
+        onChange={({ target: { value } }: RadioChangeEvent) => {
+          setType(value);
+          onChange(value);
+        }}
+      />
+    </ConfigProvider>
   );
 };

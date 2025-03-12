@@ -1,6 +1,6 @@
 import { useReplayStore, TIME_MODE } from '@/store/replay';
 import Icon from '@ant-design/icons';
-import { Space, Select, Tooltip } from 'antd';
+import { Space, Select, Tooltip, Flex } from 'antd';
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
@@ -36,7 +36,7 @@ export const Actions = memo(() => {
   }, [timeMode]);
 
   return (
-    <div className="play-actions">
+    <Flex justify="center" align="center" className="play-actions">
       <Space>
         <Icon
           component={isPlaying ? PauseSvg : PlaySvg}
@@ -89,6 +89,6 @@ export const Actions = memo(() => {
           />
         </Tooltip>
       </Space>
-    </div>
+    </Flex>
   );
 });

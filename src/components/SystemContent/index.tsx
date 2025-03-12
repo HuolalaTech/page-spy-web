@@ -3,11 +3,9 @@ import { Card, Col, Empty, Row, Typography } from 'antd';
 import './index.less';
 import { FeatureItem } from '@/components/FeatureItem';
 import { useTranslation } from 'react-i18next';
-import { useSocketMessageStore } from '@/store/socket-message';
 import { parseUserAgent } from '@/utils/brand';
 import { SpySystem } from '@huolala-tech/page-spy-types';
 import { useReplayStore } from '@/store/replay';
-import { flattenRecord } from '@/utils/tools';
 import MPSysInfo from './MPSysInfo';
 
 const { Title } = Typography;

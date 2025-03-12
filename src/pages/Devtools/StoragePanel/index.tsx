@@ -9,12 +9,12 @@ import { StorageType, useStorageTypes } from '@/store/platform-config';
 import { DBTable } from '@/components/DBTable';
 import { StorageContent } from './StorageContent';
 import { ResizableDetail } from '@/components/ResizableDetail';
-
+import { useShallow } from 'zustand/react/shallow';
 const { Sider, Content } = Layout;
 
 export const StoragePanel = () => {
   const { t } = useTranslation();
-  const refresh = useSocketMessageStore((state) => state.refresh);
+  const refresh = useSocketMessageStore(useShallow((state) => state.refresh));
 
   const storageTypes = useStorageTypes();
 

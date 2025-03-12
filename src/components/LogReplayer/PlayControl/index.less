@@ -2,9 +2,6 @@
   .play-actions {
     position: relative;
     width: 40vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     .right-actions {
       position: absolute;
       right: 0;
@@ -31,13 +28,13 @@
     }
   }
   .play-progress {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 18px;
     margin-top: 8px;
     white-space: nowrap;
     color: #000;
+    .canvas-timeline {
+      width: 40vw;
+      cursor: pointer;
+    }
     .play-timeline {
       flex: 0 0 40vw;
       position: relative;

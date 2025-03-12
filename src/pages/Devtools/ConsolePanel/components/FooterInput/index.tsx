@@ -13,17 +13,15 @@ import { useTranslation } from 'react-i18next';
 import type { KeyboardEvent } from 'react';
 import { useMiscStore } from '@/store/misc';
 import { parse, Program } from 'acorn';
-
+import { useShallow } from 'zustand/react/shallow';
 const EXECUTE_HISTORY_ID = 'page_spy_execute_history';
 const EXECUTE_HISTORY_MAX_SIZE = 100;
 
 export const FooterInput = memo(() => {
   const { t } = useTranslation('translation', { keyPrefix: 'console' });
-  const [socket, clearRecord, clientInfo] = useSocketMessageStore((state) => [
-    state.socket,
-    state.clearRecord,
-    state.clientInfo,
-  ]);
+  const [socket, clearRecord, clientInfo] = useSocketMessageStore(
+    useShallow((state) => [state.socket, state.clearRecord, state.clientInfo]),
+  );
 
   const inputRef = useRef<TextAreaRef | null>(null);
   const [code, setCode] = useState<string>('');

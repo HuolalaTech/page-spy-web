@@ -1,3 +1,9 @@
+.error-detail-drawer {
+  #scrollbar.light();
+  .source-code-fragments {
+    #scrollbar.dark();
+  }
+}
 .error-message-box {
   padding: 8px 12px;
   overflow: auto;
@@ -9,6 +15,23 @@
 .error-stack-item {
   & ~ & {
     margin-top: 12px;
+  }
+  .stack-filename {
+    margin-bottom: 12px;
+    overflow: hidden;
+    code {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .locate-icon {
+      font-size: 18px;
+      color: @primary-color;
+      margin-bottom: 2px;
+      &.loading {
+        animation: fade 1s linear infinite alternate;
+      }
+    }
   }
   .source-code-fragments {
     position: relative;
@@ -76,13 +99,6 @@
     }
     100% {
       opacity: 0.3;
-    }
-  }
-  .locate-icon {
-    font-size: 18px;
-    color: @primary-color;
-    &.loading {
-      animation: fade 1s linear infinite alternate;
     }
   }
 }

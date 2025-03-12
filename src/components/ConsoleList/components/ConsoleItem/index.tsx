@@ -14,16 +14,28 @@ import { SpyConsole } from '@huolala-tech/page-spy-types';
 import { getLogUrl } from '@/utils';
 import './index.less';
 import Timestamp from '../Timestamp';
-import { useMemo } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import ReactJsonView from '@huolala-tech/react-json-view';
 import { useTranslation } from 'react-i18next';
+import { useSize } from 'ahooks';
 
 interface Props {
   data: SpyConsole.DataItem;
+  onHeightChange: (height: number) => void;
 }
 
-export const ConsoleItem = ({ data }: Props) => {
+export const ConsoleItem = ({ data, onHeightChange }: Props) => {
   const { t } = useTranslation();
+  const ref = useRef<HTMLDivElement>(null);
+  const height = useRef(0);
+  const size = useSize(ref);
+  useEffect(() => {
+    const latestHeight = size?.height ?? 0;
+    if (latestHeight && latestHeight !== height.current) {
+      height.current = latestHeight;
+      onHeightChange(latestHeight);
+    }
+  }, [size, onHeightChange]);
   const content = useMemo(() => {
     if (isPlaceholderNode(data)) {
       return <PlaceholderNode data={data.logs} />;
@@ -51,7 +63,7 @@ export const ConsoleItem = ({ data }: Props) => {
     });
   }, [data, t]);
   return (
-    <div className={`console-item ${data.logType}`} key={data.id}>
+    <div className={`console-item ${data.logType}`} ref={ref}>
       <div className="console-item__title">
         <LogType type={data.logType} />
       </div>

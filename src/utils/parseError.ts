@@ -83,6 +83,7 @@ const loadSourceMap = async (filename: string) => {
   return result;
 };
 
+const langRegex = /^.*\/([^;]+)/;
 const highlightCode = async (data: {
   type: string;
   line: number;
@@ -97,9 +98,9 @@ const highlightCode = async (data: {
 
   const useTabs = list.some((i) => i.startsWith('\t'));
   const slicedContent = list.join('\n');
-  const lang = type.split('/')[1] || 'js';
+  const lang = (type.match(langRegex)?.[1] as Lang) || 'js';
   const highlighter = await sh.get({
-    lang: lang as Lang,
+    lang,
   });
   const tokens = highlighter.codeToThemedTokens(
     slicedContent,
