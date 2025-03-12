@@ -9,6 +9,7 @@ import { Duration } from './components/Duration';
 import { useShallow } from 'zustand/react/shallow';
 import { throttle } from 'lodash-es';
 import { REPLAY_PROGRESS_SKIP } from '../events';
+import { Flex } from 'antd';
 
 export const PlayControl = memo(() => {
   const [duration, speed, isPlaying, setIsPlaying, setProgress] =
@@ -75,13 +76,13 @@ export const PlayControl = memo(() => {
   }, [rafHandler, isPlaying]);
 
   return (
-    <div className="play-control">
+    <Flex vertical align="center" className="play-control">
       <Actions />
-      <div className="play-progress">
+      <Flex justify="center" align="center" gap={18} className="play-progress">
         <CurrentTime />
         <ProgressBar />
         <Duration />
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 });
