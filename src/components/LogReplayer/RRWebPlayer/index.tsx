@@ -13,7 +13,7 @@ import { ReplayerEvents } from '@rrweb/types';
 import { isRRWebClickEvent, isRRWebMetaEvent } from '@/utils/rrweb-event';
 import ClickEffectSvg from '@/assets/image/click-effect.svg?raw';
 import clsx from 'clsx';
-
+import { isMobile } from '@/utils/brand';
 export const RRWebPlayer = memo(() => {
   const rootEl = useRef<HTMLDivElement | null>(null);
   const playerInstance = useRef<rrwebPlayer>();
@@ -27,6 +27,10 @@ export const RRWebPlayer = memo(() => {
         state.setRRWebStartTime,
       ]),
     );
+
+  const platformClass = useMemo(() => {
+    return isMobile(metaMsg?.ua) ? 'is-mobile' : 'is-pc';
+  }, [metaMsg]);
 
   const events = useMemo(() => {
     if (!allRRwebEvent.length) return [];
@@ -128,10 +132,5 @@ export const RRWebPlayer = memo(() => {
     });
   }, [events, setRRWebStartTime]);
 
-  return (
-    <div
-      className={clsx('rrweb-player', isPc ? 'is-pc' : 'is-mobile')}
-      ref={rootEl}
-    />
-  );
+  return <div className={clsx('rrweb-player', platformClass)} ref={rootEl} />;
 });

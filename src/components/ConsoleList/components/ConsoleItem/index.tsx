@@ -14,7 +14,7 @@ import { SpyConsole } from '@huolala-tech/page-spy-types';
 import { getLogUrl } from '@/utils';
 import './index.less';
 import Timestamp from '../Timestamp';
-import { useMemo, useRef, useEffect, memo } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import ReactJsonView from '@huolala-tech/react-json-view';
 import { useTranslation } from 'react-i18next';
 import { useSize } from 'ahooks';
@@ -24,7 +24,7 @@ interface Props {
   onHeightChange: (height: number) => void;
 }
 
-export const ConsoleItem = memo(({ data, onHeightChange }: Props) => {
+export const ConsoleItem = ({ data, onHeightChange }: Props) => {
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const height = useRef(0);
@@ -82,4 +82,4 @@ export const ConsoleItem = memo(({ data, onHeightChange }: Props) => {
       </div>
     </div>
   );
-});
+};

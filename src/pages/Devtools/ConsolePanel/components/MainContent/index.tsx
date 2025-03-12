@@ -1,37 +1,12 @@
 import { useSocketMessageStore } from '@/store/socket-message';
-import { DoubleRightOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
-import {
-  UIEventHandler,
-  memo,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { useTranslation } from 'react-i18next';
+import { memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useMiscStore } from '@/store/misc';
 import { useForceThrottleRender } from '@/utils/useForceRender';
 import { ConsoleList } from '@/components/ConsoleList';
+import { VariableSizeList, ListOnScrollProps } from 'react-window';
+import { useShallow } from 'zustand/react/shallow';
 
 export const MainContent = memo(() => {
-  const { t } = useTranslation('translation', { keyPrefix: 'console' });
-
-  const containerEl = useRef<HTMLDivElement | null>(null);
-  const currentScrollTop = useRef<number>(0);
-  const messageLength = useRef<number>(0);
-
-  const scrollToBottom = useCallback(() => {
-    const container = containerEl.current;
-    if (!container) return;
-
-    container.scrollTo({
-      top: container.scrollHeight - container.offsetHeight,
-      behavior: 'smooth',
-    });
-  }, []);
-
   const storeRef = useRef(useSocketMessageStore.getState());
   const consoleMessages = useRef(storeRef.current.consoleMsg);
   const consoleFilter = useRef(storeRef.current.consoleMsgTypeFilter);
@@ -48,84 +23,29 @@ export const MainContent = memo(() => {
     [throttleRender],
   );
 
-  const [isAutoScroll, setIsAutoScroll] = useMiscStore((state) => [
-    state.isAutoScroll,
-    state.setIsAutoScroll,
-  ]);
-  const [newTips, setNewTips] = useState<boolean>(false);
-  useEffect(() => {
-    const data = consoleMessages.current;
-    const logType = [...data].pop()?.logType || '';
-    const isDebug = ['debug-origin', 'debug-eval'].includes(logType);
-    const evalError =
-      data.length > 1 && data[data.length - 2].logType === 'debug-origin';
-    if (isDebug || evalError || isAutoScroll) {
-      scrollToBottom();
-    } else {
-      const container = containerEl.current;
-      if (!container) return;
+  const [isAutoScroll, setIsAutoScroll] = useMiscStore(
+    useShallow((state) => [state.isAutoScroll, state.setIsAutoScroll]),
+  );
 
-      const { offsetHeight, scrollHeight } = container;
-      if (
-        scrollHeight > offsetHeight &&
-        messageLength.current !== data.length
-      ) {
-        setNewTips(true);
-      } else {
-        setNewTips(false);
+  const handleScroll = useCallback(
+    ({ scrollDirection }: ListOnScrollProps) => {
+      if (scrollDirection === 'backward' && isAutoScroll) {
+        setIsAutoScroll(false);
+        return;
       }
-    }
-  }, [isUpdated, scrollToBottom, isAutoScroll]);
-
-  useEffect(() => {
-    const container = containerEl.current;
-    if (!container) return;
-
-    const fn = () => {
-      const { offsetHeight, scrollTop, scrollHeight } = container;
-      if (scrollHeight > offsetHeight) {
-        if (scrollTop + offsetHeight > scrollHeight - 30) {
-          setNewTips(false);
-        }
-      }
-    };
-
-    container.addEventListener('scrollend', fn);
-    return () => {
-      container.removeEventListener('scrollend', fn);
-    };
-  }, []);
-
-  const handleScroll: UIEventHandler<HTMLDivElement> = useCallback(
-    (e) => {
-      // const direction =
-      //   e.currentTarget.scrollTop > currentScrollTop.current ? 'down' : 'up';
-      // currentScrollTop.current = e.currentTarget.scrollTop;
-      // if (direction === 'up' && isAutoScroll) {
-      //   setIsAutoScroll(false);
-      //   return;
-      // }
-      // const isBottom =
-      //   Math.ceil(e.currentTarget.scrollTop) ===
-      //   e.currentTarget.scrollHeight - e.currentTarget.offsetHeight;
-      // if (isBottom) {
-      //   messageLength.current = document.querySelectorAll(
-      //     '.console-list .console-item',
-      //   ).length;
-      //   // TODO
-      //   // setIsAutoScroll(true);
-      // }
     },
-    [setIsAutoScroll, isAutoScroll],
+    [isAutoScroll, setIsAutoScroll],
   );
 
   const consoleDataList = useMemo(() => {
     const data = consoleMessages.current;
     const logLevels = consoleFilter.current;
     const keyword = consoleKeywordFilter.current;
+    if (!logLevels.length && !keyword) return data;
+
     return data.filter((item) => {
       return (
-        (!logLevels.length || logLevels.includes(item.logType)) &&
+        logLevels.includes(item.logType) &&
         item.logs
           .map((item) => item.value)
           .join('')
@@ -135,17 +55,30 @@ export const MainContent = memo(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUpdated]);
 
+  const consoleListRef = useRef<VariableSizeList>(null);
+  useEffect(() => {
+    if (isAutoScroll) {
+      consoleListRef.current?.scrollToItem(consoleDataList.length - 1, 'end');
+      return;
+    }
+
+    const data = consoleMessages.current;
+    const logType = data[data.length - 1]?.logType || '';
+    const isDebug = ['debug-origin', 'debug-eval'].includes(logType);
+    const evalError =
+      data.length > 1 && data[data.length - 2].logType === 'debug-origin';
+    if (isDebug || evalError) {
+      consoleListRef.current?.scrollToItem(data.length - 1, 'end');
+    }
+  }, [consoleDataList, isAutoScroll]);
+
   return (
-    <div className="main-content" ref={containerEl} onScroll={handleScroll}>
-      <ConsoleList data={consoleDataList} />
-      {newTips && (
-        <div className="main-content__new" onClick={scrollToBottom}>
-          <Button shape="round" type="primary">
-            <DoubleRightOutlined rotate={90} />
-            <span>{t('newContent')}</span>
-          </Button>
-        </div>
-      )}
+    <div className="main-content">
+      <ConsoleList
+        data={consoleDataList}
+        ref={consoleListRef}
+        onScroll={handleScroll}
+      />
     </div>
   );
 });

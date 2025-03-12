@@ -16,8 +16,6 @@ const ConsolePanel = () => {
     useShallow((state) => state.clientInfo),
   );
 
-  console.count('ConsolePanel');
-
   const { dynamicalExecutable, isMP, hasEvalPlugin } = useMemo(() => {
     const { os, browser, plugins } = clientInfo || {};
     // TODO 纯血鸿蒙出来后需要额外判断是「鸿蒙上的 APP」

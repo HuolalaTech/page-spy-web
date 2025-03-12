@@ -1,12 +1,13 @@
 import { ConsoleList } from '@/components/ConsoleList';
 import { useReplayStore } from '@/store/replay';
 import './index.less';
-import { memo, useEffect, useRef } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { DebugConfigProvider } from '@/components/DebugConfigProvider';
 import { useTranslation } from 'react-i18next';
 import { CaretRightOutlined, PauseOutlined } from '@ant-design/icons';
 import { Tooltip, Button } from 'antd';
+import { ListOnScrollProps, VariableSizeList } from 'react-window';
 
 export const ConsoleActions = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'console' });
@@ -36,44 +37,31 @@ export const ConsolePanel = memo(() => {
       state.setAutoScroll,
     ]),
   );
-  const panelRef = useRef<HTMLDivElement | null>(null);
 
+  const consoleListRef = useRef<VariableSizeList>(null);
   useEffect(() => {
-    if (!autoScroll) return;
+    if (autoScroll) {
+      consoleListRef.current?.scrollToItem(consoleMsg.length - 1, 'end');
+    }
+  }, [autoScroll, consoleMsg.length]);
 
-    const parent = panelRef.current?.parentElement;
-    if (!parent) return;
-
-    parent.scrollTo({
-      top: parent.scrollHeight,
-    });
-  }, [consoleMsg, autoScroll]);
-
-  const currentScrollTop = useRef<number>(0);
-  useEffect(() => {
-    const parent = panelRef.current?.parentElement;
-    if (!parent) return;
-
-    const handleScroll = () => {
-      const direction =
-        parent.scrollTop > currentScrollTop.current ? 'down' : 'up';
-      currentScrollTop.current = parent.scrollTop;
-
-      if (direction === 'up') {
+  const handleScroll = useCallback(
+    ({ scrollDirection }: ListOnScrollProps) => {
+      if (scrollDirection === 'backward' && autoScroll) {
         setAutoScroll(false);
-        return;
       }
-    };
-    parent.addEventListener('scroll', handleScroll);
-    return () => {
-      parent.removeEventListener('scroll', handleScroll);
-    };
-  }, [setAutoScroll]);
+    },
+    [autoScroll, setAutoScroll],
+  );
 
   return (
-    <div className="console-panel" ref={panelRef}>
+    <div className="replay-console-panel">
       <DebugConfigProvider offline>
-        <ConsoleList data={consoleMsg} />
+        <ConsoleList
+          data={consoleMsg}
+          onScroll={handleScroll}
+          ref={consoleListRef}
+        />
       </DebugConfigProvider>
     </div>
   );

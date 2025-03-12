@@ -46,13 +46,19 @@ export const ProgressBar = memo(() => {
 
   const timelineEl = useRef<HTMLDivElement | null>(null);
   const pointEl = useRef<(HTMLDivElement & { isMoving: boolean }) | null>(null);
+  const cachedProgress = useRef('');
   useEffect(
     () =>
       useReplayStore.subscribe((state) => {
-        if (!pointEl.current) return;
-        pointEl.current.style.left = `${(state.progress * 100).toFixed(
-          decimalPlaces,
-        )}%`;
+        requestAnimationFrame(() => {
+          if (!pointEl.current) return;
+
+          const latest = (state.progress * 100).toFixed(decimalPlaces);
+          if (cachedProgress.current === latest) return;
+          cachedProgress.current = latest;
+
+          pointEl.current.style.left = `${latest}%`;
+        });
       }),
     [decimalPlaces],
   );
