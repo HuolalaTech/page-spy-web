@@ -3,7 +3,6 @@ import { useRef, useEffect, useMemo, memo, useCallback } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { REPLAY_PROGRESS_SKIP } from '../../events';
 import { debug } from '@/utils/debug';
-import { useEventListener } from '@/utils/useEventListener';
 
 const CANVAS_PADDING_BLOCK = 4; // 画布上下内边距
 const TRACK_SIZE = 8; // 轨道高度
@@ -11,9 +10,6 @@ const THUMB_SIZE = 18; // 滑块大小
 const THUMB_HOVER_SIZE = 20; // 滑块 "划过" 大小
 const POINT_SIZE = 12; // 活动点大小
 
-const ONE_MINUTE = 60 * 1000;
-const TEN_MINUTES = 10 * ONE_MINUTE;
-const HALF_ONE_HOUR = 30 * ONE_MINUTE;
 const ACTIVITY_POINT_COLOR_MAP = {
   console: '#279bd5',
   'rrweb-event': '#fc4d4d',
