@@ -10,10 +10,20 @@ const CACHE_NAME = 'page-spy-do-not-open-mirror-modal';
 export const OFFICIAL_SITE = /^(w{3}.)?pagespy\.org$/;
 export const CN_MIRROR_SITE = 'https://pagespy.huolala.cn';
 
+const LOAD_TIME_IS_TOO_LONG =
+  typeof performance.now === 'function' && performance.now() > 5000;
+
 export const CNUserModal = () => {
   const [open, setOpen] = useState(() => {
     const { host } = location;
-    if (isClient || !OFFICIAL_SITE.test(host) || !isCN()) return false;
+    if (
+      isClient ||
+      !OFFICIAL_SITE.test(host) ||
+      !isCN() ||
+      !LOAD_TIME_IS_TOO_LONG
+    )
+      return false;
+    // return true;
 
     const beforeOpenTime = localStorage[CACHE_NAME];
     if (beforeOpenTime) {
@@ -49,7 +59,7 @@ export const CNUserModal = () => {
         <Button
           key="go"
           type="primary"
-          icon={<Icon component={RunSvg} style={{ fontSize: 18 }} />}
+          icon={<Icon component={RunSvg} />}
           onClick={() => {
             window.location.href = CN_MIRROR_SITE;
           }}
