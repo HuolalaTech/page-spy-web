@@ -1,0 +1,169 @@
+# DataHarborPlugin API#api
+
+## constructor()#constructor
+
+- 型定義
+
+  ```ts
+  interface DataHarborConfig {
+    // オフラインログデータは最初にメモリに記録され、サイズが指定値に達すると一時ファイルに書き込まれます
+    // デフォルト値は 10M (10 * 1024 * 1024)
+    maximum?: number; // ブラウザのみサポート
+
+    // キャッシュするデータタイプを指定
+    caredData?: Record<DataType, boolean>;
+
+    // オフラインログのファイル名を指定、デフォルトは現在時刻に基づいて命名
+    filename?: () => string;
+
+    // ダウンロードロジックをカスタマイズ
+    onDownload?: (data: CacheMessageItem[]) => void; // ブラウザのみサポート
+
+    // アップロード成功後のコールバック、開発者への通知など他の機能を拡張可能
+    onAfterUpload?: (replayUrl: string, remark: string) => void;
+  }
+
+  declare class DataHarborPlugin implements PageSpyPlugin {
+    constructor(config?: DataHarborConfig);
+  }
+  ```
+
+## 手動でログを操作#onOfflineLog
+
+オフラインログのダウンロード・アップロードを手動で操作します。
+
+- 型定義
+
+  ```ts
+  interface WholeLogActionParams {
+    clearCache?: boolean;
+    remark?: string;
+  }
+
+  interface PeriodLogActionParams {
+    startTime: number;
+    endTime: number;
+    remark?: string;
+  }
+
+  // 注意！
+  // - ブラウザは以下の4つのメソッドをサポート
+  // - ミニプログラムは現在 upload() メソッドのみサポート
+  declare class DataHarborPlugin {
+    // 全量ログ
+    upload(params?: WholeLogActionParams): Promise<string>;
+    download(params?: WholeLogActionParams): Promise<void>;
+
+    // 期間指定ログ
+    uploadPeriods(params: PeriodLogActionParams): Promise<string>;
+    downloadPeriods(params: PeriodLogActionParams): Promise<void>;
+  }
+  ```
+
+- 詳細情報
+
+  自動レンダリングされる UI コントロールを非表示にした場合や、特定のタイミングでオフラインログの操作を自動的にトリガーしたい場合に、このメソッドを使用できます。
+  
+  **全量ログ**を操作する場合、UI ポップアップのボタンを通じてログのアップロード/ダウンロードを行うと、現在のセッションの最初から最後までの完全なログが対象となります。ただし、手動で呼び出す場合は、デフォルトで記録済みのログデータがクリアされ、新たに記録が開始されます。第2引数の `clearCache: false` で制御可能です。
+
+  **期間指定ログ**の操作ではデータはクリアされません。
+  
+  アップロード完了後、再生用の URL が返され、コンソールに出力されます。
+
+- 使用例
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  // 全量をアップロード
+  const url = await window.$harbor.upload();
+
+  // データをクリアせずにアップロード
+  const url = await window.$harbor.upload({ clearCache: false });
+
+  // 期間指定でアップロード
+  const url = await window.$harbor.uploadPeriods({
+    startTime: Date.now() - 1000 * 60, // 1分前から
+    endTime: Date.now(),
+  });
+  ```
+
+## pause()#pause
+
+記録を一時停止します。
+
+- 型定義
+
+  ```ts
+  declare class DataHarborPlugin {
+    pause(): void;
+  }
+  ```
+
+- 詳細情報
+
+  ログ記録の動作をより柔軟に制御できます。
+  
+  一時停止後はプログラムが生成したデータは記録されません。`$harbor.resume()` を実行すると再開します。
+
+- 使用例
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  // 一時停止
+  window.$harbor.pause();
+
+  // 再開
+  window.$harbor.resume();
+  ```
+
+## resume()#resume
+
+記録を再開します。
+
+- 型定義
+
+  ```ts
+  declare class DataHarborPlugin {
+    resume(): void;
+  }
+  ```
+
+- 詳細情報
+
+  ログ記録の動作をより柔軟に制御できます。
+  
+  一時停止から再開までの間のデータは記録されません。
+
+- 使用例
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  // 一時停止
+  window.$harbor.pause();
+
+  // 再開
+  window.$harbor.resume();
+  ```
+
+## reharbor()#reharbor
+
+記録済みのデータをクリアし、記録を継続します。つまり、再記録を開始します。
+
+- 型定義
+
+  ```ts
+  declare class DataHarborPlugin {
+    reharbor(): void;
+  }
+  ```
+
+- 使用例
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  window.$harbor.reharbor();
+  ```

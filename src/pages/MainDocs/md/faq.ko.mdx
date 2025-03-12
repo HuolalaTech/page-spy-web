@@ -1,0 +1,403 @@
+import moduleImg from '@/assets/image/screenshot/module.png';
+import dynamicInjectImg from '@/assets/image/screenshot/dynamic-inject.png';
+import pnpmInstallImg from '@/assets/image/screenshot/pnpm-install.png';
+
+### PageSpy 모듈 구성#module
+
+PageSpy 모듈 간의 의존성 관계와 상호작용 다이어그램:
+
+<img alt="시스템 모듈 다이어그램" src={moduleImg} />
+
+### PageSpy의 호환성#compatibility
+
+- 브라우저 SDK의 호환성 목표는 [`["chrome > 75","safari > 12", "> 0.1%", "not dead","not op_mini all"]`](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-browser/package.json#L66-L72)로 설정되어 있습니다. 다른 SDK는 각각의 저장소에서 확인할 수 있습니다.
+- 디버그 측은 주로 개발자가 사용하므로 브라우저의 새로운 기능 사용에 대해 개방적인 태도를 유지합니다. 따라서 최신 버전의 브라우저 사용을 권장하며, 호환성 목표는 [`["last 2 chrome version", "last 2 firefox version", "last 2 safari version"]`](https://github.com/HuolalaTech/page-spy-web/blob/main/package.json#L92-L96)로 설정되어 있습니다.
+
+### SDK가 렌더링하는 아이콘을 숨기려면 어떻게 하나요?#hide-logo
+
+```js
+window.$pageSpy = new PageSpy({
+  // ... 기타 설정 매개변수
+  autoRender: false,
+});
+```
+
+### 인스턴스화 시 어떤 매개변수를 전달할 수 있으며, 각각의 역할은 무엇인가요?#init-params
+
+[PageSpy API](./pagespy#constructor)를 참조하세요.
+
+### 초기화 매개변수를 어떻게 업데이트하나요?#update-info
+
+PageSpy는 기기를 식별하기 위한 Device ID를 제공하며, 동시에 개발자가 초기화 시 클라이언트를 식별하는 데 도움이 되는 `project`/`title`을 제공합니다. 하지만 초기화 후에 이러한 매개변수 정보를 업데이트하고 싶을 수 있습니다. 작업 방법은 다음과 같습니다:
+
+```js
+window.$pageSpy = new PageSpy(...);
+
+// updateRoomInfo를 호출하여 project/title 업데이트
+window.$pageSpy.updateRoomInfo({ project: 'xxx', title: 'xxx' });
+```
+
+### xxx 프레임워크에서 어떻게 통합하나요?#framework
+
+PageSpy는 CodeSandbox 플랫폼을 통해 현재 인기 있는 모든 프레임워크와의 통합 가이드를 제공합니다. 온라인으로 체험해 보세요:
+
+- **React**: [CodeSandbox - PageSpy in React](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
+- **Vue**: [CodeSandbox - PageSpy in Vue](https://codesandbox.io/p/sandbox/page-spy-with-vue-ft35qs)
+- **Svelte**: [CodeSandbox - PageSpy in Svelte](https://codesandbox.io/p/sandbox/page-spy-with-svelte-p6mxd6)
+- **Angular**: [CodeSandbox - PageSpy in Angular](https://codesandbox.io/p/sandbox/page-spy-with-angular-6wg3ps)
+- **Nextjs**: [CodeSandbox - PageSpy in Nextjs](https://codesandbox.io/p/sandbox/page-spy-with-nextjs-5htxv5)
+- **Nuxtjs**: [CodeSandbox - PageSpy in Nuxtjs](https://codesandbox.io/p/sandbox/page-spy-with-nuxtjs-8znq22)
+
+### pagespy.jikejishu.com은 공식 제공 도메인인가요? 계속 사용할 수 있나요?#test-domain
+
+[https://pagespy.jikejishu.com](https://pagespy.jikejishu.com)은 PageSpy를 온라인으로 체험하고 학습할 수 있도록 임시로 구축한 서비스입니다. **24시간 가용성을 보장하지 않으며, 데이터 보안을 보장하지 않고, 발생하는 손실은 자기 책임**입니다. 체험 후에는 프라이빗 서버나 내부 네트워크에 직접 배포하는 것을 강력히 권장합니다.
+
+### 로컬에서는 6752 포트에 접근할 수 있는데 서버에 배포하면 안 되는 이유는 무엇인가요?#server-port
+
+서버의 방화벽이나 보안 그룹 규칙에서 6752 포트가 개방되어 있는지 확인하세요.
+
+### 디버그 버튼에 "현재 연결에 클라이언트가 존재하지 않습니다"라고 표시되는 이유는 무엇인가요?#debug-disabled
+
+이러한 상황은 일반적으로 SDK가 정상적으로 룸을 생성했지만 웹소켓을 통해 룸에 참여할 수 없는 경우에 발생합니다. 다음 단계에 따라 확인하세요:
+
+- SDK가 있는 클라이언트의 콘솔을 열어 오류가 있는지 확인합니다.
+- 콘솔에 "WebSocket connect failed" 관련 메시지가 표시되면 서버 설정이 올바른지 확인합니다.
+
+### 배포할 때 nginx는 어떻게 설정하나요?#nginx
+
+참고를 위해 `https://pagespy.jikejishu.com`의 nginx 설정을 공유합니다:
+
+```nginx
+server {
+  listen 443 ssl;
+  server_name pagespy.jikejishu.com;
+
+  if ($scheme != https) {
+      rewrite ^(.*)$  https://$host$1 permanent;
+  }
+
+  ssl_certificate /etc/letsencrypt/live/pagespy.jikejishu.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/pagespy.jikejishu.com/privkey.pem;
+
+  location / {
+      proxy_pass http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+  }
+}
+
+server {
+  if ($host = pagespy.jikejishu.com) {
+      return 301 https://$host$request_uri;
+  }
+
+  listen 80;
+  listen [::]:80;
+  server_name pagespy.jikejishu.com;
+  return 404;
+}
+```
+
+### 서브 경로에 어떻게 배포하나요?#sub-path
+
+버전 1.5.4에서는 사용자가 서비스를 서브 경로에 배포할 수 있도록 지원합니다. 설치 과정은 동일하며, `nginx` 설정만 조정하면 됩니다:
+
+```nginx
+server {
+  # ...
+
+  # <sub-path>에 배포하려는 서브 경로를 입력
+  location /<sub-path>/  {
+      # 여기의 <sub-path>는 위와 동일하게 유지
+      rewrite ^/<sub-path>/(.*)$ /$1 break;
+      proxy_pass            http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+      proxy_set_header      Host $host;
+      proxy_set_header      X-Real-IP $remote_addr;
+      proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+
+  # 여기의 <sub-path>는 위와 동일하게 유지
+  location /<sub-path> {
+      return 301 $scheme://$host$request_uri/;
+  }
+}
+```
+
+설정을 조정한 후 nginx를 재시작하면 서브 경로로 접근할 수 있습니다. 주의할 점은 이제 인스턴스화 시 `api`와 `clientOrigin` 매개변수를 수동으로 전달하여 SDK에 배포 주소를 알려줘야 합니다. 예:
+
+```js
+window.$pageSpy = new PageSpy({
+  // 예: api: "example.com/pagespy"
+  api: '<host>/<sub-path>',
+
+  // 예: clientOrigin: "https://example.com/pagespy"
+  clientOrigin: '<scheme>://<host>/<sub-path>',
+});
+```
+
+### 디버그 측에 보안 인증 보호를 어떻게 추가하여 개발자가 인증 후에만 접근할 수 있게 하나요?#basic-auth
+
+서버에서 IP 화이트리스트를 설정하거나 HTTP 인증을 사용하여 보호할 수 있습니다.
+
+- Nginx IP 화이트리스트 설정 예시:
+
+  ```nginx
+  server {
+    location / {
+      # 접근 허용할 IP
+      allow <ip>;
+
+      # allow 외의 모든 클라이언트 접근 거부
+      deny all;
+    }
+  }
+  ```
+
+- Nginx HTTP 인증 설정, 접근 시 계정과 비밀번호 필요:
+
+  먼저 `htpasswd`로 계정/비밀번호 파일 생성:
+
+  ```bash
+  # 실행 후 비밀번호 입력 및 확인 필요
+  htpasswd -c /etc/nginx/.htpasswd <사용자명>;
+  ```
+
+  그 다음 nginx 파일에서 `auth_basic` 모듈 설정:
+
+  ```nginx
+  server {
+    location / {
+      auth_basic "PageSpy 서비스에 접근하려면 사용자명과 비밀번호를 입력하세요";
+      auth_basic_user_file /etc/nginx/.htpasswd;
+
+      proxy_pass http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+    }
+
+    location ~ /(api|page-spy|plugin) {
+      proxy_pass http://127.0.0.1:6752;
+      proxy_http_version    1.1;
+      proxy_set_header      Upgrade $http_upgrade;
+      proxy_set_header      Connection "upgrade";
+    }
+  }
+  ```
+
+  마지막으로 nginx 서비스를 재시작합니다.
+
+### 프로젝트에 수동으로 통합하고 싶지 않은 경우, 비즈니스 프로젝트 코드를 침해하지 않고 구현할 방법이 있나요?#extension
+
+PageSpy는 브라우저 확장 프로그램을 제공하며, 다음과 같은 기능을 제공합니다:
+
+- 최신 버전의 SDK 자동 주입
+- 인스턴스화 작업 자동 완료
+- 주입할 도메인 설정 규칙 제공
+
+사용하려면 여기를 클릭하세요: [HuolalaTech/page-spy-extension](https://github.com/HuolalaTech/page-spy-extension)
+
+### Tampermonkey 스크립트를 사용할 수 있나요?#tampermonkey
+
+다음 내용을 참조하세요:
+
+```js
+// ==UserScript==
+// @name         Inject PageSpy Script
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Inject script on xxx.yyy
+// @author       You
+// @match        <매칭 규칙, 예: example.com>
+// @grant        none
+// ==/UserScript==
+
+(function () {
+  'use strict';
+
+  var script1 = document.createElement('script');
+  script1.setAttribute('crossorigin', 'anonymous');
+  // 실제 프로젝트에서는 SDK의 주소 링크를 교체하세요
+  script1.src = 'https://pagespy.jikejishu.com/page-spy/index.min.js';
+
+  var script2 = document.createElement('script');
+  script2.textContent = 'window.$pageSpy = new PageSpy();';
+
+  document.head.prepend(script1);
+  script1.onload = () => {
+    document.head.appendChild(script2);
+  };
+})();
+```
+
+### 비즈니스 프로젝트가 HTTPS에 배포되어 있고 PageSpy가 HTTP에 배포되어 있을 때 콘솔 오류는 어떻게 해결하나요?#http-error
+
+브라우저는 HTTPS 사이트에서 HTTP 리소스 로딩을 차단합니다. 이는 HTTP와 HTTPS 간의 데이터 전송에서 HTTPS는 암호화와 보안을 제공하지만 HTTP는 평문 전송으로 보안 위험이 있기 때문입니다.
+
+PageSpy를 HTTPS 서비스로 업그레이드하면 이 문제를 완벽하게 해결할 수 있습니다.
+
+### 특정 사용자만 디버그하려면 어떻게 하나요?#prod-debug
+
+가장 간단한 방법은 사용자가 [PageSpy 브라우저 확장 프로그램](https://github.com/HuolalaTech/page-spy-extension)을 사용하는 것입니다. 이는 매우 협조적인 고객이며 PC 프로젝트인 경우에 적합하지만, 이러한 전제 조건은 매우 까다롭습니다.
+
+그렇다면 H5 프로젝트를 프로덕션에 배포했을 때 PageSpy를 사용하려면 어떻게 해야 할까요? 모든 사용자에게 활성화하는 것은 현실적이지 않습니다.
+
+PageSpy의 활성화 과정은 총 두 단계입니다:
+
+1. `head` 태그에서 `<script>`로 SDK 가져오기
+2. 인스턴스화
+
+PageSpy는 두 번째 인스턴스화 단계 전까지는 가져온 `<script>`가 프로젝트에 어떤 영향도 주지 않습니다. 특정 사용자를 디버그하려면 두 번째 단계가 핵심입니다: 어떤 사용자의 단말에서 PageSpy를 인스턴스화할 것인가. 이에 대해 두 가지 방안이 있습니다:
+
+- HTML 동적 응답: 사용자가 HTML을 요청할 때 사용자의 고유 식별자를 얻을 수 있고 HTML에 동적으로 주입할 수 있다면, 사용자에게 HTML을 반환하기 전에 `<script>`와 인스턴스화 로직을 주입할지 결정할 수 있습니다.
+
+  <img src={dynamicInjectImg} />
+
+- 사용자가 제스처로 활성화: 이는 일반적으로 사용자의 적극적인 협조가 필요합니다. 기본적으로 SDK를 주입하지만 인스턴스화하지 않고, 사용자가 특별한 제스처를 트리거한 후에 디버그를 시작합니다.
+
+참고: 기술적인 구현 외에도 법적 준수 등 보안 위험에 주의해야 합니다.
+
+### Page 패널의 원리는 무엇인가요?#page-principle
+
+Page 패널은 클라이언트의 `document.documentElement.outerHTML`을 디버그 측의 iframe에 렌더링하여 로컬 콘솔에서 직접 요소를 검사할 수 있게 합니다.
+
+### Page 패널에 렌더링된 클라이언트와 직접 상호작용할 수 있나요?#page-interactive
+
+직접 상호작용은 불가능합니다. 특정 상호작용을 실행해야 하는 경우, Console 패널 하단에서 코드를 입력하여 실행한 후 Page 패널로 돌아가 인터페이스 반응을 확인할 수 있습니다.
+
+### Page 패널의 스타일이 올바르지 않은 이유는 무엇인가요?#page-style
+
+- 클라이언트와 디버그 측의 렌더링 환경이 다릅니다. 예: 클라이언트의 브라우저 버전이 Chrome 75이고 디버그 측의 브라우저 버전이 Chrome 120인 경우
+- 디버그 측에서 클라이언트가 참조하는 리소스에 접근할 때 네트워크 제한이 있습니다
+
+따라서 스타일은 참고용으로만 사용하세요.
+
+### Page 패널이 클라이언트의 내용을 100% 복원할 수 없는 이유는 무엇인가요?#page-reset
+
+SDK는 페이지를 "스크린샷"하여 디버그 측으로 전송할 수 있지만 다음과 같은 이유로 구현하지 않았습니다:
+
+- "이미지"는 텍스트보다 데이터 크기가 크며, 데이터 상호작용이 네트워크 전송 오버헤드를 증가시킵니다
+- SDK의 크기와 복잡도가 증가합니다
+- "스타일 오류"의 경우, 원격 협업 시 테스터가 개발자에게 정확하게 피드백할 수 있습니다
+
+이러한 이유로 Page 패널의 스타일은 참고용으로만 제공됩니다.
+
+### API 서비스 설정을 어떻게 수정하나요?#api-config
+
+NPM 패키지 배포 방식으로 명령줄에서 `page-spy-api`를 실행하면 실행 디렉토리에 기본적으로 `config.json` 설정 파일이 생성됩니다. 이 파일에서 실행 포트와 다중 인스턴스 배포를 설정할 수 있습니다:
+
+- 설정 수정
+
+  ```json
+  {
+    "port": "6752", //리스닝 포트
+    "maxLogFileSizeOfMB": 10240, //로그 재생 파일 저장 크기(MB)
+    "maxLogLifeTimeOfHour": 720, //로그 재생 파일 최대 보관 시간(시간)
+    "notAllowedDeleteLog": false, //로그 재생 삭제 허용 여부
+    "maxRoomNumber": 500, //최대 허용 룸 수
+    "corsConfig": {
+      "allowOrigins": ["https://test.huolala.com"], // 기본 설정은 모든 도메인의 CORS 허용
+      "allowHeaders": [
+        "Origin",
+        "Authorization",
+        "Content-Length",
+        "X-Request-Id",
+        "Content-Type",
+        "Referer",
+        "User-Agent",
+        "Host"
+      ],
+      "allowMethods": [
+        "HEAD",
+        "POST",
+        "GET",
+        "OPTIONS",
+        "PUT",
+        "DELETE",
+        "UPDATE"
+      ],
+      "exposeHeaders": ["X-Request-Id"]
+    }
+  }
+  ```
+
+- 다중 인스턴스 배포(버전 1.5.0 이상 필요)
+
+  `rpcAddress` 설정은 다중 인스턴스 배포 설정으로, ip와 port는 여러 머신의 ip 및 rpc 포트입니다. 여러 인스턴스는 rpc를 통해 통신하며, 프로그램은 머신 ip를 기반으로 rpc 서비스를 시작합니다. 따라서 ip가 중복되지 않도록 해야 하며, 중복되면 메시지 혼선이나 손실이 발생할 수 있습니다.
+
+  ```json
+  {
+    "port": "6752",
+    "rpcAddress": [
+      {
+        "ip": "192.168.123.1",
+        "port": "20008"
+      },
+      {
+        "ip": "192.168.123.2",
+        "port": "20008"
+      }
+    ]
+  }
+  ```
+
+### pnpm으로 전역 설치한 패키지를 `pm2`로 시작할 때 오류가 발생하는 이유는 무엇인가요?#pnpm
+
+`pnpm`으로 전역 설치한 패키지는 `pnpm`이 셸 스크립트로 래핑합니다. 즉, `pm2 start page-spy-api`를 실행할 때 실제로는 셸 스크립트를 찾게 되며, `pm2`가 이를 해석하여 실행할 수 없어 오류가 발생합니다.
+
+<img src={pnpmInstallImg} />
+
+`yarn` 또는 `npm`을 사용하여 설치하면 이 문제를 해결할 수 있습니다. 관련 논의: [Unitech/pm2#5416](https://github.com/Unitech/pm2/issues/5416)
+
+### 새 버전이 출시된 후 최신 버전으로 어떻게 업그레이드하나요?#upgrade
+
+- docker로 배포한 경우:
+
+  ```bash
+  # 이미지 업데이트
+  docker pull ghcr.io/huolalatech/page-spy-web:latest
+
+  # 실행 중인 PageSpy 컨테이너 중지
+  docker stop pageSpy && docker rm -f pageSpy
+
+  # 재실행
+  docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
+  ```
+
+- NPM 패키지로 배포한 경우:
+
+  ```bash
+  # 패키지 업데이트(yarn)
+  yarn global upgrade @huolala-tech/page-spy-api@latest
+
+  # 패키지 업데이트(npm)
+  npm install -g @huolala-tech/page-spy-api@latest
+
+  # pm2로 재시작
+  pm2 restart page-spy-api
+  ```
+
+### 룸 연결은 어떤 상황에서 자동으로 파괴되나요?#auto-destroy
+
+> 설정 확인: https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323
+
+- 룸 생성 후 SDK나 디버그 측이 입장하지 않으면 1분 후 파괴됩니다(실제 사용에서는 이 시나리오가 존재하지 않습니다)
+- SDK와 디버그 측이 모두 연결이 끊어지면 1분 후 파괴됩니다
+- 데이터 메시지 교환이 없는 상태가 5분 지속되면 파괴됩니다
+- 연결 사용이 1시간을 초과하면 자동으로 파괴됩니다
+
+### Alipay 미니프로그램에서 원격 코드 실행 시 `my.getCurrentPages()`와 같은 전역 객체에 접근할 수 없는 이유는 무엇인가요?#alipay-global
+
+Alipay 미니프로그램은 역사적인 이유로 전역 객체 접근에 제한을 두었습니다. 미니프로그램 설정 파일이나 Alipay 미니프로그램 IDE에서 설정할 수 있습니다:
+
+- IDE: 상세 -> 컴파일 설정 -> 전역 객체(global/globalThis) 접근 정책: 접근 가능(권장)
+- 설정 파일: [https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode](https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode)
+
+### 업로드한 파일 로그가 보이지 않는 이유는 무엇인가요?#offline-log
+
+- 업로드된 파일 로그는 기본적으로 최신 10GB까지, 그리고 30일 동안 보관되며, 설정을 통해 사용자 정의할 수 있습니다.
+- 업로드 로그는 실행 디렉토리의 log 디렉토리에 저장됩니다. docker로 실행하는 경우 docker가 삭제되면 로그도 함께 삭제됩니다. `-v ./log:/app/log -v ./data:/app/data` 디렉토리 매핑을 사용하여 영구 저장할 수 있습니다.

@@ -1,0 +1,226 @@
+import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';
+
+## v2.2.0
+
+- 🆕 공식 웹사이트에 O-Spy가 출시되었습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/315;
+- 🆕 새로운 [@huolala-tech/page-spy-plugin-ospy](https://github.com/HuolalaTech/page-spy/tree/main/packages/page-spy-plugin-ospy) 오프라인 기록 플러그인을 추가했습니다;
+- 🟡 [@huolala-tech/page-spy-plugin-whole-bundle](https://github.com/HuolalaTech/page-spy/tree/main/packages/page-spy-plugin-whole-bundle) 더 이상 새로운 기능이 추가되지 않습니다;
+
+## v2.1.3
+
+- 🐛 리플레이 페이지의 Network 패널에 필터 기능을 추가했습니다;
+
+## v2.1.2
+
+- 🆕 리플레이 페이지의 사용자 추적 패널이 기본 선택 작업을 지원합니다;
+- 🆕 웹 페이지의 정적 리소스 요청을 볼 수 있습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/309;
+- 🐛 브라우저 SDK의 작업 시간 범위 로그가 오류를 일으키는 문제를 수정했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/131;
+- 🐛 비동기 복사가 실패하는 문제를 수정했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/130;
+- 🐛 `uni.request` 반환 값 문제를 수정했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/issues/306;
+
+## v2.1.1
+
+- 🆕 브라우저 SDK가 제스처 기반 활성화를 지원합니다. [사용 설명서](./pagespy#config-gesture)를 참조하세요;
+  ```ts
+  new PageSpy({
+    ...,
+    gesture: ['U', 'U', 'D', 'D', 'L', 'R', 'L', 'R'],
+  })
+  ```
+
+## v2.1.0
+
+- 🆕 `WholeBundlePlugin`을 리팩토링하고 공식 웹사이트의 리플레이 실험실 페이지를 업데이트했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/125, https://github.com/HuolalaTech/page-spy-web/pull/304;
+- 🆕 소스 코드 위치 지정 기능을 최적화했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/300;
+- 🆕 미니 프로그램에 **System** 패널을 추가했습니다: https://github.com/HuolalaTech/page-spy/pull/123, https://github.com/HuolalaTech/page-spy-web/pull/299;
+- 🆕 미니 프로그램의 오프라인 로그 기능의 호환성을 최적화했습니다;
+- 🆕 플로팅 볼의 위치를 기억하는 기능을 추가했습니다: https://github.com/HuolalaTech/page-spy/pull/126;
+- 🆕 브라우저 SDK에 CSS 특성 감지 기능을 추가했습니다: https://github.com/HuolalaTech/page-spy/pull/128;
+- 🐛 몇 가지 문제를 수정했습니다;
+
+## v2.0.2
+
+- 🐛 `DataHarborPlugin`의 기본값이 다운로드 실패를 일으키는 문제를 수정했습니다;
+
+## v2.0.1
+
+- 🆕 `DataHarborPlugin`에 [onAfterUpload](./data-harbor#constructor) 매개변수를 추가하여 업로드 후 동작을 사용자 정의할 수 있습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/119;
+- 🐛 몇 가지 문제를 수정했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/118, https://github.com/HuolalaTech/page-spy/pull/120;
+
+## v2.0.0
+
+- 🆕 브라우저 팝업의 개정판이 출시되어 테마 색상 및 브랜드 사용자 정의, 시간 범위 로그 선택기, 메모 필드가 추가되었습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/113;
+- 🆕 미니 프로그램에서 팝업을 표시하는 방법이 추가되어 오프라인 로그 업로드를 지원합니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/112;
+- 🐛 몇 가지 문제를 수정했습니다;
+
+## v1.9.6
+
+- 🆕 DataHarborPlugin 플러그인에 새로운 프로토타입 메서드를 추가했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/110;
+  - `$harbor.pause()`：기록을 일시 중지합니다;
+  - `$harbor.resume()`: 기록을 재개합니다. `pause()`와 대응됩니다;
+  - `$harbor.reharbor()`：기록된 데이터를 지우고 다시 만듭니다.
+- 🆕 리플레이 페이지에서 "객체를 확장할 수 없음"에 대한 힌트를 추가했습니다;
+- 🐛 `application/x-www-form-urlencoded`의 페이로드 표시를 수정했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/issues/267;
+
+## v1.9.5
+
+- 🆕 DockerHub 이미지가 추가되었습니다: https://hub.docker.com/r/huolalatech/page-spy-web;
+- 🆕 Baota의 원클릭 배포 설명 문서가 추가되었습니다;
+
+## v1.9.4
+
+- 🐛 몇 가지 문제를 수정했습니다;
+
+## v1.9.3
+
+- 🆕 디버그 엔드의 Network 패널에 키워드 필터링을 추가했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/262;
+- 🆕 디버그 엔드의 로그 리플레이 페이지의 Console 패널이 스크롤을 따라가며 메시지 알림을 최적화했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/264;
+- 🐛 SDK의 `ErrorPlugin`의 오류 메시지를 최적화했습니다;
+
+## v1.9.2
+
+- 🆕 인스턴스화 매개변수에 `dataProcessor` 옵션을 추가하여 데이터를 필터링하거나 처리할 수 있습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/106;
+
+  > <details>
+  >   <summary>예제를 보려면 클릭하세요.</summary>
+  > 
+  >   ```ts
+  >   window.$pageSpy = new PageSpy({
+  >     ...,
+  >     dataProcessor: {
+  >       console: (data) => {
+  >         // 출력 내용에 "secret" 문자가 포함된 경우 무시 (디버그 엔드로 전송되지 않음)
+  >         if (data.logs.some(i => typeof i === 'string' && i.includes('secret'))) return false;
+  >       },
+  >       network: (data) => {
+  >         // 데이터 포인트 요청을 무시
+  >         if (/(sentry|metric|collect)/.test(data.url)) return false
+  >       },,
+  >       storage: (data) => {
+  >         // cookie의 키가 밑줄로 시작하는 경우, 디버그 엔드에서 보이는 값을 "*******"로 설정
+  >         if (data.type === "cookie" && data.action === "get") {
+  >           data.data.forEach((i) => {
+  >             if (i.name.startsWith("_")) {
+  >               i.value = "*******";
+  >             }
+  >           });
+  >         }
+  >       },
+  >     },
+  >   });
+  >   ```
+  > </details>
+
+- 🆕 업로드되는 로그 데이터를 조정했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/107;
+
+  <img src={offlineLogImg} />
+
+- 🆕 인터랙션을 조정했습니다.
+  - 로그 리플레이의 진행 바를 클릭하면 재생 상태를 유지합니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/258;
+  - 테이블 헤더가 드래그 가능하게 되었습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/257;
+  - Huawei 브라우저 인식을 지원합니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/256;
+
+## v1.9.1
+
+- 🆕 인스턴스화 매개변수에 `serializeData: boolean` 옵션을 추가하여 SDK가 오프라인 로그를 수집할 때 비기본 유형 데이터를 직렬화할 수 있는지 여부를 지정합니다. 기본값은 `false`입니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/241 / https://github.com/HuolalaTech/page-spy/pull/103;
+  
+  활성화되면, console에 출력된 데이터가 로그 리플레이 패널에서 확장하여 볼 수 있습니다. 사용 방법:
+  
+  ```ts
+  window.$pageSpy = new PageSpy({
+    ...
+    // 주의: 직렬화 과정에서 부작용이 발생할 수 있으므로, 안전을 위해 기본값은 false로 설정되어 있습니다;
+    serializeData: true
+  })
+  ```
+
+- 🆕 Network 패널의 표시 정보를 최적화했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/239;
+- 🆕 리플레이 패널에서 canvas 내용을 재생할 수 있습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/238;
+- 🆕 리플레이 시 왼쪽의 작업 궤적이 클릭 동작을 표시합니다; 진행 바에는 이제 클릭 및 오류만 표시되며, 다른 데이터 활동은 탭 알림을 통해 표시됩니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/244 / https://github.com/HuolalaTech/page-spy-web/pull/247
+- 🐛 리플레이 로그 목록의 인터랙션을 수정했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/242;
+- 🐛 몇 가지 문제를 수정했습니다:
+  - 서버의 크로스 도메인 설정이 작동하지 않음;
+  - 서버 로그 삭제 속도가 느림;
+  - 오프라인 로그가 이제 네트워크 요청의 전체 수명 주기를 기록함;
+  - SDK 다운로드 파일 이름을 포맷팅함;
+
+## v1.9.0
+
+- 🆕 새로운 문서 페이지;
+- 🆕 동적 실행 코드 기능을 미니 프로그램 SDK에서 분리하여 독립적인 플러그인 [@huolala-tech/page-spy-plugin-mp-eval](https://www.npmjs.com/package/@huolala-tech/page-spy-plugin-mp-eval)로 패키징하여 미니 프로그램 심사에 대한 영향을 줄였습니다;
+- 🆕 미니 프로그램 호환성: GET 요청이 자동으로 본문을 쿼리 문자열로 변환합니다: https://github.com/HuolalaTech/page-spy-web/issues/199;
+- 🐛 미니 프로그램 `getAccountInfoSync` 호환성 문제를 수정했습니다: https://github.com/HuolalaTech/page-spy-web/issues/213;
+- 🐛 미니 프로그램 `updateRoomInfo` 타입 정의가 투명하게 전달되지 않는 문제를 수정했습니다: https://github.com/HuolalaTech/page-spy-web/issues/213;
+
+## v1.8.10
+
+이번 업데이트는 "오류 소스 코드 위치 지정" 기능에 대한 많은 최적화를 포함합니다. 구체적인 내용은 다음과 같습니다:
+
+- 🆕 "로그 리플레이 페이지"의 오류도 소스 코드 위치 지정을 지원합니다;
+- 🆕 이전에는 오류만 지원했던 소스 코드 위치 지정 기능이 이제 console.xxx(`Error`)에도 적용됩니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/212;
+- 🆕 소스 코드에 `\t`가 있는 경우, 1개의 탭 = N개의 공백으로 변환하는 옵션을 추가했습니다;
+- 🐛 로고의 인터랙션 문제를 수정했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/issues/211;
+
+## v1.8.9
+
+- 🆕 [`React Native`](./react-native) 애플리케이션 디버깅을 지원합니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/87 / https://github.com/HuolalaTech/page-spy-web/pull/190;
+- 🆕 [鸿蒙 App](./harmony) 애플리케이션 디버깅을 지원합니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/191 / https://github.com/HuolalaTech/page-spy/pull/88;
+- 🆕 웹 애플리케이션에서 `EventSource` 요청 응답 데이터를 볼 수 있으며, 네트워크 패널 레이아웃을 최적화했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/206 / https://github.com/HuolalaTech/page-spy-web/issues/202 / https://github.com/HuolalaTech/page-spy-web/issues/183;
+- 🆕 메시지 유형을 최적화하여 디버그 엔드 인터페이스 응답 속도를 높였습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/91 / https://github.com/HuolalaTech/page-spy-web/pull/201;
+- 🆕 방 목록 페이지에 최대 30개의 패널을 표시하도록 제한했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/204;
+- 🐛 `$pageSpy.abort()`가 이벤트를 잘못 지우는 문제를 수정했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/issues/205 / https://github.com/HuolalaTech/page-spy/pull/95;
+
+## v1.8.8
+
+- 🆕 로그 리플레이 페이지를 리팩토링하여 장시간, 대용량의 오프라인 로그 데이터를 재생할 때의 인터랙션을 더욱 부드럽게 했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/issues/186;
+- 🆕 UniApp을 네이티브 앱으로 패키징할 때의 디버깅을 지원합니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/90 / https://github.com/HuolalaTech/page-spy-web/pull/197;
+- 🐛 네트워크 요청 헤더에 자기 참조가 있는 경우 Network 플러그인이 비정상적으로 작동하는 문제를 수정했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/89 / https://github.com/HuolalaTech/page-spy-web/issues/193;
+- 🐛 Page 패널의 HTML 태그 표시가 부정확한 문제를 수정했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/pull/196;
+
+## v1.8.7
+
+- 🆕 SDK의 메시지 전송 타이밍을 최적화했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/84;
+- 🐛 SDK의 재연결이 비정상적인 문제를 수정했습니다;
+
+## v1.8.6
+
+- 🆕 SDK가 간헐적으로 연결이 끊어질 경우, 지수적으로 재연결을 시도합니다 (강제로 방을 생성합니다). 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/78;
+- 🆕 SDK에 `useSecret` 매개변수를 추가하여 기본값은 `false`입니다. 설정하면 SDK는 방을 생성할 때 6자리의 랜덤 비밀번호를 사용합니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/78;
+- 🆕 `title` / `project` 매개변수를 동적으로 업데이트할 수 있습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/78;
+- 🆕 브라우저 SDK의 플로팅 볼이 상, 하, 좌, 우로 드래그될 경우 자동으로 접힙니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/80;
+- 🆕 디버그 엔드의 방 목록 페이지 표시를 최적화했습니다;
+- 🆕 서버의 로그 데이터 직렬화를 최적화하여 성능을 크게 향상시켰습니다;
+- 🐛 몇 가지 문제를 수정했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/issues/172 / https://github.com/HuolalaTech/page-spy/pull/79;
+
+## v1.8.5
+
+- 🆕 지원되지 않는 시스템 아키텍처를 제거했습니다;
+
+## v1.8.4
+
+- 🆕 SDK의 캐시 정책을 최적화하여 클라이언트 캐시로 인한 메모리 사용량을 크게 줄였습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy-web/issues/169;
+
+## v1.8.3
+
+- 🆕 Taro 애플리케이션 디버깅을 지원합니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/83 / https://github.com/HuolalaTech/page-spy-web/pull/184;
+- 🆕 鸿蒙 App 디버깅을 지원합니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/84 / https://github.com/HuolalaTech/page-spy-web/pull/185;
+- 🐛 NetworkPlugin의 요청 오류 시 처리 동작을 최적화했습니다;
+
+## v1.8.2
+
+- 🆕 이전 버전의 npm 패키지가 일부 시스템 아키텍처에서 설치되지 않는 문제를 수정했습니다;
+
+## v1.8.1
+
+- 🆕 미니 프로그램 통합 문서에 "주의 사항"을 추가했습니다;
+- 🆕 로그 리플레이 페이지: 진행 바에 활동 집계 정보를 표시했습니다;
+
+## v1.8.0
+
+- 🆕 미니 프로그램에서 코드를 전송하여 실행하는 기능을 지원합니다;
+- 🆕 `DataHarborPlugin`은 오프라인 로그 업로드를 지원하며, 디버그 엔드에 로그 파일 목록 페이지가 추가되었습니다;
+- 🆕 로그 리플레이 페이지 기능을 최적화했습니다: 레이아웃 변경, 배속 재생 지원;
+
+## 더 많은 내용
+
+최근 업데이트 내용은 [Release](https://github.com/HuolalaTech/page-spy-web/releases) 페이지에서 확인할 수 있습니다.

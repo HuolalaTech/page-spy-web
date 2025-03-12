@@ -1,0 +1,23 @@
+### O-SpyとPageSpyの関係は？#diff-with-page-spy
+
+O-Spyは[PageSpy](/)とそのプラグインエコシステムの機能をベースに構築されており、具体的には以下の3つの依存関係をパッケージ化しています：
+
+- `@huolala-tech/page-spy-browser`
+- `@huolala-tech/page-spy-plugin-rrweb`
+- `@huolala-tech/page-spy-plugin-data-harbor`
+
+両者の主な違いは以下の通りです：
+
+|              | O-Spy        | PageSpy |
+| ------------ | ------------ | ------- |
+| デプロイが必要か | いいえ         | はい     |
+| オンラインリアルタイムデバッグ | ❌           | ✅       |
+| オフライン再生デバッグ | ✅           | ✅       |
+| データのアップロード | 🟡 自身で処理が必要 | ✅       |
+| データのダウンロード | ✅           | ✅       |
+
+### O-Spyで記録されたデータはどこに保存されますか？#where-data-stored
+
+すべてのデータはユーザーのローカルに保存され、第三者のサーバーにアップロードされることはありません。
+
+データの保存戦略：O-Spyがデータを受信すると、まずメモリの配列に格納されます。配列に格納されているデータの容量が臨界値（10MB）に達すると、データは一時ファイルに書き込まれます（[ソースコード](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor/src/harbor/blob.ts#L18)を参照）。ページを更新すると、すべてのデータは破棄されます。

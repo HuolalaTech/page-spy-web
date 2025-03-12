@@ -1,4 +1,4 @@
-### O-Spy 和 PageSpy 是什么关系？#difference
+### O-Spy 和 PageSpy 是什么关系？#diff-with-page-spy
 
 O-Spy 是基于 [PageSpy](/) 及其插件生态的能力构建而来，具体而言，它打包了以下三个依赖：
 
@@ -15,3 +15,9 @@ O-Spy 是基于 [PageSpy](/) 及其插件生态的能力构建而来，具体而
 | 离线回放调试 | ✅            | ✅       |
 | 上传数据     | 🟡 需自行处理 | ✅       |
 | 下载数据     | ✅            | ✅       |
+
+### O-Spy 记录的数据存储在哪里？#where-data-stored
+
+所有数据都在用户本地，不会上传到任何第三方服务器。
+
+数据存储策略：O-Spy 收到数据后先放入内存的数组中，当数组里存储的数据体积达到临界值时会将数据写入临时文件，这个临界值是 10M（点击查看 [源码](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor/src/harbor/blob.ts#L18)），刷新页面时所有数据被销毁。

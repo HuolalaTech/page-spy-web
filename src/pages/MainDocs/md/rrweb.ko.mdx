@@ -1,0 +1,18 @@
+# RRWebPlugin API#api
+
+## constructor()#constructor
+
+- 타입
+
+  ```ts
+  import type { recordOptions } from 'rrweb/typings/types';
+  import type { eventWithTime } from '@rrweb/types';
+
+  interface Options extends recordOptions<eventWithTime> {
+    // 예약된 설정, 현재 사용할 수 없음
+    allowOnline?: true;
+  }
+  declare class RRWebPlugin implements PageSpyPlugin {
+      constructor(options?: Options);
+  }
+  ``` 

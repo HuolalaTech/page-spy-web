@@ -1,0 +1,52 @@
+import { Tooltip } from 'antd'
+import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'
+
+### ステップ 1#step-1
+
+プロジェクトに依存関係をインストールします。複数のミニプログラムプラットフォーム向けのSDKを提供しています。必要に応じてインストールしてください：
+
+* WeChat ミニプログラム
+```bash
+yarn add @huolala-tech/page-spy-wechat@latest
+```
+* Alipay ミニプログラム
+```bash
+yarn add @huolala-tech/page-spy-alipay@latest
+```
+* UniAPP
+```bash
+yarn add @huolala-tech/page-spy-uniapp@latest
+```
+* Taro
+```bash
+yarn add @huolala-tech/page-spy-taro@latest
+```
+
+### ステップ 2#step-2
+
+PageSpyサービスのドメインをミニプログラムのhttp、websocketリクエストホワイトリストに追加します。開発環境以外では、ミニプログラムはhttpsとwssプロトコルの使用を強制することに注意してください：
+
+```
+https://<your-pagespy-host>
+wss://<your-pagespy-host>
+```
+
+### ステップ 3#step-3
+
+エントリーファイルでSDKをインポートしてインスタンス化します。初期化パラメータには、SDKの動作をカスタマイズするためのオプションの[設定項目]({VITE_SDK_WECHAT_REPO})が用意されています：
+
+```js
+import PageSpy from '@huolala-tech/page-spy-wechat';
+
+const $pageSpy = new PageSpy({
+  api: "{deployPath}",
+})
+```
+
+### デバッグメニュー#menus
+
+作成したPageSpyインスタンスで`showPanel()`メソッドを呼び出すと、デバッグを補助するためのデバッグメニューがポップアップ表示されます：
+
+<img src={mpPanelImg} style={{ maxWidth: 320 }} />
+
+以上がミニプログラムプロジェクトにPageSpyを導入する全手順です。導入完了後、トップメニューの<Tooltip title="メニューはデフォルトで非表示、デプロイ後に表示されます" color="purple"><a href="javascript:void(0)">デバッグを開始</a></Tooltip>をクリックして使用開始！

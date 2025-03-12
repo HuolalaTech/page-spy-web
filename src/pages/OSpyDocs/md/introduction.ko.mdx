@@ -1,0 +1,60 @@
+[license-img]: https://img.shields.io/github/license/HuolalaTech/page-spy-web?label=License
+[license-url]: https://github.com/HuolalaTech/page-spy-web/blob/main/LICENSE
+[sdk-ver-img]: https://img.shields.io/npm/v/@huolala-tech/page-spy-plugin-ospy?label=OSpy&color=white
+[sdk-ver-url]: https://npmjs.com/package/@huolala-tech/page-spy-plugin-ospy
+
+import Icon from '@ant-design/icons';
+import Logo from '@/assets/image/o-spy.svg?react';
+import workflow from '@/assets/image/screenshot/ospy-workflow.en.png';
+import { Link } from 'react-router-dom';
+
+<div align="center">
+  <Icon component={Logo} style={{ fontSize: 100, color: '#fff' }} />
+  <h1>O-Spy</h1>
+  <h5>오프라인 기록, 완벽한 재생.</h5>
+</div>
+
+<div className='badges'>
+  [![SDK version][sdk-ver-img]][sdk-ver-url]
+  [![license][license-img]][license-url]
+</div>
+
+## O-Spy란?#what-is-ospy
+
+O-Spy(발음 /əʊ spaɪ/, **"Oh-Spy"**와 유사)는 웹 프로젝트에서 「프로그램 실행 데이터를 오프라인으로 기록하는」 디버깅 도구입니다. 기록된 데이터는 O-Spy 플랫폼에서 재생할 수 있습니다. [데모 보기](/o-spy?url=demo)
+
+작업 흐름은 다음과 같습니다:
+
+<a href={workflow} target="_blank">
+  <img src={workflow} style={{width: '100%'}} />
+</a>
+
+## 빠른 시작#quick-start
+
+#### 1단계: O-Spy 도입#step-1
+
+프레임워크와 무관하게 원하는 방식으로 프로젝트에 도입할 수 있습니다.
+
+import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';
+
+<ImportGuide showConfig={false} />
+
+프로젝트에 성공적으로 도입되면 화면 우측 하단에 "O-Spy" 드래그 가능한 컴포넌트가 표시됩니다. 클릭해서 확인해보세요 :)
+
+import { CallOSpy } from '../md-components/CallOSPy';
+
+<CallOSpy />
+
+#### 2단계: 데이터 내보내기#step-2
+
+현재 페이지에는 O-Spy가 통합되어 있습니다. 이것이 당신의 프로젝트 페이지라고 상상해보세요. 프로그램에서 데이터를 생성해보겠습니다. 아래 버튼을 자유롭게 클릭하세요:
+
+import { MakeData } from '../md-components/MakeData'
+
+<MakeData />
+
+그런 다음 O-Spy 플로팅 버튼을 클릭하여 대화상자를 열고 "로그 내보내기"를 클릭하면 json 파일이 다운로드됩니다.
+
+#### 3단계: 재생#step-3
+
+<Link to="/o-spy?url=" target='_blank'>재생 페이지</Link>로 이동하여 좌측 상단의 "로그 선택"을 클릭하고, 방금 내보낸 json 파일을 선택하면 재생이 시작됩니다! 

@@ -1,0 +1,43 @@
+import PlatformTag from '@/components/Docs/components/PlatformTag';
+
+> 特定のプラットフォームでのみ使用できる機能については、以下のラベルで区別します。
+>
+> | プラットフォーム | ラベル                           |
+> | ---------------- | ------------------------------ |
+> | ブラウザ         | <PlatformTag type="browser" /> |
+> | アプリ           | <PlatformTag type="mp" />      |
+> | React Native     | <PlatformTag type="rn" />      |
+> | ハーモニー       | <PlatformTag type="harmony" /> |
+
+### PageSpy#pagespy
+
+> インスタンス変数名を `$pageSpy` とします。
+
+- [constructor()](./pagespy#constructor)
+- [$pageSpy.updateRoomInfo()](./pagespy#updateRoomInfo)
+- [$pageSpy.abort()](./pagespy#abort)
+- [PageSpy.registerPlugin()](./pagespy#registerPlugin)
+- [PageSpy.pluginsWithOrder](./pagespy#pluginsWithOrder)
+- [$pageSpy.version](./pagespy#version)
+- [$pageSpy.config](./pagespy#config)
+- [$pageSpy.socketStore](./pagespy#socketStore)
+- [$pageSpy.showPanel()](./pagespy#showPanel) <PlatformTag type="mp" />
+
+
+### プラグイン#plugins
+
+#### DataHarborPlugin#harbor
+
+> インスタンス変数名を `$harbor` とします。
+
+- [constructor()](./data-harbor#constructor)
+- [手動操作ログ](./data-harbor#onOfflineLog)
+- [$harbor.pause()](./data-harbor#pause)
+- [$harbor.resume()](./data-harbor#resume)
+- [$harbor.reharbor()](./data-harbor#reharbor)
+
+#### RRWebPlugin#rrweb
+
+> インスタンス変数名を `$rrweb` とします。
+
+- [constructor()](./rrweb#constructor)

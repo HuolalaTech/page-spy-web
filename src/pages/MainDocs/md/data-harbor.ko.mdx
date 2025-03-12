@@ -1,0 +1,169 @@
+# DataHarborPlugin API#api
+
+## constructor()#constructor
+
+- 타입 정의
+
+  ```ts
+  interface DataHarborConfig {
+    // 오프라인 로그 데이터는 먼저 메모리에 기록되며, 크기가 지정된 값에 도달하면 임시 파일에 기록됩니다
+    // 기본값은 10M (10 * 1024 * 1024)
+    maximum?: number; // 브라우저에서만 지원
+
+    // 캐시할 데이터 유형 지정
+    caredData?: Record<DataType, boolean>;
+
+    // 오프라인 로그 파일 이름 지정, 기본값은 현재 시간을 기준으로 명명
+    filename?: () => string;
+
+    // 다운로드 로직 사용자 정의
+    onDownload?: (data: CacheMessageItem[]) => void; // 브라우저에서만 지원
+
+    // 업로드 성공 후 콜백, 개발자에게 알림 등 다른 기능 확장 가능
+    onAfterUpload?: (replayUrl: string, remark: string) => void;
+  }
+
+  declare class DataHarborPlugin implements PageSpyPlugin {
+    constructor(config?: DataHarborConfig);
+  }
+  ```
+
+## 수동으로 로그 조작#onOfflineLog
+
+오프라인 로그의 다운로드와 업로드를 수동으로 조작합니다.
+
+- 타입 정의
+
+  ```ts
+  interface WholeLogActionParams {
+    clearCache?: boolean;
+    remark?: string;
+  }
+
+  interface PeriodLogActionParams {
+    startTime: number;
+    endTime: number;
+    remark?: string;
+  }
+
+  // 주의!
+  // - 브라우저는 아래 4가지 메서드를 지원
+  // - 미니 프로그램은 현재 upload() 메서드만 지원
+  declare class DataHarborPlugin {
+    // 전체 로그
+    upload(params?: WholeLogActionParams): Promise<string>;
+    download(params?: WholeLogActionParams): Promise<void>;
+
+    // 기간별 로그
+    uploadPeriods(params: PeriodLogActionParams): Promise<string>;
+    downloadPeriods(params: PeriodLogActionParams): Promise<void>;
+  }
+  ```
+
+- 상세 정보
+
+  자동 렌더링되는 UI 컨트롤을 숨기거나 특정 시점에 오프라인 로그 조작을 자동으로 트리거하고 싶을 때 이 메서드를 사용할 수 있습니다.
+  
+  **전체 로그**를 조작할 때, UI 팝업의 버튼을 통해 로그를 업로드/다운로드하면 현재 세션의 처음부터 끝까지의 완전한 로그가 대상이 됩니다. 하지만 수동으로 호출할 경우 기본적으로 기록된 로그 데이터가 지워지고 새로 기록이 시작됩니다. 두 번째 매개변수의 `clearCache: false`로 제어할 수 있습니다.
+
+  **기간별 로그** 조작은 데이터를 지우지 않습니다.
+  
+  업로드가 완료되면 재생용 URL이 반환되어 콘솔에 출력됩니다.
+
+- 사용 예시
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  // 전체 업로드
+  const url = await window.$harbor.upload();
+
+  // 데이터를 지우지 않고 업로드
+  const url = await window.$harbor.upload({ clearCache: false });
+
+  // 기간별 업로드
+  const url = await window.$harbor.uploadPeriods({
+    startTime: Date.now() - 1000 * 60, // 1분 전부터
+    endTime: Date.now(),
+  });
+  ```
+
+## pause()#pause
+
+기록을 일시 중지합니다.
+
+- 타입 정의
+
+  ```ts
+  declare class DataHarborPlugin {
+    pause(): void;
+  }
+  ```
+
+- 상세 정보
+
+  로그 기록의 동작을 더 유연하게 제어할 수 있습니다.
+  
+  일시 중지 후에는 프로그램이 생성한 데이터가 기록되지 않습니다. `$harbor.resume()`을 실행하면 재개됩니다.
+
+- 사용 예시
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  // 일시 중지
+  window.$harbor.pause();
+
+  // 재개
+  window.$harbor.resume();
+  ```
+
+## resume()#resume
+
+기록을 재개합니다.
+
+- 타입 정의
+
+  ```ts
+  declare class DataHarborPlugin {
+    resume(): void;
+  }
+  ```
+
+- 상세 정보
+
+  로그 기록의 동작을 더 유연하게 제어할 수 있습니다.
+  
+  일시 중지에서 재개까지의 데이터는 기록되지 않습니다.
+
+- 사용 예시
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  // 일시 중지
+  window.$harbor.pause();
+
+  // 재개
+  window.$harbor.resume();
+  ```
+
+## reharbor()#reharbor
+
+기록된 데이터를 지우고 기록을 계속합니다. 즉, 다시 기록을 시작합니다.
+
+- 타입 정의
+
+  ```ts
+  declare class DataHarborPlugin {
+    reharbor(): void;
+  }
+  ```
+
+- 사용 예시
+
+  ```ts
+  window.$harbor = new DataHarborPlugin();
+
+  window.$harbor.reharbor();
+  ```
