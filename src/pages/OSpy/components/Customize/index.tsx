@@ -6,6 +6,7 @@ import { CodeBlock } from '@/components/CodeBlock';
 import { useInViewport } from 'ahooks';
 import { Config } from '@huolala-tech/page-spy-plugin-ospy/dist/types/config';
 import { useTranslation } from 'react-i18next';
+import { isCN } from '@/assets/locales';
 
 type Theme = Pick<Config, 'title' | 'logo' | 'primaryColor'>;
 const THEMES: Theme[] = [
@@ -35,7 +36,9 @@ export const CustomizeExample = () => {
   const { t } = useTranslation();
   const $oSpy = useRef<OSpy | null>(null);
   useEffect(() => {
-    $oSpy.current = new OSpy();
+    $oSpy.current = new OSpy({
+      lang: isCN() ? 'zh' : 'en',
+    });
     return () => {
       $oSpy.current?.abort();
     };

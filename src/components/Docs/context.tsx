@@ -119,10 +119,7 @@ export const DocContext = ({
       orderDocMenus,
       tocs,
       getContent(doc, lang) {
-        const docData = components[doc][lang];
-        if (!docData) {
-          return DocNotFound;
-        }
+        const docData = components[doc][lang] || components[doc]['en'];
         return docData;
       },
     };
