@@ -250,6 +250,8 @@
   "oSpy": {
     "slogan": "오프라인 기록<br />전체 재생",
     "desc": "프로그램은 거짓말을 하지 않습니다. 재생은 현장을 재현합니다.",
+    "domestic": "China",
+    "quick-start": "빠른 시작",
     "import-use": "O-Spy 연결",
     "select-log": "로그 선택",
     "take-try": "데모 체험",

@@ -250,6 +250,8 @@
   "oSpy": {
     "slogan": "离线记录<br />完整回放",
     "desc": "程序不会撒谎，回放还原现场。",
+    "domestic": "国内",
+    "quick-start": "快速上手",
     "import-use": "接入 O-Spy",
     "select-log": "选择日志回放",
     "take-try": "体验 Demo",

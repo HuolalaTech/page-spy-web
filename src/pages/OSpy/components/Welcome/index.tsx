@@ -66,63 +66,63 @@ export const Welcome = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const size = useSize(document.body);
-
   return (
     <Flex justify="center" align="center" className="welcome">
-      <Flex
-        vertical
-        justify="center"
-        align="center"
-        gap={40}
-        style={{ marginBottom: 100 }}
-      >
-        <p className="slogan">
-          <Trans i18nKey="oSpy.slogan">
-            离线记录
-            <br />
-            完整回放
-          </Trans>
-        </p>
-        <p className="slogan-desc">
-          <Trans i18nKey="oSpy.desc">
-            一行代码记录现场，本地数据安心存放。
-          </Trans>
-        </p>
-        <Flex
-          gap={24}
-          vertical={Number(size?.width) <= 440}
-          justify="center"
-          align="center"
-        >
-          <Flex gap={24}>
-            <InstallSdkButton />
-            <SelectLogButton
-              buttonProps={{
-                type: 'default',
-                size: 'large',
-                style: { fontWeight: '600' },
-              }}
-              onSelect={(url) => {
-                navigate(`?url=${url}`);
-              }}
-            />
-          </Flex>
-          <Link
-            to="?url=demo"
-            target="_blank"
-            style={{
-              color: 'white',
-              textDecoration: 'underline',
-              textUnderlineOffset: 4,
-            }}
-          >
-            <Flex gap={4}>
-              <span>{t('oSpy.take-try')}</span>
-              <Icon component={LinkSvg} />
+      <Flex align="flex-start" className="welcome-container">
+        <div className="welcome-left">
+          <p className="slogan">
+            <Trans i18nKey="oSpy.slogan">
+              离线记录
+              <br />
+              完整回放
+            </Trans>
+          </p>
+          <p className="slogan-desc">
+            <Trans i18nKey="oSpy.desc">程序不会撒谎，回放还原现场。</Trans>
+          </p>
+          <div className="welcome-buttons">
+            <Flex gap={24}>
+              <Button
+                type="primary"
+                size="large"
+                icon={
+                  <Icon component={CodeBlockSvg} style={{ fontSize: 20 }} />
+                }
+              >
+                <Link to="docs#quick-start">
+                  <b>{t('oSpy.quick-start')}</b>
+                </Link>
+              </Button>
+              <SelectLogButton
+                buttonProps={{
+                  type: 'default',
+                  size: 'large',
+                  style: { fontWeight: '600' },
+                }}
+                onSelect={(url) => {
+                  navigate(`?url=${url}`);
+                }}
+              />
             </Flex>
-          </Link>
-        </Flex>
+            <Link
+              to="?url=demo"
+              target="_blank"
+              style={{
+                color: 'white',
+                textDecoration: 'underline',
+                textUnderlineOffset: 4,
+              }}
+            >
+              <Flex gap={4}>
+                <span>{t('oSpy.take-try')}</span>
+                <Icon component={LinkSvg} />
+              </Flex>
+            </Link>
+          </div>
+        </div>
+        <div className="welcome-right">
+          <ImportGuide showConfig={false} />
+        </div>
       </Flex>
     </Flex>
   );
