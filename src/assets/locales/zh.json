@@ -249,7 +249,7 @@
   },
   "oSpy": {
     "slogan": "离线记录<br />完整回放",
-    "desc": "一行代码录制现场，本地数据安心存放。",
+    "desc": "程序不会撒谎，回放还原现场。",
     "import-use": "接入 O-Spy",
     "select-log": "选择日志回放",
     "take-try": "体验 Demo",
