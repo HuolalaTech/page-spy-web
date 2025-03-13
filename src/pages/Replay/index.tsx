@@ -16,16 +16,7 @@ const Replay = () => {
     return (
       <Space>
         <Link to="/log-list">
-          <Button
-            icon={<ArrowLeftOutlined />}
-            onClick={() => {
-              if (url.startsWith('blob://')) {
-                URL.revokeObjectURL(url);
-              }
-            }}
-          >
-            {t('common.back')}
-          </Button>
+          <Button icon={<ArrowLeftOutlined />}>{t('common.back')}</Button>
         </Link>
         <SelectLogButton
           onSelect={(url) => {
@@ -34,7 +25,7 @@ const Replay = () => {
         />
       </Space>
     );
-  }, [navigate, t, url]);
+  }, [navigate, t]);
 
   return <LogReplayer url={url} backSlot={backSlot} />;
 };

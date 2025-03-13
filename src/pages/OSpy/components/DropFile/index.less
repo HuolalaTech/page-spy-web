@@ -1,0 +1,26 @@
+.drop-mask {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 999;
+}
+.drop-tips {
+  position: fixed;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  width: 150px;
+  height: 150px;
+  border-radius: 999px;
+  font-size: 18px;
+  color: white;
+  transform: translate3d(-50%, -50%, 0);
+  background: lighten(@primary-color, 10%);
+  pointer-events: none;
+  z-index: 1000;
+  &.show {
+    display: flex;
+  }
+}

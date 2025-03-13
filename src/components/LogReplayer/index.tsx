@@ -24,6 +24,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { ErrorDetailDrawer } from '@/components/ErrorDetailDrawer';
 import { Meta } from './Meta';
 import { debug } from '@/utils/debug';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   url: string;
@@ -31,6 +32,15 @@ interface Props {
 }
 
 export const LogReplayer = ({ url, backSlot = null }: Props) => {
+  useEffect(() => {
+    return () => {
+      if (url.startsWith('blob://')) {
+        URL.revokeObjectURL(url);
+      }
+    };
+  }, [url]);
+  const { t } = useTranslation();
+
   const [allRRwebEvent, setAllData, setIsExpand] = useReplayStore(
     useShallow((state) => [
       state.allRRwebEvent,
@@ -38,11 +48,19 @@ export const LogReplayer = ({ url, backSlot = null }: Props) => {
       state.setIsExpand,
     ]),
   );
+
   const { loading, run: requestLog } = useRequest(
     async () => {
-      const res = await (await fetch(url)).json();
+      let res: any;
+      try {
+        // request failed or not json data, for example, user refresh the page with the url starts with blob://
+        res = await (await fetch(url)).json();
+      } catch (e: any) {
+        throw new Error(t('replay.invalid-source')!);
+      }
+      // source not found, for example, the file be cleared in the server
       if (res?.success === false) {
-        throw new Error(res?.message);
+        throw new Error(res?.message || 'File not found');
       }
       const result = res.map((i: any) => {
         return {

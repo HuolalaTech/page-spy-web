@@ -21,14 +21,6 @@ export const Replayer = () => {
     if (!url) return '';
     return url;
   }, [url]);
-  useEffect(
-    () => () => {
-      if (url.startsWith('blob://')) {
-        URL.revokeObjectURL(url);
-      }
-    },
-    [url],
-  );
 
   const backSlot = useMemo(() => {
     return (
