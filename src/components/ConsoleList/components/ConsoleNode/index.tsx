@@ -12,6 +12,7 @@ import { Tooltip } from 'antd';
 import { Trans } from 'react-i18next';
 import CopyContent from '@/components/CopyContent';
 import { useShallow } from 'zustand/react/shallow';
+import { Link } from 'react-router-dom';
 function isAtomNode(data: SpyAtom.Overview) {
   return data && data.type === 'atom' && data.__atomId !== undefined;
 }
@@ -232,12 +233,17 @@ function AtomNode({ id, value, showArrow = true }: AtomNodeProps) {
             <Trans i18nKey="replay.unsupport-spread">
               <p>
                 Objects cannot be expanded by default. Set
-                <a
-                  href="https://www.pagespy.org/#/docs/pagespy#constructor"
+                <Link
+                  to="/docs/pagespy#config-serializeData"
                   target="_blank"
+                  style={{
+                    color: '#fff',
+                    textDecoration: 'underline',
+                    textUnderlineOffset: 4,
+                  }}
                 >
                   <code>serializeData: true</code>
-                </a>
+                </Link>
                 to enable.
               </p>
             </Trans>

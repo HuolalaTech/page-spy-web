@@ -52,6 +52,18 @@ ${INIT_CODE.split('\n')
               {
                 title: (
                   <Flex align="center" gap={8}>
+                    <Icon component={ChinaSvg} style={{ fontSize: 20 }} />
+                    <span>{t('domestic')}</span>
+                  </Flex>
+                ),
+                lang: 'html',
+                code: cdnCode(
+                  'https://static.huolala.cn/libs/o-spy/2.1.9/index.min.js',
+                ),
+              },
+              {
+                title: (
+                  <Flex align="center" gap={8}>
                     <Icon component={JsDelivrSvg} style={{ fontSize: 20 }} />
                     <span>jsDelivr</span>
                   </Flex>
@@ -71,18 +83,6 @@ ${INIT_CODE.split('\n')
                 lang: 'html',
                 code: cdnCode(
                   'https://unpkg.com/@huolala-tech/page-spy-plugin-ospy',
-                ),
-              },
-              {
-                title: (
-                  <Flex align="center" gap={8}>
-                    <Icon component={ChinaSvg} style={{ fontSize: 20 }} />
-                    <span>国内</span>
-                  </Flex>
-                ),
-                lang: 'html',
-                code: cdnCode(
-                  'https://static.huolala.cn/libs/o-spy/2.1.9/index.min.js',
                 ),
               },
             ]}
@@ -130,10 +130,7 @@ ${INIT_CODE}`}
           </strong>
         ))}
       </Flex>
-      <div
-        className="import-code"
-        style={{ marginTop: active === methods[0].title ? 20 : 0 }}
-      >
+      <div className="import-code" style={{ marginTop: 20 }}>
         {activeMethod?.code}
       </div>
     </div>

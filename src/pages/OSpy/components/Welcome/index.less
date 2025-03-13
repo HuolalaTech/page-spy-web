@@ -1,7 +1,9 @@
 .welcome {
   height: 100%;
+  padding-inline: 20px;
+  position: relative;
   .slogan {
-    font-size: 76px;
+    font-size: 56px;
     font-weight: 700;
     text-align: center;
     &-desc {
@@ -9,11 +11,63 @@
       text-align: center;
     }
   }
+  &-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  &-container {
+    margin-top: -60px;
+    gap: 70px;
+  }
+  &-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+  }
+  &-right {
+    display: none;
+    width: 50vw;
+    max-width: 600px;
+    margin-top: 40px;
+  }
 }
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
   .welcome {
     .slogan {
-      font-size: 56px;
+      font-size: 76px;
+    }
+    &-buttons {
+      flex-direction: row;
+    }
+  }
+}
+
+@media screen and (min-width: 968px) {
+  .welcome {
+    .slogan {
+      text-align: left;
+    }
+    &-left {
+      align-items: flex-start;
+    }
+    &-right {
+      display: block;
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .welcome {
+    &-container {
+      gap: 120px;
+    }
+    &-right {
+      width: 60vw;
+      max-width: 600px;
     }
   }
 }
