@@ -7,24 +7,18 @@ import clsx from 'clsx';
 import { message } from 'antd';
 
 interface Props {
-  container: MutableRefObject<HTMLDivElement | null>;
   onDrop: (url: string) => void;
 }
 
-export const DropFile = ({ onDrop, container }: Props) => {
+export const DropFile = ({ onDrop }: Props) => {
   const [msg, contextHolder] = message.useMessage();
   const { t } = useTranslation();
   const tipsRef = useRef<HTMLDivElement>(null);
   const [isDragOver, setIsDragOver] = useState(false);
-  const target = container.current;
 
-  useEventListener(
-    'dragenter',
-    () => {
-      setIsDragOver(true);
-    },
-    { target },
-  );
+  useEventListener('dragenter', () => {
+    setIsDragOver(true);
+  });
 
   return (
     <>
