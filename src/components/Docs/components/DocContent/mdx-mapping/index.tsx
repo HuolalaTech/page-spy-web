@@ -2,6 +2,7 @@ import Heading from './Heading';
 import Pre from './Pre';
 import A from './A';
 import { MDXComponents } from 'mdx/types';
+import { CodeGroup } from './CodeGroup';
 
 const components: MDXComponents = {
   h1: (props) => <Heading level={1} {...props} />,
@@ -12,6 +13,7 @@ const components: MDXComponents = {
   h6: (props) => <Heading level={6} {...props} />,
   pre: Pre,
   a: A,
+  'code-group': CodeGroup,
 };
 
 export default components;
