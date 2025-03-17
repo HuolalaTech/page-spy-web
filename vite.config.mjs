@@ -5,8 +5,7 @@ import svgr from 'vite-plugin-svgr';
 import mdx from '@mdx-js/rollup';
 import remarkGfm from 'remark-gfm';
 import remarkDirective from 'remark-directive';
-import remarkDirectiveRehype from 'remark-directive-rehype';
-import rehypeCodeProps from 'rehype-mdx-code-props';
+import { remarkMdxCodeGroup } from './unified.config.mjs';
 
 export default ({ mode, command }) => {
   const buildDoc = mode === 'doc';
@@ -50,8 +49,7 @@ export default ({ mode, command }) => {
     },
     plugins: [
       mdx({
-        remarkPlugins: [remarkGfm, remarkDirective, remarkDirectiveRehype],
-        rehypePlugins: [rehypeCodeProps],
+        remarkPlugins: [remarkGfm, remarkDirective, remarkMdxCodeGroup],
       }),
       react(),
       svgr(),

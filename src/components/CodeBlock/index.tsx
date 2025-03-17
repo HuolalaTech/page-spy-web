@@ -16,8 +16,8 @@ interface SingleProps {
   showCopy?: boolean;
 }
 
-type GroupItem = Omit<SingleProps, 'showCopy'> & { title: ReactNode };
-interface GroupProps {
+export type GroupItem = Omit<SingleProps, 'showCopy'> & { title: ReactNode };
+export interface GroupProps {
   group: GroupItem[];
   showCopy?: boolean;
 }
@@ -117,25 +117,25 @@ export const CodeBlock = (data: SingleProps | GroupProps) => {
           })}
       </div>
       <div className="code-block-content">
-        {showCopy && (
-          <button className="copy-code" onClick={onCopy}>
-            {copyStatus ? (
-              <Space>
-                <span>Copied</span>
-                <Divider type="vertical" style={{ backgroundColor: '#666' }} />
-                <Icon component={CopiedSvg} style={{ fontSize: 18 }} />
-              </Space>
-            ) : (
-              <Icon component={CopySvg} style={{ fontSize: 18 }} />
-            )}
-          </button>
-        )}
         <div
           dangerouslySetInnerHTML={{
             __html: codeContent,
           }}
         />
       </div>
+      {showCopy && (
+        <button className="copy-code" onClick={onCopy}>
+          {copyStatus ? (
+            <Space>
+              <span>Copied</span>
+              <Divider type="vertical" style={{ backgroundColor: '#666' }} />
+              <Icon component={CopiedSvg} style={{ fontSize: 18 }} />
+            </Space>
+          ) : (
+            <Icon component={CopySvg} style={{ fontSize: 18 }} />
+          )}
+        </button>
+      )}
     </div>
   );
 };
