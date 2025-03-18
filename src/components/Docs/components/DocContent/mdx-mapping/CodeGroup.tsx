@@ -129,7 +129,13 @@ export const CodeGroup = ({ items = [] }: { items: Item[] }) => {
         lang: lang as Lang,
         code: value,
         title: (
-          <Flex align="center" gap={8}>
+          <Flex
+            align="center"
+            gap={8}
+            style={{
+              whiteSpace: 'nowrap',
+            }}
+          >
             {icon && <Icon component={icon} style={{ fontSize: 20 }} />}
             <span>{name}</span>
           </Flex>
