@@ -17,7 +17,6 @@ export interface NavItem {
 
 const processor = unified().use(remarkParse);
 
-// 目录的锚点生成规则参照 ../mdx-mapping/Heading.tsx
 export const computeTocs = async (raw: () => Promise<string>) => {
   const navs: NavItem[] = [];
   try {
@@ -71,7 +70,7 @@ export const computeTocs = async (raw: () => Promise<string>) => {
 };
 
 export const ToC = ({ doc, lang }: { doc: string; lang: langType }) => {
-  const { tocs } = useDocContext();
+  const { getToc } = useDocContext();
   const [navs, setNavs] = useState<NavItem[]>([]);
   const { t } = useTranslation();
   const { hash } = useLocation();
@@ -79,17 +78,15 @@ export const ToC = ({ doc, lang }: { doc: string; lang: langType }) => {
   useEffect(() => {
     const fn = async () => {
       try {
-        const p = tocs[doc][lang];
-        if (!p) return;
-
-        const data = await p;
+        const data = await getToc(doc, lang);
+        console.log(data);
         setNavs(data);
       } catch (e) {
         //
       }
     };
     fn();
-  }, [doc, lang, tocs]);
+  }, [doc, getToc, lang]);
 
   return (
     <div className="toc">
