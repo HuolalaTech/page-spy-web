@@ -1,33 +1,16 @@
-import { visit } from 'unist-util-visit';
+import { SKIP, visit } from 'unist-util-visit';
 import { mdxJsx } from 'micromark-extension-mdx-jsx';
 import { fromMarkdown } from 'mdast-util-from-markdown';
 import { mdxJsxFromMarkdown } from 'mdast-util-mdx-jsx';
-import { removePosition } from 'unist-util-remove-position';
-import { parse } from 'acorn';
+import * as acorn from 'acorn';
 
-const generateCodeGroupAst = (md) => {
+const mdxAstBuilder = (md) => {
   const ast = fromMarkdown(md, {
-    extensions: [mdxJsx()],
+    extensions: [mdxJsx({ acorn, addResult: true })],
     mdastExtensions: [mdxJsxFromMarkdown()],
   });
 
-  removePosition(ast, { force: true });
-
-  let result;
-  visit(ast, 'mdxJsxFlowElement', (node) => {
-    result = node;
-    const itemsAttribute = result.attributes.find(
-      (attr) => attr.name === 'items',
-    );
-    const jsonValue = itemsAttribute.value.value;
-    const estree = parse(jsonValue, { ecmaVersion: 2020 });
-
-    itemsAttribute.value.data = {
-      estree,
-    };
-  });
-
-  return result;
+  return ast;
 };
 
 // :::code-group
@@ -51,9 +34,13 @@ export const remarkMdxCodeGroup = () => (tree) => {
           return { lang, meta, value };
         });
 
-      parent.children[index] = generateCodeGroupAst(
-        `<code-group items={${JSON.stringify(children)}} />`,
+      parent.children.splice(
+        index,
+        1,
+        mdxAstBuilder(`<code-group items={${JSON.stringify(children)}} />`),
       );
+
+      return [SKIP, index];
     }
   });
 };
