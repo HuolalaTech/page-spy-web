@@ -5,7 +5,10 @@ import svgr from 'vite-plugin-svgr';
 import mdx from '@mdx-js/rollup';
 import remarkGfm from 'remark-gfm';
 import remarkDirective from 'remark-directive';
-import { remarkMdxCodeGroup, rehypeMdxSlug } from './unified.config.mjs';
+import {
+  remarkMdxCodeGroup,
+  rehypeMdxSlug,
+} from './scripts/unified/custom-plugin.mjs';
 
 export default ({ mode, command }) => {
   const buildDoc = mode === 'doc';

@@ -2,7 +2,7 @@ import { visit } from 'unist-util-visit';
 import { mdxJsx } from 'micromark-extension-mdx-jsx';
 import { fromMarkdown } from 'mdast-util-from-markdown';
 import { mdxJsxFromMarkdown } from 'mdast-util-mdx-jsx';
-import { isString } from 'lodash-es';
+import { formatSlug } from './utils.mjs';
 import * as acorn from 'acorn';
 
 const mdxAstBuilder = (md) => {
@@ -45,27 +45,23 @@ export const remarkMdxCodeGroup = () => (tree) => {
   });
 };
 
-export const formatSlug = (slug) => {
-  if (!slug || !isString(slug)) return slug;
-
-  return slug
-    .trim()
-    .replace(/[!"#$%&'()*+,/:;<=>?@[\\\]^_`{|}~]/g, '')
-    .replace(/[\.\s]/g, '-');
-};
 // Add `slug` prop to h1-h6
 export const rehypeMdxSlug = () => (tree) => {
   visit(tree, 'element', (node) => {
     if (/h\d/.test(node.tagName)) {
+      let slug = '';
+
       const customSlug = node.children.findLast(
         (child) => child.type === 'text' && child.value.includes('#'),
       );
-      let slug = '';
       if (!customSlug) {
         slug = node.children.find((child) => child.type === 'text')?.value;
       } else {
-        slug = customSlug.value.split('#')[1];
+        const [extra, _slug] = customSlug.value.split('#');
+        customSlug.value = extra;
+        slug = _slug;
       }
+
       if (!slug) {
         throw new Error(
           'Cannot compute `slug` which is required for heading in MDX',

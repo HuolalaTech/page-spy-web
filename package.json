@@ -9,7 +9,8 @@
   },
   "license": "MIT",
   "scripts": {
-    "postinstall": "bash scripts/public-files.sh",
+    "postinstall": "bash scripts/public-files.sh && yarn run generate:doc-records",
+    "generate:doc-records": "node scripts/unified/generate-doc-records.mjs",
     "start:doc": "vite --mode doc",
     "start:client": "vite --mode client",
     "start:server": "page-spy-api",
@@ -40,6 +41,7 @@
     "eslint-config-alloy": "^4.9.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "hast-util-to-string": "^3.0.1",
     "less": "^4.1.2",
     "lint-staged": "^12.3.3",
     "mdast-util-from-markdown": "^2.0.2",
