@@ -46,7 +46,6 @@ export const DocSearch = () => {
       (value) => {
         const data = fuse.search(value).slice(0, 50);
         const result = groupBy(data, 'item.parent');
-        console.log(data, result);
         setResult(result);
       },
       1000,
@@ -97,7 +96,7 @@ export const DocSearch = () => {
 
 const EXTRA_SIZE = 8;
 const DocSearchItem = ({ item }: { item: FuseResult<RecordItem> }) => {
-  const { route, parent, title, content } = item.item;
+  const { route, title, content } = item.item;
 
   const computedText = useMemo(() => {
     if (!item.matches) return { title, content };
