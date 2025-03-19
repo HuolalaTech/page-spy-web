@@ -17,17 +17,19 @@
     box-shadow: @light-box-shadow;
     background-color: var(--light-background);
     z-index: 10;
-    &.is-dark {
-      box-shadow: @dark-box-shadow;
-      background-color: var(--dark-background);
-      a,
-      .logo-name {
-        color: #fff;
-        word-break: keep-all;
-      }
-    }
     .third-brand {
       line-height: 1;
+    }
+  }
+}
+.dark {
+  .header {
+    box-shadow: @dark-box-shadow;
+    background-color: var(--dark-background);
+    a,
+    .logo-name {
+      color: #fff;
+      word-break: keep-all;
     }
   }
 }

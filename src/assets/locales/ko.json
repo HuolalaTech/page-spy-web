@@ -276,5 +276,9 @@
     "console-output": "콘솔 출력",
     "network-request": "네트워크 요청",
     "modify-storage": "Storage 수정"
+  },
+  "docSearch": {
+    "empty": "결과를 찾을 수 없습니다",
+    "placeholder": "문서 검색"
   }
 }

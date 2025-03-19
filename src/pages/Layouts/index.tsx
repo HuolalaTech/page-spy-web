@@ -1,31 +1,34 @@
 import { Col, Flex, Layout, Row } from 'antd';
 import { Outlet } from 'react-router-dom';
 import './index.less';
-import clsx from 'clsx';
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { LoadingFallback } from '@/components/LoadingFallback';
 import { NavMenuOnPc, NavMenuOnMobile } from './NavMenu';
-import { useDarkTheme } from '@/utils/useDarkTheme';
 import { isDoc } from '@/utils/constants';
 import { Logo } from './Logo';
 import { useWhere } from '@/utils/useWhere';
 import { useTitle } from 'ahooks';
+import { useDarkTheme } from '@/utils/useDarkTheme';
 
 const { Header, Content } = Layout;
 
 export const Layouts = () => {
   const isDark = useDarkTheme();
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDark]);
+
   const { isOSpy } = useWhere();
   useTitle(isOSpy ? 'O-Spy' : 'PageSpy');
 
   return (
     <Layout className="layouts">
       <Header>
-        <Row
-          justify="space-between"
-          align="middle"
-          className={clsx('header', isDark && 'is-dark')}
-        >
+        <Row justify="space-between" align="middle" className="header">
           <Col>
             <Flex gap={20} align="center">
               <Logo />

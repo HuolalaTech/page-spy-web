@@ -276,5 +276,9 @@
     "console-output": "コンソール出力",
     "network-request": "ネットワークリクエスト",
     "modify-storage": "Storage を変更"
+  },
+  "docSearch": {
+    "empty": "見つかりませんでした",
+    "placeholder": "ドキュメントを検索"
   }
 }

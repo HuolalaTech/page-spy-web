@@ -12,12 +12,6 @@
   a {
     color: #666;
   }
-  .is-dark {
-    .menu-item,
-    a {
-      color: #ddd;
-    }
-  }
 }
 .nav-menu {
   display: flex;
@@ -94,12 +88,6 @@
   background-color: var(--light-background);
   font-size: 14px;
   overflow-y: auto;
-  &.is-dark {
-    background-color: var(--dark-background);
-    > * {
-      border-color: #666;
-    }
-  }
   > * {
     display: block;
     border-bottom: 1px solid #ddd;
@@ -141,5 +129,20 @@
   }
   .fixed-menu {
     display: block;
+  }
+}
+
+.dark {
+  .ant-layout-header {
+    .menu-item,
+    a {
+      color: #ddd;
+    }
+  }
+  .fixed-menu {
+    background-color: var(--dark-background);
+    > * {
+      border-color: #666;
+    }
   }
 }

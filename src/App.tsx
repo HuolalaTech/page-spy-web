@@ -11,7 +11,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import type { Locale } from 'antd/es/locale';
 import dayjs from 'dayjs';
 import { CNUserModal } from './components/CNUserModal';
-
+import { DocSearch } from './components/DocSearch';
 const localeConfig: Record<langType, Locale> = {
   zh,
   en,
@@ -42,6 +42,7 @@ export const App = () => {
           >
             <CNUserModal />
             <RouteConfig />
+            <DocSearch />
           </ConfigProvider>
         </ErrorBoundary>
       </HashRouter>

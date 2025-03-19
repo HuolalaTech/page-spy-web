@@ -277,5 +277,9 @@
     "console-output": "Console Output",
     "network-request": "Network Request",
     "modify-storage": "Modify Storage"
+  },
+  "docSearch": {
+    "empty": "No results found.",
+    "placeholder": "Search docs"
   }
 }

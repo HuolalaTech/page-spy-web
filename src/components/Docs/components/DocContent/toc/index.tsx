@@ -79,7 +79,6 @@ export const ToC = ({ doc, lang }: { doc: string; lang: langType }) => {
     const fn = async () => {
       try {
         const data = await getToc(doc, lang);
-        console.log(data);
         setNavs(data);
       } catch (e) {
         //
