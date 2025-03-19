@@ -276,5 +276,9 @@
     "console-output": "输出日志",
     "network-request": "网络请求",
     "modify-storage": "修改 Storage"
+  },
+  "docSearch": {
+    "empty": "未找到结果",
+    "placeholder": "搜索文档"
   }
 }

@@ -1,0 +1,47 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Algolia test
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["feat/algolia"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --ignore-optional
+      - name: Build
+        run: yarn build:doc
+      - name: Publish
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./docs-dist --project-name=algolia
+      - name: Lark bot notify
+        env:
+          TOKEN: ${{ secrets.LARK_BOT_TOKEN }}
+        run: |
+          BRANCH_NAME=$(echo $GITHUB_REF | sed 's/refs\/heads\///')
+          curl "https://pagespy.blucas.me/lark/ci?branch=$BRANCH_NAME&actionId=$GITHUB_RUN_ID" \
+            -X POST \
+            -H "token: $TOKEN"

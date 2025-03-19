@@ -11,13 +11,18 @@ import clsx from 'clsx';
 import { LoadingFallback } from '../LoadingFallback';
 
 interface SingleProps {
-  code: string;
+  code?: string;
+  internal?: {
+    code: string;
+    content: string;
+    bg: string;
+  };
   lang?: Lang;
   showCopy?: boolean;
 }
 
-type GroupItem = Omit<SingleProps, 'showCopy'> & { title: ReactNode };
-interface GroupProps {
+export type GroupItem = Omit<SingleProps, 'showCopy'> & { title: ReactNode };
+export interface GroupProps {
   group: GroupItem[];
   showCopy?: boolean;
 }
@@ -35,20 +40,34 @@ export const CodeBlock = (data: SingleProps | GroupProps) => {
   const highlighter = useRef<Highlighter | null>(null);
   const handleCodeContent = async ({
     code,
+    internal,
     lang = 'javascript',
   }: Omit<SingleProps, 'showCopy'>) => {
-    if (!highlighter.current) {
-      highlighter.current = await sh.get({
+    if (internal) {
+      setBg(internal.bg);
+      setUserCode(internal.code);
+      setCodeContent(internal.content);
+      sh.get({
+        lang,
+      }).then((h) => {
+        highlighter.current = h;
+      });
+      return;
+    }
+    if (code) {
+      if (!highlighter.current) {
+        highlighter.current = await sh.get({
+          lang,
+        });
+      }
+      const bg = highlighter.current.getBackgroundColor();
+      const html = highlighter.current.codeToHtml(code, {
         lang,
       });
+      setBg(bg);
+      setUserCode(code);
+      setCodeContent(html);
     }
-    const bg = highlighter.current.getBackgroundColor();
-    const html = highlighter.current.codeToHtml(code, {
-      lang,
-    });
-    setBg(bg);
-    setUserCode(code);
-    setCodeContent(html);
   };
   useEffect(() => {
     if (isGroupBlock(data)) {
@@ -117,25 +136,25 @@ export const CodeBlock = (data: SingleProps | GroupProps) => {
           })}
       </div>
       <div className="code-block-content">
-        {showCopy && (
-          <button className="copy-code" onClick={onCopy}>
-            {copyStatus ? (
-              <Space>
-                <span>Copied</span>
-                <Divider type="vertical" style={{ backgroundColor: '#666' }} />
-                <Icon component={CopiedSvg} style={{ fontSize: 18 }} />
-              </Space>
-            ) : (
-              <Icon component={CopySvg} style={{ fontSize: 18 }} />
-            )}
-          </button>
-        )}
         <div
           dangerouslySetInnerHTML={{
             __html: codeContent,
           }}
         />
       </div>
+      {showCopy && (
+        <button className="copy-code" onClick={onCopy}>
+          {copyStatus ? (
+            <Space>
+              <span>Copied</span>
+              <Divider type="vertical" style={{ backgroundColor: '#666' }} />
+              <Icon component={CopiedSvg} style={{ fontSize: 18 }} />
+            </Space>
+          ) : (
+            <Icon component={CopySvg} style={{ fontSize: 18 }} />
+          )}
+        </button>
+      )}
     </div>
   );
 };

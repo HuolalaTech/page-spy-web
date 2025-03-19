@@ -46,19 +46,21 @@ interface DocContextInfo {
     doc: string;
     label: string | Record<langType, string>;
   }[];
-  tocs: Record<string, Record<langType, Promise<NavItem[]>>>;
   getContent: (
     doc: string,
     lang: langType,
   ) => React.LazyExoticComponent<any> | (() => JSX.Element);
+  getToc: (doc: string, lang: langType) => Promise<NavItem[]>;
 }
 
 const defaultContext: DocContextInfo = {
   sidebar: [],
   orderDocMenus: [],
-  tocs: {},
   getContent() {
     return DocNotFound;
+  },
+  getToc() {
+    return Promise.resolve([]);
   },
 };
 const Context = createContext<DocContextInfo>(defaultContext);
@@ -100,27 +102,21 @@ export const DocContext = ({
       return acc;
     }, {} as Record<string, Record<string, React.LazyExoticComponent<any> | (() => JSX.Element)>>);
 
-    const tocs = Object.entries(mdRawContents).reduce((acc, cur) => {
-      const [key, value] = cur;
-      const result = key.match(/md\/(.+)\.(zh|en|ja|ko)\.mdx$/);
-      if (!result) return acc;
-      const [, doc, lang] = result;
-      const tocs = computeTocs(value);
-      if (!acc[doc]) {
-        acc[doc] = { [lang]: tocs };
-      } else {
-        acc[doc][lang] = tocs;
-      }
-      return acc;
-    }, {} as Record<string, Record<string, Promise<NavItem[]>>>);
+    const tocs = Object.entries(mdRawContents);
 
     return {
       sidebar,
       orderDocMenus,
-      tocs,
       getContent(doc, lang) {
         const docData = components[doc][lang] || components[doc]['en'];
         return docData;
+      },
+      async getToc(doc, lang) {
+        const key = `${doc}.${lang}.mdx`;
+        const toc = tocs.find(([k]) => k.includes(key));
+        if (!toc) return [];
+        const [, value] = toc;
+        return computeTocs(value);
       },
     };
   }, [mdRawContents, mdxComponents, orderDocMenus, sidebar]);

@@ -4,6 +4,11 @@ import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import mdx from '@mdx-js/rollup';
 import remarkGfm from 'remark-gfm';
+import remarkDirective from 'remark-directive';
+import {
+  remarkMdxCodeGroup,
+  rehypeMdxSlug,
+} from './scripts/unified/custom-plugin.mjs';
 
 export default ({ mode, command }) => {
   const buildDoc = mode === 'doc';
@@ -46,12 +51,10 @@ export default ({ mode, command }) => {
       },
     },
     plugins: [
-      {
-        enforce: 'pre',
-        ...mdx({
-          remarkPlugins: [remarkGfm],
-        }),
-      },
+      mdx({
+        remarkPlugins: [remarkGfm, remarkDirective, remarkMdxCodeGroup],
+        rehypePlugins: [rehypeMdxSlug],
+      }),
       react(),
       svgr(),
     ],

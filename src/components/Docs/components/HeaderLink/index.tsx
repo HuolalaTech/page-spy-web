@@ -30,7 +30,7 @@ export const HeaderLink = ({
       <Link to={`#${slug}`} className="header-anchor" key="anchor">
         <LinkOutlined />
       </Link>,
-      children,
+      <div key="children">{children}</div>,
       show && (
         <div
           className="matched-bg"
