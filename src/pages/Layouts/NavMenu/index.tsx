@@ -18,6 +18,7 @@ import { CSSTransition } from 'react-transition-group';
 import { createPortal } from 'react-dom';
 import { useWhere } from '@/utils/useWhere';
 import { CN_MIRROR_SITE } from '@/components/CNUserModal';
+import { OpenDocSearch } from '@/components/DocSearch/OpenDocSearch';
 
 const ALL_LANGS: MenuProps['items'] = [
   {
@@ -172,6 +173,7 @@ export const NavMenuOnMobile = () => {
   return (
     <>
       <div className="nav-menu mobile">
+        <OpenDocSearch />
         <button
           className={clsx('menu-hamburger', {
             'is-expanded': expand,

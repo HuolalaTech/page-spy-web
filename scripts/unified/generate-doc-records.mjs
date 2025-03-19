@@ -222,7 +222,7 @@ async function computeDocRecords({ files, baseDir, menus, baseRoute }) {
                   };
                   result[language].push(part);
                 } else if (part) {
-                  part.content += toString(node);
+                  part.content += toString(node).replace(/\n+/g, ' ');
                 }
               }
             });

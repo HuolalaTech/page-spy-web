@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import { useEventListener } from '@/utils/useEventListener';
 import { Command } from 'cmdk';
-import { ReactNode, useCallback, useMemo, useRef, useState } from 'react';
+import { ReactNode, useMemo, useRef, useState } from 'react';
 import './index.less';
 import { useTranslation } from 'react-i18next';
 import { Flex } from 'antd';
@@ -9,7 +9,8 @@ import { throttle, groupBy } from 'lodash-es';
 import docRecords from '@/assets/docs.json';
 import { useLanguage } from '@/utils/useLanguage';
 import Fuse, { FuseResult, FuseResultMatch } from 'fuse.js';
-
+import { OPEN_SEARCH_EVENT } from './OpenDocSearch';
+import { useNavigate } from 'react-router-dom';
 interface RecordItem {
   language: string;
   route: string;
@@ -18,24 +19,62 @@ interface RecordItem {
   parent: string | null;
 }
 
+const getContainer = () => {
+  let div = document.body.querySelector('#cmdk-search');
+  if (!div) {
+    div = document.createElement('div');
+    div.id = 'cmdk-search';
+    document.body.appendChild(div);
+  }
+  return div as HTMLDivElement;
+};
+
 export const DocSearch = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const ref = useRef<HTMLDivElement>(getContainer());
+
   const [open, setOpen] = useState(false);
-  useEventListener('keydown', (e) => {
-    const { key, metaKey, ctrlKey } = e as KeyboardEvent;
-    if (key === 'k' && (metaKey || ctrlKey)) {
-      e.preventDefault();
-      setOpen((open) => !open);
-    }
+  const [selected, setSelected] = useState<string>('');
+  const goto = () => {
+    setOpen(false);
+    navigate(selected);
+    setSelected('');
+  };
+  useEventListener(
+    'keydown',
+    (e) => {
+      const { key, metaKey, ctrlKey } = e as KeyboardEvent;
+      if (key === 'k' && (metaKey || ctrlKey)) {
+        e.preventDefault();
+        setOpen((open) => !open);
+        return;
+      }
+      if (key === 'Enter' && selected) {
+        goto();
+      }
+    },
+    { passive: false },
+  );
+  useEventListener(OPEN_SEARCH_EVENT, () => {
+    setOpen(true);
   });
 
   const [lang] = useLanguage();
-  const fuse = useMemo(() => {
-    return new Fuse(docRecords[lang] ?? docRecords.zh, {
-      includeMatches: true,
-      minMatchCharLength: 2,
-      keys: ['title', 'content'],
-    });
+  const fuse = useRef<Fuse<RecordItem> | null>(null);
+  useMemo(() => {
+    const list = docRecords[lang] ?? docRecords.zh;
+    if (!fuse.current) {
+      fuse.current = new Fuse(list, {
+        includeMatches: true,
+        minMatchCharLength: 2,
+        threshold: 0.3,
+        ignoreLocation: true,
+        keys: ['content', 'title', 'parent'],
+      });
+      return;
+    }
+    fuse.current.setCollection(list);
   }, [lang]);
   const [value, setValue] = useState('');
   const [result, setResult] = useState<
@@ -44,7 +83,8 @@ export const DocSearch = () => {
   const search = useRef(
     throttle(
       (value) => {
-        const data = fuse.search(value).slice(0, 50);
+        if (!fuse.current) return;
+        const data = fuse.current.search(value, { limit: 50 });
         const result = groupBy(data, 'item.parent');
         setResult(result);
       },
@@ -54,7 +94,19 @@ export const DocSearch = () => {
   );
 
   return (
-    <Command.Dialog open={open} onOpenChange={setOpen} shouldFilter={false}>
+    <Command.Dialog
+      container={ref.current}
+      open={open}
+      onOpenChange={(e) => {
+        console.log(e);
+        setOpen(e);
+      }}
+      shouldFilter={false}
+      value={selected}
+      onValueChange={(v) => {
+        setSelected(v);
+      }}
+    >
       <Command.Input
         placeholder={t('docSearch.placeholder')!}
         value={value}
@@ -70,7 +122,7 @@ export const DocSearch = () => {
         {Object.entries(result).map(([parent, items]) => (
           <Command.Group key={parent} heading={parent}>
             {items.map((item) => (
-              <DocSearchItem key={item.refIndex} item={item} />
+              <DocSearchItem key={item.refIndex} item={item} onSelect={goto} />
             ))}
           </Command.Group>
         ))}
@@ -95,7 +147,13 @@ export const DocSearch = () => {
 };
 
 const EXTRA_SIZE = 8;
-const DocSearchItem = ({ item }: { item: FuseResult<RecordItem> }) => {
+const DocSearchItem = ({
+  item,
+  onSelect,
+}: {
+  item: FuseResult<RecordItem>;
+  onSelect: () => void;
+}) => {
   const { route, title, content } = item.item;
 
   const computedText = useMemo(() => {
@@ -129,7 +187,7 @@ const DocSearchItem = ({ item }: { item: FuseResult<RecordItem> }) => {
   }, [content, item.matches, title]);
 
   return (
-    <Command.Item key={item.refIndex} value={route}>
+    <Command.Item key={item.refIndex} value={route} onSelect={onSelect}>
       <div cmdk-item-title="">{computedText.title}</div>
       <div cmdk-item-content="">{computedText.content}</div>
     </Command.Item>

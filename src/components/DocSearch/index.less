@@ -1,4 +1,4 @@
-[cmdk-dialog] {
+#cmdk-search {
   --font-sans: 'Inter', --apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   --app-bg: var(--gray1);
@@ -46,16 +46,11 @@
   --primary11: hsl(258, 100%, 43.2%);
   --primary12: hsl(258, 100%, 15%);
 
-  position: fixed;
-  inset: 0;
-  background-color: var(--grayA9);
-  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 999;
   #scrollbar.light();
 }
 
 .dark {
-  [cmdk-dialog] {
+  #cmdk-search {
     --app-bg: var(--gray1);
 
     --lowContrast: #000000;
@@ -110,7 +105,15 @@
   }
 }
 
-[cmdk-root] {
+[cmdk-overlay] {
+  position: fixed;
+  inset: 0;
+  background-color: var(--grayA9);
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 999;
+}
+
+[cmdk-dialog] {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -120,12 +123,17 @@
   max-height: 85vh;
   background: var(--gray2);
   border-radius: 12px;
-  padding: 12px 0;
+  // padding: 12px 0;
+  padding-top: 12px;
   font-family: var(--font-sans);
   box-shadow: var(--cmdk-shadow);
   border: 1px solid var(--gray6);
-  position: relative;
   outline: none;
+  z-index: 1000;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[cmdk-root] {
   kbd {
     font-family: var(--font-sans);
     background: var(--gray6);
@@ -200,7 +208,7 @@
   overscroll-behavior: contain;
   transition: 100ms ease;
   transition-property: height;
-  padding-bottom: 50px;
+  padding-bottom: 20px;
 }
 
 [cmdk-group-heading] {
@@ -217,7 +225,6 @@
   content-visibility: auto;
 
   cursor: pointer;
-  height: 60px;
   font-size: 14px;
   gap: 12px;
   padding: 4px 16px;
@@ -308,8 +315,6 @@
   height: 50px;
   align-items: center;
   width: 100%;
-  position: absolute;
-  bottom: 0;
   padding: 8px;
   border-top: 1px solid var(--gray6);
   border-radius: 0 0 12px 12px;

@@ -12,13 +12,19 @@
   }
   .header {
     position: relative;
-    padding-inline: 32px;
+    padding-inline: 12px;
     height: var(--header-height);
     box-shadow: @light-box-shadow;
     background-color: var(--light-background);
     z-index: 10;
     .third-brand {
+      display: none;
       line-height: 1;
+    }
+    &-left {
+      .open-cmdk-button {
+        display: none;
+      }
     }
   }
 }
@@ -38,6 +44,30 @@
   .layouts {
     .header {
       padding-inline: 16px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .layouts {
+    .header {
+      padding-inline: 16px;
+      .third-brand {
+        display: block;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .layouts {
+    .header {
+      .header-left .open-cmdk-button {
+        display: flex;
+      }
+      .header-right .open-cmdk-button {
+        display: none;
+      }
     }
   }
 }

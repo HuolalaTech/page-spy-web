@@ -9,7 +9,7 @@ import { Logo } from './Logo';
 import { useWhere } from '@/utils/useWhere';
 import { useTitle } from 'ahooks';
 import { useDarkTheme } from '@/utils/useDarkTheme';
-
+import { OpenDocSearch } from '@/components/DocSearch/OpenDocSearch';
 const { Header, Content } = Layout;
 
 export const Layouts = () => {
@@ -29,9 +29,10 @@ export const Layouts = () => {
     <Layout className="layouts">
       <Header>
         <Row justify="space-between" align="middle" className="header">
-          <Col>
+          <Col className="header-left">
             <Flex gap={20} align="center">
               <Logo />
+              <OpenDocSearch />
               {isDoc && (
                 <a
                   href="https://trendshift.io/repositories/5407"
@@ -47,7 +48,7 @@ export const Layouts = () => {
               )}
             </Flex>
           </Col>
-          <Col>
+          <Col className="header-right">
             <NavMenuOnPc />
             <NavMenuOnMobile />
           </Col>
