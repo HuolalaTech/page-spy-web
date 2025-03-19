@@ -75,7 +75,7 @@
       "route": "/docs/browser#install",
       "parent": "Browser",
       "title": "Install",
-      "content": "Go to the Browser Extension repository and follow the README instructions to install it."
+      "content": " Go to the Chrome Web Store to install with a single click, or; Go to the Browser Extension repository to install by following the README instructions. "
     },
     {
       "language": "en",
@@ -1134,7 +1134,7 @@
       "route": "/docs/browser#install-extension",
       "parent": "浏览器",
       "title": "安装",
-      "content": "前往 浏览器插件 仓库，按照 README 文档安装即可。"
+      "content": " 前往 Chrome 应用商店 一键安装， 或者； 前往 浏览器插件 仓库，按照 README 文档手动安装。 "
     },
     {
       "language": "zh",
@@ -2193,7 +2193,7 @@
       "route": "/docs/browser#install-extension",
       "parent": "ブラウザ",
       "title": "インストール",
-      "content": "ブラウザ拡張機能 リポジトリにアクセスし、README ドキュメントに従ってインストールしてください。"
+      "content": " Chrome ウェブストア にアクセスして、一度のクリックでインストールするか、 ブラウザ拡張機能 リポジトリにアクセスし、README ドキュメントに従ってインストールしてください。 "
     },
     {
       "language": "ja",
@@ -3252,7 +3252,7 @@
       "route": "/docs/browser#install-extension",
       "parent": "브라우저",
       "title": "설치",
-      "content": "브라우저 플러그인 저장소에 액세스하고 README 문서를 따라 설치하세요."
+      "content": " Chrome 웹 스토어로 이동하여 한 번의 클릭으로 설치하거나; 브라우저 플러그인 저장소로 이동하여 README 문서를 따라 설치하세요. "
     },
     {
       "language": "ko",
