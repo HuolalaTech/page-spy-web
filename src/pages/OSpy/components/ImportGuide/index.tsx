@@ -8,6 +8,11 @@ import JsDelivrSvg from '@/assets/image/jsdelivr.svg?react';
 import UnpkgSvg from '@/assets/image/unpkg.svg?react';
 import ChinaSvg from '@/assets/image/china.svg?react';
 import './index.less';
+import {
+  OSPY_DOMESTIC,
+  OSPY_JSDELIVR,
+  OSPY_UNPKG,
+} from '@/components/CodeBlock/internal';
 
 interface Props {
   showConfig?: boolean;
@@ -33,7 +38,10 @@ export const ImportGuide = ({ showConfig = true }: Props) => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const cdnCode = (url: string) => {
-    return `<script src="${url}" crossorigin="anonymous"></script>
+    return `<script
+  src="${url}"
+  crossorigin="anonymous"
+></script>
     
 <script>
 ${INIT_CODE.split('\n')
@@ -57,9 +65,15 @@ ${INIT_CODE.split('\n')
                   </Flex>
                 ),
                 lang: 'html',
-                code: cdnCode(
-                  'https://static.huolala.cn/libs/o-spy/2.1.9/index.min.js',
-                ),
+                ...(showConfig
+                  ? {
+                      code: cdnCode(
+                        'https://static.huolala.cn/libs/o-spy/2.1.9/index.min.js',
+                      ),
+                    }
+                  : {
+                      internal: OSPY_DOMESTIC,
+                    }),
               },
               {
                 title: (
@@ -69,9 +83,15 @@ ${INIT_CODE.split('\n')
                   </Flex>
                 ),
                 lang: 'html',
-                code: cdnCode(
-                  'https://cdn.jsdelivr.net/npm/@huolala-tech/page-spy-plugin-ospy',
-                ),
+                ...(showConfig
+                  ? {
+                      code: cdnCode(
+                        'https://cdn.jsdelivr.net/npm/@huolala-tech/page-spy-plugin-ospy',
+                      ),
+                    }
+                  : {
+                      internal: OSPY_JSDELIVR,
+                    }),
               },
               {
                 title: (
@@ -81,9 +101,15 @@ ${INIT_CODE.split('\n')
                   </Flex>
                 ),
                 lang: 'html',
-                code: cdnCode(
-                  'https://unpkg.com/@huolala-tech/page-spy-plugin-ospy',
-                ),
+                ...(showConfig
+                  ? {
+                      code: cdnCode(
+                        'https://unpkg.com/@huolala-tech/page-spy-plugin-ospy',
+                      ),
+                    }
+                  : {
+                      internal: OSPY_UNPKG,
+                    }),
               },
             ]}
           />

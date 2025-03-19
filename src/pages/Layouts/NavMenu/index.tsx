@@ -14,11 +14,11 @@ import i18n, { isCN } from '@/assets/locales';
 import { useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import './index.less';
-import { useDarkTheme } from '@/utils/useDarkTheme';
 import { CSSTransition } from 'react-transition-group';
 import { createPortal } from 'react-dom';
 import { useWhere } from '@/utils/useWhere';
 import { CN_MIRROR_SITE } from '@/components/CNUserModal';
+import { OpenDocSearch } from '@/components/DocSearch/OpenDocSearch';
 
 const ALL_LANGS: MenuProps['items'] = [
   {
@@ -49,7 +49,6 @@ const navDropdownConfig = {
 };
 
 export const NavMenuOnPc = () => {
-  const isDark = useDarkTheme();
   const [lang, setLang] = useLanguage();
   const { isOSpy } = useWhere();
   const { t } = useTranslation();
@@ -58,11 +57,7 @@ export const NavMenuOnPc = () => {
   }, [lang]);
 
   return (
-    <div
-      className={clsx('nav-menu pc', {
-        'is-dark': isDark,
-      })}
-    >
+    <div className="nav-menu pc">
       {/* Docs */}
       <Link to="docs" className="menu-item doc">
         <Flex align="center" gap={8}>
@@ -173,16 +168,12 @@ export const NavMenuOnMobile = () => {
   const { isOSpy } = useWhere();
   const [lang, setLang] = useLanguage();
   const { t } = useTranslation();
-  const isDark = useDarkTheme();
   const [expand, setExpand] = useState(false);
   const fixedMenuRef = useRef<HTMLDivElement | null>(null);
   return (
     <>
-      <div
-        className={clsx('nav-menu mobile', {
-          'is-dark': isDark,
-        })}
-      >
+      <div className="nav-menu mobile">
+        <OpenDocSearch />
         <button
           className={clsx('menu-hamburger', {
             'is-expanded': expand,
@@ -207,12 +198,7 @@ export const NavMenuOnMobile = () => {
           mountOnEnter
           unmountOnExit
         >
-          <div
-            ref={fixedMenuRef}
-            className={clsx('fixed-menu', {
-              'is-dark': isDark,
-            })}
-          >
+          <div ref={fixedMenuRef} className="fixed-menu">
             {/* Docs */}
             <Link
               to="docs"
