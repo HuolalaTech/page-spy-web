@@ -133,6 +133,7 @@ const mainDocMenus = new Map([
     },
   ],
 ]);
+
 // /o-spy/docs/<filename>#<title>
 const oSpyDocDir = path.join(root, 'src/pages/OSpyDocs/md');
 const oSpyDocFiles = fs.readdirSync(oSpyDocDir, 'utf-8');
@@ -177,8 +178,21 @@ async function computeDocRecords({ files, baseDir, menus, baseRoute }) {
     files.map(async (file) => {
       // if (!file.includes('pagespy.zh')) return
       const [, filename, language] = file.match(/^(.+)\.(.+)\.mdx$/);
+      if (!language) {
+        throw new Error(file);
+      }
       const content = fs.readFileSync(path.join(baseDir, file), 'utf-8');
+      const label = menus.get(filename);
+      if (!label) {
+        throw new Error(`${filename} not found in menus`);
+      }
+      const parent = label
+        ? typeof label === 'string'
+          ? label
+          : label[language]
+        : null;
 
+      let part;
       const processor = unified()
         .use(remarkParse)
         .use(remarkGfm)
@@ -187,7 +201,6 @@ async function computeDocRecords({ files, baseDir, menus, baseRoute }) {
         .use(remarkRehype)
         .use(() => (tree) => {
           visit(tree, 'root', (root) => {
-            let part = null;
             root.children.forEach((node) => {
               if (node.type === 'element') {
                 if (/h\d/.test(node.tagName)) {
@@ -203,16 +216,6 @@ async function computeDocRecords({ files, baseDir, menus, baseRoute }) {
                   } else {
                     slug = customSlug.value.split('#')[1];
                   }
-                  const label = menus.get(filename);
-                  if (!label) {
-                    throw new Error(`${filename} not found in menus`);
-                  }
-                  const parent = label
-                    ? typeof label === 'string'
-                      ? label
-                      : label[language]
-                    : null;
-
                   part = {
                     language,
                     route: `${baseRoute}/${filename}#${formatSlug(slug)}`,
@@ -220,8 +223,20 @@ async function computeDocRecords({ files, baseDir, menus, baseRoute }) {
                     title: toString(node).replace(/#.+/, ''),
                     content: '',
                   };
+
                   result[language].push(part);
-                } else if (part) {
+                } else {
+                  if (!part) {
+                    // 左侧菜单的一级标题都是运行时自动插入的，所以这里手动插入一个标题
+                    part = {
+                      language,
+                      route: `${baseRoute}/${filename}#${filename}`,
+                      parent,
+                      title: parent,
+                      content: '',
+                    };
+                    result[language].push(part);
+                  }
                   part.content += toString(node).replace(/\n+/g, ' ');
                 }
               }
