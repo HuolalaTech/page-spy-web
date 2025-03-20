@@ -176,7 +176,7 @@ AllMPTypes.forEach((mpType) => {
   MP_REGEXPS[mpType] = new RegExp(`${mpType}/([\\d.]+)`);
 });
 
-const BROWSER_REGEXPS = {
+export const BROWSER_REGEXPS = {
   wechat: /MicroMessenger\/([\d.]+)/,
   qq: /(?:QQBrowser|MQQBrowser|QQ)\/([\d.]+)/,
   uc: /(?:UCBrowser|UCBS)\/([\d.]+)/,
@@ -192,7 +192,7 @@ const BROWSER_REGEXPS = {
   ...MP_REGEXPS,
 } as Record<SpyClient.Browser, RegExp>;
 
-const OS_REGEXPS = {
+export const OS_REGEXPS = {
   windows: /(Windows NT |windows\/)([\d_.]+)/,
   ios: /(iPhone OS |ios\/)([\d_.]+)/,
   ipad: /iPad.*OS ([\d_.]+)/,
