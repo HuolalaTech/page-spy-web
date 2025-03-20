@@ -2,8 +2,11 @@ import Icon, { SearchOutlined } from '@ant-design/icons';
 import { Flex } from 'antd';
 import { useTranslation } from 'react-i18next';
 import './index.less';
+import { OS_REGEXPS } from '@/utils/brand';
 
 export const OPEN_SEARCH_EVENT = 'open-doc-search';
+
+const isMac = OS_REGEXPS.mac.test(navigator.userAgent);
 
 export const OpenDocSearch = () => {
   const { t } = useTranslation();
@@ -26,7 +29,7 @@ export const OpenDocSearch = () => {
           <span>{t('common.search')}</span>
         </Flex>
         <Flex align="center" gap={4}>
-          <span>⌘</span>
+          <span>{isMac ? '⌘' : 'Ctrl'}</span>
           <span>K</span>
         </Flex>
       </Flex>
