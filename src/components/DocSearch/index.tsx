@@ -84,7 +84,7 @@ export const DocSearch = () => {
     throttle(
       (value) => {
         if (!fuse.current) return;
-        const data = fuse.current.search(value, { limit: 50 });
+        const data = fuse.current.search(value, { limit: 10 });
         const result = groupBy(data, 'item.parent');
         setResult(result);
       },
@@ -96,9 +96,9 @@ export const DocSearch = () => {
   return (
     <Command.Dialog
       container={ref.current}
+      loop
       open={open}
       onOpenChange={(e) => {
-        console.log(e);
         setOpen(e);
       }}
       shouldFilter={false}
