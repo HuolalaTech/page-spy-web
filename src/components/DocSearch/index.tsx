@@ -1,23 +1,17 @@
 /* eslint-disable react/no-unknown-property */
 import { useEventListener } from '@/utils/useEventListener';
 import { Command } from 'cmdk';
-import { ReactNode, useMemo, useRef, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import './index.less';
 import { useTranslation } from 'react-i18next';
 import { Flex } from 'antd';
-import { throttle, groupBy } from 'lodash-es';
-import docRecords from '@/assets/docs.json';
+import { throttle } from 'lodash-es';
 import { useLanguage } from '@/utils/useLanguage';
-import Fuse, { FuseResult, FuseResultMatch } from 'fuse.js';
+import { FuseResult, FuseResultMatch } from 'fuse.js';
 import { OPEN_SEARCH_EVENT } from './OpenDocSearch';
 import { useNavigate } from 'react-router-dom';
-interface RecordItem {
-  language: string;
-  route: string;
-  title: string;
-  content: string;
-  parent: string | null;
-}
+import FuseWorker from './fuse-worker?worker';
+import { RecordItem, WorkerResponse } from './fuse-worker';
 
 const getContainer = () => {
   let div = document.body.querySelector('#cmdk-search');
@@ -61,32 +55,36 @@ export const DocSearch = () => {
   });
 
   const [lang] = useLanguage();
-  const fuse = useRef<Fuse<RecordItem> | null>(null);
-  useMemo(() => {
-    const list = docRecords[lang] ?? docRecords.zh;
-    if (!fuse.current) {
-      fuse.current = new Fuse(list, {
-        includeMatches: true,
-        minMatchCharLength: 2,
-        threshold: 0.3,
-        ignoreLocation: true,
-        keys: ['content', 'title', 'parent'],
-      });
-      return;
-    }
-    fuse.current.setCollection(list);
-  }, [lang]);
   const [value, setValue] = useState('');
   const [result, setResult] = useState<
     Record<string, FuseResult<RecordItem>[]>
   >({});
+  const fuse = useRef<Worker>();
+  useEffect(() => {
+    console.log('????');
+    const fn = ({ data }: MessageEvent<WorkerResponse>) => {
+      const { type } = data;
+      switch (type) {
+        case 'result':
+          setResult(data.result ?? {});
+          break;
+        default:
+          break;
+      }
+    };
+    fuse.current = new FuseWorker();
+    fuse.current?.postMessage({ type: 'init', lang });
+    fuse.current.addEventListener('message', fn);
+    return () => {
+      fuse.current?.removeEventListener('message', fn);
+      fuse.current?.terminate();
+    };
+  }, [lang]);
   const search = useRef(
     throttle(
       (value) => {
         if (!fuse.current) return;
-        const data = fuse.current.search(value, { limit: 10 });
-        const result = groupBy(data, 'item.parent');
-        setResult(result);
+        fuse.current.postMessage({ type: 'search', keyword: value });
       },
       1000,
       { leading: true, trailing: true },

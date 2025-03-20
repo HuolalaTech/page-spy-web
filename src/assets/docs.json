@@ -2,6 +2,13 @@
   "en": [
     {
       "language": "en",
+      "route": "/docs/api#api",
+      "parent": "API",
+      "title": "API",
+      "content": "import PlatformTag from '@/components/Docs/components/PlatformTag'; Some features are only available on specific platforms. We will differentiate them using the following tags: Platform Tags Browser Mini Program React Native OpenHarmony "
+    },
+    {
+      "language": "en",
       "route": "/docs/api#pagespy",
       "parent": "API",
       "title": "PageSpy",
@@ -27,6 +34,13 @@
       "parent": "API",
       "title": "RRWebPlugin",
       "content": " The instance variable is named $rrweb = new RRWebPlugin(...)；  constructor() "
+    },
+    {
+      "language": "en",
+      "route": "/docs/browser#browser",
+      "parent": "Browser",
+      "title": "Browser",
+      "content": "import { Tooltip } from 'antd'; import extensionDesc from '@/assets/image/screenshot/extension-en.png'; import debugGoogle from '@/assets/image/screenshot/debug-google.png';"
     },
     {
       "language": "en",
@@ -83,6 +97,13 @@
       "parent": "Browser",
       "title": "Parameters",
       "content": ""
+    },
+    {
+      "language": "en",
+      "route": "/docs/changelog#changelog",
+      "parent": "Changelog",
+      "title": "Changelog",
+      "content": "import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';"
     },
     {
       "language": "en",
@@ -317,10 +338,24 @@
     },
     {
       "language": "en",
+      "route": "/docs/deploy-guide#deploy-guide",
+      "parent": "Guide",
+      "title": "Guide",
+      "content": "import ApiImg from '@/assets/image/screenshot/page-spy-api.png';One of the core capabilities of PageSpy is its service that connects the client and the debugging endpoint, and forwards messages between them.To ensure data security and ease of use, PageSpy offers a variety of complete, out-of-the-box deployment options. You can choose any deployment method that suits yourself."
+    },
+    {
+      "language": "en",
       "route": "/docs/deploy-guide#deployments",
       "parent": "Guide",
       "title": "Deployments",
       "content": " Deploy with Node Deploy with Docker Install on Baota "
+    },
+    {
+      "language": "en",
+      "route": "/docs/deploy-with-baota#deploy-with-baota",
+      "parent": "Deploy with Baota",
+      "title": "Deploy with Baota",
+      "content": "import BaotaPageSpy from '@/assets/image/screenshot/baota-pagespy.png'; import BaotaInstall from '@/assets/image/screenshot/baota-install.png'; import { DeployNext } from '@/components/Docs/components/DeployNext';PageSpy supports one-click deployment in the Baota Panel's Docker appstore."
     },
     {
       "language": "en",
@@ -345,6 +380,13 @@
     },
     {
       "language": "en",
+      "route": "/docs/deploy-with-docker#deploy-with-docker",
+      "parent": "Deploy with Docker",
+      "title": "Deploy with Docker",
+      "content": "import { EmbedVideo } from '@/components/Docs/components/EmbedVideo'; import { DeployNext } from '@/components/Docs/components/DeployNext';"
+    },
+    {
+      "language": "en",
       "route": "/docs/deploy-with-docker#install",
       "parent": "Deploy with Docker",
       "title": "Install",
@@ -366,6 +408,13 @@
     },
     {
       "language": "en",
+      "route": "/docs/deploy-with-node#deploy-with-node",
+      "parent": "Deploy with Node",
+      "title": "Deploy with Node",
+      "content": "import { EmbedVideo } from '@/components/Docs/components/EmbedVideo'; import { DeployNext } from '@/components/Docs/components/DeployNext';"
+    },
+    {
+      "language": "en",
       "route": "/docs/deploy-with-node#install",
       "parent": "Deploy with Node",
       "title": "Install",
@@ -384,6 +433,13 @@
       "parent": "Deploy with Node",
       "title": "Next",
       "content": ""
+    },
+    {
+      "language": "en",
+      "route": "/docs/faq#faq",
+      "parent": "FAQ",
+      "title": "FAQ",
+      "content": "import moduleImg from '@/assets/image/screenshot/module.png'; import dynamicInjectImg from '@/assets/image/screenshot/dynamic-inject.png'; import pnpmInstallImg from '@/assets/image/screenshot/pnpm-install.png';"
     },
     {
       "language": "en",
@@ -569,6 +625,13 @@
     },
     {
       "language": "en",
+      "route": "/docs/harmony#harmony",
+      "parent": "Harmony App",
+      "title": "Harmony App",
+      "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "en",
       "route": "/docs/harmony#step-1",
       "parent": "Harmony App",
       "title": "Step 1",
@@ -580,6 +643,13 @@
       "parent": "Harmony App",
       "title": "Step 2",
       "content": "Import and initialize the SDK at an appropriate place. Here, EntryAbility is used as an example. The initialization parameters provide optional configuration options to customize the SDK's behavior:import { PageSpy } from '@huolala/page-spy-harmony'; import axiosInstance from 'path/to/your/axios-instance'; export default class EntryAbility extends UIAbility {   onWindowStageCreate(windowStage: window.WindowStage) {     new PageSpy({       context: this.context,       api: \"{deployPath}\",       enableSSL: true,       axios: axiosInstance     })   } } That's the complete process to integrate PageSpy into a Harmony App project.Once integrated, click on the top menu Debugging to use it!"
+    },
+    {
+      "language": "en",
+      "route": "/docs/introduction#introduction",
+      "parent": "Introduction",
+      "title": "Introduction",
+      "content": "import React from 'react'; import { Flex } from 'antd'; import bannerImg from '@/assets/image/doc-banner.png';import logo from '@/assets/image/logo.svg'; import consoleImg from '@/assets/image/screenshot/console-panel.png'; import networkImg from '@/assets/image/screenshot/network-panel.png'; import pageImg from '@/assets/image/screenshot/page-panel.png'; import storageImg from '@/assets/image/screenshot/storage-panel.png'; import systemImg from '@/assets/image/screenshot/system-panel.png'; import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-en.png'; import offlineImg from '@/assets/image/screenshot/offline-panel.png';export const githubUrl = import.meta.env.VITE_GITHUB_REPO;"
     },
     {
       "language": "en",
@@ -625,6 +695,13 @@
     },
     {
       "language": "en",
+      "route": "/docs/miniprogram#miniprogram",
+      "parent": "Miniprogram",
+      "title": "Miniprogram",
+      "content": "import { Tooltip } from 'antd' import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'"
+    },
+    {
+      "language": "en",
       "route": "/docs/miniprogram#step-1",
       "parent": "Miniprogram",
       "title": "Step 1",
@@ -650,6 +727,13 @@
       "parent": "Miniprogram",
       "title": "Debugging panel",
       "content": "Call the showPanel() method on the created PageSpy instance to pop up a debugging menu for assistance with debugging:<img src={mpPanelImg} style={{ maxWidth: 320 }} />That's the complete process to integrate PageSpy into a mini-program project."
+    },
+    {
+      "language": "en",
+      "route": "/docs/offline-log#offline-log",
+      "parent": "Offline Log",
+      "title": "Offline Log",
+      "content": "import modalImg from '@/assets/image/screenshot/modal.png'; import replayImg from '@/assets/image/screenshot/replay-page.png'; import replayGif from '@/assets/image/screenshot/replay-page.gif'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';Log Replay, as the name suggests, is about replaying previously generated logs. But why replay history logs? Where do these logs come from? How do we replay them? Let's explore each of these questions."
     },
     {
       "language": "en",
@@ -755,6 +839,13 @@
       "parent": "Offline Log",
       "title": "FAQ",
       "content": " How to upload / download logs manually? Click to see. Where is offline log data stored? After DataHarborPlugin receives the data, it first places it in an array in memory. When the data volume in the array reaches a threshold, it writes the data to a temporary file. By default, this threshold is 10MB. You can also configure it yourself:new DataHarborPlugin({   maximum: 1 * 1024 * 1024, // Write to a temporary file when the data in memory reaches 1MB }) "
+    },
+    {
+      "language": "en",
+      "route": "/docs/pagespy#pagespy",
+      "parent": "Pagespy",
+      "title": "Pagespy",
+      "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png'; import PlatformTag from '@/components/Docs/components/PlatformTag'"
     },
     {
       "language": "en",
@@ -947,6 +1038,13 @@
     },
     {
       "language": "en",
+      "route": "/docs/plugins#plugins",
+      "parent": "Plugins",
+      "title": "Plugins",
+      "content": "import pluginsImg from '@/assets/image/screenshot/plugins.png';"
+    },
+    {
+      "language": "en",
       "route": "/docs/plugins#definition",
       "parent": "Plugins",
       "title": "Type Definitions ",
@@ -972,6 +1070,13 @@
       "parent": "Plugins",
       "title": "Usage of Plugins ",
       "content": "<!-- Include SDK --> <script src=\"https://<your-pagespy-host>/page-spy/index.min.js\"></script> <!-- Include Plugin --> <script src=\"https://<your-pagespy-host>/plugin/xxx/index.min.js\"></script> <!-- Register Plugin --> <script>   PageSpy.registerPlugin(new XXXPlugin());   window.$pageSpy = new PageSpy(); </script> "
+    },
+    {
+      "language": "en",
+      "route": "/docs/react-native#react-native",
+      "parent": "React Native",
+      "title": "React Native",
+      "content": "import { Tooltip } from 'antd'"
     },
     {
       "language": "en",
@@ -1017,6 +1122,13 @@
     },
     {
       "language": "en",
+      "route": "/o-spy/docs/introduction#introduction",
+      "parent": "Introduction",
+      "title": "Introduction",
+      "content": "import Icon from '@ant-design/icons'; import Logo from '@/assets/image/o-spy.svg?react'; import workflow from '@/assets/image/screenshot/ospy-workflow.en.png'; import { Link } from 'react-router-dom';"
+    },
+    {
+      "language": "en",
       "route": "/o-spy/docs/introduction#what-is-ospy",
       "parent": "Introduction",
       "title": "What is O-Spy? ",
@@ -1052,6 +1164,13 @@
     },
     {
       "language": "en",
+      "route": "/o-spy/docs/theme#theme",
+      "parent": "Customize Theme",
+      "title": "Customize Theme",
+      "content": "O-Spy supports customize theme color and brand logo.import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';"
+    },
+    {
+      "language": "en",
       "route": "/o-spy/docs/theme#customize-example",
       "parent": "Customize Theme",
       "title": "Example",
@@ -1059,6 +1178,13 @@
     }
   ],
   "zh": [
+    {
+      "language": "zh",
+      "route": "/docs/api#api",
+      "parent": "API",
+      "title": "API",
+      "content": "import PlatformTag from '@/components/Docs/components/PlatformTag'; 某些特性仅支持在特定平台中可用，对此我们将通过下方标识以区分： 平台 标签 浏览器 小程序 React Native 鸿蒙 "
+    },
     {
       "language": "zh",
       "route": "/docs/api#pagespy",
@@ -1086,6 +1212,13 @@
       "parent": "API",
       "title": "RRWebPlugin",
       "content": " 约定实例变量名称为 $rrweb = new RRWebPlugin(...)；  constructor() "
+    },
+    {
+      "language": "zh",
+      "route": "/docs/browser#browser",
+      "parent": "浏览器",
+      "title": "浏览器",
+      "content": "import { Tooltip } from 'antd' import extensionDesc from '@/assets/image/screenshot/extension-zh.png'; import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';"
     },
     {
       "language": "zh",
@@ -1142,6 +1275,13 @@
       "parent": "浏览器",
       "title": "面板参数",
       "content": ""
+    },
+    {
+      "language": "zh",
+      "route": "/docs/changelog#changelog",
+      "parent": "版本日志",
+      "title": "版本日志",
+      "content": "import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';"
     },
     {
       "language": "zh",
@@ -1376,10 +1516,24 @@
     },
     {
       "language": "zh",
+      "route": "/docs/deploy-guide#deploy-guide",
+      "parent": "部署说明",
+      "title": "部署说明",
+      "content": "import ApiImg from '@/assets/image/screenshot/page-spy-api.png';用于连接客户端和调试端、并转发两端之间消息的服务是 PageSpy 的核心能力之一。为了数据安全和方便使用，PageSpy 提供完整的、开箱即用的多种部署方案，各位开发者可以根据自己的情况选择任意一种部署方式。"
+    },
+    {
+      "language": "zh",
       "route": "/docs/deploy-guide#deployments",
       "parent": "部署说明",
       "title": "多种部署方案",
       "content": " 使用 Node 部署 使用 Docker 部署 在宝塔面板安装 "
+    },
+    {
+      "language": "zh",
+      "route": "/docs/deploy-with-baota#deploy-with-baota",
+      "parent": "使用 宝塔 部署",
+      "title": "使用 宝塔 部署",
+      "content": "import BaotaPageSpy from '@/assets/image/screenshot/baota-pagespy.png'; import BaotaInstall from '@/assets/image/screenshot/baota-install.png'; import { DeployNext } from '@/components/Docs/components/DeployNext';PageSpy 支持在宝塔面板的 Docker 应用商店一键部署。"
     },
     {
       "language": "zh",
@@ -1404,6 +1558,13 @@
     },
     {
       "language": "zh",
+      "route": "/docs/deploy-with-docker#deploy-with-docker",
+      "parent": "使用 Docker 部署",
+      "title": "使用 Docker 部署",
+      "content": "import { EmbedVideo } from '@/components/Docs/components/EmbedVideo'; import { DeployNext } from '@/components/Docs/components/DeployNext';"
+    },
+    {
+      "language": "zh",
       "route": "/docs/deploy-with-docker#install",
       "parent": "使用 Docker 部署",
       "title": "安装",
@@ -1425,6 +1586,13 @@
     },
     {
       "language": "zh",
+      "route": "/docs/deploy-with-node#deploy-with-node",
+      "parent": "使用 Node 部署",
+      "title": "使用 Node 部署",
+      "content": "import { EmbedVideo } from '@/components/Docs/components/EmbedVideo'; import { DeployNext } from '@/components/Docs/components/DeployNext';"
+    },
+    {
+      "language": "zh",
       "route": "/docs/deploy-with-node#install",
       "parent": "使用 Node 部署",
       "title": "安装",
@@ -1443,6 +1611,13 @@
       "parent": "使用 Node 部署",
       "title": "接下来",
       "content": ""
+    },
+    {
+      "language": "zh",
+      "route": "/docs/faq#faq",
+      "parent": "常见问题解答",
+      "title": "常见问题解答",
+      "content": "import moduleImg from '@/assets/image/screenshot/module.png'; import dynamicInjectImg from '@/assets/image/screenshot/dynamic-inject.png'; import pnpmInstallImg from '@/assets/image/screenshot/pnpm-install.png';"
     },
     {
       "language": "zh",
@@ -1628,6 +1803,13 @@
     },
     {
       "language": "zh",
+      "route": "/docs/harmony#harmony",
+      "parent": "鸿蒙 App",
+      "title": "鸿蒙 App",
+      "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "zh",
       "route": "/docs/harmony#step-1",
       "parent": "鸿蒙 App",
       "title": "第一步",
@@ -1639,6 +1821,13 @@
       "parent": "鸿蒙 App",
       "title": "第二步",
       "content": "在合适的位置引入 SDK 并初始化，这里以 EntryAbility 为例。初始化参数提供了可选的 配置项 用于自定义 SDK 的行为：import { PageSpy } from '@huolala/page-spy-harmony'; import axiosInstance from 'path/to/your/axios-instance'; export default class EntryAbility extends UIAbility {   onWindowStageCreate(windowStage: window.WindowStage) {     new PageSpy({       context: this.context,       api: \"{deployPath}\",       enableSSL: true,       axios: axiosInstance     })   } } 以上就是在鸿蒙 App 项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 开始调试 使用！"
+    },
+    {
+      "language": "zh",
+      "route": "/docs/introduction#introduction",
+      "parent": "简介",
+      "title": "简介",
+      "content": "import React from 'react'; import { Flex } from 'antd'; import bannerImg from '@/assets/image/doc-banner.png';import logo from '@/assets/image/logo.svg'; import consoleImg from '@/assets/image/screenshot/console-panel.png'; import networkImg from '@/assets/image/screenshot/network-panel.png'; import pageImg from '@/assets/image/screenshot/page-panel.png'; import storageImg from '@/assets/image/screenshot/storage-panel.png'; import systemImg from '@/assets/image/screenshot/system-panel.png'; import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-zh.png'; import offlineImg from '@/assets/image/screenshot/offline-panel.png';export const githubUrl = import.meta.env.VITE_GITHUB_REPO;"
     },
     {
       "language": "zh",
@@ -1684,6 +1873,13 @@
     },
     {
       "language": "zh",
+      "route": "/docs/miniprogram#miniprogram",
+      "parent": "小程序",
+      "title": "小程序",
+      "content": "import { Tooltip } from 'antd' import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'"
+    },
+    {
+      "language": "zh",
       "route": "/docs/miniprogram#step-1",
       "parent": "小程序",
       "title": "第一步",
@@ -1709,6 +1905,13 @@
       "parent": "小程序",
       "title": "调试菜单",
       "content": "在创建的 PageSpy 实例上调用 showPanel() 方法可以弹出一个调试菜单用于辅助调试：<img src={mpPanelImg} style={{ maxWidth: 320 }} />以上就是在小程序项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 开始调试 使用！"
+    },
+    {
+      "language": "zh",
+      "route": "/docs/offline-log#offline-log",
+      "parent": "离线日志回放",
+      "title": "离线日志回放",
+      "content": "import modalImg from '@/assets/image/screenshot/modal.png'; import replayImg from '@/assets/image/screenshot/replay-page.png'; import replayGif from '@/assets/image/screenshot/replay-page.gif'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';日志回放，顾名思义是重新播放之前产生的日志。那么为什么要播放之前的日志？之前的日志从哪来？如何重新播放？我们一一来看。"
     },
     {
       "language": "zh",
@@ -1814,6 +2017,13 @@
       "parent": "离线日志回放",
       "title": "FAQ",
       "content": " 如何手动操作上传 / 下载日志？ 点击查看。 离线日志存储在哪里？ DataHarborPlugin 收到数据后，会先放入内存的数组中，当数组里存储的数据体积达到临界值时会将数据写入临时文件，这个临界值默认情况下是 10M。你也可以自行配置:new DataHarborPlugin({   maximum: 1 * 1024 * 1024, // 内存中的数据记录达到 1M 时写入临时文件 }) "
+    },
+    {
+      "language": "zh",
+      "route": "/docs/pagespy#pagespy",
+      "parent": "Pagespy",
+      "title": "Pagespy",
+      "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png'; import PlatformTag from '@/components/Docs/components/PlatformTag'"
     },
     {
       "language": "zh",
@@ -2006,6 +2216,13 @@
     },
     {
       "language": "zh",
+      "route": "/docs/plugins#plugins",
+      "parent": "插件系统",
+      "title": "插件系统",
+      "content": "import pluginsImg from '@/assets/image/screenshot/plugins.png';"
+    },
+    {
+      "language": "zh",
       "route": "/docs/plugins#definition",
       "parent": "插件系统",
       "title": "类型定义",
@@ -2031,6 +2248,13 @@
       "parent": "插件系统",
       "title": "插件的使用方式",
       "content": "<!-- 引入 SDK --> <script src=\"https://<your-pagespy-host>/page-spy/index.min.js\"></script> <!-- 引入插件 --> <script src=\"https://<your-pagespy-host>/plugin/xxx/index.min.js\"></script> <!-- 注册插件 --> <script>   PageSpy.registerPlugin(new XXXPlugin());   window.$pageSpy = new PageSpy(); </script> "
+    },
+    {
+      "language": "zh",
+      "route": "/docs/react-native#react-native",
+      "parent": "React Native",
+      "title": "React Native",
+      "content": "import { Tooltip } from 'antd'"
     },
     {
       "language": "zh",
@@ -2076,6 +2300,13 @@
     },
     {
       "language": "zh",
+      "route": "/o-spy/docs/introduction#introduction",
+      "parent": "简介",
+      "title": "简介",
+      "content": "import Icon from '@ant-design/icons'; import Logo from '@/assets/image/o-spy.svg?react'; import workflow from '@/assets/image/screenshot/ospy-workflow.zh.png'; import { Link } from 'react-router-dom';"
+    },
+    {
+      "language": "zh",
       "route": "/o-spy/docs/introduction#what-is-ospy",
       "parent": "简介",
       "title": "什么是 O-Spy？",
@@ -2111,6 +2342,13 @@
     },
     {
       "language": "zh",
+      "route": "/o-spy/docs/theme#theme",
+      "parent": "自定义主题",
+      "title": "自定义主题",
+      "content": "O-Spy 支持定制主题色和品牌 Logo。import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';"
+    },
+    {
+      "language": "zh",
       "route": "/o-spy/docs/theme#customize-example",
       "parent": "自定义主题",
       "title": "案例演示",
@@ -2118,6 +2356,13 @@
     }
   ],
   "ja": [
+    {
+      "language": "ja",
+      "route": "/docs/api#api",
+      "parent": "API",
+      "title": "API",
+      "content": "import PlatformTag from '@/components/Docs/components/PlatformTag'; 特定のプラットフォームでのみ使用できる機能については、以下のラベルで区別します。 プラットフォーム ラベル ブラウザ アプリ React Native ハーモニー "
+    },
     {
       "language": "ja",
       "route": "/docs/api#pagespy",
@@ -2145,6 +2390,13 @@
       "parent": "API",
       "title": "RRWebPlugin",
       "content": " インスタンス変数名を $rrweb とします。  constructor() "
+    },
+    {
+      "language": "ja",
+      "route": "/docs/browser#browser",
+      "parent": "ブラウザ",
+      "title": "ブラウザ",
+      "content": "import { Tooltip } from 'antd' import extensionDesc from '@/assets/image/screenshot/extension-en.png'; import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';"
     },
     {
       "language": "ja",
@@ -2201,6 +2453,13 @@
       "parent": "ブラウザ",
       "title": "パネルパラメーター",
       "content": ""
+    },
+    {
+      "language": "ja",
+      "route": "/docs/changelog#changelog",
+      "parent": "Changelog",
+      "title": "Changelog",
+      "content": "import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';"
     },
     {
       "language": "ja",
@@ -2435,10 +2694,24 @@
     },
     {
       "language": "ja",
+      "route": "/docs/deploy-guide#deploy-guide",
+      "parent": "使用説明",
+      "title": "使用説明",
+      "content": "import ApiImg from '@/assets/image/screenshot/page-spy-api.png';クライアントとデバッグ端末を接続し、両端間のメッセージを転送するサービスは PageSpy の核となる機能の一つです。データの安全性と使いやすさを確保するため、PageSpy は完全な、すぐに使える複数のデプロイメントソリューションを提供しています。開発者の皆様は、ご自身の状況に応じて任意のデプロイメント方法を選択できます。"
+    },
+    {
+      "language": "ja",
       "route": "/docs/deploy-guide#deployments",
       "parent": "使用説明",
       "title": "複数のデプロイメントソリューション",
       "content": " Node.js でデプロイ Docker でデプロイ 宝塔パネルにインストール "
+    },
+    {
+      "language": "ja",
+      "route": "/docs/deploy-with-baota#deploy-with-baota",
+      "parent": "宝塔を使用してデプロイ",
+      "title": "宝塔を使用してデプロイ",
+      "content": "import BaotaPageSpy from '@/assets/image/screenshot/baota-pagespy.png'; import BaotaInstall from '@/assets/image/screenshot/baota-install.png'; import { DeployNext } from '@/components/Docs/components/DeployNext';PageSpy は宝塔パネルの Docker アプリストアでワンクリックデプロイメントをサポートしています。"
     },
     {
       "language": "ja",
@@ -2463,6 +2736,13 @@
     },
     {
       "language": "ja",
+      "route": "/docs/deploy-with-docker#deploy-with-docker",
+      "parent": "Docker を使用してデプロイ",
+      "title": "Docker を使用してデプロイ",
+      "content": "import { EmbedVideo } from '@/components/Docs/components/EmbedVideo'; import { DeployNext } from '@/components/Docs/components/DeployNext';"
+    },
+    {
+      "language": "ja",
       "route": "/docs/deploy-with-docker#install",
       "parent": "Docker を使用してデプロイ",
       "title": "インストール",
@@ -2484,6 +2764,13 @@
     },
     {
       "language": "ja",
+      "route": "/docs/deploy-with-node#deploy-with-node",
+      "parent": "Node を使用してデプロイ",
+      "title": "Node を使用してデプロイ",
+      "content": "import { EmbedVideo } from '@/components/Docs/components/EmbedVideo'; import { DeployNext } from '@/components/Docs/components/DeployNext';"
+    },
+    {
+      "language": "ja",
       "route": "/docs/deploy-with-node#install",
       "parent": "Node を使用してデプロイ",
       "title": "インストール",
@@ -2502,6 +2789,13 @@
       "parent": "Node を使用してデプロイ",
       "title": "次のステップ",
       "content": ""
+    },
+    {
+      "language": "ja",
+      "route": "/docs/faq#faq",
+      "parent": "よくある質問",
+      "title": "よくある質問",
+      "content": "import moduleImg from '@/assets/image/screenshot/module.png'; import dynamicInjectImg from '@/assets/image/screenshot/dynamic-inject.png'; import pnpmInstallImg from '@/assets/image/screenshot/pnpm-install.png';"
     },
     {
       "language": "ja",
@@ -2687,6 +2981,13 @@
     },
     {
       "language": "ja",
+      "route": "/docs/harmony#harmony",
+      "parent": "ハーモニーアプリ",
+      "title": "ハーモニーアプリ",
+      "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "ja",
       "route": "/docs/harmony#step-1",
       "parent": "ハーモニーアプリ",
       "title": "ステップ 1",
@@ -2698,6 +2999,13 @@
       "parent": "ハーモニーアプリ",
       "title": "ステップ 2",
       "content": "適切な場所でSDKをインポートして初期化します。ここではEntryAbilityを例として示します。初期化パラメータには、SDKの動作をカスタマイズするためのオプションの設定項目が用意されています：import { PageSpy } from '@huolala/page-spy-harmony'; import axiosInstance from 'path/to/your/axios-instance'; export default class EntryAbility extends UIAbility {   onWindowStageCreate(windowStage: window.WindowStage) {     new PageSpy({       context: this.context,       api: \"{deployPath}\",       enableSSL: true,       axios: axiosInstance     })   } } 以上がHarmonyOSアプリプロジェクトにPageSpyを導入する全手順です。導入完了後、トップメニューのデバッグを開始をクリックして使用開始！"
+    },
+    {
+      "language": "ja",
+      "route": "/docs/introduction#introduction",
+      "parent": "紹介",
+      "title": "紹介",
+      "content": "import React from 'react'; import { Flex } from 'antd'; import bannerImg from '@/assets/image/doc-banner.png';import logo from '@/assets/image/logo.svg'; import consoleImg from '@/assets/image/screenshot/console-panel.png'; import networkImg from '@/assets/image/screenshot/network-panel.png'; import pageImg from '@/assets/image/screenshot/page-panel.png'; import storageImg from '@/assets/image/screenshot/storage-panel.png'; import systemImg from '@/assets/image/screenshot/system-panel.png'; import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-zh.png'; import offlineImg from '@/assets/image/screenshot/offline-panel.png';export const githubUrl = import.meta.env.VITE_GITHUB_REPO;"
     },
     {
       "language": "ja",
@@ -2743,6 +3051,13 @@
     },
     {
       "language": "ja",
+      "route": "/docs/miniprogram#miniprogram",
+      "parent": "ミニプログラム",
+      "title": "ミニプログラム",
+      "content": "import { Tooltip } from 'antd' import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'"
+    },
+    {
+      "language": "ja",
       "route": "/docs/miniprogram#step-1",
       "parent": "ミニプログラム",
       "title": "ステップ 1",
@@ -2768,6 +3083,13 @@
       "parent": "ミニプログラム",
       "title": "デバッグメニュー",
       "content": "作成したPageSpyインスタンスでshowPanel()メソッドを呼び出すと、デバッグを補助するためのデバッグメニューがポップアップ表示されます：<img src={mpPanelImg} style={{ maxWidth: 320 }} />以上がミニプログラムプロジェクトにPageSpyを導入する全手順です。導入完了後、トップメニューのデバッグを開始をクリックして使用開始！"
+    },
+    {
+      "language": "ja",
+      "route": "/docs/offline-log#offline-log",
+      "parent": "オフラインログ",
+      "title": "オフラインログ",
+      "content": "import modalImg from '@/assets/image/screenshot/modal.png'; import replayImg from '@/assets/image/screenshot/replay-page.png'; import replayGif from '@/assets/image/screenshot/replay-page.gif'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';ログ再生とは、その名の通り以前に生成されたログを再生することです。なぜログを再生する必要があるのか？以前のログはどこから来るのか？どのように再生するのか？順を追って見ていきましょう。"
     },
     {
       "language": "ja",
@@ -2873,6 +3195,13 @@
       "parent": "オフラインログ",
       "title": "FAQ",
       "content": " ログの手動アップロード/ダウンロードはどのように行いますか？ こちらをご覧ください。 オフラインログはどこに保存されますか？ DataHarborPluginがデータを受信すると、まずメモリの配列に格納されます。配列に格納されているデータの容量が臨界値に達すると、データは一時ファイルに書き込まれます。この臨界値はデフォルトで10MBです。以下のように自分で設定することもできます：new DataHarborPlugin({   maximum: 1 * 1024 * 1024, // メモリ内のデータ記録が1MBに達したら一時ファイルに書き込む }) "
+    },
+    {
+      "language": "ja",
+      "route": "/docs/pagespy#pagespy",
+      "parent": "Pagespy",
+      "title": "Pagespy",
+      "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png'; import PlatformTag from '@/components/Docs/components/PlatformTag'"
     },
     {
       "language": "ja",
@@ -3065,6 +3394,13 @@
     },
     {
       "language": "ja",
+      "route": "/docs/plugins#plugins",
+      "parent": "プラグインシステム",
+      "title": "プラグインシステム",
+      "content": "import pluginsImg from '@/assets/image/screenshot/plugins.png';"
+    },
+    {
+      "language": "ja",
       "route": "/docs/plugins#definition",
       "parent": "プラグインシステム",
       "title": "型定義",
@@ -3090,6 +3426,13 @@
       "parent": "プラグインシステム",
       "title": "プラグインの使用方法",
       "content": "<!-- SDKを読み込む --> <script src=\"https://<your-pagespy-host>/page-spy/index.min.js\"></script> <!-- プラグインを読み込む --> <script src=\"https://<your-pagespy-host>/plugin/xxx/index.min.js\"></script> <!-- プラグインを登録 --> <script>   PageSpy.registerPlugin(new XXXPlugin());   window.$pageSpy = new PageSpy(); </script> "
+    },
+    {
+      "language": "ja",
+      "route": "/docs/react-native#react-native",
+      "parent": "React Native",
+      "title": "React Native",
+      "content": "import { Tooltip } from 'antd'"
     },
     {
       "language": "ja",
@@ -3135,6 +3478,13 @@
     },
     {
       "language": "ja",
+      "route": "/o-spy/docs/introduction#introduction",
+      "parent": "紹介",
+      "title": "紹介",
+      "content": "import Icon from '@ant-design/icons'; import Logo from '@/assets/image/o-spy.svg?react'; import workflow from '@/assets/image/screenshot/ospy-workflow.en.png'; import { Link } from 'react-router-dom';"
+    },
+    {
+      "language": "ja",
       "route": "/o-spy/docs/introduction#what-is-ospy",
       "parent": "紹介",
       "title": "O-Spyとは？",
@@ -3170,6 +3520,13 @@
     },
     {
       "language": "ja",
+      "route": "/o-spy/docs/theme#theme",
+      "parent": "カスタムテーマ",
+      "title": "カスタムテーマ",
+      "content": "O-Spyではテーマカラーとブランドロゴをカスタマイズできます。import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';"
+    },
+    {
+      "language": "ja",
       "route": "/o-spy/docs/theme#customize-example",
       "parent": "カスタムテーマ",
       "title": "カスタマイズ例",
@@ -3177,6 +3534,13 @@
     }
   ],
   "ko": [
+    {
+      "language": "ko",
+      "route": "/docs/api#api",
+      "parent": "API",
+      "title": "API",
+      "content": "import PlatformTag from '@/components/Docs/components/PlatformTag'; 일부 기능은 특정 플랫폼에서만 사용할 수 있으며, 다음과 같은 태그로 구분됩니다: 플랫폼 태그 브라우저 미니프로그램 React Native HarmonyOS "
+    },
     {
       "language": "ko",
       "route": "/docs/api#pagespy",
@@ -3204,6 +3568,13 @@
       "parent": "API",
       "title": "RRWebPlugin",
       "content": " 인스턴스 변수 이름을 $rrweb = new RRWebPlugin(...)로 정의합니다;  constructor() "
+    },
+    {
+      "language": "ko",
+      "route": "/docs/browser#browser",
+      "parent": "브라우저",
+      "title": "브라우저",
+      "content": "import { Tooltip } from 'antd' import extensionDesc from '@/assets/image/screenshot/extension-en.png'; import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';"
     },
     {
       "language": "ko",
@@ -3260,6 +3631,13 @@
       "parent": "브라우저",
       "title": "패널 매개변수",
       "content": ""
+    },
+    {
+      "language": "ko",
+      "route": "/docs/changelog#changelog",
+      "parent": "Changelog",
+      "title": "Changelog",
+      "content": "import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';"
     },
     {
       "language": "ko",
@@ -3494,10 +3872,24 @@
     },
     {
       "language": "ko",
+      "route": "/docs/deploy-guide#deploy-guide",
+      "parent": "사용 설명",
+      "title": "사용 설명",
+      "content": "import ApiImg from '@/assets/image/screenshot/page-spy-api.png';클라이언트와 디버그 엔드포인트를 연결하고 양쪽 간의 메시지를 전달하는 서비스는 PageSpy의 핵심 기능 중 하나입니다.데이터 보안과 사용 편의성을 위해 PageSpy는 완전하고 즉시 사용 가능한 다양한 배포 솔루션을 제공합니다. 개발자는 자신의 상황에 맞는 배포 방식을 선택할 수 있습니다."
+    },
+    {
+      "language": "ko",
       "route": "/docs/deploy-guide#deployments",
       "parent": "사용 설명",
       "title": "다양한 배포 솔루션",
       "content": " Node.js로 배포 Docker로 배포 바오타 패널에 설치 "
+    },
+    {
+      "language": "ko",
+      "route": "/docs/deploy-with-baota#deploy-with-baota",
+      "parent": "Baota로 배포",
+      "title": "Baota로 배포",
+      "content": "import BaotaPageSpy from '@/assets/image/screenshot/baota-pagespy.png'; import BaotaInstall from '@/assets/image/screenshot/baota-install.png'; import { DeployNext } from '@/components/Docs/components/DeployNext';PageSpy는 바오타 패널의 Docker 앱스토어에서 원클릭 배포를 지원합니다."
     },
     {
       "language": "ko",
@@ -3522,6 +3914,13 @@
     },
     {
       "language": "ko",
+      "route": "/docs/deploy-with-docker#deploy-with-docker",
+      "parent": "Docker로 배포",
+      "title": "Docker로 배포",
+      "content": "import { EmbedVideo } from '@/components/Docs/components/EmbedVideo'; import { DeployNext } from '@/components/Docs/components/DeployNext';"
+    },
+    {
+      "language": "ko",
       "route": "/docs/deploy-with-docker#install",
       "parent": "Docker로 배포",
       "title": "설치",
@@ -3543,6 +3942,13 @@
     },
     {
       "language": "ko",
+      "route": "/docs/deploy-with-node#deploy-with-node",
+      "parent": "Node로 배포",
+      "title": "Node로 배포",
+      "content": "import { EmbedVideo } from '@/components/Docs/components/EmbedVideo'; import { DeployNext } from '@/components/Docs/components/DeployNext';"
+    },
+    {
+      "language": "ko",
       "route": "/docs/deploy-with-node#install",
       "parent": "Node로 배포",
       "title": "설치",
@@ -3561,6 +3967,13 @@
       "parent": "Node로 배포",
       "title": "다음 단계",
       "content": ""
+    },
+    {
+      "language": "ko",
+      "route": "/docs/faq#faq",
+      "parent": "자주 묻는 질문",
+      "title": "자주 묻는 질문",
+      "content": "import moduleImg from '@/assets/image/screenshot/module.png'; import dynamicInjectImg from '@/assets/image/screenshot/dynamic-inject.png'; import pnpmInstallImg from '@/assets/image/screenshot/pnpm-install.png';"
     },
     {
       "language": "ko",
@@ -3746,6 +4159,13 @@
     },
     {
       "language": "ko",
+      "route": "/docs/harmony#harmony",
+      "parent": "하모니 앱",
+      "title": "하모니 앱",
+      "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "ko",
       "route": "/docs/harmony#step-1",
       "parent": "하모니 앱",
       "title": "1단계",
@@ -3757,6 +4177,13 @@
       "parent": "하모니 앱",
       "title": "2단계",
       "content": "적절한 위치에서 SDK를 가져오고 초기화합니다. 여기서는 EntryAbility를 예시로 들겠습니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 선택적 설정 옵션을 제공합니다:import { PageSpy } from '@huolala/page-spy-harmony'; import axiosInstance from 'path/to/your/axios-instance'; export default class EntryAbility extends UIAbility {   onWindowStageCreate(windowStage: window.WindowStage) {     new PageSpy({       context: this.context,       api: \"{deployPath}\",       enableSSL: true,       axios: axiosInstance     })   } } 이상이 HarmonyOS 앱 프로젝트에 PageSpy를 연동하는 전체 과정입니다. 연동이 완료된 후 상단 메뉴의 디버그 시작을 클릭하여 사용하세요!"
+    },
+    {
+      "language": "ko",
+      "route": "/docs/introduction#introduction",
+      "parent": "소개",
+      "title": "소개",
+      "content": "import React from 'react'; import { Flex } from 'antd'; import bannerImg from '@/assets/image/doc-banner.png';import logo from '@/assets/image/logo.svg'; import consoleImg from '@/assets/image/screenshot/console-panel.png'; import networkImg from '@/assets/image/screenshot/network-panel.png'; import pageImg from '@/assets/image/screenshot/page-panel.png'; import storageImg from '@/assets/image/screenshot/storage-panel.png'; import systemImg from '@/assets/image/screenshot/system-panel.png'; import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-zh.png'; import offlineImg from '@/assets/image/screenshot/offline-panel.png';export const githubUrl = import.meta.env.VITE_GITHUB_REPO;"
     },
     {
       "language": "ko",
@@ -3802,6 +4229,13 @@
     },
     {
       "language": "ko",
+      "route": "/docs/miniprogram#miniprogram",
+      "parent": "미니프로그램",
+      "title": "미니프로그램",
+      "content": "import { Tooltip } from 'antd' import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'"
+    },
+    {
+      "language": "ko",
       "route": "/docs/miniprogram#step-1",
       "parent": "미니프로그램",
       "title": "1단계",
@@ -3827,6 +4261,13 @@
       "parent": "미니프로그램",
       "title": "디버그 메뉴",
       "content": "생성된 PageSpy 인스턴스에서 showPanel() 메서드를 호출하면 디버깅을 보조하기 위한 디버그 메뉴가 팝업됩니다:<img src={mpPanelImg} style={{ maxWidth: 320 }} />이상이 미니프로그램 프로젝트에 PageSpy를 연동하는 전체 과정입니다. 연동이 완료된 후 상단 메뉴의 디버그 시작을 클릭하여 사용하세요!"
+    },
+    {
+      "language": "ko",
+      "route": "/docs/offline-log#offline-log",
+      "parent": "오프라인 로그",
+      "title": "오프라인 로그",
+      "content": "import modalImg from '@/assets/image/screenshot/modal.png'; import replayImg from '@/assets/image/screenshot/replay-page.png'; import replayGif from '@/assets/image/screenshot/replay-page.gif'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';로그 재생이란 말 그대로 이전에 생성된 로그를 다시 재생하는 것입니다. 그렇다면 왜 이전 로그를 재생해야 할까요? 이전 로그는 어디서 오는 걸까요? 어떻게 재생할 수 있을까요? 하나씩 살펴보겠습니다."
     },
     {
       "language": "ko",
@@ -3932,6 +4373,13 @@
       "parent": "오프라인 로그",
       "title": "FAQ",
       "content": " 로그를 수동으로 업로드/다운로드하는 방법은 무엇인가요? 여기를 참조하세요. 오프라인 로그는 어디에 저장되나요? DataHarborPlugin이 데이터를 수신하면 먼저 메모리의 배열에 저장됩니다. 배열에 저장된 데이터의 크기가 임계값에 도달하면 데이터는 임시 파일에 기록됩니다. 이 임계값은 기본적으로 10MB입니다. 다음과 같이 직접 설정할 수도 있습니다:new DataHarborPlugin({   maximum: 1 * 1024 * 1024, // 메모리의 데이터 기록이 1MB에 도달하면 임시 파일에 기록 }) "
+    },
+    {
+      "language": "ko",
+      "route": "/docs/pagespy#pagespy",
+      "parent": "Pagespy",
+      "title": "Pagespy",
+      "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png'; import PlatformTag from '@/components/Docs/components/PlatformTag'"
     },
     {
       "language": "ko",
@@ -4124,6 +4572,13 @@
     },
     {
       "language": "ko",
+      "route": "/docs/plugins#plugins",
+      "parent": "플러그인 시스템",
+      "title": "플러그인 시스템",
+      "content": "import pluginsImg from '@/assets/image/screenshot/plugins.png';"
+    },
+    {
+      "language": "ko",
       "route": "/docs/plugins#definition",
       "parent": "플러그인 시스템",
       "title": "타입 정의",
@@ -4149,6 +4604,13 @@
       "parent": "플러그인 시스템",
       "title": "플러그인 사용 방법",
       "content": "<!-- SDK 불러오기 --> <script src=\"https://<your-pagespy-host>/page-spy/index.min.js\"></script> <!-- 플러그인 불러오기 --> <script src=\"https://<your-pagespy-host>/plugin/xxx/index.min.js\"></script> <!-- 플러그인 등록 --> <script>   PageSpy.registerPlugin(new XXXPlugin());   window.$pageSpy = new PageSpy(); </script> "
+    },
+    {
+      "language": "ko",
+      "route": "/docs/react-native#react-native",
+      "parent": "React Native",
+      "title": "React Native",
+      "content": "import { Tooltip } from 'antd'"
     },
     {
       "language": "ko",
@@ -4194,6 +4656,13 @@
     },
     {
       "language": "ko",
+      "route": "/o-spy/docs/introduction#introduction",
+      "parent": "소개",
+      "title": "소개",
+      "content": "import Icon from '@ant-design/icons'; import Logo from '@/assets/image/o-spy.svg?react'; import workflow from '@/assets/image/screenshot/ospy-workflow.en.png'; import { Link } from 'react-router-dom';"
+    },
+    {
+      "language": "ko",
       "route": "/o-spy/docs/introduction#what-is-ospy",
       "parent": "소개",
       "title": "O-Spy란?",
@@ -4226,6 +4695,13 @@
       "parent": "소개",
       "title": "3단계: 재생",
       "content": ""
+    },
+    {
+      "language": "ko",
+      "route": "/o-spy/docs/theme#theme",
+      "parent": "사용자 지정 테마",
+      "title": "사용자 지정 테마",
+      "content": "O-Spy는 테마 색상과 브랜드 로고를 커스터마이징할 수 있습니다.import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';"
     },
     {
       "language": "ko",
