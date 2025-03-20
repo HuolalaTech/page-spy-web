@@ -11,7 +11,7 @@ import { FuseResult, FuseResultMatch } from 'fuse.js';
 import { OPEN_SEARCH_EVENT } from './OpenDocSearch';
 import { useNavigate } from 'react-router-dom';
 import FuseWorker from './fuse-worker?worker';
-import { RecordItem, WorkerResponse } from './fuse-worker';
+import type { RecordItem, WorkerResponse } from './fuse-worker';
 
 const getContainer = () => {
   let div = document.body.querySelector('#cmdk-search');

@@ -15,7 +15,9 @@ export interface RecordItem {
 let fuse: Fuse<RecordItem>;
 
 const init = (lang: langType) => {
-  const list = data[lang] ?? data.zh;
+  const list = (data[lang] ?? data.zh).filter(
+    (i) => i.title.trim() && i.content.trim(),
+  );
   if (!fuse) {
     fuse = new Fuse(list, {
       includeMatches: true,
@@ -34,7 +36,7 @@ const search = (keyword: string) => {
     console.warn('Fuse worker not ready.');
     return;
   }
-  const data = fuse.search(keyword, { limit: 10 });
+  const data = fuse.search(keyword, { limit: 20 });
   const result = groupBy(data, 'item.parent');
   return result;
 };
