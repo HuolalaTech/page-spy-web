@@ -61,7 +61,6 @@ export const DocSearch = () => {
   >({});
   const fuse = useRef<Worker>();
   useEffect(() => {
-    console.log('????');
     const fn = ({ data }: MessageEvent<WorkerResponse>) => {
       const { type } = data;
       switch (type) {
