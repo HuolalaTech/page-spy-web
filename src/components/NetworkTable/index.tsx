@@ -67,6 +67,10 @@ export const RESOURCE_TYPE: Map<
   ],
 ]);
 
+const NoData = () => (
+  <Empty description={false} className="empty-table-placeholder" />
+);
+
 interface NetworkTableProps {
   data: ResolvedNetworkInfo[];
   filterType: NetworkType;
@@ -94,7 +98,6 @@ export const NetworkTable = ({
     SortDirectionType | undefined
   >(undefined);
   const data = useMemo(() => {
-    setActiveRow(null);
     const keyword = filterKeyword.trim().toLocaleLowerCase();
     if (!keyword && filterType === 'All' && !sortBy && !sortDirection) {
       return originData;
@@ -383,10 +386,7 @@ export const NetworkTable = ({
       text
     );
   }, []);
-  const NoData = useCallback(
-    () => <Empty description={false} className="empty-table-placeholder" />,
-    [],
-  );
+
   return (
     <div className="network-table" ref={containerRef}>
       <AutoSizer>

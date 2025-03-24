@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "All-In-One Remote Debugging Tool",
   "homepage": "https://pagespy.org",
   "repository": {
@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "scripts": {
+    "upgrade:sdk": "yarn upgrade -P '@huolala-tech/*' -L --ignore-optional",
     "postinstall": "bash scripts/public-files.sh",
     "generate:doc-records": "node scripts/unified/generate-doc-records.mjs",
     "start:doc": "vite --mode doc",
@@ -59,11 +60,11 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@huolala-tech/page-spy-browser": "^2.1.7",
-    "@huolala-tech/page-spy-plugin-data-harbor": "^2.1.4",
-    "@huolala-tech/page-spy-plugin-ospy": "^2.1.11",
+    "@huolala-tech/page-spy-browser": "^2.1.8",
+    "@huolala-tech/page-spy-plugin-data-harbor": "^2.1.6",
+    "@huolala-tech/page-spy-plugin-ospy": "^2.1.13",
     "@huolala-tech/page-spy-plugin-rrweb": "^2.1.3",
-    "@huolala-tech/page-spy-plugin-whole-bundle": "^2.1.9",
+    "@huolala-tech/page-spy-plugin-whole-bundle": "^2.1.11",
     "@huolala-tech/page-spy-types": "^2.1.3",
     "@huolala-tech/react-json-view": "^1.2.5",
     "@huolala-tech/request": "^1.1.2",
@@ -122,7 +123,7 @@
     "last 2 safari version"
   ],
   "optionalDependencies": {
-    "@huolala-tech/page-spy-api": "^2.2.0"
+    "@huolala-tech/page-spy-api": "^2.2.1"
   },
   "packageManager": "yarn@1.22.19"
 }

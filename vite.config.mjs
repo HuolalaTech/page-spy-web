@@ -64,5 +64,8 @@ export default ({ mode, command }) => {
         isDoc,
       }),
     ],
+    server: {
+      allowedHosts: true,
+    },
   });
 };
