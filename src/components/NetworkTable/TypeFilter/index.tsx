@@ -1,21 +1,26 @@
 import { ConfigProvider, Radio, RadioChangeEvent, RadioGroupProps } from 'antd';
 import { NetworkType, RESOURCE_TYPE } from '..';
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useLocalStorageState } from 'ahooks';
 
 interface Props {
-  defaultValue?: NetworkType;
   size?: RadioGroupProps['size'];
   onChange: (type: NetworkType) => void;
 }
 
-export const TypeFilter = ({
-  defaultValue = 'All',
-  size = 'middle',
-  onChange,
-}: Props) => {
-  const [type, setType] = useState<NetworkType>(() => {
-    return RESOURCE_TYPE.get(defaultValue) ? defaultValue : 'All';
-  });
+const NETWORK_TYPE_CACHE_KEY = 'page-spy-network-type';
+export const TypeFilter = ({ size = 'middle', onChange }: Props) => {
+  const [type, setType] = useLocalStorageState<NetworkType>(
+    NETWORK_TYPE_CACHE_KEY,
+    {
+      defaultValue: 'All',
+      serializer: (value) => value,
+      deserializer: (value) => value as NetworkType,
+    },
+  );
+  useEffect(() => {
+    onChange(type!);
+  }, [onChange, type]);
   return (
     <ConfigProvider
       theme={{

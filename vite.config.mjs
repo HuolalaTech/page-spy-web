@@ -58,5 +58,8 @@ export default ({ mode, command }) => {
       react(),
       svgr(),
     ],
+    server: {
+      allowedHosts: true,
+    },
   });
 };
