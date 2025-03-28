@@ -1,5 +1,12 @@
 #!/bin/bash
 
+read -p "确认 O-Spy 国内链接已更新? (y/n) " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  echo "❌ 请先更新依赖版本"
+  exit 1
+fi
+
 PACKAGE_VERSION=$(jq -r '.version' package.json)
 
 CHANGELOG_FILES=(
