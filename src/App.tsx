@@ -12,6 +12,7 @@ import type { Locale } from 'antd/es/locale';
 import dayjs from 'dayjs';
 import { CNUserModal } from './components/CNUserModal';
 import { DocSearch } from './components/DocSearch';
+import { DropFile } from './components/DropFile';
 const localeConfig: Record<langType, Locale> = {
   zh,
   en,
@@ -43,6 +44,7 @@ export const App = () => {
             <CNUserModal />
             <RouteConfig />
             <DocSearch />
+            <DropFile />
           </ConfigProvider>
         </ErrorBoundary>
       </HashRouter>
