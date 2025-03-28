@@ -1,12 +1,11 @@
 import { LogReplayer } from '@/components/LogReplayer';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import './index.less';
 import { Button, Flex, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useSize } from 'ahooks';
 import { Link, useNavigate } from 'react-router-dom';
-import useSearch from '@/utils/useSearch';
 import demo from './demo.json?url';
 import { SelectLogButton } from '@/components/SelectLogButton';
 
@@ -15,10 +14,12 @@ export const Replayer = () => {
   const size = useSize(document.body);
   const navigate = useNavigate();
 
-  const { url } = useSearch();
+  const url = useMemo(() => {
+    const result = location.href.match(/\?url=(.*)/);
+    return result?.[1] || '';
+  }, []);
   const replayUrl = useMemo(() => {
     if (url === 'demo') return demo;
-    if (!url) return '';
     return url;
   }, [url]);
 
