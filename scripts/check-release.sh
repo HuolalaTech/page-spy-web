@@ -12,10 +12,10 @@ rollback_version() {
 }
 
 check_ospy_link() {
-  read -p "确认 O-Spy 国内链接已更新? (y/n) " -n 1 -r
+  read -p "Confirm that the domestic O-Spy link has been updated? (y/n) " -n 1 -r
   echo
   if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-    rollback_version "请先更新 O-Spy 国内链接"
+    rollback_version "Update the domestic O-Spy link first"
   fi
 }
 
@@ -29,8 +29,7 @@ check_changelog() {
 
   for FILE in "${CHANGELOG_FILES[@]}"; do
     if ! grep -q "$PACKAGE_VERSION" "$FILE"; then
-      echo "❌ changelog 中没有 $PACKAGE_VERSION 描述"
-      rollback_version "请更新 changelog"
+      rollback_version "Cannot find $PACKAGE_VERSION in $FILE"
     fi
   done
 }
