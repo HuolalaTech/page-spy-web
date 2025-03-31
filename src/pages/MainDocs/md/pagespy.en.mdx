@@ -42,6 +42,18 @@ Server address.
   
 - Type: `string`
 
+### config.lang
+
+Specifies the language for the SDK.
+
+- Type: `"zh" | "en"`
+- Default: `null`
+
+  If not specified, the SDK will automatically select the language based on the following strategy:
+
+  1. Read the `lang` attribute of the html element, if it exists and is one of `['zh-CN', 'zh-HK', 'zh-TW', 'zh', 'zh-Hans-CN']`, then display Chinese, otherwise use English;
+  2. Read the `navigator.language` attribute, if it exists and is one of `['zh-CN', 'zh-HK', 'zh-TW', 'zh', 'zh-Hans-CN']`, then display Chinese, otherwise use English;
+
 ### config.project
 
 Serves as a way to aggregate information and allows search in the debug room list.

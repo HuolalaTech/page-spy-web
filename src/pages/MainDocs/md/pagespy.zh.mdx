@@ -41,8 +41,19 @@ import PlatformTag from '@/components/Docs/components/PlatformTag'
 ### config.clientOrigin <PlatformTag type="browser" />
 
 - 类型：`string`
-  
 
+### config.lang
+
+指定 SDK 显示的语言。
+
+- 类型：`"zh" | "en"`
+- 默认值：`null`
+
+  如果未手动指定，SDK 会按照下面的策略自动选择：
+
+  1. 读取 html 的 `lang` 属性，如果是 `['zh-CN', 'zh-HK', 'zh-TW', 'zh', 'zh-Hans-CN']` 之一，则显示中文，否则使用英文；
+  2. 读取 `navigator.language` 属性，如果是 `['zh-CN', 'zh-HK', 'zh-TW', 'zh', 'zh-Hans-CN']` 之一，则显示中文，否则使用英文；
+  
 ### config.project
 
 作为信息的一种聚合，可以在调试端房间列表进行搜索
