@@ -1,12 +1,12 @@
 export const OSPY_DOMESTIC = {
   bg: '#24292e',
-  code: `<script src="https://static.huolala.cn/libs/o-spy/2.1.13/index.min.js" crossorigin="anonymous"></script>
+  code: `<script src="https://static.huolala.cn/libs/o-spy/2.1.15/index.min.js" crossorigin="anonymous"></script>
 
 <script>
   const $oSpy = new OSpy();
 </script>`,
   content: `<pre class="shiki github-dark" style="background-color: #24292e" tabindex="0"><code><span class="line"><span style="color: #E1E4E8">&lt;</span><span style="color: #85E89D">script</span></span>
-<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">src</span><span style="color: #E1E4E8">=</span><span style="color: #9ECBFF">"https://static.huolala.cn/libs/o-spy/2.1.13/index.min.js"</span></span>
+<span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">src</span><span style="color: #E1E4E8">=</span><span style="color: #9ECBFF">"https://static.huolala.cn/libs/o-spy/2.1.15/index.min.js"</span></span>
 <span class="line"><span style="color: #E1E4E8">  </span><span style="color: #B392F0">crossorigin</span><span style="color: #E1E4E8">=</span><span style="color: #9ECBFF">"anonymous"</span></span>
 <span class="line"><span style="color: #E1E4E8">&gt;&lt;/</span><span style="color: #85E89D">script</span><span style="color: #E1E4E8">&gt;</span></span>
 <span class="line"><span style="color: #E1E4E8">    </span></span>

@@ -6,7 +6,9 @@ import pnpmInstallImg from '@/assets/image/screenshot/pnpm-install.png';
 
 PageSpy 모듈 간의 의존성 관계와 상호작용 다이어그램:
 
-<img alt="시스템 모듈 다이어그램" src={moduleImg} />
+<a href={moduleImg} target="_blank">
+  <img alt="시스템 모듈 다이어그램" src={moduleImg} />
+</a>
 
 ### PageSpy의 호환성#compatibility
 
@@ -255,7 +257,9 @@ PageSpy는 두 번째 인스턴스화 단계 전까지는 가져온 `<script>`�
 
 - HTML 동적 응답: 사용자가 HTML을 요청할 때 사용자의 고유 식별자를 얻을 수 있고 HTML에 동적으로 주입할 수 있다면, 사용자에게 HTML을 반환하기 전에 `<script>`와 인스턴스화 로직을 주입할지 결정할 수 있습니다.
 
-  <img src={dynamicInjectImg} />
+  <a href={dynamicInjectImg} target="_blank">
+    <img src={dynamicInjectImg} />
+  </a>
 
 - 사용자가 제스처로 활성화: 이는 일반적으로 사용자의 적극적인 협조가 필요합니다. 기본적으로 SDK를 주입하지만 인스턴스화하지 않고, 사용자가 특별한 제스처를 트리거한 후에 디버그를 시작합니다.
 
@@ -349,7 +353,9 @@ NPM 패키지 배포 방식으로 명령줄에서 `page-spy-api`를 실행하면
 
 `pnpm`으로 전역 설치한 패키지는 `pnpm`이 셸 스크립트로 래핑합니다. 즉, `pm2 start page-spy-api`를 실행할 때 실제로는 셸 스크립트를 찾게 되며, `pm2`가 이를 해석하여 실행할 수 없어 오류가 발생합니다.
 
-<img src={pnpmInstallImg} />
+<a href={pnpmInstallImg} target="_blank">
+  <img src={pnpmInstallImg} />
+</a>
 
 `yarn` 또는 `npm`을 사용하여 설치하면 이 문제를 해결할 수 있습니다. 관련 논의: [Unitech/pm2#5416](https://github.com/Unitech/pm2/issues/5416)
 

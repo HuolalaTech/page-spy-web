@@ -8,7 +8,9 @@ import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
 
 **Log Replay**, as the name suggests, is about replaying previously generated logs. But why replay history logs? Where do these logs come from? How do we replay them? Let's explore each of these questions.
 
-<img src={replayGif} />
+<a href={replayGif} target="_blank">
+  <img src={replayGif} />
+</a>
 
 ## Why#why
 
@@ -70,13 +72,17 @@ It internally listens for the `"public-data"` event (see [what is the "public-da
 
 After successful integration, a modal with upload and download buttons should appear when clicking on the client-rendered component.
 
-<img src={modalImg} />
+<a href={modalImg} target="_blank">
+  <img src={modalImg} />
+</a>
 
 #### Step 2: Replay the logs#step-2
 
 Go to the debugger, click the top menu "Debugging - Log Replay" to enter the replay list page. Select the JSON data uploaded / downloaded in the previous step to start replaying!
 
-<img src={replayImg} />
+<a href={replayImg} target="_blank">
+  <img src={replayImg} />
+</a>
 
 #### Using with Other Plugins#plugins
 
@@ -140,7 +146,9 @@ $dataHarborPlugin.upload().then(() => {
 
 2. With the DataHarbor plugin registered, there will be a new action button for offline log uploading on PageSpy panel:
 
-<img src={mpDataHarborImg} />
+<a href={mpDataHarborImg} target="_blank">
+  <img style={{width: 375}} src={mpDataHarborImg} />
+</a>
 
 ### Differences#diff
 

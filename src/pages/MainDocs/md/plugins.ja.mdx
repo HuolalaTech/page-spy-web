@@ -52,7 +52,9 @@ export interface OnMountedParams {
 
 現在のプラグインがプラットフォームの特定の動作「データ」を収集する（または公開したい）場合、`socketStore`でデータをブロードキャストする以外に、プラグインが`socketStore`インスタンス上で追加の`"public-data"`内部イベント（Internal Event）を発行することを規約として定めています。この目的は、統計やデータの永続化が必要なプラグインがこのイベントから統一的にデータを収集できるようにするためです。プラグインが特定のデータを「公開」すべきでないと判断した場合は、`"public-data"`イベントを発行する必要はありません。
 
-<img src={pluginsImg} />
+<a href={pluginsImg} target="_blank">
+  <img src={pluginsImg} />
+</a>
 
 ### プラグイン実装例#demo
 

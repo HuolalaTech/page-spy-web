@@ -6,7 +6,9 @@ import pnpmInstallImg from '@/assets/image/screenshot/pnpm-install.png';
 
 PageSpy 模块间的依赖关系和交互示意图：
 
-<img alt="系统模块示意图" src={moduleImg} />
+<a href={moduleImg} target="_blank">
+  <img alt="系统模块示意图" src={moduleImg} />
+</a>  
 
 ### PageSpy 的兼容性#compatibility
 
@@ -255,7 +257,9 @@ PageSpy 在第二步实例化之前，引入的 `<script>` 对项目不会产生
 
 - 动态响应 HTML：如果用户在请求 HTML 时，我们可以拿到用户的唯一标识、并且可以对 HTML 动态注入，那么就可以在向用户返回 HTML 之前决定是否注入 `<script>` 和实例化的逻辑；
 
-  <img src={dynamicInjectImg} />
+  <a href={dynamicInjectImg} target="_blank">
+    <img src={dynamicInjectImg} />
+  </a>
 
 - 让用户使用手势开启：这通常需要用户的主动配合。默认情况下注入 SDK 但不实例化，让用户触发特殊手势后再开启调试；
 
@@ -349,7 +353,9 @@ SDK 可以对页面进行 “截图” 并发送到调试端，但由于：
 
 `pnpm` 全局安装的包会被 `pnpm` 用一个 shell 脚本包装，也就是说在执行 `pm2 start page-spy-api` 时，找到的其实是一个 shell 脚本，`pm2` 无法解释执行，因此报错。
 
-<img src={pnpmInstallImg} />
+<a href={pnpmInstallImg} target="_blank">
+  <img src={pnpmInstallImg} />
+</a>
 
 使用 `yarn` 或者 `npm` 安装即可解决这个问题，相关的讨论：[Unitech/pm2#5416](https://github.com/Unitech/pm2/issues/5416)
 

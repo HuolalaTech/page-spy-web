@@ -6,7 +6,9 @@ import pnpmInstallImg from '@/assets/image/screenshot/pnpm-install.png';
 
 Dependency and interaction diagram between PageSpy modules:
 
-<img alt="System module diagram" src={moduleImg} />
+<a href={moduleImg} target="_blank">
+  <img alt="System module diagram" src={moduleImg} />
+</a>
 
 ### Compatibility of PageSpy#compatibility
 
@@ -254,7 +256,9 @@ PageSpy does not affect the project until the second step of instantiation. Ther
 
 - Dynamic HTML Response: If we can obtain a unique identifier for the user when requesting HTML, we can dynamically decide whether to inject `<script>` and instantiate logic before returning HTML to the user.
 
-  <img src={dynamicInjectImg} />
+  <a href={dynamicInjectImg} target="_blank">
+    <img src={dynamicInjectImg} />
+  </a>
 
 - User Gesture Activation: This typically requires the user's active cooperation. By default, inject the SDK but do not instantiate it, allowing the user to trigger debugging after a special gesture.
 
@@ -347,7 +351,9 @@ When you execute page-spy-api via the NPM package deployment method in the comma
 
 Globally installed packages with pnpm are wrapped by a shell script used by pnpm. Thus, when executing pm2 start page-spy-api, it finds a shell script, and pm2 cannot interpret and execute it, resulting in an error.
 
-<img src={pnpmInstallImg} />
+<a href={pnpmInstallImg} target="_blank">
+  <img src={pnpmInstallImg} />
+</a>
 
 Using yarn or npm installation resolves this issue. See related discussion: [Unitech/pm2#5416](https://github.com/Unitech/pm2/issues/5416).
 

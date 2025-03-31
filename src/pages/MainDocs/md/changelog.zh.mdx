@@ -1,6 +1,13 @@
 import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';
 import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-status-zh.gif';
 
+## v2.2.3
+
+- 🆕 优化「暂停录制」状态时弹窗界面的交互；
+- 🆕 调试端全局支持拖拽离线日志文件进行回放；
+- 🐛 修复回放页面无法播放的问题，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/324;
+- 🐛 修复悬浮球在拖拽时遇到 iframe 元素不跟手的问题，查看详情：https://github.com/HuolalaTech/page-spy/pull/137;
+
 ## v2.2.2
 
 - 🆕 SDK 弹窗中显示录制的状态（录制中 / 已暂停）信息，点击切换录制状态;
@@ -132,7 +139,9 @@ import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-statu
 
 - 🆕 调整上传的日志数据，查看详情：https://github.com/HuolalaTech/page-spy/pull/107;
 
-  <img src={offlineLogImg} />
+  <a href={offlineLogImg} target="_blank">
+    <img src={offlineLogImg} />
+  </a>
 
 - 🆕 交互调整。
   - 点击日志回放的进度条保持播放状态，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/258;
