@@ -17,7 +17,9 @@ import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';
 
 ### 接入使用#usage
 
-#### 第一步#step-1
+#### 通过 script 引入#script-usage
+
+##### 第一步#script-usage-step-1
 
 在客户端的项目中加载 `<script>`:
 
@@ -30,7 +32,7 @@ import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';
 <script crossorigin="anonymous" src="{deployUrl}/plugin/rrweb/index.min.js"></script>
 ```
 
-#### 第二步#step-2
+##### 第二步#script-usage-step-2
 
 初始化 PageSpy 和插件，它们的初始化参数都提供了可选的 [配置项]({VITE_SDK_BROWSER_REPO}) 用于自定义 SDK 的行为：
 
@@ -58,6 +60,43 @@ import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';
 
   window.$pageSpy = new PageSpy();
 </script>
+```
+
+#### 通过 ESM 引入#esm-usage
+
+##### 第一步#esm-usage-step-1
+
+:::code-group
+
+```bash yarn
+yarn add @huolala-tech/page-spy-browser @huolala-tech/page-spy-plugin-data-harbor @huolala-tech/page-spy-plugin-rrweb
+```
+
+```bash npm
+npm install @huolala-tech/page-spy-browser @huolala-tech/page-spy-plugin-data-harbor @huolala-tech/page-spy-plugin-rrweb
+```
+
+:::
+
+##### 第二步#esm-usage-step-2
+
+```js
+import { PageSpy } from '@huolala-tech/page-spy-browser';
+import { DataHarborPlugin } from '@huolala-tech/page-spy-plugin-data-harbor';
+import { RRWebPlugin } from '@huolala-tech/page-spy-plugin-rrweb';
+
+window.$harbor = new DataHarborPlugin();
+window.$rrweb = new RRWebPlugin();
+
+[window.$harbor, window.$rrweb].forEach(p => {
+  PageSpy.registerPlugin(p);
+})
+
+// ESM 模式下无法自动分析，所以下面的实例化参数是必须的
+window.$pageSpy = new PageSpy({
+  api: "{deployPath}",
+  clientOrigin: "{deployUrl}"
+});
 ```
 
 以上就是在浏览器项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 <Tooltip title="菜单默认隐藏，部署后可见" color="purple"><a href="javascript:void(0)">开始调试</a></Tooltip> 使用！

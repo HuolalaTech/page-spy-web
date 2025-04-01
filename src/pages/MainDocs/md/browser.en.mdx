@@ -14,9 +14,11 @@ import debugGoogle from '@/assets/image/screenshot/debug-google.png';
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 />
 
-### Access and Usage#usage
+### Import and Usage#usage
 
-#### Step 1#step-1
+#### Use with script#script-usage
+
+##### Step 1#script-usage-step-1
 
 Load `<script>` in the client's project:
 
@@ -29,7 +31,7 @@ Load `<script>` in the client's project:
 <script crossorigin="anonymous" src="{deployUrl}/plugin/rrweb/index.min.js"></script>
 ```
 
-#### Step 2#step-2
+##### Step 2#script-usage-step-2
 
 Initialize PageSpy and the plugins. Both their initialization parameters provide optional [configuration]({VITE_SDK_BROWSER_REPO}) items for customizing the behavior of the SDK:
 
@@ -58,6 +60,43 @@ Initialize PageSpy and the plugins. Both their initialization parameters provide
 
   window.$pageSpy = new PageSpy();
 </script>
+```
+
+#### Use with ESM#esm-usage
+
+##### Step 1#esm-usage-step-1 
+
+:::code-group
+
+```bash yarn
+yarn add @huolala-tech/page-spy-browser @huolala-tech/page-spy-plugin-data-harbor @huolala-tech/page-spy-plugin-rrweb
+```
+
+```bash npm
+npm install @huolala-tech/page-spy-browser @huolala-tech/page-spy-plugin-data-harbor @huolala-tech/page-spy-plugin-rrweb
+``` 
+
+:::
+
+##### Step 2#esm-usage-step-2 
+
+```js
+import { PageSpy } from '@huolala-tech/page-spy-browser';
+import { DataHarborPlugin } from '@huolala-tech/page-spy-plugin-data-harbor';
+import { RRWebPlugin } from '@huolala-tech/page-spy-plugin-rrweb';  
+
+window.$harbor = new DataHarborPlugin();
+window.$rrweb = new RRWebPlugin();
+
+[window.$harbor, window.$rrweb].forEach(p => {
+  PageSpy.registerPlugin(p);
+})  
+
+// ESM mode cannot be automatically analyzed, so the following instance initialization parameters are required
+window.$pageSpy = new PageSpy({
+  api: "{deployPath}",
+  clientOrigin: "{deployUrl}"
+});
 ```
 
 That's the complete process to integrate PageSpy into a browser project.

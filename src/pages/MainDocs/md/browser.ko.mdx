@@ -16,32 +16,34 @@ import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';
 
 ### 사용 방법#usage
 
-#### 첫 번째 단계#step-1
+#### script 태그로 도입#script-usage
 
-클라이언트 프로젝트에 `<script>`를 로드합니다:
+##### 1단계#script-usage-step-1
+
+클라이언트 프로젝트에 `<script>` 로드:
 
 ```html
 <!-- PageSpy SDK -->
 <script crossorigin="anonymous" src="{deployUrl}/page-spy/index.min.js"></script>
 
-<!-- 플러그인 (필수는 아니지만 사용을 권장합니다) -->
+<!-- 플러그인 (선택사항이지만 권장) -->
 <script crossorigin="anonymous" src="{deployUrl}/plugin/data-harbor/index.min.js"></script>
 <script crossorigin="anonymous" src="{deployUrl}/plugin/rrweb/index.min.js"></script>
 ```
 
-#### 두 번째 단계#step-2
+##### 2단계#script-usage-step-2
 
-PageSpy와 플러그인을 초기화합니다. 이들의 초기화 매개변수는 [설정 항목]({VITE_SDK_BROWSER_REPO})을 제공하여 SDK의 동작을 사용자 정의할 수 있습니다:
+PageSpy와 플러그인을 초기화합니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 [설정 항목]({VITE_SDK_BROWSER_REPO})을 제공합니다:
 
 <blockquote>
   <details>
-    <summary>플러그인이 제공하는 기능은 무엇입니까?</summary>
+    <summary>도입된 플러그인은 어떤 기능을 제공하나요?</summary>
     <div>
-      [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR})과 [RRWebPlugin]({VITE_PLUGIN_RRWEB}) 두 개의 플러그인은 PageSpy의 기능을 확장하기 위한 것입니다:
-      - **DataHarborPlugin**：PageSpy는 온라인 모드만 지원합니다. DataHarborPlugin은 PageSpy를 오프라인 모드로 만들어 디버깅을 지원합니다. [오프라인 로그 재생](./offline-log) 참조;
-      - **RRWebPlugin**：사용자 작업 기록을 기록하고 [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.ko.md)를 사용합니다. 일반적으로 DataHarborPlugin과 함께 사용됩니다.
+      [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR})과 [RRWebPlugin]({VITE_PLUGIN_RRWEB}) 두 플러그인은 PageSpy의 기능을 확장하는 데 사용됩니다:
+      - **DataHarborPlugin**: PageSpy는 기본적으로 온라인 모드만 지원합니다. DataHarborPlugin은 PageSpy가 오프라인 모드 디버깅을 가능하게 합니다. [오프라인 로그 재생](./offline-log)에서 자세한 정보를 확인하세요;
+      - **RRWebPlugin**: 사용자 작업 기록을 저장하며, 내부적으로 [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.ko.md)을 사용합니다. 일반적으로 DataHarborPlugin과 함께 사용됩니다.
 
-      고유의 PageSpy 플러그인을 개발할 수도 있습니다!
+      [플러그인 개발](./plugins)을 통해 자신만의 PageSpy를 만들 수도 있습니다!
     </div>
   </details>
 </blockquote>
@@ -57,6 +59,43 @@ PageSpy와 플러그인을 초기화합니다. 이들의 초기화 매개변수�
 
   window.$pageSpy = new PageSpy();
 </script>
+```
+
+#### ESM으로 도입#esm-usage
+
+##### 1단계#esm-usage-step-1
+
+:::code-group
+
+```bash yarn
+yarn add @huolala-tech/page-spy-browser @huolala-tech/page-spy-plugin-data-harbor @huolala-tech/page-spy-plugin-rrweb
+```
+
+```bash npm
+npm install @huolala-tech/page-spy-browser @huolala-tech/page-spy-plugin-data-harbor @huolala-tech/page-spy-plugin-rrweb
+```
+
+:::
+
+##### 2단계#esm-usage-step-2
+
+```js
+import { PageSpy } from '@huolala-tech/page-spy-browser';
+import { DataHarborPlugin } from '@huolala-tech/page-spy-plugin-data-harbor';
+import { RRWebPlugin } from '@huolala-tech/page-spy-plugin-rrweb';
+
+window.$harbor = new DataHarborPlugin();
+window.$rrweb = new RRWebPlugin();
+
+[window.$harbor, window.$rrweb].forEach(p => {
+  PageSpy.registerPlugin(p);
+})
+
+// ESM 모드에서는 자동 분석이 불가능하므로, 아래의 인스턴스 초기화 매개변수가 필요합니다
+window.$pageSpy = new PageSpy({
+  api: "{deployPath}",
+  clientOrigin: "{deployUrl}"
+});
 ```
 
 이제 브라우저 프로젝트에서 PageSpy를 사용하기 위한 모든 단계가 완료되었습니다. 페이지 상단 메뉴를 클릭하여 <Tooltip title="메뉴는 기본적으로 숨겨져 있습니다. 배포 후 표시됩니다." color="purple"><a href="javascript:void(0)">시작 디버깅</a></Tooltip> 사용!

@@ -1,6 +1,7 @@
 import mpPanelImg from '@/assets/image/screenshot/mp-panel.png';
 import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
 import PlatformTag from '@/components/Docs/components/PlatformTag'
+import { Link } from 'react-router-dom'
 
 # PageSpy API
 
@@ -147,7 +148,7 @@ SDKがオフラインログを収集する際に、基本型以外のデータ�
 
   処理関数はそれぞれ組み込みプラグインに対応しており、ユーザーは関数内で直接データを修正できます。関数の実行が完了すると、PageSpyは修正後のデータを処理します。関数がfalseを返す場合、PageSpyはそのデータを無視します：これは両方のモードのデバッグ側でそのデータが表示されないことを意味します。
 
-  詳細は：https://www.pagespy.org/#/docs/changelog#v1_9_2 をご覧ください。
+  詳細は：<Link to="/docs/changelog#v1-9-2">v1.9.2</Link> をご覧ください。
 
 ### config.disabledOnProd <PlatformTag type="mp" />
 

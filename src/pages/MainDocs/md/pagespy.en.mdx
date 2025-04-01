@@ -1,6 +1,7 @@
 import mpPanelImg from '@/assets/image/screenshot/mp-panel.png';
 import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
 import PlatformTag from '@/components/Docs/components/PlatformTag'
+import { Link } from 'react-router-dom'
 
 # PageSpy API#api
 
@@ -148,7 +149,7 @@ Customize data handling, allowing users to modify or ignore data.
 
   Processing functions correspond to built-in plugins. Users can directly modify the data within these functions. After execution, PageSpy processes the modified data. If a function returns false, the data will be ignored, meaning it won't appear in any debug mode.
 
-  For more details, visit: https://www.pagespy.org/#/docs/changelog#v1_9_2
+  For more details, visit: <Link to="/docs/changelog#v1-9-2">v1.9.2</Link>
 
 ### config.disabledOnProd <PlatformTag type="mp" />
 

@@ -1,6 +1,7 @@
 import mpPanelImg from '@/assets/image/screenshot/mp-panel.png';
 import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
 import PlatformTag from '@/components/Docs/components/PlatformTag'
+import { Link } from 'react-router-dom'
 
 # PageSpy API
 
@@ -155,7 +156,7 @@ PageSpy 内置的插件都是开箱即用的，你可以手动指定禁用哪些
 
   处理函数分别对应各个内置的插件，用户可以在函数中直接修改数据，函数执行完成后 PageSpy 处理修改后的数据。如果函数返回 false，PageSpy 会 忽略掉该条数据：这意味着在两种模式下的调试端都不会看到这条数据。
 
-  查看详情：https://www.pagespy.org/#/docs/changelog#v1_9_2
+  查看详情：<Link to="/docs/changelog#v1-9-2">v1.9.2</Link>
 
 
 ### config.disabledOnProd <PlatformTag type="mp" />
