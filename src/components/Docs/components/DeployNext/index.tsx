@@ -28,7 +28,9 @@ export const DeployNext = () => {
         的功能是负责收集客户端程序的运行时信息，并自动将收集的信息发送到上面部署的
         PageSpy 服务、再由其转发到调试端。
       </p>
-      <img src={SDKImg} />
+      <a href={SDKImg} target="_blank">
+        <img src={SDKImg} />
+      </a>
     </>
   );
 };

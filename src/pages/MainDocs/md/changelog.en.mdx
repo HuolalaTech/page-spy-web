@@ -1,6 +1,14 @@
 import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';
 import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-status-en.gif';
 
+## v2.2.3
+
+- 🆕 Optimize the interaction of the "Pause Recording" status dialog;
+- 🆕 The debug client now supports dragging offline log files to replay globally;
+- 🆕 SDK update configuration verification, error message optimization, see details: https://github.com/HuolalaTech/page-spy/pull/138;
+- 🐛 Fix the issue where the replay page cannot play, see details: https://github.com/HuolalaTech/page-spy-web/pull/324;
+- 🐛 Fix the issue where the floating ball does not follow the mouse when cross over iframe element, see details: https://github.com/HuolalaTech/page-spy/pull/137;
+
 ## v2.2.2
 
 - 🆕 The recording status (recording / paused) information is now displayed in the SDK popup, and the recording status can be toggled by clicking;
@@ -100,35 +108,36 @@ import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-statu
 
 - The init parameters now include a `dataProcessor` option for filtering or processing data. See details: https://github.com/HuolalaTech/page-spy/pull/106;
 
-  > <details>
-  >  <summary>Click to expand and view examples.</summary>
-  > 
-  >   ```ts
-  >   window.$pageSpy = new PageSpy({
-  >     ...,
-  >     dataProcessor: {
-  >       console: (data) => {
-  >         // log will be ignored if the content includes 'secret'
-  >         if (data.logs.some(i => typeof i === 'string' && i.includes('secret'))) return false;
-  >       },
-  >       network: (data) => {
-  >         // ignore metric requests
-  >         if (/(sentry|metric|collect)/.test(data.url)) return false
-  >       },,
-  >       storage: (data) => {
-  >         // change the cookie to "******" if the name starts with _
-  >         if (data.type === "cookie" && data.action === "get") {
-  >           data.data.forEach((i) => {
-  >             if (i.name.startsWith("_")) {
-  >               i.value = "*******";
-  >             }
-  >           });
-  >         }
-  >       },
-  >     },
-  >   });
-  >   ```
-  > </details>
+  <blockquote>
+    <details>
+    <summary>Click to expand and view examples.</summary>
+    ```ts
+    window.$pageSpy = new PageSpy({
+      ...,
+      dataProcessor: {
+        console: (data) => {
+          // log will be ignored if the content includes 'secret'
+          if (data.logs.some(i => typeof i === 'string' && i.includes('secret'))) return false;
+        },
+        network: (data) => {
+          // ignore metric requests
+          if (/(sentry|metric|collect)/.test(data.url)) return false
+        },,
+        storage: (data) => {
+          // change the cookie to "******" if the name starts with _
+          if (data.type === "cookie" && data.action === "get") {
+            data.data.forEach((i) => {
+              if (i.name.startsWith("_")) {
+                i.value = "*******";
+              }
+            });
+          }
+        },
+      },
+    });
+    ```
+    </details>
+  </blockquote>
 
 - 🆕 Adjusted the uploaded log data, see details: https://github.com/HuolalaTech/page-spy/pull/107;
 

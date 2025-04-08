@@ -52,7 +52,9 @@ export interface OnMountedParams {
 
 현재 플러그인이 플랫폼의 특정 동작 "데이터"를 수집(또는 공개하고자)하는 경우, `socketStore`로 데이터를 브로드캐스트하는 것 외에도, 플러그인이 `socketStore` 인스턴스에서 추가적인 `"public-data"` 내부 이벤트(Internal Event)를 발행하도록 규약으로 정하고 있습니다. 이는 통계나 데이터 영속화가 필요한 플러그인이 이 이벤트를 통해 통일된 방식으로 데이터를 수집할 수 있도록 하기 위함입니다. 플러그인이 특정 데이터를 "공개"하지 않아야 한다고 판단하는 경우에는 `"public-data"` 이벤트를 발행할 필요가 없습니다.
 
-<img src={pluginsImg} />
+<a href={pluginsImg} target="_blank">
+  <img src={pluginsImg} />
+</a>
 
 ### 플러그인 구현 예제#demo
 

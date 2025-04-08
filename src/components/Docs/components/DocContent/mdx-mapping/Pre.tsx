@@ -15,17 +15,15 @@ const Pre = (props: PropsWithChildren<unknown>) => {
   // - 注入特殊变量:
   //   - {deployUrl}
   //   - {deployPath}
-  let code = (children as string).replace(
-    /\{t\(['"](.*?)['"]\)\}/g,
-    (_, key) => {
+  const code = (children as string)
+    .replace(/\{t\(['"](.*?)['"]\)\}/g, (_, key) => {
       return t(key);
-    },
-  );
-  code = code.replace(/\{VITE_(.*?)\}/g, (_, key) => {
-    return import.meta.env[`VITE_${key}`];
-  });
-  code = code.replace(/\{deployUrl\}/g, deployUrl);
-  code = code.replace(/\{deployPath\}/g, deployPath);
+    })
+    .replace(/\{VITE_(.*?)\}/g, (_, key) => {
+      return import.meta.env[`VITE_${key}`];
+    })
+    .replace(/\{deployUrl\}/g, deployUrl)
+    .replace(/\{deployPath\}/g, deployPath);
   return <CodeBlock code={code} lang={language} />;
 };
 

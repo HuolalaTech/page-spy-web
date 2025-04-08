@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "All-In-One Remote Debugging Tool",
   "homepage": "https://pagespy.org",
   "repository": {
@@ -20,7 +20,7 @@
     "preview": "vite preview",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
     "preversion": "bash scripts/check-branch.sh",
-    "postversion": "bash scripts/check-changelog.sh"
+    "postversion": "bash scripts/check-release.sh"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
@@ -60,12 +60,11 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@huolala-tech/page-spy-browser": "^2.1.8",
-    "@huolala-tech/page-spy-plugin-data-harbor": "^2.1.6",
-    "@huolala-tech/page-spy-plugin-ospy": "^2.1.13",
-    "@huolala-tech/page-spy-plugin-rrweb": "^2.1.3",
-    "@huolala-tech/page-spy-plugin-whole-bundle": "^2.1.11",
-    "@huolala-tech/page-spy-types": "^2.1.3",
+    "@huolala-tech/page-spy-browser": "^2.2.1",
+    "@huolala-tech/page-spy-plugin-data-harbor": "^2.2.1",
+    "@huolala-tech/page-spy-plugin-ospy": "^2.2.1",
+    "@huolala-tech/page-spy-plugin-rrweb": "^2.2.1",
+    "@huolala-tech/page-spy-types": "^2.2.1",
     "@huolala-tech/react-json-view": "^1.2.5",
     "@huolala-tech/request": "^1.1.2",
     "@types/react-window": "^1.8.8",
@@ -123,7 +122,7 @@
     "last 2 safari version"
   ],
   "optionalDependencies": {
-    "@huolala-tech/page-spy-api": "^2.2.1"
+    "@huolala-tech/page-spy-api": "^2.2.2"
   },
   "packageManager": "yarn@1.22.19"
 }

@@ -1,6 +1,14 @@
 import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';
 import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-status-en.gif';
 
+## v2.2.3
+
+- 🆕 「録音を一時停止」状態のダイアログのインタラクションを最適化しました;
+- 🆕 デバッグ端でオフラインログファイルをグローバルにドラッグして再生できるようになりました;
+- 🆕 SDK 更新設定の検証。エラーメッセージがより使いやすくなりました。詳細はこちらをご覧ください：https://github.com/HuolalaTech/page-spy/pull/138;
+- 🐛 回放ページで再生できない問題を修正しました。詳細はこちら：https://github.com/HuolalaTech/page-spy-web/pull/324;
+- 🐛 ドラッグ時に iframe 要素を越えるとフローティングボールが追従しない問題を修正しました。詳細はこちら：https://github.com/HuolalaTech/page-spy/pull/137;
+
 ## v2.2.2
 
 - 🆕 録音状態（録音中 / 一時停止中）情報が SDK ポップアップに表示され、録音状態をクリックして切り替えることができます。
@@ -100,35 +108,36 @@ import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-statu
 
 - 🆕 インスタンス化パラメータに `dataProcessor` オプションを追加し、データのフィルタリングや処理を行えるようにしました。詳細はこちら：https://github.com/HuolalaTech/page-spy/pull/106;
 
-  > <details>
-  >   <summary>サンプルを表示するにはクリックしてください。</summary>
-  > 
-  >   ```ts
-  >   window.$pageSpy = new PageSpy({
-  >     ...,
-  >     dataProcessor: {
-  >       console: (data) => {
-  >         // 出力内容に "secret" 文字が含まれている場合は無視（デバッグ端に送信されません）
-  >         if (data.logs.some(i => typeof i === 'string' && i.includes('secret'))) return false;
-  >       },
-  >       network: (data) => {
-  >         // データポイントのリクエストを無視
-  >         if (/(sentry|metric|collect)/.test(data.url)) return false
-  >       },,
-  >       storage: (data) => {
-  >         // cookie のキーがアンダースコアで始まる場合、デバッグ端で見える値を "*******" にする
-  >         if (data.type === "cookie" && data.action === "get") {
-  >           data.data.forEach((i) => {
-  >             if (i.name.startsWith("_")) {
-  >               i.value = "*******";
-  >             }
-  >           });
-  >         }
-  >       },
-  >     },
-  >   });
-  >   ```
-  > </details>
+  <blockquote>
+    <details>
+      <summary>サンプルを表示するにはクリックしてください。</summary>
+      ```ts
+      window.$pageSpy = new PageSpy({
+        ...,
+        dataProcessor: {
+          console: (data) => {
+            // 出力内容に "secret" 文字が含まれている場合は無視（デバッグ端に送信されません）
+            if (data.logs.some(i => typeof i === 'string' && i.includes('secret'))) return false;
+          },
+          network: (data) => {
+            // データポイントのリクエストを無視
+            if (/(sentry|metric|collect)/.test(data.url)) return false
+          },,
+          storage: (data) => {
+            // cookie のキーがアンダースコアで始まる場合、デバッグ端で見える値を "*******" にする
+            if (data.type === "cookie" && data.action === "get") {
+              data.data.forEach((i) => {
+                if (i.name.startsWith("_")) {
+                  i.value = "*******";
+                }
+              });
+            }
+          },
+        },
+      });
+      ```
+    </details>
+  </blockquote>
 
 - 🆕 アップロードされるログデータを調整しました。詳細はこちら：https://github.com/HuolalaTech/page-spy/pull/107;
 

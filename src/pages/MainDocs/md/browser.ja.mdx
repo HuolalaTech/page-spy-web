@@ -1,4 +1,3 @@
-
 import { Tooltip } from 'antd'
 import extensionDesc from '@/assets/image/screenshot/extension-en.png';
 import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';
@@ -17,7 +16,9 @@ import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';
 
 ### 使用方法#usage
 
-#### ステップ1#step-1
+#### script タグで導入#script-usage
+
+##### ステップ1#script-usage-step-1
 
 クライアントプロジェクトに `<script>` をロードします:
 
@@ -30,7 +31,7 @@ import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';
 <script crossorigin="anonymous" src="{deployUrl}/plugin/rrweb/index.min.js"></script>
 ```
 
-#### ステップ2#step-2
+#### 第二步#script-usage-step-2
 
 PageSpy とプラグインを初期化します。それらの初期化パラメーターは、SDK の動作をカスタマイズするための[設定項目]({VITE_SDK_BROWSER_REPO})を提供します:
 
@@ -51,14 +52,50 @@ PageSpy とプラグインを初期化します。それらの初期化パラメ
 <script>
   window.$harbor = new DataHarborPlugin();
   window.$rrweb = new RRWebPlugin();
+
+  [window.$harbor, window.$rrweb].forEach(p => {
+    PageSpy.registerPlugin(p)
+  })
+
+  window.$pageSpy = new PageSpy();
 </script>
+```
+
+#### ESM で導入#esm-usage
+
+##### ステップ1#esm-usage-step-1 
+
+:::code-group
+
+```bash yarn
+yarn add @huolala-tech/page-spy-browser @huolala-tech/page-spy-plugin-data-harbor @huolala-tech/page-spy-plugin-rrweb
+```
+
+```bash npm
+npm install @huolala-tech/page-spy-browser @huolala-tech/page-spy-plugin-data-harbor @huolala-tech/page-spy-plugin-rrweb
+```  
+
+:::
+
+##### ステップ2#esm-usage-step-2 
+
+```js
+import { PageSpy } from '@huolala-tech/page-spy-browser';
+import { DataHarborPlugin } from '@huolala-tech/page-spy-plugin-data-harbor';
+import { RRWebPlugin } from '@huolala-tech/page-spy-plugin-rrweb';  
+
+window.$harbor = new DataHarborPlugin();
+window.$rrweb = new RRWebPlugin();
 
 [window.$harbor, window.$rrweb].forEach(p => {
-  PageSpy.registerPlugin(p)
-})
+  PageSpy.registerPlugin(p);
+})  
 
-window.$pageSpy = new PageSpy();
-</script>
+// ESM モードでは自動分析できないため、以下のインスタンス初期化パラメーターが必要です
+window.$pageSpy = new PageSpy({
+  api: "{deployPath}",
+  clientOrigin: "{deployUrl}"
+});
 ```
 
 以上で、ブラウザプロジェクトで PageSpy を使用するためのすべての手順が完了です。ページの上部メニューをクリックして <Tooltip title="メニューはデフォルトでは非表示です。" color="purple"><a href="javascript:void(0)">開始デバッグ</a></Tooltip> を使用してください！

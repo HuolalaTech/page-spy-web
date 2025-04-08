@@ -8,10 +8,12 @@
     <link rel="icon" href="/favicon.ico" />
     <link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg" />
     <script>
-      const { href } = window.location;
-      const decoded = decodeURIComponent(href);
-      if (href !== decoded) {
-        window.location.href = decoded;
+      const { href, hash } = window.location;
+      if (['#/docs', '#/o-spy/docs'].some((item) => hash.startsWith(item))) {
+        const decoded = decodeURIComponent(href);
+        if (href !== decoded) {
+          window.location.href = decoded;
+        }
       }
     </script>
     <% if (isDoc) { %>

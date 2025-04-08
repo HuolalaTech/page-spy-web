@@ -68,7 +68,7 @@ ${INIT_CODE.split('\n')
                 ...(showConfig
                   ? {
                       code: cdnCode(
-                        'https://static.huolala.cn/libs/o-spy/2.1.13/index.min.js',
+                        'https://static.huolala.cn/libs/o-spy/2.2.1/index.min.js',
                       ),
                     }
                   : {

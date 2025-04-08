@@ -1,16 +1,18 @@
 import { useEventListener } from '@/utils/useEventListener';
 import { UploadOutlined } from '@ant-design/icons';
-import { MutableRefObject, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
 import clsx from 'clsx';
 import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
-  onDrop: (url: string) => void;
+  onDrop?: (url: string) => void;
 }
 
 export const DropFile = ({ onDrop }: Props) => {
+  const navigate = useNavigate();
   const [msg, contextHolder] = message.useMessage();
   const { t } = useTranslation();
   const tipsRef = useRef<HTMLDivElement>(null);
@@ -47,7 +49,11 @@ export const DropFile = ({ onDrop }: Props) => {
               });
             }
             const url = URL.createObjectURL(file);
-            onDrop(url);
+            if (onDrop) {
+              onDrop(url);
+            } else {
+              navigate(`/o-spy?url=${url}`);
+            }
           }}
         />
       )}

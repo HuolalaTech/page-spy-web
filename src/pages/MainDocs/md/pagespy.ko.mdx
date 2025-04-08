@@ -1,6 +1,7 @@
 import mpPanelImg from '@/assets/image/screenshot/mp-panel.png';
 import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
 import PlatformTag from '@/components/Docs/components/PlatformTag'
+import { Link } from 'react-router-dom'
 
 # PageSpy API
 
@@ -41,6 +42,18 @@ PageSpy 인스턴스를 생성합니다.
 ### config.clientOrigin <PlatformTag type="browser" />
 
 - 타입：`string`
+
+### config.lang
+
+SDK 의 표시 언어를 지정합니다.
+
+- 타입：`"zh" | "en"`
+- 기본값：`null`
+
+  지정되지 않은 경우, SDK 는 다음 전략에 따라 자동으로 언어를 선택합니다:
+
+  1. HTML 의 `lang` 속성을 읽고, `['zh-CN', 'zh-HK', 'zh-TW', 'zh', 'zh-Hans-CN']` 중 하나인 경우 한국어를 표시하고, 그렇지 않으면 영어를 표시합니다.
+  2. `navigator.language` 속성을 읽고, `['zh-CN', 'zh-HK', 'zh-TW', 'zh', 'zh-Hans-CN']` 중 하나인 경우 한국어를 표시하고, 그렇지 않으면 영어를 표시합니다.
 
 ### config.project
 
@@ -135,7 +148,7 @@ SDK가 오프라인 로그를 수집할 때 기본 타입이 아닌 데이터를
 
   처리 함수는 각각의 내장 플러그인에 대응하며, 사용자는 함수 내에서 직접 데이터를 수정할 수 있습니다. 함수 실행이 완료된 후 PageSpy는 수정된 데이터를 처리합니다. 함수가 false를 반환하면 PageSpy는 해당 데이터를 무시합니다: 이는 두 가지 모드의 디버그 측 모두에서 해당 데이터를 볼 수 없다는 것을 의미합니다.
 
-  자세한 내용은 다음을 참조하세요: https://www.pagespy.org/#/docs/changelog#v1_9_2
+  자세한 내용은 다음을 참조하세요: <Link to="/docs/changelog#v1-9-2">v1.9.2</Link>
 
 ### config.disabledOnProd <PlatformTag type="mp" />
 

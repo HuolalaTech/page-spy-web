@@ -52,7 +52,9 @@ export interface OnMountedParams {
 
 如果当前插件会收集（或者希望对外公开）平台的某种行为「数据」，那么除了在 `socketStore` 广播数据外，我们约定插件在 `socketStore` 实例上额外派发一个 `"public-data"` 内部事件（Internal Event）。此举的目的是为了满足有统计需求或者持久化需求的插件能够从这个事件中统一收集数据，插件如果觉得某类数据不应该被 “公开”，则无需派发 `"public-data"` 事件。
 
-<img src={pluginsImg} />
+<a href={pluginsImg} target="_blank">
+  <img src={pluginsImg} />
+</a>
 
 ### 插件实现案例#demo
 
