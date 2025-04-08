@@ -5,7 +5,7 @@ import { Button, Flex, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useSize } from 'ahooks';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import demo from './demo.json?url';
 import { SelectLogButton } from '@/components/SelectLogButton';
 
@@ -13,15 +13,13 @@ export const Replayer = () => {
   const { t } = useTranslation();
   const size = useSize(document.body);
   const navigate = useNavigate();
+  const { search } = useLocation();
 
-  const url = useMemo(() => {
-    const result = location.href.match(/\?url=(.*)/);
-    return result?.[1] || '';
-  }, []);
   const replayUrl = useMemo(() => {
+    const url = new URLSearchParams(search).get('url');
     if (url === 'demo') return demo;
-    return url;
-  }, [url]);
+    return url || '';
+  }, [search]);
 
   const backSlot = useMemo(() => {
     return (

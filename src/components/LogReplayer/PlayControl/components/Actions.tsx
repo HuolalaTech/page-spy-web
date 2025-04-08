@@ -1,6 +1,6 @@
 import { useReplayStore, TIME_MODE } from '@/store/replay';
 import Icon from '@ant-design/icons';
-import { Space, Select, Tooltip, Flex } from 'antd';
+import { Select, Tooltip, Flex } from 'antd';
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
@@ -37,22 +37,20 @@ export const Actions = memo(() => {
 
   return (
     <Flex justify="center" align="center" className="play-actions">
-      <Space>
-        <Icon
-          component={isPlaying ? PauseSvg : PlaySvg}
-          className="play-action__btn toggle-play-status"
-          onClick={() => {
-            const { progress } = useReplayStore.getState();
-            if (!isPlaying && progress >= 1) {
-              setProgress(0);
-              setIsPlaying(true);
-              return;
-            }
-            setIsPlaying(!isPlaying);
-          }}
-        />
-      </Space>
-      <Space size="small" className="right-actions">
+      <Icon
+        component={isPlaying ? PauseSvg : PlaySvg}
+        className="play-action__btn toggle-play-status"
+        onClick={() => {
+          const { progress } = useReplayStore.getState();
+          if (!isPlaying && progress >= 1) {
+            setProgress(0);
+            setIsPlaying(true);
+            return;
+          }
+          setIsPlaying(!isPlaying);
+        }}
+      />
+      <Flex align="center" gap={8} className="right-actions">
         <Select
           size="middle"
           defaultValue={speed}
@@ -88,7 +86,7 @@ export const Actions = memo(() => {
             }}
           />
         </Tooltip>
-      </Space>
+      </Flex>
     </Flex>
   );
 });

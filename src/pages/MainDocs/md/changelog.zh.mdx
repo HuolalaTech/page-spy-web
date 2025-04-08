@@ -5,6 +5,7 @@ import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-statu
 
 - 🆕 优化「暂停录制」状态时弹窗界面的交互；
 - 🆕 调试端全局支持拖拽离线日志文件进行回放；
+- 🆕 SDK 更新配置校验，错误提示更加友好，查看详情：https://github.com/HuolalaTech/page-spy/pull/138;
 - 🐛 修复回放页面无法播放的问题，查看详情：https://github.com/HuolalaTech/page-spy-web/pull/324;
 - 🐛 修复悬浮球在拖拽时遇到 iframe 元素不跟手的问题，查看详情：https://github.com/HuolalaTech/page-spy/pull/137;
 
@@ -107,35 +108,36 @@ import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-statu
 
 - 🆕 实例化参数新增 `dataProcessor` 选项用于过滤或者处理数据。查看详情：https://github.com/HuolalaTech/page-spy/pull/106;
 
-  > <details>
-  >   <summary>点击展开查看示例。</summary>
-  > 
-  >   ```ts
-  >   window.$pageSpy = new PageSpy({
-  >     ...,
-  >     dataProcessor: {
-  >       console: (data) => {
-  >         // 打印内容中如果有 "secret" 字符则忽略（不会发送到调试端）
-  >         if (data.logs.some(i => typeof i === 'string' && i.includes('secret'))) return false;
-  >       },
-  >       network: (data) => {
-  >         // 忽略数据打点类的请求
-  >         if (/(sentry|metric|collect)/.test(data.url)) return false
-  >       },,
-  >       storage: (data) => {
-  >         // cookie 中的键如果是下划线开头，让调试端看到的值为 "*******"
-  >         if (data.type === "cookie" && data.action === "get") {
-  >           data.data.forEach((i) => {
-  >             if (i.name.startsWith("_")) {
-  >               i.value = "*******";
-  >             }
-  >           });
-  >         }
-  >       },
-  >     },
-  >   });
-  >   ```
-  > </details>
+  <blockquote>
+    <details>
+      <summary>点击展开查看示例。</summary>
+      ```ts
+      window.$pageSpy = new PageSpy({
+        ...,
+        dataProcessor: {
+          console: (data) => {
+            // 打印内容中如果有 "secret" 字符则忽略（不会发送到调试端）
+            if (data.logs.some(i => typeof i === 'string' && i.includes('secret'))) return false;
+          },
+          network: (data) => {
+            // 忽略数据打点类的请求
+            if (/(sentry|metric|collect)/.test(data.url)) return false
+          },,
+          storage: (data) => {
+            // cookie 中的键如果是下划线开头，让调试端看到的值为 "*******"
+            if (data.type === "cookie" && data.action === "get") {
+              data.data.forEach((i) => {
+                if (i.name.startsWith("_")) {
+                  i.value = "*******";
+                }
+              });
+            }
+          },
+        },
+      });
+      ```
+    </details>
+  </blockquote>
 
 - 🆕 调整上传的日志数据，查看详情：https://github.com/HuolalaTech/page-spy/pull/107;
 

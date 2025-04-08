@@ -5,6 +5,7 @@ import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-statu
 
 - 🆕 「녹음 일시 중지」상태의 대화 상자 상호작용을 최적화했습니다;
 - 🆕 디버그 클라이언트가 이제 오프라인 로그 파일을 전역적으로 드래그하여 재생할 수 있습니다;
+- 🆕 SDK 구성 검증 오류 메시지 최적화, 자세한 내용은 https://github.com/HuolalaTech/page-spy/pull/138 참조하세요;
 - 🐛 재생 페이지 재생 문제가 수정되었습니다. 자세한 내용은 https://github.com/HuolalaTech/page-spy-web/pull/324 참조하세요;
 - 🐛 드래그 시 iframe 요소를 넘어갈 때 플로팅 볼이 마우스를 따라가지 않는 문제가 수정되었습니다. 자세한 내용은 https://github.com/HuolalaTech/page-spy/pull/137 참조하세요;
 
@@ -107,35 +108,36 @@ import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-statu
 
 - 🆕 인스턴스화 매개변수에 `dataProcessor` 옵션을 추가하여 데이터를 필터링하거나 처리할 수 있습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/106;
 
-  > <details>
-  >   <summary>예제를 보려면 클릭하세요.</summary>
-  > 
-  >   ```ts
-  >   window.$pageSpy = new PageSpy({
-  >     ...,
-  >     dataProcessor: {
-  >       console: (data) => {
-  >         // 출력 내용에 "secret" 문자가 포함된 경우 무시 (디버그 엔드로 전송되지 않음)
-  >         if (data.logs.some(i => typeof i === 'string' && i.includes('secret'))) return false;
-  >       },
-  >       network: (data) => {
-  >         // 데이터 포인트 요청을 무시
-  >         if (/(sentry|metric|collect)/.test(data.url)) return false
-  >       },,
-  >       storage: (data) => {
-  >         // cookie의 키가 밑줄로 시작하는 경우, 디버그 엔드에서 보이는 값을 "*******"로 설정
-  >         if (data.type === "cookie" && data.action === "get") {
-  >           data.data.forEach((i) => {
-  >             if (i.name.startsWith("_")) {
-  >               i.value = "*******";
-  >             }
-  >           });
-  >         }
-  >       },
-  >     },
-  >   });
-  >   ```
-  > </details>
+  <blockquote>
+    <details>
+      <summary>예제를 보려면 클릭하세요.</summary>
+      ```ts
+      window.$pageSpy = new PageSpy({
+        ...,
+        dataProcessor: {
+          console: (data) => {
+            // 출력 내용에 "secret" 문자가 포함된 경우 무시 (디버그 엔드로 전송되지 않음)
+            if (data.logs.some(i => typeof i === 'string' && i.includes('secret'))) return false;
+          },
+          network: (data) => {
+            // 데이터 포인트 요청을 무시
+            if (/(sentry|metric|collect)/.test(data.url)) return false
+          },,
+          storage: (data) => {
+            // cookie의 키가 밑줄로 시작하는 경우, 디버그 엔드에서 보이는 값을 "*******"로 설정
+            if (data.type === "cookie" && data.action === "get") {
+              data.data.forEach((i) => {
+                if (i.name.startsWith("_")) {
+                  i.value = "*******";
+                }
+              });
+            }
+          },
+        },
+      });
+      ```
+    </details>
+  </blockquote>
 
 - 🆕 업로드되는 로그 데이터를 조정했습니다. 자세한 내용은 다음을 참조하세요: https://github.com/HuolalaTech/page-spy/pull/107;
 
