@@ -122,7 +122,7 @@ docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:675
 有问题可以使用微信扫码进群。
 
 <div style="display: flex; gap: 8px; flex-wrap: nowrap; overflow: auto">
-  <img src="https://pagespy.blucas.me/qrcode/wechat-group" alt="在 GitHub 中查看支持群二维码" width="180" />
+  <img src="https://public-assets-v.huolala.cn/images/page-spy-wechat-group.svg" alt="支持群二维码" width="180" />
 </div>
 
 ## Roadmap
