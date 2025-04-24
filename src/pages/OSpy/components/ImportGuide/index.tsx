@@ -12,6 +12,7 @@ import {
   OSPY_DOMESTIC,
   OSPY_JSDELIVR,
   OSPY_UNPKG,
+  DOMESTIC_OSPY_URL,
 } from '@/components/CodeBlock/internal';
 
 interface Props {
@@ -67,9 +68,7 @@ ${INIT_CODE.split('\n')
                 lang: 'html',
                 ...(showConfig
                   ? {
-                      code: cdnCode(
-                        'https://static.huolala.cn/libs/o-spy/2.2.1/index.min.js',
-                      ),
+                      code: cdnCode(DOMESTIC_OSPY_URL),
                     }
                   : {
                       internal: OSPY_DOMESTIC,
