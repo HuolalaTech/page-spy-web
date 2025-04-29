@@ -325,6 +325,14 @@ NPMパッケージのデプロイ方法でコマンドラインで`page-spy-api`
         "UPDATE"
       ],
       "exposeHeaders": ["X-Request-Id"]
+    },
+    "storageConfig": {
+      "baseDir": string,
+      "keyId": string,
+      "secret": string,
+      "bucket": string,
+      "region": string,
+      "endpoint": string
     }
   }
   ```
@@ -404,6 +412,8 @@ Alipayミニプログラムは歴史的な理由により、グローバルオ�
 - 設定ファイル：[https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode](https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode)
 
 ### アップロードしたファイルログが見つからないのはなぜですか？#offline-log
+
+`config.json` に `storageConfig` パラメータが設定されていない場合、アップロードされたファイルログはローカルで管理されます：
 
 - アップロードされたファイルログは、デフォルトで最新の10GBまで、および30日間保存されます。設定を変更してカスタマイズすることができます。
 - アップロードログは実行ディレクトリのlogディレクトリに保存されます。dockerで実行している場合、dockerが破棄されるとログも失われます。`-v ./log:/app/log -v ./data:/app/data`でディレクトリをマッピングして永続化することができます。
