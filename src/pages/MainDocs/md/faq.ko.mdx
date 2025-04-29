@@ -325,7 +325,14 @@ NPM 패키지 배포 방식으로 명령줄에서 `page-spy-api`를 실행하면
         "UPDATE"
       ],
       "exposeHeaders": ["X-Request-Id"]
-    }
+    },
+    "storageConfig": {
+      "baseDir": string,
+      "keyId": string,
+      "secret": string,
+      "bucket": string,
+      "region": string,
+      "endpoint": string
   }
   ```
 
@@ -404,6 +411,8 @@ Alipay 미니프로그램은 역사적인 이유로 전역 객체 접근에 제�
 - 설정 파일: [https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode](https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode)
 
 ### 업로드한 파일 로그가 보이지 않는 이유는 무엇인가요?#offline-log
+
+`config.json`에 `storageConfig` 매개변수가 설정되지 않은 경우, 업로드된 파일 로그는 로컬에서 관리됩니다:
 
 - 업로드된 파일 로그는 기본적으로 최신 10GB까지, 그리고 30일 동안 보관되며, 설정을 통해 사용자 정의할 수 있습니다.
 - 업로드 로그는 실행 디렉토리의 log 디렉토리에 저장됩니다. docker로 실행하는 경우 docker가 삭제되면 로그도 함께 삭제됩니다. `-v ./log:/app/log -v ./data:/app/data` 디렉토리 매핑을 사용하여 영구 저장할 수 있습니다.

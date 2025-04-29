@@ -323,7 +323,14 @@ When you execute page-spy-api via the NPM package deployment method in the comma
         "UPDATE"
       ],
       "exposeHeaders": ["X-Request-Id"]
-    }
+    },
+    "storageConfig": {
+      "baseDir": string,
+      "keyId": string,
+      "secret": string,
+      "bucket": string,
+      "region": string,
+      "endpoint": string
   }
   ```
 
@@ -402,6 +409,8 @@ Due to historical reasons, Alipay Mini Program restricts access to global object
 - Configuration file: [https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode](https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode)
 
 ### Why are uploaded file logs missing? #offline-log
+
+If you do not configure the `storageConfig` parameter in `config.json`, the uploaded file logs will be managed locally:
 
 - Uploaded file logs are by default saved for up to the latest 10 GB and 30 days, customizable via configuration modification.
 - Uploaded logs are saved in the log directory under the runtime directory. In Docker runtime, if Docker is destroyed, logs will also be lost. Use directory mapping `-v ./log:/app/log -v ./data:/app/data` for persistence.

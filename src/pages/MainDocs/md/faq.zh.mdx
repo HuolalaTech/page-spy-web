@@ -325,6 +325,14 @@ SDK 可以对页面进行 “截图” 并发送到调试端，但由于：
         "UPDATE"
       ],
       "exposeHeaders": ["X-Request-Id"]
+    },
+    "storageConfig": {
+      "baseDir": string,
+      "keyId": string,
+      "secret": string,
+      "bucket": string,
+      "region": string,
+      "endpoint": string
     }
   }
   ```
@@ -404,6 +412,8 @@ SDK 可以对页面进行 “截图” 并发送到调试端，但由于：
 - 配置文件：[https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode](https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode)
 
 ### 为什么上传的文件日志不见了？#offline-log
+
+如果你没有在 `config.json` 中配置 `storageConfig` 参数，那么上传的文件日志会在本地管理：
 
 - 上传的文件日志默认最多保存最新的 10 G，以及 30 天，可以通过修改配置来自定义。
 - 上传日志保存在运行目录的 log 目录下，docker 运行时候，如果 docker 被销毁日志也会丢失，可以用目录映射 `-v ./log:/app/log -v ./data:/app/data` 来持久化。
