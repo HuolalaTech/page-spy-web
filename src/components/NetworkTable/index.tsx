@@ -36,6 +36,7 @@ export type NetworkType =
   | 'Other';
 
 const columnField = [
+  'startTime',
   'name',
   'pathname',
   'method',
@@ -241,7 +242,8 @@ export const NetworkTable = ({
 
   const [columnsWidth, setColumnsWidth] = useState<Record<ColumnField, number>>(
     {
-      name: 0.3,
+      startTime: 0.1,
+      name: 0.2,
       pathname: 0.3,
       method: 0.1,
       status: 0.1,
@@ -423,6 +425,14 @@ export const NetworkTable = ({
               sortBy={sortBy}
               sortDirection={sortDirection}
             >
+              <Column
+                dataKey="startTime"
+                label="StartTime"
+                width={width * columnsWidth.startTime}
+                cellRenderer={({ cellData }) => new Date(cellData).toLocaleString()}
+                headerRenderer={headerRenderer}
+                minWidth={80}
+              />
               <Column
                 dataKey="name"
                 label="Name"
