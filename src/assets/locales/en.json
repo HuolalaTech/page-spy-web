@@ -306,6 +306,6 @@
     "need_set_password": "Password not set, please set a password first",
     "session_expired": "Session expired, please login again",
     "server_error": "Server error, please try again later",
-    "welcome_message": "Welcome to Page-Spy"
+    "welcome_message": "Welcome to PageSpy"
   }
 }

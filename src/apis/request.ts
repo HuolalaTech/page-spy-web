@@ -87,7 +87,7 @@ class ApiRequest {
           // 令牌过期返回的特定错误代码
           const errorData = error.data as any;
           if (errorData && errorData.code === 'EXPIRED_OR_INVALID_TOKEN') {
-            console.log('令牌已过期，需要重新登录');
+            console.log('Token has expired, please login again');
 
             // 清除无效的令牌
             localStorage.removeItem('page-spy-auth-token');

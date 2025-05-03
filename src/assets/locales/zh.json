@@ -305,6 +305,6 @@
     "need_set_password": "系统未设置密码，请先设置密码",
     "session_expired": "会话已过期，请重新登录",
     "server_error": "服务器异常，请稍后重试",
-    "welcome_message": "欢迎使用 Page-Spy"
+    "welcome_message": "欢迎使用 PageSpy"
   }
 }

@@ -305,6 +305,6 @@
     "need_set_password": "パスワードが設定されていません。最初にパスワードを設定してください",
     "session_expired": "セッションの有効期限が切れました。再度ログインしてください",
     "server_error": "サーバーエラー、後でやり直してください",
-    "welcome_message": "Page-Spy へようこそ"
+    "welcome_message": "PageSpy へようこそ"
   }
 }

@@ -305,6 +305,6 @@
     "need_set_password": "비밀번호가 설정되어 있지 않습니다. 비밀번호를 먼저 설정하세요",
     "session_expired": "세션이 만료되었습니다. 다시 로그인하세요",
     "server_error": "서버 오류, 나중에 다시 시도하세요",
-    "welcome_message": "Page-Spy에 오신 것을 환영합니다"
+    "welcome_message": "PageSpy에 오신 것을 환영합니다"
   }
 }
