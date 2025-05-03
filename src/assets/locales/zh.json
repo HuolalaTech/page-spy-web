@@ -280,5 +280,31 @@
   "docSearch": {
     "empty": "未找到结果",
     "placeholder": "搜索文档"
+  },
+  "auth": {
+    "login_title": "登录",
+    "login_button": "登录",
+    "logout": "退出登录",
+    "logout_success": "已退出登录",
+    "login_success": "登录成功",
+    "login_failed": "登录失败",
+    "incorrect_password": "密码不正确",
+    "password": "密码",
+    "please_enter_password": "请输入密码",
+    "setup_password": "设置密码",
+    "setup_password_desc": "首次使用，请设置系统密码以保护您的数据",
+    "new_password": "新密码",
+    "confirm_password": "确认密码",
+    "please_confirm_password": "请确认密码",
+    "passwords_do_not_match": "两次输入的密码不一致",
+    "password_too_short": "密码长度不能少于6个字符",
+    "set_password_button": "设置密码",
+    "password_set_success": "密码设置成功",
+    "password_set_failed": "密码设置失败",
+    "password_already_set": "密码已设置，请直接登录",
+    "need_set_password": "系统未设置密码，请先设置密码",
+    "session_expired": "会话已过期，请重新登录",
+    "server_error": "服务器异常，请稍后重试",
+    "welcome_message": "欢迎使用 Page-Spy"
   }
 }

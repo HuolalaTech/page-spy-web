@@ -281,5 +281,31 @@
   "docSearch": {
     "empty": "No results found.",
     "placeholder": "Search docs"
+  },
+  "auth": {
+    "login_title": "Login",
+    "login_button": "Login",
+    "logout": "Logout",
+    "logout_success": "Successfully logged out",
+    "login_success": "Login successful",
+    "login_failed": "Login failed",
+    "incorrect_password": "Incorrect password",
+    "password": "Password",
+    "please_enter_password": "Please enter password",
+    "setup_password": "Set Password",
+    "setup_password_desc": "First time using the system, please set a password to protect your data",
+    "new_password": "New Password",
+    "confirm_password": "Confirm Password",
+    "please_confirm_password": "Please confirm password",
+    "passwords_do_not_match": "Passwords do not match",
+    "password_too_short": "Password must be at least 6 characters",
+    "set_password_button": "Set Password",
+    "password_set_success": "Password set successfully",
+    "password_set_failed": "Failed to set password",
+    "password_already_set": "Password already set, please login directly",
+    "need_set_password": "Password not set, please set a password first",
+    "session_expired": "Session expired, please login again",
+    "server_error": "Server error, please try again later",
+    "welcome_message": "Welcome to Page-Spy"
   }
 }
