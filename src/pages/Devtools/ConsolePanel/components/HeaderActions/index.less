@@ -6,3 +6,49 @@
     margin-left: 5px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .mobile-header-actions {
+    width: 100%;
+    
+    .ant-space {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      
+      .ant-space-item {
+        width: 100%;
+        margin-right: 0 !important;
+        margin-bottom: 8px;
+        
+        &:last-child {
+          display: inline-flex;
+          margin-bottom: 0;
+        }
+
+        &:nth-last-child(2) {
+          width: 100%;
+          display: inline-block;
+          margin-bottom: 0;
+        }
+        
+        .ant-select {
+          width: 100% !important;
+        }
+      }
+    }
+    
+    .filter-row {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      
+      .keyword-filter {
+        flex: 1;
+        margin-right: 8px;
+      }
+    }
+  }
+}

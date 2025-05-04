@@ -1,0 +1,131 @@
+/* 移动端适配样式 */
+@mobile-breakpoint: 768px;
+
+@media screen and (max-width: @mobile-breakpoint) {
+  .storage-panel {
+    /* 切换PC/移动设备显示 */
+    .desktop-only {
+      display: none !important;
+    }
+    
+    .mobile-only {
+      display: block !important;
+    }
+    
+    /* 隐藏PC端布局 */
+    .desktop-layout {
+      display: none !important;
+    }
+    
+    /* 移动端按钮组样式 */
+    &__mobile-buttons {
+      display: block !important;
+      
+      .storage-buttons-container {
+        flex-wrap: nowrap !important;
+        justify-content: flex-start !important;
+        
+        .ant-space-item {
+          flex: 0 0 auto !important;
+        }
+        
+        .storage-type-button {
+          min-width: auto !important;
+          font-size: 12px !important;
+          padding: 0 10px !important;
+        }
+      }
+    }
+    
+    /* 移动端内容区域样式 */
+    &__mobile-content {
+      display: block !important;
+      padding: 8px !important;
+      
+      /* 确保内容区有足够空间，不被固定在底部的详情区遮挡 */
+      margin-bottom: 120px !important;
+    }
+    
+    /* 整体布局调整为垂直排列 */
+    &__layout {
+      flex-direction: column !important;
+      height: auto !important;
+    }
+    
+    /* 将侧边栏改为顶部横向导航 */
+    &__sider {
+      position: static !important;
+      width: 100% !important;
+      height: auto !important;
+      border-right: none !important;
+      border-bottom: 1px solid #d9d9d9;
+    }
+    
+    /* 菜单项横向排列 */
+    &__menu {
+      display: flex !important;
+      flex-direction: row !important;
+      justify-content: space-around !important;
+      
+      /* 调整菜单项样式 */
+      .ant-menu-item {
+        margin: 0 !important;
+        padding: 0 10px !important;
+        height: 48px !important;
+        line-height: 48px !important;
+        
+        /* 居中显示菜单项图标和文字 */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+    }
+    
+    /* 表格内容区域 */
+    &__content {
+      padding: 8px !important;
+      overflow-x: auto !important; /* 允许水平滚动 */
+    }
+  }
+
+  /* 表格样式调整 */
+  .storage-table {
+    width: 100% !important;
+    
+    /* 表头固定 */
+    .ant-table-thead {
+      white-space: nowrap !important;
+    }
+    
+    /* 表格单元格样式 */
+    .ant-table-cell {
+      white-space: nowrap !important;
+      padding: 8px 12px !important;
+    }
+    
+    /* 确保表格可以水平滚动 */
+    .ant-table-container {
+      overflow-x: auto !important;
+    }
+  }
+  
+  /* 修改详情面板在移动端的显示方式 */
+  .resizable-detail {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 120px !important;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15) !important;
+    z-index: 100 !important;
+    background: white !important;
+  }
+  
+  /* 调整调整器样式以便在移动端更容易点击 */
+  .resizable-height-controller {
+    height: 24px !important;
+    background-color: #f5f5f5 !important;
+  }
+} 

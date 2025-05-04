@@ -22,10 +22,15 @@ import {
   Space,
   Layout,
 } from 'antd';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './index.less';
-import { ClearOutlined, SearchOutlined } from '@ant-design/icons';
+import {
+  ClearOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  SearchOutlined,
+} from '@ant-design/icons';
 import { RoomCard } from './RoomCard';
 import { Statistics } from './Statistics';
 import { LoadingFallback } from '@/components/LoadingFallback';
@@ -89,6 +94,25 @@ const filterConnections = (
 const RoomList = () => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
+  const [collapsed, setCollapsed] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobileView = window.innerWidth <= 768;
+      setIsMobile(isMobileView);
+      if (isMobileView) {
+        setCollapsed(true);
+      }
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   const [showMaximumAlert, setMaximumAlert] = useState(false);
   const showLoadingRef = useRef(false);
@@ -191,7 +215,7 @@ const RoomList = () => {
     );
 
     return (
-      <Row gutter={24} style={{ padding: 24 }}>
+      <Row gutter={[24, 16]} style={{ padding: isMobile ? 16 : 24 }}>
         {list.map((room) => (
           <RoomCard key={room.address} room={room} />
         ))}
@@ -201,7 +225,14 @@ const RoomList = () => {
 
   return (
     <Layout style={{ height: '100%' }} className="room-list">
-      <Sider width={350} theme="light">
+      <Sider
+        width={350}
+        theme="light"
+        collapsed={collapsed}
+        collapsedWidth={0}
+        trigger={null}
+        collapsible
+      >
         <div className="room-list-sider">
           <Title level={3} style={{ marginBottom: 32 }}>
             {t('common.connections')}
@@ -305,7 +336,24 @@ const RoomList = () => {
           {debug.enabled && <Statistics data={connectionList} />}
         </div>
       </Sider>
-      <Content>{mainContent}</Content>
+      <div
+        className="sider-trigger"
+        onClick={() => setCollapsed(!collapsed)}
+        style={{
+          backgroundColor: collapsed ? 'transparent' : '#fff',
+          left: collapsed ? 0 : 350,
+        }}
+      >
+        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      </div>
+      <Content 
+        style={{ 
+          marginLeft: isMobile ? 0 : collapsed ? 0 : '18px',
+          display: isMobile && !collapsed ? 'none' : 'block' 
+        }}
+      >
+        {mainContent}
+      </Content>
     </Layout>
   );
 };

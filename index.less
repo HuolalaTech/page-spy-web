@@ -1,8 +1,15 @@
 .replay-network-panel {
   flex: 1;
-  height: 100%;
+  height: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  
+  .network-table {
+    flex: 1;
+    min-height: 0; /* 防止表格被压缩到看不见 */
+    height: auto;
+  }
   
   // 移动端筛选控件容器
   .mobile-controls-wrapper {
@@ -12,7 +19,7 @@
     gap: 8px;
     background-color: #fff;
     border-bottom: 1px solid rgba(5, 5, 5, 0.06);
-    flex-shrink: 0;
+    flex-shrink: 0; /* 防止筛选控件被压缩 */
     
     // 筛选输入框 - 动态大小
     .filter-input {
@@ -46,19 +53,26 @@
     }
   }
   
-  // 网络内容区域 - 包含表格
-  .network-content {
+  // 空状态包装器
+  .network-empty-wrapper {
     flex: 1;
-    height: 0; // 这个值非常关键，确保内部的表格可以正确扩展
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px; /* 确保有足够的高度使Empty组件可见 */
+    background-color: #fff;
   }
   
-  .network-table {
-    height: 100%;
-  }
-
   // 移动端特定样式
   @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
     height: 100%;
+    overflow: hidden;
+    
+    .network-table {
+      flex: 1;
+      min-height: 200px; // 确保表格有最小高度
+    }
   }
-}
+} 

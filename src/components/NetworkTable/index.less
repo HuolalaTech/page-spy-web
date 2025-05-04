@@ -73,9 +73,55 @@
           background-color: @thead-hover-bg;
         }
       }
+      
+      &.mobile-tabs {
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        li {
+          padding: 6px 8px;
+          font-size: 12px;
+          white-space: nowrap;
+        }
+      }
     }
     &-content {
       overflow: auto;
+      
+      &.mobile-content {
+        font-size: 12px;
+        
+        .detail-block {
+          padding: 2px 8px;
+          
+          &__label {
+            line-height: 1.8;
+          }
+          
+          &__content {
+            padding-left: 8px;
+            margin-bottom: 12px;
+          }
+          
+          .response-blob-image {
+            max-width: 95%;
+          }
+        }
+        
+        .entries-item {
+          line-height: 1.5;
+        }
+      }
+    }
+    
+    // 移动端适配 - 全屏显示详情
+    @media screen and (max-width: 768px) {
+      left: 0 !important;
+      z-index: 10;
+      border-left: none;
     }
 
     .detail-block {
@@ -225,6 +271,63 @@
     line-height: 30px;
     &:nth-child(6) {
       text-align: right;
+    }
+  }
+  
+  // 移动端表格样式调整
+  &.mobile-view {
+    .ReactVirtualized__Table__headerColumn {
+      padding-inline: 5px;
+      font-size: 12px;
+    }
+    
+    .ReactVirtualized__Table__rowColumn {
+      padding-inline: 5px;
+      font-size: 12px;
+      line-height: 28px;
+    }
+    
+    .ReactVirtualized__Table__headerRow {
+      height: 28px !important;
+    }
+    
+    .ReactVirtualized__Table__row {
+      height: 28px !important;
+    }
+    
+    // 调整列宽样式，确保路径列显示更多内容
+    [aria-colindex="1"] {  // path列
+      width: 50% !important;
+      #mixin.ellipsis();
+    }
+    
+    [aria-colindex="2"] {  // method列
+      width: 15% !important;
+      text-align: center;
+    }
+    
+    [aria-colindex="3"] {  // status列
+      width: 15% !important;
+      text-align: center;
+    }
+    
+    [aria-colindex="4"] {  // time列
+      width: 20% !important;
+      text-align: right;
+    }
+  }
+}
+
+// 移动端媒体查询，处理一些全局样式调整
+@media screen and (max-width: 768px) {
+  .network-table {
+    .ReactVirtualized__Table {
+      font-size: 12px;
+    }
+    
+    .ReactVirtualized__Table__headerRow,
+    .ReactVirtualized__Table__row {
+      font-size: 12px;
     }
   }
 }

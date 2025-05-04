@@ -1,4 +1,11 @@
 .log-list {
+  &-sider {
+    height: 100%;
+    display: grid;
+    padding: 24px;
+    grid-template-rows: auto 1fr auto;
+  }
+
   .action-item {
     color: @primary-color !important;
   }
@@ -21,6 +28,210 @@
       font-family: 'Monaco';
       letter-spacing: 8px;
       font-size: 18px;
+    }
+  }
+
+  .sider-trigger {
+    position: fixed;
+    width: 24px;
+    height: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.3s;
+    color: @primary-color;
+    font-size: 16px;
+
+    &:hover {
+      color: darken(@primary-color, 10%);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .mobile-icons-container {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding: 0 5px;
+      
+      .page-spy-id {
+        flex: 1;
+        margin-right: 5px;
+        display: flex;
+        justify-content: center;
+        padding: 2px 0;
+        max-width: 38%;
+      }
+      
+      .client-info__logo {
+        flex: 1;
+        display: block;
+        margin: 0 5px;
+        max-width: 28px;
+      }
+      
+      .ant-tooltip-open {
+        flex: 1;
+      }
+    }
+    
+    .mobile-icon {
+      width: 28px !important;
+      height: 28px;
+    }
+    
+    .mobile-id {
+      margin-right: 0;
+      b {
+        font-size: 20px;
+        letter-spacing: 2px;
+      }
+    }
+    
+    .mobile-item {
+      display: flex;
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+    
+    .mobile-label {
+      color: rgba(0, 0, 0, 0.65);
+      font-weight: 500;
+      min-width: 70px;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+    
+    .mobile-value {
+      color: rgba(0, 0, 0, 0.88);
+      word-break: break-word;
+    }
+    
+    .mobile-value-container {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+    
+    .mobile-filename {
+      flex: 1;
+      word-break: break-all;
+      padding-right: 8px;
+    }
+    
+    .mobile-actions-container {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      .ant-space {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      
+      .ant-btn {
+        font-size: 13px !important;
+        height: 28px !important;
+        
+        .anticon {
+          font-size: 14px;
+        }
+      }
+    }
+    
+    .info-icon {
+      color: @primary-color;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .ant-space-vertical {
+      gap: 10px !important;
+    }
+    
+    .sider-trigger {
+      top: 50%;
+      transform: translateY(-50%);
+      height: 30px;
+      width: 30px;
+      border-radius: 4px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .ant-table {
+      font-size: 12px;
+      
+      .ant-table-thead > tr > th {
+        padding: 8px 4px;
+      }
+      
+      .ant-table-tbody > tr > td {
+        padding: 8px 10px;
+        vertical-align: top;
+        
+        &:last-child {
+          vertical-align: middle;
+        }
+        
+        &:first-child {
+          vertical-align: middle;
+          
+          .ant-checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+          }
+        }
+      }
+      
+      .client-info__logo {
+        width: 16px;
+      }
+      
+      .page-spy-id b {
+        font-size: 14px;
+        letter-spacing: 4px;
+      }
+      
+      .ant-btn {
+        font-size: 12px;
+        padding: 0 8px;
+        height: 24px;
+      }
+      
+      .ant-btn-sm {
+        font-size: 12px;
+        padding: 0 6px;
+        height: 22px;
+      }
+      
+      .text-ellipse {
+        max-width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+      }
+      
+      .anticon-info-circle {
+        color: @primary-color;
+        margin-left: 4px;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
     }
   }
 }

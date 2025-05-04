@@ -7,6 +7,11 @@
   gap: 8px;
   &__layout {
     flex: 1;
+    
+    &--mobile {
+      display: flex;
+      flex-direction: column;
+    }
   }
   &__sider {
     position: absolute;
@@ -17,6 +22,16 @@
   &__menu {
     height: 100%;
     border-right: none;
+    
+    &--horizontal {
+      border-bottom: 1px solid #d9d9d9;
+    }
+  }
+  &__horizontal-menu {
+    width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid #d9d9d9;
+    z-index: 10;
   }
   &__content {
     height: 100%;
@@ -26,6 +41,23 @@
       position: sticky;
       top: 0;
       z-index: 10;
+    }
+  }
+}
+
+// 移动端适配
+@media screen and (max-width: 768px) {
+  .storage-panel {
+    &__content {
+      padding-left: 0;
+    }
+    
+    // 移动端的菜单样式
+    &__horizontal-menu {
+      .ant-menu-item {
+        padding: 0 10px;
+        margin: 0 4px;
+      }
     }
   }
 }

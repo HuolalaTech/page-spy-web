@@ -169,7 +169,9 @@
   },
   "page": {
     "element": "元素",
-    "device": "设备"
+    "device": "设备",
+    "fullscreen": "全屏",
+    "exit_fullscreen": "退出全屏"
   },
   "storage": {
     "empty-detail": "选择查看其中一项的值",

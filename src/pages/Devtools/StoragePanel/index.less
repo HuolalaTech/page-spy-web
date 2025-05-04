@@ -4,18 +4,24 @@
   flex-direction: column;
   justify-content: flex-end;
   gap: 8px;
+  height: 100%;
+  
   &__layout {
     flex: 1;
+    display: flex;
   }
   &__sider {
     position: absolute;
     height: 100%;
     left: 0;
     border-right: 1px solid #d9d9d9;
+    z-index: 5;
   }
   &__menu {
     height: 100%;
     border-right: none;
+    display: flex;
+    flex-direction: column;
   }
   &__content {
     height: 100%;
@@ -27,4 +33,44 @@
       z-index: 10;
     }
   }
+  &__mobile-buttons {
+    width: 100%;
+    padding: 8px;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #fff;
+    display: none;
+    
+    .storage-buttons-container {
+      width: 100%;
+      display: flex;
+      overflow-x: auto;
+      justify-content: space-between;
+      padding-bottom: 4px;
+      .ant-space-item {
+        flex: 1;
+      }
+      .storage-type-button {
+        min-width: 100px;
+        margin: 0 4px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+  }
+  &__mobile-content {
+    width: 100%;
+    flex: 1;
+    overflow: auto;
+    display: none;
+  }
+  .desktop-only {
+    display: block;
+  }
+  .mobile-only {
+    display: none;
+  }
 }
+
+/* 导入移动端响应式样式 */
+@import './responsive.less';

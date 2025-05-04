@@ -170,7 +170,9 @@
   },
   "page": {
     "element": "Element",
-    "device": "Device"
+    "device": "Device",
+    "fullscreen": "Fullscreen",
+    "exit_fullscreen": "Exit Fullscreen"
   },
   "storage": {
     "empty-detail": "Select one to preview its value",

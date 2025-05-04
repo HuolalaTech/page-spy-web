@@ -1,15 +1,16 @@
-import { NetworkTable, NetworkType, RESOURCE_TYPE } from '@/components/NetworkTable';
+import { NetworkTable, NetworkType } from '@/components/NetworkTable';
 import { useReplayStore } from '@/store/replay';
 import './index.less';
-import { memo, useCallback, useState, useEffect } from 'react';
+import { memo, useCallback, useMemo, useState, useEffect } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { OFFLINE_NETWORK_CACHE } from '@/components/ResizableTitle/cache-key';
-import { Input, Space, Dropdown, Button, Empty } from 'antd';
+import { Input, Space, Button, Dropdown, Empty } from 'antd';
 import { debounce } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { useEventListener } from '@/utils/useEventListener';
 import { TypeFilter } from '@/components/NetworkTable/TypeFilter';
 import { FilterOutlined } from '@ant-design/icons';
+import { RESOURCE_TYPE } from '@/components/NetworkTable';
 
 const FILTER_KEYWORD_CHANGE = 'filter-keyword-change';
 const FILTER_TYPE_CHANGE = 'filter-type-change';
@@ -114,6 +115,9 @@ export const NetworkPanel = memo(() => {
       setFilterType(key as NetworkType);
     }
   };
+  
+  // 确保数据存在
+  const hasData = Array.isArray(networkMsg) && networkMsg.length > 0;
 
   return (
     <div className="replay-network-panel">
@@ -135,7 +139,11 @@ export const NetworkPanel = memo(() => {
         </div>
       )}
       
-      <div className="network-content">
+      {!hasData ? (
+        <div className="network-empty-wrapper">
+          <Empty description="暂无网络请求数据" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        </div>
+      ) : (
         <NetworkTable
           data={networkMsg}
           filterKeyword={filterKeyword}
@@ -143,7 +151,7 @@ export const NetworkPanel = memo(() => {
           resizeCacheKey={OFFLINE_NETWORK_CACHE}
           isMobile={isMobile}
         />
-      </div>
+      )}
     </div>
   );
-});
+}); 

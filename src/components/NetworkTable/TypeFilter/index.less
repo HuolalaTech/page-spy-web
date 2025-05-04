@@ -1,0 +1,67 @@
+/* 移动端断点 */
+@mobile-breakpoint: 768px;
+
+.network-type-filter {
+  @media screen and (max-width: @mobile-breakpoint) {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    
+    /* 移动端下RadioButton样式调整 */
+    .ant-radio-button-wrapper {
+      margin-bottom: 4px;
+      flex: 0 0 auto;
+      text-align: center;
+      padding: 0 8px;
+      font-size: 12px;
+      height: 24px;
+      line-height: 22px;
+      border-radius: 12px;
+      margin-right: 4px;
+      
+      &:not(:first-child)::before {
+        display: none;
+      }
+    }
+  }
+}
+
+.mobile-type-filter {
+  .ant-radio-button-wrapper {
+    padding: 0 4px;
+    font-size: 11px;
+    height: 24px;
+    line-height: 24px;
+  }
+  
+  // 移动端横向滚动支持
+  display: flex;
+  overflow-x: auto;
+  max-width: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  // 在非常小的屏幕上只显示选中的项目
+  @media screen and (max-width: 480px) {
+    .ant-radio-button-wrapper:not(.ant-radio-button-wrapper-checked) {
+      display: none;
+    }
+    
+    // 添加下拉指示器
+    .ant-radio-button-wrapper-checked::after {
+      content: " ▼";
+      font-size: 8px;
+      vertical-align: middle;
+    }
+    
+    // 鼠标悬停或焦点时显示所有选项
+    &:hover, &:focus-within {
+      .ant-radio-button-wrapper {
+        display: inline-block;
+      }
+    }
+  }
+} 

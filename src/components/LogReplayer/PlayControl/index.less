@@ -8,6 +8,22 @@
       top: 50%;
       transform: translate(0, -50%);
     }
+    @media screen and (max-width: 768px) {
+      width: 85vw;
+      margin-top: 0;
+      
+      .right-actions {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        
+        .play-action__btn {
+          font-size: 20px;
+          padding: 1px;
+        }
+      }
+    }
   }
   .play-action__btn {
     font-size: 24px;
@@ -18,6 +34,11 @@
     border-radius: 4px;
     &.toggle-play-status {
       font-size: 50px;
+      
+      &--mobile {
+        font-size: 40px;
+        padding: 0;
+      }
     }
     &:active {
       color: fade(@primary-color, 75%);
@@ -34,6 +55,10 @@
     .canvas-timeline {
       width: 40vw;
       cursor: pointer;
+      
+      @media screen and (max-width: 768px) {
+        width: 85vw;
+      }
     }
     .play-timeline {
       flex: 0 0 40vw;
@@ -42,6 +67,11 @@
       background-color: fade(@primary-color, 30%);
       border-radius: 999px;
       cursor: pointer;
+      
+      @media screen and (max-width: 768px) {
+        flex: 0 0 85vw;
+      }
+      
       .play-current-point {
         @size: 18px;
         position: absolute;
@@ -76,6 +106,48 @@
         // background-size: @size;
         // background-repeat: no-repeat;
       }
+    }
+  }
+  
+  // 收缩/展开控制样式
+  .collapse-toggle {
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    padding: 2px 0;
+    margin-bottom: 0;
+    transition: background-color 0.2s;
+    
+    &:hover {
+      background-color: fade(@primary-color, 5%);
+    }
+    
+    .collapse-icon {
+      color: @primary-color;
+      font-size: 16px;
+    }
+  }
+  
+  // 收缩状态
+  &.play-control--collapsed {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2px 0;
+    background-color: #fff;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+  }
+  
+  // 调整播放控件在移动端的间距
+  @media screen and (max-width: 768px) {
+    .play-actions {
+      margin-top: 0;
+    }
+    
+    .play-progress {
+      margin-top: 2px;
     }
   }
 }
