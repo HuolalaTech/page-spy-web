@@ -34,7 +34,11 @@ const routes: RouteObject[] = [
       },
       {
         path: 'devtools',
-        element: <Devtools />,
+        element: (
+          <ProtectedRoute>
+            <Devtools />
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'room-list',
@@ -58,7 +62,11 @@ const routes: RouteObject[] = [
       },
       {
         path: 'replay',
-        element: <Replay />,
+        element: (
+          <ProtectedRoute>
+            <Replay />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
