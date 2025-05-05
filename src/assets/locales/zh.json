@@ -277,7 +277,8 @@
     "only-pc": "请前往 PC 端体验 :)",
     "console-output": "输出日志",
     "network-request": "网络请求",
-    "modify-storage": "修改 Storage"
+    "modify-storage": "修改 Storage",
+    "better-on-pc": "建议在PC上体验更佳"
   },
   "docSearch": {
     "empty": "未找到结果",

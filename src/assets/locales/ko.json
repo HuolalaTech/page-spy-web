@@ -275,6 +275,7 @@
     "replay": "재생",
     "guide": "가이드로 돌아가기",
     "only-pc": "PC에서 방문해주세요 :)",
+    "better-on-pc": "PC에서 이용하시면 더 좋은 경험을 제공합니다",
     "console-output": "콘솔 출력",
     "network-request": "네트워크 요청",
     "modify-storage": "Storage 수정"
