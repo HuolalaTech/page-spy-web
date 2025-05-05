@@ -109,6 +109,21 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         // 显示登录成功提示
         message.success(t('auth.login_success'));
 
+        // 检查是否有登录后的重定向路径
+        const redirectPath = sessionStorage.getItem('redirect_after_login');
+        if (redirectPath) {
+          // 清除存储的路径
+          sessionStorage.removeItem('redirect_after_login');
+
+          // 重定向到之前的页面
+          // 如果路径以/开头但不是以/#/开头，则添加#
+          if (redirectPath.startsWith('/') && !redirectPath.startsWith('/#/')) {
+            window.location.href = '/#' + redirectPath;
+          } else {
+            window.location.href = redirectPath;
+          }
+        }
+
         return true;
       } else {
         // 处理各种登录失败情况
@@ -150,6 +165,21 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
         setNeedPasswordSetup(false);
         message.success(t('auth.password_set_success'));
+
+        // 检查是否有登录后的重定向路径
+        const redirectPath = sessionStorage.getItem('redirect_after_login');
+        if (redirectPath) {
+          // 清除存储的路径
+          sessionStorage.removeItem('redirect_after_login');
+
+          // 重定向到之前的页面
+          // 如果路径以/开头但不是以/#/开头，则添加#
+          if (redirectPath.startsWith('/') && !redirectPath.startsWith('/#/')) {
+            window.location.href = '/#' + redirectPath;
+          } else {
+            window.location.href = redirectPath;
+          }
+        }
 
         return true;
       } else {
@@ -201,7 +231,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     setIsAuthenticated(false);
     setExpiresAt(null);
 
+    // 显示登出成功消息
     message.success(t('auth.logout_success'));
+
+    // 对于哈希路由，刷新当前页面就可以，ProtectedRoute组件会自动显示登录界面
+    window.location.reload();
   };
 
   // 初始化时验证令牌
