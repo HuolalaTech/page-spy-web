@@ -1,0 +1,22 @@
+.replay-system-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &__content {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+  }
+}
+
+/* 移动端适配样式 */
+@mobile-breakpoint: 768px;
+
+@media screen and (max-width: @mobile-breakpoint) {
+  .replay-system-panel {
+    &__content {
+      padding: 12px 8px;
+    }
+  }
+}

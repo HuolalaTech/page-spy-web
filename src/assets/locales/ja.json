@@ -169,7 +169,9 @@
   },
   "page": {
     "element": "要素",
-    "device": "デバイス"
+    "device": "デバイス",
+    "fullscreen": "全画面表示",
+    "exit_fullscreen": "全画面表示を終了"
   },
   "storage": {
     "empty-detail": "値を表示するアイテムを選択",

@@ -2,6 +2,7 @@ import { memo, useEffect } from 'react';
 import { Empty } from 'antd';
 import SystemContent from '@/components/SystemContent';
 import { useReplayStore } from '@/store/replay';
+import './index.less';
 
 export const SystemPanel = memo(() => {
   const systemMsg = useReplayStore((state) => state.allSystemMsg);
@@ -10,8 +11,10 @@ export const SystemPanel = memo(() => {
     return <Empty description={false} />;
   }
   return (
-    <div className="system-panel" style={{ padding: 20 }}>
-      <SystemContent data={systemMsg} />
+    <div className="replay-system-panel">
+      <div className="replay-system-panel__content">
+        <SystemContent data={systemMsg} />
+      </div>
     </div>
   );
 });

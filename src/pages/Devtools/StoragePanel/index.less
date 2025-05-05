@@ -5,7 +5,7 @@
   justify-content: flex-end;
   gap: 8px;
   height: 100%;
-  
+
   &__layout {
     flex: 1;
     display: flex;
@@ -39,7 +39,13 @@
     border-bottom: 1px solid #f0f0f0;
     background-color: #fff;
     display: none;
-    
+    position: relative;
+
+    /* 当刷新按钮固定在右侧时的样式调整 */
+    &.with-fixed-refresh {
+      padding-right: 48px; /* 为右侧固定的刷新按钮留出空间 */
+    }
+
     .storage-buttons-container {
       width: 100%;
       display: flex;
@@ -58,6 +64,16 @@
       }
     }
   }
+
+  /* 固定在右侧的刷新按钮 */
+  &__fixed-refresh {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+
   &__mobile-content {
     width: 100%;
     flex: 1;
