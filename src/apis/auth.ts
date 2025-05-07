@@ -13,21 +13,21 @@ export const checkAuth = () => {
 
 // 登录请求
 export const login = (password: string) => {
-  return request.post<LoginResponse>('/auth/login', {
+  return request.post<LoginResponse>('/auth/verify', {
     data: { password },
   });
 };
 
 // 设置密码
 export const setPassword = (password: string) => {
-  return request.post<LoginResponse>('/auth/password', {
+  return request.post<LoginResponse>('/auth/set-password', {
     data: { password },
   });
 };
 
 // 检查是否需要密码
 export const isPasswordRequired = () => {
-  return request.get<{ isPasswordRequired: boolean }>(
-    '/auth/password/required',
+  return request.get<{ passwordConfigured: boolean; isFirstStart: boolean }>(
+    '/auth/status',
   );
 };

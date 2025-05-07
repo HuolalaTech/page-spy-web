@@ -89,12 +89,85 @@ class ApiRequest {
       .replace(/^./, '?$&');
     const url = prefix + path + qs;
 
+    console.log(`请求: ${method} ${path}`, `requireAuth: ${requireAuth}`);
+
     // 设置请求头，如果需要认证则添加认证头
     const headers: Record<string, string> = {};
     if (requireAuth) {
+      // 先检查是否有token，有token就直接用
       const token = getAuthToken();
+      console.log(`当前token状态: ${token ? '有token' : '无token'}`);
+
       if (token) {
         headers['Authorization'] = `Bearer ${token}`;
+        console.log('已添加Authorization请求头');
+      } else {
+        // 没有token才检查是否是无密码模式
+        const isNoPasswordMode = async (): Promise<boolean> => {
+          try {
+            // 如果path是检查认证状态的接口，避免循环调用
+            if (path === '/auth/status') {
+              return false;
+            }
+
+            // 缓存认证状态检查结果，避免频繁请求
+            const cacheKey = 'page-spy-no-password-mode';
+            const cachedResult = sessionStorage.getItem(cacheKey);
+
+            if (cachedResult) {
+              return cachedResult === 'true';
+            }
+
+            // 请求认证状态
+            const statusResponse = await fetch(`${prefix}/auth/status`);
+            if (statusResponse.ok) {
+              const statusData = await statusResponse.json();
+              // 如果已配置密码，则不是无密码模式
+              if (statusData.data.passwordConfigured) {
+                sessionStorage.setItem(cacheKey, 'false');
+                setTimeout(
+                  () => sessionStorage.removeItem(cacheKey),
+                  5 * 60 * 1000,
+                );
+                return false;
+              }
+
+              // 如果是首次启动，也不是无密码模式
+              if (statusData.data.isFirstStart) {
+                sessionStorage.setItem(cacheKey, 'false');
+                setTimeout(
+                  () => sessionStorage.removeItem(cacheKey),
+                  5 * 60 * 1000,
+                );
+                return false;
+              }
+
+              // 其他情况才是无密码模式
+              const isNoPassword =
+                !statusData.data.passwordConfigured &&
+                !statusData.data.isFirstStart;
+              sessionStorage.setItem(cacheKey, String(isNoPassword));
+              setTimeout(
+                () => sessionStorage.removeItem(cacheKey),
+                5 * 60 * 1000,
+              );
+              return isNoPassword;
+            }
+            return false;
+          } catch (error) {
+            console.error('检查无密码模式失败:', error);
+            return false;
+          }
+        };
+
+        // 检查是否是无密码模式
+        const noPasswordMode = await isNoPasswordMode();
+
+        if (!noPasswordMode) {
+          // 不是无密码模式，但没有token，需要重定向到登录页面
+          redirectToLogin();
+        }
+        // 是无密码模式，无需添加Authorization头，直接继续请求
       }
     }
 

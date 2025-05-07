@@ -308,6 +308,10 @@
     "need_set_password": "비밀번호가 설정되어 있지 않습니다. 비밀번호를 먼저 설정하세요",
     "session_expired": "세션이 만료되었습니다. 다시 로그인하세요",
     "server_error": "서버 오류, 나중에 다시 시도하세요",
-    "welcome_message": "PageSpy에 오신 것을 환영합니다"
+    "welcome_message": "PageSpy에 오신 것을 환영합니다",
+    "skip_password_button": "비밀번호 설정 건너뛰기",
+    "skip_password_warning": "비밀번호 설정을 건너뛰면 시스템이 안전하지 않은 상태가 되며, 누구나 귀하의 데이터에 액세스할 수 있습니다. 데이터 보안을 위해 비밀번호를 설정하는 것이 좋습니다. 나중에 환경 변수 AUTH_PASSWORD를 통해 비밀번호를 설정할 수 있습니다.",
+    "skip_password_success": "비밀번호 설정을 건너뛰었습니다",
+    "skip_password_failed": "비밀번호 설정 건너뛰기 실패"
   }
 }

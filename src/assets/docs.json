@@ -59,12 +59,23 @@
     {
       "language": "en",
       "route": "/docs/browser#script-usage",
+<<<<<<< HEAD
+=======
       "parent": "Browser",
       "title": "Use with script",
       "content": ""
     },
     {
       "language": "en",
+      "route": "/docs/browser#script-usage-step-1",
+>>>>>>> origin/login
+      "parent": "Browser",
+      "title": "Use with script",
+      "content": ""
+    },
+    {
+      "language": "en",
+<<<<<<< HEAD
       "route": "/docs/browser#script-usage-step-1",
       "parent": "Browser",
       "title": "Step 1",
@@ -76,6 +87,12 @@
       "parent": "Browser",
       "title": "Step 2",
       "content": "Initialize PageSpy and the plugins. Both their initialization parameters provide optional configuration items for customizing the behavior of the SDK:  - **DataHarborPlugin**: PageSpy itself only supports _online mode_, meaning \"the client and the debugging side must be online simultaneously\" during debugging. DataHarborPlugin enables offline debugging for PageSpy. Click [Offline Log](./offline-log) to see more details;\r   - **RRWebPlugin**: Records user operation traces, using [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.zh_CN.md) as the underlying technology. It's commonly used in conjunction with DataHarborPlugin.\r \r   You can also customize your own PageSpy by [developing plugins](./plugins)!\r </div> <script>\r   window.$harbor = new DataHarborPlugin();\r   window.$rrweb = new RRWebPlugin();\r \r   [window.$harbor, window.$rrweb].forEach(p => {\r     PageSpy.registerPlugin(p)\r   })\r \r   window.$pageSpy = new PageSpy();\r </script> "
+=======
+      "route": "/docs/browser#script-usage-step-2",
+      "parent": "Browser",
+      "title": "Step 2",
+      "content": "Initialize PageSpy and the plugins. Both their initialization parameters provide optional configuration items for customizing the behavior of the SDK:  - **DataHarborPlugin**: PageSpy itself only supports _online mode_, meaning \"the client and the debugging side must be online simultaneously\" during debugging. DataHarborPlugin enables offline debugging for PageSpy. Click [Offline Log](./offline-log) to see more details;   - **RRWebPlugin**: Records user operation traces, using [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.zh_CN.md) as the underlying technology. It's commonly used in conjunction with DataHarborPlugin.   You can also customize your own PageSpy by [developing plugins](./plugins)! </div> <script>   window.$harbor = new DataHarborPlugin();   window.$rrweb = new RRWebPlugin();   [window.$harbor, window.$rrweb].forEach(p => {     PageSpy.registerPlugin(p)   })   window.$pageSpy = new PageSpy(); </script> "
+>>>>>>> origin/login
     },
     {
       "language": "en",
@@ -96,7 +113,11 @@
       "route": "/docs/browser#esm-usage-step-2",
       "parent": "Browser",
       "title": "Step 2",
+<<<<<<< HEAD
       "content": "import { PageSpy } from '@huolala-tech/page-spy-browser';\r import { DataHarborPlugin } from '@huolala-tech/page-spy-plugin-data-harbor';\r import { RRWebPlugin } from '@huolala-tech/page-spy-plugin-rrweb';  \r \r window.$harbor = new DataHarborPlugin();\r window.$rrweb = new RRWebPlugin();\r \r [window.$harbor, window.$rrweb].forEach(p => {\r   PageSpy.registerPlugin(p);\r })  \r \r // ESM mode cannot be automatically analyzed, so the following instance initialization parameters are required\r window.$pageSpy = new PageSpy({\r   api: \"{deployPath}\",\r   clientOrigin: \"{deployUrl}\"\r }); That's the complete process to integrate PageSpy into a browser project.Once integrated, click on the top menu Debugging to use it!"
+=======
+      "content": "import { PageSpy } from '@huolala-tech/page-spy-browser'; import { DataHarborPlugin } from '@huolala-tech/page-spy-plugin-data-harbor'; import { RRWebPlugin } from '@huolala-tech/page-spy-plugin-rrweb';   window.$harbor = new DataHarborPlugin(); window.$rrweb = new RRWebPlugin(); [window.$harbor, window.$rrweb].forEach(p => {   PageSpy.registerPlugin(p); })   // ESM mode cannot be automatically analyzed, so the following instance initialization parameters are required window.$pageSpy = new PageSpy({   api: \"{deployPath}\",   clientOrigin: \"{deployUrl}\" }); That's the complete process to integrate PageSpy into a browser project.Once integrated, click on the top menu Debugging to use it!"
+>>>>>>> origin/login
     },
     {
       "language": "en",
@@ -131,7 +152,11 @@
       "route": "/docs/changelog#changelog",
       "parent": "Changelog",
       "title": "Changelog",
+<<<<<<< HEAD
       "content": "import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';\r import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-status-en.gif';"
+=======
+      "content": "import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png'; import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-status-en.gif';"
+>>>>>>> origin/login
     },
     {
       "language": "en",
@@ -152,7 +177,11 @@
       "route": "/docs/changelog#v2-2-2",
       "parent": "Changelog",
       "title": "v2.2.2",
+<<<<<<< HEAD
       "content": " 🆕 The recording status (recording / paused) information is now displayed in the SDK popup, and the recording status can be toggled by clicking;\r \r \r "
+=======
+      "content": " 🆕 The recording status (recording / paused) information is now displayed in the SDK popup, and the recording status can be toggled by clicking; "
+>>>>>>> origin/login
     },
     {
       "language": "en",
@@ -642,7 +671,11 @@
       "route": "/docs/faq#api-config",
       "parent": "FAQ",
       "title": "How to modify API service configuration? ",
+<<<<<<< HEAD
       "content": "When you execute page-spy-api via the NPM package deployment method in the command line, a default configuration file config.json will be generated in the running directory. This file supports configuring the running port and multi-instance deployment: Modify configuration: {\r   \"port\": \"6752\", // Listening port\r   \"maxLogFileSizeOfMB\": 10240, // Log replay file save size (MB)\r   \"maxLogLifeTimeOfHour\": 720, // Maximum log replay file save time (hour)\r   \"notAllowedDeleteLog\": false, // Whether log replay deletion is allowed\r   \"maxRoomNumber\": 500, // Maximum allowed number of rooms\r   \"corsConfig\": {\r     \"allowOrigins\": [\"https://test.huolala.com\"], // Default configuration allows all domains for cross-origin requests\r     \"allowHeaders\": [\r       \"Origin\",\r       \"Authorization\",\r       \"Content-Length\",\r       \"X-Request-Id\",\r       \"Content-Type\",\r       \"Referer\",\r       \"User-Agent\",\r       \"Host\"\r     ],\r     \"allowMethods\": [\r       \"HEAD\",\r       \"POST\",\r       \"GET\",\r       \"OPTIONS\",\r       \"PUT\",\r       \"DELETE\",\r       \"UPDATE\"\r     ],\r     \"exposeHeaders\": [\"X-Request-Id\"]\r   },\r   \"storageConfig\": {\r     \"baseDir\": string,\r     \"keyId\": string,\r     \"secret\": string,\r     \"bucket\": string,\r     \"region\": string,\r     \"endpoint\": string\r } Multi-instance deployment (requires version 1.5.0 or higher): The rpcAddress configuration is for multi-instance deployment, where ip and port are multiple machine IPs and RPC ports. Multiple instances communicate via RPC, and the program starts RPC services based on machine IPs to avoid message confusion due to duplicate IPs. {\r   \"port\": \"6752\",\r   \"rpcAddress\": [\r     {\r       \"ip\": \"192.168.123.1\",\r       \"port\": \"20008\"\r     },\r     {\r       \"ip\": \"192.168.123.2\",\r       \"port\": \"20008\"\r     }\r   ]\r } "
+=======
+      "content": "When you execute page-spy-api via the NPM package deployment method in the command line, a default configuration file config.json will be generated in the running directory. This file supports configuring the running port and multi-instance deployment: Modify configuration: {   \"port\": \"6752\", // Listening port   \"maxLogFileSizeOfMB\": 10240, // Log replay file save size (MB)   \"maxLogLifeTimeOfHour\": 720, // Maximum log replay file save time (hour)   \"notAllowedDeleteLog\": false, // Whether log replay deletion is allowed   \"maxRoomNumber\": 500, // Maximum allowed number of rooms   \"corsConfig\": {     \"allowOrigins\": [\"https://test.huolala.com\"], // Default configuration allows all domains for cross-origin requests     \"allowHeaders\": [       \"Origin\",       \"Authorization\",       \"Content-Length\",       \"X-Request-Id\",       \"Content-Type\",       \"Referer\",       \"User-Agent\",       \"Host\"     ],     \"allowMethods\": [       \"HEAD\",       \"POST\",       \"GET\",       \"OPTIONS\",       \"PUT\",       \"DELETE\",       \"UPDATE\"     ],     \"exposeHeaders\": [\"X-Request-Id\"]   },   \"storageConfig\": {     \"baseDir\": string,     \"keyId\": string,     \"secret\": string,     \"bucket\": string,     \"region\": string,     \"endpoint\": string } Multi-instance deployment (requires version 1.5.0 or higher): The rpcAddress configuration is for multi-instance deployment, where ip and port are multiple machine IPs and RPC ports. Multiple instances communicate via RPC, and the program starts RPC services based on machine IPs to avoid message confusion due to duplicate IPs. {   \"port\": \"6752\",   \"rpcAddress\": [     {       \"ip\": \"192.168.123.1\",       \"port\": \"20008\"     },     {       \"ip\": \"192.168.123.2\",       \"port\": \"20008\"     }   ] } "
+>>>>>>> origin/login
     },
     {
       "language": "en",
@@ -901,7 +934,11 @@
       "route": "/docs/pagespy#pagespy",
       "parent": "Pagespy",
       "title": "Pagespy",
+<<<<<<< HEAD
       "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png';\r import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';\r import PlatformTag from '@/components/Docs/components/PlatformTag'\r import { Link } from 'react-router-dom'"
+=======
+      "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png'; import PlatformTag from '@/components/Docs/components/PlatformTag' import { Link } from 'react-router-dom'"
+>>>>>>> origin/login
     },
     {
       "language": "en",
@@ -992,7 +1029,11 @@
       "route": "/docs/pagespy#config-dataProcessor",
       "parent": "Pagespy",
       "title": "config.dataProcessor",
+<<<<<<< HEAD
       "content": "Customize data handling, allowing users to modify or ignore data. Type: declare interface DataProcessor {\r   console?: (data: ConsoleData) => boolean;\r   network?: (data: RequestItem) => boolean;\r   storage?: (data: StorageData) => boolean;\r   database?: (data: DatabaseData) => boolean;\r   page?: (data: PageData) => boolean;\r   system?: (data: SystemData) => boolean;\r } Details Processing functions correspond to built-in plugins. Users can directly modify the data within these functions. After execution, PageSpy processes the modified data. If a function returns false, the data will be ignored, meaning it won't appear in any debug mode. For more details, visit: v1.9.2 "
+=======
+      "content": "Customize data handling, allowing users to modify or ignore data. Type: declare interface DataProcessor {   console?: (data: ConsoleData) => boolean;   network?: (data: RequestItem) => boolean;   storage?: (data: StorageData) => boolean;   database?: (data: DatabaseData) => boolean;   page?: (data: PageData) => boolean;   system?: (data: SystemData) => boolean; } Details Processing functions correspond to built-in plugins. Users can directly modify the data within these functions. After execution, PageSpy processes the modified data. If a function returns false, the data will be ignored, meaning it won't appear in any debug mode. For more details, visit: v1.9.2 "
+>>>>>>> origin/login
     },
     {
       "language": "en",
@@ -1300,12 +1341,23 @@
     {
       "language": "zh",
       "route": "/docs/browser#script-usage",
+<<<<<<< HEAD
+=======
       "parent": "浏览器",
       "title": "通过 script 引入",
       "content": ""
     },
     {
       "language": "zh",
+      "route": "/docs/browser#script-usage-step-1",
+>>>>>>> origin/login
+      "parent": "浏览器",
+      "title": "通过 script 引入",
+      "content": ""
+    },
+    {
+      "language": "zh",
+<<<<<<< HEAD
       "route": "/docs/browser#script-usage-step-1",
       "parent": "浏览器",
       "title": "第一步",
@@ -1317,6 +1369,12 @@
       "parent": "浏览器",
       "title": "第二步",
       "content": "初始化 PageSpy 和插件，它们的初始化参数都提供了可选的 配置项 用于自定义 SDK 的行为：  你也可以通过 [开发插件](./plugins)，定制属于你自己的 PageSpy！\r </div> <script>\r   window.$harbor = new DataHarborPlugin();\r   window.$rrweb = new RRWebPlugin();\r \r   [window.$harbor, window.$rrweb].forEach(p => {\r     PageSpy.registerPlugin(p)\r   })\r \r   window.$pageSpy = new PageSpy();\r </script> "
+=======
+      "route": "/docs/browser#script-usage-step-2",
+      "parent": "浏览器",
+      "title": "第二步",
+      "content": "初始化 PageSpy 和插件，它们的初始化参数都提供了可选的 配置项 用于自定义 SDK 的行为：  你也可以通过 [开发插件](./plugins)，定制属于你自己的 PageSpy！ </div> <script>   window.$harbor = new DataHarborPlugin();   window.$rrweb = new RRWebPlugin();   [window.$harbor, window.$rrweb].forEach(p => {     PageSpy.registerPlugin(p)   })   window.$pageSpy = new PageSpy(); </script> "
+>>>>>>> origin/login
     },
     {
       "language": "zh",
@@ -1337,7 +1395,11 @@
       "route": "/docs/browser#esm-usage-step-2",
       "parent": "浏览器",
       "title": "第二步",
+<<<<<<< HEAD
       "content": "import { PageSpy } from '@huolala-tech/page-spy-browser';\r import { DataHarborPlugin } from '@huolala-tech/page-spy-plugin-data-harbor';\r import { RRWebPlugin } from '@huolala-tech/page-spy-plugin-rrweb';\r \r window.$harbor = new DataHarborPlugin();\r window.$rrweb = new RRWebPlugin();\r \r [window.$harbor, window.$rrweb].forEach(p => {\r   PageSpy.registerPlugin(p);\r })\r \r // ESM 模式下无法自动分析，所以下面的实例化参数是必须的\r window.$pageSpy = new PageSpy({\r   api: \"{deployPath}\",\r   clientOrigin: \"{deployUrl}\"\r }); 以上就是在浏览器项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 开始调试 使用！"
+=======
+      "content": "import { PageSpy } from '@huolala-tech/page-spy-browser'; import { DataHarborPlugin } from '@huolala-tech/page-spy-plugin-data-harbor'; import { RRWebPlugin } from '@huolala-tech/page-spy-plugin-rrweb'; window.$harbor = new DataHarborPlugin(); window.$rrweb = new RRWebPlugin(); [window.$harbor, window.$rrweb].forEach(p => {   PageSpy.registerPlugin(p); }) // ESM 模式下无法自动分析，所以下面的实例化参数是必须的 window.$pageSpy = new PageSpy({   api: \"{deployPath}\",   clientOrigin: \"{deployUrl}\" }); 以上就是在浏览器项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 开始调试 使用！"
+>>>>>>> origin/login
     },
     {
       "language": "zh",
@@ -1372,7 +1434,11 @@
       "route": "/docs/changelog#changelog",
       "parent": "版本日志",
       "title": "版本日志",
+<<<<<<< HEAD
       "content": "import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';\r import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-status-zh.gif';"
+=======
+      "content": "import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png'; import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-status-zh.gif';"
+>>>>>>> origin/login
     },
     {
       "language": "zh",
@@ -1393,7 +1459,11 @@
       "route": "/docs/changelog#v2-2-2",
       "parent": "版本日志",
       "title": "v2.2.2",
+<<<<<<< HEAD
       "content": " 🆕 SDK 弹窗中显示录制的状态（录制中 / 已暂停）信息，点击切换录制状态;\r \r \r "
+=======
+      "content": " 🆕 SDK 弹窗中显示录制的状态（录制中 / 已暂停）信息，点击切换录制状态; "
+>>>>>>> origin/login
     },
     {
       "language": "zh",
@@ -1883,7 +1953,11 @@
       "route": "/docs/faq#api-config",
       "parent": "常见问题解答",
       "title": "如何修改 API 服务配置？",
+<<<<<<< HEAD
       "content": "当你通过 NPM package 的部署方式在命令行中执行 page-spy-api 时，会在运行目录下面默认生成配置文件 config.json，该文件支持配置运行端口和多实例部署： 修改配置 {\r   \"port\": \"6752\", //监听端口\r   \"maxLogFileSizeOfMB\": 10240, //日志回放文件保存大小（mb）\r   \"maxLogLifeTimeOfHour\": 720, //日志回放文件保存最长时间 （hour）\r   \"notAllowedDeleteLog\": false, //是否允许删除日志回放\r   \"maxRoomNumber\": 500, //最大允许房间数量\r   \"corsConfig\": {\r     \"allowOrigins\": [\"https://test.huolala.com\"], // 默认配置允许所有域名跨域\r     \"allowHeaders\": [\r       \"Origin\",\r       \"Authorization\",\r       \"Content-Length\",\r       \"X-Request-Id\",\r       \"Content-Type\",\r       \"Referer\",\r       \"User-Agent\",\r       \"Host\"\r     ],\r     \"allowMethods\": [\r       \"HEAD\",\r       \"POST\",\r       \"GET\",\r       \"OPTIONS\",\r       \"PUT\",\r       \"DELETE\",\r       \"UPDATE\"\r     ],\r     \"exposeHeaders\": [\"X-Request-Id\"]\r   },\r   \"storageConfig\": {\r     \"baseDir\": string,\r     \"keyId\": string,\r     \"secret\": string,\r     \"bucket\": string,\r     \"region\": string,\r     \"endpoint\": string\r   }\r } 多实例部署（需要升级到 1.5.0 版本以上才可以使用） rpcAddress 配置是多实例部署配置，其中 ip 和 port 是多个机器 ip 以及 rpc 端口，多个实例通过 rpc 来通信，程序会根据机器 ip 来启动 rpc 服务，所以得保证 ip 不会重复，不然可能会出现消息错乱丢失问题。 {\r   \"port\": \"6752\",\r   \"rpcAddress\": [\r     {\r       \"ip\": \"192.168.123.1\",\r       \"port\": \"20008\"\r     },\r     {\r       \"ip\": \"192.168.123.2\",\r       \"port\": \"20008\"\r     }\r   ]\r } "
+=======
+      "content": "当你通过 NPM package 的部署方式在命令行中执行 page-spy-api 时，会在运行目录下面默认生成配置文件 config.json，该文件支持配置运行端口和多实例部署： 修改配置 {   \"port\": \"6752\", //监听端口   \"maxLogFileSizeOfMB\": 10240, //日志回放文件保存大小（mb）   \"maxLogLifeTimeOfHour\": 720, //日志回放文件保存最长时间 （hour）   \"notAllowedDeleteLog\": false, //是否允许删除日志回放   \"maxRoomNumber\": 500, //最大允许房间数量   \"corsConfig\": {     \"allowOrigins\": [\"https://test.huolala.com\"], // 默认配置允许所有域名跨域     \"allowHeaders\": [       \"Origin\",       \"Authorization\",       \"Content-Length\",       \"X-Request-Id\",       \"Content-Type\",       \"Referer\",       \"User-Agent\",       \"Host\"     ],     \"allowMethods\": [       \"HEAD\",       \"POST\",       \"GET\",       \"OPTIONS\",       \"PUT\",       \"DELETE\",       \"UPDATE\"     ],     \"exposeHeaders\": [\"X-Request-Id\"]   },   \"storageConfig\": {     \"baseDir\": string,     \"keyId\": string,     \"secret\": string,     \"bucket\": string,     \"region\": string,     \"endpoint\": string   } } 多实例部署（需要升级到 1.5.0 版本以上才可以使用） rpcAddress 配置是多实例部署配置，其中 ip 和 port 是多个机器 ip 以及 rpc 端口，多个实例通过 rpc 来通信，程序会根据机器 ip 来启动 rpc 服务，所以得保证 ip 不会重复，不然可能会出现消息错乱丢失问题。 {   \"port\": \"6752\",   \"rpcAddress\": [     {       \"ip\": \"192.168.123.1\",       \"port\": \"20008\"     },     {       \"ip\": \"192.168.123.2\",       \"port\": \"20008\"     }   ] } "
+>>>>>>> origin/login
     },
     {
       "language": "zh",
@@ -2121,7 +2195,11 @@
       "route": "/docs/offline-log#mp-step-3",
       "parent": "离线日志回放",
       "title": "第三步：上传离线日志",
+<<<<<<< HEAD
       "content": "有两种方式可以上传离线日志： 调用插件实例上的 upload() 方法： $dataHarborPlugin.upload().then(() => {\r   console.log('上传成功');\r })  注册小程序 DataHarbor 插件后，PageSpy 的调试菜单中会出现一个 「上传离线日志」按钮，点击即可上传离线日志： "
+=======
+      "content": "有两种方式可以上传离线日志： 调用插件实例上的 upload() 方法： $dataHarborPlugin.upload().then(() => {   console.log('上传成功'); })  注册小程序 DataHarbor 插件后，PageSpy 的调试菜单中会出现一个 「上传离线日志」按钮，点击即可上传离线日志： "
+>>>>>>> origin/login
     },
     {
       "language": "zh",
@@ -2142,7 +2220,11 @@
       "route": "/docs/pagespy#pagespy",
       "parent": "Pagespy",
       "title": "Pagespy",
+<<<<<<< HEAD
       "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png';\r import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';\r import PlatformTag from '@/components/Docs/components/PlatformTag'\r import { Link } from 'react-router-dom'"
+=======
+      "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png'; import PlatformTag from '@/components/Docs/components/PlatformTag' import { Link } from 'react-router-dom'"
+>>>>>>> origin/login
     },
     {
       "language": "zh",
@@ -2233,7 +2315,11 @@
       "route": "/docs/pagespy#config-dataProcessor",
       "parent": "Pagespy",
       "title": "config.dataProcessor",
+<<<<<<< HEAD
       "content": "数据处理，用户可以通过该属性自定义修改、忽略数据。 类型： declare interface DataProcessor {\r   console?: (data: ConsoleData) => boolean;\r   network?: (data: RequestItem) => boolean;\r   storage?: (data: StorageData) => boolean;\r   database?: (data: DatabaseData) => boolean;\r   page?: (data: PageData) => boolean;\r   system?: (data: SystemData) => boolean;\r } 详细信息 处理函数分别对应各个内置的插件，用户可以在函数中直接修改数据，函数执行完成后 PageSpy 处理修改后的数据。如果函数返回 false，PageSpy 会 忽略掉该条数据：这意味着在两种模式下的调试端都不会看到这条数据。 查看详情：v1.9.2 "
+=======
+      "content": "数据处理，用户可以通过该属性自定义修改、忽略数据。 类型： declare interface DataProcessor {   console?: (data: ConsoleData) => boolean;   network?: (data: RequestItem) => boolean;   storage?: (data: StorageData) => boolean;   database?: (data: DatabaseData) => boolean;   page?: (data: PageData) => boolean;   system?: (data: SystemData) => boolean; } 详细信息 处理函数分别对应各个内置的插件，用户可以在函数中直接修改数据，函数执行完成后 PageSpy 处理修改后的数据。如果函数返回 false，PageSpy 会 忽略掉该条数据：这意味着在两种模式下的调试端都不会看到这条数据。 查看详情：v1.9.2 "
+>>>>>>> origin/login
     },
     {
       "language": "zh",
@@ -2541,12 +2627,23 @@
     {
       "language": "ja",
       "route": "/docs/browser#script-usage",
+<<<<<<< HEAD
+=======
       "parent": "ブラウザ",
       "title": "script タグで導入",
       "content": ""
     },
     {
       "language": "ja",
+      "route": "/docs/browser#script-usage-step-1",
+>>>>>>> origin/login
+      "parent": "ブラウザ",
+      "title": "script タグで導入",
+      "content": ""
+    },
+    {
+      "language": "ja",
+<<<<<<< HEAD
       "route": "/docs/browser#script-usage-step-1",
       "parent": "ブラウザ",
       "title": "ステップ1",
@@ -2558,6 +2655,12 @@
       "parent": "ブラウザ",
       "title": "第二步",
       "content": "PageSpy とプラグインを初期化します。それらの初期化パラメーターは、SDK の動作をカスタマイズするための設定項目を提供します:  独自の PageSpy プラグインを開発することも可能です！ \r </div> <script>\r   window.$harbor = new DataHarborPlugin();\r   window.$rrweb = new RRWebPlugin();\r \r   [window.$harbor, window.$rrweb].forEach(p => {\r     PageSpy.registerPlugin(p)\r   })\r \r   window.$pageSpy = new PageSpy();\r </script> "
+=======
+      "route": "/docs/browser#script-usage-step-2",
+      "parent": "ブラウザ",
+      "title": "第二步",
+      "content": "PageSpy とプラグインを初期化します。それらの初期化パラメーターは、SDK の動作をカスタマイズするための設定項目を提供します:  独自の PageSpy プラグインを開発することも可能です！  </div> <script>   window.$harbor = new DataHarborPlugin();   window.$rrweb = new RRWebPlugin();   [window.$harbor, window.$rrweb].forEach(p => {     PageSpy.registerPlugin(p)   })   window.$pageSpy = new PageSpy(); </script> "
+>>>>>>> origin/login
     },
     {
       "language": "ja",
@@ -2578,7 +2681,11 @@
       "route": "/docs/browser#esm-usage-step-2",
       "parent": "ブラウザ",
       "title": "ステップ2",
+<<<<<<< HEAD
       "content": "import { PageSpy } from '@huolala-tech/page-spy-browser';\r import { DataHarborPlugin } from '@huolala-tech/page-spy-plugin-data-harbor';\r import { RRWebPlugin } from '@huolala-tech/page-spy-plugin-rrweb';  \r \r window.$harbor = new DataHarborPlugin();\r window.$rrweb = new RRWebPlugin();\r \r [window.$harbor, window.$rrweb].forEach(p => {\r   PageSpy.registerPlugin(p);\r })  \r \r // ESM モードでは自動分析できないため、以下のインスタンス初期化パラメーターが必要です\r window.$pageSpy = new PageSpy({\r   api: \"{deployPath}\",\r   clientOrigin: \"{deployUrl}\"\r }); 以上で、ブラウザプロジェクトで PageSpy を使用するためのすべての手順が完了です。ページの上部メニューをクリックして 開始デバッグ を使用してください！"
+=======
+      "content": "import { PageSpy } from '@huolala-tech/page-spy-browser'; import { DataHarborPlugin } from '@huolala-tech/page-spy-plugin-data-harbor'; import { RRWebPlugin } from '@huolala-tech/page-spy-plugin-rrweb';   window.$harbor = new DataHarborPlugin(); window.$rrweb = new RRWebPlugin(); [window.$harbor, window.$rrweb].forEach(p => {   PageSpy.registerPlugin(p); })   // ESM モードでは自動分析できないため、以下のインスタンス初期化パラメーターが必要です window.$pageSpy = new PageSpy({   api: \"{deployPath}\",   clientOrigin: \"{deployUrl}\" }); 以上で、ブラウザプロジェクトで PageSpy を使用するためのすべての手順が完了です。ページの上部メニューをクリックして 開始デバッグ を使用してください！"
+>>>>>>> origin/login
     },
     {
       "language": "ja",
@@ -2613,7 +2720,11 @@
       "route": "/docs/changelog#changelog",
       "parent": "Changelog",
       "title": "Changelog",
+<<<<<<< HEAD
       "content": "import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';\r import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-status-en.gif';"
+=======
+      "content": "import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png'; import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-status-en.gif';"
+>>>>>>> origin/login
     },
     {
       "language": "ja",
@@ -2634,7 +2745,11 @@
       "route": "/docs/changelog#v2-2-2",
       "parent": "Changelog",
       "title": "v2.2.2",
+<<<<<<< HEAD
       "content": " 🆕 録音状態（録音中 / 一時停止中）情報が SDK ポップアップに表示され、録音状態をクリックして切り替えることができます。\r \r \r "
+=======
+      "content": " 🆕 録音状態（録音中 / 一時停止中）情報が SDK ポップアップに表示され、録音状態をクリックして切り替えることができます。 "
+>>>>>>> origin/login
     },
     {
       "language": "ja",
@@ -3124,7 +3239,11 @@
       "route": "/docs/faq#api-config",
       "parent": "よくある質問",
       "title": "APIサービスの設定を変更するには？",
+<<<<<<< HEAD
       "content": "NPMパッケージのデプロイ方法でコマンドラインでpage-spy-apiを実行すると、実行ディレクトリにデフォルトで設定ファイルconfig.jsonが生成されます。このファイルで実行ポートとマルチインスタンスデプロイを設定できます： 設定の変更 {\r   \"port\": \"6752\", //リッスンポート\r   \"maxLogFileSizeOfMB\": 10240, //ログ再生ファイルの保存サイズ（MB）\r   \"maxLogLifeTimeOfHour\": 720, //ログ再生ファイルの最大保存時間（時間）\r   \"notAllowedDeleteLog\": false, //ログ再生の削除を許可するかどうか\r   \"maxRoomNumber\": 500, //最大許可ルーム数\r   \"corsConfig\": {\r     \"allowOrigins\": [\"https://test.huolala.com\"], // デフォルトですべてのドメインのCORSを許可\r     \"allowHeaders\": [\r       \"Origin\",\r       \"Authorization\",\r       \"Content-Length\",\r       \"X-Request-Id\",\r       \"Content-Type\",\r       \"Referer\",\r       \"User-Agent\",\r       \"Host\"\r     ],\r     \"allowMethods\": [\r       \"HEAD\",\r       \"POST\",\r       \"GET\",\r       \"OPTIONS\",\r       \"PUT\",\r       \"DELETE\",\r       \"UPDATE\"\r     ],\r     \"exposeHeaders\": [\"X-Request-Id\"]\r   },\r   \"storageConfig\": {\r     \"baseDir\": string,\r     \"keyId\": string,\r     \"secret\": string,\r     \"bucket\": string,\r     \"region\": string,\r     \"endpoint\": string\r   }\r } マルチインスタンスデプロイ（バージョン1.5.0以上が必要） rpcAddress設定はマルチインスタンスデプロイ設定で、ipとportは複数のマシンのipとrpcポートです。複数のインスタンスはrpcを通じて通信し、プログラムはマシンのipに基づいてrpcサービスを起動します。そのため、ipが重複しないようにする必要があります。重複すると、メッセージの混乱や損失が発生する可能性があります。 {\r   \"port\": \"6752\",\r   \"rpcAddress\": [\r     {\r       \"ip\": \"192.168.123.1\",\r       \"port\": \"20008\"\r     },\r     {\r       \"ip\": \"192.168.123.2\",\r       \"port\": \"20008\"\r     }\r   ]\r } "
+=======
+      "content": "NPMパッケージのデプロイ方法でコマンドラインでpage-spy-apiを実行すると、実行ディレクトリにデフォルトで設定ファイルconfig.jsonが生成されます。このファイルで実行ポートとマルチインスタンスデプロイを設定できます： 設定の変更 {   \"port\": \"6752\", //リッスンポート   \"maxLogFileSizeOfMB\": 10240, //ログ再生ファイルの保存サイズ（MB）   \"maxLogLifeTimeOfHour\": 720, //ログ再生ファイルの最大保存時間（時間）   \"notAllowedDeleteLog\": false, //ログ再生の削除を許可するかどうか   \"maxRoomNumber\": 500, //最大許可ルーム数   \"corsConfig\": {     \"allowOrigins\": [\"https://test.huolala.com\"], // デフォルトですべてのドメインのCORSを許可     \"allowHeaders\": [       \"Origin\",       \"Authorization\",       \"Content-Length\",       \"X-Request-Id\",       \"Content-Type\",       \"Referer\",       \"User-Agent\",       \"Host\"     ],     \"allowMethods\": [       \"HEAD\",       \"POST\",       \"GET\",       \"OPTIONS\",       \"PUT\",       \"DELETE\",       \"UPDATE\"     ],     \"exposeHeaders\": [\"X-Request-Id\"]   },   \"storageConfig\": {     \"baseDir\": string,     \"keyId\": string,     \"secret\": string,     \"bucket\": string,     \"region\": string,     \"endpoint\": string   } } マルチインスタンスデプロイ（バージョン1.5.0以上が必要） rpcAddress設定はマルチインスタンスデプロイ設定で、ipとportは複数のマシンのipとrpcポートです。複数のインスタンスはrpcを通じて通信し、プログラムはマシンのipに基づいてrpcサービスを起動します。そのため、ipが重複しないようにする必要があります。重複すると、メッセージの混乱や損失が発生する可能性があります。 {   \"port\": \"6752\",   \"rpcAddress\": [     {       \"ip\": \"192.168.123.1\",       \"port\": \"20008\"     },     {       \"ip\": \"192.168.123.2\",       \"port\": \"20008\"     }   ] } "
+>>>>>>> origin/login
     },
     {
       "language": "ja",
@@ -3362,7 +3481,11 @@
       "route": "/docs/offline-log#mp-step-3",
       "parent": "オフラインログ",
       "title": "ステップ3：オフラインログのアップロード",
+<<<<<<< HEAD
       "content": "オフラインログをアップロードするには2つの方法があります： プラグインインスタンスのupload()メソッドを呼び出す： $dataHarborPlugin.upload().then(() => {\r   console.log('アップロード成功');\r })  ミニプログラムDataHarborプラグインを登録すると、PageSpyのデバッグメニューに「オフラインログをアップロード」ボタンが表示されます。クリックするとオフラインログをアップロードできます： "
+=======
+      "content": "オフラインログをアップロードするには2つの方法があります： プラグインインスタンスのupload()メソッドを呼び出す： $dataHarborPlugin.upload().then(() => {   console.log('アップロード成功'); })  ミニプログラムDataHarborプラグインを登録すると、PageSpyのデバッグメニューに「オフラインログをアップロード」ボタンが表示されます。クリックするとオフラインログをアップロードできます： "
+>>>>>>> origin/login
     },
     {
       "language": "ja",
@@ -3383,7 +3506,11 @@
       "route": "/docs/pagespy#pagespy",
       "parent": "Pagespy",
       "title": "Pagespy",
+<<<<<<< HEAD
       "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png';\r import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';\r import PlatformTag from '@/components/Docs/components/PlatformTag'\r import { Link } from 'react-router-dom'"
+=======
+      "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png'; import PlatformTag from '@/components/Docs/components/PlatformTag' import { Link } from 'react-router-dom'"
+>>>>>>> origin/login
     },
     {
       "language": "ja",
@@ -3474,7 +3601,11 @@
       "route": "/docs/pagespy#config-dataProcessor",
       "parent": "Pagespy",
       "title": "config.dataProcessor",
+<<<<<<< HEAD
       "content": "データ処理。ユーザーはこのプロパティを通じてデータの修正や無視をカスタマイズできます。 型： declare interface DataProcessor {\r   console?: (data: ConsoleData) => boolean;\r   network?: (data: RequestItem) => boolean;\r   storage?: (data: StorageData) => boolean;\r   database?: (data: DatabaseData) => boolean;\r   page?: (data: PageData) => boolean;\r   system?: (data: SystemData) => boolean;\r } 詳細情報 処理関数はそれぞれ組み込みプラグインに対応しており、ユーザーは関数内で直接データを修正できます。関数の実行が完了すると、PageSpyは修正後のデータを処理します。関数がfalseを返す場合、PageSpyはそのデータを無視します：これは両方のモードのデバッグ側でそのデータが表示されないことを意味します。 詳細は：v1.9.2 をご覧ください。 "
+=======
+      "content": "データ処理。ユーザーはこのプロパティを通じてデータの修正や無視をカスタマイズできます。 型： declare interface DataProcessor {   console?: (data: ConsoleData) => boolean;   network?: (data: RequestItem) => boolean;   storage?: (data: StorageData) => boolean;   database?: (data: DatabaseData) => boolean;   page?: (data: PageData) => boolean;   system?: (data: SystemData) => boolean; } 詳細情報 処理関数はそれぞれ組み込みプラグインに対応しており、ユーザーは関数内で直接データを修正できます。関数の実行が完了すると、PageSpyは修正後のデータを処理します。関数がfalseを返す場合、PageSpyはそのデータを無視します：これは両方のモードのデバッグ側でそのデータが表示されないことを意味します。 詳細は：v1.9.2 をご覧ください。 "
+>>>>>>> origin/login
     },
     {
       "language": "ja",
@@ -3791,14 +3922,22 @@
       "route": "/docs/browser#script-usage-step-1",
       "parent": "브라우저",
       "title": "1단계",
+<<<<<<< HEAD
       "content": "클라이언트 프로젝트에 <script> 로드:<!-- PageSpy SDK -->\r <script crossorigin=\"anonymous\" src=\"{deployUrl}/page-spy/index.min.js\"></script>\r \r <!-- 플러그인 (선택사항이지만 권장) -->\r <script crossorigin=\"anonymous\" src=\"{deployUrl}/plugin/data-harbor/index.min.js\"></script>\r <script crossorigin=\"anonymous\" src=\"{deployUrl}/plugin/rrweb/index.min.js\"></script> "
+=======
+      "content": "클라이언트 프로젝트에 <script> 로드:<!-- PageSpy SDK --> <script crossorigin=\"anonymous\" src=\"{deployUrl}/page-spy/index.min.js\"></script> <!-- 플러그인 (선택사항이지만 권장) --> <script crossorigin=\"anonymous\" src=\"{deployUrl}/plugin/data-harbor/index.min.js\"></script> <script crossorigin=\"anonymous\" src=\"{deployUrl}/plugin/rrweb/index.min.js\"></script> "
+>>>>>>> origin/login
     },
     {
       "language": "ko",
       "route": "/docs/browser#script-usage-step-2",
       "parent": "브라우저",
       "title": "2단계",
+<<<<<<< HEAD
       "content": "PageSpy와 플러그인을 초기화합니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 설정 항목을 제공합니다:  [플러그인 개발](./plugins)을 통해 자신만의 PageSpy를 만들 수도 있습니다!\r </div> <script>\r   window.$harbor = new DataHarborPlugin();\r   window.$rrweb = new RRWebPlugin();\r \r   [window.$harbor, window.$rrweb].forEach(p => {\r     PageSpy.registerPlugin(p)\r   })\r \r   window.$pageSpy = new PageSpy();\r </script> "
+=======
+      "content": "PageSpy와 플러그인을 초기화합니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 설정 항목을 제공합니다:  [플러그인 개발](./plugins)을 통해 자신만의 PageSpy를 만들 수도 있습니다! </div> <script>   window.$harbor = new DataHarborPlugin();   window.$rrweb = new RRWebPlugin();   [window.$harbor, window.$rrweb].forEach(p => {     PageSpy.registerPlugin(p)   })   window.$pageSpy = new PageSpy(); </script> "
+>>>>>>> origin/login
     },
     {
       "language": "ko",
@@ -3819,7 +3958,11 @@
       "route": "/docs/browser#esm-usage-step-2",
       "parent": "브라우저",
       "title": "2단계",
+<<<<<<< HEAD
       "content": "import { PageSpy } from '@huolala-tech/page-spy-browser';\r import { DataHarborPlugin } from '@huolala-tech/page-spy-plugin-data-harbor';\r import { RRWebPlugin } from '@huolala-tech/page-spy-plugin-rrweb';\r \r window.$harbor = new DataHarborPlugin();\r window.$rrweb = new RRWebPlugin();\r \r [window.$harbor, window.$rrweb].forEach(p => {\r   PageSpy.registerPlugin(p);\r })\r \r // ESM 모드에서는 자동 분석이 불가능하므로, 아래의 인스턴스 초기화 매개변수가 필요합니다\r window.$pageSpy = new PageSpy({\r   api: \"{deployPath}\",\r   clientOrigin: \"{deployUrl}\"\r }); 이제 브라우저 프로젝트에서 PageSpy를 사용하기 위한 모든 단계가 완료되었습니다. 페이지 상단 메뉴를 클릭하여 시작 디버깅 사용!"
+=======
+      "content": "import { PageSpy } from '@huolala-tech/page-spy-browser'; import { DataHarborPlugin } from '@huolala-tech/page-spy-plugin-data-harbor'; import { RRWebPlugin } from '@huolala-tech/page-spy-plugin-rrweb'; window.$harbor = new DataHarborPlugin(); window.$rrweb = new RRWebPlugin(); [window.$harbor, window.$rrweb].forEach(p => {   PageSpy.registerPlugin(p); }) // ESM 모드에서는 자동 분석이 불가능하므로, 아래의 인스턴스 초기화 매개변수가 필요합니다 window.$pageSpy = new PageSpy({   api: \"{deployPath}\",   clientOrigin: \"{deployUrl}\" }); 이제 브라우저 프로젝트에서 PageSpy를 사용하기 위한 모든 단계가 완료되었습니다. 페이지 상단 메뉴를 클릭하여 시작 디버깅 사용!"
+>>>>>>> origin/login
     },
     {
       "language": "ko",
@@ -3854,7 +3997,11 @@
       "route": "/docs/changelog#changelog",
       "parent": "Changelog",
       "title": "Changelog",
+<<<<<<< HEAD
       "content": "import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png';\r import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-status-en.gif';"
+=======
+      "content": "import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png'; import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-status-en.gif';"
+>>>>>>> origin/login
     },
     {
       "language": "ko",
@@ -3875,7 +4022,11 @@
       "route": "/docs/changelog#v2-2-2",
       "parent": "Changelog",
       "title": "v2.2.2",
+<<<<<<< HEAD
       "content": " 🆕 녹음 상태 (녹음 중 / 일시 중지 중) 정보가 SDK 팝업에 표시되며, 녹음 상태를 클릭하여 전환할 수 있습니다.\r \r \r "
+=======
+      "content": " 🆕 녹음 상태 (녹음 중 / 일시 중지 중) 정보가 SDK 팝업에 표시되며, 녹음 상태를 클릭하여 전환할 수 있습니다. "
+>>>>>>> origin/login
     },
     {
       "language": "ko",
@@ -4365,7 +4516,11 @@
       "route": "/docs/faq#api-config",
       "parent": "자주 묻는 질문",
       "title": "API 서비스 설정을 어떻게 수정하나요?",
+<<<<<<< HEAD
       "content": "NPM 패키지 배포 방식으로 명령줄에서 page-spy-api를 실행하면 실행 디렉토리에 기본적으로 config.json 설정 파일이 생성됩니다. 이 파일에서 실행 포트와 다중 인스턴스 배포를 설정할 수 있습니다: 설정 수정 {\r   \"port\": \"6752\", //리스닝 포트\r   \"maxLogFileSizeOfMB\": 10240, //로그 재생 파일 저장 크기(MB)\r   \"maxLogLifeTimeOfHour\": 720, //로그 재생 파일 최대 보관 시간(시간)\r   \"notAllowedDeleteLog\": false, //로그 재생 삭제 허용 여부\r   \"maxRoomNumber\": 500, //최대 허용 룸 수\r   \"corsConfig\": {\r     \"allowOrigins\": [\"https://test.huolala.com\"], // 기본 설정은 모든 도메인의 CORS 허용\r     \"allowHeaders\": [\r       \"Origin\",\r       \"Authorization\",\r       \"Content-Length\",\r       \"X-Request-Id\",\r       \"Content-Type\",\r       \"Referer\",\r       \"User-Agent\",\r       \"Host\"\r     ],\r     \"allowMethods\": [\r       \"HEAD\",\r       \"POST\",\r       \"GET\",\r       \"OPTIONS\",\r       \"PUT\",\r       \"DELETE\",\r       \"UPDATE\"\r     ],\r     \"exposeHeaders\": [\"X-Request-Id\"]\r   },\r   \"storageConfig\": {\r     \"baseDir\": string,\r     \"keyId\": string,\r     \"secret\": string,\r     \"bucket\": string,\r     \"region\": string,\r     \"endpoint\": string\r } 다중 인스턴스 배포(버전 1.5.0 이상 필요) rpcAddress 설정은 다중 인스턴스 배포 설정으로, ip와 port는 여러 머신의 ip 및 rpc 포트입니다. 여러 인스턴스는 rpc를 통해 통신하며, 프로그램은 머신 ip를 기반으로 rpc 서비스를 시작합니다. 따라서 ip가 중복되지 않도록 해야 하며, 중복되면 메시지 혼선이나 손실이 발생할 수 있습니다. {\r   \"port\": \"6752\",\r   \"rpcAddress\": [\r     {\r       \"ip\": \"192.168.123.1\",\r       \"port\": \"20008\"\r     },\r     {\r       \"ip\": \"192.168.123.2\",\r       \"port\": \"20008\"\r     }\r   ]\r } "
+=======
+      "content": "NPM 패키지 배포 방식으로 명령줄에서 page-spy-api를 실행하면 실행 디렉토리에 기본적으로 config.json 설정 파일이 생성됩니다. 이 파일에서 실행 포트와 다중 인스턴스 배포를 설정할 수 있습니다: 설정 수정 {   \"port\": \"6752\", //리스닝 포트   \"maxLogFileSizeOfMB\": 10240, //로그 재생 파일 저장 크기(MB)   \"maxLogLifeTimeOfHour\": 720, //로그 재생 파일 최대 보관 시간(시간)   \"notAllowedDeleteLog\": false, //로그 재생 삭제 허용 여부   \"maxRoomNumber\": 500, //최대 허용 룸 수   \"corsConfig\": {     \"allowOrigins\": [\"https://test.huolala.com\"], // 기본 설정은 모든 도메인의 CORS 허용     \"allowHeaders\": [       \"Origin\",       \"Authorization\",       \"Content-Length\",       \"X-Request-Id\",       \"Content-Type\",       \"Referer\",       \"User-Agent\",       \"Host\"     ],     \"allowMethods\": [       \"HEAD\",       \"POST\",       \"GET\",       \"OPTIONS\",       \"PUT\",       \"DELETE\",       \"UPDATE\"     ],     \"exposeHeaders\": [\"X-Request-Id\"]   },   \"storageConfig\": {     \"baseDir\": string,     \"keyId\": string,     \"secret\": string,     \"bucket\": string,     \"region\": string,     \"endpoint\": string } 다중 인스턴스 배포(버전 1.5.0 이상 필요) rpcAddress 설정은 다중 인스턴스 배포 설정으로, ip와 port는 여러 머신의 ip 및 rpc 포트입니다. 여러 인스턴스는 rpc를 통해 통신하며, 프로그램은 머신 ip를 기반으로 rpc 서비스를 시작합니다. 따라서 ip가 중복되지 않도록 해야 하며, 중복되면 메시지 혼선이나 손실이 발생할 수 있습니다. {   \"port\": \"6752\",   \"rpcAddress\": [     {       \"ip\": \"192.168.123.1\",       \"port\": \"20008\"     },     {       \"ip\": \"192.168.123.2\",       \"port\": \"20008\"     }   ] } "
+>>>>>>> origin/login
     },
     {
       "language": "ko",
@@ -4603,7 +4758,11 @@
       "route": "/docs/offline-log#mp-step-3",
       "parent": "오프라인 로그",
       "title": "3단계: 오프라인 로그 업로드",
+<<<<<<< HEAD
       "content": "오프라인 로그를 업로드하는 방법에는 두 가지가 있습니다: 플러그인 인스턴스의 upload() 메서드 호출: $dataHarborPlugin.upload().then(() => {\r   console.log('업로드 성공');\r })  미니프로그램 DataHarbor 플러그인을 등록하면 PageSpy의 디버그 메뉴에 \"오프라인 로그 업로드\" 버튼이 나타납니다. 이 버튼을 클릭하면 오프라인 로그를 업로드할 수 있습니다: "
+=======
+      "content": "오프라인 로그를 업로드하는 방법에는 두 가지가 있습니다: 플러그인 인스턴스의 upload() 메서드 호출: $dataHarborPlugin.upload().then(() => {   console.log('업로드 성공'); })  미니프로그램 DataHarbor 플러그인을 등록하면 PageSpy의 디버그 메뉴에 \"오프라인 로그 업로드\" 버튼이 나타납니다. 이 버튼을 클릭하면 오프라인 로그를 업로드할 수 있습니다: "
+>>>>>>> origin/login
     },
     {
       "language": "ko",
@@ -4624,7 +4783,11 @@
       "route": "/docs/pagespy#pagespy",
       "parent": "Pagespy",
       "title": "Pagespy",
+<<<<<<< HEAD
       "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png';\r import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';\r import PlatformTag from '@/components/Docs/components/PlatformTag'\r import { Link } from 'react-router-dom'"
+=======
+      "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png'; import PlatformTag from '@/components/Docs/components/PlatformTag' import { Link } from 'react-router-dom'"
+>>>>>>> origin/login
     },
     {
       "language": "ko",
@@ -4715,7 +4878,11 @@
       "route": "/docs/pagespy#config-dataProcessor",
       "parent": "Pagespy",
       "title": "config.dataProcessor",
+<<<<<<< HEAD
       "content": "데이터 처리, 사용자는 이 속성을 통해 데이터를 사용자 정의하여 수정하거나 무시할 수 있습니다. 타입： declare interface DataProcessor {\r   console?: (data: ConsoleData) => boolean;\r   network?: (data: RequestItem) => boolean;\r   storage?: (data: StorageData) => boolean;\r   database?: (data: DatabaseData) => boolean;\r   page?: (data: PageData) => boolean;\r   system?: (data: SystemData) => boolean;\r } 상세 정보 처리 함수는 각각의 내장 플러그인에 대응하며, 사용자는 함수 내에서 직접 데이터를 수정할 수 있습니다. 함수 실행이 완료된 후 PageSpy는 수정된 데이터를 처리합니다. 함수가 false를 반환하면 PageSpy는 해당 데이터를 무시합니다: 이는 두 가지 모드의 디버그 측 모두에서 해당 데이터를 볼 수 없다는 것을 의미합니다. 자세한 내용은 다음을 참조하세요: v1.9.2 "
+=======
+      "content": "데이터 처리, 사용자는 이 속성을 통해 데이터를 사용자 정의하여 수정하거나 무시할 수 있습니다. 타입： declare interface DataProcessor {   console?: (data: ConsoleData) => boolean;   network?: (data: RequestItem) => boolean;   storage?: (data: StorageData) => boolean;   database?: (data: DatabaseData) => boolean;   page?: (data: PageData) => boolean;   system?: (data: SystemData) => boolean; } 상세 정보 처리 함수는 각각의 내장 플러그인에 대응하며, 사용자는 함수 내에서 직접 데이터를 수정할 수 있습니다. 함수 실행이 완료된 후 PageSpy는 수정된 데이터를 처리합니다. 함수가 false를 반환하면 PageSpy는 해당 데이터를 무시합니다: 이는 두 가지 모드의 디버그 측 모두에서 해당 데이터를 볼 수 없다는 것을 의미합니다. 자세한 내용은 다음을 참조하세요: v1.9.2 "
+>>>>>>> origin/login
     },
     {
       "language": "ko",

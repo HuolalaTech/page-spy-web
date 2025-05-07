@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Card, Spin, Typography } from 'antd';
-import { LockOutlined, SaveOutlined } from '@ant-design/icons';
+import {
+  Form,
+  Input,
+  Button,
+  Card,
+  Spin,
+  Typography,
+  Modal,
+  Space,
+  Alert,
+} from 'antd';
+import { LockOutlined, SaveOutlined, ForwardOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/utils/AuthContext';
 import './style.less';
@@ -9,8 +19,9 @@ const { Text } = Typography;
 
 const PasswordSetup: React.FC = () => {
   const { t } = useTranslation();
-  const { setPassword, loading } = useAuth();
+  const { setPassword, skipPasswordSetup, loading } = useAuth();
   const [submitting, setSubmitting] = useState(false);
+  const [skipModalVisible, setSkipModalVisible] = useState(false);
   const [form] = Form.useForm();
 
   // 处理表单提交
@@ -24,6 +35,22 @@ const PasswordSetup: React.FC = () => {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  // 处理跳过密码设置
+  const handleSkipPasswordSetup = async () => {
+    setSubmitting(true);
+    try {
+      await skipPasswordSetup();
+    } finally {
+      setSubmitting(false);
+      setSkipModalVisible(false);
+    }
+  };
+
+  // 显示跳过密码设置警告弹窗
+  const showSkipWarning = () => {
+    setSkipModalVisible(true);
   };
 
   // 验证两次密码是否一致
@@ -50,12 +77,7 @@ const PasswordSetup: React.FC = () => {
             </Text>
           </div>
 
-          <Form
-            form={form}
-            name="passwordSetup"
-            onFinish={handleSubmit}
-            layout="vertical"
-          >
+          <Form form={form} onFinish={handleSubmit} layout="vertical">
             <Form.Item
               name="password"
               rules={[
@@ -97,20 +119,59 @@ const PasswordSetup: React.FC = () => {
             </Form.Item>
 
             <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                loading={submitting}
-                block
-                size="large"
-                icon={<SaveOutlined />}
-              >
-                {t('auth.set_password_button') as string}
-              </Button>
+              <Space direction="vertical" style={{ width: '100%' }}>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  loading={submitting}
+                  block
+                  size="large"
+                  icon={<SaveOutlined />}
+                >
+                  {t('auth.set_password_button') as string}
+                </Button>
+
+                <Button
+                  type="link"
+                  block
+                  size="large"
+                  icon={<ForwardOutlined />}
+                  onClick={showSkipWarning}
+                  style={{ marginTop: '8px' }}
+                >
+                  {t('auth.skip_password_button') as string}
+                </Button>
+              </Space>
             </Form.Item>
           </Form>
         </Card>
       </Spin>
+
+      {/* 跳过密码设置警告弹窗 */}
+      <Modal
+        title={t('auth.skip_password_button')}
+        open={skipModalVisible}
+        onCancel={() => setSkipModalVisible(false)}
+        footer={[
+          <Button key="back" onClick={() => setSkipModalVisible(false)}>
+            {t('common.cancel')}
+          </Button>,
+          <Button
+            key="submit"
+            type="primary"
+            loading={submitting}
+            onClick={handleSkipPasswordSetup}
+          >
+            {t('common.confirm')}
+          </Button>,
+        ]}
+      >
+        <Alert
+          showIcon
+          type="warning"
+          message={t('auth.skip_password_warning')}
+        />
+      </Modal>
     </div>
   );
 };

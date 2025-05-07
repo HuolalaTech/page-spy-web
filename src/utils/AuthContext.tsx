@@ -16,6 +16,7 @@ interface AuthContextType {
   needPasswordSetup: boolean;
   login: (password: string) => Promise<boolean>;
   setPassword: (password: string) => Promise<boolean>;
+  skipPasswordSetup: () => Promise<boolean>;
   logout: () => void;
   checkPasswordStatus: () => Promise<void>;
   getAuthToken: () => string | null;
@@ -81,7 +82,22 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       const response = await request.get<any>('/auth/status');
 
       if (response && response.success) {
-        setNeedPasswordSetup(!response.data.passwordConfigured);
+        // 首次启动时 isFirstStart 为 true 且 passwordConfigured 为 false
+        // 需要设置密码
+        const isFirstStart = response.data.isFirstStart;
+        const passwordConfigured = response.data.passwordConfigured;
+
+        // 首次启动需要设置密码
+        if (isFirstStart) {
+          setNeedPasswordSetup(true);
+        } else {
+          setNeedPasswordSetup(false);
+
+          // 如果未设置密码但不是首次启动（无密码模式），则直接视为已认证
+          if (!passwordConfigured) {
+            setIsAuthenticated(true);
+          }
+        }
       }
     } catch (error) {
       console.error('检查密码状态失败:', error);
@@ -99,12 +115,26 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       });
 
       if (response.success) {
-        // 真正的登录成功情况
+        console.log('登录成功，获取到token:', response.data.token);
+
+        // 登录成功情况
         // 设置令牌和过期时间
         setTokenAndExpiration(
           response.data.token,
           response.data.expiresIn || 86400, // 默认24小时
         );
+
+        // 打印检查token是否已正确设置
+        console.log(
+          '设置token后，当前token状态:',
+          localStorage.getItem(TOKEN_KEY),
+        );
+
+        // 更新认证状态
+        setIsAuthenticated(true);
+
+        // 清除无密码模式缓存，强制下次重新检查
+        sessionStorage.removeItem('page-spy-no-password-mode');
 
         // 显示登录成功提示
         message.success(t('auth.login_success'));
@@ -221,8 +251,59 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
+  // 跳过密码设置
+  const skipPasswordSetup = async (): Promise<boolean> => {
+    try {
+      // 调用跳过密码设置接口
+      const response = await request.post<any>('/auth/skip-password');
+
+      if (response.success) {
+        // 跳过密码设置后是无密码模式，直接设为已认证
+        setIsAuthenticated(true);
+        setNeedPasswordSetup(false);
+        message.success(t('auth.skip_password_success'));
+
+        // 检查是否有登录后的重定向路径
+        const redirectPath = sessionStorage.getItem('redirect_after_login');
+        if (redirectPath) {
+          // 清除存储的路径
+          sessionStorage.removeItem('redirect_after_login');
+
+          // 重定向到之前的页面
+          if (redirectPath.startsWith('/') && !redirectPath.startsWith('/#/')) {
+            window.location.href = '/#' + redirectPath;
+          } else {
+            window.location.href = redirectPath;
+          }
+        }
+
+        return true;
+      } else {
+        // 处理跳过密码设置失败的情况
+        if (response.code === 'PASSWORD_ALREADY_SET') {
+          message.error(t('auth.password_already_set'));
+        } else if (response.code === 'ENV_PASSWORD_SET') {
+          message.error(response.message || t('auth.skip_password_failed'));
+        } else {
+          message.error(t('auth.skip_password_failed'));
+        }
+        return false;
+      }
+    } catch (error: any) {
+      console.error('跳过密码设置失败:', error);
+      message.error(t('auth.server_error'));
+      return false;
+    }
+  };
+
   // 登出
   const logout = () => {
+    // 无密码模式下不应该显示登出按钮，但如果调用了登出方法，则简单刷新页面即可
+    if (!isTokenValid() && isAuthenticated) {
+      window.location.reload();
+      return;
+    }
+
     // 清除本地存储的令牌和过期时间
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(EXPIRES_AT_KEY);
@@ -270,6 +351,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     needPasswordSetup,
     login,
     setPassword,
+    skipPasswordSetup,
     logout,
     checkPasswordStatus,
     getAuthToken,

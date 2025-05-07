@@ -61,10 +61,13 @@ export const NavMenuOnPc = () => {
   const [lang, setLang] = useLanguage();
   const { isOSpy } = useWhere();
   const { t } = useTranslation();
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, getAuthToken } = useAuth();
   const langMenus = useMemo(() => {
     return ALL_LANGS.filter((i) => i?.key !== lang);
   }, [lang]);
+
+  // 判断是否应该显示登出按钮（无密码模式下不显示）
+  const showLogoutButton = isAuthenticated && getAuthToken();
 
   return (
     <div className="nav-menu pc">
@@ -148,7 +151,7 @@ export const NavMenuOnPc = () => {
       </div>
       <Divider type="vertical" className="divider-bg" />
       {/* 登出按钮 */}
-      {isAuthenticated && (
+      {showLogoutButton && (
         <>
           <Button
             type="text"
@@ -192,9 +195,13 @@ export const NavMenuOnMobile = () => {
   const { isOSpy } = useWhere();
   const [lang, setLang] = useLanguage();
   const { t } = useTranslation();
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, getAuthToken } = useAuth();
   const [expand, setExpand] = useState(false);
   const fixedMenuRef = useRef<HTMLDivElement | null>(null);
+
+  // 判断是否应该显示登出按钮（无密码模式下不显示）
+  const showLogoutButton = isAuthenticated && getAuthToken();
+
   return (
     <>
       <div className="nav-menu mobile">
@@ -268,7 +275,7 @@ export const NavMenuOnMobile = () => {
               </>
             )}
             {/* 登出按钮 */}
-            {isAuthenticated && (
+            {showLogoutButton && (
               <div
                 className="menu-item logout"
                 onClick={() => {

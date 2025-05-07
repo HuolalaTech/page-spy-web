@@ -308,6 +308,10 @@
     "need_set_password": "パスワードが設定されていません。最初にパスワードを設定してください",
     "session_expired": "セッションの有効期限が切れました。再度ログインしてください",
     "server_error": "サーバーエラー、後でやり直してください",
-    "welcome_message": "PageSpy へようこそ"
+    "welcome_message": "PageSpy へようこそ",
+    "skip_password_button": "パスワード設定をスキップ",
+    "skip_password_warning": "パスワードの設定をスキップすると、システムが不安全な状態になり、誰でもあなたのデータにアクセスできます。データのセキュリティを保護するために、パスワードを設定することをお勧めします。後で環境変数 AUTH_PASSWORD を使ってパスワードを設定できます。",
+    "skip_password_success": "パスワード設定をスキップしました",
+    "skip_password_failed": "パスワード設定のスキップに失敗しました"
   }
 }
