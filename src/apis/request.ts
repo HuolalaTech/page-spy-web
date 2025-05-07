@@ -92,9 +92,55 @@ class ApiRequest {
     // 设置请求头，如果需要认证则添加认证头
     const headers: Record<string, string> = {};
     if (requireAuth) {
-      const token = getAuthToken();
-      if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
+      // 检查是否是无密码模式
+      const isNoPasswordMode = async (): Promise<boolean> => {
+        try {
+          // 如果path是检查认证状态的接口，避免循环调用
+          if (path === '/auth/status') {
+            return false;
+          }
+
+          // 缓存认证状态检查结果，避免频繁请求
+          const cacheKey = 'page-spy-no-password-mode';
+          const cachedResult = sessionStorage.getItem(cacheKey);
+
+          if (cachedResult) {
+            return cachedResult === 'true';
+          }
+
+          // 请求认证状态
+          const statusResponse = await fetch(`${prefix}/auth/status`);
+          if (statusResponse.ok) {
+            const statusData = await statusResponse.json();
+            const isNoPassword =
+              !statusData.data.passwordConfigured &&
+              !statusData.data.isFirstStart;
+
+            // 缓存结果，有效期5分钟
+            sessionStorage.setItem(cacheKey, String(isNoPassword));
+            setTimeout(
+              () => sessionStorage.removeItem(cacheKey),
+              5 * 60 * 1000,
+            );
+
+            return isNoPassword;
+          }
+          return false;
+        } catch (error) {
+          console.error('检查无密码模式失败:', error);
+          return false;
+        }
+      };
+
+      // 在无密码模式下不添加认证头
+      if (await isNoPasswordMode()) {
+        // 无密码模式，不添加认证头
+      } else {
+        // 有密码模式，添加认证头
+        const token = getAuthToken();
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
       }
     }
 

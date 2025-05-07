@@ -306,6 +306,10 @@
     "need_set_password": "Password not set, please set a password first",
     "session_expired": "Session expired, please login again",
     "server_error": "Server error, please try again later",
-    "welcome_message": "Welcome to PageSpy"
+    "welcome_message": "Welcome to PageSpy",
+    "skip_password_button": "Skip Password Setup",
+    "skip_password_warning": "Skipping password setup will leave the system in an insecure state, and anyone can access your data. It is recommended to set a password to protect your data security. You can set the password via the environment variable AUTH_PASSWORD later.",
+    "skip_password_success": "Password setup skipped",
+    "skip_password_failed": "Failed to skip password setup"
   }
 }
