@@ -1,4 +1,26 @@
 .replayer-container {
   position: relative;
   height: 100%;
+
+  // 移动端样式适配
+  &.mobile-view {
+    .mobile-back-btn {
+      height: auto;
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+  }
+}
+
+// 为移动端添加全屏相关样式
+@media screen and (max-width: 768px) {
+  .fullscreen-enter-active,
+  .fullscreen-leave-active {
+    transition: all 0.3s;
+  }
+
+  .fullscreen-enter,
+  .fullscreen-leave-to {
+    opacity: 0;
+  }
 }

@@ -1,0 +1,82 @@
+/* 移动端适配样式 */
+@mobile-breakpoint: 768px;
+
+@media screen and (max-width: @mobile-breakpoint) {
+  /* 存储面板移动端样式优化 */
+  .storage-panel {
+    &-mobile {
+      /* 确保面板占用整个空间 */
+      .storage-table {
+        width: 100% !important;
+        
+        /* 表格内部样式调整 */
+        .ant-table {
+          /* 确保表格在移动端可见并滚动 */
+          min-width: 100% !important;
+          
+          /* 调整表头样式 */
+          .ant-table-thead > tr > th {
+            padding: 8px !important;
+            font-size: 13px !important;
+            white-space: nowrap !important;
+            background-color: #f5f5f5 !important;
+          }
+          
+          /* 调整单元格样式 */
+          .ant-table-tbody > tr > td {
+            padding: 8px !important;
+            font-size: 13px !important;
+            white-space: normal !important;
+            word-break: break-word !important;
+          }
+          
+          /* 调整行高 */
+          .ant-table-tbody > tr {
+            height: auto !important;
+            min-height: 40px !important;
+          }
+        }
+        
+        /* 表格容器滚动调整 */
+        .ant-table-container {
+          overflow-x: auto !important;
+          -webkit-overflow-scrolling: touch !important;
+        }
+        
+        /* 确保表头在滚动时可见 */
+        .ant-table-header {
+          overflow: visible !important;
+          margin-bottom: 0 !important;
+        }
+      }
+      
+      /* 调整可调整大小的详情区域 */
+      .resizable-detail {
+        max-height: 120px !important;
+        
+        /* 使调整器更容易点击 */
+        .resizable-height-controller {
+          height: 20px !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          background-color: #f0f0f0 !important;
+          
+          &:before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 4px;
+            background-color: #ccc;
+            border-radius: 2px;
+          }
+        }
+        
+        /* 详情内容区域 */
+        .detail-content {
+          padding: 10px !important;
+        }
+      }
+    }
+  }
+} 

@@ -68,7 +68,7 @@ const MPSysInfo = (props: Props) => {
         <Title level={3}>主要信息</Title>
         <Card>
           <Row>
-            <Col span={12}>
+            <Col span={12} className="feature-item-col">
               <div className="mp-info-main">
                 <img className="info-icon" src={clientInfo?.os.logo} />
                 <Space
@@ -89,7 +89,7 @@ const MPSysInfo = (props: Props) => {
                 </Space>
               </div>
             </Col>
-            <Col span={12}>
+            <Col span={12} className="feature-item-col">
               <div className="mp-info-main">
                 <img className="info-icon" src={clientInfo?.browser.logo} />
                 <span>
@@ -134,6 +134,7 @@ const MPSysInfo = (props: Props) => {
                       xxl={{
                         span: spanValue?.xxlFeatSpan,
                       }}
+                      className="feature-item-col"
                     >
                       <div className="mp-info-item" key={key}>
                         <div className="system-info__name">

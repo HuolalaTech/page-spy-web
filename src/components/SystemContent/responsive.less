@@ -1,0 +1,90 @@
+/* 移动端适配样式 */
+@mobile-breakpoint: 768px;
+
+@media screen and (max-width: @mobile-breakpoint) {
+  .system-content {
+    .system-info {
+      margin-bottom: 16px;
+
+      &__label {
+        font-size: 12px;
+      }
+
+      &__value {
+        font-size: 12px;
+        /* 确保值文本不会溢出容器 */
+        word-break: break-all;
+      }
+
+      /* 标题缩小 */
+      .ant-typography {
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+    }
+
+    /* 确保Row内容可以自动换行 */
+    .ant-row {
+      flex-wrap: wrap;
+    }
+
+    /* 修复图标和信息重叠问题 */
+    .ant-col {
+      padding: 4px 0;
+    }
+
+    /* 修改特性图标的列宽度，使每行只显示一个图标 */
+    .feature-item-col {
+      width: 100% !important;
+      max-width: 100% !important;
+      flex: 0 0 100% !important;
+    }
+
+    /* 信息行的样式 */
+    .info-row {
+      margin-bottom: 4px;
+
+      /* 在移动端，将标签和值改为垂直排列 */
+      &[wrap='false'] {
+        flex-direction: column;
+
+        .system-info__label,
+        .system-info__value {
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .system-info__value {
+          padding-left: 8px;
+        }
+      }
+    }
+
+    /* 卡片样式优化 */
+    .ant-card {
+      .ant-card-body {
+        padding: 12px 8px;
+      }
+    }
+  }
+
+  /* 小程序信息在移动端的适配 */
+  .mp-info-main {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .info-icon {
+      margin-bottom: 8px;
+    }
+  }
+
+  .mp-info-item {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .mp-info-value {
+      margin-top: 4px;
+      font-size: 14px;
+    }
+  }
+}

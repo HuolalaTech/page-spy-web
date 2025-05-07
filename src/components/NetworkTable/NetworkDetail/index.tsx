@@ -15,6 +15,7 @@ import CloseSvg from '@/assets/image/close.svg?react';
 interface Props {
   data: ResolvedNetworkInfo;
   onClose: () => void;
+  isMobile?: boolean;
 }
 
 const generalFieldMap = {
@@ -152,7 +153,7 @@ const TABS: TabItem[] = [
   },
 ];
 
-export const NetworkDetail = memo(({ data, onClose }: Props) => {
+export const NetworkDetail = memo(({ data, onClose, isMobile = false }: Props) => {
   const [activeTab, setActiveTab] = useState('Headers');
   const activeContent = useMemo(() => {
     const tabItem = TABS.find((t) => t.title === activeTab);
@@ -186,7 +187,7 @@ export const NetworkDetail = memo(({ data, onClose }: Props) => {
         <div className="network-detail-close" onClick={onClose}>
           <Icon component={CloseSvg} style={{ fontSize: 20 }} />
         </div>
-        <ul className="network-detail-tabs">
+        <ul className={clsx("network-detail-tabs", { "mobile-tabs": isMobile })}>
           {TABS.filter((t) => t.visible(data)).map((i) => {
             return (
               <li
@@ -205,7 +206,9 @@ export const NetworkDetail = memo(({ data, onClose }: Props) => {
           })}
         </ul>
       </div>
-      <div className="network-detail-content">{activeContent}</div>
+      <div className={clsx("network-detail-content", { "mobile-content": isMobile })}>
+        {activeContent}
+      </div>
     </>
   );
 });

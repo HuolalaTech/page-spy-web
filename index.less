@@ -1,0 +1,78 @@
+.replay-network-panel {
+  flex: 1;
+  height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  
+  .network-table {
+    flex: 1;
+    min-height: 0; /* 防止表格被压缩到看不见 */
+    height: auto;
+  }
+  
+  // 移动端筛选控件容器
+  .mobile-controls-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    gap: 8px;
+    background-color: #fff;
+    border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+    flex-shrink: 0; /* 防止筛选控件被压缩 */
+    
+    // 筛选输入框 - 动态大小
+    .filter-input {
+      flex: 1;
+      height: 32px;
+      border-radius: 4px;
+      min-width: 0;
+    }
+    
+    // 筛选下拉按钮
+    .filter-dropdown-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 85px;
+      height: 32px;
+      padding: 0 4px;
+      flex-shrink: 0;
+      
+      .anticon {
+        margin-right: 4px;
+        font-size: 14px;
+      }
+      
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 60px;
+      }
+    }
+  }
+  
+  // 空状态包装器
+  .network-empty-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px; /* 确保有足够的高度使Empty组件可见 */
+    background-color: #fff;
+  }
+  
+  // 移动端特定样式
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    
+    .network-table {
+      flex: 1;
+      min-height: 200px; // 确保表格有最小高度
+    }
+  }
+} 

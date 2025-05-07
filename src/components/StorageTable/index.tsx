@@ -3,7 +3,7 @@ import { StorageType } from '@/store/platform-config';
 import { SpyStorage } from '@huolala-tech/page-spy-types';
 import { Table, TableColumnsType, Tooltip } from 'antd';
 import { capitalize } from 'lodash-es';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ResizableTitle } from '../ResizableTitle';
 import { ResizeCallbackData } from 'react-resizable';
 import { ColumnType } from 'antd/es/table/interface';
@@ -105,6 +105,21 @@ export const StorageTable = ({
   storageMsg,
   resizeCacheKey,
 }: Props) => {
+  // 添加移动端检测
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  
+  // 监听窗口大小变化
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const data = useMemo(() => {
     return Object.values(storageMsg[activeTab]);
   }, [activeTab, storageMsg]);
@@ -114,8 +129,8 @@ export const StorageTable = ({
   }, [data]);
 
   const unionCacheKey = useMemo(
-    () => `${resizeCacheKey}:${activeTab}`,
-    [resizeCacheKey, activeTab],
+    () => `${resizeCacheKey}:${activeTab}${isMobile ? ':mobile' : ''}`,
+    [resizeCacheKey, activeTab, isMobile],
   );
   const cacheWidthRef = useRef<Record<string, { [title: string]: number }>>({});
 
@@ -146,10 +161,21 @@ export const StorageTable = ({
     if (!hasDetail && renderCols.length !== 2) {
       renderCols = renderCols.slice(0, 2);
     }
+    
+    // 移动端适配，仅显示Name和Value两列
+    if (isMobile && renderCols.length > 2) {
+      renderCols = renderCols.slice(0, 2);
+      // 调整移动端下的列宽
+      renderCols[0].width = 120; // Name列宽
+      renderCols[1].width = window.innerWidth - 140; // Value列宽
+    }
+    
     const cacheWidth = cacheWidthRef.current[unionCacheKey];
     if (cacheWidth) {
       renderCols.forEach((i) => {
-        const width = cacheWidth[i.title as string];
+        // 确保title是字符串
+        const title = typeof i.title === 'string' ? i.title : '';
+        const width = title ? cacheWidth[title] : undefined;
         if (width) {
           i.width = width;
         }
@@ -173,8 +199,9 @@ export const StorageTable = ({
           };
           setColumns(newCols);
 
-          cacheWidthRef.current[unionCacheKey][column.title as string] =
-            size.width;
+          // 确保title是字符串
+          const title = typeof column.title === 'string' ? column.title : '';
+          cacheWidthRef.current[unionCacheKey][title] = size.width;
         }) as React.ReactEventHandler<any>,
         onResizeStop: (_: React.SyntheticEvent, data: ResizeCallbackData) => {
           const refValue = cacheWidthRef.current[unionCacheKey];
@@ -183,18 +210,18 @@ export const StorageTable = ({
         },
       }),
     }));
-  }, [columns, hasDetail, unionCacheKey]);
+  }, [columns, hasDetail, unionCacheKey, isMobile]);
 
   const setDetailInfo = useCacheDetailStore((state) => state.setCurrentDetail);
 
   return (
     <Table
-      className="storage-table"
+      className={`storage-table ${isMobile ? 'storage-table--mobile' : ''}`}
       rowKey="name"
       bordered={false}
       dataSource={data}
       pagination={false}
-      size="small"
+      size={isMobile ? "small" : "small"}
       columns={mergedColumns}
       onRow={(record) => {
         return {

@@ -34,6 +34,7 @@ import {
   isMiniProgram,
 } from '@/store/platform-config';
 import { useShallow } from 'zustand/react/shallow';
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 const { Sider, Content } = Layout;
 const { Title } = Typography;
 
@@ -76,8 +77,10 @@ const MENU_COMPONENTS: Record<
 
 interface BadgeMenuProps {
   active: MenuType;
+  setCollapsed?: (collapsed: boolean) => void;
+  isMobile?: boolean;
 }
-const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
+const BadgeMenu = memo(({ active, setCollapsed, isMobile }: BadgeMenuProps) => {
   const { t } = useTranslation('translation', { keyPrefix: 'devtool' });
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -136,6 +139,10 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
               className="sider-menu__item"
               onClick={() => {
                 navigate({ search, hash: key });
+                // 在移动端点击菜单项后自动收起侧边栏
+                if (isMobile && setCollapsed) {
+                  setCollapsed(true);
+                }
               }}
             >
               <span>{t(`menu.${key}`)}</span>
@@ -148,7 +155,7 @@ const BadgeMenu = memo(({ active }: BadgeMenuProps) => {
           ),
         };
       });
-  }, [clientInfo, badge, navigate, search, t]);
+  }, [clientInfo, badge, navigate, search, t, isMobile, setCollapsed]);
 
   if (!clientInfo) {
     return Object.keys(MENU_COMPONENTS).map((_, index) => {
@@ -239,6 +246,25 @@ export default function Devtools() {
   const [socket, initSocket, clientInfo] = useSocketMessageStore(
     useShallow((state) => [state.socket, state.initSocket, state.clientInfo]),
   );
+  const [collapsed, setCollapsed] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobileView = window.innerWidth <= 768;
+      setIsMobile(isMobileView);
+      if (isMobileView) {
+        setCollapsed(true);
+      }
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   useEffect(() => {
     if (socket) return;
@@ -266,16 +292,35 @@ export default function Devtools() {
   // eslint-disable-next-line consistent-return
   return (
     <Layout className="page-spy-devtools">
-      <Sider theme="light">
+      <Sider
+        theme="light"
+        collapsed={collapsed}
+        collapsedWidth={0}
+        trigger={null}
+        collapsible
+      >
         <div className="page-spy-devtools__sider">
           <ClientInfo />
           {clientInfo?.plugins?.includes('MPEvalPlugin') && (
             <MPWarning className="sider-warning" />
           )}
-          <BadgeMenu active={hashKey} />
+          <BadgeMenu active={hashKey} setCollapsed={setCollapsed} isMobile={isMobile} />
         </div>
       </Sider>
-      <Content className="page-spy-devtools__content">
+      <div
+        className="sider-trigger"
+        onClick={() => setCollapsed(!collapsed)}
+        style={{
+          backgroundColor: collapsed ? 'transparent' : '#fff',
+          left: collapsed ? 0 : 200,
+        }}
+      >
+        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      </div>
+      <Content
+        className="page-spy-devtools__content"
+        style={{ marginLeft: isMobile ? 0 : collapsed ? 0 : '18px' }}
+      >
         <ConnectStatus />
         <div className="page-spy-devtools__panel">
           <ActiveContent />

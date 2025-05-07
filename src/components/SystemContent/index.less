@@ -20,6 +20,15 @@
       word-break: break-word;
     }
   }
+
+  /* 信息行基本样式 */
+  .info-row {
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 .mp-info-main {
   display: flex;
@@ -46,3 +55,6 @@
 .mp-info-value {
   font-size: 16px;
 }
+
+/* 导入移动端响应式样式 */
+@import './responsive.less';

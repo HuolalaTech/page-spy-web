@@ -1,0 +1,60 @@
+/* 移动端适配样式 */
+@mobile-breakpoint: 768px;
+
+@media screen and (max-width: @mobile-breakpoint) {
+  /* 表格组件样式调整 */
+  .storage-table {
+    /* 确保表格容器响应式 */
+    .ant-table {
+      min-width: 100% !important;
+    }
+    
+    /* 调整表格布局 */
+    .ant-table-container {
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important; /* 支持iOS惯性滚动 */
+    }
+    
+    /* 调整表头 */
+    .ant-table-thead {
+      white-space: nowrap !important;
+      
+      /* 调整表头单元格 */
+      > tr > th {
+        padding: 10px 12px !important;
+        font-size: 14px !important;
+      }
+    }
+    
+    /* 调整表格内容 */
+    .ant-table-tbody {
+      /* 调整表格行 */
+      > tr {
+        /* 悬停效果 */
+        &:hover > td {
+          background-color: rgba(0, 0, 0, 0.05) !important;
+        }
+        
+        /* 调整单元格 */
+        > td {
+          padding: 8px 12px !important;
+          font-size: 14px !important;
+          white-space: nowrap !important; /* 防止内容换行 */
+          
+          /* 处理长内容 */
+          &.ant-table-cell-ellipsis {
+            max-width: 200px !important; /* 限制单元格最大宽度 */
+          }
+        }
+      }
+    }
+    
+    /* 调整可调整大小的表头 */
+    .resizable-title {
+      .resizable-handle {
+        width: 16px !important; /* 增大拖动区域 */
+        right: -8px !important;
+      }
+    }
+  }
+} 

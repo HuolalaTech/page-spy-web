@@ -104,4 +104,63 @@
       }
     }
   }
+
+  .sider-trigger {
+    position: fixed;
+    width: 24px;
+    height: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 0.3s;
+    color: @primary-color;
+    font-size: 16px;
+
+    &:hover {
+      color: darken(@primary-color, 10%);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .sider-trigger {
+      top: 50%;
+      transform: translateY(-50%);
+      height: 30px;
+      width: 30px;
+      border-radius: 4px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .connection-item {
+      margin-bottom: 16px;
+      
+      &__title {
+        padding-block: 6px;
+        
+        code {
+          font-size: 30px !important;
+        }
+      }
+      
+      .custom-title {
+        max-width: 90%;
+      }
+      
+      .conn-detail {
+        &__value {
+          max-width: none;
+          p {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
 }
