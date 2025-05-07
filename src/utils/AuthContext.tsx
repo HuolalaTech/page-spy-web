@@ -115,12 +115,26 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
       });
 
       if (response.success) {
-        // 真正的登录成功情况
+        console.log('登录成功，获取到token:', response.data.token);
+
+        // 登录成功情况
         // 设置令牌和过期时间
         setTokenAndExpiration(
           response.data.token,
           response.data.expiresIn || 86400, // 默认24小时
         );
+
+        // 打印检查token是否已正确设置
+        console.log(
+          '设置token后，当前token状态:',
+          localStorage.getItem(TOKEN_KEY),
+        );
+
+        // 更新认证状态
+        setIsAuthenticated(true);
+
+        // 清除无密码模式缓存，强制下次重新检查
+        sessionStorage.removeItem('page-spy-no-password-mode');
 
         // 显示登录成功提示
         message.success(t('auth.login_success'));
