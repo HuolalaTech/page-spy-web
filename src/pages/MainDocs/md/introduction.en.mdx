@@ -37,6 +37,7 @@ import storageImg from '@/assets/image/screenshot/storage-panel.png';
 import systemImg from '@/assets/image/screenshot/system-panel.png';
 import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-en.png';
 import offlineImg from '@/assets/image/screenshot/offline-panel.png';
+import moduleImg from '@/assets/image/screenshot/module.png';
 
 export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
@@ -92,9 +93,23 @@ _PageSpy shines in any scenario where local console debugging is not possible!_ 
 
 Yep, the goal of PageSpy is can help the people which in like above cases.
 
-### Feature Overview#feature-overview
+### Main Components#main-components
 
-#### Online Debugging#online-debugging
+PageSpy is composed of the following three modules:
+
+- **Debugging Client**: The debugging client is the part that developers use, providing various debugging features such as online debugging and offline playback.
+- **SDK**: The SDK is responsible for collecting data from the user's project and sending it to the debugging client.
+- **Server**: The server is responsible for relaying messages between the debugging client and the SDK, as well as storing data.
+
+The interaction diagram between the three modules is as follows:
+
+<a href={moduleImg} target="_blank">
+  <img alt="System Module Diagram" src={moduleImg} />
+</a>
+
+### Debugging Client Overview#page-overview
+
+#### Online Debugging Mode#online-debugging
 
 - **Console Panel**: Displays logs from `console.<log | info | warn | error | debug>`, and allows sending code to be executed on the client side.
 
@@ -128,7 +143,7 @@ Yep, the goal of PageSpy is can help the people which in like above cases.
 
 Additionally, you will receive real-time notifications when new data is available or existing data changes.
 
-#### Offline Debugging#offline-debugging
+#### Offline Debugging Mode#offline-debugging
 
 <a href={offlineImg} target="_blank">
   <img src={offlineImg} />

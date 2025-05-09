@@ -23,6 +23,9 @@
 [docker-deploy-url]: https://pagespy.huolala.cn/#/docs/deploy-with-docker
 [bt-deploy]: https://img.shields.io/badge/BT_Deploy-Install-20a53a
 [bt-deploy-url]: https://pagespy.huolala.cn/#/docs/deploy-with-baota
+[web-repo]: https://github.com/HuolalaTech/page-spy-web
+[sdk-repo]: https://github.com/HuolalaTech/page-spy
+[server-repo]: https://github.com/HuolalaTech/page-spy-api
 
 
 import React from 'react';
@@ -37,6 +40,7 @@ import storageImg from '@/assets/image/screenshot/storage-panel.png';
 import systemImg from '@/assets/image/screenshot/system-panel.png';
 import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-zh.png';
 import offlineImg from '@/assets/image/screenshot/offline-panel.png';
+import moduleImg from '@/assets/image/screenshot/module.png';
 
 export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
@@ -91,9 +95,23 @@ export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
 PageSpy 的目标，就是为包括以上场景的人员提供帮助。
 
-### 界面概览#feature-overview
+### 主要构成#main-components
 
-#### 在线调试#online-debug
+PageSpy 由以下三个模块组成：
+
+- 调试端：对应 [HuolalaTech/page-spy-web](https://github.com/HuolalaTech/page-spy-web) 仓库，主要供开发者使用，提供各类调试功能面板，包括在线调试、离线回放等；
+- SDK：对应 [HuolalaTech/page-spy](https://github.com/HuolalaTech/page-spy) 仓库，负责将用户项目在运行时产生的数据发送给服务端，并由服务端转发给调试端；
+- 服务端：对应 [HuolalaTech/page-spy-api](https://github.com/HuolalaTech/page-spy-api) 仓库，主要负责中转两端的消息、存储数据等。
+
+三个模块之间的交互图如下：
+
+<a href={moduleImg} target="_blank">
+  <img alt="系统模块示意图" src={moduleImg} />
+</a>
+
+### 调试端界面概览#page-overview
+
+#### 在线调试模式#online-debugging
 
 - Console 面板: 显示 `console.<log | info | warn | error | debug>` 输出的日志信息，可以发送代码到客户端执行；
 
@@ -127,7 +145,7 @@ PageSpy 的目标，就是为包括以上场景的人员提供帮助。
 
 除此之外，当有新的数据或者数据发生变化的时候会实时的收到通知。
 
-#### 离线回放#offline-debugging
+#### 离线回放模式#offline-debugging
 
 <a href={offlineImg} target="_blank">
   <img src={offlineImg} />
