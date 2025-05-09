@@ -8,6 +8,7 @@ import { HarborDataItem, useReplayStore } from '@/store/replay';
 import { RRWebPlayer } from './RRWebPlayer';
 import { PluginPanel } from './PluginPanel';
 import '@huolala-tech/react-json-view/dist/style.css';
+import request from '@/apis/request';
 import {
   ReactNode,
   RefCallback,
@@ -28,10 +29,11 @@ import { useTranslation } from 'react-i18next';
 
 interface Props {
   url: string;
+  fileId?: string;
   backSlot?: ReactNode;
 }
 
-export const LogReplayer = ({ url, backSlot = null }: Props) => {
+export const LogReplayer = ({ url, fileId, backSlot = null }: Props) => {
   useEffect(() => {
     return () => {
       if (url.startsWith('blob://')) {
@@ -53,10 +55,58 @@ export const LogReplayer = ({ url, backSlot = null }: Props) => {
     async () => {
       let res: any;
       try {
-        // request failed or not json data, for example, user refresh the page with the url starts with blob://
-        res = await (await fetch(url)).json();
+        let fetchUrl = url;
+        const headers: Record<string, string> = {};
+
+        // 处理URL可能包含的fileId
+        let extractedFileId = fileId;
+        if (
+          !extractedFileId &&
+          fetchUrl.includes('/api/v1/log/download?fileId=')
+        ) {
+          try {
+            const urlObj = new URL(fetchUrl, window.location.origin);
+            const fileIdParam = urlObj.searchParams.get('fileId');
+            if (fileIdParam) {
+              extractedFileId = fileIdParam;
+            }
+          } catch (e) {
+            console.error('URL解析错误:', e);
+          }
+        }
+
+        // 添加认证令牌到所有API请求
+        if (
+          extractedFileId ||
+          (fetchUrl && fetchUrl.includes(request.defaultPrefix))
+        ) {
+          const token = localStorage.getItem('page-spy-auth-token');
+          if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+          } else {
+            throw new Error(t('auth.login_required') || 'Login required');
+          }
+        }
+
+        // 请求日志数据
+        const response = await fetch(fetchUrl, { headers });
+
+        // 检查是否成功
+        if (!response.ok) {
+          if (response.status === 401) {
+            throw new Error(t('auth.login_required') || 'Login required');
+          }
+          throw new Error(
+            `${t('replay.fetch-error') || 'Error fetching log'}: ${
+              response.statusText
+            }`,
+          );
+        }
+
+        // 解析JSON数据
+        res = await response.json();
       } catch (e: any) {
-        throw new Error(t('replay.invalid-source')!);
+        throw new Error(e.message || t('replay.invalid-source'));
       }
       // source not found, for example, the file be cleared in the server
       if (res?.success === false) {
@@ -84,6 +134,7 @@ export const LogReplayer = ({ url, backSlot = null }: Props) => {
       },
     },
   );
+
   useEffect(() => {
     if (url) {
       requestLog();

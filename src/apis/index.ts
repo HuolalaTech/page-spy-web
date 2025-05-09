@@ -7,6 +7,7 @@ export const getSpyRoom = (group: string = '') => {
           group,
         }
       : {},
+    requireAuth: true,
   });
 };
 
@@ -21,6 +22,7 @@ export const getSpyLogs = (params: {
     params: {
       ...params,
     },
+    requireAuth: true,
   });
 };
 
@@ -29,7 +31,9 @@ export const deleteSpyLog = (fileIds: string[]) => {
     acc.append('fileId', cur);
     return acc;
   }, new URLSearchParams());
-  return request.delete<I.SpyLogList>(`/log/delete?${params.toString()}`);
+  return request.delete<I.SpyLogList>(`/log/delete?${params.toString()}`, {
+    requireAuth: true,
+  });
 };
 
 export const checkRoomSecret = (params: {
