@@ -1,16 +1,30 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Card, Spin, Typography } from 'antd';
-import { LockOutlined, LoginOutlined } from '@ant-design/icons';
+import {
+  Form,
+  Input,
+  Button,
+  Card,
+  Spin,
+  Typography,
+  Space,
+  Flex,
+  Tooltip,
+} from 'antd';
+import {
+  InfoCircleOutlined,
+  InfoOutlined,
+  LockOutlined,
+  LoginOutlined,
+} from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/utils/AuthContext';
 import './style.less';
-import PasswordSetup from '../PasswordSetup';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const AuthLogin: React.FC = () => {
   const { t } = useTranslation();
-  const { login, loading, needPasswordSetup } = useAuth();
+  const { login, loading } = useAuth();
   const [submitting, setSubmitting] = useState(false);
 
   // 处理登录表单提交
@@ -23,30 +37,24 @@ const AuthLogin: React.FC = () => {
     }
   };
 
-  // 如果需要设置密码，显示密码设置组件
-  if (needPasswordSetup) {
-    return <PasswordSetup />;
-  }
-
   return (
     <div className="auth-login-container">
       <Spin spinning={loading}>
         <Card
-          title={t('auth.login_title') as string}
+          title={
+            <Flex align="center" gap={8}>
+              <span>{t('auth.login_title')}</span>
+              <Tooltip
+                title={t('auth.login_title_desc') as string}
+                placement="bottom"
+              >
+                <InfoCircleOutlined />
+              </Tooltip>
+            </Flex>
+          }
           className="auth-login-card"
         >
-          <div className="login-welcome">
-            <Text className="welcome-text">
-              {t('auth.welcome_message')}
-            </Text>
-          </div>
-
-          <Form
-            name="login"
-            initialValues={{ remember: true }}
-            onFinish={handleSubmit}
-            layout="vertical"
-          >
+          <Form name="login" onFinish={handleSubmit} layout="vertical">
             <Form.Item
               name="password"
               rules={[

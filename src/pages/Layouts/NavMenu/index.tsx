@@ -1,15 +1,7 @@
 import { isClient, isDoc } from '@/utils/constants';
 import { langType, useLanguage } from '@/utils/useLanguage';
-import { useAuth } from '@/utils/AuthContext';
 import Icon from '@ant-design/icons';
-import {
-  Divider,
-  MenuProps,
-  Dropdown,
-  ConfigProvider,
-  Flex,
-  Button,
-} from 'antd';
+import { Divider, MenuProps, Dropdown, ConfigProvider, Flex } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import DocsSvg from '@/assets/image/docs.svg?react';
@@ -18,7 +10,6 @@ import BugSvg from '@/assets/image/bug.svg?react';
 import OnlineSvg from '@/assets/image/online.svg?react';
 import ReplaySvg from '@/assets/image/replay.svg?react';
 import RunSvg from '@/assets/image/run-right.svg?react';
-import { LogoutOutlined } from '@ant-design/icons';
 import i18n, { isCN } from '@/assets/locales';
 import { useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
@@ -61,13 +52,9 @@ export const NavMenuOnPc = () => {
   const [lang, setLang] = useLanguage();
   const { isOSpy } = useWhere();
   const { t } = useTranslation();
-  const { isAuthenticated, logout, getAuthToken } = useAuth();
   const langMenus = useMemo(() => {
     return ALL_LANGS.filter((i) => i?.key !== lang);
   }, [lang]);
-
-  // 判断是否应该显示登出按钮（无密码模式下不显示）
-  const showLogoutButton = isAuthenticated && getAuthToken();
 
   return (
     <div className="nav-menu pc">
@@ -150,20 +137,6 @@ export const NavMenuOnPc = () => {
         </ConfigProvider>
       </div>
       <Divider type="vertical" className="divider-bg" />
-      {/* 登出按钮 */}
-      {showLogoutButton && (
-        <>
-          <Button
-            type="text"
-            className="menu-item logout"
-            onClick={logout}
-            icon={<LogoutOutlined />}
-          >
-            {t('auth.logout')}
-          </Button>
-          <Divider type="vertical" className="divider-bg" />
-        </>
-      )}
       {/* Mirror */}
       {isDoc && isCN() && (
         <>
@@ -195,12 +168,8 @@ export const NavMenuOnMobile = () => {
   const { isOSpy } = useWhere();
   const [lang, setLang] = useLanguage();
   const { t } = useTranslation();
-  const { isAuthenticated, logout, getAuthToken } = useAuth();
   const [expand, setExpand] = useState(false);
   const fixedMenuRef = useRef<HTMLDivElement | null>(null);
-
-  // 判断是否应该显示登出按钮（无密码模式下不显示）
-  const showLogoutButton = isAuthenticated && getAuthToken();
 
   return (
     <>
@@ -260,21 +229,6 @@ export const NavMenuOnMobile = () => {
                   </Flex>
                 </Link>
               </>
-            )}
-            {/* 登出按钮 */}
-            {showLogoutButton && (
-              <div
-                className="menu-item logout"
-                onClick={() => {
-                  logout();
-                  setExpand(false);
-                }}
-              >
-                <Flex align="center" gap={8}>
-                  <LogoutOutlined style={{ fontSize: 18 }} />
-                  <span>{t('auth.logout')}</span>
-                </Flex>
-              </div>
             )}
             {/* i18n */}
             <div

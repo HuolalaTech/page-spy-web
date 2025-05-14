@@ -283,33 +283,15 @@
     "placeholder": "Search docs"
   },
   "auth": {
-    "login_title": "Login",
+    "login_title": "Access Authentication",
+    "login_title_desc": "This access requires password authentication. If you don't know the password, please contact the administrator.",
     "login_button": "Login",
-    "logout": "Logout",
-    "logout_success": "Successfully logged out",
     "login_success": "Login successful",
     "login_failed": "Login failed",
     "incorrect_password": "Incorrect password",
     "password": "Password",
     "please_enter_password": "Please enter password",
-    "setup_password": "Set Password",
-    "setup_password_desc": "First time using the system, please set a password to protect your data",
-    "new_password": "New Password",
-    "confirm_password": "Confirm Password",
-    "please_confirm_password": "Please confirm password",
-    "passwords_do_not_match": "Passwords do not match",
-    "password_too_short": "Password must be at least 6 characters",
-    "set_password_button": "Set Password",
-    "password_set_success": "Password set successfully",
-    "password_set_failed": "Failed to set password",
-    "password_already_set": "Password already set, please login directly",
-    "need_set_password": "Password not set, please set a password first",
     "session_expired": "Session expired, please login again",
-    "server_error": "Server error, please try again later",
-    "welcome_message": "Welcome to PageSpy",
-    "skip_password_button": "Skip Password Setup",
-    "skip_password_warning": "Skipping password setup will leave the system in an insecure state, and anyone can access your data. It is recommended to set a password to protect your data security. You can set the password via the environment variable AUTH_PASSWORD later.",
-    "skip_password_success": "Password setup skipped",
-    "skip_password_failed": "Failed to skip password setup"
+    "server_error": "Server error, please try again later"
   }
 }

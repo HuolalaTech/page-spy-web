@@ -31,7 +31,7 @@ declare namespace I {
   }
 
   interface Response<T> {
-    code: number;
+    code: number | string;
     message: string;
     success: boolean;
     data: T;
@@ -42,6 +42,12 @@ declare namespace I {
   export type SpyLogList = Response<{
     total: number;
     data: SpyLog[];
+  }>;
+
+  export type AuthVerifyResult = Response<{
+    token: string;
+    message: string;
+    expiresIn: number;
   }>;
 }
 

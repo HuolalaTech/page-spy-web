@@ -7,7 +7,6 @@ export const getSpyRoom = (group: string = '') => {
           group,
         }
       : {},
-    requireAuth: true,
   });
 };
 
@@ -22,7 +21,6 @@ export const getSpyLogs = (params: {
     params: {
       ...params,
     },
-    requireAuth: true,
   });
 };
 
@@ -31,9 +29,7 @@ export const deleteSpyLog = (fileIds: string[]) => {
     acc.append('fileId', cur);
     return acc;
   }, new URLSearchParams());
-  return request.delete<I.SpyLogList>(`/log/delete?${params.toString()}`, {
-    requireAuth: true,
-  });
+  return request.delete<I.SpyLogList>(`/log/delete?${params.toString()}`);
 };
 
 export const checkRoomSecret = (params: {
@@ -42,5 +38,17 @@ export const checkRoomSecret = (params: {
 }) => {
   return request.get<I.Response<any>>('/room/check', {
     params,
+  });
+};
+
+export const requestAuthStatus = () => {
+  return request.get<I.Response<{ passwordConfigured: boolean }>>(
+    '/auth/status',
+  );
+};
+
+export const requestLogin = (data: { password: string }) => {
+  return request.post<I.AuthVerifyResult>('/auth/verify', {
+    data,
   });
 };

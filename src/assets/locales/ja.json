@@ -282,33 +282,15 @@
     "placeholder": "ドキュメントを検索"
   },
   "auth": {
-    "login_title": "ログイン",
+    "login_title": "アクセス認証",
+    "login_title_desc": "このアクセスにはパスワード認証が必要です。パスワードがわからない場合は管理者にお問い合わせください。",
     "login_button": "ログイン",
-    "logout": "ログアウト",
-    "logout_success": "ログアウトしました",
     "login_success": "ログインに成功しました",
     "login_failed": "ログインに失敗しました",
     "incorrect_password": "パスワードが正しくありません",
     "password": "パスワード",
     "please_enter_password": "パスワードを入力してください",
-    "setup_password": "パスワードを設定",
-    "setup_password_desc": "初めて使用する場合は、データを保護するためにパスワードを設定してください",
-    "new_password": "新しいパスワード",
-    "confirm_password": "パスワードを確認",
-    "please_confirm_password": "パスワードを確認してください",
-    "passwords_do_not_match": "パスワードが一致しません",
-    "password_too_short": "パスワードは6文字以上である必要があります",
-    "set_password_button": "パスワードを設定",
-    "password_set_success": "パスワードが正常に設定されました",
-    "password_set_failed": "パスワードの設定に失敗しました",
-    "password_already_set": "パスワードは既に設定されています。直接ログインしてください",
-    "need_set_password": "パスワードが設定されていません。最初にパスワードを設定してください",
     "session_expired": "セッションの有効期限が切れました。再度ログインしてください",
-    "server_error": "サーバーエラー、後でやり直してください",
-    "welcome_message": "PageSpy へようこそ",
-    "skip_password_button": "パスワード設定をスキップ",
-    "skip_password_warning": "パスワードの設定をスキップすると、システムが不安全な状態になり、誰でもあなたのデータにアクセスできます。データのセキュリティを保護するために、パスワードを設定することをお勧めします。後で環境変数 AUTH_PASSWORD を使ってパスワードを設定できます。",
-    "skip_password_success": "パスワード設定をスキップしました",
-    "skip_password_failed": "パスワード設定のスキップに失敗しました"
+    "server_error": "サーバーエラー、後でやり直してください"
   }
 }
