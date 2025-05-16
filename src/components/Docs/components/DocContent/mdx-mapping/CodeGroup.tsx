@@ -12,6 +12,8 @@ import UniappSvg from '@/assets/image/uni.svg?react';
 import ReactSvg from '@/assets/image/react.svg?react';
 import HarmonySvg from '@/assets/image/harmony.svg?react';
 import TaroSvg from '@/assets/image/taro.svg?react';
+import NodeSvg from '@/assets/image/nodejs.svg?react';
+import DockerSvg from '@/assets/image/docker.svg?react';
 import { CodeBlock, GroupItem } from '@/components/CodeBlock';
 import { useTranslation } from 'react-i18next';
 import { Lang } from 'shiki';
@@ -38,7 +40,9 @@ type MetaType =
   | 'uniapp'
   | 'react'
   | 'harmony'
-  | 'taro';
+  | 'taro'
+  | 'node'
+  | 'docker';
 
 interface Item {
   lang: string;
@@ -120,6 +124,14 @@ export const CodeGroup = ({ items = [] }: { items: Item[] }) => {
       taro: {
         icon: TaroSvg,
         name: 'Taro',
+      },
+      node: {
+        icon: NodeSvg,
+        name: 'NodeJS',
+      },
+      docker: {
+        icon: DockerSvg,
+        name: 'Docker',
       },
     };
     return items.map((item) => {

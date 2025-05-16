@@ -141,56 +141,29 @@ window.$pageSpy = new PageSpy({
 });
 ```
 
-### How Can the Debug Terminal Be Protected with Some Authentication Mechanism to Allow Access Only to Authenticated Developers? #basic-auth
+### How Can the Debug Terminal Be Protected with Some Authentication Mechanism to Allow Access Only to Authenticated Developers? #security
 
-You can protect the server by setting an IP whitelist in nginx or using HTTP Authorization:
+Starting from version [2.3.0](./changelog#v2-3-0), PageSpy supports setting a password to protect the debugging terminal. After setting the password, developers must enter the correct password to access the debugging terminal.
 
-- Nginx IP whitelist configuration example:
+Allowed variables and meanings:
 
-  ```nginx
-  server {
-    location / {
-      # Allow who can access
-      allow <ip>;
+- `AUTH_PASSWORD`: Set password;
+- `JWT_SECRET`: Set token secret key;
+- `JWT_EXPIRATION_HOURS`: Set token expiration time (hours), default 24 hours;
 
-      # Deny all other clients except allow
-      deny all;
-    }
-  }
-  ```
+Set during service startup, the usage is as follows:
 
-- Nginx configuration for HTTP Authorization, requiring username and password for access.
+:::code-group
 
-  Generate username and password file using `htpasswd`:
+```bash docker
+docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" -e AUTH_PASSWORD=<password> -e JWT_SECRET=<secret> -e JWT_EXPIRATION_HOURS=<hours> ghcr.io/huolalatech/page-spy-web:latest
+```
 
-  ```bash
-  sudo htpasswd -c /etc/nginx/.htpasswd username
-  ```
+```bash node
+AUTH_PASSWORD=<password> JWT_SECRET=<secret> JWT_EXPIRATION_HOURS=<hours> page-spy-api
+```
 
-  Nginx configuration:
-
-  ```nginx
-  server {
-    location / {
-      auth_basic "请输入用户名和密码以访问 PageSpy 服务";
-      auth_basic_user_file /etc/nginx/.htpasswd;
-
-      proxy_pass http://127.0.0.1:6752;
-      proxy_http_version    1.1;
-      proxy_set_header      Upgrade $http_upgrade;
-      proxy_set_header      Connection "upgrade";
-    }
-
-    location ~ /(api|page-spy|plugin) {
-      proxy_pass http://127.0.0.1:6752;
-      proxy_http_version    1.1;
-      proxy_set_header      Upgrade $http_upgrade;
-      proxy_set_header      Connection "upgrade";
-    }
-  }
-  ```
-
-  Restart nginx.
+:::
 
 ### Don't want to integrate manually into the project, is there a way to do it without invading the business project code? #extension
 
