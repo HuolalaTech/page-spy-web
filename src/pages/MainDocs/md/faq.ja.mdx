@@ -141,57 +141,30 @@ window.$pageSpy = new PageSpy({
 });
 ```
 
-### デバッグ側にセキュリティ認証を追加し、開発者が認証後にのみアクセスできるようにするには？#basic-auth
+### デバッグ側にセキュリティ認証を追加し、開発者が認証後にのみアクセスできるようにするには？#security
 
-サーバー上でIPホワイトリストを設定するか、HTTP認証を使用して保護することができます。
+バージョン[2.3.0](./changelog#v2-3-0)以降、PageSpyは認証をサポートしています。パスワードを設定した後、開発者は認証後にのみデバッグターミナルにアクセスできます。
 
-- NginxでIPホワイトリストを設定する例：
+認証を有効にするには、以下の変数を設定してください：
 
-  ```nginx
-  server {
-    location / {
-      # アクセスを許可するIP
-      allow <ip>;
+- `AUTH_PASSWORD`：設定するパスワード
+- `JWT_SECRET`：設定するシークレットキー
+- `JWT_EXPIRATION_HOURS`：設定するトークンの有効期間（時間）
 
-      # allow以外のすべてのクライアントアクセスを拒否
-      deny all;
-    }
-  }
-  ```
+サービス起動時に設定します。具体的な使用方法は以下の通りです：
 
-- NginxでHTTP認証を設定し、アクセス時にユーザー名とパスワードを要求する：
+:::code-group
 
-  まず`htpasswd`でアカウントとパスワードファイルを生成：
+```bash docker
+docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" -e AUTH_PASSWORD=<password> -e JWT_SECRET=<secret> -e JWT_EXPIRATION_HOURS=<hours> ghcr.io/huolalatech/page-spy-web:latest
+```
 
-  ```bash
-  # 実行後、パスワードの入力と確認が求められます
-  htpasswd -c /etc/nginx/.htpasswd <ユーザー名>;
-  ```
+```bash node
+AUTH_PASSWORD=<password> JWT_SECRET=<secret> JWT_EXPIRATION_HOURS=<hours> page-spy-api
+```
 
-  次に、nginxファイルで`auth_basic`モジュールを設定：
+::: 
 
-  ```nginx
-  server {
-    location / {
-      auth_basic "PageSpyサービスにアクセスするにはユーザー名とパスワードを入力してください";
-      auth_basic_user_file /etc/nginx/.htpasswd;
-
-      proxy_pass http://127.0.0.1:6752;
-      proxy_http_version    1.1;
-      proxy_set_header      Upgrade $http_upgrade;
-      proxy_set_header      Connection "upgrade";
-    }
-
-    location ~ /(api|page-spy|plugin) {
-      proxy_pass http://127.0.0.1:6752;
-      proxy_http_version    1.1;
-      proxy_set_header      Upgrade $http_upgrade;
-      proxy_set_header      Connection "upgrade";
-    }
-  }
-  ```
-
-  最後にnginxサービスを再起動します。
 
 ### プロジェクトに手動で統合したくない場合、ビジネスプロジェクトコードを侵害せずに実装する方法はありますか？#extension
 

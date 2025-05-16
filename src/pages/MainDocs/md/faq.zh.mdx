@@ -141,57 +141,29 @@ window.$pageSpy = new PageSpy({
 });
 ```
 
-### 调试端如何加一些安全认证的保护，开发者通过认证才可以访问？#basic-auth
+### 调试端如何加一些安全认证的保护，开发者通过认证才可以访问？#security
 
-可以在服务器上设置 IP 白名单或者使用 HTTP Authorization 来进行保护。
+从 [2.3.0](./changelog#v2-3-0) 版本开始，PageSpy 支持在启动服务时使用变量设置密码以保护调试端安全。设置密码后，开发者访问调试面板时必须输入正确的密码。
 
-- Nginx 设置 IP 白名单配置参考：
+允许输入的变量和含义：
 
-  ```nginx
-  server {
-    location / {
-      # 允许谁可以访问
-      allow <ip>;
+- `AUTH_PASSWORD`：设置密码；
+- `JWT_SECRET`：设置 token 的密钥；
+- `JWT_EXPIRATION_HOURS`：设置 token 过期时间（小时），默认 24 小时；
 
-      # 除了 allow 的，拒绝所有其他的客户端访问
-      deny all;
-    }
-  }
-  ```
+在启动服务时设置，具体的使用方式如下：
 
-- Nginx 配置 HTTP Authorization，访问时需要提供账号和密码；
+:::code-group
 
-  首先通过 `htpasswd` 生成账密文件：
+```bash docker
+docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" -e AUTH_PASSWORD=<password> -e JWT_SECRET=<secret> -e JWT_EXPIRATION_HOURS=<hours> ghcr.io/huolalatech/page-spy-web:latest
+```
 
-  ```bash
-  # 执行后会要求输入密码、二次确认密码
-  htpasswd -c /etc/nginx/.htpasswd <用户名>;
-  ```
+```bash node
+AUTH_PASSWORD=<password> JWT_SECRET=<secret> JWT_EXPIRATION_HOURS=<hours> page-spy-api
+```
 
-  接着在 nginx 文件中配置 `auth_basic` 模块；
-
-  ```nginx
-  server {
-    location / {
-      auth_basic "请输入用户名和密码以访问 PageSpy 服务";
-      auth_basic_user_file /etc/nginx/.htpasswd;
-
-      proxy_pass http://127.0.0.1:6752;
-      proxy_http_version    1.1;
-      proxy_set_header      Upgrade $http_upgrade;
-      proxy_set_header      Connection "upgrade";
-    }
-
-    location ~ /(api|page-spy|plugin) {
-      proxy_pass http://127.0.0.1:6752;
-      proxy_http_version    1.1;
-      proxy_set_header      Upgrade $http_upgrade;
-      proxy_set_header      Connection "upgrade";
-    }
-  }
-  ```
-
-  最后重启 nginx 服务即可。
+::: 
 
 ### 不想在项目里手动集成，有没有办法可以不侵入业务项目代码？#extension
 

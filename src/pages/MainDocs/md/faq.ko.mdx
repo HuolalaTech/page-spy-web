@@ -141,57 +141,29 @@ window.$pageSpy = new PageSpy({
 });
 ```
 
-### 디버그 측에 보안 인증 보호를 어떻게 추가하여 개발자가 인증 후에만 접근할 수 있게 하나요?#basic-auth
+### 디버그 측에 보안 인증 보호를 어떻게 추가하여 개발자가 인증 후에만 접근할 수 있게 하나요?#security
 
-서버에서 IP 화이트리스트를 설정하거나 HTTP 인증을 사용하여 보호할 수 있습니다.
+[2.3.0](./changelog#v2-3-0) 버전부터 PageSpy는 서비스 시작 시 변수를 사용하여 비밀번호를 설정하여 디버그 측을 보호할 수 있습니다. 비밀번호를 설정한 후, 개발자는 비밀번호를 입력하여 디버그 측에 접근할 수 있습니다.
 
-- Nginx IP 화이트리스트 설정 예시:
+설정할 수 있는 변수와 의미는 다음과 같습니다:
 
-  ```nginx
-  server {
-    location / {
-      # 접근 허용할 IP
-      allow <ip>;
+- `AUTH_PASSWORD`: 설정할 비밀번호
+- `JWT_SECRET`: 설정할 비밀키
+- `JWT_EXPIRATION_HOURS`: 설정할 토큰 만료 시간 (시간)
 
-      # allow 외의 모든 클라이언트 접근 거부
-      deny all;
-    }
-  }
-  ```
+서비스 시작 시 설정합니다. 구체적인 사용 방법은 다음과 같습니다:
 
-- Nginx HTTP 인증 설정, 접근 시 계정과 비밀번호 필요:
+:::code-group
 
-  먼저 `htpasswd`로 계정/비밀번호 파일 생성:
+```bash docker
+docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" -e AUTH_PASSWORD=<password> -e JWT_SECRET=<secret> -e JWT_EXPIRATION_HOURS=<hours> ghcr.io/huolalatech/page-spy-web:latest
+```
 
-  ```bash
-  # 실행 후 비밀번호 입력 및 확인 필요
-  htpasswd -c /etc/nginx/.htpasswd <사용자명>;
-  ```
+```bash node
+AUTH_PASSWORD=<password> JWT_SECRET=<secret> JWT_EXPIRATION_HOURS=<hours> page-spy-api
+```
 
-  그 다음 nginx 파일에서 `auth_basic` 모듈 설정:
-
-  ```nginx
-  server {
-    location / {
-      auth_basic "PageSpy 서비스에 접근하려면 사용자명과 비밀번호를 입력하세요";
-      auth_basic_user_file /etc/nginx/.htpasswd;
-
-      proxy_pass http://127.0.0.1:6752;
-      proxy_http_version    1.1;
-      proxy_set_header      Upgrade $http_upgrade;
-      proxy_set_header      Connection "upgrade";
-    }
-
-    location ~ /(api|page-spy|plugin) {
-      proxy_pass http://127.0.0.1:6752;
-      proxy_http_version    1.1;
-      proxy_set_header      Upgrade $http_upgrade;
-      proxy_set_header      Connection "upgrade";
-    }
-  }
-  ```
-
-  마지막으로 nginx 서비스를 재시작합니다.
+:::
 
 ### 프로젝트에 수동으로 통합하고 싶지 않은 경우, 비즈니스 프로젝트 코드를 침해하지 않고 구현할 방법이 있나요?#extension
 

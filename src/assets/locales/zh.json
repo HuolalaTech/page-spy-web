@@ -280,5 +280,17 @@
   "docSearch": {
     "empty": "未找到结果",
     "placeholder": "搜索文档"
+  },
+  "auth": {
+    "login_title": "访问认证",
+    "login_title_desc": "此次访问需要密码认证，如果不知道密码请联系管理员。",
+    "login_button": "登录",
+    "login_success": "登录成功",
+    "login_failed": "登录失败",
+    "incorrect_password": "密码不正确",
+    "password": "密码",
+    "please_enter_password": "请输入密码",
+    "session_expired": "会话已过期，请重新登录",
+    "server_error": "服务器异常，请稍后重试"
   }
 }

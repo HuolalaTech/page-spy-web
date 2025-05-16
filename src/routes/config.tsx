@@ -6,6 +6,7 @@ import { Page404, To404 } from '@/404';
 import { Layouts } from '@/pages/Layouts';
 import { Main } from '@/pages/Main';
 import { OSpy } from '@/pages/OSpy';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 const Devtools = React.lazy(() => import('@/pages/Devtools'));
 const RoomList = React.lazy(() => import('@/pages/RoomList'));
@@ -33,15 +34,27 @@ const routes: RouteObject[] = [
       },
       {
         path: 'devtools',
-        element: <Devtools />,
+        element: (
+          <ProtectedRoute>
+            <Devtools />
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'room-list',
-        element: <RoomList />,
+        element: (
+          <ProtectedRoute>
+            <RoomList />
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'log-list',
-        element: <LogList />,
+        element: (
+          <ProtectedRoute>
+            <LogList />
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'docs/*',
@@ -49,7 +62,11 @@ const routes: RouteObject[] = [
       },
       {
         path: 'replay',
-        element: <Replay />,
+        element: (
+          <ProtectedRoute>
+            <Replay />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

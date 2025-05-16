@@ -281,5 +281,17 @@
   "docSearch": {
     "empty": "No results found.",
     "placeholder": "Search docs"
+  },
+  "auth": {
+    "login_title": "Access Authentication",
+    "login_title_desc": "This access requires password authentication. If you don't know the password, please contact the administrator.",
+    "login_button": "Login",
+    "login_success": "Login successful",
+    "login_failed": "Login failed",
+    "incorrect_password": "Incorrect password",
+    "password": "Password",
+    "please_enter_password": "Please enter password",
+    "session_expired": "Session expired, please login again",
+    "server_error": "Server error, please try again later"
   }
 }

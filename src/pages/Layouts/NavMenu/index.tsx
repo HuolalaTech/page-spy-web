@@ -170,6 +170,7 @@ export const NavMenuOnMobile = () => {
   const { t } = useTranslation();
   const [expand, setExpand] = useState(false);
   const fixedMenuRef = useRef<HTMLDivElement | null>(null);
+
   return (
     <>
       <div className="nav-menu mobile">
@@ -250,6 +251,9 @@ export const NavMenuOnMobile = () => {
                 href={CN_MIRROR_SITE}
                 target="_blank"
                 className="menu-item doc"
+                onClick={() => {
+                  setExpand(false);
+                }}
               >
                 <Flex align="center" gap={8}>
                   <Icon component={RunSvg} style={{ fontSize: 16 }} />
