@@ -2,7 +2,7 @@ module github.com/HuolalaTech/page-spy-web/backend
 
 go 1.21
 
-require github.com/HuolalaTech/page-spy-api v1.8.0
+require github.com/HuolalaTech/page-spy-api v1.9.0
 
 require (
 	github.com/aws/aws-sdk-go v1.54.8 // indirect
@@ -10,6 +10,7 @@ require (
 	github.com/glebarez/go-sqlite v1.21.2 // indirect
 	github.com/glebarez/sqlite v1.11.0 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
+	github.com/golang-jwt/jwt/v5 v5.2.2 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/gorilla/rpc v1.2.0 // indirect

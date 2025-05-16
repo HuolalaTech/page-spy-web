@@ -1,5 +1,5 @@
-github.com/HuolalaTech/page-spy-api v1.8.0 h1:TjNSN55rben53ydBT1EHV7XUlKrut8oOMy83im6+AlI=
-github.com/HuolalaTech/page-spy-api v1.8.0/go.mod h1:ea28Ve14wtUsw+/BmUQ4PUqBzCRAC1PX5hXiVe1a45o=
+github.com/HuolalaTech/page-spy-api v1.9.0 h1:cVUNGeBHRPYrZZV4sq1jHGnfByCf388wWt+qK+tSHd0=
+github.com/HuolalaTech/page-spy-api v1.9.0/go.mod h1:B3RWqhXNZG9kTdF0foKW77XEH+l5E3QRYNULSskZ3is=
 github.com/aws/aws-sdk-go v1.54.8 h1:+soIjaRsuXfEJ9ts9poJD2fIIzSSRwfx+T69DrTtL2M=
 github.com/aws/aws-sdk-go v1.54.8/go.mod h1:eRwEWoyTWFMVYVQzKMNHWP5/RV4xIUGMQfXQHfHkpNU=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
@@ -13,6 +13,8 @@ github.com/glebarez/sqlite v1.11.0 h1:wSG0irqzP6VurnMEpFGer5Li19RpIRi2qvQz++w0GM
 github.com/glebarez/sqlite v1.11.0/go.mod h1:h8/o8j5wiAsqSPoWELDUdJXhjAhsVliSn7bWZjOhrgQ=
 github.com/golang-jwt/jwt v3.2.2+incompatible h1:IfV12K8xAKAnZqdXVzCZ+TOjboZ2keLg81eXfW3O+oY=
 github.com/golang-jwt/jwt v3.2.2+incompatible/go.mod h1:8pz2t5EyA70fFQQSrl6XZXzqecmYZeUEB8OUGHkxJ+I=
+github.com/golang-jwt/jwt/v5 v5.2.2 h1:Rl4B7itRWVtYIHFrSNd7vhTiz9UpLdi6gZhZ3wEeDy8=
+github.com/golang-jwt/jwt/v5 v5.2.2/go.mod h1:pqrtFR0X4osieyHYxtmOUWsAWrfe1Q5UVIyoH402zdk=
 github.com/google/pprof v0.0.0-20221118152302-e6195bd50e26 h1:Xim43kblpZXfIBQsbuBVKCudVG457BR2GZFIz3uw3hQ=
 github.com/google/pprof v0.0.0-20221118152302-e6195bd50e26/go.mod h1:dDKJzRmX4S37WGHujM7tX//fmj1uioxKzKxz3lo4HJo=
 github.com/google/uuid v1.3.0 h1:t6JiXgmwXMjEs8VusXIJk2BXHsn+wx8BZdTaoZ5fu7I=
