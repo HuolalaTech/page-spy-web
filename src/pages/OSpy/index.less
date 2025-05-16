@@ -29,7 +29,21 @@
     h1 {
       font-size: 46px;
     }
+    h2 {
+      font-size: 36px;
+    }
+    h3 {
+      font-size: 28px;
+    }
+    h4 {
+      font-size: 18px;
+    }
     .statement {
+      font-size: 12px;
+    }
+    .mobile-back-btn {
+      height: auto;
+      padding: 4px 8px;
       font-size: 12px;
     }
   }
@@ -37,6 +51,17 @@
     code * {
       font-size: 16px;
     }
+  }
+
+  // 移动端全屏模式样式
+  &.fullscreen-mode {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: #fff;
   }
 }
 

@@ -12,6 +12,17 @@
       font-size: 24px;
       font-weight: 500;
     }
+    
+    // 移动端头部样式
+    &.mobile-header {
+      padding: 8px 8px 0 8px;
+      
+      .ant-btn {
+        padding: 4px 8px;
+        height: auto;
+        font-size: 12px;
+      }
+    }
   }
   &-main {
     flex: 1;
@@ -45,6 +56,29 @@
         pointer-events: none !important;
       }
     }
+    
+    // 移动端样式
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      padding: 8px;
+      
+      &__left {
+        flex: 1;
+        width: 100%;
+        padding: 0 8px;
+      }
+      
+      &__center {
+        flex: 2px 0 0;
+        width: 100%;
+        margin: 4px 0;
+      }
+      
+      &__right {
+        flex: 1;
+        width: 100%;
+      }
+    }
   }
   &-footer {
     flex: 80px 0 0;
@@ -54,5 +88,80 @@
     background-color: #fff;
     box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.03);
     z-index: 1000;
+    position: relative;
+    transition: opacity 0.3s, transform 0.3s;
+    opacity: 1;
+    transform: translateY(0);
+    
+    // 移动端底部样式调整
+    @media screen and (max-width: 768px) {
+      flex: 80px 0 0;
+      padding-block: 4px 6px;
+      
+      // 当播放控制收起时，减小底部区域高度
+      &.with-collapsed-control {
+        flex: 24px 0 0;
+        padding-block: 0;
+      }
+    }
+    
+    // 全屏模式下隐藏控制栏
+    &.hidden {
+      display: none;
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    
+    // 强制重排的样式类，用于解决全屏退出时的显示问题
+    &.force-reflow {
+      animation: footer-reflow 0.01s;
+    }
+    
+    @keyframes footer-reflow {
+      0% {
+        opacity: 0.99;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+  
+  // 全屏模式下隐藏除播放器外的其他元素
+  &.with-fullscreen-player {
+    .replay-header {
+      display: none;
+    }
+    
+    .replay-main {
+      padding: 0;
+      
+      &__center,
+      &__right {
+        display: none;
+      }
+      
+      &__left {
+        flex: 1;
+        border-radius: 0;
+        padding: 0;
+      }
+    }
+    
+    .replay-footer {
+      display: none;
+      opacity: 0;
+      transform: translateY(100%);
+    }
+  }
+  
+  // 确保从全屏返回后正确显示控件
+  &:not(.with-fullscreen-player) {
+    .replay-footer {
+      display: flex !important; // 使用!important确保覆盖内联样式
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      visibility: visible !important;
+    }
   }
 }

@@ -5,6 +5,7 @@ import SystemContent from '@/components/SystemContent';
 import { ReloadOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useShallow } from 'zustand/react/shallow';
+import './index.less';
 
 const SystemPanel = memo(() => {
   const [systemMsg, refresh] = useSocketMessageStore(
@@ -18,7 +19,7 @@ const SystemPanel = memo(() => {
   }
   return (
     <div className="system-panel">
-      <Row justify="end">
+      <Row justify="end" className="system-panel__header">
         <Col>
           <Tooltip title={t('common.refresh')}>
             <Button
@@ -31,7 +32,9 @@ const SystemPanel = memo(() => {
           </Tooltip>
         </Col>
       </Row>
-      <SystemContent data={systemMsg} />
+      <div className="system-panel__content">
+        <SystemContent data={systemMsg} />
+      </div>
     </div>
   );
 });

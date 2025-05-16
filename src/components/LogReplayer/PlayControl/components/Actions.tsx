@@ -9,7 +9,12 @@ import PauseSvg from '@/assets/image/pause.svg?react';
 import RelateTimeSvg from '@/assets/image/related-time.svg?react';
 import AbsoluteTimeSvg from '@/assets/image/absolute-time.svg?react';
 
-export const Actions = memo(() => {
+interface ActionsProps {
+  isMobile?: boolean;
+}
+
+export const Actions = memo((props: ActionsProps) => {
+  const { isMobile = false } = props;
   const { t } = useTranslation();
   const [
     setProgress,
@@ -39,7 +44,7 @@ export const Actions = memo(() => {
     <Flex justify="center" align="center" className="play-actions">
       <Icon
         component={isPlaying ? PauseSvg : PlaySvg}
-        className="play-action__btn toggle-play-status"
+        className={`play-action__btn toggle-play-status ${isMobile ? 'toggle-play-status--mobile' : ''}`}
         onClick={() => {
           const { progress } = useReplayStore.getState();
           if (!isPlaying && progress >= 1) {
@@ -50,12 +55,12 @@ export const Actions = memo(() => {
           setIsPlaying(!isPlaying);
         }}
       />
-      <Flex align="center" gap={8} className="right-actions">
+      <Flex align="center" gap={isMobile ? 4 : 8} className="right-actions">
         <Select
-          size="middle"
+          size={isMobile ? "small" : "middle"}
           defaultValue={speed}
           placeholder={t('replay.speed')}
-          style={{ width: 85 }}
+          style={{ width: isMobile ? 65 : 85 }}
           labelRender={({ label, value }) => {
             if (value === 1) return t('replay.speed');
             return label;

@@ -1,0 +1,78 @@
+/* 全局响应式工具样式 */
+
+// 断点定义
+@mobile-breakpoint: 768px;
+@tablet-breakpoint: 992px;
+@desktop-breakpoint: 1200px;
+
+// 全局移动端样式
+@media screen and (max-width: @mobile-breakpoint) {
+  /* 提升触摸目标大小 */
+  .mobile-touch-target {
+    min-width: 44px !important;
+    min-height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  /* 移动端隐藏元素 */
+  .mobile-hidden {
+    display: none !important;
+  }
+  
+  /* 移动端显示元素 */
+  .mobile-visible {
+    display: block !important;
+  }
+  
+  /* 移动端弹性布局 */
+  .mobile-flex {
+    display: flex !important;
+  }
+  
+  /* 移动端全宽 */
+  .mobile-full-width {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* 移动端文本大小 */
+  .mobile-text-lg {
+    font-size: 16px !important;
+  }
+  
+  .mobile-text-md {
+    font-size: 14px !important;
+  }
+  
+  .mobile-text-sm {
+    font-size: 12px !important;
+  }
+  
+  /* 支持移动端滚动 */
+  .mobile-scrollable {
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  /* 移动端水平滚动 */
+  .mobile-scrollable-x {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    white-space: nowrap !important;
+  }
+  
+  /* 移动端垂直滚动 */
+  .mobile-scrollable-y {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  /* 移动端内边距调整 */
+  .mobile-padding {
+    padding: 8px !important;
+  }
+} 

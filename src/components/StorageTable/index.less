@@ -1,0 +1,110 @@
+.storage-table {
+  width: 100%;
+  
+  /* 确保表格在所有设备上都可以水平滚动 */
+  .ant-table-wrapper {
+    overflow-x: auto;
+  }
+  
+  /* 表格内容样式 */
+  .ant-table-tbody > tr > td {
+    word-break: break-word;
+  }
+  
+  /* 基础表格样式 */
+  .ant-table {
+    background-color: white;
+  }
+  
+  .ant-table-thead > tr > th {
+    background-color: #f5f5f5;
+  }
+  
+  .ant-table-tbody > tr.ant-table-row:hover > td {
+    background-color: #f0f7ff;
+  }
+  
+  .ant-table-tbody > tr > td {
+    transition: background-color 0.3s;
+  }
+  
+  &--mobile {
+    .ant-table-thead th {
+      padding: 8px 8px;
+    }
+    
+    .ant-table-tbody td {
+      padding: 6px 8px;
+    }
+  }
+}
+
+/* 移动设备的响应式样式 */
+@media screen and (max-width: 768px) {
+  .storage-table {
+    /* 移动设备上的表格 */
+    .ant-table {
+      table-layout: fixed;
+      
+      /* 确保第一列和第二列有合理的宽度 */
+      .ant-table-thead > tr > th:first-child,
+      .ant-table-tbody > tr > td:first-child {
+        min-width: 120px;
+        max-width: 40%;
+      }
+      
+      .ant-table-thead > tr > th:nth-child(2),
+      .ant-table-tbody > tr > td:nth-child(2) {
+        min-width: 150px;
+      }
+      
+      /* 其他列可能被隐藏或用省略号表示 */
+      .ant-table-thead > tr > th:not(:first-child):not(:nth-child(2)),
+      .ant-table-tbody > tr > td:not(:first-child):not(:nth-child(2)) {
+        min-width: 100px;
+      }
+    }
+    
+    /* 使文本在单元格内自动换行 */
+    .ant-table-tbody > tr > td {
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+    
+    /* 表格容器在移动设备上的样式增强 */
+    .ant-table-container {
+      overflow-x: auto !important;
+      
+      /* 使用横向滑动指示器 */
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 8px;
+        right: 0;
+        width: 40px;
+        height: 4px;
+        background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 100%);
+        border-radius: 2px;
+        pointer-events: none;
+        opacity: 0.5;
+      }
+    }
+    
+    /* 优化表头样式，确保不被截断 */
+    .ant-table-header {
+      overflow: visible !important;
+      margin-bottom: 0 !important;
+    }
+    
+    /* 增加行间距以提高可点击性 */
+    .ant-table-tbody > tr > td {
+      padding: 10px 8px;
+    }
+    
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+}
+
+/* 导入移动端响应式样式 */
+@import './responsive.less'; 

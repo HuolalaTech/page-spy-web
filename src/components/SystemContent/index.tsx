@@ -80,19 +80,19 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
       <div className="system-info">
         <Title level={3}>{t('overview')}</Title>
         <Card>
-          <Row>
+          <Row className="info-row">
             <Col span={spanValue.overviewSpan} className="system-info__label">
               System:
             </Col>
             <Col className="system-info__value">{`${clientInfo?.os.name}/${clientInfo?.os.version}`}</Col>
           </Row>
-          <Row>
+          <Row className="info-row">
             <Col span={spanValue.overviewSpan} className="system-info__label">
               Platform:
             </Col>
             <Col className="system-info__value">{`${clientInfo?.browser.name}/${clientInfo?.browser.version}`}</Col>
           </Row>
-          <Row wrap={false}>
+          <Row className="info-row" wrap={false}>
             <Col span={spanValue.overviewSpan} className="system-info__label">
               User Agent:
             </Col>
@@ -116,7 +116,7 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
                     backgroundColor: 'rgba(216, 30, 6, 0.1)',
                   }}
                 >
-                  <Row>
+                  <Row gutter={[8, 8]}>
                     {noSupport.map((feature) => (
                       <Col
                         span={spanValue.featSpan}
@@ -124,6 +124,7 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
                           span: spanValue.xxlFeatSpan,
                         }}
                         key={feature.title}
+                        className="feature-item-col"
                       >
                         <FeatureItem {...feature} />
                       </Col>
@@ -138,12 +139,13 @@ const SystemContent = memo(({ data }: SystemContentProps) => {
               <div className="system-info" key={key}>
                 <Title level={5}>{key}</Title>
                 <Card>
-                  <Row>
+                  <Row gutter={[8, 8]}>
                     {value.map((feature) => (
                       <Col
                         span={spanValue.featSpan}
                         xxl={{ span: spanValue.xxlFeatSpan }}
                         key={feature.title}
+                        className="feature-item-col"
                       >
                         <FeatureItem {...feature} />
                       </Col>

@@ -169,7 +169,9 @@
   },
   "page": {
     "element": "요소",
-    "device": "장치"
+    "device": "장치",
+    "fullscreen": "전체 화면",
+    "exit_fullscreen": "전체 화면 종료"
   },
   "storage": {
     "empty-detail": "값을 볼 항목을 선택하십시오.",
@@ -273,6 +275,7 @@
     "replay": "재생",
     "guide": "가이드로 돌아가기",
     "only-pc": "PC에서 방문해주세요 :)",
+    "better-on-pc": "PC에서 이용하시면 더 좋은 경험을 제공합니다",
     "console-output": "콘솔 출력",
     "network-request": "네트워크 요청",
     "modify-storage": "Storage 수정"

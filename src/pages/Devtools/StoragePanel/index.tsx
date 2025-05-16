@@ -1,5 +1,5 @@
 import type { SpyStorage } from '@huolala-tech/page-spy-types';
-import { Button, Col, Layout, Menu, Row, Tooltip } from 'antd';
+import { Button, Col, Layout, Menu, Row, Tooltip, Space } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import './index.less';
 import { useSocketMessageStore } from '@/store/socket-message';
@@ -43,23 +43,58 @@ export const StoragePanel = () => {
       };
     });
   }, [storageTypes]);
+  
+  // 创建按钮列表，用于移动端显示
+  const storageButtons = useMemo(() => {
+    return storageTypes.map((st) => (
+      <Button
+        key={st.name}
+        type={activeTab === st.name ? 'primary' : 'default'}
+        onClick={() => setActiveTab(st.name)}
+        icon={<Icon component={st.icon} />}
+        className="storage-type-button"
+      >
+        {st.label}
+      </Button>
+    ));
+  }, [storageTypes, activeTab]);
 
   return (
     <div className="storage-panel">
-      <Row justify="end">
-        <Col>
+      {/* PC端刷新按钮 */}
+      <div className="storage-panel__refresh-container desktop-only">
+        <Row justify="end">
+          <Col>
+            <Tooltip title={t('common.refresh')}>
+              <Button
+                onClick={() => {
+                  refresh(activeTab);
+                }}
+              >
+                <ReloadOutlined />
+              </Button>
+            </Tooltip>
+          </Col>
+        </Row>
+      </div>
+      
+      {/* 移动端顶部按钮组 */}
+      <div className="storage-panel__mobile-buttons mobile-only">
+        <Space className="storage-buttons-container">
+          {storageButtons}
           <Tooltip title={t('common.refresh')}>
             <Button
               onClick={() => {
                 refresh(activeTab);
               }}
-            >
-              <ReloadOutlined />
-            </Button>
+              icon={<ReloadOutlined />}
+            />
           </Tooltip>
-        </Col>
-      </Row>
-      <Layout className="storage-panel__layout">
+        </Space>
+      </div>
+      
+      {/* PC端布局 */}
+      <Layout className="storage-panel__layout desktop-layout">
         <Sider className="storage-panel__sider">
           <Menu
             className="storage-panel__menu"
@@ -80,6 +115,16 @@ export const StoragePanel = () => {
           {activeTab !== 'indexedDB' && <ResizableDetail />}
         </Layout>
       </Layout>
+      
+      {/* 移动端布局 */}
+      <div className="storage-panel__mobile-content mobile-only">
+        {activeTab === 'indexedDB' ? (
+          <DBTable />
+        ) : (
+          <StorageContent activeTab={activeTab} />
+        )}
+        {activeTab !== 'indexedDB' && <ResizableDetail />}
+      </div>
     </div>
   );
 };

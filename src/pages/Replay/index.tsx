@@ -3,15 +3,31 @@ import { LogReplayer } from '@/components/LogReplayer';
 import { SelectLogButton } from '@/components/SelectLogButton';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Space, Button, message } from 'antd';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import request from '@/apis/request';
+import './index.less';
 
 const Replay = () => {
   const { url, fileId } = useSearch();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  
+  // 添加移动端检测
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  
+  // 监听窗口大小变化
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   // 处理日志下载URL
   const logUrl = useMemo(() => {
@@ -40,7 +56,13 @@ const Replay = () => {
     return (
       <Space>
         <Link to="/log-list">
-          <Button icon={<ArrowLeftOutlined />}>{t('common.back')}</Button>
+          <Button 
+            icon={<ArrowLeftOutlined />} 
+            size={isMobile ? "small" : "middle"}
+            className={isMobile ? "mobile-back-btn" : ""}
+          >
+            {t('common.back')}
+          </Button>
         </Link>
         <SelectLogButton
           onSelect={(url) => {
@@ -49,7 +71,7 @@ const Replay = () => {
         />
       </Space>
     );
-  }, [navigate, t]);
+  }, [navigate, t, isMobile]);
 
   return <LogReplayer url={logUrl} fileId={fileId} backSlot={backSlot} />;
 };

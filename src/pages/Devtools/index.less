@@ -141,3 +141,65 @@
   margin: 4px 8px;
   border-radius: 8px;
 }
+
+.sider-trigger {
+  position: fixed;
+  width: 24px;
+  height: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 0 4px 4px 0;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.3s;
+  color: @primary-color;
+  font-size: 16px;
+
+  &:hover {
+    color: darken(@primary-color, 10%);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sider-trigger {
+    top: 50%;
+    transform: translateY(-50%);
+    height: 30px;
+    width: 30px;
+    border-radius: 4px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .page-spy-devtools {
+    overflow-x: hidden;
+    
+    &__panel {
+      padding: 10px;
+      padding-top: 40px;
+      width: 100%;
+      overflow-x: hidden;
+    }
+    
+    &__content {
+      width: 100%;
+      overflow-x: hidden;
+    }
+  }
+  
+  .client-info {
+    &__logo {
+      width: 36px;
+      height: 36px;
+    }
+    
+    .page-spy-id b {
+      font-size: 18px;
+      letter-spacing: 4px;
+    }
+  }
+}
