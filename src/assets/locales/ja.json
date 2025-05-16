@@ -280,5 +280,17 @@
   "docSearch": {
     "empty": "見つかりませんでした",
     "placeholder": "ドキュメントを検索"
+  },
+  "auth": {
+    "login_title": "アクセス認証",
+    "login_title_desc": "このアクセスにはパスワード認証が必要です。パスワードがわからない場合は管理者にお問い合わせください。",
+    "login_button": "ログイン",
+    "login_success": "ログインに成功しました",
+    "login_failed": "ログインに失敗しました",
+    "incorrect_password": "パスワードが正しくありません",
+    "password": "パスワード",
+    "please_enter_password": "パスワードを入力してください",
+    "session_expired": "セッションの有効期限が切れました。再度ログインしてください",
+    "server_error": "サーバーエラー、後でやり直してください"
   }
 }

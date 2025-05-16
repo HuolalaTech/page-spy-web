@@ -5,6 +5,12 @@ import { RequestFailed } from './RequestFailed';
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE || window.DEPLOY_BASE_PATH;
 
+export const TOKEN_KEY = 'page-spy-auth-token';
+export const getAuthToken = () => {
+  return localStorage.getItem(TOKEN_KEY);
+};
+export const AUTH_FAILED_EVENT = 'auth-failed';
+
 export interface Options extends Omit<InvokeParams, 'method' | 'url' | 'data'> {
   data?: unknown;
   params?: Record<string, any>;
@@ -45,15 +51,28 @@ class ApiRequest {
       .replace(/^./, '?$&');
     const url = prefix + path + qs;
 
+    const headers: Record<string, string> = {};
+    const token = getAuthToken();
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
     const res = await request<T>({
       url,
       method,
       data: data as any,
+      headers,
       ...options,
     });
+
     if (res.statusCode >= 200 && res.statusCode < 300) {
       return res.data;
     }
+
+    if (res.statusCode === 401) {
+      window.dispatchEvent(new CustomEvent(AUTH_FAILED_EVENT));
+    }
+
     throw new RequestFailed(res);
   }
 }

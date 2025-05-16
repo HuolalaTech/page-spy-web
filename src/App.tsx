@@ -13,6 +13,8 @@ import dayjs from 'dayjs';
 import { CNUserModal } from './components/CNUserModal';
 import { DocSearch } from './components/DocSearch';
 import { DropFile } from './components/DropFile';
+import { AuthProvider } from './utils/AuthContext';
+
 const localeConfig: Record<langType, Locale> = {
   zh,
   en,
@@ -41,10 +43,12 @@ export const App = () => {
               },
             }}
           >
-            <CNUserModal />
-            <RouteConfig />
-            <DocSearch />
-            <DropFile />
+            <AuthProvider>
+              <CNUserModal />
+              <RouteConfig />
+              <DocSearch />
+              <DropFile />
+            </AuthProvider>
           </ConfigProvider>
         </ErrorBoundary>
       </HashRouter>

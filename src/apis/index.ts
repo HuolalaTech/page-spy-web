@@ -40,3 +40,15 @@ export const checkRoomSecret = (params: {
     params,
   });
 };
+
+export const requestAuthStatus = () => {
+  return request.get<I.Response<{ passwordConfigured: boolean }>>(
+    '/auth/status',
+  );
+};
+
+export const requestLogin = (data: { password: string }) => {
+  return request.post<I.AuthVerifyResult>('/auth/verify', {
+    data,
+  });
+};
