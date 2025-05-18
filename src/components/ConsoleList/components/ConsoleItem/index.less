@@ -57,3 +57,39 @@
     color: #aaa;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .console-item {
+    padding: 8px 6px;
+    width: 100%;
+    flex-wrap: wrap;
+    
+    &__title {
+      margin-right: 4px;
+    }
+    
+    &__content {
+      width: 100%;
+      
+      .ant-row {
+        flex-direction: column;
+        
+        .ant-col {
+          width: 100%;
+          max-width: 100%;
+          flex: none;
+          
+          &:first-child {
+            margin-bottom: 4px;
+          }
+        }
+      }
+    }
+    
+    &__url {
+      width: 100%;
+      max-width: 100%;
+      margin-top: 4px;
+    }
+  }
+}

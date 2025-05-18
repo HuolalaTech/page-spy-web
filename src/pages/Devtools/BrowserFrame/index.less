@@ -20,6 +20,117 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  
+  // 全屏模式
+  &.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10001;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    
+    .pc-frame__top {
+      display: none;
+    }
+    
+    .pc-frame__body {
+      border: none;
+      border-radius: 0;
+      
+      &-content, .mobile-frame {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .mobile-frame__body-content {
+          width: 100%;
+          height: 100%;
+          aspect-ratio: auto;
+          box-shadow: none;
+        }
+        
+        .client-iframe {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+    
+    // 全屏退出按钮
+    .fullscreen-exit-button {
+      position: absolute;
+      right: 16px;
+      top: 16px;
+      width: 42px;
+      height: 42px;
+      border-radius: 21px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 22px;
+      z-index: 10002;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s;
+      
+      &:hover {
+        transform: scale(1.05);
+        background-color: rgba(0, 0, 0, 0.75);
+      }
+      
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+  
+  // 强制横屏模式 - 移动设备特有
+  &.fullscreen.force-landscape {
+    // 横屏变换
+    transform: rotate(90deg);
+    transform-origin: bottom left;
+    width: 100vh;
+    height: 100vw;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    overflow: hidden;
+    transition: transform 0.3s ease-out, width 0.3s ease-out, height 0.3s ease-out;
+    
+    .mobile-frame, .pc-frame__body-content {
+      width: 100%;
+      height: 100%;
+      transform-origin: center center;
+    }
+    
+    // 全屏退出按钮在横屏模式下的位置
+    .fullscreen-exit-button {
+      transform: rotate(-90deg);
+      top: 16px;
+      right: 16px;
+    }
+    
+    // 提高iframe层叠索引确保全屏时可见
+    iframe {
+      position: relative;
+      z-index: 10;
+    }
+    
+    // 确保在更小的屏幕上也能正确显示
+    @media screen and (max-height: 500px) {
+      .mobile-frame, .pc-frame__body-content {
+        transform: scale(0.9);
+      }
+    }
+  }
+  
   &__top {
     flex-basis: 48px;
     flex-grow: 0;
@@ -36,6 +147,38 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+  }
+  &__mobile-controls {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #eee;
+    gap: 8px;
+    
+    .ant-btn {
+      flex: 1;
+      margin: 0;
+      padding: 0 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      .anticon {
+        margin-right: 4px;
+      }
+      
+      // 修改媒体查询宽度，只在更小尺寸时隐藏文字
+      @media screen and (max-width: 360px) {
+        font-size: 12px; // 先减小字体而不是完全隐藏
+        padding: 0 4px;
+        
+        .anticon {
+          margin-right: 2px;
+          font-size: 14px;
+        }
+      }
     }
   }
   &__body {
@@ -165,7 +308,7 @@
     .ios-top {
       display: flex;
       align-items: center;
-      height: 34px;
+    w  height: 34px;
       border-bottom: 1px solid #efefef;
       > p {
         margin: 0;

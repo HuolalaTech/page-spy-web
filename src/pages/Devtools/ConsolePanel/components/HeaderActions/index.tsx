@@ -1,7 +1,7 @@
 import { useSocketMessageStore } from '@/store/socket-message';
 import { ClearOutlined } from '@ant-design/icons';
 import { Row, Col, Tooltip, Button, Input, Select, Space } from 'antd';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SpyConsole } from '@huolala-tech/page-spy-types';
 import ErrorSvg from '@/assets/image/error.svg?react';
@@ -22,6 +22,20 @@ export const HeaderActions = () => {
         state.setConsoleMsgKeywordFilter,
       ]),
     );
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   const logLevelList: Array<{
     label: string | React.ReactNode;
@@ -87,7 +101,7 @@ export const HeaderActions = () => {
 
   return (
     <Row justify="end">
-      <Col>
+      <Col className={isMobile ? 'mobile-header-actions' : ''}>
         <Space>
           <Select
             onChange={changeConsoleMsgFilter}
@@ -96,19 +110,37 @@ export const HeaderActions = () => {
             allowClear={true}
             options={logLevelList}
             placeholder="Log Level Filter"
-            style={{ width: 200 }}
+            style={{ width: isMobile ? '100%' : 200 }}
           />
-          <Input
-            onChange={debounceKeywordFilter}
-            placeholder="Keyword Filter"
-            allowClear={true}
-            style={{ width: 200 }}
-          />
-          <Tooltip title={t('common.clear')}>
-            <Button onClick={clear}>
-              <ClearOutlined />
-            </Button>
-          </Tooltip>
+          {isMobile ? (
+            <div className="filter-row">
+              <Input
+                className="keyword-filter"
+                onChange={debounceKeywordFilter}
+                placeholder="Keyword Filter"
+                allowClear={true}
+              />
+              <Tooltip title={t('common.clear')}>
+                <Button onClick={clear}>
+                  <ClearOutlined />
+                </Button>
+              </Tooltip>
+            </div>
+          ) : (
+            <>
+              <Input
+                onChange={debounceKeywordFilter}
+                placeholder="Keyword Filter"
+                allowClear={true}
+                style={{ width: 200 }}
+              />
+              <Tooltip title={t('common.clear')}>
+                <Button onClick={clear}>
+                  <ClearOutlined />
+                </Button>
+              </Tooltip>
+            </>
+          )}
         </Space>
       </Col>
     </Row>

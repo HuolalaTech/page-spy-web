@@ -1,7 +1,7 @@
 import Icon from '@ant-design/icons';
 import { SpyStorage } from '@huolala-tech/page-spy-types';
 import { Layout, Menu } from 'antd';
-import { memo, useMemo, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import StorageSvg from '@/assets/image/storage.svg?react';
 import CookieSvg from '@/assets/image/cookie.svg?react';
 import { StorageContent } from './StorageContent';
@@ -20,6 +20,21 @@ const { Sider, Content } = Layout;
 export const StoragePanel = memo(() => {
   const [activeTab, setActiveTab] =
     useState<SpyStorage.DataType>('localStorage');
+  
+  // 添加移动端检测
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  
+  // 监听窗口大小变化
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const clientInfo = useReplayStore(useShallow((state) => state.clientInfo));
 
@@ -64,23 +79,43 @@ export const StoragePanel = memo(() => {
 
   return (
     <div className="storage-panel">
-      <Layout className="storage-panel__layout">
-        <Sider className="storage-panel__sider">
-          <Menu
-            className="storage-panel__menu"
-            mode="inline"
-            selectedKeys={[activeTab]}
-            onSelect={({ key }) => setActiveTab(key as SpyStorage.DataType)}
-            items={storageMenus}
-          />
-        </Sider>
-        <Layout>
+      {isMobile ? (
+        // 移动端水平布局
+        <Layout className="storage-panel__layout storage-panel__layout--mobile">
+          <div className="storage-panel__horizontal-menu">
+            <Menu
+              className="storage-panel__menu storage-panel__menu--horizontal"
+              mode="horizontal"
+              selectedKeys={[activeTab]}
+              onSelect={({ key }) => setActiveTab(key as SpyStorage.DataType)}
+              items={storageMenus}
+            />
+          </div>
           <Content className="storage-panel__content">
             <StorageContent activeTab={activeTab} />
           </Content>
           <ResizableDetail />
         </Layout>
-      </Layout>
+      ) : (
+        // PC端原有垂直布局
+        <Layout className="storage-panel__layout">
+          <Sider className="storage-panel__sider">
+            <Menu
+              className="storage-panel__menu"
+              mode="inline"
+              selectedKeys={[activeTab]}
+              onSelect={({ key }) => setActiveTab(key as SpyStorage.DataType)}
+              items={storageMenus}
+            />
+          </Sider>
+          <Layout>
+            <Content className="storage-panel__content">
+              <StorageContent activeTab={activeTab} />
+            </Content>
+            <ResizableDetail />
+          </Layout>
+        </Layout>
+      )}
     </div>
   );
 });

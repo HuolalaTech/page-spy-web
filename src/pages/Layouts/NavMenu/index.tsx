@@ -228,6 +228,19 @@ export const NavMenuOnMobile = () => {
                     <span>{t('common.connections')}</span>
                   </Flex>
                 </Link>
+                {/* Replay List */}
+                <Link
+                  to="log-list"
+                  className="menu-item offline"
+                  onClick={() => {
+                    setExpand(false);
+                  }}
+                >
+                  <Flex align="center" gap={8}>
+                    <Icon component={ReplaySvg} style={{ fontSize: 18 }} />
+                    <span>{t('common.offline-debug')}</span>
+                  </Flex>
+                </Link>
               </>
             )}
             {/* i18n */}

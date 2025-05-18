@@ -1,0 +1,30 @@
+.network-type-filter {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  
+  /* 隐藏滚动条但保留功能 */
+  &::-webkit-scrollbar {
+    height: 0;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+}
+
+.mobile-type-filter {
+  .ant-select {
+    width: 100px;
+  }
+  
+  @media screen and (max-width: 480px) {
+    .ant-select {
+      width: 90px;
+    }
+  }
+} 

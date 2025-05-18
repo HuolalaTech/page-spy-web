@@ -108,6 +108,11 @@ const highlightCode = async (data: {
     'github-dark',
   );
   let index = 0;
+  
+  if (!window.shiki) {
+    throw new Error('Shiki is not loaded yet');
+  }
+  
   const highlightedHTML = window.shiki.renderToHtml(tokens, {
     bg: highlighter.getBackgroundColor('github-dark'),
     elements: {

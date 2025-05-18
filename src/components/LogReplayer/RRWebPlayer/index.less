@@ -1,3 +1,271 @@
+.rrweb-player-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  
+  // 恢复按钮样式
+  .recovery-button {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 15px;
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    
+    .anticon {
+      margin-right: 8px;
+      font-size: 18px;
+    }
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.85);
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+    
+    &:active {
+      transform: translate(-50%, -50%) scale(0.95);
+    }
+  }
+  
+  // 全屏切换按钮 - 不再单独使用，移入控制栏
+  .fullscreen-toggle {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    opacity: 0.8;
+    transition: opacity 0.2s, transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin-left: 10px;
+    
+    &:hover {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.75);
+    }
+  }
+  
+  // 播放控制按钮
+  .player-controls {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+    gap: 10px;
+    
+    &:hover {
+      opacity: 1;
+    }
+    
+    .play-pause-btn, .speed-selector {
+      width: 42px;
+      height: 42px;
+      border-radius: 21px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 24px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s;
+      
+      &:hover {
+        transform: scale(1.05);
+        background-color: rgba(0, 0, 0, 0.75);
+      }
+      
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+    
+    // 倍速选择器特有样式
+    .speed-selector {
+      font-size: 16px;
+      min-width: 70px;
+      border-radius: 21px;
+      padding: 0 10px;
+      position: relative;
+      
+      .speed-display {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        gap: 4px;
+        
+        .anticon {
+          font-size: 12px;
+          margin-left: 2px;
+        }
+      }
+    }
+  }
+  
+  // 移动端样式
+  &.mobile {
+    .player-controls {
+      .fullscreen-toggle, .play-pause-btn {
+        // 确保移动端上按钮明显可见
+        opacity: 0.9;
+        transform: none;
+        pointer-events: auto;
+        width: 42px;
+        height: 42px;
+        border-radius: 21px;
+        font-size: 22px;
+      }
+    }
+    
+    // 全屏模式下的控制显示
+    &.fullscreen {
+      .player-controls {
+        opacity: 0; // 全屏模式下默认隐藏
+        transform: translateY(10px);
+        pointer-events: none;
+      }
+      
+      &.show-controls .player-controls {
+        opacity: 0.9;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+    }
+  }
+  
+  // 全屏模式
+  &.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10001;
+    background-color: #000;
+    transition: all 0.3s ease;
+    
+    .rrweb-player {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* 确保内容不被裁剪 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .player-controls {
+      bottom: 20px;
+      top: auto;
+      right: 0;
+      left: 0;
+      justify-content: center;
+      
+      .play-pause-btn, .fullscreen-toggle, .speed-selector {
+        width: 48px;
+        height: 48px;
+        border-radius: 24px;
+        font-size: 28px;
+      }
+      
+      // 倍速选择器在全屏模式下的样式
+      .speed-selector {
+        min-width: 90px;
+        font-size: 18px;
+        
+        .anticon {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  
+  // 强制横屏模式 - 仅适用于移动设备
+  &.fullscreen.force-landscape {
+    // 横屏变换
+    transform: rotate(90deg);
+    transform-origin: bottom left;
+    width: 100vh;
+    height: 100vw;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    overflow: hidden;
+    transition: transform 0.3s ease-out, width 0.3s ease-out, height 0.3s ease-out;
+    
+    .rrweb-player {
+      width: 100%;
+      height: 100%;
+      transform-origin: center center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    // 提高iframe层叠索引，确保在全屏时可见
+    iframe {
+      z-index: 10;
+      position: relative;
+    }
+    
+    .player-controls {
+      transform: rotate(-90deg);
+      bottom: 50px;
+      right: 0;
+      left: 0;
+      top: auto;
+      margin-top: 0;
+      flex-direction: row;
+      justify-content: center;
+      z-index: 20; /* 确保控制按钮总是在顶层 */
+      
+      .play-pause-btn, .fullscreen-toggle, .speed-selector {
+        width: 48px;
+        height: 48px;
+        border-radius: 24px;
+      }
+      
+      // 倍速选择器在横屏全屏模式下的样式
+      .speed-selector {
+        min-width: 90px;
+        font-size: 18px;
+      }
+    }
+    
+    // 确保在更小的屏幕上也能正确显示
+    @media screen and (max-height: 500px) {
+      .rrweb-player {
+        transform: scale(0.9);
+      }
+    }
+  }
+}
+
 .rrweb-player {
   height: 100%;
   .replayer-wrapper {

@@ -1,0 +1,58 @@
+/* 移动端适配样式 */
+@mobile-breakpoint: 768px;
+
+@media screen and (max-width: @mobile-breakpoint) {
+  .resizable {
+    /* 调整控制器样式 */
+    &-height-controller {
+      height: 12px !important; /* 减小控制器高度 */
+    }
+
+    /* 调整详情面板样式 */
+    &-detail {
+      width: 100% !important;
+      max-height: 50vh !important; /* 限制为屏幕高度的50% */
+
+      /* 改进滚动体验 */
+      & > div {
+        -webkit-overflow-scrolling: touch !important; /* 支持在iOS上的惯性滚动 */
+        padding: 4px !important; /* 减少内边距，节省空间 */
+      }
+    }
+
+    /* 空数据提示 */
+    &-empty-detail {
+      margin-top: 4px !important;
+      font-size: 12px !important;
+    }
+  }
+
+  /* 优化移动端JSON查看体验 */
+  .json-view-container {
+    .react-json-view {
+      /* 调整各元素间距 */
+      .object-container,
+      .array-container {
+        padding-left: 8px !important;
+      }
+
+      /* 减小箭头图标大小 */
+      .icon-container {
+        width: 14px !important;
+        height: 14px !important;
+      }
+
+      /* 减小对象与数组的内边距 */
+      .object-meta-data {
+        padding: 0 !important;
+      }
+
+      /* 调整显示字体大小 */
+      .object-key,
+      .array-key,
+      .variable-value {
+        font-size: 11px !important;
+      }
+    }
+  }
+}

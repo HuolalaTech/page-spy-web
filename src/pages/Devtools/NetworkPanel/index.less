@@ -9,6 +9,71 @@
     border: 2px solid #ddd;
     overflow: auto;
   }
+  
+  /* 移动端适配样式 */
+  @media screen and (max-width: 768px) {
+    &__content {
+      margin-top: 4px;
+      border-width: 1px;
+    }
+    
+    .mobile-controls-wrapper {
+      display: flex;
+      align-items: center;
+      padding: 6px 8px;
+      gap: 10px; // 三个控件之间的间隔
+      
+      // 筛选输入框 - 动态大小
+      .filter-input {
+        flex: 1; // 占据剩余空间
+        height: 32px;
+        border-radius: 4px;
+        min-width: 0; // 确保可以收缩
+      }
+      
+      // 筛选下拉按钮 - 固定大小
+      .filter-dropdown-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 90px; // 固定宽度
+        height: 32px;
+        color: @primary-color;
+        border-color: @primary-color;
+        background-color: #fff;
+        padding: 0 4px;
+        flex-shrink: 0; // 防止收缩
+        
+        .anticon {
+          margin-right: 4px;
+          font-size: 14px;
+        }
+        
+        span {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: 60px;
+        }
+        
+        &:hover, &:focus {
+          color: lighten(@primary-color, 10%);
+          border-color: lighten(@primary-color, 10%);
+        }
+      }
+      
+      // 清空按钮 - 固定大小
+      .clear-btn {
+        height: 32px;
+        width: 32px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0; // 防止收缩
+      }
+    }
+  }
 }
 
 .select-item {
@@ -19,3 +84,24 @@
     margin-left: 5px;
   }
 }
+
+/* 移动端适配样式 - 控制面板 */
+@media screen and (max-width: 768px) {
+  .ant-row {
+    margin-bottom: 4px;
+  }
+  
+  .ant-space {
+    flex-wrap: nowrap;
+    row-gap: 8px;
+    justify-content: flex-start;
+  }
+  
+  .ant-input {
+    max-width: 100%;
+  }
+  
+  .ant-btn {
+    padding: 0 8px;
+  }
+} 

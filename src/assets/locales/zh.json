@@ -169,7 +169,9 @@
   },
   "page": {
     "element": "元素",
-    "device": "设备"
+    "device": "设备",
+    "fullscreen": "全屏",
+    "exit_fullscreen": "退出全屏"
   },
   "storage": {
     "empty-detail": "选择查看其中一项的值",
@@ -275,7 +277,8 @@
     "only-pc": "请前往 PC 端体验 :)",
     "console-output": "输出日志",
     "network-request": "网络请求",
-    "modify-storage": "修改 Storage"
+    "modify-storage": "修改 Storage",
+    "better-on-pc": "建议在PC上体验更佳"
   },
   "docSearch": {
     "empty": "未找到结果",

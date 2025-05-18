@@ -77,6 +77,7 @@ interface NetworkTableProps {
   filterKeyword: string;
   cookie?: SpyStorage.GetTypeDataItem['data'];
   resizeCacheKey: string;
+  isMobile?: boolean;
 }
 
 export const NetworkTable = ({
@@ -84,6 +85,8 @@ export const NetworkTable = ({
   cookie,
   filterType = 'All',
   filterKeyword = '',
+  resizeCacheKey,
+  isMobile = false,
 }: NetworkTableProps) => {
   const { t: nt } = useTranslation('translation', { keyPrefix: 'network' });
 
@@ -117,7 +120,7 @@ export const NetworkTable = ({
     return filteredData;
   }, [filterKeyword, filterType, originData, sortBy, sortDirection]);
 
-  const [leftDistance, setLeftDistance] = useState('20%');
+  const [leftDistance, setLeftDistance] = useState(isMobile ? '0%' : '20%');
   const hotKeyHandle = useCallback(
     (evt: KeyboardEvent) => {
       const { key } = evt;
@@ -240,14 +243,25 @@ export const NetworkTable = ({
   }, []);
 
   const [columnsWidth, setColumnsWidth] = useState<Record<ColumnField, number>>(
+    isMobile ? 
     {
-      name: 0.3,
+      name: 0.0,
+      pathname: 0.5,
+      method: 0.15,
+      status: 0.15,
+      requestType: 0.0,
+      startTime: 0.0,
+      costTime: 0.2,
+    } : 
+    {
+      name: 0.2,
       pathname: 0.3,
       method: 0.1,
       status: 0.1,
       requestType: 0.1,
+      startTime: 0.1,
       costTime: 0.1,
-    },
+    }
   );
 
   const handleColumnResize = (dataKey: ColumnField, deltaX: number) => {
@@ -313,7 +327,9 @@ export const NetworkTable = ({
     [sortBy, sortDirection],
   );
   const NameColumn = useCallback<TableCellRenderer>(
-    ({ rowData }) => {
+    ({ rowData, dataKey = 'name' }) => {
+      const displayText = rowData[dataKey as keyof typeof rowData];
+      
       return (
         <Dropdown
           menu={{
@@ -335,7 +351,7 @@ export const NetworkTable = ({
           trigger={['contextMenu']}
         >
           <div
-            title={rowData.name}
+            title={displayText}
             onClick={(evt: any) => {
               setShowDetail(true);
               setLeftDistance(evt.target.parentElement?.clientWidth);
@@ -348,7 +364,7 @@ export const NetworkTable = ({
               lineHeight: '30px',
             }}
           >
-            {rowData.name}
+            {displayText}
           </div>
         </Dropdown>
       );
@@ -422,15 +438,18 @@ export const NetworkTable = ({
               }}
               sortBy={sortBy}
               sortDirection={sortDirection}
+              className={clsx({ 'mobile-view': isMobile })}
             >
-              <Column
-                dataKey="name"
-                label="Name"
-                width={width * columnsWidth.name}
-                headerRenderer={headerRenderer}
-                cellRenderer={NameColumn}
-                minWidth={100}
-              />
+              {!isMobile && (
+                <Column
+                  dataKey="name"
+                  label="Name"
+                  width={width * columnsWidth.name}
+                  headerRenderer={headerRenderer}
+                  cellRenderer={NameColumn}
+                  minWidth={100}
+                />
+              )}
               <Column
                 dataKey="pathname"
                 label="Path"
@@ -438,6 +457,7 @@ export const NetworkTable = ({
                 headerRenderer={headerRenderer}
                 minWidth={100}
                 flexGrow={1}
+                cellRenderer={isMobile ? NameColumn : undefined}
               />
               <Column
                 dataKey="method"
@@ -454,13 +474,24 @@ export const NetworkTable = ({
                 cellRenderer={StatusColumn}
                 minWidth={80}
               />
-              <Column
-                dataKey="requestType"
-                label="Type"
-                width={width * columnsWidth.requestType}
+              {!isMobile && (
+                <Column
+                  dataKey="requestType"
+                  label="Type"
+                  width={width * columnsWidth.requestType}
+                  headerRenderer={headerRenderer}
+                  minWidth={80}
+                />
+              )}
+              {!isMobile && (<Column
+                dataKey="startTime"
+                label="StartTime"
+                width={width * columnsWidth.startTime}
+                cellRenderer={({ cellData }) => new Date(cellData).toLocaleString()}
                 headerRenderer={headerRenderer}
                 minWidth={80}
               />
+              )}
               <Column
                 dataKey="costTime"
                 label="Time(≈)"
@@ -484,6 +515,7 @@ export const NetworkTable = ({
             onClose={() => {
               setShowDetail(false);
             }}
+            isMobile={isMobile}
           />
         </div>
       )}

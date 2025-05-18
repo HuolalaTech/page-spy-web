@@ -4,7 +4,7 @@ import { HeaderActions } from './components/HeaderActions';
 import { MainContent } from './components/MainContent';
 import { FooterInput } from './components/FooterInput';
 import { ErrorDetailDrawer } from '@/components/ErrorDetailDrawer';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSocketMessageStore } from '@/store/socket-message';
 import MPWarning from '@/components/MPWarning';
 import { InfoCircleFilled } from '@ant-design/icons';
@@ -15,6 +15,20 @@ const ConsolePanel = () => {
   const clientInfo = useSocketMessageStore(
     useShallow((state) => state.clientInfo),
   );
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   const { dynamicalExecutable, isMP, hasEvalPlugin } = useMemo(() => {
     const { os, browser, plugins } = clientInfo || {};
@@ -34,7 +48,7 @@ const ConsolePanel = () => {
       <HeaderActions />
       <div className="console-panel__content">
         <MainContent />
-        {dynamicalExecutable && <FooterInput />}
+        {dynamicalExecutable && !isMobile && <FooterInput />}
         {isMP && hasEvalPlugin && <MPWarning inline />}
         {isMP && !hasEvalPlugin && (
           <div className="mp-eval-plugin-info">
