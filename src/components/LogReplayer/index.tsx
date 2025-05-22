@@ -83,8 +83,6 @@ export const LogReplayer = ({ url, fileId, backSlot = null }: Props) => {
           const token = localStorage.getItem('page-spy-auth-token');
           if (token) {
             headers['Authorization'] = `Bearer ${token}`;
-          } else {
-            throw new Error(t('auth.login_required') || 'Login required');
           }
         }
 
