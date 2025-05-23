@@ -49,7 +49,14 @@ class ApiRequest {
     const qs = new URLSearchParams(removeUndefinedValues(params))
       .toString()
       .replace(/^./, '?$&');
-    const url = prefix + path + qs;
+    let url = prefix + path + qs;
+
+    try {
+      // if path is a complete URL, use it directly
+      url = new URL(path).toString();
+    } catch (e) {
+      // do nothing
+    }
 
     const headers: Record<string, string> = {};
     const token = getAuthToken();
