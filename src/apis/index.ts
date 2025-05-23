@@ -1,4 +1,5 @@
 import { default as request } from './request';
+import demo from './demo.json?url';
 
 export const getSpyRoom = (group: string = '') => {
   return request.get<I.SpyRoomList>(`/room/list`, {
@@ -51,4 +52,16 @@ export const requestLogin = (data: { password: string }) => {
   return request.post<I.AuthVerifyResult>('/auth/verify', {
     data,
   });
+};
+
+export const requestGetLogFileContent = async (url: string) => {
+  // for OSpy demo
+  if (url === 'demo') {
+    return await (await fetch(demo)).json();
+  }
+  // for files not served by PageSpy, like S3 resource
+  if (!url.includes(request.defaultPrefix)) {
+    return await (await fetch(url)).json();
+  }
+  return request.get<any>(url);
 };
