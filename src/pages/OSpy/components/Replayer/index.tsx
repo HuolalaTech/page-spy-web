@@ -5,21 +5,15 @@ import { Button, Flex, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useSize } from 'ahooks';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import demo from './demo.json?url';
+import { Link, useNavigate } from 'react-router-dom';
 import { SelectLogButton } from '@/components/SelectLogButton';
+import useSearch from '@/utils/useSearch';
 
 export const Replayer = () => {
   const { t } = useTranslation();
   const size = useSize(document.body);
   const navigate = useNavigate();
-  const { search } = useLocation();
-
-  const replayUrl = useMemo(() => {
-    const url = new URLSearchParams(search).get('url');
-    if (url === 'demo') return demo;
-    return url || '';
-  }, [search]);
+  const { url } = useSearch();
 
   const backSlot = useMemo(() => {
     return (
@@ -59,7 +53,7 @@ export const Replayer = () => {
   }
   return (
     <div className="replayer-container">
-      <LogReplayer url={replayUrl} backSlot={backSlot} />
+      <LogReplayer url={url} backSlot={backSlot} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { deleteSpyLog, getSpyLogs } from '@/apis';
+import { deleteSpyLog, getSpyLogs, requestGetLogFileContent } from '@/apis';
 import { useRequest } from 'ahooks';
 import {
   Typography,
@@ -29,7 +29,6 @@ import {
   ClearOutlined,
   ClockCircleOutlined,
   CloseCircleOutlined,
-  CopyOutlined,
   DeleteOutlined,
   DownloadOutlined,
   InfoCircleOutlined,
@@ -419,10 +418,7 @@ const LogList = () => {
                 return (
                   <Space size="small">
                     <Link
-                      to={{
-                        pathname: '/replay',
-                        search: `?fileId=${row.fileId}`,
-                      }}
+                      to={{ pathname: '/replay', search: `?url=${logUrl}` }}
                       target="_blank"
                     >
                       <Button
@@ -438,59 +434,21 @@ const LogList = () => {
                       type="text"
                       size="small"
                       icon={<DownloadOutlined />}
-                      onClick={() => {
-                        // 使用认证令牌构建下载链接
-                        const token = localStorage.getItem(
-                          'page-spy-auth-token',
-                        );
-                        if (!token) {
-                          message.error(t('auth.login_required'));
-                          return;
-                        }
+                      onClick={async () => {
+                        const json = await requestGetLogFileContent(logUrl);
+                        const blob = new Blob([JSON.stringify(json)], {
+                          type: 'application/json',
+                        });
+                        const url = URL.createObjectURL(blob);
 
-                        // 创建一个临时的a元素来处理下载（带Authorization头）
-                        const xhr = new XMLHttpRequest();
-                        xhr.open('GET', logUrl, true);
-                        xhr.setRequestHeader(
-                          'Authorization',
-                          `Bearer ${token}`,
-                        );
-                        xhr.responseType = 'blob';
-
-                        xhr.onload = function () {
-                          if (xhr.status === 200) {
-                            const blob = xhr.response;
-                            const url = window.URL.createObjectURL(blob);
-                            const a = document.createElement('a');
-                            a.style.display = 'none';
-                            a.href = url;
-                            // 从服务器响应中获取文件名或使用默认文件名
-                            const contentDisposition = xhr.getResponseHeader(
-                              'Content-Disposition',
-                            );
-                            let filename = 'log-file.json';
-                            if (contentDisposition) {
-                              const filenameMatch =
-                                contentDisposition.match(/filename=(.+)/);
-                              if (filenameMatch && filenameMatch[1]) {
-                                filename = filenameMatch[1];
-                              }
-                            }
-                            a.download = filename;
-                            document.body.appendChild(a);
-                            a.click();
-                            window.URL.revokeObjectURL(url);
-                            document.body.removeChild(a);
-                          } else {
-                            message.error(t('common.download_failed'));
-                          }
-                        };
-
-                        xhr.onerror = function () {
-                          message.error(t('common.download_failed'));
-                        };
-
-                        xhr.send();
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = url;
+                        a.download = row.name;
+                        document.body.appendChild(a);
+                        a.click();
+                        URL.revokeObjectURL(url);
+                        document.body.removeChild(a);
                       }}
                     >
                       {t('replay.download-file')}
