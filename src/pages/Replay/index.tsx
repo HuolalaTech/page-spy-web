@@ -6,9 +6,10 @@ import { Space, Button, message } from 'antd';
 import { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useUrlParam } from '@/utils/useUrlParam';
 
 const Replay = () => {
-  const { url } = useSearch();
+  const url = useUrlParam();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
