@@ -40,18 +40,31 @@ export const MainContent = memo(() => {
   const consoleDataList = useMemo(() => {
     const data = consoleMessages.current;
     const logLevels = consoleFilter.current;
-    const keyword = consoleKeywordFilter.current;
+    const keyword = consoleKeywordFilter.current.trim();
     if (!logLevels.length && !keyword) return data;
 
-    return data.filter((item) => {
-      return (
-        logLevels.includes(item.logType) &&
+    if (logLevels.length && keyword) {
+      return data.filter(
+        (item) =>
+          logLevels.includes(item.logType) &&
+          item.logs
+            .map((item) => item.value)
+            .join('')
+            .indexOf(keyword) !== -1,
+      );
+    }
+
+    if (logLevels.length) {
+      return data.filter((item) => logLevels.includes(item.logType));
+    }
+
+    return data.filter(
+      (item) =>
         item.logs
           .map((item) => item.value)
           .join('')
-          .indexOf(keyword) !== -1
-      );
-    });
+          .indexOf(keyword) !== -1,
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUpdated]);
 
