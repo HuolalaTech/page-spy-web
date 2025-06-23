@@ -41,6 +41,7 @@ const columnField = [
   'method',
   'status',
   'requestType',
+  'startTime',
   'costTime',
 ] as const;
 type ColumnField = (typeof columnField)[number];
@@ -241,11 +242,12 @@ export const NetworkTable = ({
 
   const [columnsWidth, setColumnsWidth] = useState<Record<ColumnField, number>>(
     {
-      name: 0.3,
+      name: 0.2,
       pathname: 0.3,
       method: 0.1,
       status: 0.1,
       requestType: 0.1,
+      startTime: 0.1,
       costTime: 0.1,
     },
   );
@@ -458,6 +460,14 @@ export const NetworkTable = ({
                 dataKey="requestType"
                 label="Type"
                 width={width * columnsWidth.requestType}
+                headerRenderer={headerRenderer}
+                minWidth={80}
+              />
+              <Column
+                dataKey="startTime"
+                label="StartTime"
+                width={width * columnsWidth.startTime}
+                cellRenderer={({ cellData }) => new Date(cellData).toLocaleString()}
                 headerRenderer={headerRenderer}
                 minWidth={80}
               />
