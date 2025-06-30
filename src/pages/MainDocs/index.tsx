@@ -64,6 +64,15 @@ const sidebar = [
         },
         doc: 'deploy-with-baota',
       },
+      {
+        label: {
+          zh: '服务端配置',
+          en: 'Server Configuration',
+          ja: 'サーバー設定',
+          ko: '서버 설정',
+        },
+        doc: 'server-configuration',
+      },
       // {
       //   label: {
       //     zh: '使用 1Panel 部署',

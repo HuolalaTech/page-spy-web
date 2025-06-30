@@ -1,0 +1,81 @@
+PageSpy サーバーは、現在の実行ディレクトリにある **`config.json` 設定ファイル** を自動的に読み込みます。このファイルは初回実行時に存在しません。必要に応じてこのファイルを作成または変更して、サーバーの動作をカスタマイズできます。
+
+設定ファイルは、以下の機能をサポートしています：実行ポート、マルチインスタンスデプロイ、クロスドメイン設定、ログデータ設定、データベース設定など。以下では、各設定フィールドの機能について詳しく説明します。
+
+```json
+{
+  // サーバーポート
+  "port": "6752",
+  // 最大ログファイルサイズ (MB)
+  "maxLogFileSizeOfMB": 10240,
+  // 最大ログファイル保存時間 (時間)
+  "maxLogLifeTimeOfHour": 720,
+  // ユーザーがインターフェース上でログを削除できるかどうか
+  "notAllowedDeleteLog": false,
+  // 最大部屋数
+  "maxRoomNumber": 500,
+  // クロスドメイン設定
+  "corsConfig": {
+    // 許可されたドメイン
+    "allowOrigins": ["*"],
+    // 許可されたリクエストヘッダー
+    "allowHeaders": [
+      "Origin",
+      "Authorization",
+      "Content-Length",
+      "X-Request-Id",
+      "Content-Type",
+      "Referer",
+      "User-Agent",
+      "Host"
+    ],
+    // 許可されたリクエストメソッド
+    "allowMethods": [
+      "HEAD",
+      "POST",
+      "GET",
+      "OPTIONS",
+      "PUT",
+      "DELETE",
+      "UPDATE"
+    ],
+    // Exposed request headers
+    "exposeHeaders": ["X-Request-Id"]
+  },
+  // S3互換のストレージ設定
+  "storageConfig": {
+    "baseDir": "",
+    "keyId": "",
+    "secret": "",
+    "bucket": "",
+    "region": "",
+    "endpoint": "",
+    "s3ForcePathStyle": false
+  },
+  // 認証設定
+  "authConfig": {
+    // 認証パスワード
+    "password": "",
+    // JWT シークレット
+    "jwtSecret": "",
+    // トークン有効期限 (時間)
+    "tokenExpiration": 720
+  },
+  // マルチインスタンスデプロイ設定
+  "rpcAddress": [
+    {
+      "ip": "", // マシン IP またはコンテナ内の DNS 名
+      "port": "" // サーバーポート
+    },
+    {
+      "ip": "",
+      "port": ""
+    },
+    ...
+  ],
+  // MySQL データベースアドレスを設定します。デフォルトでは sqlite を使用します。
+  "databaseConfig": {
+    "mysqlUrl": ""
+  },
+}
+```
