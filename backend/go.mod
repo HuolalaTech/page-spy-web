@@ -4,7 +4,7 @@ go 1.23.0
 
 toolchain go1.23.10
 
-require github.com/HuolalaTech/page-spy-api v1.10.0
+require github.com/HuolalaTech/page-spy-api v1.11.0
 
 require (
 	github.com/aws/aws-sdk-go v1.54.8 // indirect
