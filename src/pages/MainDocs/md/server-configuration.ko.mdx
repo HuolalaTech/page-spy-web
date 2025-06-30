@@ -1,0 +1,81 @@
+PageSpy 서버는 현재 실행 디렉토리에 있는 **`config.json` 설정 파일** 을 자동으로 읽습니다. 처음 실행할 때 이 파일이 존재하지 않습니다. 필요에 따라 이 파일을 생성하거나 수정하여 서버 동작을 사용자 정의할 수 있습니다.
+
+설정 파일은 다음과 같은 기능을 지원합니다: 실행 포트, 멀티 인스턴스 배포, 크로스 도메인 설정, 로그 데이터 설정, 데이터베이스 설정 등. 각 설정 필드의 기능에 대해 자세히 설명합니다.
+
+```json
+{
+  // 서버 포트
+  "port": "6752",
+  // 최대 로그 파일 크기 (MB)
+  "maxLogFileSizeOfMB": 10240,
+  // 최대 로그 파일 저장 시간 (시간)
+  "maxLogLifeTimeOfHour": 720,
+  // 사용자가 인터페이스에서 로그를 삭제할 수 있는지 여부
+  "notAllowedDeleteLog": false,
+  // 최대 방 수
+  "maxRoomNumber": 500,
+  // 크로스 도메인 설정
+  "corsConfig": {
+    // 허용된 도메인
+    "allowOrigins": ["*"],
+    // 허용된 요청 헤더
+    "allowHeaders": [
+      "Origin",
+      "Authorization",
+      "Content-Length",
+      "X-Request-Id",
+      "Content-Type",
+      "Referer",
+      "User-Agent",
+      "Host"
+    ],
+    // 허용된 요청 메서드
+    "allowMethods": [
+      "HEAD",
+      "POST",
+      "GET",
+      "OPTIONS",
+      "PUT",
+      "DELETE",
+      "UPDATE"
+    ],
+    // Exposed request headers
+    "exposeHeaders": ["X-Request-Id"]
+  },
+  // S3 호환 스토리지 설정
+  "storageConfig": {
+    "baseDir": "",
+    "keyId": "",
+    "secret": "",
+    "bucket": "",
+    "region": "",
+    "endpoint": "",
+    "s3ForcePathStyle": false
+  },
+  // 인증 설정
+  "authConfig": {
+    // 인증 비밀번호
+    "password": "",
+    // JWT 시크릿
+    "jwtSecret": "",
+    // 토큰 만료 시간 (시간)
+    "tokenExpiration": 720
+  },
+  // 멀티 인스턴스 배포 설정
+  "rpcAddress": [
+    {
+      "ip": "", // 머신 IP 또는 컨테이너 내 DNS 이름
+      "port": "" // 서버 포트
+    },
+    {
+      "ip": "",
+      "port": ""
+    },
+    ...
+  ],
+  // MySQL 데이터베이스 주소를 설정합니다. 기본적으로 sqlite를 사용합니다.
+  "databaseConfig": {
+    "mysqlUrl": ""
+  },
+}
+```

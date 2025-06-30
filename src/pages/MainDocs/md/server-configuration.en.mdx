@@ -1,0 +1,82 @@
+PageSpy server will automatically read the **`config.json` configuration file in the current running directory**. This file does not exist when it is first run. You can create or modify this file to customize the server behavior according to your needs.
+
+The configuration file supports the following functions: running port, multi-instance deployment, cross-domain configuration, log data configuration, database configuration, etc. The following will explain the functions of each configuration field.
+
+
+```json
+{
+  // Server port
+  "port": "6752",
+  // Maximum log file size (MB)
+  "maxLogFileSizeOfMB": 10240,
+  // Maximum log file save time (hour)
+  "maxLogLifeTimeOfHour": 720,
+  // Whether to allow users to delete logs on the interface
+  "notAllowedDeleteLog": false,
+  // Maximum number of rooms
+  "maxRoomNumber": 500,
+  // Cross-domain configuration
+  "corsConfig": {
+    // Allowed domains
+    "allowOrigins": ["*"],
+    // Allowed request headers
+    "allowHeaders": [
+      "Origin",
+      "Authorization",
+      "Content-Length",
+      "X-Request-Id",
+      "Content-Type",
+      "Referer",
+      "User-Agent",
+      "Host"
+    ],
+    // Allowed request methods
+    "allowMethods": [
+      "HEAD",
+      "POST",
+      "GET",
+      "OPTIONS",
+      "PUT",
+      "DELETE",
+      "UPDATE"
+    ],
+    // Exposed request headers
+    "exposeHeaders": ["X-Request-Id"]
+  },
+  // S3-compatible storage configuration
+  "storageConfig": {
+    "baseDir": "",
+    "keyId": "",
+    "secret": "",
+    "bucket": "",
+    "region": "",
+    "endpoint": "",
+    "s3ForcePathStyle": false
+  },
+  // Authentication configuration
+  "authConfig": {
+    // Authentication password
+    "password": "",
+    // JWT secret
+    "jwtSecret": "",
+    // Token expiration time (hours)
+    "tokenExpiration": 720
+  },
+  // Multi-instance deployment configuration
+  "rpcAddress": [
+    {
+      "ip": "", // Machine IP or dns name in container
+      "port": "" // Server port
+    },
+    {
+      "ip": "",
+      "port": ""
+    },
+    ...
+  ],
+  // Configure the mysql database address, default using sqlite
+  "databaseConfig": {
+    "mysqlUrl": ""
+  },
+}
+```

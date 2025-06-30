@@ -1,4 +1,4 @@
-FROM golang:1.20-buster AS backend
+FROM golang:1.23 AS backend
 WORKDIR /app
 COPY backend/go.mod backend/go.sum ./
 RUN go mod download

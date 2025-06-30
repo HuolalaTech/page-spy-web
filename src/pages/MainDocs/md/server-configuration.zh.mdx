@@ -1,0 +1,81 @@
+PageSpy 服务端在运行过程中会自动读取 **当前运行目录下的 `config.json`** 配置文件。该文件在初次运行时不存在，您可以根据需要创建或修改此文件来自定义服务端行为。
+
+配置文件支持以下功能：运行端口、多实例部署、跨域配置、日志数据配置、数据库配置等，下面将详细说明各配置字段的作用。
+
+```json
+{
+  // 服务端口
+  "port": "6752",
+  // 日志回放文件保存大小（MB）
+  "maxLogFileSizeOfMB": 10240,
+  // 日志回放文件保存最长时间 （小时）
+  "maxLogLifeTimeOfHour": 720,
+  // 是否允许用户在界面上删除日志
+  "notAllowedDeleteLog": false,
+  // 最大允许房间数量
+  "maxRoomNumber": 500,
+  // 跨域配置
+  "corsConfig": {
+    // 允许的域名
+    "allowOrigins": ["*"],
+    // 允许的请求头
+    "allowHeaders": [
+      "Origin",
+      "Authorization",
+      "Content-Length",
+      "X-Request-Id",
+      "Content-Type",
+      "Referer",
+      "User-Agent",
+      "Host"
+    ],
+    // 允许的请求方法
+    "allowMethods": [
+      "HEAD",
+      "POST",
+      "GET",
+      "OPTIONS",
+      "PUT",
+      "DELETE",
+      "UPDATE"
+    ],
+    // 暴露的请求头
+    "exposeHeaders": ["X-Request-Id"]
+  },
+  // 符合 S3 协议的存储配置
+  "storageConfig": {
+    "baseDir": "",
+    "keyId": "",
+    "secret": "",
+    "bucket": "",
+    "region": "",
+    "endpoint": "",
+    "s3ForcePathStyle": false
+  },
+  // 认证配置
+  "authConfig": {
+    // 认证密码
+    "password": "",
+    // JWT 密钥
+    "jwtSecret": "",
+    // 令牌过期时间(小时)
+    "tokenExpiration": 720
+  },
+  // 多实例部署配置
+  "rpcAddress": [
+    {
+      "ip": "", // 机器 ip 或容器中的 dns name
+      "port": "" // 服务端口
+    },
+    {
+      "ip": "",
+      "port": ""
+    },
+    ...
+  ],
+  // 配置 mysql 数据库地址，默认使用 sqlite
+  "databaseConfig": {
+    "mysqlUrl": ""
+  },
+}
+```
