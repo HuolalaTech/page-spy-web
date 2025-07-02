@@ -14,7 +14,7 @@ import { API_BASE_URL } from '@/apis/request';
 import { ResolvedNetworkInfo, resolveProtocol, resolveUrlInfo } from '@/utils';
 import { ElementContent } from 'hast';
 import { getFixedPageMsg, processMPNetworkMsg } from './utils';
-import { isArray, isEqual, isString, omit } from 'lodash-es';
+import { isArray, isEqual, omit } from 'lodash-es';
 import { parseClientInfo, ParsedClientInfo } from '@/utils/brand';
 import { StorageType } from '../platform-config';
 import type { RequestItem } from '@huolala-tech/page-spy-base';
@@ -137,16 +137,19 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
           endTime,
           lastEventId,
         } = newData;
-        // eventsource 需要合并 response
+        // websocket 和 eventsource 需要合并 response
         // eventsource 的 'open / error' 事件都没有 response，'message' 事件可能会带着 response
         // status === 200 是在 SDK 中硬编码的，和 'message' 事件对应
-        if (requestType === 'eventsource' && status === 200) {
+        if (
+          (requestType === 'eventsource' || requestType === 'websocket') &&
+          status === 200
+        ) {
           const {
             response: cacheData,
             endTime: cacheTime,
             lastEventId: cacheId,
           } = cache[index];
-          if (isString(cacheData)) {
+          if (!isArray(cacheData)) {
             newData.response = [
               {
                 id: cacheId,
@@ -159,8 +162,7 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
                 data: response,
               },
             ];
-          }
-          if (isArray(cacheData)) {
+          } else {
             newData.response = [
               ...cacheData,
               {
