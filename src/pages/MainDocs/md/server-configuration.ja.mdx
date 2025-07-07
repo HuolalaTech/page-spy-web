@@ -50,6 +50,8 @@ PageSpy サーバーは、現在の実行ディレクトリにある **`config.j
     "bucket": "",
     "region": "",
     "endpoint": "",
+    // s3ForcePathStyle=false 代表する virtual-hosted–style api(デフォルト)
+    // s3ForcePathStyle=true  代表する path-style api
     "s3ForcePathStyle": false
   },
   // 認証設定
@@ -60,6 +62,11 @@ PageSpy サーバーは、現在の実行ディレクトリにある **`config.j
     "jwtSecret": "",
     // トークン有効期限 (時間)
     "tokenExpiration": 720
+  },
+  // 複数のインスタンスをデプロイする場合は、現在のマシンのIPまたはコンテナ内のDNS名に設定します。
+  "selfRpcAddress": {
+    "ip": "", // マシン IP またはコンテナ内の DNS 名
+    "port": "" // サーバーポート
   },
   // マルチインスタンスデプロイ設定
   "rpcAddress": [
@@ -75,7 +82,7 @@ PageSpy サーバーは、現在の実行ディレクトリにある **`config.j
   ],
   // MySQL データベースアドレスを設定します。デフォルトでは sqlite を使用します。
   "databaseConfig": {
-    "mysqlUrl": ""
+    "mysqlUrl": "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
   },
 }
 ```

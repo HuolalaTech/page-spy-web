@@ -51,6 +51,8 @@ The configuration file supports the following functions: running port, multi-ins
     "bucket": "",
     "region": "",
     "endpoint": "",
+    // s3ForcePathStyle=false for virtual-hosted–style api(for default)
+    // s3ForcePathStyle=true  for path-style api
     "s3ForcePathStyle": false
   },
   // Authentication configuration
@@ -61,6 +63,11 @@ The configuration file supports the following functions: running port, multi-ins
     "jwtSecret": "",
     // Token expiration time (hours)
     "tokenExpiration": 720
+  },
+  // When deploy in mode of multiple-instances, configure it use machine IP or dns name in container
+  "selfRpcAddress": {
+    "ip": "", // Machine IP or dns name in container
+    "port": "" // Server port
   },
   // Multi-instance deployment configuration
   "rpcAddress": [
@@ -76,7 +83,7 @@ The configuration file supports the following functions: running port, multi-ins
   ],
   // Configure the mysql database address, default using sqlite
   "databaseConfig": {
-    "mysqlUrl": ""
+    "mysqlUrl": "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
   },
 }
 ```
