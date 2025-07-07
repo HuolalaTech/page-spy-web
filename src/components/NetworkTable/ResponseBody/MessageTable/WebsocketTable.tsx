@@ -1,30 +1,31 @@
-import { Column, TableCellRenderer } from 'react-virtualized';
+/* eslint-disable react/no-unstable-nested-components */
+import { Column, TableCellProps } from 'react-virtualized';
 import { MessageTable } from '.';
 import Icon from '@ant-design/icons';
 import { Flex, Typography } from 'antd';
 import dayjs from 'dayjs';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import ArrowUpSvg from '@/assets/image/arrow-up.svg?react';
 import ArrowDownSvg from '@/assets/image/arrow-down.svg?react';
 
 const { Text } = Typography;
 
-interface WebSocketData {
+interface WebsocketData {
   id: string;
   data: { type: 'send' | 'receive'; data: string; timestamp: number };
   timestamp: number;
 }
 
-export const WebSocketTable = ({ data }: { data: WebSocketData[] }) => {
+export const WebsocketTable = ({ data }: { data: WebsocketData[] }) => {
   const tableData = useMemo(() => {
-    return data.map((item) => {
+    return (data || []).map((item) => {
       return {
         ...item,
         ...item.data,
       };
     });
   }, [data]);
-  const DataColumn = useCallback<TableCellRenderer>(({ rowData }) => {
+  const DataColumn = ({ rowData }: TableCellProps) => {
     const isSend = rowData.type === 'send';
     return (
       <Flex align="center" gap={8} style={{ height: '100%' }}>
@@ -35,20 +36,17 @@ export const WebSocketTable = ({ data }: { data: WebSocketData[] }) => {
         <Text ellipsis>{rowData.data}</Text>
       </Flex>
     );
-  }, []);
+  };
 
-  const LengthColumn = useCallback<TableCellRenderer>(({ rowData }) => {
-    return (
-      <Text ellipsis style={{ textAlign: 'right' }}>
-        {rowData.data.length}
-      </Text>
-    );
-  }, []);
-  const TimeColumn = useCallback<TableCellRenderer>(({ rowData }) => {
+  const LengthColumn = ({ rowData }: TableCellProps) => {
+    return <Text ellipsis>{rowData.data.length}</Text>;
+  };
+
+  const TimeColumn = ({ rowData }: TableCellProps) => {
     return (
       <Text ellipsis>{dayjs(rowData.timestamp).format('HH:mm:ss:SSS')}</Text>
     );
-  }, []);
+  };
 
   return (
     <MessageTable type="websocket" data={tableData}>

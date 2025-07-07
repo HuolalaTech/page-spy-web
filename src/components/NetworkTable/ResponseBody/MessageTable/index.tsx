@@ -1,8 +1,10 @@
 import { PropsWithChildren, ReactNode, useMemo, useRef, useState } from 'react';
 import { AutoSizer, Table } from 'react-virtualized';
-import { Select, Input, Empty } from 'antd';
+import { Select, Input, Empty, Drawer } from 'antd';
 import { FilterOutlined } from '@ant-design/icons';
 import clsx from 'clsx';
+import ReactJsonView from '@huolala-tech/react-json-view';
+import { useThrottle } from 'ahooks';
 
 const NoData = () => (
   <Empty description={false} className="empty-table-placeholder" />
@@ -31,22 +33,32 @@ export const MessageTable = ({
 }: PropsWithChildren<Props>) => {
   const [filterType, setFilterType] = useState('all');
   const [filterKeyword, setFilterKeyword] = useState('');
+  const _filterKey = useThrottle(filterKeyword, {
+    wait: 500,
+    leading: true,
+    trailing: true,
+  });
   const tableData = useMemo(() => {
     if (!data?.length) return [];
 
-    let filteredData = data;
+    let filteredData = data.filter(Boolean);
     if (type === 'websocket' && filterType !== 'all') {
       filteredData = data.filter((item) => item.type === filterType);
     }
-    if (!filterKeyword) {
+    if (!_filterKey) {
       return filteredData;
     }
 
-    const filterRegex = new RegExp(filterKeyword);
-    return filteredData.filter((item) => {
-      return item.data.includes(filterKeyword) || item.data.match(filterRegex);
-    });
-  }, [data, filterKeyword, filterType, type]);
+    try {
+      // eslint-disable-next-line no-eval
+      const filterRegex = eval(`/${_filterKey}/`);
+      return filteredData.filter((item) => {
+        return item.data.includes(_filterKey) || item.data.match(filterRegex);
+      });
+    } catch (e) {
+      return filteredData;
+    }
+  }, [data, _filterKey, filterType, type]);
 
   const tableRef = useRef<Table | null>(null);
   const [activeRow, setActiveRow] = useState<DataItem | null>(null);
@@ -54,20 +66,22 @@ export const MessageTable = ({
   return (
     <div className="message-table">
       <div className="message-table-header">
-        <Select
-          size="small"
-          style={{ width: 100 }}
-          variant="borderless"
-          value={filterType}
-          options={[
-            { label: 'All', value: 'all' },
-            { label: 'Send', value: 'send' },
-            { label: 'Receive', value: 'receive' },
-          ]}
-          onChange={(value) => {
-            setFilterType(value);
-          }}
-        />
+        {type === 'websocket' && (
+          <Select
+            size="small"
+            style={{ width: 100 }}
+            variant="borderless"
+            value={filterType}
+            options={[
+              { label: 'All', value: 'all' },
+              { label: 'Send', value: 'send' },
+              { label: 'Receive', value: 'receive' },
+            ]}
+            onChange={(value) => {
+              setFilterType(value);
+            }}
+          />
+        )}
         <Input
           size="small"
           style={{ width: 400 }}
@@ -90,13 +104,15 @@ export const MessageTable = ({
                 height={height}
                 headerHeight={30}
                 rowHeight={30}
-                rowCount={data.length}
-                rowGetter={({ index }) => tableData[index]}
+                rowCount={tableData.length}
+                rowGetter={({ index }) => {
+                  return tableData[index];
+                }}
                 noRowsRenderer={NoData}
                 rowClassName={({ index }) => {
                   if (index < 0) return '';
                   return clsx(index % 2 ? 'odd' : 'even', {
-                    active: data[index].id === activeRow?.id,
+                    active: tableData[index].id === activeRow?.id,
                   });
                 }}
                 onRowClick={({ rowData }) => {
@@ -109,6 +125,19 @@ export const MessageTable = ({
           }}
         </AutoSizer>
       </div>
+      <Drawer
+        open={!!activeRow}
+        onClose={() => setActiveRow(null)}
+        title="Data"
+        placement="bottom"
+        getContainer={false}
+      >
+        {activeRow?.data ? (
+          <ReactJsonView source={activeRow.data} />
+        ) : (
+          <Empty description={false} />
+        )}
+      </Drawer>
     </div>
   );
 };

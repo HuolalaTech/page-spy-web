@@ -129,49 +129,22 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
       const { id } = newData;
       const cache = get().networkMsg;
       const index = cache.findIndex((item) => item.id === id);
+      const { requestType, response, status, endTime, lastEventId } = newData;
       if (index !== -1) {
-        const {
-          requestType,
-          response = '',
-          status,
-          endTime,
-          lastEventId,
-        } = newData;
-        // websocket 和 eventsource 需要合并 response
         // eventsource 的 'open / error' 事件都没有 response，'message' 事件可能会带着 response
         // status === 200 是在 SDK 中硬编码的，和 'message' 事件对应
         if (
           (requestType === 'eventsource' || requestType === 'websocket') &&
           status === 200
         ) {
-          const {
-            response: cacheData,
-            endTime: cacheTime,
-            lastEventId: cacheId,
-          } = cache[index];
-          if (!isArray(cacheData)) {
-            newData.response = [
-              {
-                id: cacheId,
-                time: cacheTime,
-                data: cacheData,
-              },
-              {
-                id: lastEventId,
-                time: endTime,
-                data: response,
-              },
-            ];
-          } else {
-            newData.response = [
-              ...cacheData,
-              {
-                id: lastEventId,
-                time: endTime,
-                data: response,
-              },
-            ];
-          }
+          newData.response = [
+            ...cache[index].response,
+            {
+              id: lastEventId,
+              timestamp: endTime,
+              data: response,
+            },
+          ];
         }
 
         set(
@@ -180,6 +153,20 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
           }),
         );
       } else {
+        const { requestType, response } = newData;
+        if (
+          (requestType === 'websocket' || requestType === 'eventsource') &&
+          response
+        ) {
+          // websocket 和 eventsource 需要合并 response
+          newData.response = [
+            {
+              id: lastEventId,
+              timestamp: endTime,
+              data: response,
+            },
+          ];
+        }
         set(
           produce<SocketMessage>((state) => {
             state.networkMsg = produce(state.networkMsg, (draft) => {

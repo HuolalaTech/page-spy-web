@@ -14,26 +14,25 @@ interface EventsourceData {
 
 export const EventsourceTable = ({ data }: { data: EventsourceData[] }) => {
   const IdColumn = useCallback<TableCellRenderer>(({ rowData }) => {
-    return <Text ellipsis>{rowData.id}</Text>;
+    return <Text ellipsis={{ tooltip: true }}>{rowData.id}</Text>;
   }, []);
   const DataColumn = useCallback<TableCellRenderer>(({ rowData }) => {
     return <Text ellipsis>{rowData.data}</Text>;
   }, []);
 
-  const TimeColumn = useCallback<TableCellRenderer>(({ cellData }) => {
-    return <Text ellipsis>{dayjs(cellData).format('HH:mm:ss:SSS')}</Text>;
+  const TimeColumn = useCallback<TableCellRenderer>(({ rowData }) => {
+    return (
+      <Text ellipsis>
+        {rowData.timestamp
+          ? dayjs(rowData.timestamp).format('HH:mm:ss:SSS')
+          : ''}
+      </Text>
+    );
   }, []);
 
   return (
     <MessageTable type="eventsource" data={data}>
-      <Column
-        dataKey="id"
-        label="Id"
-        width={100}
-        flexGrow={1}
-        maxWidth={200}
-        cellRenderer={IdColumn}
-      />
+      <Column dataKey="id" label="Id" width={150} cellRenderer={IdColumn} />
       <Column
         dataKey="data"
         label="Data"

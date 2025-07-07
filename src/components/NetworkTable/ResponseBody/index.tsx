@@ -6,7 +6,7 @@ import ReactJsonView from '@huolala-tech/react-json-view';
 import { Form, message, Modal, Input, Alert, Button, Empty } from 'antd';
 import { useMemo } from 'react';
 import { EventsourceTable } from './MessageTable/EventsourceTable';
-import { WebSocketTable } from './MessageTable/WebsocketTable';
+import { WebsocketTable } from './MessageTable/WebsocketTable';
 
 const FilenameModal = withPopup<void, string | false>(
   ({ visible, resolve }) => {
@@ -141,7 +141,7 @@ export const ResponseBody = ({ data }: ResponseBodyProps) => {
       return <EventsourceTable data={response} />;
     }
     if (requestType === 'websocket') {
-      return <WebSocketTable data={response} />;
+      return <WebsocketTable data={response} />;
     }
     if (['blob', 'arraybuffer'].includes(responseType)) {
       if (responseReason) {
