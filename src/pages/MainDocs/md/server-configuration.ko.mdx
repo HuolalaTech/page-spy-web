@@ -50,6 +50,8 @@ PageSpy 서버는 현재 실행 디렉토리에 있는 **`config.json` 설정 �
     "bucket": "",
     "region": "",
     "endpoint": "",
+    // s3ForcePathStyle=false 표현하다 virtual-hosted–style api(기본)
+    // s3ForcePathStyle=true  표현하다 path-style api
     "s3ForcePathStyle": false
   },
   // 인증 설정
@@ -60,6 +62,11 @@ PageSpy 서버는 현재 실행 디렉토리에 있는 **`config.json` 설정 �
     "jwtSecret": "",
     // 토큰 만료 시간 (시간)
     "tokenExpiration": 720
+  },
+  // 여러 인스턴스를 배포하는 경우 컨테이너의 현재 머신 IP 또는 DNS 이름으로 구성하세요.
+  "selfRpcAddress": {
+    "ip": "", // 머신 IP 또는 컨테이너 내 DNS 이름
+    "port": "" // 서버 포트
   },
   // 멀티 인스턴스 배포 설정
   "rpcAddress": [
@@ -75,7 +82,7 @@ PageSpy 서버는 현재 실행 디렉토리에 있는 **`config.json` 설정 �
   ],
   // MySQL 데이터베이스 주소를 설정합니다. 기본적으로 sqlite를 사용합니다.
   "databaseConfig": {
-    "mysqlUrl": ""
+    "mysqlUrl": "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
   },
 }
 ```

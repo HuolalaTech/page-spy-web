@@ -50,6 +50,8 @@ PageSpy 服务端在运行过程中会自动读取 **当前运行目录下的 `c
     "bucket": "",
     "region": "",
     "endpoint": "",
+    // s3ForcePathStyle=false 表示 virtual-hosted–style api(默认情况)
+    // s3ForcePathStyle=true  表示 path-style api
     "s3ForcePathStyle": false
   },
   // 认证配置
@@ -60,6 +62,11 @@ PageSpy 服务端在运行过程中会自动读取 **当前运行目录下的 `c
     "jwtSecret": "",
     // 令牌过期时间(小时)
     "tokenExpiration": 720
+  },
+  // 多实例部署时候配置成当前机器 ip 或容器中的 dns name
+  "selfRpcAddress": {
+    "ip": "", // 机器 ip 或容器中的 dns name
+    "port": "" // 服务端口
   },
   // 多实例部署配置
   "rpcAddress": [
@@ -75,7 +82,7 @@ PageSpy 服务端在运行过程中会自动读取 **当前运行目录下的 `c
   ],
   // 配置 mysql 数据库地址，默认使用 sqlite
   "databaseConfig": {
-    "mysqlUrl": ""
+    "mysqlUrl": "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
   },
 }
 ```
