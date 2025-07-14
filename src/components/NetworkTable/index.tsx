@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { SpyNetwork, SpyStorage } from '@huolala-tech/page-spy-types';
+import { SpyStorage } from '@huolala-tech/page-spy-types';
 import { Dropdown, Empty, Space, Tooltip, Flex } from 'antd';
 import clsx from 'clsx';
 import copy from 'copy-to-clipboard';
@@ -25,15 +25,8 @@ import {
 } from 'react-virtualized';
 import 'react-virtualized/styles.css';
 import Draggable from 'react-draggable';
-
-export type NetworkType =
-  | 'All'
-  | 'Fetch/XHR'
-  | 'CSS'
-  | 'JS'
-  | 'Img'
-  | 'Media'
-  | 'Other';
+import { NetworkType, RESOURCE_TYPE } from './TypeFilter';
+import { useEventListener } from '@/utils/useEventListener';
 
 const columnField = [
   'name',
@@ -44,28 +37,6 @@ const columnField = [
   'costTime',
 ] as const;
 type ColumnField = (typeof columnField)[number];
-
-export const RESOURCE_TYPE: Map<
-  NetworkType,
-  (type: SpyNetwork.RequestType) => boolean
-> = new Map([
-  ['All', (type) => /.*/.test(type)],
-  [
-    'Fetch/XHR',
-    (type) => /(fetch|xhr|mp-request|mp-upload|eventsource)/.test(type),
-  ],
-  ['CSS', (type) => /css/.test(type)],
-  ['JS', (type) => /script/.test(type)],
-  ['Img', (type) => /img/.test(type)],
-  ['Media', (type) => /(audio|video)/.test(type)],
-  [
-    'Other',
-    (type) =>
-      !/(fetch|xhr|mp-request|mp-upload|eventsource|css|script|img|audio|video)/.test(
-        type,
-      ),
-  ],
-]);
 
 const NoData = () => (
   <Empty description={false} className="empty-table-placeholder" />
@@ -117,38 +88,37 @@ export const NetworkTable = ({
     return filteredData;
   }, [filterKeyword, filterType, originData, sortBy, sortDirection]);
 
-  const [leftDistance, setLeftDistance] = useState('20%');
-  const hotKeyHandle = useCallback(
-    (evt: KeyboardEvent) => {
-      const { key } = evt;
-      switch (key.toLocaleLowerCase()) {
-        case 'escape':
-          setShowDetail(false);
-          break;
-        case 'arrowup':
-          if (activeRow) {
-            const index = data.findIndex((item) => item.id === activeRow.id);
-            if (index > 0) setActiveRow(data[index - 1]);
-          }
-          break;
-        case 'arrowdown':
-          if (activeRow) {
-            const index = data.findIndex((item) => item.id === activeRow.id);
-            if (index < data.length - 1) setActiveRow(data[index + 1]);
-          }
-          break;
-        default:
-          break;
-      }
-    },
-    [activeRow, data],
-  );
+  // Update the active row real-time
   useEffect(() => {
-    document.addEventListener('keyup', hotKeyHandle);
-    return () => {
-      document.removeEventListener('keyup', hotKeyHandle);
-    };
-  }, [hotKeyHandle]);
+    if (!showDetail || !activeRow) return;
+    const index = data.findIndex((item) => item.id === activeRow.id);
+    if (index === -1) return;
+    setActiveRow(data[index]);
+  }, [data, activeRow, showDetail]);
+
+  const [leftDistance, setLeftDistance] = useState('20%');
+  useEventListener('keydown', (evt) => {
+    const { key } = evt as KeyboardEvent;
+    switch (key.toLocaleLowerCase()) {
+      case 'escape':
+        setShowDetail(false);
+        break;
+      case 'arrowup':
+        if (activeRow) {
+          const index = data.findIndex((item) => item.id === activeRow.id);
+          if (index > 0) setActiveRow(data[index - 1]);
+        }
+        break;
+      case 'arrowdown':
+        if (activeRow) {
+          const index = data.findIndex((item) => item.id === activeRow.id);
+          if (index < data.length - 1) setActiveRow(data[index + 1]);
+        }
+        break;
+      default:
+        break;
+    }
+  });
 
   const onMenuClick = useCallback(
     (key: string, row: ResolvedNetworkInfo) => {
