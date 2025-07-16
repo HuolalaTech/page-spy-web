@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { useMemo } from 'react';
 import ArrowUpSvg from '@/assets/image/arrow-up.svg?react';
 import ArrowDownSvg from '@/assets/image/arrow-down.svg?react';
+import { isNil } from 'lodash-es';
 
 const { Text } = Typography;
 
@@ -18,12 +19,14 @@ interface WebsocketData {
 
 export const WebsocketTable = ({ data }: { data: WebsocketData[] }) => {
   const tableData = useMemo(() => {
-    return (data || []).map((item) => {
-      return {
-        ...item,
-        ...item.data,
-      };
-    });
+    return (data || [])
+      .map((item) => {
+        return {
+          ...item,
+          ...item.data,
+        };
+      })
+      .filter((item) => !isNil(item.data));
   }, [data]);
   const DataColumn = ({ rowData }: TableCellProps) => {
     const isSend = rowData.type === 'send';

@@ -354,18 +354,19 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
       allNetworkMsg[networkIndex].timestamp <= currentTime
     ) {
       const { data } = allNetworkMsg[networkIndex];
-      const { id, requestType, endTime, response } = data;
+      const { id, requestType, endTime, response, lastEventId } = data;
 
-      if (requestType === 'eventsource') {
+      if (['eventsource', 'websocket'].includes(requestType)) {
         if (!showedNetworkMsg.has(id)) {
           const result = {
             ...data,
-            response: [{ time: endTime, data: response }],
+            response: [{ id: lastEventId, timestamp: endTime, data: response }],
           };
           showedNetworkMsg.set(id, result);
         } else {
           showedNetworkMsg.get(id)!.response.push({
-            time: endTime,
+            id: lastEventId,
+            timestamp: endTime,
             data: response,
           });
         }

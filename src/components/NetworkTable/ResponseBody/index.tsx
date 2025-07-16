@@ -7,6 +7,7 @@ import { Form, message, Modal, Input, Alert, Button, Empty } from 'antd';
 import { useMemo } from 'react';
 import { EventsourceTable } from './MessageTable/EventsourceTable';
 import { WebsocketTable } from './MessageTable/WebsocketTable';
+import { isPlainObject } from 'lodash-es';
 
 const FilenameModal = withPopup<void, string | false>(
   ({ visible, resolve }) => {
@@ -138,10 +139,18 @@ export const ResponseBody = ({ data }: ResponseBodyProps) => {
         />
       );
     if (requestType === 'eventsource') {
-      return <EventsourceTable data={response} />;
+      return (
+        <EventsourceTable
+          data={isPlainObject(response) ? [response] : response}
+        />
+      );
     }
     if (requestType === 'websocket') {
-      return <WebsocketTable data={response} />;
+      return (
+        <WebsocketTable
+          data={isPlainObject(response) ? [response] : response}
+        />
+      );
     }
     if (['blob', 'arraybuffer'].includes(responseType)) {
       if (responseReason) {

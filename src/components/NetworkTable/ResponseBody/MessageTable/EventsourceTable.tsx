@@ -2,7 +2,8 @@ import { Column, TableCellRenderer } from 'react-virtualized';
 import { MessageTable } from '.';
 import { Typography } from 'antd';
 import dayjs from 'dayjs';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
+import { isNil } from 'lodash-es';
 
 const { Text } = Typography;
 
@@ -13,6 +14,9 @@ interface EventsourceData {
 }
 
 export const EventsourceTable = ({ data }: { data: EventsourceData[] }) => {
+  const tableData = useMemo(() => {
+    return data.filter((item) => !isNil(item.data));
+  }, [data]);
   const IdColumn = useCallback<TableCellRenderer>(({ rowData }) => {
     return <Text ellipsis={{ tooltip: true }}>{rowData.id}</Text>;
   }, []);
@@ -31,7 +35,7 @@ export const EventsourceTable = ({ data }: { data: EventsourceData[] }) => {
   }, []);
 
   return (
-    <MessageTable type="eventsource" data={data}>
+    <MessageTable type="eventsource" data={tableData}>
       <Column dataKey="id" label="Id" width={150} cellRenderer={IdColumn} />
       <Column
         dataKey="data"
