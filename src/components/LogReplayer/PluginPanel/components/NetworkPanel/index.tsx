@@ -1,4 +1,4 @@
-import { NetworkTable, NetworkType } from '@/components/NetworkTable';
+import { NetworkTable } from '@/components/NetworkTable';
 import { useReplayStore } from '@/store/replay';
 import './index.less';
 import { memo, useCallback, useMemo, useState } from 'react';
@@ -8,7 +8,7 @@ import { Input, Space } from 'antd';
 import { debounce } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import { useEventListener } from '@/utils/useEventListener';
-import { TypeFilter } from '@/components/NetworkTable/TypeFilter';
+import { TypeFilter, NetworkType } from '@/components/NetworkTable/TypeFilter';
 
 const FILTER_KEYWORD_CHANGE = 'filter-keyword-change';
 const FILTER_TYPE_CHANGE = 'filter-type-change';
