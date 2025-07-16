@@ -140,25 +140,20 @@
 
     .response-body {
       height: 100%;
-      padding: 8px;
-    }
-    .event-stream {
-      height: 100%;
-      overflow: auto;
-      table {
-        thead {
-          position: sticky;
-          top: 0px;
-          z-index: 10;
+      .message-table {
+        height: 100%;
+        @header-height: 40px;
+        &-header {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          height: @header-height;
+          padding-inline: 8px;
         }
-        td {
-          &:nth-child(1),
-          &:nth-child(2) {
-            width: 8%;
-          }
-          &:nth-child(4) {
-            width: 100px;
-          }
+        &-body {
+          height: calc(100% - @header-height);
+          overflow: hidden;
+          border-top: 1px solid @table-border-color;
         }
       }
     }

@@ -3,9 +3,9 @@ WORKDIR /app
 COPY backend/go.mod backend/go.sum ./
 RUN go mod download
 COPY backend/. .
-RUN go build -o main .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
-FROM debian:bullseye-slim
+FROM alpine:latest
 WORKDIR /app
 COPY --from=backend /app/main /app/main
 CMD ["/app/main"]

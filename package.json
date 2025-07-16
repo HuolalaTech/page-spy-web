@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "2.3.2",
+  "version": "2.4.0",
   "description": "All-In-One Remote Debugging Tool",
   "homepage": "https://pagespy.org",
   "repository": {
@@ -60,11 +60,11 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@huolala-tech/page-spy-browser": "^2.2.2",
-    "@huolala-tech/page-spy-plugin-data-harbor": "^2.2.2",
-    "@huolala-tech/page-spy-plugin-ospy": "^2.2.2",
-    "@huolala-tech/page-spy-plugin-rrweb": "^2.2.1",
-    "@huolala-tech/page-spy-types": "^2.2.1",
+    "@huolala-tech/page-spy-browser": "^2.2.5",
+    "@huolala-tech/page-spy-plugin-data-harbor": "^2.2.5",
+    "@huolala-tech/page-spy-plugin-ospy": "^2.2.5",
+    "@huolala-tech/page-spy-plugin-rrweb": "^2.2.3",
+    "@huolala-tech/page-spy-types": "^2.2.3",
     "@huolala-tech/react-json-view": "^1.2.5",
     "@huolala-tech/request": "^1.1.2",
     "@types/react-window": "^1.8.8",
