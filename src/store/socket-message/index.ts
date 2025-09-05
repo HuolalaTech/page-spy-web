@@ -154,18 +154,17 @@ export const useSocketMessageStore = create<SocketMessage>((set, get) => ({
         );
       } else {
         const { requestType, response } = newData;
-        if (
-          (requestType === 'websocket' || requestType === 'eventsource') &&
-          response
-        ) {
+        if (requestType === 'websocket' || requestType === 'eventsource') {
           // websocket 和 eventsource 需要合并 response
-          newData.response = [
-            {
-              id: lastEventId,
-              timestamp: endTime,
-              data: response,
-            },
-          ];
+          newData.response = response
+            ? [
+                {
+                  id: lastEventId,
+                  timestamp: endTime,
+                  data: response,
+                },
+              ]
+            : [];
         }
         set(
           produce<SocketMessage>((state) => {

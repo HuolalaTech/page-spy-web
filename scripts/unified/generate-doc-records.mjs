@@ -65,6 +65,15 @@ const mainDocMenus = new Map([
     },
   ],
   [
+    'server-configuration',
+    {
+      zh: '服务端配置',
+      en: 'Server Configuration',
+      ja: 'サーバー設定',
+      ko: '서버 설정',
+    },
+  ],
+  [
     'browser',
     {
       zh: '浏览器',
