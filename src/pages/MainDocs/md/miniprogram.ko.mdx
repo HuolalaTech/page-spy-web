@@ -39,13 +39,43 @@ wss://<your-pagespy-host>
 
 진입점 파일에서 SDK를 가져오고 인스턴스화합니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 선택적 [설정 옵션]({VITE_SDK_WECHAT_REPO})을 제공합니다:
 
-```js
+:::code-group
+
+```js wechat
 import PageSpy from '@huolala-tech/page-spy-wechat';
 
 const $pageSpy = new PageSpy({
-  api: "{deployPath}",
+  api: "<your-pagespy-host>",
 })
 ```
+
+```js alipay
+import PageSpy from '@huolala-tech/page-spy-alipay';
+
+const $pageSpy = new PageSpy({
+  api: "<your-pagespy-host>",
+})
+```
+
+```js uniapp
+import PageSpy from '@huolala-tech/page-spy-uniapp';
+
+const $pageSpy = new PageSpy({
+  api: "<your-pagespy-host>",
+})
+```
+
+```js taro
+import PageSpy from '@huolala-tech/page-spy-taro';
+import Taro from '@tarojs/taro';
+
+const $pageSpy = new PageSpy({
+  api: "<your-pagespy-host>",
+  taro: Taro,
+})
+```
+
+:::
 
 ### 디버그 메뉴#menus
 
