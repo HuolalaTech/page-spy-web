@@ -40,13 +40,43 @@ wss://<your-pagespy-host>
 
 Import the SDK in the entry file and instantiate it. The initialization parameters provide optional [configuration](./pagespy#constructor) to customize the behavior of the SDK:
 
-```js
+:::code-group
+
+```js wechat
 import PageSpy from '@huolala-tech/page-spy-wechat';
 
 const $pageSpy = new PageSpy({
-  api: "{deployPath}",
+  api: "<your-pagespy-host>",
 })
 ```
+
+```js alipay
+import PageSpy from '@huolala-tech/page-spy-alipay';
+
+const $pageSpy = new PageSpy({
+  api: "<your-pagespy-host>",
+})
+```
+
+```js uniapp
+import PageSpy from '@huolala-tech/page-spy-uniapp';
+
+const $pageSpy = new PageSpy({
+  api: "<your-pagespy-host>",
+})
+```
+
+```js taro
+import PageSpy from '@huolala-tech/page-spy-taro';
+import Taro from '@tarojs/taro';
+
+const $pageSpy = new PageSpy({
+  api: "<your-pagespy-host>",
+  taro: Taro,
+})
+```
+
+:::
 
 ### Debugging panel#debugging
 

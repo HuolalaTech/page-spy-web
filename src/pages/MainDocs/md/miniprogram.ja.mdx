@@ -39,13 +39,43 @@ wss://<your-pagespy-host>
 
 エントリーファイルでSDKをインポートしてインスタンス化します。初期化パラメータには、SDKの動作をカスタマイズするためのオプションの[設定項目]({VITE_SDK_WECHAT_REPO})が用意されています：
 
-```js
+:::code-group
+
+```js wechat
 import PageSpy from '@huolala-tech/page-spy-wechat';
 
 const $pageSpy = new PageSpy({
-  api: "{deployPath}",
+  api: "<your-pagespy-host>",
 })
 ```
+
+```js alipay
+import PageSpy from '@huolala-tech/page-spy-alipay';
+
+const $pageSpy = new PageSpy({
+  api: "<your-pagespy-host>",
+})
+```
+
+```js uniapp
+import PageSpy from '@huolala-tech/page-spy-uniapp';
+
+const $pageSpy = new PageSpy({
+  api: "<your-pagespy-host>",
+})
+```
+
+```js taro
+import PageSpy from '@huolala-tech/page-spy-taro';
+import Taro from '@tarojs/taro';
+
+const $pageSpy = new PageSpy({
+  api: "<your-pagespy-host>",
+  taro: Taro,
+})
+```
+
+:::
 
 ### デバッグメニュー#menus
 
