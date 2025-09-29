@@ -59,9 +59,9 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@huolala-tech/page-spy-browser": "^2.2.7",
-    "@huolala-tech/page-spy-plugin-data-harbor": "^2.2.7",
-    "@huolala-tech/page-spy-plugin-ospy": "^2.2.7",
+    "@huolala-tech/page-spy-browser": "^2.2.8",
+    "@huolala-tech/page-spy-plugin-data-harbor": "^2.2.8",
+    "@huolala-tech/page-spy-plugin-ospy": "^2.2.8",
     "@huolala-tech/page-spy-plugin-rrweb": "^2.2.3",
     "@huolala-tech/page-spy-types": "^2.2.3",
     "@huolala-tech/react-json-view": "^1.2.5",
@@ -121,7 +121,7 @@
     "last 2 safari version"
   ],
   "optionalDependencies": {
-    "@huolala-tech/page-spy-api": "^2.4.1"
+    "@huolala-tech/page-spy-api": "^2.4.2"
   },
   "packageManager": "yarn@1.22.19"
 }
