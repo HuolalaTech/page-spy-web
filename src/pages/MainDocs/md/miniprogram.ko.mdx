@@ -28,7 +28,7 @@ yarn add @huolala-tech/page-spy-taro@latest
 
 ### 2단계#step-2
 
-PageSpy 서비스 도메인을 미니프로그램의 http, websocket 요청 화이트리스트에 추가합니다. 개발 환경을 제외하고 미니프로그램은 https와 wss 프로토콜 사용을 강제한다는 점에 주의하세요:
+PageSpy 서비스 도메인을 미니프로그램의 HTTP, WebSocket 요청 화이트리스트에 추가합니다. 참고: 개발 환경을 제외하고 미니프로그램은 HTTPS 및 WSS 프로토콜 사용이 필수입니다:
 
 ```
 https://<your-pagespy-host>
@@ -37,7 +37,7 @@ wss://<your-pagespy-host>
 
 ### 3단계#step-3
 
-진입점 파일에서 SDK를 가져오고 인스턴스화합니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 선택적 [설정 옵션]({VITE_SDK_WECHAT_REPO})을 제공합니다:
+진입점 파일에서 SDK를 가져오고 인스턴스화합니다. [설정 옵션]({VITE_SDK_WECHAT_REPO})을 통해 SDK 동작을 사용자 정의할 수 있습니다:
 
 :::code-group
 

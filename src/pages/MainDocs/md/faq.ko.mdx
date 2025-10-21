@@ -12,8 +12,8 @@ PageSpy 모듈 간의 의존성 관계와 상호작용 다이어그램:
 
 ### PageSpy의 호환성#compatibility
 
-- 브라우저 SDK의 호환성 목표는 [`["chrome > 75","safari > 12", "> 0.1%", "not dead","not op_mini all"]`](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-browser/package.json#L66-L72)로 설정되어 있습니다. 다른 SDK는 각각의 저장소에서 확인할 수 있습니다.
-- 디버그 측은 주로 개발자가 사용하므로 브라우저의 새로운 기능 사용에 대해 개방적인 태도를 유지합니다. 따라서 최신 버전의 브라우저 사용을 권장하며, 호환성 목표는 [`["last 2 chrome version", "last 2 firefox version", "last 2 safari version"]`](https://github.com/HuolalaTech/page-spy-web/blob/main/package.json#L92-L96)로 설정되어 있습니다.
+- 브라우저 SDK의 호환성 목표는 [`["chrome > 75","safari > 12", "> 0.1%", "not dead","not op_mini all"]`](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-browser/package.json#L66-L72)로 설정되어 있습니다. 다른 SDK는 각각의 저장소를 참조하세요.
+- 디버깅 클라이언트는 주로 개발자용이며, 브라우저의 새로운 기능 사용에 대해 개방적인 태도를 유지합니다. 최신 브라우저 버전 사용을 권장합니다. 호환성 목표는 [`["last 2 chrome version", "last 2 firefox version", "last 2 safari version"]`](https://github.com/HuolalaTech/page-spy-web/blob/main/package.json#L92-L96)로 설정되어 있습니다.
 
 ### SDK가 렌더링하는 아이콘을 숨기려면 어떻게 하나요?#hide-logo
 
@@ -41,7 +41,7 @@ window.$pageSpy.updateRoomInfo({ project: 'xxx', title: 'xxx' });
 
 ### xxx 프레임워크에서 어떻게 통합하나요?#framework
 
-PageSpy는 CodeSandbox 플랫폼을 통해 현재 인기 있는 모든 프레임워크와의 통합 가이드를 제공합니다. 온라인으로 체험해 보세요:
+PageSpy는 CodeSandbox 플랫폼에서 주요 프레임워크의 통합 가이드를 공개했습니다. 온라인으로 체험해 보세요:
 
 - **React**: [CodeSandbox - PageSpy in React](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
 - **Vue**: [CodeSandbox - PageSpy in Vue](https://codesandbox.io/p/sandbox/page-spy-with-vue-ft35qs)
@@ -50,20 +50,20 @@ PageSpy는 CodeSandbox 플랫폼을 통해 현재 인기 있는 모든 프레임
 - **Nextjs**: [CodeSandbox - PageSpy in Nextjs](https://codesandbox.io/p/sandbox/page-spy-with-nextjs-5htxv5)
 - **Nuxtjs**: [CodeSandbox - PageSpy in Nuxtjs](https://codesandbox.io/p/sandbox/page-spy-with-nuxtjs-8znq22)
 
-### pagespy.jikejishu.com은 공식 제공 도메인인가요? 계속 사용할 수 있나요?#test-domain
+### pagespy.jikejishu.com은 공식 제공 도메인인가요?#test-domain
 
-[https://pagespy.jikejishu.com](https://pagespy.jikejishu.com)은 PageSpy를 온라인으로 체험하고 학습할 수 있도록 임시로 구축한 서비스입니다. **24시간 가용성을 보장하지 않으며, 데이터 보안을 보장하지 않고, 발생하는 손실은 자기 책임**입니다. 체험 후에는 프라이빗 서버나 내부 네트워크에 직접 배포하는 것을 강력히 권장합니다.
+[https://pagespy.jikejishu.com](https://pagespy.jikejishu.com)은 PageSpy를 온라인으로 체험하고 학습할 수 있도록 설정한 임시 서비스입니다. **24/7 가용성, 데이터 보안을 보장하지 않으며 발생하는 손실에 대해 책임지지 않습니다**. 체험 후 프라이빗 서버나 인트라넷에 배포할 것을 강력히 권장합니다.
 
-### 로컬에서는 6752 포트에 접근할 수 있는데 서버에 배포하면 안 되는 이유는 무엇인가요?#server-port
+### 로컬 6752 포트에는 접근할 수 있지만 서버에 배포하면 안 되나요?#server-port
 
-서버의 방화벽이나 보안 그룹 규칙에서 6752 포트가 개방되어 있는지 확인하세요.
+서버의 방화벽 또는 보안 그룹 규칙에서 6752 포트가 개방되어 있는지 확인하세요.
 
-### 디버그 버튼에 "현재 연결에 클라이언트가 존재하지 않습니다"라고 표시되는 이유는 무엇인가요?#debug-disabled
+### 디버그 버튼에 "현재 연결에 클라이언트가 존재하지 않습니다"는 무슨 의미인가요?#debug-disabled
 
-이러한 상황은 일반적으로 SDK가 정상적으로 룸을 생성했지만 웹소켓을 통해 룸에 참여할 수 없는 경우에 발생합니다. 다음 단계에 따라 확인하세요:
+이는 일반적으로 SDK가 정상적으로 룸을 생성했지만 WebSocket을 통해 룸에 참여하지 못한 경우 발생합니다. 다음 문제 해결 단계를 따르세요:
 
-- SDK가 있는 클라이언트의 콘솔을 열어 오류가 있는지 확인합니다.
-- 콘솔에 "WebSocket connect failed" 관련 메시지가 표시되면 서버 설정이 올바른지 확인합니다.
+- SDK가 실행 중인 클라이언트에서 콘솔을 열고 오류를 확인하세요
+- 콘솔에 "WebSocket connect failed" 관련 메시지가 표시되면 서버 구성이 올바른지 확인하세요
 
 ### 배포할 때 nginx는 어떻게 설정하나요?#nginx
 
@@ -129,7 +129,7 @@ server {
 }
 ```
 
-설정을 조정한 후 nginx를 재시작하면 서브 경로로 접근할 수 있습니다. 주의할 점은 이제 인스턴스화 시 `api`와 `clientOrigin` 매개변수를 수동으로 전달하여 SDK에 배포 주소를 알려줘야 합니다. 예:
+설정을 조정한 후 Nginx를 재시작하면 서브 경로로 접근할 수 있습니다. 주의할 점은 인스턴스화 시 `api`와 `clientOrigin` 매개변수를 수동으로 전달하여 SDK에 배포 주소를 알려야 합니다. 예:
 
 ```js
 window.$pageSpy = new PageSpy({
@@ -141,15 +141,15 @@ window.$pageSpy = new PageSpy({
 });
 ```
 
-### 디버그 측에 보안 인증 보호를 어떻게 추가하여 개발자가 인증 후에만 접근할 수 있게 하나요?#security
+### 디버그 클라이언트를 인증으로 보호하여 승인된 개발자만 접근할 수 있도록 하는 방법은?#security
 
-[2.3.0](./changelog#v2-3-0) 버전부터 PageSpy는 서비스 시작 시 변수를 사용하여 비밀번호를 설정하여 디버그 측을 보호할 수 있습니다. 비밀번호를 설정한 후, 개발자는 비밀번호를 입력하여 디버그 측에 접근할 수 있습니다.
+[2.3.0](./changelog#v2-3-0) 버전부터 PageSpy는 디버깅 패널을 보호하기 위한 비밀번호 설정을 지원합니다. 비밀번호를 설정하면 개발자는 올바른 비밀번호를 입력해야만 디버깅 패널에 접근할 수 있습니다.
 
-설정할 수 있는 변수와 의미는 다음과 같습니다:
+구성 가능한 변수:
 
-- `AUTH_PASSWORD`: 설정할 비밀번호
-- `JWT_SECRET`: 설정할 비밀키
-- `JWT_EXPIRATION_HOURS`: 설정할 토큰 만료 시간 (시간)
+- `AUTH_PASSWORD`: 비밀번호 설정
+- `JWT_SECRET`: Token 비밀 키 설정
+- `JWT_EXPIRATION_HOURS`: Token 만료 시간(시간) 설정, 기본값은 24시간
 
 서비스 시작 시 설정합니다. 구체적인 사용 방법은 다음과 같습니다:
 
@@ -165,13 +165,13 @@ AUTH_PASSWORD=<password> JWT_SECRET=<secret> JWT_EXPIRATION_HOURS=<hours> page-s
 
 :::
 
-### 프로젝트에 수동으로 통합하고 싶지 않은 경우, 비즈니스 프로젝트 코드를 침해하지 않고 구현할 방법이 있나요?#extension
+### 프로젝트에 수동으로 통합하고 싶지 않은 경우, 비즈니스 코드를 침해하지 않고 가능한가요?#extension
 
-PageSpy는 브라우저 확장 프로그램을 제공하며, 다음과 같은 기능을 제공합니다:
+PageSpy는 다음 기능을 갖춘 브라우저 확장 프로그램을 제공합니다:
 
 - 최신 버전의 SDK 자동 주입
 - 인스턴스화 작업 자동 완료
-- 주입할 도메인 설정 규칙 제공
+- 도메인 주입 구성 규칙 제공
 
 사용하려면 여기를 클릭하세요: [HuolalaTech/page-spy-extension](https://github.com/HuolalaTech/page-spy-extension)
 
@@ -208,19 +208,19 @@ PageSpy는 브라우저 확장 프로그램을 제공하며, 다음과 같은 �
 })();
 ```
 
-### 비즈니스 프로젝트가 HTTPS에 배포되어 있고 PageSpy가 HTTP에 배포되어 있을 때 콘솔 오류는 어떻게 해결하나요?#http-error
+### 비즈니스 프로젝트가 HTTPS에 배포되어 있고 PageSpy가 HTTP에 배포되어 있을 때 콘솔 오류를 어떻게 해결하나요?#http-error
 
-브라우저는 HTTPS 사이트에서 HTTP 리소스 로딩을 차단합니다. 이는 HTTP와 HTTPS 간의 데이터 전송에서 HTTPS는 암호화와 보안을 제공하지만 HTTP는 평문 전송으로 보안 위험이 있기 때문입니다.
+브라우저는 HTTPS 사이트에서 HTTP 리소스 로딩을 차단합니다. 이는 HTTPS는 암호화와 보안을 제공하지만 HTTP는 평문 전송으로 보안 위험이 있기 때문입니다.
 
 PageSpy를 HTTPS 서비스로 업그레이드하면 이 문제를 완벽하게 해결할 수 있습니다.
 
 ### 특정 사용자만 디버그하려면 어떻게 하나요?#prod-debug
 
-가장 간단한 방법은 사용자가 [PageSpy 브라우저 확장 프로그램](https://github.com/HuolalaTech/page-spy-extension)을 사용하는 것입니다. 이는 매우 협조적인 고객이며 PC 프로젝트인 경우에 적합하지만, 이러한 전제 조건은 매우 까다롭습니다.
+가장 간단한 방법은 사용자가 [PageSpy 브라우저 확장 프로그램](https://github.com/HuolalaTech/page-spy-extension)을 사용하는 것입니다. 이는 협조적인 PC 클라이언트에 적합하지만, 이 전제 조건은 상당히 까다롭습니다.
 
-그렇다면 H5 프로젝트를 프로덕션에 배포했을 때 PageSpy를 사용하려면 어떻게 해야 할까요? 모든 사용자에게 활성화하는 것은 현실적이지 않습니다.
+그렇다면 프로덕션 환경의 H5 프로젝트에서 PageSpy를 사용하려면 어떻게 해야 할까요? 모든 사용자에게 활성화하는 것은 분명히 비현실적입니다.
 
-PageSpy의 활성화 과정은 총 두 단계입니다:
+PageSpy의 활성화 프로세스는 두 단계만 포함합니다:
 
 1. `head` 태그에서 `<script>`로 SDK 가져오기
 2. 인스턴스화
@@ -245,22 +245,21 @@ Page 패널은 클라이언트의 `document.documentElement.outerHTML`을 디버
 
 직접 상호작용은 불가능합니다. 특정 상호작용을 실행해야 하는 경우, Console 패널 하단에서 코드를 입력하여 실행한 후 Page 패널로 돌아가 인터페이스 반응을 확인할 수 있습니다.
 
-### Page 패널의 스타일이 올바르지 않은 이유는 무엇인가요?#page-style
+### Page 패널 스타일이 올바르지 않나요?#page-style
 
-- 클라이언트와 디버그 측의 렌더링 환경이 다릅니다. 예: 클라이언트의 브라우저 버전이 Chrome 75이고 디버그 측의 브라우저 버전이 Chrome 120인 경우
-- 디버그 측에서 클라이언트가 참조하는 리소스에 접근할 때 네트워크 제한이 있습니다
+클라이언트와 디버깅 엔드의 렌더링 환경 차이(예: 클라이언트의 브라우저 버전이 Chrome 75이고 디버깅 엔드가 Chrome 120인 경우) 또는 디버깅 엔드가 클라이언트가 참조하는 리소스에 접근할 때 네트워크 제한으로 인해 스타일 차이가 발생할 수 있습니다.
 
-따라서 스타일은 참고용으로만 사용하세요.
+따라서 스타일은 참고용으로만 제공됩니다.
 
-### Page 패널이 클라이언트의 내용을 100% 복원할 수 없는 이유는 무엇인가요?#page-reset
+### Page 패널이 클라이언트 콘텐츠를 100% 복원할 수 없나요?#page-reset
 
-SDK는 페이지를 "스크린샷"하여 디버그 측으로 전송할 수 있지만 다음과 같은 이유로 구현하지 않았습니다:
+SDK는 페이지를 "스크린샷"하여 디버깅 엔드로 전송할 수 있지만 다음과 같은 이유로 구현하지 않았습니다:
 
-- "이미지"는 텍스트보다 데이터 크기가 크며, 데이터 상호작용이 네트워크 전송 오버헤드를 증가시킵니다
-- SDK의 크기와 복잡도가 증가합니다
-- "스타일 오류"의 경우, 원격 협업 시 테스터가 개발자에게 정확하게 피드백할 수 있습니다
+- 이미지는 텍스트보다 데이터 크기가 커서 네트워크 전송 오버헤드가 증가함
+- SDK의 크기와 복잡도가 증가함
+- 스타일 오류의 경우 원격 협업 시 테스터가 개발자에게 정확한 피드백을 제공할 수 있음
 
-이러한 이유로 Page 패널의 스타일은 참고용으로만 제공됩니다.
+이러한 이유로 Page 패널 스타일은 참고용으로만 제공됩니다.
 
 ### pnpm으로 전역 설치한 패키지를 `pm2`로 시작할 때 오류가 발생하는 이유는 무엇인가요?#pnpm
 
@@ -274,7 +273,7 @@ SDK는 페이지를 "스크린샷"하여 디버그 측으로 전송할 수 있�
 
 ### 새 버전이 출시된 후 최신 버전으로 어떻게 업그레이드하나요?#upgrade
 
-- docker로 배포한 경우:
+- Docker로 배포한 경우:
 
   ```bash
   # 이미지 업데이트
@@ -304,8 +303,8 @@ SDK는 페이지를 "스크린샷"하여 디버그 측으로 전송할 수 있�
 
 > 설정 확인: https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323
 
-- 룸 생성 후 SDK나 디버그 측이 입장하지 않으면 1분 후 파괴됩니다(실제 사용에서는 이 시나리오가 존재하지 않습니다)
-- SDK와 디버그 측이 모두 연결이 끊어지면 1분 후 파괴됩니다
+- 룸 생성 후 SDK나 디버깅 엔드가 입장하지 않으면 1분 후 파괴됩니다(실제 사용에서는 이 시나리오가 존재하지 않습니다)
+- SDK와 디버깅 엔드가 모두 연결이 끊어지면 1분 후 파괴됩니다
 - 데이터 메시지 교환이 없는 상태가 5분 지속되면 파괴됩니다
 - 연결 사용이 1시간을 초과하면 자동으로 파괴됩니다
 
@@ -320,5 +319,5 @@ Alipay 미니프로그램은 역사적인 이유로 전역 객체 접근에 제�
 
 `config.json`에 `storageConfig` 매개변수가 설정되지 않은 경우, 업로드된 파일 로그는 로컬에서 관리됩니다:
 
-- 업로드된 파일 로그는 기본적으로 최신 10GB까지, 그리고 30일 동안 보관되며, 설정을 통해 사용자 정의할 수 있습니다.
-- 업로드 로그는 실행 디렉토리의 log 디렉토리에 저장됩니다. docker로 실행하는 경우 docker가 삭제되면 로그도 함께 삭제됩니다. `-v ./log:/app/log -v ./data:/app/data` 디렉토리 매핑을 사용하여 영구 저장할 수 있습니다.
+- 업로드된 파일 로그는 기본적으로 최신 10GB 및 30일 동안 저장되며, 구성을 통해 사용자 정의 가능
+- 업로드 로그는 실행 디렉토리의 `log` 디렉토리에 저장됩니다. Docker로 실행하는 경우 컨테이너가 삭제되면 로그도 함께 삭제됩니다. `-v ./log:/app/log -v ./data:/app/data` 디렉토리 매핑을 사용하여 영구 저장할 수 있습니다

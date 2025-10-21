@@ -12,8 +12,8 @@ Dependency and interaction diagram between PageSpy modules:
 
 ### Compatibility of PageSpy#compatibility
 
-- The compatibility targets for browser SDK are set to [`["chrome > 75","safari > 12", "> 0.1%", "not dead","not op_mini all"]`](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-browser/package.json#L66-L72); for other SDKs, refer to their respective repositories.
-- Debugging primarily targets developers and maintains an open attitude towards new browser features. Therefore, it is recommended to use the latest browser versions with compatibility targets set to [`["last 2 chrome version", "last 2 firefox version", "last 2 safari version"]`](https://github.com/HuolalaTech/page-spy-web/blob/main/package.json#L92-L96).
+- The compatibility target for browser SDK is set to [`["chrome > 75","safari > 12", "> 0.1%", "not dead","not op_mini all"]`](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-browser/package.json#L66-L72). For other SDKs, please refer to their respective repositories.
+- The debugging client is primarily for developers, and we maintain an open attitude towards new browser features. It is recommended to use the latest browser version. The compatibility target is set to [`["last 2 chrome version", "last 2 firefox version", "last 2 safari version"]`](https://github.com/HuolalaTech/page-spy-web/blob/main/package.json#L92-L96).
 
 ### How to Hide the SDK Rendered Logo?#hide-logo
 
@@ -24,7 +24,7 @@ window.$pageSpy = new PageSpy({
 });
 ```
 
-### Instantiation Parameters and Their Purposes?#init-params
+### What parameters can be passed during instantiation, and what do they do?#init-params
 
 See [PageSpy API](./pagespy#constructor).
 
@@ -39,9 +39,9 @@ window.$pageSpy = new PageSpy(...);
 window.$pageSpy.updateRoomInfo({ project: 'xxx', title: 'xxx' });
 ```
 
-### How to Integrate with xxx Framework? #framework
+### How to Integrate with xxx Framework?#framework
 
-PageSpy has published integration guides for all popular frameworks on the CodeSandbox platform. You can experience them online:
+PageSpy has published integration guides for mainstream frameworks on the CodeSandbox platform. You can experience them online:
 
 - **React**：[CodeSandbox - PageSpy in React](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
 - **Vue**：[CodeSandbox - PageSpy in Vue](https://codesandbox.io/p/sandbox/page-spy-with-vue-ft35qs)
@@ -50,20 +50,20 @@ PageSpy has published integration guides for all popular frameworks on the CodeS
 - **Nextjs**：[CodeSandbox - PageSpy in Nextjs](https://codesandbox.io/p/sandbox/page-spy-with-nextjs-5htxv5)
 - **Nuxtjs**：[CodeSandbox - PageSpy in Nuxtjs](https://codesandbox.io/p/sandbox/page-spy-with-nuxtjs-8znq22)
 
-### Is pagespy.jikejishu.com an Officially Provided Domain? Will It Always Be Available? #test-domain
+### Is pagespy.jikejishu.com an Officially Provided Domain?#test-domain
 
-[https://pagespy.jikejishu.com](https://pagespy.jikejishu.com) is a temporary service set up by us to allow everyone to experience and learn PageSpy online. We do not guarantee 24-hour availability, data security, or assume responsibility for any losses. We strongly recommend deploying privately or within an intranet after experiencing.
+[https://pagespy.jikejishu.com](https://pagespy.jikejishu.com) is a temporary service we set up to allow everyone to experience and learn PageSpy online. **We do not guarantee 24/7 availability, data security, or assume responsibility for any losses**. We strongly recommend deploying to your private server or intranet after experiencing it.
 
-### Why Can Local Port 6752 Be Accessed, But Not When Deployed on a Server? #server-port
+### Local port 6752 can be accessed, but not when deployed on a server?#server-port
 
-Check the server's firewall or security group rules to ensure port 6752 is open.
+Check whether the firewall or security group rules on the server have opened port 6752.
 
-### What Does "No client in the current connection" Mean on the Debug Button? #debug-disabled
+### What does "No client in the current connection" mean on the debug button?#debug-disabled
 
-This usually indicates that the SDK successfully created a room but failed to join it via WebSocket. To troubleshoot:
+This usually occurs because the SDK successfully created a room but failed to join it via WebSocket. Follow these troubleshooting steps:
 
-- Check the console of the client where the SDK is running for any WebSocket connection failure messages.
-- Verify server configuration if console shows "WebSocket connect failed" related errors.
+- Open the console on the client where the SDK is running and check for errors
+- If the console shows "WebSocket connect failed" related messages, verify that the server configuration is correct
 
 ### How Should nginx Be Configured During Deployment? #nginx
 
@@ -129,7 +129,7 @@ server {
 }
 ```
 
-After adjusting the configuration, restart nginx to access via the subpath. During instantiation, manually pass api and clientOrigin to inform the SDK of the deployment address:
+After adjusting the configuration, restart Nginx to access via the subpath. Note that during instantiation, you must manually pass `api` and `clientOrigin` to inform the SDK of the deployment address:
 
 ```js
 window.$pageSpy = new PageSpy({
@@ -141,15 +141,15 @@ window.$pageSpy = new PageSpy({
 });
 ```
 
-### How Can the Debug Terminal Be Protected with Some Authentication Mechanism to Allow Access Only to Authenticated Developers? #security
+### How can the debug client be protected with authentication so only authorized developers can access?#security
 
-Starting from version [2.3.0](./changelog#v2-3-0), PageSpy supports setting a password to protect the debugging terminal. After setting the password, developers must enter the correct password to access the debugging terminal.
+Starting from version [2.3.0](./changelog#v2-3-0), PageSpy supports setting a password to protect the debugging panel. After setting a password, developers must enter the correct password to access the debugging panel.
 
-Allowed variables and meanings:
+Configurable variables:
 
-- `AUTH_PASSWORD`: Set password;
-- `JWT_SECRET`: Set token secret key;
-- `JWT_EXPIRATION_HOURS`: Set token expiration time (hours), default 24 hours;
+- `AUTH_PASSWORD`: Set password
+- `JWT_SECRET`: Set Token secret key
+- `JWT_EXPIRATION_HOURS`: Set Token expiration time (hours), default is 24 hours
 
 Set during service startup, the usage is as follows:
 
@@ -165,13 +165,13 @@ AUTH_PASSWORD=<password> JWT_SECRET=<secret> JWT_EXPIRATION_HOURS=<hours> page-s
 
 :::
 
-### Don't want to integrate manually into the project, is there a way to do it without invading the business project code? #extension
+### Don't want to integrate manually into the project, can it be done without invading the business code?#extension
 
-PageSpy has prepared a browser extension for everyone, which provides the following features:
+PageSpy provides a browser extension with the following features:
 
-- Automatically injects the latest version of the SDK.
-- Automatically completes the instantiation operation.
-- Provides rules for domain injection configuration.
+- Automatically inject the latest version of the SDK
+- Automatically complete the instantiation operation
+- Provide domain injection configuration rules
 
 Click here to use: [HuolalaTech/page-spy-extension](https://github.com/HuolalaTech/page-spy-extension)
 
@@ -195,7 +195,7 @@ Refer to the following content:
 
   var script1 = document.createElement('script');
   script1.setAttribute('crossorigin', 'anonymous');
-  // Replace the SDK URL with the actual project URL
+  // Replace the SDK URL link with the actual project URL
   script1.src = 'https://pagespy.jikejishu.com/page-spy/index.min.js';
 
   var script2 = document.createElement('script');
@@ -208,19 +208,19 @@ Refer to the following content:
 })();
 ```
 
-### Business project is deployed on HTTPS, PageSpy is deployed on HTTP, what should I do if there is a console error? #http-error
+### Business project is deployed on HTTPS, PageSpy is deployed on HTTP, how to resolve console errors?#http-error
 
 Browsers block loading HTTP resources from HTTPS sites because HTTPS provides encryption and security, while HTTP transmits data in plaintext, posing security risks.
 
-It is recommended to upgrade PageSpy to HTTPS service directly to resolve this issue perfectly.
+It is recommended to upgrade PageSpy to an HTTPS service to perfectly resolve this issue.
 
-### How to debug a specific user individually? #prod-debug
+### How to debug a specific user individually?#prod-debug
 
-The simplest solution is to have users use the [PageSpy browser extension](https://github.com/HuolalaTech/page-spy-extension), which is suitable when the client is highly cooperative and it's a PC project. However, this condition is quite stringent.
+The simplest solution is to have users use the [PageSpy browser extension](https://github.com/HuolalaTech/page-spy-extension), which is suitable for highly cooperative PC clients. However, this prerequisite is quite demanding.
 
-So what if a H5 project in production wants to use PageSpy? It's clearly impractical to enable it for all users.
+So what if an H5 project in production wants to use PageSpy? Enabling it for all users is clearly impractical.
 
-PageSpy's effective process involves just two steps:
+PageSpy's activation process involves only two steps:
 
 1. Inject SDK via `<script>` tag in the `head`.
 2. Instantiate.
@@ -245,19 +245,19 @@ The Page panel renders document.documentElement.outerHTML of the client to an if
 
 It cannot interact directly. If interaction is needed, try entering code at the bottom of the Console panel and then checking the Page panel for interface feedback.
 
-### Page panel style is incorrect? #page-style
+### Page panel style is incorrect?#page-style
 
-The discrepancy in rendering environments between client and debugging end (e.g., client's browser version is Chrome 75, debugging end's is Chrome 120) or network restrictions when debugging end accesses client-referenced resources may cause style discrepancies.
+Differences in rendering environments between the client and debugging end (e.g., client's browser version is Chrome 75, debugging end's is Chrome 120) or network restrictions when the debugging end accesses client-referenced resources may cause style discrepancies.
 
-Thus, styles are for reference only.
+Therefore, styles are for reference only.
 
-### Can the Page panel completely restore client content 100%? #page-reset
+### Can the Page panel completely restore client content 100%?#page-reset
 
 The SDK can "screenshot" the page and send it to the debugging end. However, due to:
 
-- Larger data volume for images compared to text, increasing network transmission overhead.
-- Adding to SDK size and complexity.
-- For "style errors," remote collaboration allows testers to provide precise feedback to developers.
+- Larger data volume for images compared to text, increasing network transmission overhead
+- Adding to SDK size and complexity
+- For style errors, remote collaboration allows testers to provide precise feedback to developers
 
 Therefore, Page panel styles are for reference only.
 
@@ -271,9 +271,9 @@ Globally installed packages with pnpm are wrapped by a shell script used by pnpm
 
 Using yarn or npm installation resolves this issue. See related discussion: [Unitech/pm2#5416](https://github.com/Unitech/pm2/issues/5416).
 
-### How to upgrade to the latest version after a new release? #upgrade
+### How to upgrade to the latest version after a new release?#upgrade
 
-If using Docker deployment:
+- If using Docker deployment:
 
 ```bash
 # Update image
@@ -286,7 +286,7 @@ docker stop pageSpy && docker rm -f pageSpy
 docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
 ```
 
-If using NPM Package deployment:
+- If using NPM Package deployment:
 
 ```bash
 # Update package (yarn)
@@ -299,14 +299,14 @@ npm install -g @huolala-tech/page-spy-api@latest
 pm2 restart page-spy-api
 ```
 
-### Under what conditions will a room connection be automatically destroyed? #auto-destroy
+### Under what conditions will a room connection be automatically destroyed?#auto-destroy
 
 > View configuration: https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323
 
-- If a room is created and no SDK or debugging end enters, it will be destroyed after 1 minute (this scenario does not exist in actual use).
-- If both SDK and debugging end disconnect, it will be destroyed after 1 minute.
-- If there is no data message interaction, it will be destroyed after 5 minutes.
-- If the connection duration exceeds 1 hour, it will be automatically destroyed.
+- If a room is created and no SDK or debugging end enters, it will be destroyed after 1 minute (this scenario does not exist in actual use)
+- If both SDK and debugging end disconnect, it will be destroyed after 1 minute
+- If there is no data message interaction, it will be destroyed after 5 minutes
+- If the connection duration exceeds 1 hour, it will be automatically destroyed
 
 ### Why can't Alipay Mini Program get global objects like `my.getCurrentPages()` when executing remote code? #alipay-global
 
@@ -315,9 +315,9 @@ Due to historical reasons, Alipay Mini Program restricts access to global object
 - IDE: Details -> Compilation Configuration -> Global Object (global/globalThis) Access Policy: Accessible (recommended)
 - Configuration file: [https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode](https://opendocs.alipay.com/mini/03dbc3?pathHash=e876dc50#globalObjectMode)
 
-### Why are uploaded file logs missing? #offline-log
+### Why are uploaded file logs missing?#offline-log
 
 If you do not configure the `storageConfig` parameter in `config.json`, the uploaded file logs will be managed locally:
 
-- Uploaded file logs are by default saved for up to the latest 10 GB and 30 days, customizable via configuration modification.
-- Uploaded logs are saved in the log directory under the runtime directory. In Docker runtime, if Docker is destroyed, logs will also be lost. Use directory mapping `-v ./log:/app/log -v ./data:/app/data` for persistence.
+- Uploaded file logs are saved for up to the latest 10GB and 30 days by default, customizable via configuration
+- Uploaded logs are saved in the `log` directory under the runtime directory. In Docker runtime, if the container is destroyed, logs will also be lost. Use directory mapping `-v ./log:/app/log -v ./data:/app/data` for persistence

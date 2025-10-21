@@ -1,14 +1,14 @@
-PageSpy 服务端在运行过程中会自动读取 **当前运行目录下的 `config.json`** 配置文件。该文件在初次运行时不存在，您可以根据需要创建或修改此文件来自定义服务端行为。
+PageSpy 服务端运行时会自动读取 **当前运行目录下的 `config.json`** 配置文件。该文件在初次运行时不存在，你可以根据需要创建或修改此文件来自定义服务端行为。
 
-配置文件支持以下功能：运行端口、多实例部署、跨域配置、日志数据配置、数据库配置等，下面将详细说明各配置字段的作用。
+配置文件可配置以下内容：运行端口、多实例部署、跨域配置、日志数据配置、数据库配置等。下面将详细说明各配置字段的作用。
 
 ```json
 {
   // 服务端口
   "port": "6752",
-  // 日志回放文件保存大小（MB）
+  // 日志回放文件最大大小（MB）
   "maxLogFileSizeOfMB": 10240,
-  // 日志回放文件保存最长时间 （小时）
+  // 日志回放文件最长保存时间（小时）
   "maxLogLifeTimeOfHour": 720,
   // 是否允许用户在界面上删除日志
   "notAllowedDeleteLog": false,
@@ -60,18 +60,18 @@ PageSpy 服务端在运行过程中会自动读取 **当前运行目录下的 `c
     "password": "",
     // JWT 密钥
     "jwtSecret": "",
-    // 令牌过期时间(小时)
+    // 令牌过期时间（小时）
     "tokenExpiration": 720
   },
-  // 多实例部署时候配置成当前机器 ip 或容器中的 dns name
+  // 多实例部署时配置为当前机器 IP 或容器中的 DNS name
   "selfRpcAddress": {
-    "ip": "", // 机器 ip 或容器中的 dns name
+    "ip": "", // 机器 IP 或容器中的 DNS name
     "port": "" // 服务端口
   },
   // 多实例部署配置
   "rpcAddress": [
     {
-      "ip": "", // 机器 ip 或容器中的 dns name
+      "ip": "", // 机器 IP 或容器中的 DNS name
       "port": "" // 服务端口
     },
     {
@@ -80,7 +80,7 @@ PageSpy 服务端在运行过程中会自动读取 **当前运行目录下的 `c
     },
     ...
   ],
-  // 配置 mysql 数据库地址，默认使用 sqlite
+  // 配置 MySQL 数据库地址，默认使用 SQLite
   "databaseConfig": {
     "mysqlUrl": "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
   },

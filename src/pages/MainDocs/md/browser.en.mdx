@@ -33,7 +33,7 @@ Load `<script>` in the client's project:
 
 ##### Step 2#script-usage-step-2
 
-Initialize PageSpy and the plugins. Both their initialization parameters provide optional [configuration]({VITE_SDK_BROWSER_REPO}) items for customizing the behavior of the SDK:
+Initialize PageSpy and the plugins. You can customize the behavior of the SDK through [configuration]({VITE_SDK_BROWSER_REPO}) options:
 
 <blockquote>
   <details>
@@ -41,8 +41,8 @@ Initialize PageSpy and the plugins. Both their initialization parameters provide
     <div>
       [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) and [RRWebPlugin]({VITE_PLUGIN_RRWEB}) are two plugins mainly used to extend the capabilities of PageSpy:
       
-      - **DataHarborPlugin**: PageSpy itself only supports _online mode_, meaning "the client and the debugging side must be online simultaneously" during debugging. DataHarborPlugin enables offline debugging for PageSpy. Click [Offline Log](./offline-log) to see more details;
-      - **RRWebPlugin**: Records user operation traces, using [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.zh_CN.md) as the underlying technology. It's commonly used in conjunction with DataHarborPlugin.
+      - **DataHarborPlugin**: PageSpy itself only supports _online mode_, meaning the client and the debugging endpoint must be online simultaneously during debugging. DataHarborPlugin enables offline debugging for PageSpy. Click [Offline Log](./offline-log) to see more details.
+      - **RRWebPlugin**: Records user operation traces using [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.zh_CN.md) as the underlying technology. It's commonly used in conjunction with DataHarborPlugin.
 
       You can also customize your own PageSpy by [developing plugins](./plugins)!
     </div>
@@ -92,7 +92,7 @@ window.$rrweb = new RRWebPlugin();
   PageSpy.registerPlugin(p);
 })  
 
-// ESM mode cannot be automatically analyzed, so the following instance initialization parameters are required
+// ESM mode cannot automatically analyze the deployment address, so you must manually configure the following parameters
 window.$pageSpy = new PageSpy({
   api: "{deployPath}",
   clientOrigin: "{deployUrl}"
@@ -103,9 +103,9 @@ That's the complete process to integrate PageSpy into a browser project.
 
 Once integrated, click on the top menu <Tooltip title="Menu is hidden by default and will be visible after deployment." color="purple"><a href="javascript:void(0)">Debugging</a></Tooltip> to use it!
 
-### Integrate within frameworks? #framework
+### Integrate within frameworks#framework
 
-PageSpy has published integration guides for all popular frameworks on the CodeSandbox platform. You can experience them online:
+PageSpy has published integration guides for mainstream frameworks on the CodeSandbox platform. You can experience them online:
 
 - **React**：[CodeSandbox - PageSpy in React](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
 - **Vue**：[CodeSandbox - PageSpy in Vue](https://codesandbox.io/p/sandbox/page-spy-with-vue-ft35qs)
@@ -115,18 +115,18 @@ PageSpy has published integration guides for all popular frameworks on the CodeS
 - **Nuxtjs**：[CodeSandbox - PageSpy in Nuxtjs](https://codesandbox.io/p/sandbox/page-spy-with-nuxtjs-8znq22)
 
 
-### Using the Browser Extension#browser-extension
+### Using the Browser Extension#extension
 
 PageSpy provides a browser extension that allows you to use PageSpy on any webpage without integrating any code!
 
-Yes, you read that right! With the PageSpy browser extension, you can debug almost any webpage. However, a few websites with strict CSP policies may prevent the extension from functioning properly.
+Yes, you read that right! With the PageSpy browser extension, you can debug almost any webpage! (Some websites with CSP policies may not work)
 
-#### Install#install
+#### Install#install-extension
 
-- Go to the [Chrome Web Store](https://chromewebstore.google.com/detail/pagespy/kpfigmbgeedkgnjnlpilghiffepahlmk) to install with a single click, or;
-- Go to the [Browser Extension repository](https://github.com/HuolalaTech/page-spy-extension/tree/main/packages/online-pagespy-extension) to install by following the README instructions.
+- Go to the [Chrome Web Store](https://chromewebstore.google.com/detail/pagespy/kpfigmbgeedkgnjnlpilghiffepahlmk) to install with a single click, or
+- Go to the [Browser Extension repository](https://github.com/HuolalaTech/page-spy-extension/tree/main/packages/online-pagespy-extension) and follow the README instructions for manual installation.
 
-#### Parameters#parameters
+#### Panel Parameters#extension-panel
 
 <a href={extensionDesc} target="_blank">
   <img src={extensionDesc} />

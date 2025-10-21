@@ -1,17 +1,21 @@
 import PlatformTag from '@/components/Docs/components/PlatformTag';
 
-> Some features are only available on specific platforms. We will differentiate them using the following tags:
->
-> | Platform     | Tags                           |
-> | ------------ | ------------------------------ |
-> | Browser      | <PlatformTag type="browser" /> |
-> | Mini Program | <PlatformTag type="mp" />      |
-> | React Native | <PlatformTag type="rn" />      |
-> | OpenHarmony  | <PlatformTag type="harmony" /> |
+This page provides an index of PageSpy core APIs and plugin APIs. Click the links to view detailed documentation.
+
+Some APIs are only available on specific platforms, marked with the following tags:
+
+| Platform     | Tags                           |
+| ------------ | ------------------------------ |
+| Browser      | <PlatformTag type="browser" /> |
+| Mini Program | <PlatformTag type="mp" />      |
+| React Native | <PlatformTag type="rn" />      |
+| OpenHarmony  | <PlatformTag type="harmony" /> |
 
 ### PageSpy#pagespy
 
-> The instance variable is named `$pageSpy = new PageSpy(...)`；
+The PageSpy core class provides basic functionality for application debugging.
+
+> In the following documentation, `$pageSpy` represents a PageSpy instance, i.e., `$pageSpy = new PageSpy(...)`
 
 - [constructor()](./pagespy#constructor)
 - [$pageSpy.updateRoomInfo()](./pagespy#updateRoomInfo)
@@ -27,7 +31,9 @@ import PlatformTag from '@/components/Docs/components/PlatformTag';
 
 #### DataHarborPlugin#harbor
 
-> The instance variable is named `$harbor = new DataHarborPlugin(...)`；
+DataHarborPlugin is used for offline data caching and upload/download management.
+
+> In the following documentation, `$harbor` represents a DataHarborPlugin instance, i.e., `$harbor = new DataHarborPlugin(...)`
 
 - [constructor()](./data-harbor#constructor)
 - [Operate log manually](./data-harbor#onOfflineLog)
@@ -37,6 +43,8 @@ import PlatformTag from '@/components/Docs/components/PlatformTag';
 
 #### RRWebPlugin#rrweb
 
-> The instance variable is named `$rrweb = new RRWebPlugin(...)`；
+RRWebPlugin is used for recording and replaying user operations, making it easier to reproduce issue scenarios.
+
+> In the following documentation, `$rrweb` represents an RRWebPlugin instance, i.e., `$rrweb = new RRWebPlugin(...)`
 
 - [constructor()](./rrweb#constructor)

@@ -1,6 +1,6 @@
-PageSpy server will automatically read the **`config.json` configuration file in the current running directory**. This file does not exist when it is first run. You can create or modify this file to customize the server behavior according to your needs.
+PageSpy server will automatically read the **`config.json` configuration file in the current running directory** when it runs. This file does not exist when first run. You can create or modify this file as needed to customize server behavior.
 
-The configuration file supports the following functions: running port, multi-instance deployment, cross-domain configuration, log data configuration, database configuration, etc. The following will explain the functions of each configuration field.
+The configuration file can configure the following: running port, multi-instance deployment, cross-domain configuration, log data configuration, database configuration, etc. The following explains the purpose of each configuration field.
 
 
 ```json
@@ -81,7 +81,7 @@ The configuration file supports the following functions: running port, multi-ins
     },
     ...
   ],
-  // Configure the mysql database address, default using sqlite
+  // Configure MySQL database address, default using SQLite
   "databaseConfig": {
     "mysqlUrl": "user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local"
   },

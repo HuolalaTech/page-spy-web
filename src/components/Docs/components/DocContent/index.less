@@ -20,6 +20,20 @@
       > * + * {
         margin-top: @paragraph-space;
       }
+      h2 ~ h2 {
+        margin-top: @paragraph-space * 6;
+        &:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          transform: translateY(-(@paragraph-space * 3));
+          display: block;
+          width: 100%;
+          height: 1px;
+          background-color: @dark-border;
+        }
+      }
     }
     p,
     li,
@@ -46,7 +60,7 @@
     }
     each(range(6), {
       h@{value} {
-        margin-top: 28px !important;
+        margin-top: 28px;
         font-size: 42px - (@value - 1) * 6px;
         font-weight: 900 - 100 * @value;
         color: #f3f3f3;

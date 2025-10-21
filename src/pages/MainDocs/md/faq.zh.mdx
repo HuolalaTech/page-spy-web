@@ -12,8 +12,8 @@ PageSpy 模块间的依赖关系和交互示意图：
 
 ### PageSpy 的兼容性#compatibility
 
-- 浏览器 SDK 的兼容性目标设置的是 [`["chrome > 75","safari > 12", "> 0.1%", "not dead","not op_mini all"]`](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-browser/package.json#L66-L72)，其他 SDK 可以前往各自的仓库查看；
-- 调试端主要是开发者使用，对于浏览器的新特性使用我们保持开放的态度。所以建议使用最新版本的浏览器，设置的兼容性目标是 [`["last 2 chrome version", "last 2 firefox version", "last 2 safari version"]`](https://github.com/HuolalaTech/page-spy-web/blob/main/package.json#L92-L96)。
+- 浏览器 SDK 的兼容性目标为 [`["chrome > 75","safari > 12", "> 0.1%", "not dead","not op_mini all"]`](https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-browser/package.json#L66-L72)，其他 SDK 可前往各自的仓库查看。
+- 调试端主要供开发者使用，对于浏览器的新特性使用我们保持开放的态度。建议使用最新版本的浏览器，兼容性目标为 [`["last 2 chrome version", "last 2 firefox version", "last 2 safari version"]`](https://github.com/HuolalaTech/page-spy-web/blob/main/package.json#L92-L96)。
 
 ### 如何隐藏 SDK 渲染的图标？#hide-logo
 
@@ -24,7 +24,7 @@ window.$pageSpy = new PageSpy({
 });
 ```
 
-### 实例化都可以传哪些参数，它们的作用分别是什么？#init-params
+### 实例化可以传哪些参数，它们的作用是什么？#init-params
 
 参考 [PageSpy API](./pagespy#constructor)。
 
@@ -41,7 +41,7 @@ window.$pageSpy.updateRoomInfo({ project: 'xxx', title: 'xxx' });
 
 ### 如何在 xxx 框架中集成？#framework
 
-PageSpy 借助 CodeSandbox 平台发布了与当下流行的所有框架的接入指南，大家可以前往在线体验：
+PageSpy 在 CodeSandbox 平台发布了与主流框架的接入指南，你可以前往在线体验：
 
 - **React**：[CodeSandbox - PageSpy in React](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
 - **Vue**：[CodeSandbox - PageSpy in Vue](https://codesandbox.io/p/sandbox/page-spy-with-vue-ft35qs)
@@ -50,20 +50,20 @@ PageSpy 借助 CodeSandbox 平台发布了与当下流行的所有框架的接�
 - **Nextjs**：[CodeSandbox - PageSpy in Nextjs](https://codesandbox.io/p/sandbox/page-spy-with-nextjs-5htxv5)
 - **Nuxtjs**：[CodeSandbox - PageSpy in Nuxtjs](https://codesandbox.io/p/sandbox/page-spy-with-nuxtjs-8znq22)
 
-### pagespy.jikejishu.com 是官方提供的域名吗？一直可以用吗？#test-domain
+### pagespy.jikejishu.com 是官方提供的域名吗？#test-domain
 
 [https://pagespy.jikejishu.com](https://pagespy.jikejishu.com) 是我们为了让大家能够在线体验、学习 PageSpy 临时搭建的服务，**不保证 24 小时可用性、不保证数据安全、造成的损失自负**，强烈建议大家在体验后前往私服、内网中自行部署。
 
-### 为什么本地 6752 端口可以访问，部署到服务器上就不行了？#server-port
+### 本地 6752 端口可以访问，部署到服务器上就不行了？#server-port
 
 检查服务器上的防火墙、或者安全组规则是否开放了 6752 端口。
 
-### 调试按钮显示 “当前连接不存在客户端” 是什么意思？#debug-disabled
+### 调试按钮显示 "当前连接不存在客户端" 是什么意思？#debug-disabled
 
-这种情况通常是因为 SDK 正常创建了房间，但是无法通过 websocket 加入房间。按以下步骤排查：
+这种情况通常是因为 SDK 正常创建了房间，但是无法通过 WebSocket 加入房间。按以下步骤排查：
 
-- 打开 SDK 所在的客户端的控制台，看是否有报错；
-- 如果控制台提示 "WebSocket connect failed" 相关信息，检查服务器的配置是否正确；
+- 打开 SDK 所在的客户端的控制台，查看是否有报错
+- 如果控制台提示 "WebSocket connect failed" 相关信息，检查服务器的配置是否正确
 
 ### 部署的时候 nginx 该怎么配置？#nginx
 
@@ -129,7 +129,7 @@ server {
 }
 ```
 
-在调整配置后，重启 nginx 即可通过子路径访问；需要注意的是，现在实例化时需要手动传参 `api` 和 `clientOrigin` 告诉 SDK 部署地址，例如：
+在调整配置后，重启 Nginx 即可通过子路径访问。需要注意的是，实例化时需要手动传参 `api` 和 `clientOrigin` 告诉 SDK 部署地址，例如：
 
 ```js
 window.$pageSpy = new PageSpy({
@@ -141,15 +141,15 @@ window.$pageSpy = new PageSpy({
 });
 ```
 
-### 调试端如何加一些安全认证的保护，开发者通过认证才可以访问？#security
+### 调试端如何加安全认证的保护，开发者通过认证才可以访问？#security
 
 从 [2.3.0](./changelog#v2-3-0) 版本开始，PageSpy 支持在启动服务时使用变量设置密码以保护调试端安全。设置密码后，开发者访问调试面板时必须输入正确的密码。
 
-允许输入的变量和含义：
+可配置的变量：
 
-- `AUTH_PASSWORD`：设置密码；
-- `JWT_SECRET`：设置 token 的密钥；
-- `JWT_EXPIRATION_HOURS`：设置 token 过期时间（小时），默认 24 小时；
+- `AUTH_PASSWORD`：设置密码
+- `JWT_SECRET`：设置 Token 的密钥
+- `JWT_EXPIRATION_HOURS`：设置 Token 过期时间（小时），默认 24 小时
 
 在启动服务时设置，具体的使用方式如下：
 
@@ -165,13 +165,13 @@ AUTH_PASSWORD=<password> JWT_SECRET=<secret> JWT_EXPIRATION_HOURS=<hours> page-s
 
 ::: 
 
-### 不想在项目里手动集成，有没有办法可以不侵入业务项目代码？#extension
+### 不想在项目里手动集成，是否可以不侵入业务代码？#extension
 
 PageSpy 为大家准备了浏览器插件，插件提供了以下特性：
 
-- 自动注入最新版本的  SDK；
-- 自动完成实例化操作；
-- 提供注入的域名配置规则；
+- 自动注入最新版本的 SDK
+- 自动完成实例化操作
+- 提供注入的域名配置规则
 
 点击前往使用：[HuolalaTech/page-spy-extension](https://github.com/HuolalaTech/page-spy-extension)
 
@@ -195,7 +195,7 @@ PageSpy 为大家准备了浏览器插件，插件提供了以下特性：
 
   var script1 = document.createElement('script');
   script1.setAttribute('crossorigin', 'anonymous');
-  // 实际项目中请替换 SDK 的地址连接
+  // 实际项目中请替换 SDK 的地址链接
   script1.src = 'https://pagespy.jikejishu.com/page-spy/index.min.js';
 
   var script2 = document.createElement('script');
@@ -208,7 +208,7 @@ PageSpy 为大家准备了浏览器插件，插件提供了以下特性：
 })();
 ```
 
-### 业务项目部署在 HTTPS，PageSpy 部署在 HTTP，控制台报错怎么办？#http-error
+### 业务项目部署在 HTTPS，PageSpy 部署在 HTTP，控制台报错如何解决？#http-error
 
 浏览器会阻止从 HTTPS 站点加载 HTTP 资源，这是因为在 HTTP 和 HTTPS 之间传输数据时，HTTPS 提供了加密和安全性，而 HTTP 则是明文传输，存在安全风险。
 
@@ -216,11 +216,11 @@ PageSpy 为大家准备了浏览器插件，插件提供了以下特性：
 
 ### 如何单独对某个用户进行调试？#prod-debug
 
-最简单的方案是让用户使用 [PageSpy 的浏览器插件](https://github.com/HuolalaTech/page-spy-extension)，适用于非常配合的客户且是 PC 端项目的时候，但这个前提条件肉眼可见的非常苛刻；
+最简单的方案是让用户使用 [PageSpy 的浏览器插件](https://github.com/HuolalaTech/page-spy-extension)，适用于配合度高的 PC 端客户，但这个前提条件较为苛刻。
 
-那么如果 H5 项目上生产了想使用 PageSpy 该怎么办？对所有用户都开启这显然不现实。
+如果 H5 项目上线到生产环境想使用 PageSpy，对所有用户都开启显然不现实。
 
-大家可以想想 PageSpy 的生效过程总共就两个步骤：
+PageSpy 的生效过程总共只有两个步骤：
 
 1. `head` 标签中通过 `<script>` 引入 SDK；
 2. 实例化；
@@ -256,9 +256,9 @@ Page 面板是将客户端的 `document.documentElement.outerHTML` 渲染到调�
 
 SDK 可以对页面进行 “截图” 并发送到调试端，但由于：
 
-- “图片” 比文本的数据体积大，数据交互会增加网络传输开销；
-- 增加 SDK 的体积和复杂度；
-- 如果是「样式出错」，远程协同时测试人员可以精准的反馈给开发者；
+- "图片" 比文本的数据体积大，数据交互会增加网络传输开销
+- 增加 SDK 的体积和复杂度
+- 如果是样式出错，远程协同时测试人员可以精准地反馈给开发者
 
 出于以上原因，Page 面板的样式仅供参考。
 
@@ -274,7 +274,7 @@ SDK 可以对页面进行 “截图” 并发送到调试端，但由于：
 
 ### 新版本发布后，怎么升级到最新版本？#upgrade
 
-- 如果你使用 docker 部署的：
+- 如果你使用 Docker 部署：
 
   ```bash
   # 更新镜像
@@ -287,7 +287,7 @@ SDK 可以对页面进行 “截图” 并发送到调试端，但由于：
   docker run -d --restart=always -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
   ```
 
-- 如果你使用 NPM Package 部署的：
+- 如果你使用 NPM Package 部署：
 
   ```bash
   # 更新 package（yarn）
@@ -304,10 +304,10 @@ SDK 可以对页面进行 “截图” 并发送到调试端，但由于：
 
 > 查看配置：https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323
 
-- 房间创建后，无 SDK 或调试端进入，1 分钟后销毁（实际使用过程中，该场景不存在）；
-- SDK 和调试端都已断开连接，1 分钟后销毁；
-- 一直没有数据消息交互，5 分钟后销毁；
-- 连接使用持续超过 1 个小时自动被销毁；
+- 房间创建后，无 SDK 或调试端进入，1 分钟后销毁（实际使用过程中，该场景不存在）
+- SDK 和调试端都已断开连接，1 分钟后销毁
+- 一直没有数据消息交互，5 分钟后销毁
+- 连接使用持续超过 1 个小时自动被销毁
 
 ### 为何支付宝小程序远程执行代码时无法获取到全局对象如 `my.getCurrentPages()`？#alipay-global
 
@@ -320,5 +320,5 @@ SDK 可以对页面进行 “截图” 并发送到调试端，但由于：
 
 如果你没有在 `config.json` 中配置 `storageConfig` 参数，那么上传的文件日志会在本地管理：
 
-- 上传的文件日志默认最多保存最新的 10 G，以及 30 天，可以通过修改配置来自定义。
-- 上传日志保存在运行目录的 log 目录下，docker 运行时候，如果 docker 被销毁日志也会丢失，可以用目录映射 `-v ./log:/app/log -v ./data:/app/data` 来持久化。
+- 上传的文件日志默认最多保存最新的 10GB，以及 30 天，可以通过修改配置来自定义
+- 上传日志保存在运行目录的 `log` 目录下，Docker 运行时，如果容器被销毁日志也会丢失，可以用目录映射 `-v ./log:/app/log -v ./data:/app/data` 来持久化

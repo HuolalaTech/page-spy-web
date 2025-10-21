@@ -4,7 +4,7 @@ import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'
 
 ### 第一步#step-1
 
-在项目中安装依赖。我们提供了几种小程序平台的 SDK，请根据需要安装：
+在项目中安装依赖。我们提供了多种小程序平台的 SDK，请根据需要安装：
 
 :::code-group
 
@@ -28,7 +28,7 @@ yarn add @huolala-tech/page-spy-taro@latest
 
 ### 第二步#step-2
 
-将 PageSpy 服务域名填入小程序的 http、websocket 请求白名单中。注意除了开发环境，小程序强制要求使用 https 和 wss 协议：
+将 PageSpy 服务域名填入小程序的 HTTP、WebSocket 请求白名单中。注意：除开发环境外，小程序强制要求使用 HTTPS 和 WSS 协议：
 
 ```
 https://<your-pagespy-host>
@@ -37,7 +37,7 @@ wss://<your-pagespy-host>
 
 ### 第三步#step-3
 
-在入口文件中引入 SDK 并实例化，初始化参数提供了可选的 [配置项]({VITE_SDK_WECHAT_REPO}) 用于自定义 SDK 的行为：
+在入口文件中引入 SDK 并实例化，可通过 [配置项]({VITE_SDK_WECHAT_REPO}) 自定义 SDK 的行为：
 
 :::code-group
 
@@ -79,7 +79,7 @@ const $pageSpy = new PageSpy({
 
 ### 调试菜单#menus
 
-在创建的 PageSpy 实例上调用 `showPanel()` 方法可以弹出一个调试菜单用于辅助调试：
+调用 `$pageSpy.showPanel()` 方法可以弹出调试菜单：
 
 <a href={mpPanelImg} target="_blank">
   <img src={mpPanelImg} style={{ maxWidth: 320 }} />

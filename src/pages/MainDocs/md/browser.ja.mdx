@@ -31,17 +31,17 @@ import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';
 <script crossorigin="anonymous" src="{deployUrl}/plugin/rrweb/index.min.js"></script>
 ```
 
-#### 第二步#script-usage-step-2
+##### ステップ2#script-usage-step-2
 
-PageSpy とプラグインを初期化します。それらの初期化パラメーターは、SDK の動作をカスタマイズするための[設定項目]({VITE_SDK_BROWSER_REPO})を提供します:
+PageSpy とプラグインを初期化します。[設定オプション]({VITE_SDK_BROWSER_REPO})を使用して SDK の動作をカスタマイズできます:
 
 <blockquote>
   <details>
     <summary>プラグインが提供する機能は？</summary>
     <div>
       [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) と [RRWebPlugin]({VITE_PLUGIN_RRWEB}) の2つのプラグインは、PageSpy の機能を拡張するためのものです:
-      - **DataHarborPlugin**：PageSpy はオンラインモードのみをサポートしています。DataHarborPlugin は PageSpy をオフラインモードに対応させることができます。[オフラインログの再生](./offline-log) を参照してください。
-      - **RRWebPlugin**：ユーザーの操作履歴を記録し、[rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.ja.md) を使用します。通常は DataHarborPlugin と組み合わせて使用されます。
+      - **DataHarborPlugin**：PageSpy 自体はオンラインモードのみをサポートしており、デバッグ中はクライアントとデバッグエンドポイントが同時にオンラインである必要があります。DataHarborPlugin により、PageSpy でオフラインデバッグが可能になります。詳細については[オフラインログ](./offline-log)を参照してください。
+      - **RRWebPlugin**：[rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.ja.md) を使用してユーザー操作を記録します。通常は DataHarborPlugin と組み合わせて使用されます。
 
       独自の PageSpy プラグインを開発することも可能です！ 
     </div>
@@ -91,7 +91,7 @@ window.$rrweb = new RRWebPlugin();
   PageSpy.registerPlugin(p);
 })  
 
-// ESM モードでは自動分析できないため、以下のインスタンス初期化パラメーターが必要です
+// ESM モードではデプロイアドレスを自動的に解析できないため、以下のパラメーターを手動で設定する必要があります
 window.$pageSpy = new PageSpy({
   api: "{deployPath}",
   clientOrigin: "{deployUrl}"
@@ -102,7 +102,7 @@ window.$pageSpy = new PageSpy({
 
 ### フレームワークで統合#framework
 
-PageSpy は、現在のところ、すべてのフレームワークの統合ガイドを CodeSandbox プラットフォームで公開しています。以下にアクセスして、オンラインで体験してください:
+PageSpy は、主要なフレームワークの統合ガイドを CodeSandbox プラットフォームで公開しています。オンラインで体験できます:
 
 - **React**：[CodeSandbox - PageSpy in React](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
 - **Vue**：[CodeSandbox - PageSpy in Vue](https://codesandbox.io/p/sandbox/page-spy-with-vue-ft35qs)
@@ -113,14 +113,14 @@ PageSpy は、現在のところ、すべてのフレームワークの統合ガ
 
 ### ブラウザ拡張機能#extension
 
-PageSpy は、ブラウザ拡張機能を提供して、ページをデバッグするためのコードを統合することなく、任意のページで PageSpy を使用できるようにします。
+PageSpy は、コードを統合することなく、任意のウェブページで PageSpy を使用できるブラウザ拡張機能を提供しています！
 
-はい、その通りです！PageSpy のブラウザ拡張機能を使用すると、ページをデバッグするためのコードを統合することなく、任意のページで PageSpy を使用できます。
+はい、その通りです！PageSpy のブラウザ拡張機能を使用すれば、ほぼすべてのウェブページをデバッグできます！（CSP ポリシーが設定されている一部のウェブサイトでは動作しない場合があります）
 
 #### インストール#install-extension
 
-- [Chrome ウェブストア](https://chromewebstore.google.com/detail/pagespy/kpfigmbgeedkgnjnlpilghiffepahlmk) にアクセスして、一度のクリックでインストールするか、
-- [ブラウザ拡張機能](https://github.com/HuolalaTech/page-spy-extension/tree/main/packages/online-pagespy-extension) リポジトリにアクセスし、README ドキュメントに従ってインストールしてください。
+- [Chrome ウェブストア](https://chromewebstore.google.com/detail/pagespy/kpfigmbgeedkgnjnlpilghiffepahlmk) からワンクリックでインストールするか、
+- [ブラウザ拡張機能](https://github.com/HuolalaTech/page-spy-extension/tree/main/packages/online-pagespy-extension) リポジトリにアクセスし、README ドキュメントに従って手動でインストールしてください。
 
 #### パネルパラメーター#extension-panel
 

@@ -4,9 +4,9 @@ import moduleImg from '@/assets/image/screenshot/module.png';
 
 PageSpyは以下の3つのモジュールで構成されています：
 
-- デバッグクライアント：[HuolalaTech/page-spy-web](https://github.com/HuolalaTech/page-spy-web)リポジトリに対応し、主に開発者が使用し、オンラインデバッグやオフラインリプレイなどの様々なデバッグ機能パネルを提供します。
-- SDK：[HuolalaTech/page-spy](https://github.com/HuolalaTech/page-spy)リポジトリに対応し、ユーザープロジェクトの実行時に生成されたデータをサーバーに送信し、サーバーがデバッグクライアントに転送します。
-- サーバー：[HuolalaTech/page-spy-api](https://github.com/HuolalaTech/page-spy-api)リポジトリに対応し、主に両端のメッセージの中継、データの保存などを担当します。
+- デバッグクライアント：[HuolalaTech/page-spy-web](https://github.com/HuolalaTech/page-spy-web)リポジトリに対応します。開発者が使用し、オンラインデバッグやオフラインリプレイなどの様々なデバッグ機能パネルを提供します。
+- SDK：[HuolalaTech/page-spy](https://github.com/HuolalaTech/page-spy)リポジトリに対応します。クライアントアプリケーションの実行時データを収集してサーバーに送信し、サーバーからデバッグクライアントに転送します。
+- サーバー：[HuolalaTech/page-spy-api](https://github.com/HuolalaTech/page-spy-api)リポジトリに対応します。両端のメッセージを中継し、データを保存します。
 
 三つのモジュール間のインタラクション図は以下の通りです：
 
@@ -16,7 +16,7 @@ PageSpyは以下の3つのモジュールで構成されています：
 
 ### 複数のデプロイメントソリューション#deployments
 
-使いやすさとデータの安全性を確保するため、PageSpyは完全な、すぐに使える複数の**ワンクリックデプロイメントソリューション**を提供しています。開発者の皆様は、ご自身の状況に応じて任意のデプロイメント方法を選択できます。
+使いやすさとデータの安全性を確保するため、PageSpyは複数のすぐに使える**ワンクリックデプロイメントソリューション**を提供しています。実際の状況に応じて適切なデプロイメント方法を選択できます。
 
 - [Node.js でデプロイ](./deploy-with-node)
 - [Docker でデプロイ](./deploy-with-docker)

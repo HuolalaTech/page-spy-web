@@ -33,15 +33,15 @@ import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';
 
 ##### 2단계#script-usage-step-2
 
-PageSpy와 플러그인을 초기화합니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 [설정 항목]({VITE_SDK_BROWSER_REPO})을 제공합니다:
+PageSpy와 플러그인을 초기화합니다. [설정 옵션]({VITE_SDK_BROWSER_REPO})을 통해 SDK 동작을 사용자 정의할 수 있습니다:
 
 <blockquote>
   <details>
     <summary>도입된 플러그인은 어떤 기능을 제공하나요?</summary>
     <div>
       [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR})과 [RRWebPlugin]({VITE_PLUGIN_RRWEB}) 두 플러그인은 PageSpy의 기능을 확장하는 데 사용됩니다:
-      - **DataHarborPlugin**: PageSpy는 기본적으로 온라인 모드만 지원합니다. DataHarborPlugin은 PageSpy가 오프라인 모드 디버깅을 가능하게 합니다. [오프라인 로그 재생](./offline-log)에서 자세한 정보를 확인하세요;
-      - **RRWebPlugin**: 사용자 작업 기록을 저장하며, 내부적으로 [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.ko.md)을 사용합니다. 일반적으로 DataHarborPlugin과 함께 사용됩니다.
+      - **DataHarborPlugin**: PageSpy 자체는 온라인 모드만 지원하며, 디버깅 중 클라이언트와 디버깅 엔드포인트가 동시에 온라인 상태여야 합니다. DataHarborPlugin은 PageSpy가 오프라인 디버깅을 가능하게 합니다. 자세한 내용은 [오프라인 로그](./offline-log)를 참조하세요.
+      - **RRWebPlugin**: [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.ko.md)을 사용하여 사용자 작업을 기록합니다. 일반적으로 DataHarborPlugin과 함께 사용됩니다.
 
       [플러그인 개발](./plugins)을 통해 자신만의 PageSpy를 만들 수도 있습니다!
     </div>
@@ -91,7 +91,7 @@ window.$rrweb = new RRWebPlugin();
   PageSpy.registerPlugin(p);
 })
 
-// ESM 모드에서는 자동 분석이 불가능하므로, 아래의 인스턴스 초기화 매개변수가 필요합니다
+// ESM 모드에서는 배포 주소를 자동으로 분석할 수 없으므로 다음 매개변수를 수동으로 구성해야 합니다
 window.$pageSpy = new PageSpy({
   api: "{deployPath}",
   clientOrigin: "{deployUrl}"
@@ -102,7 +102,7 @@ window.$pageSpy = new PageSpy({
 
 ### 프레임워크에 통합#framework
 
-PageSpy는 현재 CodeSandbox 플랫폼에서 모든 프레임워크의 통합 가이드를 공개하고 있습니다. 온라인으로 경험해 보세요:
+PageSpy는 CodeSandbox 플랫폼에서 주요 프레임워크의 통합 가이드를 공개했습니다. 온라인으로 경험해 보세요:
 
 - **React**：[CodeSandbox - PageSpy in React](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
 - **Vue**：[CodeSandbox - PageSpy in Vue](https://codesandbox.io/p/sandbox/page-spy-with-vue-ft35qs)
@@ -113,14 +113,14 @@ PageSpy는 현재 CodeSandbox 플랫폼에서 모든 프레임워크의 통합 �
 
 ### 브라우저 플러그인#extension
 
-PageSpy는 브라우저 플러그인을 제공하여 통합 코드 없이도 모든 웹 페이지에서 PageSpy를 사용할 수 있도록 합니다.
+PageSpy는 코드 통합 없이도 모든 웹 페이지에서 PageSpy를 사용할 수 있는 브라우저 플러그인을 제공합니다!
 
-네, 맞습니다! PageSpy 브라우저 플러그인을 사용하면 통합 코드 없이도 모든 웹 페이지에서 PageSpy를 사용할 수 있습니다.
+네, 맞습니다! PageSpy 브라우저 플러그인을 사용하면 거의 모든 웹 페이지를 디버깅할 수 있습니다! (CSP 정책이 설정된 일부 웹 사이트는 작동하지 않을 수 있습니다)
 
 #### 설치#install-extension
 
-- [Chrome 웹 스토어](https://chromewebstore.google.com/detail/pagespy/kpfigmbgeedkgnjnlpilghiffepahlmk)로 이동하여 한 번의 클릭으로 설치하거나;
-- [브라우저 플러그인](https://github.com/HuolalaTech/page-spy-extension/tree/main/packages/online-pagespy-extension) 저장소로 이동하여 README 문서를 따라 설치하세요.
+- [Chrome 웹 스토어](https://chromewebstore.google.com/detail/pagespy/kpfigmbgeedkgnjnlpilghiffepahlmk)에서 원클릭으로 설치하거나
+- [브라우저 플러그인](https://github.com/HuolalaTech/page-spy-extension/tree/main/packages/online-pagespy-extension) 저장소로 이동하여 README 문서에 따라 수동으로 설치하세요.
 
 #### 패널 매개변수#extension-panel
 
