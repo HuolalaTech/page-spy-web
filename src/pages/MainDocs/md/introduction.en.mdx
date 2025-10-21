@@ -70,7 +70,9 @@ export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
 ### What is PageSpy?#what-is-page-spy
 
-**PageSpy** is an open-source debugging platform compatible with various platforms, including [Web](./browser), [Mini Program](./miniprogram), [React Native](./react-native), and [Harmony OS Apps](./harmony). It encapsulates native APIs, filtering and transforming the parameters when native methods are invoked, and organizes them into a specific format for the debugging client to consume. The debugging client then provides a devtools UI to display this data.
+**PageSpy** is an open-source remote debugging tool compatible with multiple platforms including [Web](./browser), [Mini Program](./miniprogram), [React Native](./react-native), and [Harmony OS Apps](./harmony).
+
+It encapsulates native APIs, filtering and transforming the parameters when native methods are invoked, and organizes them into a standard format for transmission to the debugging client. The debugging client then presents the data intuitively through an interface similar to the local console.
 
 ### Why is PageSpy?#why-is-page-spy
 
@@ -84,17 +86,17 @@ export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
 _PageSpy shines in any scenario where local console debugging is not possible!_ Let's explore some use cases:
 
-- **Local Debugging of H5 and Webview Applications**: While some products provide panels for viewing information on H5, small screens in mobile often make operations inconvenient, the display less user-friendly, and information might get truncated.
+- **Local Debugging of H5 and Webview Applications**: Mobile screens are too small, traditional debugging panels are inconvenient to operate, display poorly, and prone to information truncation.
 
-- **Remote Work and Cross-Region Collaboration**: Traditional communication methods like emails, phone calls, and video conferences often suffer from low efficiency, incomplete fault information, and can easily lead to misunderstandings and misjudgments.
+- **Remote Work and Cross-Region Collaboration**: Traditional communication methods (email, phone, video conferencing) are inefficient, fault information is incomplete, and misunderstandings and misjudgments easily occur.
 
-- **White Screen Issues on User Terminals**: Traditional methods for locating issues, such as data monitoring and log analysis, rely on the troubleshooting team understanding the business requirements and technical implementations.
+- **Troubleshooting White Screen Issues on User Terminals**: Data monitoring, log analysis and other traditional methods rely on the troubleshooting team's deep understanding of business and technology, resulting in low localization efficiency.
 
 Yep, the goal of PageSpy is can help the people which in like above cases.
 
 ### Feature Overview#page-overview
 
-Based on providing debugging functionality, PageSpy extends to two scenarios: **Online Real-time Debugging** and **Offline Log Replay**!
+Based on providing debugging functionality, PageSpy extends into two scenarios: **Online Real-time Debugging** and **Offline Log Replay**!
 
 #### 1. Online Real-time Debugging#online-debugging
 

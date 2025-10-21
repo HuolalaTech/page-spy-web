@@ -4,9 +4,9 @@ import moduleImg from '@/assets/image/screenshot/module.png';
 
 PageSpy는 다음과 같은 세 가지 모듈로 구성되어 있습니다:
 
-- 디버깅 클라이언트: [HuolalaTech/page-spy-web](https://github.com/HuolalaTech/page-spy-web) 리포지토리에 해당하며, 주로 개발자가 사용하고 온라인 디버깅, 오프라인 재생 등 다양한 디버깅 기능 패널을 제공합니다.
-- SDK: [HuolalaTech/page-spy](https://github.com/HuolalaTech/page-spy) 리포지토리에 해당하며, 사용자 프로젝트의 실행 시 생성된 데이터를 서버로 전송하고, 서버가 디버깅 클라이언트로 전달합니다.
-- 서버: [HuolalaTech/page-spy-api](https://github.com/HuolalaTech/page-spy-api) 리포지토리에 해당하며, 주로 양쪽 간의 메시지 중계, 데이터 저장 등을 담당합니다.
+- 디버깅 클라이언트: [HuolalaTech/page-spy-web](https://github.com/HuolalaTech/page-spy-web) 리포지토리에 해당합니다. 개발자가 사용하며 온라인 디버깅, 오프라인 재생 등 다양한 디버깅 기능 패널을 제공합니다.
+- SDK: [HuolalaTech/page-spy](https://github.com/HuolalaTech/page-spy) 리포지토리에 해당합니다. 클라이언트 애플리케이션의 런타임 데이터를 수집하여 서버로 전송하고, 서버에서 디버깅 클라이언트로 전달합니다.
+- 서버: [HuolalaTech/page-spy-api](https://github.com/HuolalaTech/page-spy-api) 리포지토리에 해당합니다. 양쪽 엔드포인트 간의 메시지를 중계하고 데이터를 저장합니다.
 
 세 가지 모듈 간의 상호작용 관계는 다음과 같습니다:
 
@@ -16,7 +16,7 @@ PageSpy는 다음과 같은 세 가지 모듈로 구성되어 있습니다:
 
 ### 다양한 배포 솔루션#deployments
 
-사용 편의성과 데이터 보안을 위해 PageSpy는 완전하고 즉시 사용 가능한 다양한 **원클릭 배포 솔루션**을 제공합니다. 개발자는 자신의 상황에 맞는 배포 방식을 선택할 수 있습니다.
+사용 편의성과 데이터 보안을 위해 PageSpy는 즉시 사용 가능한 여러 **원클릭 배포 솔루션**을 제공합니다. 실제 상황에 따라 적절한 배포 방법을 선택할 수 있습니다.
 
 - [Node.js로 배포](./deploy-with-node)
 - [Docker로 배포](./deploy-with-docker)

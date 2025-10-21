@@ -1,17 +1,21 @@
 import PlatformTag from '@/components/Docs/components/PlatformTag';
 
-> 某些特性仅支持在特定平台中可用，对此我们将通过下方标识以区分：
->
-> | 平台         | 标签                           |
-> | ------------ | ------------------------------ |
-> | 浏览器       | <PlatformTag type="browser" /> |
-> | 小程序       | <PlatformTag type="mp" />      |
-> | React Native | <PlatformTag type="rn" />      |
-> | 鸿蒙         | <PlatformTag type="harmony" /> |
+本页面提供 PageSpy 核心 API 及插件 API 的索引导航，点击链接查看详细文档。
+
+部分 API 仅支持特定平台，使用以下标签标识：
+
+| 平台         | 标签                           |
+| ------------ | ------------------------------ |
+| 浏览器       | <PlatformTag type="browser" /> |
+| 小程序       | <PlatformTag type="mp" />      |
+| React Native | <PlatformTag type="rn" />      |
+| 鸿蒙         | <PlatformTag type="harmony" /> |
 
 ### PageSpy#pagespy
 
-> 约定实例变量名称为 `$pageSpy = new PageSpy(...)`；
+PageSpy 核心类，提供应用调试的基础功能。
+
+> 以下文档中使用 `$pageSpy` 表示 PageSpy 实例，即 `$pageSpy = new PageSpy(...)`
 
 - [constructor()](./pagespy#constructor)
 - [$pageSpy.updateRoomInfo()](./pagespy#updateRoomInfo)
@@ -28,7 +32,9 @@ import PlatformTag from '@/components/Docs/components/PlatformTag';
 
 #### DataHarborPlugin#harbor
 
-> 约定实例变量名称为 `$harbor = new DataHarborPlugin(...)`；
+DataHarborPlugin 用于离线数据缓存和上传下载管理。
+
+> 以下文档中使用 `$harbor` 表示 DataHarborPlugin 实例，即 `$harbor = new DataHarborPlugin(...)`
 
 - [constructor()](./data-harbor#constructor)
 - [手动操作日志](./data-harbor#onOfflineLog)
@@ -38,6 +44,8 @@ import PlatformTag from '@/components/Docs/components/PlatformTag';
 
 #### RRWebPlugin#rrweb
 
-> 约定实例变量名称为 `$rrweb = new RRWebPlugin(...)`；
+RRWebPlugin 用于录制和回放用户操作，便于复现问题场景。
+
+> 以下文档中使用 `$rrweb` 表示 RRWebPlugin 实例，即 `$rrweb = new RRWebPlugin(...)`
 
 - [constructor()](./rrweb#constructor)

@@ -1,17 +1,21 @@
 import PlatformTag from '@/components/Docs/components/PlatformTag';
 
-> 일부 기능은 특정 플랫폼에서만 사용할 수 있으며, 다음과 같은 태그로 구분됩니다:
->
-> | 플랫폼        | 태그                           |
-> | ------------ | ------------------------------ |
-> | 브라우저      | <PlatformTag type="browser" /> |
-> | 미니프로그램   | <PlatformTag type="mp" />      |
-> | React Native | <PlatformTag type="rn" />      |
-> | HarmonyOS    | <PlatformTag type="harmony" /> |
+이 페이지는 PageSpy 핵심 API 및 플러그인 API 인덱스를 제공합니다. 링크를 클릭하여 자세한 문서를 확인하세요.
+
+일부 API는 특정 플랫폼에서만 사용할 수 있으며 다음 태그로 표시됩니다:
+
+| 플랫폼        | 태그                           |
+| ------------ | ------------------------------ |
+| 브라우저      | <PlatformTag type="browser" /> |
+| 미니프로그램   | <PlatformTag type="mp" />      |
+| React Native | <PlatformTag type="rn" />      |
+| HarmonyOS    | <PlatformTag type="harmony" /> |
 
 ### PageSpy#pagespy
 
-> 인스턴스 변수 이름을 `$pageSpy = new PageSpy(...)`로 정의합니다;
+PageSpy 핵심 클래스로 애플리케이션 디버깅의 기본 기능을 제공합니다.
+
+> 다음 문서에서 `$pageSpy`는 PageSpy 인스턴스를 나타냅니다. 즉, `$pageSpy = new PageSpy(...)`
 
 - [constructor()](./pagespy#constructor)
 - [$pageSpy.updateRoomInfo()](./pagespy#updateRoomInfo)
@@ -28,7 +32,9 @@ import PlatformTag from '@/components/Docs/components/PlatformTag';
 
 #### DataHarborPlugin#harbor
 
-> 인스턴스 변수 이름을 `$harbor = new DataHarborPlugin(...)`로 정의합니다;
+DataHarborPlugin은 오프라인 데이터 캐싱 및 업로드/다운로드 관리에 사용됩니다.
+
+> 다음 문서에서 `$harbor`는 DataHarborPlugin 인스턴스를 나타냅니다. 즉, `$harbor = new DataHarborPlugin(...)`
 
 - [constructor()](./data-harbor#constructor)
 - [수동 작업 로그](./data-harbor#onOfflineLog)
@@ -38,6 +44,8 @@ import PlatformTag from '@/components/Docs/components/PlatformTag';
 
 #### RRWebPlugin#rrweb
 
-> 인스턴스 변수 이름을 `$rrweb = new RRWebPlugin(...)`로 정의합니다;
+RRWebPlugin은 사용자 작업을 기록하고 재생하는 데 사용되며 문제 시나리오를 재현하기 쉽게 만듭니다.
+
+> 다음 문서에서 `$rrweb`은 RRWebPlugin 인스턴스를 나타냅니다. 즉, `$rrweb = new RRWebPlugin(...)`
 
 - [constructor()](./rrweb#constructor)

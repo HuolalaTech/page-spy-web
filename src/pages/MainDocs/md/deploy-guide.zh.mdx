@@ -4,9 +4,9 @@ import moduleImg from '@/assets/image/screenshot/module.png';
 
 PageSpy 由以下三个模块组成：
 
-- 调试端：对应 [HuolalaTech/page-spy-web](https://github.com/HuolalaTech/page-spy-web) 仓库，主要供开发者使用，提供各类调试功能面板，包括在线调试、离线回放等；
-- SDK：对应 [HuolalaTech/page-spy](https://github.com/HuolalaTech/page-spy) 仓库，负责将用户项目在运行时产生的数据发送给服务端，并由服务端转发给调试端；
-- 服务端：对应 [HuolalaTech/page-spy-api](https://github.com/HuolalaTech/page-spy-api) 仓库，主要负责中转两端的消息、存储数据等。
+- 调试端：对应 [HuolalaTech/page-spy-web](https://github.com/HuolalaTech/page-spy-web) 仓库，供开发者使用，提供各类调试功能面板，包括在线调试、离线回放等。
+- SDK：对应 [HuolalaTech/page-spy](https://github.com/HuolalaTech/page-spy) 仓库，负责收集用户项目运行时的数据并发送给服务端，由服务端转发给调试端。
+- 服务端：对应 [HuolalaTech/page-spy-api](https://github.com/HuolalaTech/page-spy-api) 仓库，负责中转两端的消息、存储数据等。
 
 三个模块之间的交互图如下：
 
@@ -16,7 +16,7 @@ PageSpy 由以下三个模块组成：
 
 ### 多种部署方案#deployments
 
-为了方便使用和数据安全，PageSpy 提供完整的、开箱即用的多种 **一键部署方案**，各位开发者可以根据自己的情况任意选择一种部署方式。
+为了方便使用和保障数据安全，PageSpy 提供多种开箱即用的 **一键部署方案**，你可以根据实际情况选择合适的部署方式。
 
 - [使用 Node 部署](./deploy-with-node)
 - [使用 Docker 部署](./deploy-with-docker)

@@ -4,9 +4,9 @@ import moduleImg from '@/assets/image/screenshot/module.png';
 
 PageSpy is composed of the following three modules:
 
-- Debugging Client: Corresponds to the [HuolalaTech/page-spy-web](https://github.com/HuolalaTech/page-spy-web) repository. It is primarily used by developers and provides various debugging features, including online debugging and offline replay.
-- SDK: Corresponds to the [HuolalaTech/page-spy](https://github.com/HuolalaTech/page-spy) repository. It is responsible for sending data generated during runtime from the user's project to the server, which then forwards it to the debugging client.
-- Server: Corresponds to the [HuolalaTech/page-spy-api](https://github.com/HuolalaTech/page-spy-api) repository. It is mainly responsible for relaying messages between the two endpoints and storing data.
+- Debugging Client: Corresponds to the [HuolalaTech/page-spy-web](https://github.com/HuolalaTech/page-spy-web) repository. Used by developers, it provides various debugging features, including online debugging and offline replay.
+- SDK: Corresponds to the [HuolalaTech/page-spy](https://github.com/HuolalaTech/page-spy) repository. It collects runtime data from the client application and sends it to the server, which then forwards it to the debugging client.
+- Server: Corresponds to the [HuolalaTech/page-spy-api](https://github.com/HuolalaTech/page-spy-api) repository. It relays messages between the two endpoints and stores data.
 
 The interaction diagram between the three modules is as follows:
 
@@ -16,7 +16,7 @@ The interaction diagram between the three modules is as follows:
 
 ### Multiple Deployment Options#deployments
 
-For ease of use and data security, PageSpy provides complete, out-of-the-box **one-click deployment solutions**. Developers can choose any deployment method that suits their needs.
+For ease of use and data security, PageSpy provides multiple out-of-the-box **one-click deployment solutions**. You can choose the appropriate deployment method based on your actual situation.
 
 - [Deploy with Node](./deploy-with-node)
 - [Deploy with Docker](./deploy-with-docker)

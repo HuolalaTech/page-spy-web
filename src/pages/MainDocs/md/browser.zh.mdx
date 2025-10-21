@@ -34,14 +34,14 @@ import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';
 
 ##### 第二步#script-usage-step-2
 
-初始化 PageSpy 和插件，它们的初始化参数都提供了可选的 [配置项]({VITE_SDK_BROWSER_REPO}) 用于自定义 SDK 的行为：
+初始化 PageSpy 和插件，可通过 [配置项]({VITE_SDK_BROWSER_REPO}) 自定义 SDK 的行为：
 
 <blockquote>
   <details>
     <summary>引入的插件提供了哪些功能？</summary>
     <div>
-      [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) 和 [RRWebPlugin]({VITE_PLUGIN_RRWEB}) 两个插件，主要用于拓展 PageSpy 的能力：
-      - **DataHarborPlugin**：PageSpy 本身仅支持在线模式，即调试期间「客户端和调试端必须同时在线」，DataHarborPlugin 让 PageSpy 实现了离线模式的调试。点击 [离线日志回放](./offline-log) 查看更多详细信息；
+      [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) 和 [RRWebPlugin]({VITE_PLUGIN_RRWEB}) 两个插件，主要用于扩展 PageSpy 的能力：
+      - **DataHarborPlugin**：PageSpy 本身仅支持在线模式，即调试期间客户端和调试端必须同时在线。DataHarborPlugin 让 PageSpy 实现了离线模式的调试，点击 [离线日志回放](./offline-log) 查看更多详细信息。
       - **RRWebPlugin**：记录用户操作轨迹，底层使用 [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.zh_CN.md)。通常和 DataHarborPlugin 绑定在一起使用。
 
       你也可以通过 [开发插件](./plugins)，定制属于你自己的 PageSpy！
@@ -92,7 +92,7 @@ window.$rrweb = new RRWebPlugin();
   PageSpy.registerPlugin(p);
 })
 
-// ESM 模式下无法自动分析，所以下面的实例化参数是必须的
+// ESM 模式下无法自动分析部署地址，因此必须手动配置以下参数
 window.$pageSpy = new PageSpy({
   api: "{deployPath}",
   clientOrigin: "{deployUrl}"
@@ -103,7 +103,7 @@ window.$pageSpy = new PageSpy({
 
 ### 在框架中集成#framework
 
-PageSpy 通过 CodeSandbox 平台发布了与当下流行的所有框架的接入指南，大家可以前往在线体验：
+PageSpy 在 CodeSandbox 平台发布了与主流框架的接入指南，你可以前往在线体验：
 
 - **React**：[CodeSandbox - PageSpy in React](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
 - **Vue**：[CodeSandbox - PageSpy in Vue](https://codesandbox.io/p/sandbox/page-spy-with-vue-ft35qs)
@@ -114,13 +114,13 @@ PageSpy 通过 CodeSandbox 平台发布了与当下流行的所有框架的接�
 
 ### 使用浏览器插件#extension
 
-PageSpy 提供浏览器插件让你无需集成任何代码，即可在任何网页上使用 PageSpy！
+PageSpy 提供浏览器插件，让你无需集成任何代码，即可在任何网页上使用 PageSpy！
 
-是的，你没看错！通过 PageSpy 的浏览器插件你可以调试几乎所有网页！少数网站设置了 CSP 策略可能会导致插件无法生效。
+是的，你没看错！通过 PageSpy 的浏览器插件你可以调试几乎所有网页！（少数设置了 CSP 策略的网站可能无法生效）
 
 #### 安装#install-extension
 
-- 前往 [Chrome 应用商店](https://chromewebstore.google.com/detail/pagespy/kpfigmbgeedkgnjnlpilghiffepahlmk) 一键安装， 或者；
+- 前往 [Chrome 应用商店](https://chromewebstore.google.com/detail/pagespy/kpfigmbgeedkgnjnlpilghiffepahlmk) 一键安装，或者：
 - 前往 [浏览器插件](https://github.com/HuolalaTech/page-spy-extension/tree/main/packages/online-pagespy-extension) 仓库，按照 README 文档手动安装。
 
 #### 面板参数#extension-panel

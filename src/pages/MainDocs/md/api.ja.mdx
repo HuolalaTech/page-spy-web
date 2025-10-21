@@ -1,17 +1,21 @@
 import PlatformTag from '@/components/Docs/components/PlatformTag';
 
-> 特定のプラットフォームでのみ使用できる機能については、以下のラベルで区別します。
->
-> | プラットフォーム | ラベル                           |
-> | ---------------- | ------------------------------ |
-> | ブラウザ         | <PlatformTag type="browser" /> |
-> | アプリ           | <PlatformTag type="mp" />      |
-> | React Native     | <PlatformTag type="rn" />      |
-> | ハーモニー       | <PlatformTag type="harmony" /> |
+このページでは、PageSpy コア API とプラグイン API のインデックスを提供します。リンクをクリックして詳細なドキュメントを参照してください。
+
+一部の API は特定のプラットフォームでのみ利用可能で、以下のタグで識別されます：
+
+| プラットフォーム | ラベル                           |
+| ---------------- | ------------------------------ |
+| ブラウザ         | <PlatformTag type="browser" /> |
+| アプリ           | <PlatformTag type="mp" />      |
+| React Native     | <PlatformTag type="rn" />      |
+| ハーモニー       | <PlatformTag type="harmony" /> |
 
 ### PageSpy#pagespy
 
-> インスタンス変数名を `$pageSpy` とします。
+PageSpy コアクラスは、アプリケーションデバッグの基本機能を提供します。
+
+> 以下のドキュメントでは、`$pageSpy` で PageSpy インスタンスを表します。つまり、`$pageSpy = new PageSpy(...)` です。
 
 - [constructor()](./pagespy#constructor)
 - [$pageSpy.updateRoomInfo()](./pagespy#updateRoomInfo)
@@ -28,7 +32,9 @@ import PlatformTag from '@/components/Docs/components/PlatformTag';
 
 #### DataHarborPlugin#harbor
 
-> インスタンス変数名を `$harbor` とします。
+DataHarborPlugin は、オフラインデータのキャッシュとアップロード/ダウンロード管理に使用されます。
+
+> 以下のドキュメントでは、`$harbor` で DataHarborPlugin インスタンスを表します。つまり、`$harbor = new DataHarborPlugin(...)` です。
 
 - [constructor()](./data-harbor#constructor)
 - [手動操作ログ](./data-harbor#onOfflineLog)
@@ -38,6 +44,8 @@ import PlatformTag from '@/components/Docs/components/PlatformTag';
 
 #### RRWebPlugin#rrweb
 
-> インスタンス変数名を `$rrweb` とします。
+RRWebPlugin は、ユーザー操作の録画と再生に使用され、問題シナリオの再現を容易にします。
+
+> 以下のドキュメントでは、`$rrweb` で RRWebPlugin インスタンスを表します。つまり、`$rrweb = new RRWebPlugin(...)` です。
 
 - [constructor()](./rrweb#constructor)
