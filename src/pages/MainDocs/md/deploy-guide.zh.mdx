@@ -1,14 +1,22 @@
-import ApiImg from '@/assets/image/screenshot/page-spy-api.png';
+import moduleImg from '@/assets/image/screenshot/module.png';
 
-<a href={ApiImg} target="_blank">
-  <img src={ApiImg} />
+### 主要构成#main-components
+
+PageSpy 由以下三个模块组成：
+
+- 调试端：对应 [HuolalaTech/page-spy-web](https://github.com/HuolalaTech/page-spy-web) 仓库，主要供开发者使用，提供各类调试功能面板，包括在线调试、离线回放等；
+- SDK：对应 [HuolalaTech/page-spy](https://github.com/HuolalaTech/page-spy) 仓库，负责将用户项目在运行时产生的数据发送给服务端，并由服务端转发给调试端；
+- 服务端：对应 [HuolalaTech/page-spy-api](https://github.com/HuolalaTech/page-spy-api) 仓库，主要负责中转两端的消息、存储数据等。
+
+三个模块之间的交互图如下：
+
+<a href={moduleImg} target="_blank">
+  <img alt="系统模块示意图" src={moduleImg} />
 </a>
 
-用于连接客户端和调试端、并转发两端之间消息的服务是 PageSpy 的核心能力之一。
-
-为了数据安全和方便使用，PageSpy 提供完整的、开箱即用的多种部署方案，各位开发者可以根据自己的情况选择任意一种部署方式。
-
 ### 多种部署方案#deployments
+
+为了方便使用和数据安全，PageSpy 提供完整的、开箱即用的多种 **一键部署方案**，各位开发者可以根据自己的情况任意选择一种部署方式。
 
 - [使用 Node 部署](./deploy-with-node)
 - [使用 Docker 部署](./deploy-with-docker)

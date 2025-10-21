@@ -36,7 +36,6 @@ import storageImg from '@/assets/image/screenshot/storage-panel.png';
 import systemImg from '@/assets/image/screenshot/system-panel.png';
 import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-zh.png';
 import offlineImg from '@/assets/image/screenshot/offline-panel.png';
-import moduleImg from '@/assets/image/screenshot/module.png'; 
 
 export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
@@ -69,23 +68,11 @@ export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
 PageSpyの目標は、上記のようなシーンに関わる人々をサポートすることです。
 
-### 主な構成要素#main-components
+### 機能概要#page-overview
 
-PageSpyは以下の3つのモジュールで構成されています：
+PageSpyはデバッグ機能を提供する基盤の上で、**オンラインリアルタイムデバッグ**と**オフラインログリプレイ**の2つのシナリオに拡張しています！
 
-- **デバッグクライアント**：開発者が使用する部分で、オンラインデバッグとオフラインリプレイの機能を提供します。
-- **SDK**：ユーザーのプロジェクトで実行時に生成されたデータを収集し、デバッグクライアントに送信します。
-- **サーバー**：デバッグクライアントとSDKの間でメッセージを中継し、データを保存します。
-
-三つのモジュール間のインタラクション図は以下の通りです：
-
-<a href={moduleImg} target="_blank">
-  <img alt="システムモジュール図" src={moduleImg} />
-</a>
-
-### デバッグクライアントの概要#page-overview
-
-#### オンラインデバッグモード#online-debug
+#### 1. オンラインリアルタイムデバッグ#online-debugging
 
 - Consoleパネル: `console.<log | info | warn | error | debug>`で出力されたログ情報を表示し、クライアントに実行するコードを送信できます。
 
@@ -119,10 +106,10 @@ PageSpyは以下の3つのモジュールで構成されています：
 
 さらに、新しいデータが追加されたり、データが変更されたりした場合、リアルタイムで通知を受け取ることができます。
 
-#### オフラインリプレイモード#offline-debugging
+#### 2. オフラインログリプレイ#offline-debugging
 
 <a href={offlineImg} target="_blank">
   <img src={offlineImg} />
 </a>
 
-再生の進行状況はあなたがコントロールでき、プログレスバーの再生に合わせて、クライアントの操作軌跡と対応するデータを確認することができます。
+柔軟性が高く、再生の進行状況はあなたがコントロールでき、プログレスバーの再生に合わせて、クライアントの操作軌跡と対応するデータを確認することができます。

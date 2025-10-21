@@ -135,6 +135,27 @@
     },
     {
       "language": "en",
+      "route": "/docs/changelog#v2-4-3",
+      "parent": "Changelog",
+      "title": "v2.4.3",
+      "content": " 🐛 Fix the logic of the browser SDK, making the socketStore.connectable state associated with the offline initialization option; "
+    },
+    {
+      "language": "en",
+      "route": "/docs/changelog#v2-4-2",
+      "parent": "Changelog",
+      "title": "v2.4.2",
+      "content": " 🐛 Fix the issue where the browser SDK automatically reconnect when the page is switched to the front-ground, see details: https://github.com/HuolalaTech/page-spy/pull/146; "
+    },
+    {
+      "language": "en",
+      "route": "/docs/changelog#v2-4-1",
+      "parent": "Changelog",
+      "title": "v2.4.1",
+      "content": " 🐛 Fix the issue where the WebSocket plugin in the SDK cannot work normally; 🐛 Fix the issue where the debugger handles WebSocket / EventSource request response data processing; "
+    },
+    {
+      "language": "en",
       "route": "/docs/changelog#v2-4-0",
       "parent": "Changelog",
       "title": "v2.4.0",
@@ -432,14 +453,21 @@
       "route": "/docs/deploy-guide#deploy-guide",
       "parent": "Guide",
       "title": "Guide",
-      "content": "import ApiImg from '@/assets/image/screenshot/page-spy-api.png';One of the core capabilities of PageSpy is its service that connects the client and the debugging endpoint, and forwards messages between them.To ensure data security and ease of use, PageSpy offers a variety of complete, out-of-the-box deployment options. You can choose any deployment method that suits yourself."
+      "content": "import moduleImg from '@/assets/image/screenshot/module.png';"
+    },
+    {
+      "language": "en",
+      "route": "/docs/deploy-guide#main-components",
+      "parent": "Guide",
+      "title": "Main Components",
+      "content": "PageSpy is composed of the following three modules: Debugging Client: Corresponds to the HuolalaTech/page-spy-web repository. It is primarily used by developers and provides various debugging features, including online debugging and offline replay. SDK: Corresponds to the HuolalaTech/page-spy repository. It is responsible for sending data generated during runtime from the user's project to the server, which then forwards it to the debugging client. Server: Corresponds to the HuolalaTech/page-spy-api repository. It is mainly responsible for relaying messages between the two endpoints and storing data. The interaction diagram between the three modules is as follows:"
     },
     {
       "language": "en",
       "route": "/docs/deploy-guide#deployments",
       "parent": "Guide",
-      "title": "Deployments",
-      "content": " Deploy with Node Deploy with Docker Install on Baota "
+      "title": "Multiple Deployment Options",
+      "content": "For ease of use and data security, PageSpy provides complete, out-of-the-box one-click deployment solutions. Developers can choose any deployment method that suits their needs. Deploy with Node Deploy with Docker Install on Baota "
     },
     {
       "language": "en",
@@ -733,7 +761,7 @@
       "route": "/docs/introduction#introduction",
       "parent": "Introduction",
       "title": "Introduction",
-      "content": "import React from 'react'; import { Flex } from 'antd'; import bannerImg from '@/assets/image/doc-banner.png';import logo from '@/assets/image/logo.svg'; import consoleImg from '@/assets/image/screenshot/console-panel.png'; import networkImg from '@/assets/image/screenshot/network-panel.png'; import pageImg from '@/assets/image/screenshot/page-panel.png'; import storageImg from '@/assets/image/screenshot/storage-panel.png'; import systemImg from '@/assets/image/screenshot/system-panel.png'; import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-en.png'; import offlineImg from '@/assets/image/screenshot/offline-panel.png'; import moduleImg from '@/assets/image/screenshot/module.png';export const githubUrl = import.meta.env.VITE_GITHUB_REPO;"
+      "content": "import React from 'react'; import { Flex } from 'antd'; import bannerImg from '@/assets/image/doc-banner.png';import logo from '@/assets/image/logo.svg'; import consoleImg from '@/assets/image/screenshot/console-panel.png'; import networkImg from '@/assets/image/screenshot/network-panel.png'; import pageImg from '@/assets/image/screenshot/page-panel.png'; import storageImg from '@/assets/image/screenshot/storage-panel.png'; import systemImg from '@/assets/image/screenshot/system-panel.png'; import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-en.png'; import offlineImg from '@/assets/image/screenshot/offline-panel.png';export const githubUrl = import.meta.env.VITE_GITHUB_REPO;"
     },
     {
       "language": "en",
@@ -758,31 +786,24 @@
     },
     {
       "language": "en",
-      "route": "/docs/introduction#main-components",
-      "parent": "Introduction",
-      "title": "Main Components",
-      "content": "PageSpy is composed of the following three modules: Debugging Client: The debugging client is the part that developers use, providing various debugging features such as online debugging and offline playback. SDK: The SDK is responsible for collecting data from the user's project and sending it to the debugging client. Server: The server is responsible for relaying messages between the debugging client and the SDK, as well as storing data. The interaction diagram between the three modules is as follows:"
-    },
-    {
-      "language": "en",
       "route": "/docs/introduction#page-overview",
       "parent": "Introduction",
-      "title": "Debugging Client Overview",
-      "content": ""
+      "title": "Feature Overview",
+      "content": "Based on providing debugging functionality, PageSpy extends to two scenarios: Online Real-time Debugging and Offline Log Replay!"
     },
     {
       "language": "en",
       "route": "/docs/introduction#online-debugging",
       "parent": "Introduction",
-      "title": "Online Debugging Mode",
+      "title": "1. Online Real-time Debugging",
       "content": " Console Panel: Displays logs from console.<log | info | warn | error | debug>, and allows sending code to be executed on the client side.  Network Panel: Shows information about network requests made by the client.  Element Panel: Displays the current client interface and allows viewing the HTML node tree.  Storage Panel: Allows viewing local cache data of the client.  System Panel: Displays the client's system information and checks for compatibility. Additionally, you will receive real-time notifications when new data is available or existing data changes."
     },
     {
       "language": "en",
       "route": "/docs/introduction#offline-debugging",
       "parent": "Introduction",
-      "title": "Offline Debugging Mode",
-      "content": "The replay progress is under your control. As the replayer plays, you can view the client's operation trajectory and the corresponding data."
+      "title": "2. Offline Log Replay",
+      "content": "Highly flexible, the replay progress is under your control. As the replayer plays, you can view the client's operation trajectory and the corresponding data."
     },
     {
       "language": "en",
@@ -810,7 +831,7 @@
       "route": "/docs/miniprogram#step-3",
       "parent": "Miniprogram",
       "title": "Step 3",
-      "content": "Import the SDK in the entry file and instantiate it. The initialization parameters provide optional configuration to customize the behavior of the SDK:import PageSpy from '@huolala-tech/page-spy-wechat'; const $pageSpy = new PageSpy({   api: \"{deployPath}\", }) "
+      "content": "Import the SDK in the entry file and instantiate it. The initialization parameters provide optional configuration to customize the behavior of the SDK:"
     },
     {
       "language": "en",
@@ -1418,6 +1439,27 @@
     },
     {
       "language": "zh",
+      "route": "/docs/changelog#v2-4-3",
+      "parent": "版本日志",
+      "title": "v2.4.3",
+      "content": " 🐛 修复浏览器 SDK 逻辑，使 socketStore.connectable 状态与 offline 初始化选项关联; "
+    },
+    {
+      "language": "zh",
+      "route": "/docs/changelog#v2-4-2",
+      "parent": "版本日志",
+      "title": "v2.4.2",
+      "content": " 🐛 修复浏览器 SDK 在页面切换到前台时自动重连的问题，查看详情：https://github.com/HuolalaTech/page-spy/pull/146; "
+    },
+    {
+      "language": "zh",
+      "route": "/docs/changelog#v2-4-1",
+      "parent": "版本日志",
+      "title": "v2.4.1",
+      "content": " 🐛 修复 SDK 的 WebSocket 插件无法正常工作的问题; 🐛 修复调试端处理 WebSocket / EventSource 请求响应数据时异常的问题; "
+    },
+    {
+      "language": "zh",
       "route": "/docs/changelog#v2-4-0",
       "parent": "版本日志",
       "title": "v2.4.0",
@@ -1687,7 +1729,7 @@
       "route": "/docs/data-harbor#onOfflineLog",
       "parent": "DataHarborPlugin",
       "title": "手动操作日志",
-      "content": "手动操作离线日志的下载、上传。 类型 interface WholeLogActionParams {   clearCache?: boolean;   remark?: string; } interface PeriodLogActionParams {   startTime: number;   endTime: number;   remark?: string; } // 注意！ // - 浏览器端支持下面 4 种方法； // - 小程序端当前仅支持 upload() 方法； declare class DataHarborPlugin {   // 全量日志   upload(params?: WholeLogActionParams): Promise<string>;   download(params?: WholeLogActionParams): Promise<void>;   // 时间段日志   uploadPeriods(params: PeriodLogActionParams): Promise<string>;   downloadPeriods(params: PeriodLogActionParams): Promise<void>; } 详细信息 如果隐藏了自动渲染的 UI 控件，或者希望在某些时候自动触发队离线日志的操作，可以通过该方法实现。 操作 全量日志 时，用户每次通过 UI 弹窗上的按钮操作日志上传 / 下载都是当前会话从头到尾的完整日志；但手动调用时默认会清除已记录的日志数据、并重新开始记录。你可以通过第二个参数的 clearCache: false 自行控制。 操作 时间段日志 不会清除任何数据。 上传完成后会返回回放的 URL，并打印到控制台。 示例 window.$harbor = new DataHarborPlugin(); // 上传全部 const url = await window.$harbor.upload(); // 上传最近 3 分钟的日志 const now = Date.now(); const url = await window.$harbor.uploadPeriods({   startTime: now - 3 * 60000,   endTime: now,   remark: '给这段日志中所出现的问题加个备注' }); "
+      "content": "手动操作离线日志的下载、上传。 类型 interface WholeLogActionParams {   clearCache?: boolean;   remark?: string; } interface PeriodLogActionParams {   startTime: number;   endTime: number;   remark?: string; } // 注意！ // - 浏览器端支持下面 4 种方法； // - 小程序端当前仅支持 upload() 方法； declare class DataHarborPlugin {   // 全量日志   upload(params?: WholeLogActionParams): Promise<string>;   download(params?: WholeLogActionParams): Promise<void>;   // 时间段日志   uploadPeriods(params: PeriodLogActionParams): Promise<string>;   downloadPeriods(params: PeriodLogActionParams): Promise<void>; } 详细信息 如果隐藏了自动渲染的 UI 控件，或者希望在某些时候自动触发对离线日志的操作，可以通过该方法实现。 操作 全量日志 时，用户每次通过 UI 弹窗上的按钮操作日志上传 / 下载都是当前会话从头到尾的完整日志；但手动调用时默认会清除已记录的日志数据、并重新开始记录。你可以通过第二个参数的 clearCache: false 自行控制。 操作 时间段日志 不会清除任何数据。 上传完成后会返回回放的 URL，并打印到控制台。 示例 window.$harbor = new DataHarborPlugin(); // 上传全部 const url = await window.$harbor.upload(); // 上传最近 3 分钟的日志 const now = Date.now(); const url = await window.$harbor.uploadPeriods({   startTime: now - 3 * 60000,   endTime: now,   remark: '给这段日志中所出现的问题加个备注' }); "
     },
     {
       "language": "zh",
@@ -1715,14 +1757,21 @@
       "route": "/docs/deploy-guide#deploy-guide",
       "parent": "部署说明",
       "title": "部署说明",
-      "content": "import ApiImg from '@/assets/image/screenshot/page-spy-api.png';用于连接客户端和调试端、并转发两端之间消息的服务是 PageSpy 的核心能力之一。为了数据安全和方便使用，PageSpy 提供完整的、开箱即用的多种部署方案，各位开发者可以根据自己的情况选择任意一种部署方式。"
+      "content": "import moduleImg from '@/assets/image/screenshot/module.png';"
+    },
+    {
+      "language": "zh",
+      "route": "/docs/deploy-guide#main-components",
+      "parent": "部署说明",
+      "title": "主要构成",
+      "content": "PageSpy 由以下三个模块组成： 调试端：对应 HuolalaTech/page-spy-web 仓库，主要供开发者使用，提供各类调试功能面板，包括在线调试、离线回放等； SDK：对应 HuolalaTech/page-spy 仓库，负责将用户项目在运行时产生的数据发送给服务端，并由服务端转发给调试端； 服务端：对应 HuolalaTech/page-spy-api 仓库，主要负责中转两端的消息、存储数据等。 三个模块之间的交互图如下："
     },
     {
       "language": "zh",
       "route": "/docs/deploy-guide#deployments",
       "parent": "部署说明",
       "title": "多种部署方案",
-      "content": " 使用 Node 部署 使用 Docker 部署 在宝塔面板安装 "
+      "content": "为了方便使用和数据安全，PageSpy 提供完整的、开箱即用的多种 一键部署方案，各位开发者可以根据自己的情况任意选择一种部署方式。 使用 Node 部署 使用 Docker 部署 在宝塔面板安装 "
     },
     {
       "language": "zh",
@@ -2016,7 +2065,7 @@
       "route": "/docs/introduction#introduction",
       "parent": "简介",
       "title": "简介",
-      "content": "import React from 'react'; import { Flex } from 'antd'; import bannerImg from '@/assets/image/doc-banner.png';import logo from '@/assets/image/logo.svg'; import consoleImg from '@/assets/image/screenshot/console-panel.png'; import networkImg from '@/assets/image/screenshot/network-panel.png'; import pageImg from '@/assets/image/screenshot/page-panel.png'; import storageImg from '@/assets/image/screenshot/storage-panel.png'; import systemImg from '@/assets/image/screenshot/system-panel.png'; import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-zh.png'; import offlineImg from '@/assets/image/screenshot/offline-panel.png'; import moduleImg from '@/assets/image/screenshot/module.png';export const githubUrl = import.meta.env.VITE_GITHUB_REPO;"
+      "content": "import React from 'react'; import { Flex } from 'antd'; import bannerImg from '@/assets/image/doc-banner.png';import logo from '@/assets/image/logo.svg'; import consoleImg from '@/assets/image/screenshot/console-panel.png'; import networkImg from '@/assets/image/screenshot/network-panel.png'; import pageImg from '@/assets/image/screenshot/page-panel.png'; import storageImg from '@/assets/image/screenshot/storage-panel.png'; import systemImg from '@/assets/image/screenshot/system-panel.png'; import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-zh.png'; import offlineImg from '@/assets/image/screenshot/offline-panel.png';export const githubUrl = import.meta.env.VITE_GITHUB_REPO;"
     },
     {
       "language": "zh",
@@ -2041,31 +2090,24 @@
     },
     {
       "language": "zh",
-      "route": "/docs/introduction#main-components",
-      "parent": "简介",
-      "title": "主要构成",
-      "content": "PageSpy 由以下三个模块组成： 调试端：对应 HuolalaTech/page-spy-web 仓库，主要供开发者使用，提供各类调试功能面板，包括在线调试、离线回放等； SDK：对应 HuolalaTech/page-spy 仓库，负责将用户项目在运行时产生的数据发送给服务端，并由服务端转发给调试端； 服务端：对应 HuolalaTech/page-spy-api 仓库，主要负责中转两端的消息、存储数据等。 三个模块之间的交互图如下："
-    },
-    {
-      "language": "zh",
       "route": "/docs/introduction#page-overview",
       "parent": "简介",
-      "title": "调试端界面概览",
-      "content": ""
+      "title": "能力概览",
+      "content": "PageSpy 在提供调试功能的基础上，拓展出 在线实时调试 和 离线日志回放 两种场景！"
     },
     {
       "language": "zh",
       "route": "/docs/introduction#online-debugging",
       "parent": "简介",
-      "title": "在线调试模式",
+      "title": "1. 在线实时调试",
       "content": " Console 面板: 显示 console.<log | info | warn | error | debug> 输出的日志信息，可以发送代码到客户端执行；  Network 面板: 显示客户端发出的网络请求信息；  Element 面板: 显示客户端当前界面，查看 HTML 节点树；  Storage 面板: 查看客户端本地的缓存数据；  Systems 面板: 显示客户端的系统信息，查看兼容性。 除此之外，当有新的数据或者数据发生变化的时候会实时的收到通知。"
     },
     {
       "language": "zh",
       "route": "/docs/introduction#offline-debugging",
       "parent": "简介",
-      "title": "离线回放模式",
-      "content": "回放进度由你把控，随着进度条的播放，可以查看到客户端的操作轨迹，以及对应的数据。"
+      "title": "2. 离线日志回放",
+      "content": "灵活度高，回放进度由你把控，随着进度条的播放，可以查看到客户端的操作轨迹，以及对应的数据。"
     },
     {
       "language": "zh",
@@ -2093,7 +2135,7 @@
       "route": "/docs/miniprogram#step-3",
       "parent": "小程序",
       "title": "第三步",
-      "content": "在入口文件中引入 SDK 并实例化，初始化参数提供了可选的 配置项 用于自定义 SDK 的行为：import PageSpy from '@huolala-tech/page-spy-wechat'; const $pageSpy = new PageSpy({   api: \"{deployPath}\", }) "
+      "content": "在入口文件中引入 SDK 并实例化，初始化参数提供了可选的 配置项 用于自定义 SDK 的行为："
     },
     {
       "language": "zh",
@@ -2701,6 +2743,27 @@
     },
     {
       "language": "ja",
+      "route": "/docs/changelog#v2-4-3",
+      "parent": "Changelog",
+      "title": "v2.4.3",
+      "content": " 🐛 ブラウザ SDK のロジックを修正し、socketStore.connectable 状態を offline 初期化オプションに関連付けました; "
+    },
+    {
+      "language": "ja",
+      "route": "/docs/changelog#v2-4-2",
+      "parent": "Changelog",
+      "title": "v2.4.2",
+      "content": " 🐛 ブラウザ SDK がページがフロントグラウンドに切り替わったときに自動的に再接続する問題を修正しました。詳細はこちら：https://github.com/HuolalaTech/page-spy/pull/146; "
+    },
+    {
+      "language": "ja",
+      "route": "/docs/changelog#v2-4-1",
+      "parent": "Changelog",
+      "title": "v2.4.1",
+      "content": " 🐛 SDK の WebSocket プラグインが正常に動作しない問題を修正しました; 🐛 デバッガーが WebSocket / EventSource リクエスト応答データを処理する際の問題を修正しました; "
+    },
+    {
+      "language": "ja",
       "route": "/docs/changelog#v2-4-0",
       "parent": "Changelog",
       "title": "v2.4.0",
@@ -2998,14 +3061,21 @@
       "route": "/docs/deploy-guide#deploy-guide",
       "parent": "使用説明",
       "title": "使用説明",
-      "content": "import ApiImg from '@/assets/image/screenshot/page-spy-api.png';クライアントとデバッグ端末を接続し、両端間のメッセージを転送するサービスは PageSpy の核となる機能の一つです。データの安全性と使いやすさを確保するため、PageSpy は完全な、すぐに使える複数のデプロイメントソリューションを提供しています。開発者の皆様は、ご自身の状況に応じて任意のデプロイメント方法を選択できます。"
+      "content": "import moduleImg from '@/assets/image/screenshot/module.png';"
+    },
+    {
+      "language": "ja",
+      "route": "/docs/deploy-guide#main-components",
+      "parent": "使用説明",
+      "title": "主な構成要素",
+      "content": "PageSpyは以下の3つのモジュールで構成されています： デバッグクライアント：HuolalaTech/page-spy-webリポジトリに対応し、主に開発者が使用し、オンラインデバッグやオフラインリプレイなどの様々なデバッグ機能パネルを提供します。 SDK：HuolalaTech/page-spyリポジトリに対応し、ユーザープロジェクトの実行時に生成されたデータをサーバーに送信し、サーバーがデバッグクライアントに転送します。 サーバー：HuolalaTech/page-spy-apiリポジトリに対応し、主に両端のメッセージの中継、データの保存などを担当します。 三つのモジュール間のインタラクション図は以下の通りです："
     },
     {
       "language": "ja",
       "route": "/docs/deploy-guide#deployments",
       "parent": "使用説明",
       "title": "複数のデプロイメントソリューション",
-      "content": " Node.js でデプロイ Docker でデプロイ 宝塔パネルにインストール "
+      "content": "使いやすさとデータの安全性を確保するため、PageSpyは完全な、すぐに使える複数のワンクリックデプロイメントソリューションを提供しています。開発者の皆様は、ご自身の状況に応じて任意のデプロイメント方法を選択できます。 Node.js でデプロイ Docker でデプロイ 宝塔パネルにインストール "
     },
     {
       "language": "ja",
@@ -3299,7 +3369,7 @@
       "route": "/docs/introduction#introduction",
       "parent": "紹介",
       "title": "紹介",
-      "content": "import React from 'react'; import { Flex } from 'antd'; import bannerImg from '@/assets/image/doc-banner.png';import logo from '@/assets/image/logo.svg'; import consoleImg from '@/assets/image/screenshot/console-panel.png'; import networkImg from '@/assets/image/screenshot/network-panel.png'; import pageImg from '@/assets/image/screenshot/page-panel.png'; import storageImg from '@/assets/image/screenshot/storage-panel.png'; import systemImg from '@/assets/image/screenshot/system-panel.png'; import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-zh.png'; import offlineImg from '@/assets/image/screenshot/offline-panel.png'; import moduleImg from '@/assets/image/screenshot/module.png';export const githubUrl = import.meta.env.VITE_GITHUB_REPO;"
+      "content": "import React from 'react'; import { Flex } from 'antd'; import bannerImg from '@/assets/image/doc-banner.png';import logo from '@/assets/image/logo.svg'; import consoleImg from '@/assets/image/screenshot/console-panel.png'; import networkImg from '@/assets/image/screenshot/network-panel.png'; import pageImg from '@/assets/image/screenshot/page-panel.png'; import storageImg from '@/assets/image/screenshot/storage-panel.png'; import systemImg from '@/assets/image/screenshot/system-panel.png'; import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-zh.png'; import offlineImg from '@/assets/image/screenshot/offline-panel.png';export const githubUrl = import.meta.env.VITE_GITHUB_REPO;"
     },
     {
       "language": "ja",
@@ -3324,31 +3394,24 @@
     },
     {
       "language": "ja",
-      "route": "/docs/introduction#main-components",
-      "parent": "紹介",
-      "title": "主な構成要素",
-      "content": "PageSpyは以下の3つのモジュールで構成されています： デバッグクライアント：開発者が使用する部分で、オンラインデバッグとオフラインリプレイの機能を提供します。 SDK：ユーザーのプロジェクトで実行時に生成されたデータを収集し、デバッグクライアントに送信します。 サーバー：デバッグクライアントとSDKの間でメッセージを中継し、データを保存します。 三つのモジュール間のインタラクション図は以下の通りです："
-    },
-    {
-      "language": "ja",
       "route": "/docs/introduction#page-overview",
       "parent": "紹介",
-      "title": "デバッグクライアントの概要",
-      "content": ""
+      "title": "機能概要",
+      "content": "PageSpyはデバッグ機能を提供する基盤の上で、オンラインリアルタイムデバッグとオフラインログリプレイの2つのシナリオに拡張しています！"
     },
     {
       "language": "ja",
-      "route": "/docs/introduction#online-debug",
+      "route": "/docs/introduction#online-debugging",
       "parent": "紹介",
-      "title": "オンラインデバッグモード",
+      "title": "1. オンラインリアルタイムデバッグ",
       "content": " Consoleパネル: console.<log | info | warn | error | debug>で出力されたログ情報を表示し、クライアントに実行するコードを送信できます。  Networkパネル: クライアントから送信されたネットワークリクエスト情報を表示します。  Elementパネル: クライアントの現在のインターフェースを表示し、HTMLノードツリーを確認できます。  Storageパネル: クライアントのローカルキャッシュデータを確認します。  Systemsパネル: クライアントのシステム情報を表示し、互換性を確認します。 さらに、新しいデータが追加されたり、データが変更されたりした場合、リアルタイムで通知を受け取ることができます。"
     },
     {
       "language": "ja",
       "route": "/docs/introduction#offline-debugging",
       "parent": "紹介",
-      "title": "オフラインリプレイモード",
-      "content": "再生の進行状況はあなたがコントロールでき、プログレスバーの再生に合わせて、クライアントの操作軌跡と対応するデータを確認することができます。"
+      "title": "2. オフラインログリプレイ",
+      "content": "柔軟性が高く、再生の進行状況はあなたがコントロールでき、プログレスバーの再生に合わせて、クライアントの操作軌跡と対応するデータを確認することができます。"
     },
     {
       "language": "ja",
@@ -3376,7 +3439,7 @@
       "route": "/docs/miniprogram#step-3",
       "parent": "ミニプログラム",
       "title": "ステップ 3",
-      "content": "エントリーファイルでSDKをインポートしてインスタンス化します。初期化パラメータには、SDKの動作をカスタマイズするためのオプションの設定項目が用意されています：import PageSpy from '@huolala-tech/page-spy-wechat'; const $pageSpy = new PageSpy({   api: \"{deployPath}\", }) "
+      "content": "エントリーファイルでSDKをインポートしてインスタンス化します。初期化パラメータには、SDKの動作をカスタマイズするためのオプションの設定項目が用意されています："
     },
     {
       "language": "ja",
@@ -3984,6 +4047,27 @@
     },
     {
       "language": "ko",
+      "route": "/docs/changelog#v2-4-3",
+      "parent": "Changelog",
+      "title": "v2.4.3",
+      "content": " 🐛 브라우저 SDK 로직을 수정하여 socketStore.connectable 상태를 offline 초기화 옵션에 연결했습니다; "
+    },
+    {
+      "language": "ko",
+      "route": "/docs/changelog#v2-4-2",
+      "parent": "Changelog",
+      "title": "v2.4.2",
+      "content": " 🐛 브라우저 SDK가 페이지가 프론트그라운드로 전환될 때 자동으로 다시 연결되는 문제를 수정했습니다. 자세한 내용은 https://github.com/HuolalaTech/page-spy/pull/146 참조하세요; "
+    },
+    {
+      "language": "ko",
+      "route": "/docs/changelog#v2-4-1",
+      "parent": "Changelog",
+      "title": "v2.4.1",
+      "content": " 🐛 SDK의 WebSocket 플러그인이 정상적으로 작동하지 않는 문제를 수정했습니다; 🐛 디버거가 WebSocket / EventSource 요청 응답 데이터를 처리할 때 문제를 수정했습니다; "
+    },
+    {
+      "language": "ko",
       "route": "/docs/changelog#v2-4-0",
       "parent": "Changelog",
       "title": "v2.4.0",
@@ -4281,14 +4365,21 @@
       "route": "/docs/deploy-guide#deploy-guide",
       "parent": "사용 설명",
       "title": "사용 설명",
-      "content": "import ApiImg from '@/assets/image/screenshot/page-spy-api.png';클라이언트와 디버그 엔드포인트를 연결하고 양쪽 간의 메시지를 전달하는 서비스는 PageSpy의 핵심 기능 중 하나입니다.데이터 보안과 사용 편의성을 위해 PageSpy는 완전하고 즉시 사용 가능한 다양한 배포 솔루션을 제공합니다. 개발자는 자신의 상황에 맞는 배포 방식을 선택할 수 있습니다."
+      "content": "import moduleImg from '@/assets/image/screenshot/module.png';"
+    },
+    {
+      "language": "ko",
+      "route": "/docs/deploy-guide#main-components",
+      "parent": "사용 설명",
+      "title": "주요 구성 요소",
+      "content": "PageSpy는 다음과 같은 세 가지 모듈로 구성되어 있습니다: 디버깅 클라이언트: HuolalaTech/page-spy-web 리포지토리에 해당하며, 주로 개발자가 사용하고 온라인 디버깅, 오프라인 재생 등 다양한 디버깅 기능 패널을 제공합니다. SDK: HuolalaTech/page-spy 리포지토리에 해당하며, 사용자 프로젝트의 실행 시 생성된 데이터를 서버로 전송하고, 서버가 디버깅 클라이언트로 전달합니다. 서버: HuolalaTech/page-spy-api 리포지토리에 해당하며, 주로 양쪽 간의 메시지 중계, 데이터 저장 등을 담당합니다. 세 가지 모듈 간의 상호작용 관계는 다음과 같습니다:"
     },
     {
       "language": "ko",
       "route": "/docs/deploy-guide#deployments",
       "parent": "사용 설명",
       "title": "다양한 배포 솔루션",
-      "content": " Node.js로 배포 Docker로 배포 바오타 패널에 설치 "
+      "content": "사용 편의성과 데이터 보안을 위해 PageSpy는 완전하고 즉시 사용 가능한 다양한 원클릭 배포 솔루션을 제공합니다. 개발자는 자신의 상황에 맞는 배포 방식을 선택할 수 있습니다. Node.js로 배포 Docker로 배포 바오타 패널에 설치 "
     },
     {
       "language": "ko",
@@ -4582,7 +4673,7 @@
       "route": "/docs/introduction#introduction",
       "parent": "소개",
       "title": "소개",
-      "content": "import React from 'react'; import { Flex } from 'antd'; import bannerImg from '@/assets/image/doc-banner.png';import logo from '@/assets/image/logo.svg'; import consoleImg from '@/assets/image/screenshot/console-panel.png'; import networkImg from '@/assets/image/screenshot/network-panel.png'; import pageImg from '@/assets/image/screenshot/page-panel.png'; import storageImg from '@/assets/image/screenshot/storage-panel.png'; import systemImg from '@/assets/image/screenshot/system-panel.png'; import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-zh.png'; import offlineImg from '@/assets/image/screenshot/offline-panel.png'; import moduleImg from '@/assets/image/screenshot/module.png';export const githubUrl = import.meta.env.VITE_GITHUB_REPO;"
+      "content": "import React from 'react'; import { Flex } from 'antd'; import bannerImg from '@/assets/image/doc-banner.png';import logo from '@/assets/image/logo.svg'; import consoleImg from '@/assets/image/screenshot/console-panel.png'; import networkImg from '@/assets/image/screenshot/network-panel.png'; import pageImg from '@/assets/image/screenshot/page-panel.png'; import storageImg from '@/assets/image/screenshot/storage-panel.png'; import systemImg from '@/assets/image/screenshot/system-panel.png'; import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-zh.png'; import offlineImg from '@/assets/image/screenshot/offline-panel.png';export const githubUrl = import.meta.env.VITE_GITHUB_REPO;"
     },
     {
       "language": "ko",
@@ -4607,31 +4698,24 @@
     },
     {
       "language": "ko",
-      "route": "/docs/introduction#main-components",
-      "parent": "소개",
-      "title": "주요 구성 요소",
-      "content": "PageSpy는 다음과 같은 세 가지 모듈로 구성되어 있습니다: 디버깅 클라이언트: 개발자가 사용하는 부분으로, 온라인 디버깅과 오프라인 재생 기능을 제공합니다. SDK: 사용자의 프로젝트에서 실행되는 데이터를 수집하고 디버깅 클라이언트에 전송합니다. 서버: 디버깅 클라이언트와 SDK 간의 메시지를 중계하고 데이터를 저장합니다. 세 가지 모듈 간의 상호작용 관계는 다음과 같습니다:"
-    },
-    {
-      "language": "ko",
       "route": "/docs/introduction#page-overview",
       "parent": "소개",
-      "title": "디버깅 클라이언트 개요",
-      "content": ""
+      "title": "기능 개요",
+      "content": "PageSpy는 디버깅 기능을 제공하는 기반 위에서 온라인 실시간 디버깅과 오프라인 로그 재생의 두 가지 시나리오로 확장됩니다!"
     },
     {
       "language": "ko",
-      "route": "/docs/introduction#online-debug",
+      "route": "/docs/introduction#online-debugging",
       "parent": "소개",
-      "title": "온라인 디버깅 모드",
+      "title": "1. 온라인 실시간 디버깅",
       "content": " Console 패널: console.<log | info | warn | error | debug>로 출력된 로그 정보를 표시하고, 클라이언트에 실행할 코드를 전송할 수 있습니다.  Network 패널: 클라이언트에서 발생한 네트워크 요청 정보를 표시합니다.  Element 패널: 클라이언트의 현재 인터페이스를 표시하고, HTML 노드 트리를 확인할 수 있습니다.  Storage 패널: 클라이언트의 로컬 캐시 데이터를 확인합니다.  Systems 패널: 클라이언트의 시스템 정보를 표시하고, 호환성을 확인합니다. 이 외에도, 새로운 데이터가 추가되거나 데이터가 변경될 때 실시간으로 알림을 받을 수 있습니다."
     },
     {
       "language": "ko",
       "route": "/docs/introduction#offline-debugging",
       "parent": "소개",
-      "title": "오프라인 재생 모드",
-      "content": "재생 진행 상황은 사용자가 제어할 수 있으며, 프로그레스 바의 재생에 따라 클라이언트의 조작 궤적과 해당하는 데이터를 확인할 수 있습니다."
+      "title": "2. 오프라인 로그 재생",
+      "content": "높은 유연성을 가지고 있으며, 재생 진행 상황은 사용자가 제어할 수 있습니다. 프로그레스 바의 재생에 따라 클라이언트의 조작 궤적과 해당하는 데이터를 확인할 수 있습니다."
     },
     {
       "language": "ko",
@@ -4659,7 +4743,7 @@
       "route": "/docs/miniprogram#step-3",
       "parent": "미니프로그램",
       "title": "3단계",
-      "content": "진입점 파일에서 SDK를 가져오고 인스턴스화합니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 선택적 설정 옵션을 제공합니다:import PageSpy from '@huolala-tech/page-spy-wechat'; const $pageSpy = new PageSpy({   api: \"{deployPath}\", }) "
+      "content": "진입점 파일에서 SDK를 가져오고 인스턴스화합니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 선택적 설정 옵션을 제공합니다:"
     },
     {
       "language": "ko",
