@@ -135,6 +135,27 @@
     },
     {
       "language": "en",
+      "route": "/docs/changelog#v2-4-3",
+      "parent": "Changelog",
+      "title": "v2.4.3",
+      "content": " 🐛 Fix the logic of the browser SDK, making the socketStore.connectable state associated with the offline initialization option; "
+    },
+    {
+      "language": "en",
+      "route": "/docs/changelog#v2-4-2",
+      "parent": "Changelog",
+      "title": "v2.4.2",
+      "content": " 🐛 Fix the issue where the browser SDK automatically reconnect when the page is switched to the front-ground, see details: https://github.com/HuolalaTech/page-spy/pull/146; "
+    },
+    {
+      "language": "en",
+      "route": "/docs/changelog#v2-4-1",
+      "parent": "Changelog",
+      "title": "v2.4.1",
+      "content": " 🐛 Fix the issue where the WebSocket plugin in the SDK cannot work normally; 🐛 Fix the issue where the debugger handles WebSocket / EventSource request response data processing; "
+    },
+    {
+      "language": "en",
       "route": "/docs/changelog#v2-4-0",
       "parent": "Changelog",
       "title": "v2.4.0",
@@ -810,7 +831,7 @@
       "route": "/docs/miniprogram#step-3",
       "parent": "Miniprogram",
       "title": "Step 3",
-      "content": "Import the SDK in the entry file and instantiate it. The initialization parameters provide optional configuration to customize the behavior of the SDK:import PageSpy from '@huolala-tech/page-spy-wechat'; const $pageSpy = new PageSpy({   api: \"{deployPath}\", }) "
+      "content": "Import the SDK in the entry file and instantiate it. The initialization parameters provide optional configuration to customize the behavior of the SDK:"
     },
     {
       "language": "en",
@@ -1418,6 +1439,27 @@
     },
     {
       "language": "zh",
+      "route": "/docs/changelog#v2-4-3",
+      "parent": "版本日志",
+      "title": "v2.4.3",
+      "content": " 🐛 修复浏览器 SDK 逻辑，使 socketStore.connectable 状态与 offline 初始化选项关联; "
+    },
+    {
+      "language": "zh",
+      "route": "/docs/changelog#v2-4-2",
+      "parent": "版本日志",
+      "title": "v2.4.2",
+      "content": " 🐛 修复浏览器 SDK 在页面切换到前台时自动重连的问题，查看详情：https://github.com/HuolalaTech/page-spy/pull/146; "
+    },
+    {
+      "language": "zh",
+      "route": "/docs/changelog#v2-4-1",
+      "parent": "版本日志",
+      "title": "v2.4.1",
+      "content": " 🐛 修复 SDK 的 WebSocket 插件无法正常工作的问题; 🐛 修复调试端处理 WebSocket / EventSource 请求响应数据时异常的问题; "
+    },
+    {
+      "language": "zh",
       "route": "/docs/changelog#v2-4-0",
       "parent": "版本日志",
       "title": "v2.4.0",
@@ -1687,7 +1729,7 @@
       "route": "/docs/data-harbor#onOfflineLog",
       "parent": "DataHarborPlugin",
       "title": "手动操作日志",
-      "content": "手动操作离线日志的下载、上传。 类型 interface WholeLogActionParams {   clearCache?: boolean;   remark?: string; } interface PeriodLogActionParams {   startTime: number;   endTime: number;   remark?: string; } // 注意！ // - 浏览器端支持下面 4 种方法； // - 小程序端当前仅支持 upload() 方法； declare class DataHarborPlugin {   // 全量日志   upload(params?: WholeLogActionParams): Promise<string>;   download(params?: WholeLogActionParams): Promise<void>;   // 时间段日志   uploadPeriods(params: PeriodLogActionParams): Promise<string>;   downloadPeriods(params: PeriodLogActionParams): Promise<void>; } 详细信息 如果隐藏了自动渲染的 UI 控件，或者希望在某些时候自动触发队离线日志的操作，可以通过该方法实现。 操作 全量日志 时，用户每次通过 UI 弹窗上的按钮操作日志上传 / 下载都是当前会话从头到尾的完整日志；但手动调用时默认会清除已记录的日志数据、并重新开始记录。你可以通过第二个参数的 clearCache: false 自行控制。 操作 时间段日志 不会清除任何数据。 上传完成后会返回回放的 URL，并打印到控制台。 示例 window.$harbor = new DataHarborPlugin(); // 上传全部 const url = await window.$harbor.upload(); // 上传最近 3 分钟的日志 const now = Date.now(); const url = await window.$harbor.uploadPeriods({   startTime: now - 3 * 60000,   endTime: now,   remark: '给这段日志中所出现的问题加个备注' }); "
+      "content": "手动操作离线日志的下载、上传。 类型 interface WholeLogActionParams {   clearCache?: boolean;   remark?: string; } interface PeriodLogActionParams {   startTime: number;   endTime: number;   remark?: string; } // 注意！ // - 浏览器端支持下面 4 种方法； // - 小程序端当前仅支持 upload() 方法； declare class DataHarborPlugin {   // 全量日志   upload(params?: WholeLogActionParams): Promise<string>;   download(params?: WholeLogActionParams): Promise<void>;   // 时间段日志   uploadPeriods(params: PeriodLogActionParams): Promise<string>;   downloadPeriods(params: PeriodLogActionParams): Promise<void>; } 详细信息 如果隐藏了自动渲染的 UI 控件，或者希望在某些时候自动触发对离线日志的操作，可以通过该方法实现。 操作 全量日志 时，用户每次通过 UI 弹窗上的按钮操作日志上传 / 下载都是当前会话从头到尾的完整日志；但手动调用时默认会清除已记录的日志数据、并重新开始记录。你可以通过第二个参数的 clearCache: false 自行控制。 操作 时间段日志 不会清除任何数据。 上传完成后会返回回放的 URL，并打印到控制台。 示例 window.$harbor = new DataHarborPlugin(); // 上传全部 const url = await window.$harbor.upload(); // 上传最近 3 分钟的日志 const now = Date.now(); const url = await window.$harbor.uploadPeriods({   startTime: now - 3 * 60000,   endTime: now,   remark: '给这段日志中所出现的问题加个备注' }); "
     },
     {
       "language": "zh",
@@ -2093,7 +2135,7 @@
       "route": "/docs/miniprogram#step-3",
       "parent": "小程序",
       "title": "第三步",
-      "content": "在入口文件中引入 SDK 并实例化，初始化参数提供了可选的 配置项 用于自定义 SDK 的行为：import PageSpy from '@huolala-tech/page-spy-wechat'; const $pageSpy = new PageSpy({   api: \"{deployPath}\", }) "
+      "content": "在入口文件中引入 SDK 并实例化，初始化参数提供了可选的 配置项 用于自定义 SDK 的行为："
     },
     {
       "language": "zh",
@@ -2698,6 +2740,27 @@
       "parent": "Changelog",
       "title": "Changelog",
       "content": "import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png'; import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-status-en.gif';"
+    },
+    {
+      "language": "ja",
+      "route": "/docs/changelog#v2-4-3",
+      "parent": "Changelog",
+      "title": "v2.4.3",
+      "content": " 🐛 ブラウザ SDK のロジックを修正し、socketStore.connectable 状態を offline 初期化オプションに関連付けました; "
+    },
+    {
+      "language": "ja",
+      "route": "/docs/changelog#v2-4-2",
+      "parent": "Changelog",
+      "title": "v2.4.2",
+      "content": " 🐛 ブラウザ SDK がページがフロントグラウンドに切り替わったときに自動的に再接続する問題を修正しました。詳細はこちら：https://github.com/HuolalaTech/page-spy/pull/146; "
+    },
+    {
+      "language": "ja",
+      "route": "/docs/changelog#v2-4-1",
+      "parent": "Changelog",
+      "title": "v2.4.1",
+      "content": " 🐛 SDK の WebSocket プラグインが正常に動作しない問題を修正しました; 🐛 デバッガーが WebSocket / EventSource リクエスト応答データを処理する際の問題を修正しました; "
     },
     {
       "language": "ja",
@@ -3376,7 +3439,7 @@
       "route": "/docs/miniprogram#step-3",
       "parent": "ミニプログラム",
       "title": "ステップ 3",
-      "content": "エントリーファイルでSDKをインポートしてインスタンス化します。初期化パラメータには、SDKの動作をカスタマイズするためのオプションの設定項目が用意されています：import PageSpy from '@huolala-tech/page-spy-wechat'; const $pageSpy = new PageSpy({   api: \"{deployPath}\", }) "
+      "content": "エントリーファイルでSDKをインポートしてインスタンス化します。初期化パラメータには、SDKの動作をカスタマイズするためのオプションの設定項目が用意されています："
     },
     {
       "language": "ja",
@@ -3981,6 +4044,27 @@
       "parent": "Changelog",
       "title": "Changelog",
       "content": "import offlineLogImg from '@/assets/image/screenshot/v1.9.2-offline-log-size.png'; import harborRecordStatusImg from '@/assets/image/screenshot/harbor-record-status-en.gif';"
+    },
+    {
+      "language": "ko",
+      "route": "/docs/changelog#v2-4-3",
+      "parent": "Changelog",
+      "title": "v2.4.3",
+      "content": " 🐛 브라우저 SDK 로직을 수정하여 socketStore.connectable 상태를 offline 초기화 옵션에 연결했습니다; "
+    },
+    {
+      "language": "ko",
+      "route": "/docs/changelog#v2-4-2",
+      "parent": "Changelog",
+      "title": "v2.4.2",
+      "content": " 🐛 브라우저 SDK가 페이지가 프론트그라운드로 전환될 때 자동으로 다시 연결되는 문제를 수정했습니다. 자세한 내용은 https://github.com/HuolalaTech/page-spy/pull/146 참조하세요; "
+    },
+    {
+      "language": "ko",
+      "route": "/docs/changelog#v2-4-1",
+      "parent": "Changelog",
+      "title": "v2.4.1",
+      "content": " 🐛 SDK의 WebSocket 플러그인이 정상적으로 작동하지 않는 문제를 수정했습니다; 🐛 디버거가 WebSocket / EventSource 요청 응답 데이터를 처리할 때 문제를 수정했습니다; "
     },
     {
       "language": "ko",
@@ -4659,7 +4743,7 @@
       "route": "/docs/miniprogram#step-3",
       "parent": "미니프로그램",
       "title": "3단계",
-      "content": "진입점 파일에서 SDK를 가져오고 인스턴스화합니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 선택적 설정 옵션을 제공합니다:import PageSpy from '@huolala-tech/page-spy-wechat'; const $pageSpy = new PageSpy({   api: \"{deployPath}\", }) "
+      "content": "진입점 파일에서 SDK를 가져오고 인스턴스화합니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 선택적 설정 옵션을 제공합니다:"
     },
     {
       "language": "ko",
