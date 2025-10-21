@@ -36,7 +36,6 @@ import storageImg from '@/assets/image/screenshot/storage-panel.png';
 import systemImg from '@/assets/image/screenshot/system-panel.png';
 import whyIsPageSpyImg from '@/assets/image/screenshot/why-is-pagespy-zh.png';
 import offlineImg from '@/assets/image/screenshot/offline-panel.png';
-import moduleImg from '@/assets/image/screenshot/module.png';
 
 export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
@@ -69,23 +68,11 @@ export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
 PageSpy의 목표는 위와 같은 상황에 처한 사람들을 돕는 것입니다.
 
-### 주요 구성 요소#main-components
+### 기능 개요#page-overview
 
-PageSpy는 다음과 같은 세 가지 모듈로 구성되어 있습니다:
+PageSpy는 디버깅 기능을 제공하는 기반 위에서 **온라인 실시간 디버깅**과 **오프라인 로그 재생**의 두 가지 시나리오로 확장됩니다!
 
-- **디버깅 클라이언트**: 개발자가 사용하는 부분으로, 온라인 디버깅과 오프라인 재생 기능을 제공합니다.
-- **SDK**: 사용자의 프로젝트에서 실행되는 데이터를 수집하고 디버깅 클라이언트에 전송합니다.
-- **서버**: 디버깅 클라이언트와 SDK 간의 메시지를 중계하고 데이터를 저장합니다.
-
-세 가지 모듈 간의 상호작용 관계는 다음과 같습니다:
-
-<a href={moduleImg} target="_blank">
-  <img alt="시스템 모듈 다이어그램" src={moduleImg} />
-</a>
-
-### 디버깅 클라이언트 개요#page-overview
-
-#### 온라인 디버깅 모드#online-debug
+#### 1. 온라인 실시간 디버깅#online-debugging
 
 - Console 패널: `console.<log | info | warn | error | debug>`로 출력된 로그 정보를 표시하고, 클라이언트에 실행할 코드를 전송할 수 있습니다.
 
@@ -119,10 +106,10 @@ PageSpy는 다음과 같은 세 가지 모듈로 구성되어 있습니다:
 
 이 외에도, 새로운 데이터가 추가되거나 데이터가 변경될 때 실시간으로 알림을 받을 수 있습니다.
 
-#### 오프라인 재생 모드#offline-debugging
+#### 2. 오프라인 로그 재생#offline-debugging
 
 <a href={offlineImg} target="_blank">
   <img src={offlineImg} />
 </a>
 
-재생 진행 상황은 사용자가 제어할 수 있으며, 프로그레스 바의 재생에 따라 클라이언트의 조작 궤적과 해당하는 데이터를 확인할 수 있습니다.
+높은 유연성을 가지고 있으며, 재생 진행 상황은 사용자가 제어할 수 있습니다. 프로그레스 바의 재생에 따라 클라이언트의 조작 궤적과 해당하는 데이터를 확인할 수 있습니다.
