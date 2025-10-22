@@ -12,13 +12,13 @@ import { requestAuthStatus, requestLogin } from '@/apis';
 import { AUTH_FAILED_EVENT, TOKEN_KEY } from '@/apis/request';
 import { useEventListener } from './useEventListener';
 import { isClient, isDoc } from './constants';
+import { useRequest } from 'ahooks';
 
 // 认证上下文定义
 interface AuthContextType {
   isAuthenticated: boolean;
   loading: boolean;
   login: (password: string) => Promise<boolean>;
-  checkStatus: () => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextType>(
@@ -27,7 +27,6 @@ export const AuthContext = createContext<AuthContextType>(
 
 export const AuthProvider = ({ children }: PropsWithChildren<unknown>) => {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState<boolean>(false);
 
   // 为 true 时存在几种可能
   // 1. 无需密码
@@ -38,69 +37,57 @@ export const AuthProvider = ({ children }: PropsWithChildren<unknown>) => {
   );
   useEventListener(AUTH_FAILED_EVENT, () => setIsAuthenticated(false));
 
-  const setToken = (token: string) => {
-    localStorage.setItem(TOKEN_KEY, token);
-    setIsAuthenticated(true);
-  };
-
-  const checkStatus = async (): Promise<void> => {
-    try {
-      setLoading(true);
-      // 200
-      await requestAuthStatus();
+  const { loading: autoVerifyLoading } = useRequest(requestAuthStatus, {
+    ready: isClient,
+    onSuccess: () => {
       setIsAuthenticated(true);
-    } catch (error: any) {
-      // 401
+    },
+    onError: () => {
       setIsAuthenticated(false);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+  });
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const login = async (password: string): Promise<boolean> => {
-    try {
-      const response = await requestLogin({ password });
-      if (response.success) {
-        setToken(response.data.token);
-        message.success(t('auth.login_success'));
-        return true;
+  const { loading: loginLoading, runAsync: login } = useRequest(
+    async (password: string): Promise<boolean> => {
+      try {
+        const response = await requestLogin({ password });
+        if (response.success) {
+          localStorage.setItem(TOKEN_KEY, response.data.token);
+          setIsAuthenticated(true);
+          message.success(t('auth.login_success'));
+          return true;
+        }
+
+        switch (response.code) {
+          case 'INVALID_PASSWORD':
+            message.error(t('auth.incorrect_password'));
+            break;
+          case 'PASSWORD_REQUIRED':
+            message.warning(t('auth.need_set_password'));
+            break;
+          default:
+            message.error(response.message || t('auth.login_failed'));
+            break;
+        }
+        return false;
+      } catch (error: any) {
+        // 处理网络错误等异常情况
+        message.error(t('auth.server_error'));
+        return false;
       }
-
-      switch (response.code) {
-        case 'INVALID_PASSWORD':
-          message.error(t('auth.incorrect_password'));
-          break;
-        case 'PASSWORD_REQUIRED':
-          message.warning(t('auth.need_set_password'));
-          break;
-        default:
-          message.error(response.message || t('auth.login_failed'));
-          break;
-      }
-      return false;
-    } catch (error: any) {
-      // 处理网络错误等异常情况
-      message.error(t('auth.server_error'));
-      return false;
-    }
-  };
-
-  // 初始化时验证令牌
-  useMemo(() => {
-    if (isClient) {
-      checkStatus();
-    }
-  }, []);
+    },
+    {
+      manual: true,
+    },
+  );
 
   const contextValue = useMemo<AuthContextType>(
     () => ({
       isAuthenticated,
-      loading,
+      loading: autoVerifyLoading || loginLoading,
       login,
-      checkStatus,
     }),
-    [isAuthenticated, loading, login],
+    [isAuthenticated, autoVerifyLoading, loginLoading, login],
   );
 
   return (
