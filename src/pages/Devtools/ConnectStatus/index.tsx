@@ -14,8 +14,16 @@ interface ConnectionStatus {
   debug?: SpySocket.Connection | null;
 }
 
-const statusColor = (online: boolean) => {
-  return online ? '#2fbf2f' : '#aaa';
+const UserStatus = ({ online }: { online: boolean }) => {
+  return (
+    <Icon
+      component={UserSvg}
+      style={{
+        color: online ? '#2fbf2f' : '#aaa',
+        fontSize: 16,
+      }}
+    />
+  );
 };
 
 export const ConnectStatus = memo(() => {
@@ -44,24 +52,12 @@ export const ConnectStatus = memo(() => {
         <div className="connect-status-widget">
           <Space>
             <Space>
-              <Icon
-                component={UserSvg}
-                style={{
-                  color: statusColor(!!connections.debug),
-                  fontSize: 16,
-                }}
-              />
+              <UserStatus online={!!connections.debug} />
               {t('socket.debug-name')}
             </Space>
             <Divider type="vertical" />
             <Space>
-              <Icon
-                component={UserSvg}
-                style={{
-                  color: statusColor(!!connections.client),
-                  fontSize: 16,
-                }}
-              />
+              <UserStatus online={!!connections.client} />
               {t('socket.client-name')}
             </Space>
           </Space>
