@@ -45,13 +45,13 @@ export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
   <h5>必ず役立つリモートデバッグプラットフォーム。</h5>
 </div>
 
-### Page Spyとは？#what-is-page-spy
+## Page Spyとは？#what-is-page-spy
 
 **PageSpy**は、[Web](./browser)、[ミニプログラム](./miniprogram)、[React Native](./react-native)、[Harmony OS App](./harmony)などの複数のプラットフォームに対応したオープンソースのリモートデバッグツールです。
 
 ネイティブAPIのラッパーを基にして、ネイティブメソッドの呼び出し時のパラメータをフィルタリング・変換し、標準形式に整えてデバッグクライアントに送信します。デバッグクライアントは、ローカルコンソールのようなインターフェースを通じてデータを直感的に表示します。
 
-### なぜPage Spyなのか？#why-is-page-spy
+## なぜPage Spyなのか？#why-is-page-spy
 
 > 百聞は一見にしかず。
 
@@ -59,7 +59,7 @@ export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
   <img src={whyIsPageSpyImg} />
 </a>
 
-### いつ使用するか？#when-to-use
+## いつ使用するか？#when-to-use
 
 *ローカルでコンソールデバッグができないシーンは、すべて**PageSpy**が活躍できる場面です！*
 以下のようなシーンケースを見てみましょう：
@@ -70,11 +70,11 @@ export const githubUrl = import.meta.env.VITE_GITHUB_REPO;
 
 PageSpyの目標は、上記のようなシーンに関わる人々をサポートすることです。
 
-### 機能概要#page-overview
+## 機能概要#page-overview
 
 PageSpyはデバッグ機能を提供する基盤の上で、**オンラインリアルタイムデバッグ**と**オフラインログリプレイ**の2つのシナリオに拡張しています！
 
-#### 1. オンラインリアルタイムデバッグ#online-debugging
+### 1. オンラインリアルタイムデバッグ#online-debugging
 
 - Consoleパネル: `console.<log | info | warn | error | debug>`で出力されたログ情報を表示し、クライアントに実行するコードを送信できます。
 
@@ -108,7 +108,7 @@ PageSpyはデバッグ機能を提供する基盤の上で、**オンライン�
 
 さらに、新しいデータが追加されたり、データが変更されたりした場合、リアルタイムで通知を受け取ることができます。
 
-#### 2. オフラインログリプレイ#offline-debugging
+### 2. オフラインログリプレイ#offline-debugging
 
 <a href={offlineImg} target="_blank">
   <img src={offlineImg} />

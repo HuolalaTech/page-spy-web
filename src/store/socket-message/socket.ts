@@ -48,7 +48,6 @@ export class SocketStore extends EventTarget {
   constructor(url: string) {
     super();
     this.socketUrl = url;
-    this.init.bind(this);
     this.init();
   }
 

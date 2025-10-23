@@ -1,26 +1,13 @@
 import React, { useState } from 'react';
-import {
-  Form,
-  Input,
-  Button,
-  Card,
-  Spin,
-  Typography,
-  Space,
-  Flex,
-  Tooltip,
-} from 'antd';
+import { Form, Input, Button, Card, Spin, Flex, Tooltip } from 'antd';
 import {
   InfoCircleOutlined,
-  InfoOutlined,
   LockOutlined,
   LoginOutlined,
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '@/utils/AuthContext';
 import './style.less';
-
-const { Text } = Typography;
 
 const AuthLogin: React.FC = () => {
   const { t } = useTranslation();

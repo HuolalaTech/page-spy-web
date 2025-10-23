@@ -1,6 +1,6 @@
 import pluginsImg from '@/assets/image/screenshot/plugins.png';
 
-### 类型定义#definition
+## 类型定义#definition
 
 ```ts
 export abstract class PageSpyPlugin {
@@ -48,7 +48,7 @@ export interface OnMountedParams {
 }
 ```
 
-### 行为约定#convention
+## 行为约定#convention
 
 如果当前插件会收集（或者希望对外公开）平台的某种行为「数据」，那么除了在 `socketStore` 广播数据外，我们约定插件在 `socketStore` 实例上额外派发一个 `"public-data"` 内部事件（Internal Event）。此举的目的是为了满足有统计需求或者持久化需求的插件能够从这个事件中统一收集数据，插件如果觉得某类数据不应该被 “公开”，则无需派发 `"public-data"` 事件。
 
@@ -56,11 +56,11 @@ export interface OnMountedParams {
   <img src={pluginsImg} />
 </a>
 
-### 插件实现案例#demo
+## 插件实现案例#demo
 
 参考 [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) 和 [RRWebPlugin]({VITE_PLUGIN_RRWEB})。
 
-### 插件的使用方式#usage
+## 插件的使用方式#usage
 
 ```html
 <!-- 引入 SDK -->

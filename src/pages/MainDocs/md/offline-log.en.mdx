@@ -6,7 +6,7 @@ import replayImg from '@/assets/image/screenshot/replay-page.png';
 import replayGif from '@/assets/image/screenshot/replay-page.gif';
 import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
 
-### What is it#what
+## What is it#what
 
 Log replay is an offline debugging feature that allows you to view and analyze runtime data from when an issue occurred. By replaying historical logs, you can recreate the problem scenario like watching a video recording, without needing to be connected to the debugging client in real-time.
 
@@ -14,7 +14,7 @@ Log replay is an offline debugging feature that allows you to view and analyze r
   <img src={replayGif} />
 </a>
 
-### Why#why
+## Why#why
 
 While PageSpy's online debugging is powerful, it requires the client and debugging endpoint to be online simultaneously. This brings some limitations:
 
@@ -24,25 +24,7 @@ While PageSpy's online debugging is powerful, it requires the client and debuggi
 
 To solve these issues, PageSpy introduced the log replay feature in [version 1.7.3][release-1.7.3], making debugging more flexible and free.
 
-### How it works#how-it-works
-
-Log replay is implemented based on the [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) plugin. This plugin listens to the [`"public-data"` event](./plugins#convention) inside PageSpy to automatically collect all data generated at runtime.
-
-### Data Storage Mechanism
-
-The processing flow after DataHarborPlugin receives data:
-
-1. Data is first stored in a memory array
-2. When the data in memory reaches a threshold (default 10MB), it is automatically written to a temporary file
-3. Users can upload data to the server or download it locally at any time
-
-You can customize the memory threshold:
-
-```ts
-new DataHarborPlugin({
-  maximum: 1 * 1024 * 1024, // Write to temp file when data in memory reaches 1MB
-})
-```
+## Getting Started#start-using
 
 ### Used in browser#browser
 
@@ -161,6 +143,12 @@ After registering the mini-program DataHarbor plugin, a "Upload Offline Log" but
   <img style={{width: 375}} src={mpDataHarborImg} />
 </a>
 
+## Extended Reading#read-more
+
+### How it works#how-it-works
+
+Log replay is implemented based on the [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) plugin. This plugin listens to the [`"public-data"` event](./plugins#convention) inside PageSpy to automatically collect all data generated at runtime.
+
 ### Platform Differences#platform-differences
 
 Different platforms have the following differences in log replay functionality:
@@ -179,11 +167,19 @@ See detailed instructions in the [DataHarborPlugin API documentation](./data-har
 
 #### 2. Where is offline log data stored?
 
-DataHarborPlugin uses a tiered storage strategy:
+The processing flow after DataHarborPlugin receives data:
 
-- Data is first stored in a memory array
-- When data reaches a threshold (default 10MB), it is written to a temporary file
-- The temporary file location is determined by the browser or mini-program environment
+1. Data is first stored in a memory array
+2. When the data in memory reaches a threshold (default 10MB), it is automatically written to a temporary file
+3. Users can upload data to the server or download it locally at any time
+
+You can customize the memory threshold:
+
+```ts
+new DataHarborPlugin({
+  maximum: 1 * 1024 * 1024, // Write to temp file when data in memory reaches 1MB
+})
+```
 
 #### 3. Will offline logs affect application performance?
 

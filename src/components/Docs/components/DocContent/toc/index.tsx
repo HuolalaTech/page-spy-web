@@ -13,12 +13,14 @@ import { debug } from '@/utils/debug';
 export interface NavItem {
   text: string;
   link: string;
+  depth: number;
+  children?: NavItem[];
 }
 
 const processor = unified().use(remarkParse);
 
 export const computeTocs = async (raw: () => Promise<string>) => {
-  const navs: NavItem[] = [];
+  const flatNavs: NavItem[] = [];
   try {
     const content = await raw();
     const tree = processor.parse(content);
@@ -56,9 +58,10 @@ export const computeTocs = async (raw: () => Promise<string>) => {
           debug.panic('TOC 未找到合适的锚点', node);
         }
 
-        navs.push({
+        flatNavs.push({
           text: text.trim(),
           link: formatSlug(link),
+          depth: node.depth,
         });
       }
     });
@@ -66,7 +69,25 @@ export const computeTocs = async (raw: () => Promise<string>) => {
     //
   }
 
-  return navs;
+  const hierarchicalNavs: NavItem[] = [];
+  let currentH2: NavItem | null = null;
+
+  for (const nav of flatNavs) {
+    if (nav.depth === 2) {
+      currentH2 = { ...nav, children: [] };
+      hierarchicalNavs.push(currentH2);
+      continue;
+    }
+    if (nav.depth === 3) {
+      if (currentH2) {
+        currentH2.children!.push(nav);
+      } else {
+        hierarchicalNavs.push(nav);
+      }
+    }
+  }
+
+  return hierarchicalNavs;
 };
 
 export const ToC = ({ doc, lang }: { doc: string; lang: langType }) => {
@@ -107,6 +128,25 @@ export const ToC = ({ doc, lang }: { doc: string; lang: langType }) => {
                   >
                     {i.text}
                   </Link>
+                  {i.children && i.children.length > 0 && (
+                    <div className="toc-navs__children">
+                      {i.children.map((child) => {
+                        const childTo = `#${child.link}`;
+                        return (
+                          <div key={child.text} className="toc-navs__item">
+                            <Link
+                              to={childTo}
+                              className={clsx({
+                                active: decodeURIComponent(hash) === childTo,
+                              })}
+                            >
+                              {child.text}
+                            </Link>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               );
             })}

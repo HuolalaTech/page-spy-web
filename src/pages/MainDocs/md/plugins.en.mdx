@@ -1,6 +1,6 @@
 import pluginsImg from '@/assets/image/screenshot/plugins.png';
 
-### Type Definitions #definition
+## Type Definitions#definition
 
 ```ts
 import { SocketStoreType } from '@huolala-tech/page-spy-types/lib/base';
@@ -52,7 +52,7 @@ export interface OnMountedParams {
 }
 ```
 
-### Behavioral Conventions #convention
+## Behavioral Conventions#convention
 
 If a plugin collects (or want to publicly expose) certain platform "data", in addition to broadcasting data via `socketStore`, it is conventionally required to dispatch an `"public-data"` internal event on the `socketStore` instance. This allows plugins with statistical or persistence requirements to uniformly collect data from this event. Plugins that think certain data should not be "public" are not required to dispatch the `"public-data"` event.
 
@@ -60,11 +60,11 @@ If a plugin collects (or want to publicly expose) certain platform "data", in ad
   <img src={pluginsImg} />
 </a>
 
-### Example Implementation of Plugins #demo
+## Example Implementation of Plugins#demo
 
 Reference implementations can be found in [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) and [RRWebPlugin]({VITE_PLUGIN_RRWEB}).
 
-### Usage of Plugins #usage
+## Usage of Plugins#usage
 
 ```html
 <!-- Include SDK -->

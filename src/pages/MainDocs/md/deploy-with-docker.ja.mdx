@@ -1,7 +1,7 @@
 import { EmbedVideo } from '@/components/Docs/components/EmbedVideo';
 import { DeployNext } from '@/components/Docs/components/DeployNext';
 
-### インストール#install
+## インストール#install
 
 ```bash
 docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
@@ -9,10 +9,10 @@ docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:675
 
 実行が完了したら、ブラウザで http://localhost:6752 にアクセスしてサービスを利用できます。
 
-### ビデオチュートリアル#video
+## ビデオチュートリアル#video
 
 <EmbedVideo title="deployWithDocker" />{' '}
 
-### 次のステップ#next
+## 次のステップ#next
 
 <DeployNext />

@@ -2,7 +2,7 @@ import { Tooltip } from 'antd'
 import extensionDesc from '@/assets/image/screenshot/extension-en.png';
 import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';
 
-### 온라인 체험#online
+## 온라인 체험#online
 
 > 전체 코드를 보려면 클릭하세요: [Codesandbox](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
 
@@ -14,11 +14,11 @@ import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 />
 
-### 사용 방법#usage
+## 사용 방법#usage
 
-#### script 태그로 도입#script-usage
+### script 태그로 도입#script-usage
 
-##### 1단계#script-usage-step-1
+#### 1단계#script-usage-step-1
 
 클라이언트 프로젝트에 `<script>` 로드:
 
@@ -31,7 +31,7 @@ import debugBaidu from '@/assets/image/screenshot/debug-baidu.png';
 <script crossorigin="anonymous" src="{deployUrl}/plugin/rrweb/index.min.js"></script>
 ```
 
-##### 2단계#script-usage-step-2
+#### 2단계#script-usage-step-2
 
 PageSpy와 플러그인을 초기화합니다. [설정 옵션]({VITE_SDK_BROWSER_REPO})을 통해 SDK 동작을 사용자 정의할 수 있습니다:
 
@@ -61,9 +61,9 @@ PageSpy와 플러그인을 초기화합니다. [설정 옵션]({VITE_SDK_BROWSER
 </script>
 ```
 
-#### ESM으로 도입#esm-usage
+### ESM으로 도입#esm-usage
 
-##### 1단계#esm-usage-step-1
+#### 1단계#esm-usage-step-1
 
 :::code-group
 
@@ -77,7 +77,7 @@ npm install @huolala-tech/page-spy-browser @huolala-tech/page-spy-plugin-data-ha
 
 :::
 
-##### 2단계#esm-usage-step-2
+#### 2단계#esm-usage-step-2
 
 ```js
 import PageSpy from '@huolala-tech/page-spy-browser';
@@ -100,7 +100,7 @@ window.$pageSpy = new PageSpy({
 
 이제 브라우저 프로젝트에서 PageSpy를 사용하기 위한 모든 단계가 완료되었습니다. 페이지 상단 메뉴를 클릭하여 <Tooltip title="메뉴는 기본적으로 숨겨져 있습니다. 배포 후 표시됩니다." color="purple"><a href="javascript:void(0)">시작 디버깅</a></Tooltip> 사용!
 
-### 프레임워크에 통합#framework
+## 프레임워크에 통합#framework
 
 PageSpy는 CodeSandbox 플랫폼에서 주요 프레임워크의 통합 가이드를 공개했습니다. 온라인으로 경험해 보세요:
 
@@ -111,18 +111,18 @@ PageSpy는 CodeSandbox 플랫폼에서 주요 프레임워크의 통합 가이�
 - **Nextjs**：[CodeSandbox - PageSpy in Nextjs](https://codesandbox.io/p/sandbox/page-spy-with-nextjs-5htxv5)
 - **Nuxtjs**：[CodeSandbox - PageSpy in Nuxtjs](https://codesandbox.io/p/sandbox/page-spy-with-nuxtjs-8znq22)
 
-### 브라우저 플러그인#extension
+## 브라우저 플러그인#extension
 
 PageSpy는 코드 통합 없이도 모든 웹 페이지에서 PageSpy를 사용할 수 있는 브라우저 플러그인을 제공합니다!
 
 네, 맞습니다! PageSpy 브라우저 플러그인을 사용하면 거의 모든 웹 페이지를 디버깅할 수 있습니다! (CSP 정책이 설정된 일부 웹 사이트는 작동하지 않을 수 있습니다)
 
-#### 설치#install-extension
+### 설치#install-extension
 
 - [Chrome 웹 스토어](https://chromewebstore.google.com/detail/pagespy/kpfigmbgeedkgnjnlpilghiffepahlmk)에서 원클릭으로 설치하거나
 - [브라우저 플러그인](https://github.com/HuolalaTech/page-spy-extension/tree/main/packages/online-pagespy-extension) 저장소로 이동하여 README 문서에 따라 수동으로 설치하세요.
 
-#### 패널 매개변수#extension-panel
+### 패널 매개변수#extension-panel
 
 <a href={extensionDesc} target="_blank">
   <img src={extensionDesc} />

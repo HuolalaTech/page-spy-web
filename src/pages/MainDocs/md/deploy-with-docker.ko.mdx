@@ -1,7 +1,7 @@
 import { EmbedVideo } from '@/components/Docs/components/EmbedVideo';
 import { DeployNext } from '@/components/Docs/components/DeployNext';
 
-### 설치#install
+## 설치#install
 
 ```bash
 docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
@@ -9,10 +9,10 @@ docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:675
 
 실행이 완료되면 브라우저에서 http://localhost:6752 에 접속하여 서비스를 이용할 수 있습니다.
 
-### 비디오 튜토리얼#video
+## 비디오 튜토리얼#video
 
 <EmbedVideo title="deployWithDocker" />{' '}
 
-### 다음 단계#next
+## 다음 단계#next
 
 <DeployNext />

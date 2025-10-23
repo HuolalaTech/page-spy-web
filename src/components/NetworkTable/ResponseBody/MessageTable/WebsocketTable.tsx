@@ -34,7 +34,7 @@ export const WebsocketTable = ({ data }: { data: WebsocketData[] }) => {
       <Flex align="center" gap={8} style={{ height: '100%' }}>
         <Icon
           component={isSend ? ArrowUpSvg : ArrowDownSvg}
-          style={{ color: isSend ? '#B3261F' : '#156C2E', fontSize: 16 }}
+          style={{ color: isSend ? '#156C2E' : '#B3261F', fontSize: 16 }}
         />
         <Text ellipsis>{rowData.data}</Text>
       </Flex>
