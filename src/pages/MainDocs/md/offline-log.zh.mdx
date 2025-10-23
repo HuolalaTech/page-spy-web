@@ -6,7 +6,7 @@ import replayImg from '@/assets/image/screenshot/replay-page.png';
 import replayGif from '@/assets/image/screenshot/replay-page.gif';
 import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
 
-### 是什么#what
+## 是什么#what
 
 日志回放是离线调试功能，允许你在问题发生后查看和分析当时的运行数据。通过回放历史日志，你可以像看录像一样重现问题场景，无需实时连接调试端。
 
@@ -14,7 +14,7 @@ import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
   <img src={replayGif} />
 </a>
 
-### 为什么#why
+## 为什么#why
 
 PageSpy 的在线调试功能虽然强大，但要求客户端和调试端必须同时在线。这带来了一些限制：
 
@@ -24,25 +24,7 @@ PageSpy 的在线调试功能虽然强大，但要求客户端和调试端必须
 
 为了解决这些问题，PageSpy 在 [1.7.3][release-1.7.3] 版本中提供了日志回放功能，让调试更加灵活自由。
 
-### 工作原理#how-it-works
-
-日志回放基于 [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) 插件实现。该插件通过监听 PageSpy 内部的 [`"public-data"` 事件](./plugins#convention)，自动收集运行时产生的所有数据。
-
-### 数据存储机制
-
-DataHarborPlugin 收到数据后的处理流程：
-
-1. 数据首先存储在内存数组中
-2. 当内存中的数据达到临界值（默认 10MB）时，自动写入临时文件
-3. 用户可以随时上传数据到服务器，或下载到本地保存
-
-你可以自定义内存临界值：
-
-```ts
-new DataHarborPlugin({
-  maximum: 1 * 1024 * 1024, // 内存中的数据达到 1MB 时写入临时文件
-})
-```
+## 开始使用#start-using
 
 ### 在浏览器中使用#browser
 
@@ -159,6 +141,12 @@ $dataHarborPlugin.upload().then(() => {
   <img style={{width: 375}} src={mpDataHarborImg} />
 </a>
 
+## 延伸阅读#read-more
+
+### 工作原理#how-it-works
+
+日志回放基于 [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) 插件实现。该插件通过监听 PageSpy 内部的 [`"public-data"` 事件](./plugins#convention)，自动收集运行时产生的所有数据。
+
 ### 平台差异#platform-differences
 
 不同平台在日志回放功能上存在以下差异：
@@ -177,16 +165,24 @@ $dataHarborPlugin.upload().then(() => {
 
 #### 2. 离线日志存储在哪里？
 
-DataHarborPlugin 采用分级存储策略：
+DataHarborPlugin 收到数据后的处理流程：
 
-- 数据首先存储在内存数组中
-- 当数据达到临界值（默认 10MB）时写入临时文件
-- 临时文件的位置由浏览器或小程序环境决定
+1. 数据首先存储在内存数组中
+2. 当内存中的数据达到临界值（默认 10MB）时，自动写入临时文件
+3. 用户可以随时上传数据到服务器，或下载到本地保存
+
+你可以自定义内存临界值：
+
+```ts
+new DataHarborPlugin({
+  maximum: 1 * 1024 * 1024, // 内存中的数据达到 1MB 时写入临时文件
+})
+```
 
 #### 3. 离线日志会影响应用性能吗？
 
 DataHarborPlugin 经过性能优化：
 
 - 使用异步处理，不阻塞主线程
-- 自动控制内存使用，防止内存溢出  
+- 自动控制内存使用，防止内存溢出
 - 数据压缩后存储，减少空间占用

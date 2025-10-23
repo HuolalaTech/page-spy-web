@@ -2,7 +2,7 @@ import { Tooltip } from 'antd';
 import extensionDesc from '@/assets/image/screenshot/extension-en.png';
 import debugGoogle from '@/assets/image/screenshot/debug-google.png';
 
-### Take a try#online
+## Take a try#online
 
 > Click to view the complete code: [Codesandbox](https://codesandbox.io/p/sandbox/page-spy-with-react-k3pzzt)
 
@@ -14,11 +14,11 @@ import debugGoogle from '@/assets/image/screenshot/debug-google.png';
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 />
 
-### Import and Usage#usage
+## Import and Usage#usage
 
-#### Use with script#script-usage
+### Use with script#script-usage
 
-##### Step 1#script-usage-step-1
+#### Step 1#script-usage-step-1
 
 Load `<script>` in the client's project:
 
@@ -31,7 +31,7 @@ Load `<script>` in the client's project:
 <script crossorigin="anonymous" src="{deployUrl}/plugin/rrweb/index.min.js"></script>
 ```
 
-##### Step 2#script-usage-step-2
+#### Step 2#script-usage-step-2
 
 Initialize PageSpy and the plugins. You can customize the behavior of the SDK through [configuration]({VITE_SDK_BROWSER_REPO}) options:
 
@@ -62,9 +62,9 @@ Initialize PageSpy and the plugins. You can customize the behavior of the SDK th
 </script>
 ```
 
-#### Use with ESM#esm-usage
+### Use with ESM#esm-usage
 
-##### Step 1#esm-usage-step-1 
+#### Step 1#esm-usage-step-1
 
 :::code-group
 
@@ -78,7 +78,7 @@ npm install @huolala-tech/page-spy-browser @huolala-tech/page-spy-plugin-data-ha
 
 :::
 
-##### Step 2#esm-usage-step-2 
+#### Step 2#esm-usage-step-2
 
 ```js
 import PageSpy from '@huolala-tech/page-spy-browser';
@@ -103,7 +103,7 @@ That's the complete process to integrate PageSpy into a browser project.
 
 Once integrated, click on the top menu <Tooltip title="Menu is hidden by default and will be visible after deployment." color="purple"><a href="javascript:void(0)">Debugging</a></Tooltip> to use it!
 
-### Integrate within frameworks#framework
+## Integrate within#framework
 
 PageSpy has published integration guides for mainstream frameworks on the CodeSandbox platform. You can experience them online:
 
@@ -115,18 +115,18 @@ PageSpy has published integration guides for mainstream frameworks on the CodeSa
 - **Nuxtjs**：[CodeSandbox - PageSpy in Nuxtjs](https://codesandbox.io/p/sandbox/page-spy-with-nuxtjs-8znq22)
 
 
-### Using the Browser Extension#extension
+## Using the Browser Extension#extension
 
 PageSpy provides a browser extension that allows you to use PageSpy on any webpage without integrating any code!
 
 Yes, you read that right! With the PageSpy browser extension, you can debug almost any webpage! (Some websites with CSP policies may not work)
 
-#### Install#install-extension
+### Install#install-extension
 
 - Go to the [Chrome Web Store](https://chromewebstore.google.com/detail/pagespy/kpfigmbgeedkgnjnlpilghiffepahlmk) to install with a single click, or
 - Go to the [Browser Extension repository](https://github.com/HuolalaTech/page-spy-extension/tree/main/packages/online-pagespy-extension) and follow the README instructions for manual installation.
 
-#### Panel Parameters#extension-panel
+### Panel Parameters#extension-panel
 
 <a href={extensionDesc} target="_blank">
   <img src={extensionDesc} />

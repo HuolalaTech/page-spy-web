@@ -6,7 +6,7 @@ import replayImg from '@/assets/image/screenshot/replay-page.png';
 import replayGif from '@/assets/image/screenshot/replay-page.gif';
 import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
 
-### 개요#what
+## 개요#what
 
 로그 재생은 오프라인 디버깅 기능으로, 문제 발생 후 당시의 런타임 데이터를 확인하고 분석할 수 있습니다. 기록 로그를 재생하여 비디오처럼 문제 시나리오를 재현할 수 있으며, 실시간으로 디버깅 엔드에 연결할 필요가 없습니다.
 
@@ -14,7 +14,7 @@ import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';
   <img src={replayGif} />
 </a>
 
-### 왜 필요한가#why
+## 왜 필요한가#why
 
 PageSpy의 온라인 디버깅 기능은 강력하지만 클라이언트와 디버깅 엔드포인트가 동시에 온라인 상태여야 합니다. 이는 다음과 같은 제한을 가져옵니다:
 
@@ -24,25 +24,7 @@ PageSpy의 온라인 디버깅 기능은 강력하지만 클라이언트와 디�
 
 이러한 문제를 해결하기 위해 PageSpy는 [1.7.3][release-1.7.3] 버전에서 로그 재생 기능을 도입하여 디버깅을 더욱 유연하고 자유롭게 만들었습니다.
 
-### 작동 원리#how-it-works
-
-로그 재생은 [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) 플러그인을 기반으로 구현됩니다. 이 플러그인은 PageSpy 내부의 [`"public-data"` 이벤트](./plugins#convention)를 리슨하여 런타임에 생성되는 모든 데이터를 자동으로 수집합니다.
-
-### 데이터 저장 메커니즘
-
-DataHarborPlugin이 데이터를 수신한 후의 처리 흐름:
-
-1. 데이터는 먼저 메모리 배열에 저장됨
-2. 메모리의 데이터가 임계값(기본 10MB)에 도달하면 자동으로 임시 파일에 기록됨
-3. 사용자는 언제든지 데이터를 서버에 업로드하거나 로컬에 저장하여 다운로드할 수 있음
-
-메모리 임계값을 사용자 정의할 수 있습니다:
-
-```ts
-new DataHarborPlugin({
-  maximum: 1 * 1024 * 1024, // 메모리의 데이터가 1MB에 도달하면 임시 파일에 기록
-})
-```
+## 개시사용#start-using
 
 ### 브라우저에서 사용#browser
 
@@ -157,6 +139,12 @@ $dataHarborPlugin.upload().then(() => {
   <img style={{width: 375}} src={mpDataHarborImg} />
 </a>
 
+## 연伸阅读#read-more
+
+### 작동 원리#how-it-works
+
+로그 재생은 [DataHarborPlugin]({VITE_PLUGIN_DATA_HARBOR}) 플러그인을 기반으로 구현됩니다. 이 플러그인은 PageSpy 내부의 [`"public-data"` 이벤트](./plugins#convention)를 리슨하여 런타임에 생성되는 모든 데이터를 자동으로 수집합니다.
+
 ### 플랫폼 차이#platform-differences
 
 로그 재생 기능에서 플랫폼마다 다음과 같은 차이가 있습니다:
@@ -175,11 +163,19 @@ $dataHarborPlugin.upload().then(() => {
 
 #### 2. 오프라인 로그 데이터는 어디에 저장되나요?
 
-DataHarborPlugin은 계층적 저장 전략을 사용합니다:
+DataHarborPlugin이 데이터를 수신한 후의 처리 흐름:
 
-- 데이터는 먼저 메모리 배열에 저장됨
-- 데이터가 임계값(기본 10MB)에 도달하면 임시 파일에 기록됨
-- 임시 파일 위치는 브라우저 또는 미니프로그램 환경에 의해 결정됨
+1. 데이터는 먼저 메모리 배열에 저장됨
+2. 메모리의 데이터가 임계값(기본 10MB)에 도달하면 자동으로 임시 파일에 기록됨
+3. 사용자는 언제든지 데이터를 서버에 업로드하거나 로컬에 저장하여 다운로드할 수 있음
+
+메모리 임계값을 사용자 정의할 수 있습니다:
+
+```ts
+new DataHarborPlugin({
+  maximum: 1 * 1024 * 1024, // 메모리의 데이터가 1MB에 도달하면 임시 파일에 기록
+})
+```
 
 #### 3. 오프라인 로그가 애플리케이션 성능에 영향을 주나요?
 
