@@ -94,7 +94,8 @@ window.$rrweb = new RRWebPlugin();
 // ESM モードではデプロイアドレスを自動的に解析できないため、以下のパラメーターを手動で設定する必要があります
 window.$pageSpy = new PageSpy({
   api: "{deployPath}",
-  clientOrigin: "{deployUrl}"
+  clientOrigin: "{deployUrl}",
+  enableSSL: {enableSSL},
 });
 ```
 

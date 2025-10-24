@@ -94,7 +94,8 @@ window.$rrweb = new RRWebPlugin();
 // ESM 모드에서는 배포 주소를 자동으로 분석할 수 없으므로 다음 매개변수를 수동으로 구성해야 합니다
 window.$pageSpy = new PageSpy({
   api: "{deployPath}",
-  clientOrigin: "{deployUrl}"
+  clientOrigin: "{deployUrl}",
+  enableSSL: {enableSSL},
 });
 ```
 

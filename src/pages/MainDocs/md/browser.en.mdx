@@ -95,7 +95,8 @@ window.$rrweb = new RRWebPlugin();
 // ESM mode cannot automatically analyze the deployment address, so you must manually configure the following parameters
 window.$pageSpy = new PageSpy({
   api: "{deployPath}",
-  clientOrigin: "{deployUrl}"
+  clientOrigin: "{deployUrl}",
+  enableSSL: {enableSSL},
 });
 ```
 

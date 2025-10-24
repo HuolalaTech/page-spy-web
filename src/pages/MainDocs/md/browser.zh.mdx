@@ -95,7 +95,8 @@ window.$rrweb = new RRWebPlugin();
 // ESM 模式下无法自动分析部署地址，因此必须手动配置以下参数
 window.$pageSpy = new PageSpy({
   api: "{deployPath}",
-  clientOrigin: "{deployUrl}"
+  clientOrigin: "{deployUrl}",
+  enableSSL: {enableSSL},
 });
 ```
 
