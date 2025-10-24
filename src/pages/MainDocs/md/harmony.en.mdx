@@ -32,7 +32,7 @@ export default class EntryAbility extends UIAbility {
     new PageSpy({
       context: this.context,
       api: "{deployPath}",
-      enableSSL: true,
+      enableSSL: {enableSSL},
       axios: axiosInstance
     })
   }

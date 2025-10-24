@@ -9,6 +9,10 @@ import CopySvg from '@/assets/image/copy.svg?react';
 import CopiedSvg from '@/assets/image/copied.svg?react';
 import clsx from 'clsx';
 import { LoadingFallback } from '../LoadingFallback';
+import { useTranslation } from 'react-i18next';
+import { deployPath, deployUrl } from '@/utils/constants';
+
+const enableSSL = String(window.location.protocol === 'https:');
 
 interface SingleProps {
   code?: string;
@@ -32,6 +36,7 @@ function isGroupBlock(p: unknown): p is GroupProps {
 }
 
 export const CodeBlock = (data: SingleProps | GroupProps) => {
+  const { t } = useTranslation();
   const { showCopy = true } = data;
   const [active, setActive] = useState(0);
   const [userCode, setUserCode] = useState('');
@@ -55,26 +60,46 @@ export const CodeBlock = (data: SingleProps | GroupProps) => {
       return;
     }
     if (code) {
+      // 代码块里可能会需要 i18n / 不同构建模式的输出不同 / 访问环境变量
+      // - 使用i18n：{t('xxx')}
+      // - 访问环境变量: {VITE_XXXX}
+      // - 注入特殊变量:
+      //   - {deployUrl}
+      //   - {deployPath}
+      //   - {enableSSL}
+      const resultCode = (code as string)
+        .replace(/\{t\(['"](.*?)['"]\)\}/g, (_, key) => {
+          return t(key);
+        })
+        .replace(/\{VITE_(.*?)\}/g, (_, key) => {
+          return import.meta.env[`VITE_${key}`];
+        })
+        .replace(/\{deployUrl\}/g, deployUrl)
+        .replace(/\{deployPath\}/g, deployPath)
+        .replace(/\{enableSSL\}/g, enableSSL);
+
       if (!highlighter.current) {
         highlighter.current = await sh.get({
           lang,
         });
       }
       const bg = highlighter.current.getBackgroundColor();
-      const html = highlighter.current.codeToHtml(code, {
+      const html = highlighter.current.codeToHtml(resultCode, {
         lang,
       });
       setBg(bg);
-      setUserCode(code);
+      setUserCode(resultCode);
       setCodeContent(html);
     }
   };
+
   useEffect(() => {
     if (isGroupBlock(data)) {
       handleCodeContent(data.group[active]);
     } else {
       handleCodeContent(data);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, data]);
 
   const [copyStatus, setCopyStatus] = useState(false);

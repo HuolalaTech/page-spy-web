@@ -28,6 +28,7 @@ import PageSpy from '@huolala-tech/page-spy-react-native';
 
 new PageSpy({
   api: "{deployPath}",
+  enableSSL: {enableSSL},
 })
 ```
 
@@ -40,6 +41,7 @@ import RNAsyncStoragePlugin from '@huolala-tech/page-spy-plugin-rn-async-storage
 PageSpy.registerPlugin(new RNAsyncStoragePlugin())
 new PageSpy({
   api: "{deployPath}",
+  enableSSL: {enableSSL},
 })
 ```
 

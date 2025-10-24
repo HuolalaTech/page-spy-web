@@ -5,14 +5,14 @@
       "route": "/docs/api#api",
       "parent": "API",
       "title": "API",
-      "content": "import PlatformTag from '@/components/Docs/components/PlatformTag'; Some features are only available on specific platforms. We will differentiate them using the following tags: Platform Tags Browser Mini Program React Native OpenHarmony "
+      "content": "import PlatformTag from '@/components/Docs/components/PlatformTag';This page provides an index of PageSpy core APIs and plugin APIs. Click the links to view detailed documentation.Some APIs are only available on specific platforms, marked with the following tags: Platform Tags Browser Mini Program React Native OpenHarmony "
     },
     {
       "language": "en",
       "route": "/docs/api#pagespy",
       "parent": "API",
       "title": "PageSpy",
-      "content": " The instance variable is named $pageSpy = new PageSpy(...)；  constructor() $pageSpy.updateRoomInfo() $pageSpy.abort() PageSpy.registerPlugin() PageSpy.pluginsWithOrder $pageSpy.version $pageSpy.config $pageSpy.socketStore $pageSpy.showPanel()  "
+      "content": "The PageSpy core class provides basic functionality for application debugging. In the following documentation, $pageSpy represents a PageSpy instance, i.e., $pageSpy = new PageSpy(...)  constructor() $pageSpy.updateRoomInfo() $pageSpy.abort() PageSpy.registerPlugin() PageSpy.pluginsWithOrder $pageSpy.version $pageSpy.config $pageSpy.socketStore $pageSpy.showPanel()  "
     },
     {
       "language": "en",
@@ -26,14 +26,14 @@
       "route": "/docs/api#harbor",
       "parent": "API",
       "title": "DataHarborPlugin",
-      "content": " The instance variable is named $harbor = new DataHarborPlugin(...)；  constructor() Operate log manually $harbor.pause() $harbor.resume() $harbor.reharbor() "
+      "content": "DataHarborPlugin is used for offline data caching and upload/download management. In the following documentation, $harbor represents a DataHarborPlugin instance, i.e., $harbor = new DataHarborPlugin(...)  constructor() Operate log manually $harbor.pause() $harbor.resume() $harbor.reharbor() "
     },
     {
       "language": "en",
       "route": "/docs/api#rrweb",
       "parent": "API",
       "title": "RRWebPlugin",
-      "content": " The instance variable is named $rrweb = new RRWebPlugin(...)；  constructor() "
+      "content": "RRWebPlugin is used for recording and replaying user operations, making it easier to reproduce issue scenarios. In the following documentation, $rrweb represents an RRWebPlugin instance, i.e., $rrweb = new RRWebPlugin(...)  constructor() "
     },
     {
       "language": "en",
@@ -75,7 +75,7 @@
       "route": "/docs/browser#script-usage-step-2",
       "parent": "Browser",
       "title": "Step 2",
-      "content": "Initialize PageSpy and the plugins. Both their initialization parameters provide optional configuration items for customizing the behavior of the SDK:  - **DataHarborPlugin**: PageSpy itself only supports _online mode_, meaning \"the client and the debugging side must be online simultaneously\" during debugging. DataHarborPlugin enables offline debugging for PageSpy. Click [Offline Log](./offline-log) to see more details;   - **RRWebPlugin**: Records user operation traces, using [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.zh_CN.md) as the underlying technology. It's commonly used in conjunction with DataHarborPlugin.   You can also customize your own PageSpy by [developing plugins](./plugins)! </div> <script>   window.$harbor = new DataHarborPlugin();   window.$rrweb = new RRWebPlugin();   [window.$harbor, window.$rrweb].forEach(p => {     PageSpy.registerPlugin(p)   })   window.$pageSpy = new PageSpy(); </script> "
+      "content": "Initialize PageSpy and the plugins. You can customize the behavior of the SDK through configuration options:  - **DataHarborPlugin**: PageSpy itself only supports _online mode_, meaning the client and the debugging endpoint must be online simultaneously during debugging. DataHarborPlugin enables offline debugging for PageSpy. Click [Offline Log](./offline-log) to see more details.   - **RRWebPlugin**: Records user operation traces using [rrweb](https://github.com/rrweb-io/rrweb/blob/master/guide.zh_CN.md) as the underlying technology. It's commonly used in conjunction with DataHarborPlugin.   You can also customize your own PageSpy by [developing plugins](./plugins)! </div> <script>   window.$harbor = new DataHarborPlugin();   window.$rrweb = new RRWebPlugin();   [window.$harbor, window.$rrweb].forEach(p => {     PageSpy.registerPlugin(p)   })   window.$pageSpy = new PageSpy(); </script> "
     },
     {
       "language": "en",
@@ -96,34 +96,34 @@
       "route": "/docs/browser#esm-usage-step-2",
       "parent": "Browser",
       "title": "Step 2",
-      "content": "import PageSpy from '@huolala-tech/page-spy-browser'; import DataHarborPlugin from '@huolala-tech/page-spy-plugin-data-harbor'; import RRWebPlugin from '@huolala-tech/page-spy-plugin-rrweb';   window.$harbor = new DataHarborPlugin(); window.$rrweb = new RRWebPlugin(); [window.$harbor, window.$rrweb].forEach(p => {   PageSpy.registerPlugin(p); })   // ESM mode cannot be automatically analyzed, so the following instance initialization parameters are required window.$pageSpy = new PageSpy({   api: \"{deployPath}\",   clientOrigin: \"{deployUrl}\" }); That's the complete process to integrate PageSpy into a browser project.Once integrated, click on the top menu Debugging to use it!"
+      "content": "import PageSpy from '@huolala-tech/page-spy-browser'; import DataHarborPlugin from '@huolala-tech/page-spy-plugin-data-harbor'; import RRWebPlugin from '@huolala-tech/page-spy-plugin-rrweb';   window.$harbor = new DataHarborPlugin(); window.$rrweb = new RRWebPlugin(); [window.$harbor, window.$rrweb].forEach(p => {   PageSpy.registerPlugin(p); })   // ESM mode cannot automatically analyze the deployment address, so you must manually configure the following parameters window.$pageSpy = new PageSpy({   api: \"{deployPath}\",   clientOrigin: \"{deployUrl}\",   enableSSL: {enableSSL}, }); That's the complete process to integrate PageSpy into a browser project.Once integrated, click on the top menu Debugging to use it!"
     },
     {
       "language": "en",
       "route": "/docs/browser#framework",
       "parent": "Browser",
-      "title": "Integrate within frameworks? ",
-      "content": "PageSpy has published integration guides for all popular frameworks on the CodeSandbox platform. You can experience them online: React：CodeSandbox - PageSpy in React Vue：CodeSandbox - PageSpy in Vue Svelte：CodeSandbox - PageSpy in Svelte Angular：CodeSandbox - PageSpy in Angular Nextjs：CodeSandbox - PageSpy in Nextjs Nuxtjs：CodeSandbox - PageSpy in Nuxtjs "
+      "title": "Integrate within",
+      "content": "PageSpy has published integration guides for mainstream frameworks on the CodeSandbox platform. You can experience them online: React：CodeSandbox - PageSpy in React Vue：CodeSandbox - PageSpy in Vue Svelte：CodeSandbox - PageSpy in Svelte Angular：CodeSandbox - PageSpy in Angular Nextjs：CodeSandbox - PageSpy in Nextjs Nuxtjs：CodeSandbox - PageSpy in Nuxtjs "
     },
     {
       "language": "en",
-      "route": "/docs/browser#browser-extension",
+      "route": "/docs/browser#extension",
       "parent": "Browser",
       "title": "Using the Browser Extension",
-      "content": "PageSpy provides a browser extension that allows you to use PageSpy on any webpage without integrating any code!Yes, you read that right! With the PageSpy browser extension, you can debug almost any webpage. However, a few websites with strict CSP policies may prevent the extension from functioning properly."
+      "content": "PageSpy provides a browser extension that allows you to use PageSpy on any webpage without integrating any code!Yes, you read that right! With the PageSpy browser extension, you can debug almost any webpage! (Some websites with CSP policies may not work)"
     },
     {
       "language": "en",
-      "route": "/docs/browser#install",
+      "route": "/docs/browser#install-extension",
       "parent": "Browser",
       "title": "Install",
-      "content": " Go to the Chrome Web Store to install with a single click, or; Go to the Browser Extension repository to install by following the README instructions. "
+      "content": " Go to the Chrome Web Store to install with a single click, or Go to the Browser Extension repository and follow the README instructions for manual installation. "
     },
     {
       "language": "en",
-      "route": "/docs/browser#parameters",
+      "route": "/docs/browser#extension-panel",
       "parent": "Browser",
-      "title": "Parameters",
+      "title": "Panel Parameters",
       "content": ""
     },
     {
@@ -460,14 +460,14 @@
       "route": "/docs/deploy-guide#main-components",
       "parent": "Guide",
       "title": "Main Components",
-      "content": "PageSpy is composed of the following three modules: Debugging Client: Corresponds to the HuolalaTech/page-spy-web repository. It is primarily used by developers and provides various debugging features, including online debugging and offline replay. SDK: Corresponds to the HuolalaTech/page-spy repository. It is responsible for sending data generated during runtime from the user's project to the server, which then forwards it to the debugging client. Server: Corresponds to the HuolalaTech/page-spy-api repository. It is mainly responsible for relaying messages between the two endpoints and storing data. The interaction diagram between the three modules is as follows:"
+      "content": "PageSpy is composed of the following three modules: Debugging Client: Corresponds to the HuolalaTech/page-spy-web repository. Used by developers, it provides various debugging features, including online debugging and offline replay. SDK: Corresponds to the HuolalaTech/page-spy repository. It collects runtime data from the client application and sends it to the server, which then forwards it to the debugging client. Server: Corresponds to the HuolalaTech/page-spy-api repository. It relays messages between the two endpoints and stores data. The interaction diagram between the three modules is as follows:"
     },
     {
       "language": "en",
       "route": "/docs/deploy-guide#deployments",
       "parent": "Guide",
       "title": "Multiple Deployment Options",
-      "content": "For ease of use and data security, PageSpy provides complete, out-of-the-box one-click deployment solutions. Developers can choose any deployment method that suits their needs. Deploy with Node Deploy with Docker Install on Baota "
+      "content": "For ease of use and data security, PageSpy provides multiple out-of-the-box one-click deployment solutions. You can choose the appropriate deployment method based on your actual situation. Deploy with Node Deploy with Docker Install on Baota "
     },
     {
       "language": "en",
@@ -572,7 +572,7 @@
       "route": "/docs/faq#compatibility",
       "parent": "FAQ",
       "title": "Compatibility of PageSpy",
-      "content": " The compatibility targets for browser SDK are set to [\"chrome > 75\",\"safari > 12\", \"> 0.1%\", \"not dead\",\"not op_mini all\"]; for other SDKs, refer to their respective repositories. Debugging primarily targets developers and maintains an open attitude towards new browser features. Therefore, it is recommended to use the latest browser versions with compatibility targets set to [\"last 2 chrome version\", \"last 2 firefox version\", \"last 2 safari version\"]. "
+      "content": " The compatibility target for browser SDK is set to [\"chrome > 75\",\"safari > 12\", \"> 0.1%\", \"not dead\",\"not op_mini all\"]. For other SDKs, please refer to their respective repositories. The debugging client is primarily for developers, and we maintain an open attitude towards new browser features. It is recommended to use the latest browser version. The compatibility target is set to [\"last 2 chrome version\", \"last 2 firefox version\", \"last 2 safari version\"]. "
     },
     {
       "language": "en",
@@ -585,7 +585,7 @@
       "language": "en",
       "route": "/docs/faq#init-params",
       "parent": "FAQ",
-      "title": "Instantiation Parameters and Their Purposes?",
+      "title": "What parameters can be passed during instantiation, and what do they do?",
       "content": "See PageSpy API."
     },
     {
@@ -599,29 +599,29 @@
       "language": "en",
       "route": "/docs/faq#framework",
       "parent": "FAQ",
-      "title": "How to Integrate with xxx Framework? ",
-      "content": "PageSpy has published integration guides for all popular frameworks on the CodeSandbox platform. You can experience them online: React：CodeSandbox - PageSpy in React Vue：CodeSandbox - PageSpy in Vue Svelte：CodeSandbox - PageSpy in Svelte Angular：CodeSandbox - PageSpy in Angular Nextjs：CodeSandbox - PageSpy in Nextjs Nuxtjs：CodeSandbox - PageSpy in Nuxtjs "
+      "title": "How to Integrate with xxx Framework?",
+      "content": "PageSpy has published integration guides for mainstream frameworks on the CodeSandbox platform. You can experience them online: React：CodeSandbox - PageSpy in React Vue：CodeSandbox - PageSpy in Vue Svelte：CodeSandbox - PageSpy in Svelte Angular：CodeSandbox - PageSpy in Angular Nextjs：CodeSandbox - PageSpy in Nextjs Nuxtjs：CodeSandbox - PageSpy in Nuxtjs "
     },
     {
       "language": "en",
       "route": "/docs/faq#test-domain",
       "parent": "FAQ",
-      "title": "Is pagespy.jikejishu.com an Officially Provided Domain? Will It Always Be Available? ",
-      "content": "https://pagespy.jikejishu.com is a temporary service set up by us to allow everyone to experience and learn PageSpy online. We do not guarantee 24-hour availability, data security, or assume responsibility for any losses. We strongly recommend deploying privately or within an intranet after experiencing."
+      "title": "Is pagespy.jikejishu.com an Officially Provided Domain?",
+      "content": "https://pagespy.jikejishu.com is a temporary service we set up to allow everyone to experience and learn PageSpy online. We do not guarantee 24/7 availability, data security, or assume responsibility for any losses. We strongly recommend deploying to your private server or intranet after experiencing it."
     },
     {
       "language": "en",
       "route": "/docs/faq#server-port",
       "parent": "FAQ",
-      "title": "Why Can Local Port 6752 Be Accessed, But Not When Deployed on a Server? ",
-      "content": "Check the server's firewall or security group rules to ensure port 6752 is open."
+      "title": "Local port 6752 can be accessed, but not when deployed on a server?",
+      "content": "Check whether the firewall or security group rules on the server have opened port 6752."
     },
     {
       "language": "en",
       "route": "/docs/faq#debug-disabled",
       "parent": "FAQ",
-      "title": "What Does \"No client in the current connection\" Mean on the Debug Button? ",
-      "content": "This usually indicates that the SDK successfully created a room but failed to join it via WebSocket. To troubleshoot: Check the console of the client where the SDK is running for any WebSocket connection failure messages. Verify server configuration if console shows \"WebSocket connect failed\" related errors. "
+      "title": "What does \"No client in the current connection\" mean on the debug button?",
+      "content": "This usually occurs because the SDK successfully created a room but failed to join it via WebSocket. Follow these troubleshooting steps: Open the console on the client where the SDK is running and check for errors If the console shows \"WebSocket connect failed\" related messages, verify that the server configuration is correct "
     },
     {
       "language": "en",
@@ -635,42 +635,42 @@
       "route": "/docs/faq#sub-path",
       "parent": "FAQ",
       "title": "How to Deploy to a Subpath? ",
-      "content": "Starting from version 1.5.4, you can deploy the service to a subpath. The installation process remains unchanged, but nginx configuration needs adjustment:server {   # ...   # <sub-path> should be replaced with the subpath you intend to deploy   location /<sub-path>/  {       # Ensure <sub-path> is consistent with above       rewrite ^/<sub-path>/(.*)$ /$1 break;       proxy_pass            http://127.0.0.1:6752;       proxy_http_version    1.1;       proxy_set_header      Upgrade $http_upgrade;       proxy_set_header      Connection \"upgrade\";       proxy_set_header      Host $host;       proxy_set_header      X-Real-IP $remote_addr;       proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;   }   # Ensure <sub-path> is consistent with above   location /<sub-path> {       return 301 $scheme://$host$request_uri/;   } } After adjusting the configuration, restart nginx to access via the subpath. During instantiation, manually pass api and clientOrigin to inform the SDK of the deployment address:window.$pageSpy = new PageSpy({   // For example api: \"example.com/pagespy\"   api: '<host>/<sub-path>',   // For example clientOrigin: \"https://example.com/pagespy\"   clientOrigin: '<scheme>://<host>/<sub-path>', }); "
+      "content": "Starting from version 1.5.4, you can deploy the service to a subpath. The installation process remains unchanged, but nginx configuration needs adjustment:server {   # ...   # <sub-path> should be replaced with the subpath you intend to deploy   location /<sub-path>/  {       # Ensure <sub-path> is consistent with above       rewrite ^/<sub-path>/(.*)$ /$1 break;       proxy_pass            http://127.0.0.1:6752;       proxy_http_version    1.1;       proxy_set_header      Upgrade $http_upgrade;       proxy_set_header      Connection \"upgrade\";       proxy_set_header      Host $host;       proxy_set_header      X-Real-IP $remote_addr;       proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;   }   # Ensure <sub-path> is consistent with above   location /<sub-path> {       return 301 $scheme://$host$request_uri/;   } } After adjusting the configuration, restart Nginx to access via the subpath. Note that during instantiation, you must manually pass api and clientOrigin to inform the SDK of the deployment address:window.$pageSpy = new PageSpy({   // For example api: \"example.com/pagespy\"   api: '<host>/<sub-path>',   // For example clientOrigin: \"https://example.com/pagespy\"   clientOrigin: '<scheme>://<host>/<sub-path>', }); "
     },
     {
       "language": "en",
       "route": "/docs/faq#security",
       "parent": "FAQ",
-      "title": "How Can the Debug Terminal Be Protected with Some Authentication Mechanism to Allow Access Only to Authenticated Developers? ",
-      "content": "Starting from version 2.3.0, PageSpy supports setting a password to protect the debugging terminal. After setting the password, developers must enter the correct password to access the debugging terminal.Allowed variables and meanings: AUTH_PASSWORD: Set password; JWT_SECRET: Set token secret key; JWT_EXPIRATION_HOURS: Set token expiration time (hours), default 24 hours; Set during service startup, the usage is as follows:"
+      "title": "How can the debug client be protected with authentication so only authorized developers can access?",
+      "content": "Starting from version 2.3.0, PageSpy supports setting a password to protect the debugging panel. After setting a password, developers must enter the correct password to access the debugging panel.Configurable variables: AUTH_PASSWORD: Set password JWT_SECRET: Set Token secret key JWT_EXPIRATION_HOURS: Set Token expiration time (hours), default is 24 hours Set during service startup, the usage is as follows:"
     },
     {
       "language": "en",
       "route": "/docs/faq#extension",
       "parent": "FAQ",
-      "title": "Don't want to integrate manually into the project, is there a way to do it without invading the business project code? ",
-      "content": "PageSpy has prepared a browser extension for everyone, which provides the following features: Automatically injects the latest version of the SDK. Automatically completes the instantiation operation. Provides rules for domain injection configuration. Click here to use: HuolalaTech/page-spy-extension"
+      "title": "Don't want to integrate manually into the project, can it be done without invading the business code?",
+      "content": "PageSpy provides a browser extension with the following features: Automatically inject the latest version of the SDK Automatically complete the instantiation operation Provide domain injection configuration rules Click here to use: HuolalaTech/page-spy-extension"
     },
     {
       "language": "en",
       "route": "/docs/faq#tampermonkey",
       "parent": "FAQ",
       "title": "Can I use a Tampermonkey script?",
-      "content": "Refer to the following content:// ==UserScript== // @name         Inject PageSpy Script // @namespace    http://tampermonkey.net/ // @version      0.1 // @description  Inject script on xxx.yyy // @author       You // @match        <match rules, such as example.com> // @grant        none // ==/UserScript== (function () {   'use strict';   var script1 = document.createElement('script');   script1.setAttribute('crossorigin', 'anonymous');   // Replace the SDK URL with the actual project URL   script1.src = 'https://pagespy.jikejishu.com/page-spy/index.min.js';   var script2 = document.createElement('script');   script2.textContent = 'window.$pageSpy = new PageSpy();';   document.head.prepend(script1);   script1.onload = () => {     document.head.appendChild(script2);   }; })(); "
+      "content": "Refer to the following content:// ==UserScript== // @name         Inject PageSpy Script // @namespace    http://tampermonkey.net/ // @version      0.1 // @description  Inject script on xxx.yyy // @author       You // @match        <match rules, such as example.com> // @grant        none // ==/UserScript== (function () {   'use strict';   var script1 = document.createElement('script');   script1.setAttribute('crossorigin', 'anonymous');   // Replace the SDK URL link with the actual project URL   script1.src = 'https://pagespy.jikejishu.com/page-spy/index.min.js';   var script2 = document.createElement('script');   script2.textContent = 'window.$pageSpy = new PageSpy();';   document.head.prepend(script1);   script1.onload = () => {     document.head.appendChild(script2);   }; })(); "
     },
     {
       "language": "en",
       "route": "/docs/faq#http-error",
       "parent": "FAQ",
-      "title": "Business project is deployed on HTTPS, PageSpy is deployed on HTTP, what should I do if there is a console error? ",
-      "content": "Browsers block loading HTTP resources from HTTPS sites because HTTPS provides encryption and security, while HTTP transmits data in plaintext, posing security risks.It is recommended to upgrade PageSpy to HTTPS service directly to resolve this issue perfectly."
+      "title": "Business project is deployed on HTTPS, PageSpy is deployed on HTTP, how to resolve console errors?",
+      "content": "Browsers block loading HTTP resources from HTTPS sites because HTTPS provides encryption and security, while HTTP transmits data in plaintext, posing security risks.It is recommended to upgrade PageSpy to an HTTPS service to perfectly resolve this issue."
     },
     {
       "language": "en",
       "route": "/docs/faq#prod-debug",
       "parent": "FAQ",
-      "title": "How to debug a specific user individually? ",
-      "content": "The simplest solution is to have users use the PageSpy browser extension, which is suitable when the client is highly cooperative and it's a PC project. However, this condition is quite stringent.So what if a H5 project in production wants to use PageSpy? It's clearly impractical to enable it for all users.PageSpy's effective process involves just two steps: Inject SDK via <script> tag in the head. Instantiate. PageSpy does not affect the project until the second step of instantiation. There are two approaches to debug a specific user: Dynamic HTML Response: If we can obtain a unique identifier for the user when requesting HTML, we can dynamically decide whether to inject <script> and instantiate logic before returning HTML to the user. User Gesture Activation: This typically requires the user's active cooperation. By default, inject the SDK but do not instantiate it, allowing the user to trigger debugging after a special gesture, see config.gesture. Note: Besides technical implementation, attention to legal compliance and security risks is essential."
+      "title": "How to debug a specific user individually?",
+      "content": "The simplest solution is to have users use the PageSpy browser extension, which is suitable for highly cooperative PC clients. However, this prerequisite is quite demanding.So what if an H5 project in production wants to use PageSpy? Enabling it for all users is clearly impractical.PageSpy's activation process involves only two steps: Inject SDK via <script> tag in the head. Instantiate. PageSpy does not affect the project until the second step of instantiation. There are two approaches to debug a specific user: Dynamic HTML Response: If we can obtain a unique identifier for the user when requesting HTML, we can dynamically decide whether to inject <script> and instantiate logic before returning HTML to the user. User Gesture Activation: This typically requires the user's active cooperation. By default, inject the SDK but do not instantiate it, allowing the user to trigger debugging after a special gesture, see config.gesture. Note: Besides technical implementation, attention to legal compliance and security risks is essential."
     },
     {
       "language": "en",
@@ -690,15 +690,15 @@
       "language": "en",
       "route": "/docs/faq#page-style",
       "parent": "FAQ",
-      "title": "Page panel style is incorrect? ",
-      "content": "The discrepancy in rendering environments between client and debugging end (e.g., client's browser version is Chrome 75, debugging end's is Chrome 120) or network restrictions when debugging end accesses client-referenced resources may cause style discrepancies.Thus, styles are for reference only."
+      "title": "Page panel style is incorrect?",
+      "content": "Differences in rendering environments between the client and debugging end (e.g., client's browser version is Chrome 75, debugging end's is Chrome 120) or network restrictions when the debugging end accesses client-referenced resources may cause style discrepancies.Therefore, styles are for reference only."
     },
     {
       "language": "en",
       "route": "/docs/faq#page-reset",
       "parent": "FAQ",
-      "title": "Can the Page panel completely restore client content 100%? ",
-      "content": "The SDK can \"screenshot\" the page and send it to the debugging end. However, due to: Larger data volume for images compared to text, increasing network transmission overhead. Adding to SDK size and complexity. For \"style errors,\" remote collaboration allows testers to provide precise feedback to developers. Therefore, Page panel styles are for reference only."
+      "title": "Can the Page panel completely restore client content 100%?",
+      "content": "The SDK can \"screenshot\" the page and send it to the debugging end. However, due to: Larger data volume for images compared to text, increasing network transmission overhead Adding to SDK size and complexity For style errors, remote collaboration allows testers to provide precise feedback to developers Therefore, Page panel styles are for reference only."
     },
     {
       "language": "en",
@@ -711,15 +711,15 @@
       "language": "en",
       "route": "/docs/faq#upgrade",
       "parent": "FAQ",
-      "title": "How to upgrade to the latest version after a new release? ",
-      "content": "If using Docker deployment:# Update image docker pull ghcr.io/huolalatech/page-spy-web:latest # Stop running PageSpy container docker stop pageSpy && docker rm -f pageSpy # Run again docker run -d --restart=always -p 6752:6752 --name=\"pageSpy\" ghcr.io/huolalatech/page-spy-web:latest If using NPM Package deployment:# Update package (yarn) yarn global upgrade @huolala-tech/page-spy-api@latest # Update package (npm) npm install -g @huolala-tech/page-spy-api@latest # Restart with pm2 pm2 restart page-spy-api "
+      "title": "How to upgrade to the latest version after a new release?",
+      "content": " If using Docker deployment: # Update image docker pull ghcr.io/huolalatech/page-spy-web:latest # Stop running PageSpy container docker stop pageSpy && docker rm -f pageSpy # Run again docker run -d --restart=always -p 6752:6752 --name=\"pageSpy\" ghcr.io/huolalatech/page-spy-web:latest  If using NPM Package deployment: # Update package (yarn) yarn global upgrade @huolala-tech/page-spy-api@latest # Update package (npm) npm install -g @huolala-tech/page-spy-api@latest # Restart with pm2 pm2 restart page-spy-api "
     },
     {
       "language": "en",
       "route": "/docs/faq#auto-destroy",
       "parent": "FAQ",
-      "title": "Under what conditions will a room connection be automatically destroyed? ",
-      "content": " View configuration: https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323  If a room is created and no SDK or debugging end enters, it will be destroyed after 1 minute (this scenario does not exist in actual use). If both SDK and debugging end disconnect, it will be destroyed after 1 minute. If there is no data message interaction, it will be destroyed after 5 minutes. If the connection duration exceeds 1 hour, it will be automatically destroyed. "
+      "title": "Under what conditions will a room connection be automatically destroyed?",
+      "content": " View configuration: https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323  If a room is created and no SDK or debugging end enters, it will be destroyed after 1 minute (this scenario does not exist in actual use) If both SDK and debugging end disconnect, it will be destroyed after 1 minute If there is no data message interaction, it will be destroyed after 5 minutes If the connection duration exceeds 1 hour, it will be automatically destroyed "
     },
     {
       "language": "en",
@@ -732,8 +732,8 @@
       "language": "en",
       "route": "/docs/faq#offline-log",
       "parent": "FAQ",
-      "title": "Why are uploaded file logs missing? ",
-      "content": "If you do not configure the storageConfig parameter in config.json, the uploaded file logs will be managed locally: Uploaded file logs are by default saved for up to the latest 10 GB and 30 days, customizable via configuration modification. Uploaded logs are saved in the log directory under the runtime directory. In Docker runtime, if Docker is destroyed, logs will also be lost. Use directory mapping -v ./log:/app/log -v ./data:/app/data for persistence. "
+      "title": "Why are uploaded file logs missing?",
+      "content": "If you do not configure the storageConfig parameter in config.json, the uploaded file logs will be managed locally: Uploaded file logs are saved for up to the latest 10GB and 30 days by default, customizable via configuration Uploaded logs are saved in the log directory under the runtime directory. In Docker runtime, if the container is destroyed, logs will also be lost. Use directory mapping -v ./log:/app/log -v ./data:/app/data for persistence "
     },
     {
       "language": "en",
@@ -741,6 +741,13 @@
       "parent": "Harmony App",
       "title": "Harmony App",
       "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "en",
+      "route": "/docs/harmony#start-using",
+      "parent": "Harmony App",
+      "title": "Getting Started",
+      "content": ""
     },
     {
       "language": "en",
@@ -754,7 +761,7 @@
       "route": "/docs/harmony#step-2",
       "parent": "Harmony App",
       "title": "Step 2",
-      "content": "Import and initialize the SDK at an appropriate place. Here, EntryAbility is used as an example. The initialization parameters provide optional configuration options to customize the SDK's behavior:import { PageSpy } from '@huolala/page-spy-harmony'; import axiosInstance from 'path/to/your/axios-instance'; export default class EntryAbility extends UIAbility {   onWindowStageCreate(windowStage: window.WindowStage) {     new PageSpy({       context: this.context,       api: \"{deployPath}\",       enableSSL: true,       axios: axiosInstance     })   } } That's the complete process to integrate PageSpy into a Harmony App project.Once integrated, click on the top menu Debugging to use it!"
+      "content": "Import and initialize the SDK at an appropriate place. Here, EntryAbility is used as an example. The initialization parameters provide optional configuration options to customize the SDK's behavior:import { PageSpy } from '@huolala/page-spy-harmony'; import axiosInstance from 'path/to/your/axios-instance'; export default class EntryAbility extends UIAbility {   onWindowStageCreate(windowStage: window.WindowStage) {     new PageSpy({       context: this.context,       api: \"{deployPath}\",       enableSSL: {enableSSL},       axios: axiosInstance     })   } } That's the complete process to integrate PageSpy into a Harmony App project.Once integrated, click on the top menu Debugging to use it!"
     },
     {
       "language": "en",
@@ -768,7 +775,7 @@
       "route": "/docs/introduction#what-is-page-spy",
       "parent": "Introduction",
       "title": "What is PageSpy?",
-      "content": "PageSpy is an open-source debugging platform compatible with various platforms, including Web, Mini Program, React Native, and Harmony OS Apps. It encapsulates native APIs, filtering and transforming the parameters when native methods are invoked, and organizes them into a specific format for the debugging client to consume. The debugging client then provides a devtools UI to display this data."
+      "content": "PageSpy is an open-source remote debugging tool compatible with multiple platforms including Web, Mini Program, React Native, and Harmony OS Apps.It encapsulates native APIs, filtering and transforming the parameters when native methods are invoked, and organizes them into a standard format for transmission to the debugging client. The debugging client then presents the data intuitively through an interface similar to the local console."
     },
     {
       "language": "en",
@@ -782,14 +789,14 @@
       "route": "/docs/introduction#when-to-use",
       "parent": "Introduction",
       "title": "When to Use?",
-      "content": "PageSpy shines in any scenario where local console debugging is not possible! Let's explore some use cases: Local Debugging of H5 and Webview Applications: While some products provide panels for viewing information on H5, small screens in mobile often make operations inconvenient, the display less user-friendly, and information might get truncated. Remote Work and Cross-Region Collaboration: Traditional communication methods like emails, phone calls, and video conferences often suffer from low efficiency, incomplete fault information, and can easily lead to misunderstandings and misjudgments. White Screen Issues on User Terminals: Traditional methods for locating issues, such as data monitoring and log analysis, rely on the troubleshooting team understanding the business requirements and technical implementations. Yep, the goal of PageSpy is can help the people which in like above cases."
+      "content": "PageSpy shines in any scenario where local console debugging is not possible! Let's explore some use cases: Local Debugging of H5 and Webview Applications: Mobile screens are too small, traditional debugging panels are inconvenient to operate, display poorly, and prone to information truncation. Remote Work and Cross-Region Collaboration: Traditional communication methods (email, phone, video conferencing) are inefficient, fault information is incomplete, and misunderstandings and misjudgments easily occur. Troubleshooting White Screen Issues on User Terminals: Data monitoring, log analysis and other traditional methods rely on the troubleshooting team's deep understanding of business and technology, resulting in low localization efficiency. Yep, the goal of PageSpy is can help the people which in like above cases."
     },
     {
       "language": "en",
       "route": "/docs/introduction#page-overview",
       "parent": "Introduction",
       "title": "Feature Overview",
-      "content": "Based on providing debugging functionality, PageSpy extends to two scenarios: Online Real-time Debugging and Offline Log Replay!"
+      "content": "Based on providing debugging functionality, PageSpy extends into two scenarios: Online Real-time Debugging and Offline Log Replay!"
     },
     {
       "language": "en",
@@ -810,28 +817,35 @@
       "route": "/docs/miniprogram#miniprogram",
       "parent": "Miniprogram",
       "title": "Miniprogram",
-      "content": "import { Tooltip } from 'antd' import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'"
+      "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "en",
+      "route": "/docs/miniprogram#start-using",
+      "parent": "Miniprogram",
+      "title": "Getting Started",
+      "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'"
     },
     {
       "language": "en",
       "route": "/docs/miniprogram#step-1",
       "parent": "Miniprogram",
       "title": "Step 1",
-      "content": "Install the dependencies in the project. We provide SDKs for several mini-program platforms. Please install according to your needs:"
+      "content": "Install the dependencies in your project. We provide SDKs for multiple mini-program platforms. Please install according to your needs:"
     },
     {
       "language": "en",
       "route": "/docs/miniprogram#step-2",
       "parent": "Miniprogram",
       "title": "Step 2",
-      "content": "Add the PageSpy service domain name to the whitelist of http and websocket requests in the mini-program. Note that except for the development environment, the mini-program requires the use of https and wss protocols:https://<your-pagespy-host> wss://<your-pagespy-host> "
+      "content": "Add the PageSpy service domain to the HTTP and WebSocket request whitelist in the mini-program. Note: Except for the development environment, mini-programs require the use of HTTPS and WSS protocols:https://<your-pagespy-host> wss://<your-pagespy-host> "
     },
     {
       "language": "en",
       "route": "/docs/miniprogram#step-3",
       "parent": "Miniprogram",
       "title": "Step 3",
-      "content": "Import the SDK in the entry file and instantiate it. The initialization parameters provide optional configuration to customize the behavior of the SDK:"
+      "content": "Import the SDK in the entry file and instantiate it. You can customize the behavior of the SDK through configuration options:"
     },
     {
       "language": "en",
@@ -845,27 +859,27 @@
       "route": "/docs/offline-log#offline-log",
       "parent": "Offline Log",
       "title": "Offline Log",
-      "content": "import modalImg from '@/assets/image/screenshot/modal.png'; import replayImg from '@/assets/image/screenshot/replay-page.png'; import replayGif from '@/assets/image/screenshot/replay-page.gif'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';Log Replay, as the name suggests, is about replaying previously generated logs. But why replay history logs? Where do these logs come from? How do we replay them? Let's explore each of these questions."
+      "content": "import modalImg from '@/assets/image/screenshot/modal.png'; import replayImg from '@/assets/image/screenshot/replay-page.png'; import replayGif from '@/assets/image/screenshot/replay-page.gif'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';"
+    },
+    {
+      "language": "en",
+      "route": "/docs/offline-log#what",
+      "parent": "Offline Log",
+      "title": "What is it",
+      "content": "Log replay is an offline debugging feature that allows you to view and analyze runtime data from when an issue occurred. By replaying historical logs, you can recreate the problem scenario like watching a video recording, without needing to be connected to the debugging client in real-time."
     },
     {
       "language": "en",
       "route": "/docs/offline-log#why",
       "parent": "Offline Log",
       "title": "Why",
-      "content": "Previously, PageSpy's online debugging solved many tricky problems, but there was a prerequisite for using PageSpy: \"The client and the debugger must be online simultaneously.\" This prerequisite limited the use cases for PageSpy, for example: Two people (e.g. developer and tester) are required simultaneously to debug a problem. The connection is lost if the client moves to the background during debugging. It also imposed constraints on PageSpy itself, such as: Consideration for the size of collected data and the network transmission load. To address these issues and provide greater flexibility, PageSpy introduced the log replay feature in version 1.7.3!"
+      "content": "While PageSpy's online debugging is powerful, it requires the client and debugging endpoint to be online simultaneously. This brings some limitations: High personnel cost: Requires developers and testers to be online simultaneously for debugging a single issue Unstable connections: Client moving to background or network fluctuations can cause disconnections Real-time transmission pressure: Need to consider data volume and network transmission performance To solve these issues, PageSpy introduced the log replay feature in version 1.7.3, making debugging more flexible and free."
     },
     {
       "language": "en",
-      "route": "/docs/offline-log#where",
+      "route": "/docs/offline-log#start-using",
       "parent": "Offline Log",
-      "title": "Where do the logs come from?",
-      "content": "After PageSpy's SDK supported plugin registration, the development team quickly advanced the DataHarborPlugin development. Data Harbor, the harbor of data. Concept: The data generated by PageSpy is continuously sent to the \"data harbor\". After organizing, packaging, and compressing the data, the \"data port\" stores the data in \"containers\" (memory or local temp file), awaiting further instructions. It internally listens for the \"public-data\" event (see what is the \"public-data\" event?) to enable offline data caching. It also provides features to handle log data from the SDK-rendered component. When an issue is found on the client, testers can directly upload / download the data. This innovation breaks the previous requirement of having \"the client and the debugger online simultaneously.\""
-    },
-    {
-      "language": "en",
-      "route": "/docs/offline-log#how-to-use",
-      "parent": "Offline Log",
-      "title": "How to Use",
+      "title": "Getting Started",
       "content": ""
     },
     {
@@ -873,35 +887,35 @@
       "route": "/docs/offline-log#browser",
       "parent": "Offline Log",
       "title": "Used in browser",
-      "content": " If you only need the offline log replay functionality of PageSpy, we recommend using O-Spy for a simpler integration. "
+      "content": "If you need the full functionality of PageSpy, including online debugging and offline replay, integrate as follows:"
     },
     {
       "language": "en",
       "route": "/docs/offline-log#step-1",
       "parent": "Offline Log",
-      "title": "Step 1: Client-side SDK and plugin integration",
-      "content": "<html>   <head>     <!-- 1. Load PageSpy -->     <script src=\"https://<your-pagespy-host>/page-spy/index.min.js\"></script>     <!-- 2. Load DataHarbor plugin to cache offline data and download or upload log data -->     <script src=\"https://<your-pagespy-host>/plugin/data-harbor/index.min.js\"></script>     <!-- 3. Optionally, load the RRWeb plugin to record user interaction traces into offline logs -->     <script src=\"https://<your-pagespy-host>/plugin/rrweb/index.min.js\"></script>     <script>       // 4. Register plugins, see config details at: https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor       PageSpy.registerPlugin(new DataHarborPlugin(config));       PageSpy.registerPlugin(new RRWebPlugin());       // 5. Instantiate PageSpy       window.$pageSpy = new PageSpy({         // To avoid establishing a real-time connection between the SDK and the debugger, enable offline mode         // offline: true       });     </script>   </head> </html> After successful integration, a modal with upload and download buttons should appear when clicking on the client-rendered component.Try clicking the upload and download buttons, which will trigger the upload and download of offline logs, and then we can replay the logs."
+      "title": "Step 1: Integrate SDK and plugins",
+      "content": "<html>   <head>     <!-- 1. Load PageSpy -->     <script src=\"{deployUrl}/page-spy/index.min.js\"></script>     <!-- 2. Load DataHarbor plugin: cache offline log data, provide upload/download functionality -->     <script src=\"{deployUrl}/plugin/data-harbor/index.min.js\"></script>     <!-- 3. Load RRWeb plugin: record user operations (optional) -->     <script src=\"{deployUrl}/plugin/rrweb/index.min.js\"></script>     <script>       // 4. Register plugins, see config details at: https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor       PageSpy.registerPlugin(new DataHarborPlugin(config));       PageSpy.registerPlugin(new RRWebPlugin());       // 5. Instantiate PageSpy       window.$pageSpy = new PageSpy({         // To avoid establishing a real-time connection between the SDK and the debugger, enable offline mode         // offline: true       });     </script>   </head> </html> After successful integration, the PageSpy floating ball will appear in the bottom right corner of the page. Clicking the floating ball will show a popup with upload and download buttons.Click the upload or download button to save the offline log data."
     },
     {
       "language": "en",
       "route": "/docs/offline-log#step-2",
       "parent": "Offline Log",
-      "title": "Step 2: Replay the logs",
-      "content": "Go to the debugger, click the top menu \"Debugging - Log Replay\" to enter the replay list page. Select the JSON data uploaded / downloaded in the previous step to start replaying!"
+      "title": "Step 2: Replay logs",
+      "content": "Go to the debugging client, click the top menu \"Start Debugging - Log Replay\" to enter the replay list page. Select the JSON data uploaded/downloaded in the previous step to start replaying!"
     },
     {
       "language": "en",
       "route": "/docs/offline-log#plugins",
       "parent": "Offline Log",
-      "title": "Using with Other Plugins",
-      "content": "DataHarborPlugin mainly collects and handles data. Additionally, PageSpy provides: RRWebPlugin: Uses rrweb to record DOM mutations. In the \"Log Replay\" panel on the left side of the debugger, devepler can see the user interaction traces. "
+      "title": "Plugin Description",
+      "content": " DataHarborPlugin: Collects and stores offline log data, provides upload/download functionality RRWebPlugin (optional): Uses rrweb to record DOM updates and user operations. In the \"Log Replay\" panel on the debugging client, you can see the page operation recording on the left side "
     },
     {
       "language": "en",
       "route": "/docs/offline-log#use-ospy",
       "parent": "Offline Log",
       "title": "Using O-Spy",
-      "content": "The O-Spy SDK is plug and play, no deployment required. It packages PageSpy, DataHarborPlugin, and RRWebPlugin. It includes the best practice configurations for using PageSpy in offline mode and supports custom themes.It is framework-agnostic, so you can choose any method to integrate it into your project.import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';Once successfully integrated, you will see a draggable \"Issue Feedback\" component appear in the bottom right corner."
+      "content": "If you only need the offline log replay functionality, we recommend using O-Spy. It is a plug-and-play SDK that requires no server deployment, with built-in best practice configurations for PageSpy, DataHarborPlugin, and RRWebPlugin.It is framework-agnostic, and you can choose any method to integrate it:import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';Once successfully integrated, you will see a draggable \"Issue Feedback\" component appear in the bottom right corner."
     },
     {
       "language": "en",
@@ -915,42 +929,77 @@
       "route": "/docs/offline-log#mp",
       "parent": "Offline Log",
       "title": "Used in mini-program",
-      "content": "The Log Replay feature also works in Mini Program. Please follow the steps below:"
+      "content": "Mini-program environments also support offline log replay. Follow these steps:"
     },
     {
       "language": "en",
       "route": "/docs/offline-log#mp-step-1",
       "parent": "Offline Log",
-      "title": "Step 1: Install the DataHarbor plugin for miniprogram ",
+      "title": "Step 1: Install mini-program specific plugin",
       "content": "yarn add @huolala-tech/page-spy-plugin-mp-data-harbor "
     },
     {
       "language": "en",
       "route": "/docs/offline-log#mp-step-2",
       "parent": "Offline Log",
-      "title": "Step 2: Register the plugin:",
+      "title": "Step 2: Register the plugin",
       "content": "import PageSpy from '@huolala-tech/page-spy-wechat'; import DataHarborPlugin from '@huolala-tech/page-spy-plugin-mp-data-harbor'; // register the plugin, see config details at：https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-mp-data-harbor const $dataHarborPlugin = new DataHarborPlugin(config) PageSpy.registerPlugin($dataHarborPlugin); const $pageSpy = new PageSpy({   // ... }) "
     },
     {
       "language": "en",
       "route": "/docs/offline-log#mp-step-3",
       "parent": "Offline Log",
-      "title": "Step 3: Upload Offline Logs",
-      "content": "There are two ways to upload offline logs: Call the upload() method of the plugin instance directly: $dataHarborPlugin.upload().then(() => {   console.log('Upload successfully'); })  With the DataHarbor plugin registered, there will be a new action button for offline log uploading on PageSpy panel: "
+      "title": "Step 3: Upload offline logs",
+      "content": "There are two ways to upload offline logs:Method 1: Code invocation$dataHarborPlugin.upload().then(() => {   console.log('Upload successfully'); }) Method 2: Use debugging menuAfter registering the mini-program DataHarbor plugin, a \"Upload Offline Log\" button will appear in the PageSpy debugging menu. Click to upload:"
     },
     {
       "language": "en",
-      "route": "/docs/offline-log#diff",
+      "route": "/docs/offline-log#read-more",
       "parent": "Offline Log",
-      "title": "Differences",
-      "content": " DOM recording is not supported in miniprogram env, thus there is no RRWebPlugin for miniprogram. The offline log in miniprogram env supports uploading only, no downloading. "
+      "title": "Extended Reading",
+      "content": ""
+    },
+    {
+      "language": "en",
+      "route": "/docs/offline-log#how-it-works",
+      "parent": "Offline Log",
+      "title": "How it works",
+      "content": "Log replay is implemented based on the DataHarborPlugin plugin. This plugin listens to the \"public-data\" event inside PageSpy to automatically collect all data generated at runtime."
+    },
+    {
+      "language": "en",
+      "route": "/docs/offline-log#platform-differences",
+      "parent": "Offline Log",
+      "title": "Platform Differences",
+      "content": "Different platforms have the following differences in log replay functionality: Feature Browser Mini-program Data upload ✅ Supported ✅ Supported Data download ✅ Supported ❌ Not supported UI recording (RRWebPlugin) ✅ Supported ❌ Not supported "
     },
     {
       "language": "en",
       "route": "/docs/offline-log#faq",
       "parent": "Offline Log",
       "title": "FAQ",
-      "content": " How to upload / download logs manually? Click to see. Where is offline log data stored? After DataHarborPlugin receives the data, it first places it in an array in memory. When the data volume in the array reaches a threshold, it writes the data to a temporary file. By default, this threshold is 10MB. You can also configure it yourself:new DataHarborPlugin({   maximum: 1 * 1024 * 1024, // Write to a temporary file when the data in memory reaches 1MB }) "
+      "content": ""
+    },
+    {
+      "language": "en",
+      "route": "/docs/offline-log#1--How-to-manually-uploaddownload-logs",
+      "parent": "Offline Log",
+      "title": "1. How to manually upload/download logs?",
+      "content": "See detailed instructions in the DataHarborPlugin API documentation."
+    },
+    {
+      "language": "en",
+      "route": "/docs/offline-log#2--Where-is-offline-log-data-stored",
+      "parent": "Offline Log",
+      "title": "2. Where is offline log data stored?",
+      "content": "The processing flow after DataHarborPlugin receives data: Data is first stored in a memory array When the data in memory reaches a threshold (default 10MB), it is automatically written to a temporary file Users can upload data to the server or download it locally at any time You can customize the memory threshold:new DataHarborPlugin({   maximum: 1 * 1024 * 1024, // Write to temp file when data in memory reaches 1MB }) "
+    },
+    {
+      "language": "en",
+      "route": "/docs/offline-log#3--Will-offline-logs-affect-application-performance",
+      "parent": "Offline Log",
+      "title": "3. Will offline logs affect application performance?",
+      "content": "DataHarborPlugin has been performance optimized: Uses asynchronous processing, does not block the main thread Automatically controls memory usage to prevent memory overflow Data is compressed before storage to reduce space usage "
     },
     {
       "language": "en",
@@ -961,7 +1010,7 @@
     },
     {
       "language": "en",
-      "route": "/docs/pagespy#api",
+      "route": "/docs/pagespy#PageSpy-API",
       "parent": "Pagespy",
       "title": "PageSpy API",
       "content": ""
@@ -970,7 +1019,7 @@
       "language": "en",
       "route": "/docs/pagespy#constructor",
       "parent": "Pagespy",
-      "title": "constructor()",
+      "title": "constructor(config)",
       "content": "Create a PageSpy instance. Type declare class PageSpy {   constructor(config: InitConfig) } The constructor accepts a config object as an initialization parameter. "
     },
     {
@@ -1166,29 +1215,29 @@
       "language": "en",
       "route": "/docs/plugins#definition",
       "parent": "Plugins",
-      "title": "Type Definitions ",
+      "title": "Type Definitions",
       "content": "import { SocketStoreType } from '@huolala-tech/page-spy-types/lib/base'; import { PluginOrder } from '@huolala-tech/page-spy-types'; import { InitConfig } from 'types'; export abstract class PageSpyPlugin {   /**    * Each plugin must specify a name, which serves as its \"identity\".    * Functionality within PageSpy such as registration and disabling depends on this name property.    */   public abstract name: string;   /**    * Specifies the plugin loading order. Plugin invocation follows:    *   1. Plugins with enforce: \"pre\" property;    *   2. Plugins without enforce property;    *   3. Plugins with enforce: \"post\" property.    */   public abstract enforce?: PluginOrder;   // Called when new PageSpy() is invoked   public abstract onInit: (params: OnInitParams) => any;   // Called after PageSpy rendering is completed (if there's a rendering process)   public abstract onMounted?: (params: OnMountedParams) => any;   // When PageSpy is no longer needed, plugins should have reset/recovery functionality   public abstract onReset?: () => any; } export interface OnInitParams {   // Configuration information merged with user-provided instantiation parameters   config: Required<InitConfig>;   // Wrapper around the socket instance; plugin developers can interact with the debug terminal/API through this property   socketStore: SocketStoreType; } export interface OnMountedParams {   // Root node of PageSpy rendering   root?: HTMLDivElement;   // Root node of the dialog rendered by PageSpy   content?: HTMLDivElement;   // Wrapper around the socket instance; plugin developers can interact with the debug terminal/API through this property   socketStore: SocketStoreType; } "
     },
     {
       "language": "en",
       "route": "/docs/plugins#convention",
       "parent": "Plugins",
-      "title": "Behavioral Conventions ",
+      "title": "Behavioral Conventions",
       "content": "If a plugin collects (or want to publicly expose) certain platform \"data\", in addition to broadcasting data via socketStore, it is conventionally required to dispatch an \"public-data\" internal event on the socketStore instance. This allows plugins with statistical or persistence requirements to uniformly collect data from this event. Plugins that think certain data should not be \"public\" are not required to dispatch the \"public-data\" event."
     },
     {
       "language": "en",
       "route": "/docs/plugins#demo",
       "parent": "Plugins",
-      "title": "Example Implementation of Plugins ",
+      "title": "Example Implementation of Plugins",
       "content": "Reference implementations can be found in DataHarborPlugin and RRWebPlugin."
     },
     {
       "language": "en",
       "route": "/docs/plugins#usage",
       "parent": "Plugins",
-      "title": "Usage of Plugins ",
-      "content": "<!-- Include SDK --> <script src=\"https://<your-pagespy-host>/page-spy/index.min.js\"></script> <!-- Include Plugin --> <script src=\"https://<your-pagespy-host>/plugin/xxx/index.min.js\"></script> <!-- Register Plugin --> <script>   PageSpy.registerPlugin(new XXXPlugin());   window.$pageSpy = new PageSpy(); </script> "
+      "title": "Usage of Plugins",
+      "content": "<!-- Include SDK --> <script src=\"{deployUrl}/page-spy/index.min.js\"></script> <!-- Include Plugin --> <script src=\"{deployUrl}/plugin/xxx/index.min.js\"></script> <!-- Register Plugin --> <script>   PageSpy.registerPlugin(new XXXPlugin());   window.$pageSpy = new PageSpy(); </script> "
     },
     {
       "language": "en",
@@ -1196,6 +1245,13 @@
       "parent": "React Native",
       "title": "React Native",
       "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "en",
+      "route": "/docs/react-native#start-using",
+      "parent": "React Native",
+      "title": "Getting Started",
+      "content": ""
     },
     {
       "language": "en",
@@ -1209,7 +1265,7 @@
       "route": "/docs/react-native#step-2",
       "parent": "React Native",
       "title": "Step 2",
-      "content": "Import and instantiate the SDK in the entry file. The initialization parameters provide optional configuration options to customize the SDK's behavior:import PageSpy from '@huolala-tech/page-spy-react-native'; new PageSpy({   api: \"{deployPath}\", }) If you are using @react-native-async-storage/async-storage, we provide a separate plugin:import PageSpy from '@huolala-tech/page-spy-react-native'; import RNAsyncStoragePlugin from '@huolala-tech/page-spy-plugin-rn-async-storage'; PageSpy.registerPlugin(new RNAsyncStoragePlugin()) new PageSpy({   api: \"{deployPath}\", }) That's the complete process to integrate PageSpy into a react native project.Once integrated, click on the top menu Debugging to use it!"
+      "content": "Import and instantiate the SDK in the entry file. You can customize the SDK's behavior through configuration options:import PageSpy from '@huolala-tech/page-spy-react-native'; new PageSpy({   api: \"{deployPath}\",   enableSSL: {enableSSL}, }) If you are using @react-native-async-storage/async-storage, we provide a separate plugin:import PageSpy from '@huolala-tech/page-spy-react-native'; import RNAsyncStoragePlugin from '@huolala-tech/page-spy-plugin-rn-async-storage'; PageSpy.registerPlugin(new RNAsyncStoragePlugin()) new PageSpy({   api: \"{deployPath}\",   enableSSL: {enableSSL}, }) That's the complete process to integrate PageSpy into a react native project.Once integrated, click on the top menu Debugging to use it!"
     },
     {
       "language": "en",
@@ -1230,7 +1286,7 @@
       "route": "/docs/server-configuration#server-configuration",
       "parent": "Server Configuration",
       "title": "Server Configuration",
-      "content": "PageSpy server will automatically read the config.json configuration file in the current running directory. This file does not exist when it is first run. You can create or modify this file to customize the server behavior according to your needs.The configuration file supports the following functions: running port, multi-instance deployment, cross-domain configuration, log data configuration, database configuration, etc. The following will explain the functions of each configuration field.{   // Server port   \"port\": \"6752\",   // Maximum log file size (MB)   \"maxLogFileSizeOfMB\": 10240,   // Maximum log file save time (hour)   \"maxLogLifeTimeOfHour\": 720,   // Whether to allow users to delete logs on the interface   \"notAllowedDeleteLog\": false,   // Maximum number of rooms   \"maxRoomNumber\": 500,   // Cross-domain configuration   \"corsConfig\": {     // Allowed domains     \"allowOrigins\": [\"*\"],     // Allowed request headers     \"allowHeaders\": [       \"Origin\",       \"Authorization\",       \"Content-Length\",       \"X-Request-Id\",       \"Content-Type\",       \"Referer\",       \"User-Agent\",       \"Host\"     ],     // Allowed request methods     \"allowMethods\": [       \"HEAD\",       \"POST\",       \"GET\",       \"OPTIONS\",       \"PUT\",       \"DELETE\",       \"UPDATE\"     ],     // Exposed request headers     \"exposeHeaders\": [\"X-Request-Id\"]   },   // S3-compatible storage configuration   \"storageConfig\": {     \"baseDir\": \"\",     \"keyId\": \"\",     \"secret\": \"\",     \"bucket\": \"\",     \"region\": \"\",     \"endpoint\": \"\",     // s3ForcePathStyle=false for virtual-hosted–style api(for default)     // s3ForcePathStyle=true  for path-style api     \"s3ForcePathStyle\": false   },   // Authentication configuration   \"authConfig\": {     // Authentication password     \"password\": \"\",     // JWT secret     \"jwtSecret\": \"\",     // Token expiration time (hours)     \"tokenExpiration\": 720   },   // When deploy in mode of multiple-instances, configure it use machine IP or dns name in container   \"selfRpcAddress\": {     \"ip\": \"\", // Machine IP or dns name in container     \"port\": \"\" // Server port   },   // Multi-instance deployment configuration   \"rpcAddress\": [     {       \"ip\": \"\", // Machine IP or dns name in container       \"port\": \"\" // Server port     },     {       \"ip\": \"\",       \"port\": \"\"     },     ...   ],   // Configure the mysql database address, default using sqlite   \"databaseConfig\": {     \"mysqlUrl\": \"user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local\"   }, } "
+      "content": "PageSpy server will automatically read the config.json configuration file in the current running directory when it runs. This file does not exist when first run. You can create or modify this file as needed to customize server behavior.The configuration file can configure the following: running port, multi-instance deployment, cross-domain configuration, log data configuration, database configuration, etc. The following explains the purpose of each configuration field.{   // Server port   \"port\": \"6752\",   // Maximum log file size (MB)   \"maxLogFileSizeOfMB\": 10240,   // Maximum log file save time (hour)   \"maxLogLifeTimeOfHour\": 720,   // Whether to allow users to delete logs on the interface   \"notAllowedDeleteLog\": false,   // Maximum number of rooms   \"maxRoomNumber\": 500,   // Cross-domain configuration   \"corsConfig\": {     // Allowed domains     \"allowOrigins\": [\"*\"],     // Allowed request headers     \"allowHeaders\": [       \"Origin\",       \"Authorization\",       \"Content-Length\",       \"X-Request-Id\",       \"Content-Type\",       \"Referer\",       \"User-Agent\",       \"Host\"     ],     // Allowed request methods     \"allowMethods\": [       \"HEAD\",       \"POST\",       \"GET\",       \"OPTIONS\",       \"PUT\",       \"DELETE\",       \"UPDATE\"     ],     // Exposed request headers     \"exposeHeaders\": [\"X-Request-Id\"]   },   // S3-compatible storage configuration   \"storageConfig\": {     \"baseDir\": \"\",     \"keyId\": \"\",     \"secret\": \"\",     \"bucket\": \"\",     \"region\": \"\",     \"endpoint\": \"\",     // s3ForcePathStyle=false for virtual-hosted–style api(for default)     // s3ForcePathStyle=true  for path-style api     \"s3ForcePathStyle\": false   },   // Authentication configuration   \"authConfig\": {     // Authentication password     \"password\": \"\",     // JWT secret     \"jwtSecret\": \"\",     // Token expiration time (hours)     \"tokenExpiration\": 720   },   // When deploy in mode of multiple-instances, configure it use machine IP or dns name in container   \"selfRpcAddress\": {     \"ip\": \"\", // Machine IP or dns name in container     \"port\": \"\" // Server port   },   // Multi-instance deployment configuration   \"rpcAddress\": [     {       \"ip\": \"\", // Machine IP or dns name in container       \"port\": \"\" // Server port     },     {       \"ip\": \"\",       \"port\": \"\"     },     ...   ],   // Configure MySQL database address, default using SQLite   \"databaseConfig\": {     \"mysqlUrl\": \"user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local\"   }, } "
     },
     {
       "language": "en",
@@ -1309,14 +1365,14 @@
       "route": "/docs/api#api",
       "parent": "API",
       "title": "API",
-      "content": "import PlatformTag from '@/components/Docs/components/PlatformTag'; 某些特性仅支持在特定平台中可用，对此我们将通过下方标识以区分： 平台 标签 浏览器 小程序 React Native 鸿蒙 "
+      "content": "import PlatformTag from '@/components/Docs/components/PlatformTag';本页面提供 PageSpy 核心 API 及插件 API 的索引导航，点击链接查看详细文档。部分 API 仅支持特定平台，使用以下标签标识： 平台 标签 浏览器 小程序 React Native 鸿蒙 "
     },
     {
       "language": "zh",
       "route": "/docs/api#pagespy",
       "parent": "API",
       "title": "PageSpy",
-      "content": " 约定实例变量名称为 $pageSpy = new PageSpy(...)；  constructor() $pageSpy.updateRoomInfo() $pageSpy.abort() PageSpy.registerPlugin() PageSpy.pluginsWithOrder $pageSpy.version $pageSpy.config $pageSpy.socketStore $pageSpy.showPanel()  "
+      "content": "PageSpy 核心类，提供应用调试的基础功能。 以下文档中使用 $pageSpy 表示 PageSpy 实例，即 $pageSpy = new PageSpy(...)  constructor() $pageSpy.updateRoomInfo() $pageSpy.abort() PageSpy.registerPlugin() PageSpy.pluginsWithOrder $pageSpy.version $pageSpy.config $pageSpy.socketStore $pageSpy.showPanel()  "
     },
     {
       "language": "zh",
@@ -1330,14 +1386,14 @@
       "route": "/docs/api#harbor",
       "parent": "API",
       "title": "DataHarborPlugin",
-      "content": " 约定实例变量名称为 $harbor = new DataHarborPlugin(...)；  constructor() 手动操作日志 $harbor.pause() $harbor.resume() $harbor.reharbor() "
+      "content": "DataHarborPlugin 用于离线数据缓存和上传下载管理。 以下文档中使用 $harbor 表示 DataHarborPlugin 实例，即 $harbor = new DataHarborPlugin(...)  constructor() 手动操作日志 $harbor.pause() $harbor.resume() $harbor.reharbor() "
     },
     {
       "language": "zh",
       "route": "/docs/api#rrweb",
       "parent": "API",
       "title": "RRWebPlugin",
-      "content": " 约定实例变量名称为 $rrweb = new RRWebPlugin(...)；  constructor() "
+      "content": "RRWebPlugin 用于录制和回放用户操作，便于复现问题场景。 以下文档中使用 $rrweb 表示 RRWebPlugin 实例，即 $rrweb = new RRWebPlugin(...)  constructor() "
     },
     {
       "language": "zh",
@@ -1379,7 +1435,7 @@
       "route": "/docs/browser#script-usage-step-2",
       "parent": "浏览器",
       "title": "第二步",
-      "content": "初始化 PageSpy 和插件，它们的初始化参数都提供了可选的 配置项 用于自定义 SDK 的行为：  你也可以通过 [开发插件](./plugins)，定制属于你自己的 PageSpy！ </div> <script>   window.$harbor = new DataHarborPlugin();   window.$rrweb = new RRWebPlugin();   [window.$harbor, window.$rrweb].forEach(p => {     PageSpy.registerPlugin(p)   })   window.$pageSpy = new PageSpy(); </script> "
+      "content": "初始化 PageSpy 和插件，可通过 配置项 自定义 SDK 的行为：  你也可以通过 [开发插件](./plugins)，定制属于你自己的 PageSpy！ </div> <script>   window.$harbor = new DataHarborPlugin();   window.$rrweb = new RRWebPlugin();   [window.$harbor, window.$rrweb].forEach(p => {     PageSpy.registerPlugin(p)   })   window.$pageSpy = new PageSpy(); </script> "
     },
     {
       "language": "zh",
@@ -1400,28 +1456,28 @@
       "route": "/docs/browser#esm-usage-step-2",
       "parent": "浏览器",
       "title": "第二步",
-      "content": "import PageSpy from '@huolala-tech/page-spy-browser'; import DataHarborPlugin from '@huolala-tech/page-spy-plugin-data-harbor'; import RRWebPlugin from '@huolala-tech/page-spy-plugin-rrweb'; window.$harbor = new DataHarborPlugin(); window.$rrweb = new RRWebPlugin(); [window.$harbor, window.$rrweb].forEach(p => {   PageSpy.registerPlugin(p); }) // ESM 模式下无法自动分析，所以下面的实例化参数是必须的 window.$pageSpy = new PageSpy({   api: \"{deployPath}\",   clientOrigin: \"{deployUrl}\" }); 以上就是在浏览器项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 开始调试 使用！"
+      "content": "import PageSpy from '@huolala-tech/page-spy-browser'; import DataHarborPlugin from '@huolala-tech/page-spy-plugin-data-harbor'; import RRWebPlugin from '@huolala-tech/page-spy-plugin-rrweb'; window.$harbor = new DataHarborPlugin(); window.$rrweb = new RRWebPlugin(); [window.$harbor, window.$rrweb].forEach(p => {   PageSpy.registerPlugin(p); }) // ESM 模式下无法自动分析部署地址，因此必须手动配置以下参数 window.$pageSpy = new PageSpy({   api: \"{deployPath}\",   clientOrigin: \"{deployUrl}\",   enableSSL: {enableSSL}, }); 以上就是在浏览器项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 开始调试 使用！"
     },
     {
       "language": "zh",
       "route": "/docs/browser#framework",
       "parent": "浏览器",
       "title": "在框架中集成",
-      "content": "PageSpy 通过 CodeSandbox 平台发布了与当下流行的所有框架的接入指南，大家可以前往在线体验： React：CodeSandbox - PageSpy in React Vue：CodeSandbox - PageSpy in Vue Svelte：CodeSandbox - PageSpy in Svelte Angular：CodeSandbox - PageSpy in Angular Nextjs：CodeSandbox - PageSpy in Nextjs Nuxtjs：CodeSandbox - PageSpy in Nuxtjs "
+      "content": "PageSpy 在 CodeSandbox 平台发布了与主流框架的接入指南，你可以前往在线体验： React：CodeSandbox - PageSpy in React Vue：CodeSandbox - PageSpy in Vue Svelte：CodeSandbox - PageSpy in Svelte Angular：CodeSandbox - PageSpy in Angular Nextjs：CodeSandbox - PageSpy in Nextjs Nuxtjs：CodeSandbox - PageSpy in Nuxtjs "
     },
     {
       "language": "zh",
       "route": "/docs/browser#extension",
       "parent": "浏览器",
       "title": "使用浏览器插件",
-      "content": "PageSpy 提供浏览器插件让你无需集成任何代码，即可在任何网页上使用 PageSpy！是的，你没看错！通过 PageSpy 的浏览器插件你可以调试几乎所有网页！少数网站设置了 CSP 策略可能会导致插件无法生效。"
+      "content": "PageSpy 提供浏览器插件，让你无需集成任何代码，即可在任何网页上使用 PageSpy！是的，你没看错！通过 PageSpy 的浏览器插件你可以调试几乎所有网页！（少数设置了 CSP 策略的网站可能无法生效）"
     },
     {
       "language": "zh",
       "route": "/docs/browser#install-extension",
       "parent": "浏览器",
       "title": "安装",
-      "content": " 前往 Chrome 应用商店 一键安装， 或者； 前往 浏览器插件 仓库，按照 README 文档手动安装。 "
+      "content": " 前往 Chrome 应用商店 一键安装，或者： 前往 浏览器插件 仓库，按照 README 文档手动安装。 "
     },
     {
       "language": "zh",
@@ -1764,14 +1820,14 @@
       "route": "/docs/deploy-guide#main-components",
       "parent": "部署说明",
       "title": "主要构成",
-      "content": "PageSpy 由以下三个模块组成： 调试端：对应 HuolalaTech/page-spy-web 仓库，主要供开发者使用，提供各类调试功能面板，包括在线调试、离线回放等； SDK：对应 HuolalaTech/page-spy 仓库，负责将用户项目在运行时产生的数据发送给服务端，并由服务端转发给调试端； 服务端：对应 HuolalaTech/page-spy-api 仓库，主要负责中转两端的消息、存储数据等。 三个模块之间的交互图如下："
+      "content": "PageSpy 由以下三个模块组成： 调试端：对应 HuolalaTech/page-spy-web 仓库，供开发者使用，提供各类调试功能面板，包括在线调试、离线回放等。 SDK：对应 HuolalaTech/page-spy 仓库，负责收集用户项目运行时的数据并发送给服务端，由服务端转发给调试端。 服务端：对应 HuolalaTech/page-spy-api 仓库，负责中转两端的消息、存储数据等。 三个模块之间的交互图如下："
     },
     {
       "language": "zh",
       "route": "/docs/deploy-guide#deployments",
       "parent": "部署说明",
       "title": "多种部署方案",
-      "content": "为了方便使用和数据安全，PageSpy 提供完整的、开箱即用的多种 一键部署方案，各位开发者可以根据自己的情况任意选择一种部署方式。 使用 Node 部署 使用 Docker 部署 在宝塔面板安装 "
+      "content": "为了方便使用和保障数据安全，PageSpy 提供多种开箱即用的 一键部署方案，你可以根据实际情况选择合适的部署方式。 使用 Node 部署 使用 Docker 部署 在宝塔面板安装 "
     },
     {
       "language": "zh",
@@ -1876,7 +1932,7 @@
       "route": "/docs/faq#compatibility",
       "parent": "常见问题解答",
       "title": "PageSpy 的兼容性",
-      "content": " 浏览器 SDK 的兼容性目标设置的是 [\"chrome > 75\",\"safari > 12\", \"> 0.1%\", \"not dead\",\"not op_mini all\"]，其他 SDK 可以前往各自的仓库查看； 调试端主要是开发者使用，对于浏览器的新特性使用我们保持开放的态度。所以建议使用最新版本的浏览器，设置的兼容性目标是 [\"last 2 chrome version\", \"last 2 firefox version\", \"last 2 safari version\"]。 "
+      "content": " 浏览器 SDK 的兼容性目标为 [\"chrome > 75\",\"safari > 12\", \"> 0.1%\", \"not dead\",\"not op_mini all\"]，其他 SDK 可前往各自的仓库查看。 调试端主要供开发者使用，对于浏览器的新特性使用我们保持开放的态度。建议使用最新版本的浏览器，兼容性目标为 [\"last 2 chrome version\", \"last 2 firefox version\", \"last 2 safari version\"]。 "
     },
     {
       "language": "zh",
@@ -1889,7 +1945,7 @@
       "language": "zh",
       "route": "/docs/faq#init-params",
       "parent": "常见问题解答",
-      "title": "实例化都可以传哪些参数，它们的作用分别是什么？",
+      "title": "实例化可以传哪些参数，它们的作用是什么？",
       "content": "参考 PageSpy API。"
     },
     {
@@ -1904,28 +1960,28 @@
       "route": "/docs/faq#framework",
       "parent": "常见问题解答",
       "title": "如何在 xxx 框架中集成？",
-      "content": "PageSpy 借助 CodeSandbox 平台发布了与当下流行的所有框架的接入指南，大家可以前往在线体验： React：CodeSandbox - PageSpy in React Vue：CodeSandbox - PageSpy in Vue Svelte：CodeSandbox - PageSpy in Svelte Angular：CodeSandbox - PageSpy in Angular Nextjs：CodeSandbox - PageSpy in Nextjs Nuxtjs：CodeSandbox - PageSpy in Nuxtjs "
+      "content": "PageSpy 在 CodeSandbox 平台发布了与主流框架的接入指南，你可以前往在线体验： React：CodeSandbox - PageSpy in React Vue：CodeSandbox - PageSpy in Vue Svelte：CodeSandbox - PageSpy in Svelte Angular：CodeSandbox - PageSpy in Angular Nextjs：CodeSandbox - PageSpy in Nextjs Nuxtjs：CodeSandbox - PageSpy in Nuxtjs "
     },
     {
       "language": "zh",
       "route": "/docs/faq#test-domain",
       "parent": "常见问题解答",
-      "title": "pagespy.jikejishu.com 是官方提供的域名吗？一直可以用吗？",
+      "title": "pagespy.jikejishu.com 是官方提供的域名吗？",
       "content": "https://pagespy.jikejishu.com 是我们为了让大家能够在线体验、学习 PageSpy 临时搭建的服务，不保证 24 小时可用性、不保证数据安全、造成的损失自负，强烈建议大家在体验后前往私服、内网中自行部署。"
     },
     {
       "language": "zh",
       "route": "/docs/faq#server-port",
       "parent": "常见问题解答",
-      "title": "为什么本地 6752 端口可以访问，部署到服务器上就不行了？",
+      "title": "本地 6752 端口可以访问，部署到服务器上就不行了？",
       "content": "检查服务器上的防火墙、或者安全组规则是否开放了 6752 端口。"
     },
     {
       "language": "zh",
       "route": "/docs/faq#debug-disabled",
       "parent": "常见问题解答",
-      "title": "调试按钮显示 “当前连接不存在客户端” 是什么意思？",
-      "content": "这种情况通常是因为 SDK 正常创建了房间，但是无法通过 websocket 加入房间。按以下步骤排查： 打开 SDK 所在的客户端的控制台，看是否有报错； 如果控制台提示 \"WebSocket connect failed\" 相关信息，检查服务器的配置是否正确； "
+      "title": "调试按钮显示 \"当前连接不存在客户端\" 是什么意思？",
+      "content": "这种情况通常是因为 SDK 正常创建了房间，但是无法通过 WebSocket 加入房间。按以下步骤排查： 打开 SDK 所在的客户端的控制台，查看是否有报错 如果控制台提示 \"WebSocket connect failed\" 相关信息，检查服务器的配置是否正确 "
     },
     {
       "language": "zh",
@@ -1939,34 +1995,34 @@
       "route": "/docs/faq#sub-path",
       "parent": "常见问题解答",
       "title": "如何部署到子路径？",
-      "content": "在版本 1.5.4 中支持用户将服务部署到子路径，安装过程没有任何变化，需要做调整的是 nginx 配置:server {   # ...   # <sub-path> 填写你准备部署到的子路径   location /<sub-path>/  {       # 这里的 <sub-path> 和上面的保持一致       rewrite ^/<sub-path>/(.*)$ /$1 break;       proxy_pass            http://127.0.0.1:6752;       proxy_http_version    1.1;       proxy_set_header      Upgrade $http_upgrade;       proxy_set_header      Connection \"upgrade\";       proxy_set_header      Host $host;       proxy_set_header      X-Real-IP $remote_addr;       proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;   }   # 这里的 <sub-path> 和上面的保持一致   location /<sub-path> {       return 301 $scheme://$host$request_uri/;   } } 在调整配置后，重启 nginx 即可通过子路径访问；需要注意的是，现在实例化时需要手动传参 api 和 clientOrigin 告诉 SDK 部署地址，例如：window.$pageSpy = new PageSpy({   // 例如 api: \"example.com/pagespy\"   api: '<host>/<sub-path>',   // 例如 clientOrigin: \"https://example.com/pagespy\"   clientOrigin: '<scheme>://<host>/<sub-path>', }); "
+      "content": "在版本 1.5.4 中支持用户将服务部署到子路径，安装过程没有任何变化，需要做调整的是 nginx 配置:server {   # ...   # <sub-path> 填写你准备部署到的子路径   location /<sub-path>/  {       # 这里的 <sub-path> 和上面的保持一致       rewrite ^/<sub-path>/(.*)$ /$1 break;       proxy_pass            http://127.0.0.1:6752;       proxy_http_version    1.1;       proxy_set_header      Upgrade $http_upgrade;       proxy_set_header      Connection \"upgrade\";       proxy_set_header      Host $host;       proxy_set_header      X-Real-IP $remote_addr;       proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;   }   # 这里的 <sub-path> 和上面的保持一致   location /<sub-path> {       return 301 $scheme://$host$request_uri/;   } } 在调整配置后，重启 Nginx 即可通过子路径访问。需要注意的是，实例化时需要手动传参 api 和 clientOrigin 告诉 SDK 部署地址，例如：window.$pageSpy = new PageSpy({   // 例如 api: \"example.com/pagespy\"   api: '<host>/<sub-path>',   // 例如 clientOrigin: \"https://example.com/pagespy\"   clientOrigin: '<scheme>://<host>/<sub-path>', }); "
     },
     {
       "language": "zh",
       "route": "/docs/faq#security",
       "parent": "常见问题解答",
-      "title": "调试端如何加一些安全认证的保护，开发者通过认证才可以访问？",
-      "content": "从 2.3.0 版本开始，PageSpy 支持在启动服务时使用变量设置密码以保护调试端安全。设置密码后，开发者访问调试面板时必须输入正确的密码。允许输入的变量和含义： AUTH_PASSWORD：设置密码； JWT_SECRET：设置 token 的密钥； JWT_EXPIRATION_HOURS：设置 token 过期时间（小时），默认 24 小时； 在启动服务时设置，具体的使用方式如下："
+      "title": "调试端如何加安全认证的保护，开发者通过认证才可以访问？",
+      "content": "从 2.3.0 版本开始，PageSpy 支持在启动服务时使用变量设置密码以保护调试端安全。设置密码后，开发者访问调试面板时必须输入正确的密码。可配置的变量： AUTH_PASSWORD：设置密码 JWT_SECRET：设置 Token 的密钥 JWT_EXPIRATION_HOURS：设置 Token 过期时间（小时），默认 24 小时 在启动服务时设置，具体的使用方式如下："
     },
     {
       "language": "zh",
       "route": "/docs/faq#extension",
       "parent": "常见问题解答",
-      "title": "不想在项目里手动集成，有没有办法可以不侵入业务项目代码？",
-      "content": "PageSpy 为大家准备了浏览器插件，插件提供了以下特性： 自动注入最新版本的  SDK； 自动完成实例化操作； 提供注入的域名配置规则； 点击前往使用：HuolalaTech/page-spy-extension"
+      "title": "不想在项目里手动集成，是否可以不侵入业务代码？",
+      "content": "PageSpy 为大家准备了浏览器插件，插件提供了以下特性： 自动注入最新版本的 SDK 自动完成实例化操作 提供注入的域名配置规则 点击前往使用：HuolalaTech/page-spy-extension"
     },
     {
       "language": "zh",
       "route": "/docs/faq#tampermonkey",
       "parent": "常见问题解答",
       "title": "有油猴脚本可以使用吗？",
-      "content": "参考以下内容：// ==UserScript== // @name         Inject PageSpy Script // @namespace    http://tampermonkey.net/ // @version      0.1 // @description  Inject script on xxx.yyy // @author       You // @match        <匹配规则，比如 example.com> // @grant        none // ==/UserScript== (function () {   'use strict';   var script1 = document.createElement('script');   script1.setAttribute('crossorigin', 'anonymous');   // 实际项目中请替换 SDK 的地址连接   script1.src = 'https://pagespy.jikejishu.com/page-spy/index.min.js';   var script2 = document.createElement('script');   script2.textContent = 'window.$pageSpy = new PageSpy();';   document.head.prepend(script1);   script1.onload = () => {     document.head.appendChild(script2);   }; })(); "
+      "content": "参考以下内容：// ==UserScript== // @name         Inject PageSpy Script // @namespace    http://tampermonkey.net/ // @version      0.1 // @description  Inject script on xxx.yyy // @author       You // @match        <匹配规则，比如 example.com> // @grant        none // ==/UserScript== (function () {   'use strict';   var script1 = document.createElement('script');   script1.setAttribute('crossorigin', 'anonymous');   // 实际项目中请替换 SDK 的地址链接   script1.src = 'https://pagespy.jikejishu.com/page-spy/index.min.js';   var script2 = document.createElement('script');   script2.textContent = 'window.$pageSpy = new PageSpy();';   document.head.prepend(script1);   script1.onload = () => {     document.head.appendChild(script2);   }; })(); "
     },
     {
       "language": "zh",
       "route": "/docs/faq#http-error",
       "parent": "常见问题解答",
-      "title": "业务项目部署在 HTTPS，PageSpy 部署在 HTTP，控制台报错怎么办？",
+      "title": "业务项目部署在 HTTPS，PageSpy 部署在 HTTP，控制台报错如何解决？",
       "content": "浏览器会阻止从 HTTPS 站点加载 HTTP 资源，这是因为在 HTTP 和 HTTPS 之间传输数据时，HTTPS 提供了加密和安全性，而 HTTP 则是明文传输，存在安全风险。建议大家直接将 PageSpy 升级到 HTTPS 服务，就可以完美解决。"
     },
     {
@@ -1974,7 +2030,7 @@
       "route": "/docs/faq#prod-debug",
       "parent": "常见问题解答",
       "title": "如何单独对某个用户进行调试？",
-      "content": "最简单的方案是让用户使用 PageSpy 的浏览器插件，适用于非常配合的客户且是 PC 端项目的时候，但这个前提条件肉眼可见的非常苛刻；那么如果 H5 项目上生产了想使用 PageSpy 该怎么办？对所有用户都开启这显然不现实。大家可以想想 PageSpy 的生效过程总共就两个步骤： head 标签中通过 <script> 引入 SDK； 实例化； PageSpy 在第二步实例化之前，引入的 <script> 对项目不会产生任何作用。我们想针对某个用户进行调试，关键在第二步：在哪个用户的终端上实例化 PageSpy。对此有两种方案： 动态响应 HTML：如果用户在请求 HTML 时，我们可以拿到用户的唯一标识、并且可以对 HTML 动态注入，那么就可以在向用户返回 HTML 之前决定是否注入 <script> 和实例化的逻辑； 让用户使用手势开启：这通常需要用户的主动配合。默认情况下注入 SDK 但不实例化，让用户触发特殊手势后再开启调试，点击 config.gesture 配置使用； 友情提示：除了技术上的实现之外，需要注意合法合规等安全风险。"
+      "content": "最简单的方案是让用户使用 PageSpy 的浏览器插件，适用于配合度高的 PC 端客户，但这个前提条件较为苛刻。如果 H5 项目上线到生产环境想使用 PageSpy，对所有用户都开启显然不现实。PageSpy 的生效过程总共只有两个步骤： head 标签中通过 <script> 引入 SDK； 实例化； PageSpy 在第二步实例化之前，引入的 <script> 对项目不会产生任何作用。我们想针对某个用户进行调试，关键在第二步：在哪个用户的终端上实例化 PageSpy。对此有两种方案： 动态响应 HTML：如果用户在请求 HTML 时，我们可以拿到用户的唯一标识、并且可以对 HTML 动态注入，那么就可以在向用户返回 HTML 之前决定是否注入 <script> 和实例化的逻辑； 让用户使用手势开启：这通常需要用户的主动配合。默认情况下注入 SDK 但不实例化，让用户触发特殊手势后再开启调试，点击 config.gesture 配置使用； 友情提示：除了技术上的实现之外，需要注意合法合规等安全风险。"
     },
     {
       "language": "zh",
@@ -2002,7 +2058,7 @@
       "route": "/docs/faq#page-reset",
       "parent": "常见问题解答",
       "title": "Page 面板就不能 100% 还原客户端的内容吗？",
-      "content": "SDK 可以对页面进行 “截图” 并发送到调试端，但由于： “图片” 比文本的数据体积大，数据交互会增加网络传输开销； 增加 SDK 的体积和复杂度； 如果是「样式出错」，远程协同时测试人员可以精准的反馈给开发者； 出于以上原因，Page 面板的样式仅供参考。"
+      "content": "SDK 可以对页面进行 “截图” 并发送到调试端，但由于： \"图片\" 比文本的数据体积大，数据交互会增加网络传输开销 增加 SDK 的体积和复杂度 如果是样式出错，远程协同时测试人员可以精准地反馈给开发者 出于以上原因，Page 面板的样式仅供参考。"
     },
     {
       "language": "zh",
@@ -2016,14 +2072,14 @@
       "route": "/docs/faq#upgrade",
       "parent": "常见问题解答",
       "title": "新版本发布后，怎么升级到最新版本？",
-      "content": " 如果你使用 docker 部署的： # 更新镜像 docker pull ghcr.io/huolalatech/page-spy-web:latest # 停止正在运行的 PageSpy 容器 docker stop pageSpy && docker rm -f pageSpy # 重新运行 docker run -d --restart=always -p 6752:6752 --name=\"pageSpy\" ghcr.io/huolalatech/page-spy-web:latest 如果你使用 NPM Package 部署的： # 更新 package（yarn） yarn global upgrade @huolala-tech/page-spy-api@latest # 更新 package（npm） npm install -g @huolala-tech/page-spy-api@latest # 使用 pm2 重启 pm2 restart page-spy-api "
+      "content": " 如果你使用 Docker 部署： # 更新镜像 docker pull ghcr.io/huolalatech/page-spy-web:latest # 停止正在运行的 PageSpy 容器 docker stop pageSpy && docker rm -f pageSpy # 重新运行 docker run -d --restart=always -p 6752:6752 --name=\"pageSpy\" ghcr.io/huolalatech/page-spy-web:latest 如果你使用 NPM Package 部署： # 更新 package（yarn） yarn global upgrade @huolala-tech/page-spy-api@latest # 更新 package（npm） npm install -g @huolala-tech/page-spy-api@latest # 使用 pm2 重启 pm2 restart page-spy-api "
     },
     {
       "language": "zh",
       "route": "/docs/faq#auto-destroy",
       "parent": "常见问题解答",
       "title": "房间连接什么情况下会自动销毁？",
-      "content": " 查看配置：https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323  房间创建后，无 SDK 或调试端进入，1 分钟后销毁（实际使用过程中，该场景不存在）； SDK 和调试端都已断开连接，1 分钟后销毁； 一直没有数据消息交互，5 分钟后销毁； 连接使用持续超过 1 个小时自动被销毁； "
+      "content": " 查看配置：https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323  房间创建后，无 SDK 或调试端进入，1 分钟后销毁（实际使用过程中，该场景不存在） SDK 和调试端都已断开连接，1 分钟后销毁 一直没有数据消息交互，5 分钟后销毁 连接使用持续超过 1 个小时自动被销毁 "
     },
     {
       "language": "zh",
@@ -2037,7 +2093,7 @@
       "route": "/docs/faq#offline-log",
       "parent": "常见问题解答",
       "title": "为什么上传的文件日志不见了？",
-      "content": "如果你没有在 config.json 中配置 storageConfig 参数，那么上传的文件日志会在本地管理： 上传的文件日志默认最多保存最新的 10 G，以及 30 天，可以通过修改配置来自定义。 上传日志保存在运行目录的 log 目录下，docker 运行时候，如果 docker 被销毁日志也会丢失，可以用目录映射 -v ./log:/app/log -v ./data:/app/data 来持久化。 "
+      "content": "如果你没有在 config.json 中配置 storageConfig 参数，那么上传的文件日志会在本地管理： 上传的文件日志默认最多保存最新的 10GB，以及 30 天，可以通过修改配置来自定义 上传日志保存在运行目录的 log 目录下，Docker 运行时，如果容器被销毁日志也会丢失，可以用目录映射 -v ./log:/app/log -v ./data:/app/data 来持久化 "
     },
     {
       "language": "zh",
@@ -2045,6 +2101,13 @@
       "parent": "鸿蒙 App",
       "title": "鸿蒙 App",
       "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "zh",
+      "route": "/docs/harmony#start-using",
+      "parent": "鸿蒙 App",
+      "title": "开始使用",
+      "content": ""
     },
     {
       "language": "zh",
@@ -2058,7 +2121,7 @@
       "route": "/docs/harmony#step-2",
       "parent": "鸿蒙 App",
       "title": "第二步",
-      "content": "在合适的位置引入 SDK 并初始化，这里以 EntryAbility 为例。初始化参数提供了可选的 配置项 用于自定义 SDK 的行为：import { PageSpy } from '@huolala/page-spy-harmony'; import axiosInstance from 'path/to/your/axios-instance'; export default class EntryAbility extends UIAbility {   onWindowStageCreate(windowStage: window.WindowStage) {     new PageSpy({       context: this.context,       api: \"{deployPath}\",       enableSSL: true,       axios: axiosInstance     })   } } 以上就是在鸿蒙 App 项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 开始调试 使用！"
+      "content": "在合适的位置引入 SDK 并初始化，这里以 EntryAbility 为例。初始化参数提供了可选的 配置项 用于自定义 SDK 的行为：import { PageSpy } from '@huolala/page-spy-harmony'; import axiosInstance from 'path/to/your/axios-instance'; export default class EntryAbility extends UIAbility {   onWindowStageCreate(windowStage: window.WindowStage) {     new PageSpy({       context: this.context,       api: \"{deployPath}\",       enableSSL: {enableSSL},       axios: axiosInstance     })   } } 以上就是在鸿蒙 App 项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 开始调试 使用！"
     },
     {
       "language": "zh",
@@ -2072,7 +2135,7 @@
       "route": "/docs/introduction#what-is-page-spy",
       "parent": "简介",
       "title": "什么是 PageSpy？",
-      "content": "PageSpy 是一款兼容 Web / 小程序 / React Native / 鸿蒙 App 等平台项目的开源调试平台。基于对原生 API 的封装，它将调用原生方法时的参数进行过滤、转化，整理成一定格式的消息供调试端消费；调试端收到消息数据后，提供类似本地控制台的功能界面将数据呈现出来。"
+      "content": "PageSpy 是一款兼容 Web / 小程序 / React Native / 鸿蒙 App 等多平台的开源远程调试工具。它基于对原生 API 的封装，将调用原生方法时的参数进行过滤、转化，整理成标准格式传输给调试端；调试端收到数据后，通过类似本地控制台的界面直观呈现出来。"
     },
     {
       "language": "zh",
@@ -2086,21 +2149,21 @@
       "route": "/docs/introduction#when-to-use",
       "parent": "简介",
       "title": "何时使用？",
-      "content": "任何无法在本地使用控制台调试的场景，都是 PageSpy 可以大显身手的时候！ 一起来看下面的几个场景案例： 本地调试 H5、Webview 应用：以往有些产品提供了可以在 H5 上查看信息的面板，但移动端屏幕太小操作不便、显示不友好，以及信息被截断等问题； 远程办公、跨地区协同：传统沟通方式如邮件、电话、视频会议等，沟通效率不高、故障信息不全面，容易误解误判； 用户终端上出现白屏问题：传统定位问题的方式包括数据监控、日志分析等，这些方式依赖排障人员要理解业务需求场景、技术实现； PageSpy 的目标，就是为包括以上场景的人员提供帮助。"
+      "content": "任何无法在本地使用控制台调试的场景，都是 PageSpy 可以大显身手的时候！ 一起来看下面的几个场景案例： 本地调试 H5、Webview 应用：移动端屏幕太小，传统调试面板操作不便、显示不友好，且容易出现信息截断； 远程办公、跨地区协同：传统沟通方式（邮件、电话、视频会议）效率低，故障信息不完整，容易误解误判； 用户终端白屏问题排查：数据监控、日志分析等传统方式依赖排障人员对业务和技术的深入理解，定位效率低； PageSpy 的目标，就是为包括以上场景的人员提供帮助。"
     },
     {
       "language": "zh",
       "route": "/docs/introduction#page-overview",
       "parent": "简介",
-      "title": "能力概览",
-      "content": "PageSpy 在提供调试功能的基础上，拓展出 在线实时调试 和 离线日志回放 两种场景！"
+      "title": "能力和场景概览",
+      "content": "PageSpy 在提供调试功能的基础上，扩展出 在线实时调试 和 离线日志回放 两种场景！"
     },
     {
       "language": "zh",
       "route": "/docs/introduction#online-debugging",
       "parent": "简介",
       "title": "1. 在线实时调试",
-      "content": " Console 面板: 显示 console.<log | info | warn | error | debug> 输出的日志信息，可以发送代码到客户端执行；  Network 面板: 显示客户端发出的网络请求信息；  Element 面板: 显示客户端当前界面，查看 HTML 节点树；  Storage 面板: 查看客户端本地的缓存数据；  Systems 面板: 显示客户端的系统信息，查看兼容性。 除此之外，当有新的数据或者数据发生变化的时候会实时的收到通知。"
+      "content": " Console 面板: 显示 console.<log | info | warn | error | debug> 输出的日志信息，可以发送代码到客户端执行；  Network 面板: 显示客户端发出的网络请求信息；  Element 面板: 显示客户端当前界面，查看 HTML 节点树；  Storage 面板: 查看客户端本地的缓存数据；  Systems 面板: 显示客户端的系统信息，查看兼容性。 除此之外，当有新数据产生或数据发生变化时，会实时地收到通知。"
     },
     {
       "language": "zh",
@@ -2118,58 +2181,65 @@
     },
     {
       "language": "zh",
+      "route": "/docs/miniprogram#start-using",
+      "parent": "小程序",
+      "title": "开始使用",
+      "content": ""
+    },
+    {
+      "language": "zh",
       "route": "/docs/miniprogram#step-1",
       "parent": "小程序",
       "title": "第一步",
-      "content": "在项目中安装依赖。我们提供了几种小程序平台的 SDK，请根据需要安装："
+      "content": "在项目中安装依赖。我们提供了多种小程序平台的 SDK，请根据需要安装："
     },
     {
       "language": "zh",
       "route": "/docs/miniprogram#step-2",
       "parent": "小程序",
       "title": "第二步",
-      "content": "将 PageSpy 服务域名填入小程序的 http、websocket 请求白名单中。注意除了开发环境，小程序强制要求使用 https 和 wss 协议：https://<your-pagespy-host> wss://<your-pagespy-host> "
+      "content": "将 PageSpy 服务域名填入小程序的 HTTP、WebSocket 请求白名单中。注意：除开发环境外，小程序强制要求使用 HTTPS 和 WSS 协议：https://<your-pagespy-host> wss://<your-pagespy-host> "
     },
     {
       "language": "zh",
       "route": "/docs/miniprogram#step-3",
       "parent": "小程序",
       "title": "第三步",
-      "content": "在入口文件中引入 SDK 并实例化，初始化参数提供了可选的 配置项 用于自定义 SDK 的行为："
+      "content": "在入口文件中引入 SDK 并实例化，可通过 配置项 自定义 SDK 的行为："
     },
     {
       "language": "zh",
       "route": "/docs/miniprogram#menus",
       "parent": "小程序",
       "title": "调试菜单",
-      "content": "在创建的 PageSpy 实例上调用 showPanel() 方法可以弹出一个调试菜单用于辅助调试：以上就是在小程序项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 开始调试 使用！"
+      "content": "调用 $pageSpy.showPanel() 方法可以弹出调试菜单：以上就是在小程序项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 开始调试 使用！"
     },
     {
       "language": "zh",
       "route": "/docs/offline-log#offline-log",
       "parent": "离线日志回放",
       "title": "离线日志回放",
-      "content": "import modalImg from '@/assets/image/screenshot/modal.png'; import replayImg from '@/assets/image/screenshot/replay-page.png'; import replayGif from '@/assets/image/screenshot/replay-page.gif'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';日志回放，顾名思义是重新播放之前产生的日志。那么为什么要播放之前的日志？之前的日志从哪来？如何重新播放？我们一一来看。"
+      "content": "import modalImg from '@/assets/image/screenshot/modal.png'; import replayImg from '@/assets/image/screenshot/replay-page.png'; import replayGif from '@/assets/image/screenshot/replay-page.gif'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';"
+    },
+    {
+      "language": "zh",
+      "route": "/docs/offline-log#what",
+      "parent": "离线日志回放",
+      "title": "是什么",
+      "content": "日志回放是离线调试功能，允许你在问题发生后查看和分析当时的运行数据。通过回放历史日志，你可以像看录像一样重现问题场景，无需实时连接调试端。"
     },
     {
       "language": "zh",
       "route": "/docs/offline-log#why",
       "parent": "离线日志回放",
       "title": "为什么",
-      "content": "以往，PageSpy 在线调试解决了很多棘手的问题，但使用 PageSpy 有一个前提条件：「客户端和调试端必须同时在线」。这个前置条件不仅局限了 PageSpy 的使用场景，比如： 针对一个问题要同时投入开发和测试两个人力； 调试期间客户端退到后台导致连接断开了； 同时也给 PageSpy 自身带来边边框框，比如： 要考虑收集的数据体积、网络传输的压力； 为了解决这些问题、使用时获得更大自由度，PageSpy 在 1.7.3 版本中提供了日志回放的功能！"
+      "content": "PageSpy 的在线调试功能虽然强大，但要求客户端和调试端必须同时在线。这带来了一些限制： 人力成本高：针对一个问题需要开发和测试同时在线配合 连接不稳定：客户端退到后台或网络波动会导致连接断开 实时传输压力：需要考虑数据体积和网络传输性能 为了解决这些问题，PageSpy 在 1.7.3 版本中提供了日志回放功能，让调试更加灵活自由。"
     },
     {
       "language": "zh",
-      "route": "/docs/offline-log#where",
+      "route": "/docs/offline-log#start-using",
       "parent": "离线日志回放",
-      "title": "日志从哪来",
-      "content": "在 PageSpy 的 SDK 支持 注册插件 后，开发团队第一时间推进 DataHarborPlugin 插件的研发。 Data Harbor，数据港口。 心智模型：PageSpy 产生的数据会源源不断的被送到 “数据港口”，在对数据进行整理、打包、压缩后，“数据港口” 将数据存放在 “集装箱”（内存或本地临时文件）中，等待下一步指示。 它在内部监听 \"public-data\" 事件（什么是 \"public-data\" 事件？），进而实现离线缓存数据的功能，同时在 SDK 渲染的控件中提供上传、下载数据的功能。当客户端发现问题时，测试同学可以直接上传或者下载数据，这一创新打破了以往「客户端和调试端必须同时在线」的前提要求。"
-    },
-    {
-      "language": "zh",
-      "route": "/docs/offline-log#how-to-use",
-      "parent": "离线日志回放",
-      "title": "如何使用",
+      "title": "开始使用",
       "content": ""
     },
     {
@@ -2177,41 +2247,41 @@
       "route": "/docs/offline-log#browser",
       "parent": "离线日志回放",
       "title": "在浏览器中使用",
-      "content": " 如果仅需要 PageSpy 的离线日志回放功能，我们推荐 O-Spy 的使用方式，集成更简单。 "
+      "content": "如果你需要完整的 PageSpy 功能，包括在线调试和离线回放，按以下步骤集成："
     },
     {
       "language": "zh",
       "route": "/docs/offline-log#step-1",
       "parent": "离线日志回放",
-      "title": "第一步：客户端引入 SDK 和插件",
-      "content": "<html>   <head>     <!-- 1. 加载 PageSpy -->     <script src=\"{deployUrl}/page-spy/index.min.js\"></script>     <!-- 2. 加载 DataHarbor 插件：缓存离线日志数据，提供下载 / 上传日志功能 -->     <script src=\"{deployUrl}/plugin/data-harbor/index.min.js\"></script>     <!-- 3. 同时可以加载 RRWeb 插件，将用户操作轨迹记录到离线日志中 -->     <script src=\"{deployUrl}/plugin/rrweb/index.min.js\"></script>     <script>       // 4. 注册插件，config 信息查看：https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor       PageSpy.registerPlugin(new DataHarborPlugin(config));       PageSpy.registerPlugin(new RRWebPlugin());       // 5. 实例化 PageSpy       window.$pageSpy = new PageSpy({         // 如果不想 SDK 和调试端建立实时连接，可以开启离线模式         // offline: true       });     </script>   </head> </html> 引入成功后页面右下方会出现 PageSpy 的悬浮球，点击悬浮球出现的弹窗中应该包含了上传和下载的按钮。试试点击上传和下载按钮，这将会触发离线日志的上传和下载，之后我们就可以回放日志。"
+      "title": "第一步：引入 SDK 和插件",
+      "content": "<html>   <head>     <!-- 1. 加载 PageSpy -->     <script src=\"{deployUrl}/page-spy/index.min.js\"></script>     <!-- 2. 加载 DataHarbor 插件：缓存离线日志数据，提供上传/下载功能 -->     <script src=\"{deployUrl}/plugin/data-harbor/index.min.js\"></script>     <!-- 3. 加载 RRWeb 插件：记录用户操作轨迹（可选） -->     <script src=\"{deployUrl}/plugin/rrweb/index.min.js\"></script>     <script>       // 4. 注册插件，config 信息查看：https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor       PageSpy.registerPlugin(new DataHarborPlugin(config));       PageSpy.registerPlugin(new RRWebPlugin());       // 5. 实例化 PageSpy       window.$pageSpy = new PageSpy({         // 如果不想 SDK 和调试端建立实时连接，可以开启离线模式         // offline: true       });     </script>   </head> </html> 引入成功后，页面右下方会出现 PageSpy 的悬浮球。点击悬浮球，弹窗中会包含上传和下载按钮。点击上传或下载按钮，即可保存离线日志数据。"
     },
     {
       "language": "zh",
       "route": "/docs/offline-log#step-2",
       "parent": "离线日志回放",
       "title": "第二步：回放日志",
-      "content": "进入调试端，点击顶部菜单「开始调试 - 日志回放」进入回放列表页面，选择上一步上传 / 下载的 json 数据即可开始使用回放功能！"
+      "content": "进入调试端，点击顶部菜单「开始调试 - 日志回放」进入回放列表页面，选择上一步上传/下载的 JSON 数据即可开始回放！"
     },
     {
       "language": "zh",
       "route": "/docs/offline-log#plugins",
       "parent": "离线日志回放",
-      "title": "配合其他插件使用",
-      "content": "DataHarborPlugin 本身只收集数据、提供数据处理的功能，PageSpy 另外还提供了： RRWebPlugin: 使用 rrweb 记录 DOM 更新，在调试端的「日志回放」面板左侧用户可以看到页面的操作轨迹； "
+      "title": "插件说明",
+      "content": " DataHarborPlugin：收集和存储离线日志数据，提供上传/下载功能 RRWebPlugin（可选）：使用 rrweb 记录 DOM 更新和用户操作轨迹，在调试端的「日志回放」面板左侧可以看到页面的操作录像 "
     },
     {
       "language": "zh",
       "route": "/docs/offline-log#use-ospy",
       "parent": "离线日志回放",
       "title": "使用 O-Spy",
-      "content": "O-Spy 的 SDK 即插即用、无需部署。它打包了 PageSpy / DataHarborPlugin / RRWebPlugin，内置 PageSpy 在离线状态下的最佳实践配置、同时支持自定义主题，使用非常简单。与框架无关，你可以任选一种方式在项目中引入。import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';引入成功后就会看到右下角出现的 \"问题反馈\" 可拖拽的组件。"
+      "content": "如果你只需要离线日志回放功能，推荐使用 O-Spy。它是即插即用的 SDK，无需部署服务器，内置了 PageSpy、DataHarborPlugin 和 RRWebPlugin 的最佳实践配置。与框架无关，可以任选一种方式引入：import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';引入成功后，页面右下角会出现可拖拽的\"问题反馈\"组件。"
     },
     {
       "language": "zh",
       "route": "/docs/offline-log#customize-example",
       "parent": "离线日志回放",
-      "title": "自定义主题示例",
+      "title": "自定义主题",
       "content": "import { CustomizeExample } from '@/pages/OSpy/components/Customize';"
     },
     {
@@ -2232,7 +2302,7 @@
       "language": "zh",
       "route": "/docs/offline-log#mp-step-2",
       "parent": "离线日志回放",
-      "title": "第二步：注册该插件",
+      "title": "第二步：注册插件",
       "content": "import PageSpy from '@huolala-tech/page-spy-wechat'; import DataHarborPlugin from '@huolala-tech/page-spy-plugin-mp-data-harbor'; // 注册插件，config 信息查看：https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-mp-data-harbor const $dataHarborPlugin = new DataHarborPlugin(config) PageSpy.registerPlugin($dataHarborPlugin); const $pageSpy = new PageSpy({   // ... }) "
     },
     {
@@ -2240,21 +2310,56 @@
       "route": "/docs/offline-log#mp-step-3",
       "parent": "离线日志回放",
       "title": "第三步：上传离线日志",
-      "content": "有两种方式可以上传离线日志： 调用插件实例上的 upload() 方法： $dataHarborPlugin.upload().then(() => {   console.log('上传成功'); })  注册小程序 DataHarbor 插件后，PageSpy 的调试菜单中会出现一个 「上传离线日志」按钮，点击即可上传离线日志： "
+      "content": "有两种方式可以上传离线日志：方式一：代码调用$dataHarborPlugin.upload().then(() => {   console.log('上传成功'); }) 方式二：使用调试菜单注册小程序 DataHarbor 插件后，PageSpy 的调试菜单中会出现「上传离线日志」按钮，点击即可上传："
     },
     {
       "language": "zh",
-      "route": "/docs/offline-log#diff",
+      "route": "/docs/offline-log#read-more",
       "parent": "离线日志回放",
-      "title": "差异",
-      "content": " 小程序环境不支持界面录制，也没有配套的 RRWebPlugin。 小程序环境离线日志仅支持上传，不支持下载。 "
+      "title": "延伸阅读",
+      "content": ""
+    },
+    {
+      "language": "zh",
+      "route": "/docs/offline-log#how-it-works",
+      "parent": "离线日志回放",
+      "title": "工作原理",
+      "content": "日志回放基于 DataHarborPlugin 插件实现。该插件通过监听 PageSpy 内部的 \"public-data\" 事件，自动收集运行时产生的所有数据。"
+    },
+    {
+      "language": "zh",
+      "route": "/docs/offline-log#platform-differences",
+      "parent": "离线日志回放",
+      "title": "平台差异",
+      "content": "不同平台在日志回放功能上存在以下差异： 功能 浏览器 小程序 数据上传 ✅ 支持 ✅ 支持 数据下载 ✅ 支持 ❌ 不支持 界面录制（RRWebPlugin） ✅ 支持 ❌ 不支持 "
     },
     {
       "language": "zh",
       "route": "/docs/offline-log#faq",
       "parent": "离线日志回放",
       "title": "FAQ",
-      "content": " 如何手动操作上传 / 下载日志？ 点击查看。 离线日志存储在哪里？ DataHarborPlugin 收到数据后，会先放入内存的数组中，当数组里存储的数据体积达到临界值时会将数据写入临时文件，这个临界值默认情况下是 10M。你也可以自行配置:new DataHarborPlugin({   maximum: 1 * 1024 * 1024, // 内存中的数据记录达到 1M 时写入临时文件 }) "
+      "content": ""
+    },
+    {
+      "language": "zh",
+      "route": "/docs/offline-log#1--如何手动操作上传下载日志？",
+      "parent": "离线日志回放",
+      "title": "1. 如何手动操作上传/下载日志？",
+      "content": "详细说明请查看 DataHarborPlugin API 文档。"
+    },
+    {
+      "language": "zh",
+      "route": "/docs/offline-log#2--离线日志存储在哪里？",
+      "parent": "离线日志回放",
+      "title": "2. 离线日志存储在哪里？",
+      "content": "DataHarborPlugin 收到数据后的处理流程： 数据首先存储在内存数组中 当内存中的数据达到临界值（默认 10MB）时，自动写入临时文件 用户可以随时上传数据到服务器，或下载到本地保存 你可以自定义内存临界值：new DataHarborPlugin({   maximum: 1 * 1024 * 1024, // 内存中的数据达到 1MB 时写入临时文件 }) "
+    },
+    {
+      "language": "zh",
+      "route": "/docs/offline-log#3--离线日志会影响应用性能吗？",
+      "parent": "离线日志回放",
+      "title": "3. 离线日志会影响应用性能吗？",
+      "content": "DataHarborPlugin 经过性能优化： 使用异步处理，不阻塞主线程 自动控制内存使用，防止内存溢出 数据压缩后存储，减少空间占用 "
     },
     {
       "language": "zh",
@@ -2274,7 +2379,7 @@
       "language": "zh",
       "route": "/docs/pagespy#constructor",
       "parent": "Pagespy",
-      "title": "constructor()",
+      "title": "constructor(config)",
       "content": "创建一个 PageSpy 实例。 类型 declare class PageSpy {   constructor(config: InitConfig) } 详细信息 构造函数接受一个 config 对象作为初始化参数。 "
     },
     {
@@ -2492,7 +2597,7 @@
       "route": "/docs/plugins#usage",
       "parent": "插件系统",
       "title": "插件的使用方式",
-      "content": "<!-- 引入 SDK --> <script src=\"https://<your-pagespy-host>/page-spy/index.min.js\"></script> <!-- 引入插件 --> <script src=\"https://<your-pagespy-host>/plugin/xxx/index.min.js\"></script> <!-- 注册插件 --> <script>   PageSpy.registerPlugin(new XXXPlugin());   window.$pageSpy = new PageSpy(); </script> "
+      "content": "<!-- 引入 SDK --> <script src=\"{deployUrl}/page-spy/index.min.js\"></script> <!-- 引入插件 --> <script src=\"{deployUrl}/plugin/xxx/index.min.js\"></script> <!-- 注册插件 --> <script>   PageSpy.registerPlugin(new XXXPlugin());   window.$pageSpy = new PageSpy(); </script> "
     },
     {
       "language": "zh",
@@ -2500,6 +2605,13 @@
       "parent": "React Native",
       "title": "React Native",
       "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "zh",
+      "route": "/docs/react-native#start-using",
+      "parent": "React Native",
+      "title": "开始使用",
+      "content": ""
     },
     {
       "language": "zh",
@@ -2513,7 +2625,7 @@
       "route": "/docs/react-native#step-2",
       "parent": "React Native",
       "title": "第二步",
-      "content": "在入口文件中引入 SDK 并实例化。 初始化参数提供了可选的 配置项 用于自定义 SDK 的行为：import PageSpy from '@huolala-tech/page-spy-react-native'; new PageSpy({   api: \"{deployPath}\", }) 如果你使用 @react-native-async-storage/async-storage，我们提供了独立的 插件：import PageSpy from '@huolala-tech/page-spy-react-native'; import RNAsyncStoragePlugin from '@huolala-tech/page-spy-plugin-rn-async-storage'; PageSpy.registerPlugin(new RNAsyncStoragePlugin()) new PageSpy({   api: \"{deployPath}\", }) 以上就是在 React Native 项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 开始调试 使用！"
+      "content": "在入口文件中引入 SDK 并实例化，可通过 配置项 自定义 SDK 的行为：import PageSpy from '@huolala-tech/page-spy-react-native'; new PageSpy({   api: \"{deployPath}\",   enableSSL: {enableSSL}, }) 如果你使用 @react-native-async-storage/async-storage，我们提供了独立的 插件：import PageSpy from '@huolala-tech/page-spy-react-native'; import RNAsyncStoragePlugin from '@huolala-tech/page-spy-plugin-rn-async-storage'; PageSpy.registerPlugin(new RNAsyncStoragePlugin()) new PageSpy({   api: \"{deployPath}\",   enableSSL: {enableSSL}, }) 以上就是在 React Native 项目中接入 PageSpy 的全部流程，接入完成后点击顶部菜单 开始调试 使用！"
     },
     {
       "language": "zh",
@@ -2534,7 +2646,7 @@
       "route": "/docs/server-configuration#server-configuration",
       "parent": "服务端配置",
       "title": "服务端配置",
-      "content": "PageSpy 服务端在运行过程中会自动读取 当前运行目录下的 config.json 配置文件。该文件在初次运行时不存在，您可以根据需要创建或修改此文件来自定义服务端行为。配置文件支持以下功能：运行端口、多实例部署、跨域配置、日志数据配置、数据库配置等，下面将详细说明各配置字段的作用。{   // 服务端口   \"port\": \"6752\",   // 日志回放文件保存大小（MB）   \"maxLogFileSizeOfMB\": 10240,   // 日志回放文件保存最长时间 （小时）   \"maxLogLifeTimeOfHour\": 720,   // 是否允许用户在界面上删除日志   \"notAllowedDeleteLog\": false,   // 最大允许房间数量   \"maxRoomNumber\": 500,   // 跨域配置   \"corsConfig\": {     // 允许的域名     \"allowOrigins\": [\"*\"],     // 允许的请求头     \"allowHeaders\": [       \"Origin\",       \"Authorization\",       \"Content-Length\",       \"X-Request-Id\",       \"Content-Type\",       \"Referer\",       \"User-Agent\",       \"Host\"     ],     // 允许的请求方法     \"allowMethods\": [       \"HEAD\",       \"POST\",       \"GET\",       \"OPTIONS\",       \"PUT\",       \"DELETE\",       \"UPDATE\"     ],     // 暴露的请求头     \"exposeHeaders\": [\"X-Request-Id\"]   },   // 符合 S3 协议的存储配置   \"storageConfig\": {     \"baseDir\": \"\",     \"keyId\": \"\",     \"secret\": \"\",     \"bucket\": \"\",     \"region\": \"\",     \"endpoint\": \"\",     // s3ForcePathStyle=false 表示 virtual-hosted–style api(默认情况)     // s3ForcePathStyle=true  表示 path-style api     \"s3ForcePathStyle\": false   },   // 认证配置   \"authConfig\": {     // 认证密码     \"password\": \"\",     // JWT 密钥     \"jwtSecret\": \"\",     // 令牌过期时间(小时)     \"tokenExpiration\": 720   },   // 多实例部署时候配置成当前机器 ip 或容器中的 dns name   \"selfRpcAddress\": {     \"ip\": \"\", // 机器 ip 或容器中的 dns name     \"port\": \"\" // 服务端口   },   // 多实例部署配置   \"rpcAddress\": [     {       \"ip\": \"\", // 机器 ip 或容器中的 dns name       \"port\": \"\" // 服务端口     },     {       \"ip\": \"\",       \"port\": \"\"     },     ...   ],   // 配置 mysql 数据库地址，默认使用 sqlite   \"databaseConfig\": {     \"mysqlUrl\": \"user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local\"   }, } "
+      "content": "PageSpy 服务端运行时会自动读取 当前运行目录下的 config.json 配置文件。该文件在初次运行时不存在，你可以根据需要创建或修改此文件来自定义服务端行为。配置文件可配置以下内容：运行端口、多实例部署、跨域配置、日志数据配置、数据库配置等。下面将详细说明各配置字段的作用。{   // 服务端口   \"port\": \"6752\",   // 日志回放文件最大大小（MB）   \"maxLogFileSizeOfMB\": 10240,   // 日志回放文件最长保存时间（小时）   \"maxLogLifeTimeOfHour\": 720,   // 是否允许用户在界面上删除日志   \"notAllowedDeleteLog\": false,   // 最大允许房间数量   \"maxRoomNumber\": 500,   // 跨域配置   \"corsConfig\": {     // 允许的域名     \"allowOrigins\": [\"*\"],     // 允许的请求头     \"allowHeaders\": [       \"Origin\",       \"Authorization\",       \"Content-Length\",       \"X-Request-Id\",       \"Content-Type\",       \"Referer\",       \"User-Agent\",       \"Host\"     ],     // 允许的请求方法     \"allowMethods\": [       \"HEAD\",       \"POST\",       \"GET\",       \"OPTIONS\",       \"PUT\",       \"DELETE\",       \"UPDATE\"     ],     // 暴露的请求头     \"exposeHeaders\": [\"X-Request-Id\"]   },   // 符合 S3 协议的存储配置   \"storageConfig\": {     \"baseDir\": \"\",     \"keyId\": \"\",     \"secret\": \"\",     \"bucket\": \"\",     \"region\": \"\",     \"endpoint\": \"\",     // s3ForcePathStyle=false 表示 virtual-hosted–style api(默认情况)     // s3ForcePathStyle=true  表示 path-style api     \"s3ForcePathStyle\": false   },   // 认证配置   \"authConfig\": {     // 认证密码     \"password\": \"\",     // JWT 密钥     \"jwtSecret\": \"\",     // 令牌过期时间（小时）     \"tokenExpiration\": 720   },   // 多实例部署时配置为当前机器 IP 或容器中的 DNS name   \"selfRpcAddress\": {     \"ip\": \"\", // 机器 IP 或容器中的 DNS name     \"port\": \"\" // 服务端口   },   // 多实例部署配置   \"rpcAddress\": [     {       \"ip\": \"\", // 机器 IP 或容器中的 DNS name       \"port\": \"\" // 服务端口     },     {       \"ip\": \"\",       \"port\": \"\"     },     ...   ],   // 配置 MySQL 数据库地址，默认使用 SQLite   \"databaseConfig\": {     \"mysqlUrl\": \"user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local\"   }, } "
     },
     {
       "language": "zh",
@@ -2613,14 +2725,14 @@
       "route": "/docs/api#api",
       "parent": "API",
       "title": "API",
-      "content": "import PlatformTag from '@/components/Docs/components/PlatformTag'; 特定のプラットフォームでのみ使用できる機能については、以下のラベルで区別します。 プラットフォーム ラベル ブラウザ アプリ React Native ハーモニー "
+      "content": "import PlatformTag from '@/components/Docs/components/PlatformTag';このページでは、PageSpy コア API とプラグイン API のインデックスを提供します。リンクをクリックして詳細なドキュメントを参照してください。一部の API は特定のプラットフォームでのみ利用可能で、以下のタグで識別されます： プラットフォーム ラベル ブラウザ アプリ React Native ハーモニー "
     },
     {
       "language": "ja",
       "route": "/docs/api#pagespy",
       "parent": "API",
       "title": "PageSpy",
-      "content": " インスタンス変数名を $pageSpy とします。  constructor() $pageSpy.updateRoomInfo() $pageSpy.abort() PageSpy.registerPlugin() PageSpy.pluginsWithOrder $pageSpy.version $pageSpy.config $pageSpy.socketStore $pageSpy.showPanel()  "
+      "content": "PageSpy コアクラスは、アプリケーションデバッグの基本機能を提供します。 以下のドキュメントでは、$pageSpy で PageSpy インスタンスを表します。つまり、$pageSpy = new PageSpy(...) です。  constructor() $pageSpy.updateRoomInfo() $pageSpy.abort() PageSpy.registerPlugin() PageSpy.pluginsWithOrder $pageSpy.version $pageSpy.config $pageSpy.socketStore $pageSpy.showPanel()  "
     },
     {
       "language": "ja",
@@ -2634,14 +2746,14 @@
       "route": "/docs/api#harbor",
       "parent": "API",
       "title": "DataHarborPlugin",
-      "content": " インスタンス変数名を $harbor とします。  constructor() 手動操作ログ $harbor.pause() $harbor.resume() $harbor.reharbor() "
+      "content": "DataHarborPlugin は、オフラインデータのキャッシュとアップロード/ダウンロード管理に使用されます。 以下のドキュメントでは、$harbor で DataHarborPlugin インスタンスを表します。つまり、$harbor = new DataHarborPlugin(...) です。  constructor() 手動操作ログ $harbor.pause() $harbor.resume() $harbor.reharbor() "
     },
     {
       "language": "ja",
       "route": "/docs/api#rrweb",
       "parent": "API",
       "title": "RRWebPlugin",
-      "content": " インスタンス変数名を $rrweb とします。  constructor() "
+      "content": "RRWebPlugin は、ユーザー操作の録画と再生に使用され、問題シナリオの再現を容易にします。 以下のドキュメントでは、$rrweb で RRWebPlugin インスタンスを表します。つまり、$rrweb = new RRWebPlugin(...) です。  constructor() "
     },
     {
       "language": "ja",
@@ -2682,8 +2794,8 @@
       "language": "ja",
       "route": "/docs/browser#script-usage-step-2",
       "parent": "ブラウザ",
-      "title": "第二步",
-      "content": "PageSpy とプラグインを初期化します。それらの初期化パラメーターは、SDK の動作をカスタマイズするための設定項目を提供します:  独自の PageSpy プラグインを開発することも可能です！  </div> <script>   window.$harbor = new DataHarborPlugin();   window.$rrweb = new RRWebPlugin();   [window.$harbor, window.$rrweb].forEach(p => {     PageSpy.registerPlugin(p)   })   window.$pageSpy = new PageSpy(); </script> "
+      "title": "ステップ2",
+      "content": "PageSpy とプラグインを初期化します。設定オプションを使用して SDK の動作をカスタマイズできます:  独自の PageSpy プラグインを開発することも可能です！  </div> <script>   window.$harbor = new DataHarborPlugin();   window.$rrweb = new RRWebPlugin();   [window.$harbor, window.$rrweb].forEach(p => {     PageSpy.registerPlugin(p)   })   window.$pageSpy = new PageSpy(); </script> "
     },
     {
       "language": "ja",
@@ -2704,28 +2816,28 @@
       "route": "/docs/browser#esm-usage-step-2",
       "parent": "ブラウザ",
       "title": "ステップ2",
-      "content": "import PageSpy from '@huolala-tech/page-spy-browser'; import DataHarborPlugin from '@huolala-tech/page-spy-plugin-data-harbor'; import RRWebPlugin from '@huolala-tech/page-spy-plugin-rrweb';   window.$harbor = new DataHarborPlugin(); window.$rrweb = new RRWebPlugin(); [window.$harbor, window.$rrweb].forEach(p => {   PageSpy.registerPlugin(p); })   // ESM モードでは自動分析できないため、以下のインスタンス初期化パラメーターが必要です window.$pageSpy = new PageSpy({   api: \"{deployPath}\",   clientOrigin: \"{deployUrl}\" }); 以上で、ブラウザプロジェクトで PageSpy を使用するためのすべての手順が完了です。ページの上部メニューをクリックして 開始デバッグ を使用してください！"
+      "content": "import PageSpy from '@huolala-tech/page-spy-browser'; import DataHarborPlugin from '@huolala-tech/page-spy-plugin-data-harbor'; import RRWebPlugin from '@huolala-tech/page-spy-plugin-rrweb';   window.$harbor = new DataHarborPlugin(); window.$rrweb = new RRWebPlugin(); [window.$harbor, window.$rrweb].forEach(p => {   PageSpy.registerPlugin(p); })   // ESM モードではデプロイアドレスを自動的に解析できないため、以下のパラメーターを手動で設定する必要があります window.$pageSpy = new PageSpy({   api: \"{deployPath}\",   clientOrigin: \"{deployUrl}\",   enableSSL: {enableSSL}, }); 以上で、ブラウザプロジェクトで PageSpy を使用するためのすべての手順が完了です。ページの上部メニューをクリックして 開始デバッグ を使用してください！"
     },
     {
       "language": "ja",
       "route": "/docs/browser#framework",
       "parent": "ブラウザ",
       "title": "フレームワークで統合",
-      "content": "PageSpy は、現在のところ、すべてのフレームワークの統合ガイドを CodeSandbox プラットフォームで公開しています。以下にアクセスして、オンラインで体験してください: React：CodeSandbox - PageSpy in React Vue：CodeSandbox - PageSpy in Vue Svelte：CodeSandbox - PageSpy in Svelte Angular：CodeSandbox - PageSpy in Angular Nextjs：CodeSandbox - PageSpy in Nextjs Nuxtjs：CodeSandbox - PageSpy in Nuxtjs "
+      "content": "PageSpy は、主要なフレームワークの統合ガイドを CodeSandbox プラットフォームで公開しています。オンラインで体験できます: React：CodeSandbox - PageSpy in React Vue：CodeSandbox - PageSpy in Vue Svelte：CodeSandbox - PageSpy in Svelte Angular：CodeSandbox - PageSpy in Angular Nextjs：CodeSandbox - PageSpy in Nextjs Nuxtjs：CodeSandbox - PageSpy in Nuxtjs "
     },
     {
       "language": "ja",
       "route": "/docs/browser#extension",
       "parent": "ブラウザ",
       "title": "ブラウザ拡張機能",
-      "content": "PageSpy は、ブラウザ拡張機能を提供して、ページをデバッグするためのコードを統合することなく、任意のページで PageSpy を使用できるようにします。はい、その通りです！PageSpy のブラウザ拡張機能を使用すると、ページをデバッグするためのコードを統合することなく、任意のページで PageSpy を使用できます。"
+      "content": "PageSpy は、コードを統合することなく、任意のウェブページで PageSpy を使用できるブラウザ拡張機能を提供しています！はい、その通りです！PageSpy のブラウザ拡張機能を使用すれば、ほぼすべてのウェブページをデバッグできます！（CSP ポリシーが設定されている一部のウェブサイトでは動作しない場合があります）"
     },
     {
       "language": "ja",
       "route": "/docs/browser#install-extension",
       "parent": "ブラウザ",
       "title": "インストール",
-      "content": " Chrome ウェブストア にアクセスして、一度のクリックでインストールするか、 ブラウザ拡張機能 リポジトリにアクセスし、README ドキュメントに従ってインストールしてください。 "
+      "content": " Chrome ウェブストア からワンクリックでインストールするか、 ブラウザ拡張機能 リポジトリにアクセスし、README ドキュメントに従って手動でインストールしてください。 "
     },
     {
       "language": "ja",
@@ -3068,14 +3180,14 @@
       "route": "/docs/deploy-guide#main-components",
       "parent": "使用説明",
       "title": "主な構成要素",
-      "content": "PageSpyは以下の3つのモジュールで構成されています： デバッグクライアント：HuolalaTech/page-spy-webリポジトリに対応し、主に開発者が使用し、オンラインデバッグやオフラインリプレイなどの様々なデバッグ機能パネルを提供します。 SDK：HuolalaTech/page-spyリポジトリに対応し、ユーザープロジェクトの実行時に生成されたデータをサーバーに送信し、サーバーがデバッグクライアントに転送します。 サーバー：HuolalaTech/page-spy-apiリポジトリに対応し、主に両端のメッセージの中継、データの保存などを担当します。 三つのモジュール間のインタラクション図は以下の通りです："
+      "content": "PageSpyは以下の3つのモジュールで構成されています： デバッグクライアント：HuolalaTech/page-spy-webリポジトリに対応します。開発者が使用し、オンラインデバッグやオフラインリプレイなどの様々なデバッグ機能パネルを提供します。 SDK：HuolalaTech/page-spyリポジトリに対応します。クライアントアプリケーションの実行時データを収集してサーバーに送信し、サーバーからデバッグクライアントに転送します。 サーバー：HuolalaTech/page-spy-apiリポジトリに対応します。両端のメッセージを中継し、データを保存します。 三つのモジュール間のインタラクション図は以下の通りです："
     },
     {
       "language": "ja",
       "route": "/docs/deploy-guide#deployments",
       "parent": "使用説明",
       "title": "複数のデプロイメントソリューション",
-      "content": "使いやすさとデータの安全性を確保するため、PageSpyは完全な、すぐに使える複数のワンクリックデプロイメントソリューションを提供しています。開発者の皆様は、ご自身の状況に応じて任意のデプロイメント方法を選択できます。 Node.js でデプロイ Docker でデプロイ 宝塔パネルにインストール "
+      "content": "使いやすさとデータの安全性を確保するため、PageSpyは複数のすぐに使えるワンクリックデプロイメントソリューションを提供しています。実際の状況に応じて適切なデプロイメント方法を選択できます。 Node.js でデプロイ Docker でデプロイ 宝塔パネルにインストール "
     },
     {
       "language": "ja",
@@ -3180,7 +3292,7 @@
       "route": "/docs/faq#compatibility",
       "parent": "よくある質問",
       "title": "PageSpyの互換性",
-      "content": " ブラウザSDKの互換性ターゲットは[\"chrome > 75\",\"safari > 12\", \"> 0.1%\", \"not dead\",\"not op_mini all\"]に設定されています。他のSDKについては、それぞれのリポジトリをご確認ください。 デバッグ側は主に開発者が使用するため、ブラウザの新機能の使用に対してオープンな姿勢を取っています。そのため、最新バージョンのブラウザの使用を推奨しており、互換性ターゲットは[\"last 2 chrome version\", \"last 2 firefox version\", \"last 2 safari version\"]に設定されています。 "
+      "content": " ブラウザSDKの互換性ターゲットは[\"chrome > 75\",\"safari > 12\", \"> 0.1%\", \"not dead\",\"not op_mini all\"]に設定されています。他のSDKについては、それぞれのリポジトリをご確認ください。 デバッグクライアントは主に開発者向けであり、ブラウザの新機能の使用に対してオープンな姿勢を取っています。最新バージョンのブラウザの使用を推奨します。互換性ターゲットは[\"last 2 chrome version\", \"last 2 firefox version\", \"last 2 safari version\"]に設定されています。 "
     },
     {
       "language": "ja",
@@ -3208,28 +3320,28 @@
       "route": "/docs/faq#framework",
       "parent": "よくある質問",
       "title": "xxxフレームワークでの統合方法は？",
-      "content": "PageSpyは、CodeSandboxプラットフォームを通じて、現在人気のあるすべてのフレームワークとの統合ガイドを公開しています。オンラインで体験できます： React：CodeSandbox - PageSpy in React Vue：CodeSandbox - PageSpy in Vue Svelte：CodeSandbox - PageSpy in Svelte Angular：CodeSandbox - PageSpy in Angular Nextjs：CodeSandbox - PageSpy in Nextjs Nuxtjs：CodeSandbox - PageSpy in Nuxtjs "
+      "content": "PageSpyは、主要なフレームワークの統合ガイドをCodeSandboxプラットフォームで公開しています。オンラインで体験できます： React：CodeSandbox - PageSpy in React Vue：CodeSandbox - PageSpy in Vue Svelte：CodeSandbox - PageSpy in Svelte Angular：CodeSandbox - PageSpy in Angular Nextjs：CodeSandbox - PageSpy in Nextjs Nuxtjs：CodeSandbox - PageSpy in Nuxtjs "
     },
     {
       "language": "ja",
       "route": "/docs/faq#test-domain",
       "parent": "よくある質問",
-      "title": "pagespy.jikejishu.comは公式提供のドメインですか？常時利用可能ですか？",
-      "content": "https://pagespy.jikejishu.comは、PageSpyをオンラインで体験・学習できるように一時的に構築したサービスです。24時間の可用性は保証されず、データの安全性も保証されません。損失は自己責任となります。体験後は、プライベートサーバーやイントラネットに自身でデプロイすることを強く推奨します。"
+      "title": "pagespy.jikejishu.comは公式提供のドメインですか？",
+      "content": "https://pagespy.jikejishu.comは、PageSpyをオンラインで体験・学習できるように一時的に構築したサービスです。24時間の可用性、データの安全性は保証されず、損失は自己責任となります。体験後は、プライベートサーバーやイントラネットに自身でデプロイすることを強く推奨します。"
     },
     {
       "language": "ja",
       "route": "/docs/faq#server-port",
       "parent": "よくある質問",
-      "title": "ローカルの6752ポートにはアクセスできるのに、サーバーにデプロイするとアクセスできないのはなぜ？",
+      "title": "ローカルの6752ポートにはアクセスできるのに、サーバーにデプロイするとアクセスできない？",
       "content": "サーバー上のファイアウォールまたはセキュリティグループのルールで6752ポートが開放されているか確認してください。"
     },
     {
       "language": "ja",
       "route": "/docs/faq#debug-disabled",
       "parent": "よくある質問",
-      "title": "デバッグボタンが「現在の接続にはクライアントが存在しません」と表示されるのはなぜですか？",
-      "content": "この状況は通常、SDKが正常にルームを作成したものの、WebSocketを介してルームに参加できない場合に発生します。以下の手順で確認してください： SDKが存在するクライアントのコンソールを開き、エラーが表示されているか確認します。 コンソールに「WebSocket connect failed」関連の情報が表示される場合は、サーバーの設定が正しいか確認してください。 "
+      "title": "デバッグボタンに「現在の接続にクライアントが存在しません」と表示される意味は？",
+      "content": "この状況は通常、SDKが正常にルームを作成したものの、WebSocketを介してルームに参加できない場合に発生します。以下の手順でトラブルシューティングを行ってください： SDKが動作しているクライアントのコンソールを開き、エラーを確認します コンソールに「WebSocket connect failed」関連のメッセージが表示される場合は、サーバーの設定が正しいか確認してください "
     },
     {
       "language": "ja",
@@ -3243,21 +3355,21 @@
       "route": "/docs/faq#sub-path",
       "parent": "よくある質問",
       "title": "サブパスへのデプロイ方法は？",
-      "content": "バージョン1.5.4からサブパスへのデプロイがサポートされています。インストール手順は変更ありませんが、nginxの設定を調整する必要があります：server {   # ...   # <sub-path>にデプロイしたいサブパスを入力   location /<sub-path>/  {       # ここの<sub-path>は上記と同じにします       rewrite ^/<sub-path>/(.*)$ /$1 break;       proxy_pass            http://127.0.0.1:6752;       proxy_http_version    1.1;       proxy_set_header      Upgrade $http_upgrade;       proxy_set_header      Connection \"upgrade\";       proxy_set_header      Host $host;       proxy_set_header      X-Real-IP $remote_addr;       proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;   }   # ここの<sub-path>は上記と同じにします   location /<sub-path> {       return 301 $scheme://$host$request_uri/;   } } 設定を調整後、nginxを再起動するとサブパスでアクセスできるようになります。注意点として、インスタンス化時にapiとclientOriginパラメータを手動で渡してSDKにデプロイ先を伝える必要があります：window.$pageSpy = new PageSpy({   // 例：api: \"example.com/pagespy\"   api: '<host>/<sub-path>',   // 例：clientOrigin: \"https://example.com/pagespy\"   clientOrigin: '<scheme>://<host>/<sub-path>', }); "
+      "content": "バージョン1.5.4からサブパスへのデプロイがサポートされています。インストール手順は変更ありませんが、nginxの設定を調整する必要があります：server {   # ...   # <sub-path>にデプロイしたいサブパスを入力   location /<sub-path>/  {       # ここの<sub-path>は上記と同じにします       rewrite ^/<sub-path>/(.*)$ /$1 break;       proxy_pass            http://127.0.0.1:6752;       proxy_http_version    1.1;       proxy_set_header      Upgrade $http_upgrade;       proxy_set_header      Connection \"upgrade\";       proxy_set_header      Host $host;       proxy_set_header      X-Real-IP $remote_addr;       proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;   }   # ここの<sub-path>は上記と同じにします   location /<sub-path> {       return 301 $scheme://$host$request_uri/;   } } 設定を調整後、Nginxを再起動するとサブパスでアクセスできるようになります。注意点として、インスタンス化時にapiとclientOriginパラメータを手動で渡してSDKにデプロイアドレスを伝える必要があります：window.$pageSpy = new PageSpy({   // 例：api: \"example.com/pagespy\"   api: '<host>/<sub-path>',   // 例：clientOrigin: \"https://example.com/pagespy\"   clientOrigin: '<scheme>://<host>/<sub-path>', }); "
     },
     {
       "language": "ja",
       "route": "/docs/faq#security",
       "parent": "よくある質問",
-      "title": "デバッグ側にセキュリティ認証を追加し、開発者が認証後にのみアクセスできるようにするには？",
-      "content": "バージョン2.3.0以降、PageSpyは認証をサポートしています。パスワードを設定した後、開発者は認証後にのみデバッグターミナルにアクセスできます。認証を有効にするには、以下の変数を設定してください： AUTH_PASSWORD：設定するパスワード JWT_SECRET：設定するシークレットキー JWT_EXPIRATION_HOURS：設定するトークンの有効期間（時間） サービス起動時に設定します。具体的な使用方法は以下の通りです："
+      "title": "デバッグクライアントを認証で保護し、認可された開発者のみがアクセスできるようにする方法は？",
+      "content": "バージョン2.3.0以降、PageSpyはデバッグパネルを保護するためのパスワード設定をサポートしています。パスワードを設定すると、開発者は正しいパスワードを入力しないとデバッグパネルにアクセスできません。設定可能な変数： AUTH_PASSWORD：パスワードを設定 JWT_SECRET：Tokenのシークレットキーを設定 JWT_EXPIRATION_HOURS：Tokenの有効期限（時間）を設定、デフォルトは24時間 サービス起動時に設定します。具体的な使用方法は以下の通りです："
     },
     {
       "language": "ja",
       "route": "/docs/faq#extension",
       "parent": "よくある質問",
-      "title": "プロジェクトに手動で統合したくない場合、ビジネスプロジェクトコードを侵害せずに実装する方法はありますか？",
-      "content": "PageSpyはブラウザ拡張機能を提供しており、以下の機能を備えています： 最新バージョンのSDKを自動注入 インスタンス化操作を自動実行 注入するドメインの設定ルールを提供 使用するにはこちらをクリック：HuolalaTech/page-spy-extension"
+      "title": "プロジェクトに手動で統合したくない場合、ビジネスコードを侵害せずに実装できますか？",
+      "content": "PageSpyは以下の機能を備えたブラウザ拡張機能を提供しています： 最新バージョンのSDKを自動注入 インスタンス化操作を自動完了 ドメイン注入設定ルールを提供 使用するにはこちらをクリック：HuolalaTech/page-spy-extension"
     },
     {
       "language": "ja",
@@ -3270,15 +3382,15 @@
       "language": "ja",
       "route": "/docs/faq#http-error",
       "parent": "よくある質問",
-      "title": "ビジネスプロジェクトがHTTPS、PageSpyがHTTPの場合、コンソールでエラーが発生するのはなぜですか？",
-      "content": "ブラウザはHTTPSサイトからのHTTPリソースの読み込みをブロックします。これは、HTTPとHTTPS間のデータ転送において、HTTPSは暗号化とセキュリティを提供しますが、HTTPは平文転送でセキュリティリスクがあるためです。PageSpyをHTTPSサービスにアップグレードすることで、この問題を完全に解決できます。"
+      "title": "ビジネスプロジェクトがHTTPS、PageSpyがHTTPの場合、コンソールエラーを解決する方法は？",
+      "content": "ブラウザはHTTPSサイトからのHTTPリソースの読み込みをブロックします。これは、HTTPSは暗号化とセキュリティを提供しますが、HTTPは平文転送でセキュリティリスクがあるためです。PageSpyをHTTPSサービスにアップグレードすることで、この問題を完全に解決できます。"
     },
     {
       "language": "ja",
       "route": "/docs/faq#prod-debug",
       "parent": "よくある質問",
       "title": "特定のユーザーのみをデバッグする方法は？",
-      "content": "最も簡単な方法は、ユーザーにPageSpyのブラウザ拡張機能を使用してもらうことです。これは協力的なユーザーかつPCプロジェクトの場合に適していますが、この前提条件は明らかに非常に厳しいものです。では、H5プロジェクトで本番環境でPageSpyを使用したい場合はどうすればよいでしょうか？すべてのユーザーに対して有効にするのは明らかに現実的ではありません。PageSpyの有効化プロセスは2つのステップのみであることを考えてみましょう： headタグ内で<script>を使用してSDKを読み込む インスタンス化 PageSpyは2番目のインスタンス化ステップまでは、読み込まれた<script>はプロジェクトに何の影響も与えません。特定のユーザーをデバッグしたい場合、鍵となるのは2番目のステップです：どのユーザーの端末でPageSpyをインスタンス化するか。これには2つの方法があります： HTMLの動的レスポンス：ユーザーがHTMLをリクエストする際に、ユーザーの一意の識別子を取得でき、HTMLに動的に注入できる場合、ユーザーにHTMLを返す前に<script>とインスタンス化ロジックを注入するかどうかを決定できます。 ユーザーにジェスチャーで有効化させる：これは通常、ユーザーの積極的な協力が必要です。デフォルトではSDKを注入しますが、インスタンス化せず、ユーザーが特別なジェスチャーをトリガーした後にデバッグを開始します。config.gesture を参照してください。 注意：技術的な実装以外に、法的コンプライアンスなどのセキュリティリスクにも注意が必要です。"
+      "content": "最も簡単な方法は、ユーザーにPageSpyのブラウザ拡張機能を使用してもらうことです。これは協力的なPCクライアントの場合に適していますが、この前提条件はかなり厳しいものです。では、本番環境のH5プロジェクトでPageSpyを使用したい場合はどうすればよいでしょうか？すべてのユーザーに対して有効にするのは明らかに現実的ではありません。PageSpyのアクティベーションプロセスは2つのステップのみです： headタグ内で<script>を使用してSDKを読み込む インスタンス化 PageSpyは2番目のインスタンス化ステップまでは、読み込まれた<script>はプロジェクトに何の影響も与えません。特定のユーザーをデバッグしたい場合、鍵となるのは2番目のステップです：どのユーザーの端末でPageSpyをインスタンス化するか。これには2つの方法があります： HTMLの動的レスポンス：ユーザーがHTMLをリクエストする際に、ユーザーの一意の識別子を取得でき、HTMLに動的に注入できる場合、ユーザーにHTMLを返す前に<script>とインスタンス化ロジックを注入するかどうかを決定できます。 ユーザーにジェスチャーで有効化させる：これは通常、ユーザーの積極的な協力が必要です。デフォルトではSDKを注入しますが、インスタンス化せず、ユーザーが特別なジェスチャーをトリガーした後にデバッグを開始します。config.gesture を参照してください。 注意：技術的な実装以外に、法的コンプライアンスなどのセキュリティリスクにも注意が必要です。"
     },
     {
       "language": "ja",
@@ -3298,15 +3410,15 @@
       "language": "ja",
       "route": "/docs/faq#page-style",
       "parent": "よくある質問",
-      "title": "Pageパネルのスタイルが正しくないのはなぜですか？",
-      "content": " クライアントとデバッグ側のレンダリング環境が異なる場合（例：クライアントのブラウザバージョンがChrome 75で、デバッグ側のブラウザバージョンがChrome 120の場合） デバッグ側がクライアントが参照するリソースにアクセスする際にネットワーク制限がある場合 そのため、スタイルは参考程度としてください。"
+      "title": "Pageパネルのスタイルが正しくない？",
+      "content": "クライアントとデバッグエンドのレンダリング環境の違い（例：クライアントのブラウザバージョンがChrome 75で、デバッグエンドがChrome 120の場合）や、デバッグエンドがクライアントが参照するリソースにアクセスする際のネットワーク制限により、スタイルの相違が生じる可能性があります。そのため、スタイルは参考程度としてください。"
     },
     {
       "language": "ja",
       "route": "/docs/faq#page-reset",
       "parent": "よくある質問",
-      "title": "Pageパネルでクライアントの内容を100%再現することはできないのですか？",
-      "content": "SDKはページの「スクリーンショット」を撮ってデバッグ側に送信することができますが、以下の理由により実装していません： 「画像」はテキストよりもデータ量が大きく、ネットワーク転送のオーバーヘッドが増加します SDKのサイズと複雑さが増加します 「スタイルエラー」の場合、リモートコラボレーション時にテスト担当者が開発者に正確にフィードバックできます これらの理由により、Pageパネルのスタイルは参考程度としています。"
+      "title": "Pageパネルでクライアントの内容を100%再現することはできない？",
+      "content": "SDKはページの「スクリーンショット」を撮ってデバッグエンドに送信することができますが、以下の理由により実装していません： 画像はテキストよりもデータ量が大きく、ネットワーク転送のオーバーヘッドが増加する SDKのサイズと複雑さが増加する スタイルエラーの場合、リモートコラボレーション時にテスト担当者が開発者に正確にフィードバックできる これらの理由により、Pageパネルのスタイルは参考程度としています。"
     },
     {
       "language": "ja",
@@ -3320,14 +3432,14 @@
       "route": "/docs/faq#upgrade",
       "parent": "よくある質問",
       "title": "新バージョンがリリースされた後、最新バージョンにアップグレードするには？",
-      "content": " dockerでデプロイした場合： # イメージを更新 docker pull ghcr.io/huolalatech/page-spy-web:latest # 実行中のPageSpyコンテナを停止 docker stop pageSpy && docker rm -f pageSpy # 再実行 docker run -d --restart=always -p 6752:6752 --name=\"pageSpy\" ghcr.io/huolalatech/page-spy-web:latest NPMパッケージでデプロイした場合： # パッケージを更新（yarn） yarn global upgrade @huolala-tech/page-spy-api@latest # パッケージを更新（npm） npm install -g @huolala-tech/page-spy-api@latest # pm2で再起動 pm2 restart page-spy-api "
+      "content": " Dockerでデプロイした場合： # イメージを更新 docker pull ghcr.io/huolalatech/page-spy-web:latest # 実行中のPageSpyコンテナを停止 docker stop pageSpy && docker rm -f pageSpy # 再実行 docker run -d --restart=always -p 6752:6752 --name=\"pageSpy\" ghcr.io/huolalatech/page-spy-web:latest NPMパッケージでデプロイした場合： # パッケージを更新（yarn） yarn global upgrade @huolala-tech/page-spy-api@latest # パッケージを更新（npm） npm install -g @huolala-tech/page-spy-api@latest # pm2で再起動 pm2 restart page-spy-api "
     },
     {
       "language": "ja",
       "route": "/docs/faq#auto-destroy",
       "parent": "よくある質問",
       "title": "ルーム接続はどのような場合に自動的に破棄されますか？",
-      "content": " 設定の確認：https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323  ルーム作成後、SDKまたはデバッグ側が入室しない場合、1分後に破棄されます（実際の使用では、このシナリオは存在しません） SDKとデバッグ側の両方が接続を切断した場合、1分後に破棄されます データメッセージの交換がない状態が5分間続いた場合に破棄されます 接続の使用が1時間を超えると自動的に破棄されます "
+      "content": " 設定の確認：https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323  ルーム作成後、SDKまたはデバッグエンドが入室しない場合、1分後に破棄されます（実際の使用では、このシナリオは存在しません） SDKとデバッグエンドの両方が接続を切断した場合、1分後に破棄されます データメッセージの交換がない状態が5分間続いた場合に破棄されます 接続の使用が1時間を超えると自動的に破棄されます "
     },
     {
       "language": "ja",
@@ -3341,7 +3453,7 @@
       "route": "/docs/faq#offline-log",
       "parent": "よくある質問",
       "title": "アップロードしたファイルログが見つからないのはなぜですか？",
-      "content": "config.json に storageConfig パラメータが設定されていない場合、アップロードされたファイルログはローカルで管理されます： アップロードされたファイルログは、デフォルトで最新の10GBまで、および30日間保存されます。設定を変更してカスタマイズすることができます。 アップロードログは実行ディレクトリのlogディレクトリに保存されます。dockerで実行している場合、dockerが破棄されるとログも失われます。-v ./log:/app/log -v ./data:/app/dataでディレクトリをマッピングして永続化することができます。 "
+      "content": "config.json に storageConfig パラメータが設定されていない場合、アップロードされたファイルログはローカルで管理されます： アップロードされたファイルログは、デフォルトで最新の10GBまで、および30日間保存されます。設定でカスタマイズ可能です アップロードログは実行ディレクトリのlogディレクトリに保存されます。Dockerで実行している場合、コンテナが破棄されるとログも失われます。-v ./log:/app/log -v ./data:/app/dataでディレクトリをマッピングして永続化することができます "
     },
     {
       "language": "ja",
@@ -3349,6 +3461,13 @@
       "parent": "ハーモニーアプリ",
       "title": "ハーモニーアプリ",
       "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "ja",
+      "route": "/docs/harmony#start-using",
+      "parent": "ハーモニーアプリ",
+      "title": "使用を開始",
+      "content": ""
     },
     {
       "language": "ja",
@@ -3362,7 +3481,7 @@
       "route": "/docs/harmony#step-2",
       "parent": "ハーモニーアプリ",
       "title": "ステップ 2",
-      "content": "適切な場所でSDKをインポートして初期化します。ここではEntryAbilityを例として示します。初期化パラメータには、SDKの動作をカスタマイズするためのオプションの設定項目が用意されています：import { PageSpy } from '@huolala/page-spy-harmony'; import axiosInstance from 'path/to/your/axios-instance'; export default class EntryAbility extends UIAbility {   onWindowStageCreate(windowStage: window.WindowStage) {     new PageSpy({       context: this.context,       api: \"{deployPath}\",       enableSSL: true,       axios: axiosInstance     })   } } 以上がHarmonyOSアプリプロジェクトにPageSpyを導入する全手順です。導入完了後、トップメニューのデバッグを開始をクリックして使用開始！"
+      "content": "適切な場所でSDKをインポートして初期化します。ここではEntryAbilityを例として示します。初期化パラメータには、SDKの動作をカスタマイズするためのオプションの設定項目が用意されています：import { PageSpy } from '@huolala/page-spy-harmony'; import axiosInstance from 'path/to/your/axios-instance'; export default class EntryAbility extends UIAbility {   onWindowStageCreate(windowStage: window.WindowStage) {     new PageSpy({       context: this.context,       api: \"{deployPath}\",       enableSSL: {enableSSL},       axios: axiosInstance     })   } } 以上がHarmonyOSアプリプロジェクトにPageSpyを導入する全手順です。導入完了後、トップメニューのデバッグを開始をクリックして使用開始！"
     },
     {
       "language": "ja",
@@ -3376,7 +3495,7 @@
       "route": "/docs/introduction#what-is-page-spy",
       "parent": "紹介",
       "title": "Page Spyとは？",
-      "content": "PageSpyはWeb / ミニプログラム / React Native / HarmonyOS アプリなどのプラットフォームプロジェクトに対応したオープンソースのデバッグプラットフォームです。ネイティブAPIのラッパーに基づき、ネイティブメソッド呼び出し時のパラメータをフィルタリング・変換し、デバッグ側が消費できる特定のフォーマットのメッセージに整理します。デバッグ側はメッセージデータを受信後、ローカルコンソールに似たインターフェースでデータを表示します。"
+      "content": "PageSpyは、Web、ミニプログラム、React Native、Harmony OS Appなどの複数のプラットフォームに対応したオープンソースのリモートデバッグツールです。ネイティブAPIのラッパーを基にして、ネイティブメソッドの呼び出し時のパラメータをフィルタリング・変換し、標準形式に整えてデバッグクライアントに送信します。デバッグクライアントは、ローカルコンソールのようなインターフェースを通じてデータを直感的に表示します。"
     },
     {
       "language": "ja",
@@ -3390,7 +3509,7 @@
       "route": "/docs/introduction#when-to-use",
       "parent": "紹介",
       "title": "いつ使用するか？",
-      "content": "ローカルでコンソールデバッグができないシーンは、すべてPageSpyが活躍できる場面です！ 以下のようなシーンケースを見てみましょう： H5、Webviewアプリケーションのローカルデバッグ：従来、H5上で情報を確認できるパネルを提供する製品もありましたが、モバイル端末の画面が小さく操作が不便、表示が不友好、情報が切り捨てられるなどの問題がありました。 リモートワーク、地域間協力：メール、電話、ビデオ会議などの従来のコミュニケーション方法では、コミュニケーション効率が低く、障害情報が不完全で、誤解や誤判断が生じやすい。 ユーザー端末での白画面問題：従来の問題特定方法には、データモニタリング、ログ分析などがありますが、これらの方法は、トラブルシューティング担当者がビジネス要件シーンや技術実装を理解する必要があります。 PageSpyの目標は、上記のようなシーンに関わる人々をサポートすることです。"
+      "content": "ローカルでコンソールデバッグができないシーンは、すべてPageSpyが活躍できる場面です！ 以下のようなシーンケースを見てみましょう： H5、Webviewアプリケーションのローカルデバッグ：モバイル端末の画面が小さすぎ、従来のデバッグパネルは操作が不便で、表示が悪く、情報の切り捨てが発生しやすいです。 リモートワーク、地域間協力：従来のコミュニケーション方法（メール、電話、ビデオ会議）は効率が低く、障害情報が不完全で、誤解や誤判断が起こりやすいです。 ユーザー端末での白画面問題のトラブルシューティング：データモニタリング、ログ分析などの従来の方法は、トラブルシューティングチームがビジネスと技術を深く理解することに依存しており、特定効率が低くなります。 PageSpyの目標は、上記のようなシーンに関わる人々をサポートすることです。"
     },
     {
       "language": "ja",
@@ -3418,28 +3537,35 @@
       "route": "/docs/miniprogram#miniprogram",
       "parent": "ミニプログラム",
       "title": "ミニプログラム",
-      "content": "import { Tooltip } from 'antd' import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'"
+      "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "ja",
+      "route": "/docs/miniprogram#start-using",
+      "parent": "ミニプログラム",
+      "title": "使用を開始",
+      "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'"
     },
     {
       "language": "ja",
       "route": "/docs/miniprogram#step-1",
       "parent": "ミニプログラム",
       "title": "ステップ 1",
-      "content": "プロジェクトに依存関係をインストールします。複数のミニプログラムプラットフォーム向けのSDKを提供しています。必要に応じてインストールしてください："
+      "content": "プロジェクトに依存関係をインストールします。複数のミニプログラムプラットフォームのSDKを提供していますので、必要に応じてインストールしてください："
     },
     {
       "language": "ja",
       "route": "/docs/miniprogram#step-2",
       "parent": "ミニプログラム",
       "title": "ステップ 2",
-      "content": "PageSpyサービスのドメインをミニプログラムのhttp、websocketリクエストホワイトリストに追加します。開発環境以外では、ミニプログラムはhttpsとwssプロトコルの使用を強制することに注意してください：https://<your-pagespy-host> wss://<your-pagespy-host> "
+      "content": "PageSpyサービスのドメインをミニプログラムのHTTP、WebSocketリクエストのホワイトリストに追加します。注意：開発環境を除き、ミニプログラムはHTTPSとWSSプロトコルの使用が必須です：https://<your-pagespy-host> wss://<your-pagespy-host> "
     },
     {
       "language": "ja",
       "route": "/docs/miniprogram#step-3",
       "parent": "ミニプログラム",
       "title": "ステップ 3",
-      "content": "エントリーファイルでSDKをインポートしてインスタンス化します。初期化パラメータには、SDKの動作をカスタマイズするためのオプションの設定項目が用意されています："
+      "content": "エントリーファイルでSDKをインポートしてインスタンス化します。設定オプションを使用してSDKの動作をカスタマイズできます："
     },
     {
       "language": "ja",
@@ -3453,27 +3579,27 @@
       "route": "/docs/offline-log#offline-log",
       "parent": "オフラインログ",
       "title": "オフラインログ",
-      "content": "import modalImg from '@/assets/image/screenshot/modal.png'; import replayImg from '@/assets/image/screenshot/replay-page.png'; import replayGif from '@/assets/image/screenshot/replay-page.gif'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';ログ再生とは、その名の通り以前に生成されたログを再生することです。なぜログを再生する必要があるのか？以前のログはどこから来るのか？どのように再生するのか？順を追って見ていきましょう。"
+      "content": "import modalImg from '@/assets/image/screenshot/modal.png'; import replayImg from '@/assets/image/screenshot/replay-page.png'; import replayGif from '@/assets/image/screenshot/replay-page.gif'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';"
+    },
+    {
+      "language": "ja",
+      "route": "/docs/offline-log#what",
+      "parent": "オフラインログ",
+      "title": "概要",
+      "content": "ログ再生は、オフラインデバッグ機能で、問題発生後に当時の実行データを確認・分析できます。履歴ログを再生することで、ビデオのように問題シーンを再現でき、リアルタイムでデバッグエンドに接続する必要はありません。"
     },
     {
       "language": "ja",
       "route": "/docs/offline-log#why",
       "parent": "オフラインログ",
       "title": "なぜ必要か",
-      "content": "これまで、PageSpyのオンラインデバッグは多くの厄介な問題を解決してきましたが、PageSpyを使用するには前提条件がありました：「クライアントとデバッグ側が同時にオンラインである必要がある」。この前提条件は、PageSpyの使用シーンを制限するだけでなく、例えば： 一つの問題に対して開発者とテスターの二人の人員を同時に投入する必要がある； デバッグ中にクライアントがバックグラウンドに移行して接続が切断される； 同時にPageSpy自体にも制限をもたらしました、例えば： 収集するデータの容量、ネットワーク転送の負荷を考慮する必要がある； これらの問題を解決し、より大きな自由度を得るために、PageSpyは1.7.3バージョンでログ再生機能を提供しました！"
+      "content": "PageSpyのオンラインデバッグ機能は強力ですが、クライアントとデバッグエンドが同時にオンラインである必要があります。これにはいくつかの制限があります： 人的コストが高い：一つの問題に対して開発者とテスターが同時にオンラインで協力する必要がある 接続が不安定：クライアントがバックグラウンドに移行したりネットワークが不安定だと接続が切断される リアルタイム転送の負荷：データ量とネットワーク転送のパフォーマンスを考慮する必要がある これらの問題を解決するため、PageSpyは1.7.3バージョンでログ再生機能を提供し、デバッグをより柔軟にしました。"
     },
     {
       "language": "ja",
-      "route": "/docs/offline-log#where",
+      "route": "/docs/offline-log#start-using",
       "parent": "オフラインログ",
-      "title": "ログはどこから来るのか",
-      "content": "PageSpyのSDKがプラグインの登録をサポートした後、開発チームは直ちにDataHarborPluginプラグインの開発を推進しました。 Data Harbor、データハーバー。 メンタルモデル：PageSpyが生成するデータは絶え間なく「データハーバー」に送られ、データの整理、パッケージング、圧縮を行った後、「データハーバー」はデータを「コンテナ」（メモリまたはローカルの一時ファイル）に格納し、次の指示を待ちます。 内部で\"public-data\"イベント（「public-data」イベントとは？）を監視し、オフラインデータのキャッシュ機能を実現すると同時に、SDKがレンダリングするコントロールにデータのアップロードとダウンロード機能を提供します。クライアントで問題が発見された場合、テスターは直接データをアップロードまたはダウンロードできます。この革新により、これまでの「クライアントとデバッグ側が同時にオンラインである必要がある」という前提条件が打破されました。"
-    },
-    {
-      "language": "ja",
-      "route": "/docs/offline-log#how-to-use",
-      "parent": "オフラインログ",
-      "title": "使用方法",
+      "title": "開始使用",
       "content": ""
     },
     {
@@ -3481,28 +3607,28 @@
       "route": "/docs/offline-log#browser",
       "parent": "オフラインログ",
       "title": "ブラウザでの使用",
-      "content": " PageSpyのオフラインログ再生機能のみが必要な場合は、より簡単に統合できるO-Spyの使用をお勧めします。 "
+      "content": "PageSpyの完全な機能（オンラインデバッグとオフライン再生を含む）が必要な場合は、以下の手順で統合してください："
     },
     {
       "language": "ja",
       "route": "/docs/offline-log#step-1",
       "parent": "オフラインログ",
-      "title": "ステップ1：クライアントにSDKとプラグインを導入",
-      "content": "<html>   <head>     <!-- 1. PageSpyを読み込む -->     <script src=\"{deployUrl}/page-spy/index.min.js\"></script>     <!-- 2. DataHarborプラグインを読み込む：オフラインログデータをキャッシュし、ダウンロード/アップロード機能を提供 -->     <script src=\"{deployUrl}/plugin/data-harbor/index.min.js\"></script>     <!-- 3. RRWebプラグインも読み込んで、ユーザーの操作軌跡をオフラインログに記録できます -->     <script src=\"{deployUrl}/plugin/rrweb/index.min.js\"></script>     <script>       // 4. プラグインを登録、config情報は以下を参照：https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor       PageSpy.registerPlugin(new DataHarborPlugin(config));       PageSpy.registerPlugin(new RRWebPlugin());       // 5. PageSpyをインスタンス化       window.$pageSpy = new PageSpy({         // SDKとデバッグ側がリアルタイム接続を確立したくない場合は、オフラインモードを有効にできます         // offline: true       });     </script>   </head> </html> 正常に導入されると、ページの右下にPageSpyのフローティングボールが表示され、フローティングボールをクリックすると表示されるダイアログにアップロードとダウンロードのボタンが含まれているはずです。これらのボタンをクリックすると、オフラインログのアップロードとダウンロードがトリガーされ、その後再生機能を使用できます。"
+      "title": "ステップ1：SDKとプラグインを導入",
+      "content": "<html>   <head>     <!-- 1. PageSpyを読み込む -->     <script src=\"{deployUrl}/page-spy/index.min.js\"></script>     <!-- 2. DataHarborプラグインを読み込む：オフラインログデータをキャッシュし、アップロード/ダウンロード機能を提供 -->     <script src=\"{deployUrl}/plugin/data-harbor/index.min.js\"></script>     <!-- 3. RRWebプラグインを読み込む：ユーザー操作を記録（オプション） -->     <script src=\"{deployUrl}/plugin/rrweb/index.min.js\"></script>     <script>       // 4. プラグインを登録、config情報は以下を参照：https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor       PageSpy.registerPlugin(new DataHarborPlugin(config));       PageSpy.registerPlugin(new RRWebPlugin());       // 5. PageSpyをインスタンス化       window.$pageSpy = new PageSpy({         // SDKとデバッグ側がリアルタイム接続を確立したくない場合は、オフラインモードを有効にできます         // offline: true       });     </script>   </head> </html> 導入が成功すると、ページの右下にPageSpyのフローティングボールが表示されます。フローティングボールをクリックすると、ポップアップにアップロードとダウンロードのボタンが含まれます。アップロードまたはダウンロードボタンをクリックすると、オフラインログデータが保存されます。"
     },
     {
       "language": "ja",
       "route": "/docs/offline-log#step-2",
       "parent": "オフラインログ",
-      "title": "ステップ2：ログの再生",
+      "title": "ステップ2：ログを再生",
       "content": "デバッグ側に入り、トップメニューの「デバッグを開始 - ログ再生」をクリックして再生リストページに入り、前のステップでアップロード/ダウンロードしたjsonデータを選択すれば再生機能を使用できます！"
     },
     {
       "language": "ja",
       "route": "/docs/offline-log#plugins",
       "parent": "オフラインログ",
-      "title": "他のプラグインとの併用",
-      "content": "DataHarborPluginはデータの収集とデータ処理機能のみを提供します。PageSpyは他にも以下のプラグインを提供しています： RRWebPlugin: rrwebを使用してDOMの更新を記録し、デバッグ側の「ログ再生」パネルの左側でユーザーの操作軌跡を確認できます。 "
+      "title": "プラグイン説明",
+      "content": " DataHarborPlugin：オフラインログデータを収集・保存し、アップロード/ダウンロード機能を提供 RRWebPlugin（オプション）：rrwebを使用してDOMの更新とユーザー操作軌跡を記録します。デバッグ側の「ログ再生」パネルの左側でページの操作録画を確認できます "
     },
     {
       "language": "ja",
@@ -3544,21 +3670,56 @@
       "route": "/docs/offline-log#mp-step-3",
       "parent": "オフラインログ",
       "title": "ステップ3：オフラインログのアップロード",
-      "content": "オフラインログをアップロードするには2つの方法があります： プラグインインスタンスのupload()メソッドを呼び出す： $dataHarborPlugin.upload().then(() => {   console.log('アップロード成功'); })  ミニプログラムDataHarborプラグインを登録すると、PageSpyのデバッグメニューに「オフラインログをアップロード」ボタンが表示されます。クリックするとオフラインログをアップロードできます： "
+      "content": "オフラインログをアップロードするには2つの方法があります：方法1：コード呼び出し$dataHarborPlugin.upload().then(() => {   console.log('アップロード成功'); }) 方法2：デバッグメニューを使用ミニプログラムDataHarborプラグインを登録すると、PageSpyのデバッグメニューに「オフラインログをアップロード」ボタンが表示されます。クリックするとアップロードできます："
     },
     {
       "language": "ja",
-      "route": "/docs/offline-log#diff",
+      "route": "/docs/offline-log#read-more",
       "parent": "オフラインログ",
-      "title": "相違点",
-      "content": " ミニプログラム環境では画面録画をサポートしておらず、対応するRRWebPluginもありません。 ミニプログラム環境のオフラインログはアップロードのみをサポートし、ダウンロードはサポートしていません。 "
+      "title": "延伸阅读",
+      "content": ""
+    },
+    {
+      "language": "ja",
+      "route": "/docs/offline-log#how-it-works",
+      "parent": "オフラインログ",
+      "title": "仕組み",
+      "content": "ログ再生はDataHarborPluginプラグインに基づいて実装されています。このプラグインはPageSpy内部の\"public-data\"イベントを監視して、実行時に生成されるすべてのデータを自動的に収集します。"
+    },
+    {
+      "language": "ja",
+      "route": "/docs/offline-log#platform-differences",
+      "parent": "オフラインログ",
+      "title": "プラットフォーム差異",
+      "content": "ログ再生機能においてプラットフォームごとに以下の差異があります： 機能 ブラウザ ミニプログラム データアップロード ✅ サポート ✅ サポート データダウンロード ✅ サポート ❌ 非サポート UI録画（RRWebPlugin） ✅ サポート ❌ 非サポート "
     },
     {
       "language": "ja",
       "route": "/docs/offline-log#faq",
       "parent": "オフラインログ",
       "title": "FAQ",
-      "content": " ログの手動アップロード/ダウンロードはどのように行いますか？ こちらをご覧ください。 オフラインログはどこに保存されますか？ DataHarborPluginがデータを受信すると、まずメモリの配列に格納されます。配列に格納されているデータの容量が臨界値に達すると、データは一時ファイルに書き込まれます。この臨界値はデフォルトで10MBです。以下のように自分で設定することもできます：new DataHarborPlugin({   maximum: 1 * 1024 * 1024, // メモリ内のデータ記録が1MBに達したら一時ファイルに書き込む }) "
+      "content": ""
+    },
+    {
+      "language": "ja",
+      "route": "/docs/offline-log#1--ログの手動アップロードダウンロードはどのように行いますか？",
+      "parent": "オフラインログ",
+      "title": "1. ログの手動アップロード/ダウンロードはどのように行いますか？",
+      "content": "詳細はDataHarborPlugin APIドキュメントをご覧ください。"
+    },
+    {
+      "language": "ja",
+      "route": "/docs/offline-log#2--オフラインログはどこに保存されますか？",
+      "parent": "オフラインログ",
+      "title": "2. オフラインログはどこに保存されますか？",
+      "content": "DataHarborPluginがデータを受信した後の処理フロー： データはまずメモリ配列に格納される メモリ内のデータが臨界値（デフォルト10MB）に達すると、自動的に一時ファイルに書き込まれる ユーザーはいつでもデータをサーバーにアップロードしたり、ローカルに保存してダウンロードできる メモリの臨界値をカスタマイズできます：new DataHarborPlugin({   maximum: 1 * 1024 * 1024, // メモリ内のデータが1MBに達したら一時ファイルに書き込む }) "
+    },
+    {
+      "language": "ja",
+      "route": "/docs/offline-log#3--オフラインログはアプリケーションのパフォーマンスに影響しますか？",
+      "parent": "オフラインログ",
+      "title": "3. オフラインログはアプリケーションのパフォーマンスに影響しますか？",
+      "content": "DataHarborPluginはパフォーマンス最適化されています： 非同期処理を使用し、メインスレッドをブロックしません メモリ使用を自動的に制御し、メモリオーバーフローを防止します データを圧縮して保存し、スペース使用量を削減します "
     },
     {
       "language": "ja",
@@ -3578,7 +3739,7 @@
       "language": "ja",
       "route": "/docs/pagespy#constructor",
       "parent": "Pagespy",
-      "title": "constructor()",
+      "title": "constructor(config)",
       "content": "PageSpyインスタンスを作成します。 型 declare class PageSpy {   constructor(config: InitConfig) } 詳細情報 コンストラクタは初期化パラメータとしてconfigオブジェクトを受け取ります。 "
     },
     {
@@ -3796,7 +3957,7 @@
       "route": "/docs/plugins#usage",
       "parent": "プラグインシステム",
       "title": "プラグインの使用方法",
-      "content": "<!-- SDKを読み込む --> <script src=\"https://<your-pagespy-host>/page-spy/index.min.js\"></script> <!-- プラグインを読み込む --> <script src=\"https://<your-pagespy-host>/plugin/xxx/index.min.js\"></script> <!-- プラグインを登録 --> <script>   PageSpy.registerPlugin(new XXXPlugin());   window.$pageSpy = new PageSpy(); </script> "
+      "content": "<!-- SDKを読み込む --> <script src=\"{deployUrl}/page-spy/index.min.js\"></script> <!-- プラグインを読み込む --> <script src=\"{deployUrl}/plugin/xxx/index.min.js\"></script> <!-- プラグインを登録 --> <script>   PageSpy.registerPlugin(new XXXPlugin());   window.$pageSpy = new PageSpy(); </script> "
     },
     {
       "language": "ja",
@@ -3804,6 +3965,13 @@
       "parent": "React Native",
       "title": "React Native",
       "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "ja",
+      "route": "/docs/react-native#start-using",
+      "parent": "React Native",
+      "title": "使用を開始",
+      "content": ""
     },
     {
       "language": "ja",
@@ -3817,7 +3985,7 @@
       "route": "/docs/react-native#step-2",
       "parent": "React Native",
       "title": "ステップ 2",
-      "content": "エントリーファイルでSDKをインポートしてインスタンス化します。初期化パラメータには、SDKの動作をカスタマイズするためのオプションの設定項目が用意されています：import PageSpy from '@huolala-tech/page-spy-react-native'; new PageSpy({   api: \"{deployPath}\", }) @react-native-async-storage/async-storageを使用している場合、独立したプラグインを提供しています：import PageSpy from '@huolala-tech/page-spy-react-native'; import RNAsyncStoragePlugin from '@huolala-tech/page-spy-plugin-rn-async-storage'; PageSpy.registerPlugin(new RNAsyncStoragePlugin()) new PageSpy({   api: \"{deployPath}\", }) 以上がReact NativeプロジェクトにPageSpyを導入する全手順です。導入完了後、トップメニューのデバッグを開始をクリックして使用開始！"
+      "content": "エントリーファイルでSDKをインポートしてインスタンス化します。設定オプションを使用してSDKの動作をカスタマイズできます：import PageSpy from '@huolala-tech/page-spy-react-native'; new PageSpy({   api: \"{deployPath}\",   enableSSL: {enableSSL}, }) @react-native-async-storage/async-storageを使用している場合、独立したプラグインを提供しています：import PageSpy from '@huolala-tech/page-spy-react-native'; import RNAsyncStoragePlugin from '@huolala-tech/page-spy-plugin-rn-async-storage'; PageSpy.registerPlugin(new RNAsyncStoragePlugin()) new PageSpy({   api: \"{deployPath}\",   enableSSL: {enableSSL}, }) 以上がReact NativeプロジェクトにPageSpyを導入する全手順です。導入完了後、トップメニューのデバッグを開始をクリックして使用開始！"
     },
     {
       "language": "ja",
@@ -3838,7 +4006,7 @@
       "route": "/docs/server-configuration#server-configuration",
       "parent": "サーバー設定",
       "title": "サーバー設定",
-      "content": "PageSpy サーバーは、現在の実行ディレクトリにある config.json 設定ファイル を自動的に読み込みます。このファイルは初回実行時に存在しません。必要に応じてこのファイルを作成または変更して、サーバーの動作をカスタマイズできます。設定ファイルは、以下の機能をサポートしています：実行ポート、マルチインスタンスデプロイ、クロスドメイン設定、ログデータ設定、データベース設定など。以下では、各設定フィールドの機能について詳しく説明します。{   // サーバーポート   \"port\": \"6752\",   // 最大ログファイルサイズ (MB)   \"maxLogFileSizeOfMB\": 10240,   // 最大ログファイル保存時間 (時間)   \"maxLogLifeTimeOfHour\": 720,   // ユーザーがインターフェース上でログを削除できるかどうか   \"notAllowedDeleteLog\": false,   // 最大部屋数   \"maxRoomNumber\": 500,   // クロスドメイン設定   \"corsConfig\": {     // 許可されたドメイン     \"allowOrigins\": [\"*\"],     // 許可されたリクエストヘッダー     \"allowHeaders\": [       \"Origin\",       \"Authorization\",       \"Content-Length\",       \"X-Request-Id\",       \"Content-Type\",       \"Referer\",       \"User-Agent\",       \"Host\"     ],     // 許可されたリクエストメソッド     \"allowMethods\": [       \"HEAD\",       \"POST\",       \"GET\",       \"OPTIONS\",       \"PUT\",       \"DELETE\",       \"UPDATE\"     ],     // Exposed request headers     \"exposeHeaders\": [\"X-Request-Id\"]   },   // S3互換のストレージ設定   \"storageConfig\": {     \"baseDir\": \"\",     \"keyId\": \"\",     \"secret\": \"\",     \"bucket\": \"\",     \"region\": \"\",     \"endpoint\": \"\",     // s3ForcePathStyle=false 代表する virtual-hosted–style api(デフォルト)     // s3ForcePathStyle=true  代表する path-style api     \"s3ForcePathStyle\": false   },   // 認証設定   \"authConfig\": {     // 認証パスワード     \"password\": \"\",     // JWT シークレット     \"jwtSecret\": \"\",     // トークン有効期限 (時間)     \"tokenExpiration\": 720   },   // 複数のインスタンスをデプロイする場合は、現在のマシンのIPまたはコンテナ内のDNS名に設定します。   \"selfRpcAddress\": {     \"ip\": \"\", // マシン IP またはコンテナ内の DNS 名     \"port\": \"\" // サーバーポート   },   // マルチインスタンスデプロイ設定   \"rpcAddress\": [     {       \"ip\": \"\", // マシン IP またはコンテナ内の DNS 名       \"port\": \"\" // サーバーポート     },     {       \"ip\": \"\",       \"port\": \"\"     },     ...   ],   // MySQL データベースアドレスを設定します。デフォルトでは sqlite を使用します。   \"databaseConfig\": {     \"mysqlUrl\": \"user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local\"   }, } "
+      "content": "PageSpy サーバーは、実行時に 現在の実行ディレクトリにある config.json 設定ファイル を自動的に読み込みます。このファイルは初回実行時に存在しないため、必要に応じてこのファイルを作成または変更してサーバーの動作をカスタマイズできます。設定ファイルでは次の内容を設定できます：実行ポート、マルチインスタンスデプロイ、クロスドメイン設定、ログデータ設定、データベース設定など。以下、各設定フィールドの役割を説明します。{   // サーバーポート   \"port\": \"6752\",   // 最大ログファイルサイズ (MB)   \"maxLogFileSizeOfMB\": 10240,   // 最大ログファイル保存時間 (時間)   \"maxLogLifeTimeOfHour\": 720,   // ユーザーがインターフェース上でログを削除できるかどうか   \"notAllowedDeleteLog\": false,   // 最大部屋数   \"maxRoomNumber\": 500,   // クロスドメイン設定   \"corsConfig\": {     // 許可されたドメイン     \"allowOrigins\": [\"*\"],     // 許可されたリクエストヘッダー     \"allowHeaders\": [       \"Origin\",       \"Authorization\",       \"Content-Length\",       \"X-Request-Id\",       \"Content-Type\",       \"Referer\",       \"User-Agent\",       \"Host\"     ],     // 許可されたリクエストメソッド     \"allowMethods\": [       \"HEAD\",       \"POST\",       \"GET\",       \"OPTIONS\",       \"PUT\",       \"DELETE\",       \"UPDATE\"     ],     // Exposed request headers     \"exposeHeaders\": [\"X-Request-Id\"]   },   // S3互換のストレージ設定   \"storageConfig\": {     \"baseDir\": \"\",     \"keyId\": \"\",     \"secret\": \"\",     \"bucket\": \"\",     \"region\": \"\",     \"endpoint\": \"\",     // s3ForcePathStyle=false 代表する virtual-hosted–style api(デフォルト)     // s3ForcePathStyle=true  代表する path-style api     \"s3ForcePathStyle\": false   },   // 認証設定   \"authConfig\": {     // 認証パスワード     \"password\": \"\",     // JWT シークレット     \"jwtSecret\": \"\",     // トークン有効期限 (時間)     \"tokenExpiration\": 720   },   // 複数のインスタンスをデプロイする場合は、現在のマシンのIPまたはコンテナ内のDNS名に設定します。   \"selfRpcAddress\": {     \"ip\": \"\", // マシン IP またはコンテナ内の DNS name     \"port\": \"\" // サーバーポート   },   // マルチインスタンスデプロイ設定   \"rpcAddress\": [     {       \"ip\": \"\", // マシン IP またはコンテナ内の DNS name       \"port\": \"\" // サーバーポート     },     {       \"ip\": \"\",       \"port\": \"\"     },     ...   ],   // MySQL データベースアドレスを設定、デフォルトでは SQLite を使用   \"databaseConfig\": {     \"mysqlUrl\": \"user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local\"   }, } "
     },
     {
       "language": "ja",
@@ -3917,14 +4085,14 @@
       "route": "/docs/api#api",
       "parent": "API",
       "title": "API",
-      "content": "import PlatformTag from '@/components/Docs/components/PlatformTag'; 일부 기능은 특정 플랫폼에서만 사용할 수 있으며, 다음과 같은 태그로 구분됩니다: 플랫폼 태그 브라우저 미니프로그램 React Native HarmonyOS "
+      "content": "import PlatformTag from '@/components/Docs/components/PlatformTag';이 페이지는 PageSpy 핵심 API 및 플러그인 API 인덱스를 제공합니다. 링크를 클릭하여 자세한 문서를 확인하세요.일부 API는 특정 플랫폼에서만 사용할 수 있으며 다음 태그로 표시됩니다: 플랫폼 태그 브라우저 미니프로그램 React Native HarmonyOS "
     },
     {
       "language": "ko",
       "route": "/docs/api#pagespy",
       "parent": "API",
       "title": "PageSpy",
-      "content": " 인스턴스 변수 이름을 $pageSpy = new PageSpy(...)로 정의합니다;  constructor() $pageSpy.updateRoomInfo() $pageSpy.abort() PageSpy.registerPlugin() PageSpy.pluginsWithOrder $pageSpy.version $pageSpy.config $pageSpy.socketStore $pageSpy.showPanel()  "
+      "content": "PageSpy 핵심 클래스로 애플리케이션 디버깅의 기본 기능을 제공합니다. 다음 문서에서 $pageSpy는 PageSpy 인스턴스를 나타냅니다. 즉, $pageSpy = new PageSpy(...)  constructor() $pageSpy.updateRoomInfo() $pageSpy.abort() PageSpy.registerPlugin() PageSpy.pluginsWithOrder $pageSpy.version $pageSpy.config $pageSpy.socketStore $pageSpy.showPanel()  "
     },
     {
       "language": "ko",
@@ -3938,14 +4106,14 @@
       "route": "/docs/api#harbor",
       "parent": "API",
       "title": "DataHarborPlugin",
-      "content": " 인스턴스 변수 이름을 $harbor = new DataHarborPlugin(...)로 정의합니다;  constructor() 수동 작업 로그 $harbor.pause() $harbor.resume() $harbor.reharbor() "
+      "content": "DataHarborPlugin은 오프라인 데이터 캐싱 및 업로드/다운로드 관리에 사용됩니다. 다음 문서에서 $harbor는 DataHarborPlugin 인스턴스를 나타냅니다. 즉, $harbor = new DataHarborPlugin(...)  constructor() 수동 작업 로그 $harbor.pause() $harbor.resume() $harbor.reharbor() "
     },
     {
       "language": "ko",
       "route": "/docs/api#rrweb",
       "parent": "API",
       "title": "RRWebPlugin",
-      "content": " 인스턴스 변수 이름을 $rrweb = new RRWebPlugin(...)로 정의합니다;  constructor() "
+      "content": "RRWebPlugin은 사용자 작업을 기록하고 재생하는 데 사용되며 문제 시나리오를 재현하기 쉽게 만듭니다. 다음 문서에서 $rrweb은 RRWebPlugin 인스턴스를 나타냅니다. 즉, $rrweb = new RRWebPlugin(...)  constructor() "
     },
     {
       "language": "ko",
@@ -3987,7 +4155,7 @@
       "route": "/docs/browser#script-usage-step-2",
       "parent": "브라우저",
       "title": "2단계",
-      "content": "PageSpy와 플러그인을 초기화합니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 설정 항목을 제공합니다:  [플러그인 개발](./plugins)을 통해 자신만의 PageSpy를 만들 수도 있습니다! </div> <script>   window.$harbor = new DataHarborPlugin();   window.$rrweb = new RRWebPlugin();   [window.$harbor, window.$rrweb].forEach(p => {     PageSpy.registerPlugin(p)   })   window.$pageSpy = new PageSpy(); </script> "
+      "content": "PageSpy와 플러그인을 초기화합니다. 설정 옵션을 통해 SDK 동작을 사용자 정의할 수 있습니다:  [플러그인 개발](./plugins)을 통해 자신만의 PageSpy를 만들 수도 있습니다! </div> <script>   window.$harbor = new DataHarborPlugin();   window.$rrweb = new RRWebPlugin();   [window.$harbor, window.$rrweb].forEach(p => {     PageSpy.registerPlugin(p)   })   window.$pageSpy = new PageSpy(); </script> "
     },
     {
       "language": "ko",
@@ -4008,28 +4176,28 @@
       "route": "/docs/browser#esm-usage-step-2",
       "parent": "브라우저",
       "title": "2단계",
-      "content": "import PageSpy from '@huolala-tech/page-spy-browser'; import DataHarborPlugin from '@huolala-tech/page-spy-plugin-data-harbor'; import RRWebPlugin from '@huolala-tech/page-spy-plugin-rrweb'; window.$harbor = new DataHarborPlugin(); window.$rrweb = new RRWebPlugin(); [window.$harbor, window.$rrweb].forEach(p => {   PageSpy.registerPlugin(p); }) // ESM 모드에서는 자동 분석이 불가능하므로, 아래의 인스턴스 초기화 매개변수가 필요합니다 window.$pageSpy = new PageSpy({   api: \"{deployPath}\",   clientOrigin: \"{deployUrl}\" }); 이제 브라우저 프로젝트에서 PageSpy를 사용하기 위한 모든 단계가 완료되었습니다. 페이지 상단 메뉴를 클릭하여 시작 디버깅 사용!"
+      "content": "import PageSpy from '@huolala-tech/page-spy-browser'; import DataHarborPlugin from '@huolala-tech/page-spy-plugin-data-harbor'; import RRWebPlugin from '@huolala-tech/page-spy-plugin-rrweb'; window.$harbor = new DataHarborPlugin(); window.$rrweb = new RRWebPlugin(); [window.$harbor, window.$rrweb].forEach(p => {   PageSpy.registerPlugin(p); }) // ESM 모드에서는 배포 주소를 자동으로 분석할 수 없으므로 다음 매개변수를 수동으로 구성해야 합니다 window.$pageSpy = new PageSpy({   api: \"{deployPath}\",   clientOrigin: \"{deployUrl}\",   enableSSL: {enableSSL}, }); 이제 브라우저 프로젝트에서 PageSpy를 사용하기 위한 모든 단계가 완료되었습니다. 페이지 상단 메뉴를 클릭하여 시작 디버깅 사용!"
     },
     {
       "language": "ko",
       "route": "/docs/browser#framework",
       "parent": "브라우저",
       "title": "프레임워크에 통합",
-      "content": "PageSpy는 현재 CodeSandbox 플랫폼에서 모든 프레임워크의 통합 가이드를 공개하고 있습니다. 온라인으로 경험해 보세요: React：CodeSandbox - PageSpy in React Vue：CodeSandbox - PageSpy in Vue Svelte：CodeSandbox - PageSpy in Svelte Angular：CodeSandbox - PageSpy in Angular Nextjs：CodeSandbox - PageSpy in Nextjs Nuxtjs：CodeSandbox - PageSpy in Nuxtjs "
+      "content": "PageSpy는 CodeSandbox 플랫폼에서 주요 프레임워크의 통합 가이드를 공개했습니다. 온라인으로 경험해 보세요: React：CodeSandbox - PageSpy in React Vue：CodeSandbox - PageSpy in Vue Svelte：CodeSandbox - PageSpy in Svelte Angular：CodeSandbox - PageSpy in Angular Nextjs：CodeSandbox - PageSpy in Nextjs Nuxtjs：CodeSandbox - PageSpy in Nuxtjs "
     },
     {
       "language": "ko",
       "route": "/docs/browser#extension",
       "parent": "브라우저",
       "title": "브라우저 플러그인",
-      "content": "PageSpy는 브라우저 플러그인을 제공하여 통합 코드 없이도 모든 웹 페이지에서 PageSpy를 사용할 수 있도록 합니다.네, 맞습니다! PageSpy 브라우저 플러그인을 사용하면 통합 코드 없이도 모든 웹 페이지에서 PageSpy를 사용할 수 있습니다."
+      "content": "PageSpy는 코드 통합 없이도 모든 웹 페이지에서 PageSpy를 사용할 수 있는 브라우저 플러그인을 제공합니다!네, 맞습니다! PageSpy 브라우저 플러그인을 사용하면 거의 모든 웹 페이지를 디버깅할 수 있습니다! (CSP 정책이 설정된 일부 웹 사이트는 작동하지 않을 수 있습니다)"
     },
     {
       "language": "ko",
       "route": "/docs/browser#install-extension",
       "parent": "브라우저",
       "title": "설치",
-      "content": " Chrome 웹 스토어로 이동하여 한 번의 클릭으로 설치하거나; 브라우저 플러그인 저장소로 이동하여 README 문서를 따라 설치하세요. "
+      "content": " Chrome 웹 스토어에서 원클릭으로 설치하거나 브라우저 플러그인 저장소로 이동하여 README 문서에 따라 수동으로 설치하세요. "
     },
     {
       "language": "ko",
@@ -4372,14 +4540,14 @@
       "route": "/docs/deploy-guide#main-components",
       "parent": "사용 설명",
       "title": "주요 구성 요소",
-      "content": "PageSpy는 다음과 같은 세 가지 모듈로 구성되어 있습니다: 디버깅 클라이언트: HuolalaTech/page-spy-web 리포지토리에 해당하며, 주로 개발자가 사용하고 온라인 디버깅, 오프라인 재생 등 다양한 디버깅 기능 패널을 제공합니다. SDK: HuolalaTech/page-spy 리포지토리에 해당하며, 사용자 프로젝트의 실행 시 생성된 데이터를 서버로 전송하고, 서버가 디버깅 클라이언트로 전달합니다. 서버: HuolalaTech/page-spy-api 리포지토리에 해당하며, 주로 양쪽 간의 메시지 중계, 데이터 저장 등을 담당합니다. 세 가지 모듈 간의 상호작용 관계는 다음과 같습니다:"
+      "content": "PageSpy는 다음과 같은 세 가지 모듈로 구성되어 있습니다: 디버깅 클라이언트: HuolalaTech/page-spy-web 리포지토리에 해당합니다. 개발자가 사용하며 온라인 디버깅, 오프라인 재생 등 다양한 디버깅 기능 패널을 제공합니다. SDK: HuolalaTech/page-spy 리포지토리에 해당합니다. 클라이언트 애플리케이션의 런타임 데이터를 수집하여 서버로 전송하고, 서버에서 디버깅 클라이언트로 전달합니다. 서버: HuolalaTech/page-spy-api 리포지토리에 해당합니다. 양쪽 엔드포인트 간의 메시지를 중계하고 데이터를 저장합니다. 세 가지 모듈 간의 상호작용 관계는 다음과 같습니다:"
     },
     {
       "language": "ko",
       "route": "/docs/deploy-guide#deployments",
       "parent": "사용 설명",
       "title": "다양한 배포 솔루션",
-      "content": "사용 편의성과 데이터 보안을 위해 PageSpy는 완전하고 즉시 사용 가능한 다양한 원클릭 배포 솔루션을 제공합니다. 개발자는 자신의 상황에 맞는 배포 방식을 선택할 수 있습니다. Node.js로 배포 Docker로 배포 바오타 패널에 설치 "
+      "content": "사용 편의성과 데이터 보안을 위해 PageSpy는 즉시 사용 가능한 여러 원클릭 배포 솔루션을 제공합니다. 실제 상황에 따라 적절한 배포 방법을 선택할 수 있습니다. Node.js로 배포 Docker로 배포 바오타 패널에 설치 "
     },
     {
       "language": "ko",
@@ -4484,7 +4652,7 @@
       "route": "/docs/faq#compatibility",
       "parent": "자주 묻는 질문",
       "title": "PageSpy의 호환성",
-      "content": " 브라우저 SDK의 호환성 목표는 [\"chrome > 75\",\"safari > 12\", \"> 0.1%\", \"not dead\",\"not op_mini all\"]로 설정되어 있습니다. 다른 SDK는 각각의 저장소에서 확인할 수 있습니다. 디버그 측은 주로 개발자가 사용하므로 브라우저의 새로운 기능 사용에 대해 개방적인 태도를 유지합니다. 따라서 최신 버전의 브라우저 사용을 권장하며, 호환성 목표는 [\"last 2 chrome version\", \"last 2 firefox version\", \"last 2 safari version\"]로 설정되어 있습니다. "
+      "content": " 브라우저 SDK의 호환성 목표는 [\"chrome > 75\",\"safari > 12\", \"> 0.1%\", \"not dead\",\"not op_mini all\"]로 설정되어 있습니다. 다른 SDK는 각각의 저장소를 참조하세요. 디버깅 클라이언트는 주로 개발자용이며, 브라우저의 새로운 기능 사용에 대해 개방적인 태도를 유지합니다. 최신 브라우저 버전 사용을 권장합니다. 호환성 목표는 [\"last 2 chrome version\", \"last 2 firefox version\", \"last 2 safari version\"]로 설정되어 있습니다. "
     },
     {
       "language": "ko",
@@ -4512,28 +4680,28 @@
       "route": "/docs/faq#framework",
       "parent": "자주 묻는 질문",
       "title": "xxx 프레임워크에서 어떻게 통합하나요?",
-      "content": "PageSpy는 CodeSandbox 플랫폼을 통해 현재 인기 있는 모든 프레임워크와의 통합 가이드를 제공합니다. 온라인으로 체험해 보세요: React: CodeSandbox - PageSpy in React Vue: CodeSandbox - PageSpy in Vue Svelte: CodeSandbox - PageSpy in Svelte Angular: CodeSandbox - PageSpy in Angular Nextjs: CodeSandbox - PageSpy in Nextjs Nuxtjs: CodeSandbox - PageSpy in Nuxtjs "
+      "content": "PageSpy는 CodeSandbox 플랫폼에서 주요 프레임워크의 통합 가이드를 공개했습니다. 온라인으로 체험해 보세요: React: CodeSandbox - PageSpy in React Vue: CodeSandbox - PageSpy in Vue Svelte: CodeSandbox - PageSpy in Svelte Angular: CodeSandbox - PageSpy in Angular Nextjs: CodeSandbox - PageSpy in Nextjs Nuxtjs: CodeSandbox - PageSpy in Nuxtjs "
     },
     {
       "language": "ko",
       "route": "/docs/faq#test-domain",
       "parent": "자주 묻는 질문",
-      "title": "pagespy.jikejishu.com은 공식 제공 도메인인가요? 계속 사용할 수 있나요?",
-      "content": "https://pagespy.jikejishu.com은 PageSpy를 온라인으로 체험하고 학습할 수 있도록 임시로 구축한 서비스입니다. 24시간 가용성을 보장하지 않으며, 데이터 보안을 보장하지 않고, 발생하는 손실은 자기 책임입니다. 체험 후에는 프라이빗 서버나 내부 네트워크에 직접 배포하는 것을 강력히 권장합니다."
+      "title": "pagespy.jikejishu.com은 공식 제공 도메인인가요?",
+      "content": "https://pagespy.jikejishu.com은 PageSpy를 온라인으로 체험하고 학습할 수 있도록 설정한 임시 서비스입니다. 24/7 가용성, 데이터 보안을 보장하지 않으며 발생하는 손실에 대해 책임지지 않습니다. 체험 후 프라이빗 서버나 인트라넷에 배포할 것을 강력히 권장합니다."
     },
     {
       "language": "ko",
       "route": "/docs/faq#server-port",
       "parent": "자주 묻는 질문",
-      "title": "로컬에서는 6752 포트에 접근할 수 있는데 서버에 배포하면 안 되는 이유는 무엇인가요?",
-      "content": "서버의 방화벽이나 보안 그룹 규칙에서 6752 포트가 개방되어 있는지 확인하세요."
+      "title": "로컬 6752 포트에는 접근할 수 있지만 서버에 배포하면 안 되나요?",
+      "content": "서버의 방화벽 또는 보안 그룹 규칙에서 6752 포트가 개방되어 있는지 확인하세요."
     },
     {
       "language": "ko",
       "route": "/docs/faq#debug-disabled",
       "parent": "자주 묻는 질문",
-      "title": "디버그 버튼에 \"현재 연결에 클라이언트가 존재하지 않습니다\"라고 표시되는 이유는 무엇인가요?",
-      "content": "이러한 상황은 일반적으로 SDK가 정상적으로 룸을 생성했지만 웹소켓을 통해 룸에 참여할 수 없는 경우에 발생합니다. 다음 단계에 따라 확인하세요: SDK가 있는 클라이언트의 콘솔을 열어 오류가 있는지 확인합니다. 콘솔에 \"WebSocket connect failed\" 관련 메시지가 표시되면 서버 설정이 올바른지 확인합니다. "
+      "title": "디버그 버튼에 \"현재 연결에 클라이언트가 존재하지 않습니다\"는 무슨 의미인가요?",
+      "content": "이는 일반적으로 SDK가 정상적으로 룸을 생성했지만 WebSocket을 통해 룸에 참여하지 못한 경우 발생합니다. 다음 문제 해결 단계를 따르세요: SDK가 실행 중인 클라이언트에서 콘솔을 열고 오류를 확인하세요 콘솔에 \"WebSocket connect failed\" 관련 메시지가 표시되면 서버 구성이 올바른지 확인하세요 "
     },
     {
       "language": "ko",
@@ -4547,21 +4715,21 @@
       "route": "/docs/faq#sub-path",
       "parent": "자주 묻는 질문",
       "title": "서브 경로에 어떻게 배포하나요?",
-      "content": "버전 1.5.4에서는 사용자가 서비스를 서브 경로에 배포할 수 있도록 지원합니다. 설치 과정은 동일하며, nginx 설정만 조정하면 됩니다:server {   # ...   # <sub-path>에 배포하려는 서브 경로를 입력   location /<sub-path>/  {       # 여기의 <sub-path>는 위와 동일하게 유지       rewrite ^/<sub-path>/(.*)$ /$1 break;       proxy_pass            http://127.0.0.1:6752;       proxy_http_version    1.1;       proxy_set_header      Upgrade $http_upgrade;       proxy_set_header      Connection \"upgrade\";       proxy_set_header      Host $host;       proxy_set_header      X-Real-IP $remote_addr;       proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;   }   # 여기의 <sub-path>는 위와 동일하게 유지   location /<sub-path> {       return 301 $scheme://$host$request_uri/;   } } 설정을 조정한 후 nginx를 재시작하면 서브 경로로 접근할 수 있습니다. 주의할 점은 이제 인스턴스화 시 api와 clientOrigin 매개변수를 수동으로 전달하여 SDK에 배포 주소를 알려줘야 합니다. 예:window.$pageSpy = new PageSpy({   // 예: api: \"example.com/pagespy\"   api: '<host>/<sub-path>',   // 예: clientOrigin: \"https://example.com/pagespy\"   clientOrigin: '<scheme>://<host>/<sub-path>', }); "
+      "content": "버전 1.5.4에서는 사용자가 서비스를 서브 경로에 배포할 수 있도록 지원합니다. 설치 과정은 동일하며, nginx 설정만 조정하면 됩니다:server {   # ...   # <sub-path>에 배포하려는 서브 경로를 입력   location /<sub-path>/  {       # 여기의 <sub-path>는 위와 동일하게 유지       rewrite ^/<sub-path>/(.*)$ /$1 break;       proxy_pass            http://127.0.0.1:6752;       proxy_http_version    1.1;       proxy_set_header      Upgrade $http_upgrade;       proxy_set_header      Connection \"upgrade\";       proxy_set_header      Host $host;       proxy_set_header      X-Real-IP $remote_addr;       proxy_set_header      X-Forwarded-For $proxy_add_x_forwarded_for;   }   # 여기의 <sub-path>는 위와 동일하게 유지   location /<sub-path> {       return 301 $scheme://$host$request_uri/;   } } 설정을 조정한 후 Nginx를 재시작하면 서브 경로로 접근할 수 있습니다. 주의할 점은 인스턴스화 시 api와 clientOrigin 매개변수를 수동으로 전달하여 SDK에 배포 주소를 알려야 합니다. 예:window.$pageSpy = new PageSpy({   // 예: api: \"example.com/pagespy\"   api: '<host>/<sub-path>',   // 예: clientOrigin: \"https://example.com/pagespy\"   clientOrigin: '<scheme>://<host>/<sub-path>', }); "
     },
     {
       "language": "ko",
       "route": "/docs/faq#security",
       "parent": "자주 묻는 질문",
-      "title": "디버그 측에 보안 인증 보호를 어떻게 추가하여 개발자가 인증 후에만 접근할 수 있게 하나요?",
-      "content": "2.3.0 버전부터 PageSpy는 서비스 시작 시 변수를 사용하여 비밀번호를 설정하여 디버그 측을 보호할 수 있습니다. 비밀번호를 설정한 후, 개발자는 비밀번호를 입력하여 디버그 측에 접근할 수 있습니다.설정할 수 있는 변수와 의미는 다음과 같습니다: AUTH_PASSWORD: 설정할 비밀번호 JWT_SECRET: 설정할 비밀키 JWT_EXPIRATION_HOURS: 설정할 토큰 만료 시간 (시간) 서비스 시작 시 설정합니다. 구체적인 사용 방법은 다음과 같습니다:"
+      "title": "디버그 클라이언트를 인증으로 보호하여 승인된 개발자만 접근할 수 있도록 하는 방법은?",
+      "content": "2.3.0 버전부터 PageSpy는 디버깅 패널을 보호하기 위한 비밀번호 설정을 지원합니다. 비밀번호를 설정하면 개발자는 올바른 비밀번호를 입력해야만 디버깅 패널에 접근할 수 있습니다.구성 가능한 변수: AUTH_PASSWORD: 비밀번호 설정 JWT_SECRET: Token 비밀 키 설정 JWT_EXPIRATION_HOURS: Token 만료 시간(시간) 설정, 기본값은 24시간 서비스 시작 시 설정합니다. 구체적인 사용 방법은 다음과 같습니다:"
     },
     {
       "language": "ko",
       "route": "/docs/faq#extension",
       "parent": "자주 묻는 질문",
-      "title": "프로젝트에 수동으로 통합하고 싶지 않은 경우, 비즈니스 프로젝트 코드를 침해하지 않고 구현할 방법이 있나요?",
-      "content": "PageSpy는 브라우저 확장 프로그램을 제공하며, 다음과 같은 기능을 제공합니다: 최신 버전의 SDK 자동 주입 인스턴스화 작업 자동 완료 주입할 도메인 설정 규칙 제공 사용하려면 여기를 클릭하세요: HuolalaTech/page-spy-extension"
+      "title": "프로젝트에 수동으로 통합하고 싶지 않은 경우, 비즈니스 코드를 침해하지 않고 가능한가요?",
+      "content": "PageSpy는 다음 기능을 갖춘 브라우저 확장 프로그램을 제공합니다: 최신 버전의 SDK 자동 주입 인스턴스화 작업 자동 완료 도메인 주입 구성 규칙 제공 사용하려면 여기를 클릭하세요: HuolalaTech/page-spy-extension"
     },
     {
       "language": "ko",
@@ -4574,15 +4742,15 @@
       "language": "ko",
       "route": "/docs/faq#http-error",
       "parent": "자주 묻는 질문",
-      "title": "비즈니스 프로젝트가 HTTPS에 배포되어 있고 PageSpy가 HTTP에 배포되어 있을 때 콘솔 오류는 어떻게 해결하나요?",
-      "content": "브라우저는 HTTPS 사이트에서 HTTP 리소스 로딩을 차단합니다. 이는 HTTP와 HTTPS 간의 데이터 전송에서 HTTPS는 암호화와 보안을 제공하지만 HTTP는 평문 전송으로 보안 위험이 있기 때문입니다.PageSpy를 HTTPS 서비스로 업그레이드하면 이 문제를 완벽하게 해결할 수 있습니다."
+      "title": "비즈니스 프로젝트가 HTTPS에 배포되어 있고 PageSpy가 HTTP에 배포되어 있을 때 콘솔 오류를 어떻게 해결하나요?",
+      "content": "브라우저는 HTTPS 사이트에서 HTTP 리소스 로딩을 차단합니다. 이는 HTTPS는 암호화와 보안을 제공하지만 HTTP는 평문 전송으로 보안 위험이 있기 때문입니다.PageSpy를 HTTPS 서비스로 업그레이드하면 이 문제를 완벽하게 해결할 수 있습니다."
     },
     {
       "language": "ko",
       "route": "/docs/faq#prod-debug",
       "parent": "자주 묻는 질문",
       "title": "특정 사용자만 디버그하려면 어떻게 하나요?",
-      "content": "가장 간단한 방법은 사용자가 PageSpy 브라우저 확장 프로그램을 사용하는 것입니다. 이는 매우 협조적인 고객이며 PC 프로젝트인 경우에 적합하지만, 이러한 전제 조건은 매우 까다롭습니다.그렇다면 H5 프로젝트를 프로덕션에 배포했을 때 PageSpy를 사용하려면 어떻게 해야 할까요? 모든 사용자에게 활성화하는 것은 현실적이지 않습니다.PageSpy의 활성화 과정은 총 두 단계입니다: head 태그에서 <script>로 SDK 가져오기 인스턴스화 PageSpy는 두 번째 인스턴스화 단계 전까지는 가져온 <script>가 프로젝트에 어떤 영향도 주지 않습니다. 특정 사용자를 디버그하려면 두 번째 단계가 핵심입니다: 어떤 사용자의 단말에서 PageSpy를 인스턴스화할 것인가. 이에 대해 두 가지 방안이 있습니다: HTML 동적 응답: 사용자가 HTML을 요청할 때 사용자의 고유 식별자를 얻을 수 있고 HTML에 동적으로 주입할 수 있다면, 사용자에게 HTML을 반환하기 전에 <script>와 인스턴스화 로직을 주입할지 결정할 수 있습니다. 사용자가 제스처로 활성화: 이는 일반적으로 사용자의 적극적인 협조가 필요합니다. 기본적으로 SDK를 주입하지만 인스턴스화하지 않고, 사용자가 특별한 제스처를 트리거한 후에 디버그를 시작합니다. config.gesture 를 참고하세요. 참고: 기술적인 구현 외에도 법적 준수 등 보안 위험에 주의해야 합니다."
+      "content": "가장 간단한 방법은 사용자가 PageSpy 브라우저 확장 프로그램을 사용하는 것입니다. 이는 협조적인 PC 클라이언트에 적합하지만, 이 전제 조건은 상당히 까다롭습니다.그렇다면 프로덕션 환경의 H5 프로젝트에서 PageSpy를 사용하려면 어떻게 해야 할까요? 모든 사용자에게 활성화하는 것은 분명히 비현실적입니다.PageSpy의 활성화 프로세스는 두 단계만 포함합니다: head 태그에서 <script>로 SDK 가져오기 인스턴스화 PageSpy는 두 번째 인스턴스화 단계 전까지는 가져온 <script>가 프로젝트에 어떤 영향도 주지 않습니다. 특정 사용자를 디버그하려면 두 번째 단계가 핵심입니다: 어떤 사용자의 단말에서 PageSpy를 인스턴스화할 것인가. 이에 대해 두 가지 방안이 있습니다: HTML 동적 응답: 사용자가 HTML을 요청할 때 사용자의 고유 식별자를 얻을 수 있고 HTML에 동적으로 주입할 수 있다면, 사용자에게 HTML을 반환하기 전에 <script>와 인스턴스화 로직을 주입할지 결정할 수 있습니다. 사용자가 제스처로 활성화: 이는 일반적으로 사용자의 적극적인 협조가 필요합니다. 기본적으로 SDK를 주입하지만 인스턴스화하지 않고, 사용자가 특별한 제스처를 트리거한 후에 디버그를 시작합니다. config.gesture 를 참고하세요. 참고: 기술적인 구현 외에도 법적 준수 등 보안 위험에 주의해야 합니다."
     },
     {
       "language": "ko",
@@ -4602,15 +4770,15 @@
       "language": "ko",
       "route": "/docs/faq#page-style",
       "parent": "자주 묻는 질문",
-      "title": "Page 패널의 스타일이 올바르지 않은 이유는 무엇인가요?",
-      "content": " 클라이언트와 디버그 측의 렌더링 환경이 다릅니다. 예: 클라이언트의 브라우저 버전이 Chrome 75이고 디버그 측의 브라우저 버전이 Chrome 120인 경우 디버그 측에서 클라이언트가 참조하는 리소스에 접근할 때 네트워크 제한이 있습니다 따라서 스타일은 참고용으로만 사용하세요."
+      "title": "Page 패널 스타일이 올바르지 않나요?",
+      "content": "클라이언트와 디버깅 엔드의 렌더링 환경 차이(예: 클라이언트의 브라우저 버전이 Chrome 75이고 디버깅 엔드가 Chrome 120인 경우) 또는 디버깅 엔드가 클라이언트가 참조하는 리소스에 접근할 때 네트워크 제한으로 인해 스타일 차이가 발생할 수 있습니다.따라서 스타일은 참고용으로만 제공됩니다."
     },
     {
       "language": "ko",
       "route": "/docs/faq#page-reset",
       "parent": "자주 묻는 질문",
-      "title": "Page 패널이 클라이언트의 내용을 100% 복원할 수 없는 이유는 무엇인가요?",
-      "content": "SDK는 페이지를 \"스크린샷\"하여 디버그 측으로 전송할 수 있지만 다음과 같은 이유로 구현하지 않았습니다: \"이미지\"는 텍스트보다 데이터 크기가 크며, 데이터 상호작용이 네트워크 전송 오버헤드를 증가시킵니다 SDK의 크기와 복잡도가 증가합니다 \"스타일 오류\"의 경우, 원격 협업 시 테스터가 개발자에게 정확하게 피드백할 수 있습니다 이러한 이유로 Page 패널의 스타일은 참고용으로만 제공됩니다."
+      "title": "Page 패널이 클라이언트 콘텐츠를 100% 복원할 수 없나요?",
+      "content": "SDK는 페이지를 \"스크린샷\"하여 디버깅 엔드로 전송할 수 있지만 다음과 같은 이유로 구현하지 않았습니다: 이미지는 텍스트보다 데이터 크기가 커서 네트워크 전송 오버헤드가 증가함 SDK의 크기와 복잡도가 증가함 스타일 오류의 경우 원격 협업 시 테스터가 개발자에게 정확한 피드백을 제공할 수 있음 이러한 이유로 Page 패널 스타일은 참고용으로만 제공됩니다."
     },
     {
       "language": "ko",
@@ -4624,14 +4792,14 @@
       "route": "/docs/faq#upgrade",
       "parent": "자주 묻는 질문",
       "title": "새 버전이 출시된 후 최신 버전으로 어떻게 업그레이드하나요?",
-      "content": " docker로 배포한 경우: # 이미지 업데이트 docker pull ghcr.io/huolalatech/page-spy-web:latest # 실행 중인 PageSpy 컨테이너 중지 docker stop pageSpy && docker rm -f pageSpy # 재실행 docker run -d --restart=always -p 6752:6752 --name=\"pageSpy\" ghcr.io/huolalatech/page-spy-web:latest NPM 패키지로 배포한 경우: # 패키지 업데이트(yarn) yarn global upgrade @huolala-tech/page-spy-api@latest # 패키지 업데이트(npm) npm install -g @huolala-tech/page-spy-api@latest # pm2로 재시작 pm2 restart page-spy-api "
+      "content": " Docker로 배포한 경우: # 이미지 업데이트 docker pull ghcr.io/huolalatech/page-spy-web:latest # 실행 중인 PageSpy 컨테이너 중지 docker stop pageSpy && docker rm -f pageSpy # 재실행 docker run -d --restart=always -p 6752:6752 --name=\"pageSpy\" ghcr.io/huolalatech/page-spy-web:latest NPM 패키지로 배포한 경우: # 패키지 업데이트(yarn) yarn global upgrade @huolala-tech/page-spy-api@latest # 패키지 업데이트(npm) npm install -g @huolala-tech/page-spy-api@latest # pm2로 재시작 pm2 restart page-spy-api "
     },
     {
       "language": "ko",
       "route": "/docs/faq#auto-destroy",
       "parent": "자주 묻는 질문",
       "title": "룸 연결은 어떤 상황에서 자동으로 파괴되나요?",
-      "content": " 설정 확인: https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323  룸 생성 후 SDK나 디버그 측이 입장하지 않으면 1분 후 파괴됩니다(실제 사용에서는 이 시나리오가 존재하지 않습니다) SDK와 디버그 측이 모두 연결이 끊어지면 1분 후 파괴됩니다 데이터 메시지 교환이 없는 상태가 5분 지속되면 파괴됩니다 연결 사용이 1시간을 초과하면 자동으로 파괴됩니다 "
+      "content": " 설정 확인: https://github.com/HuolalaTech/page-spy-api/blob/master/room/local_room.go#L297-L323  룸 생성 후 SDK나 디버깅 엔드가 입장하지 않으면 1분 후 파괴됩니다(실제 사용에서는 이 시나리오가 존재하지 않습니다) SDK와 디버깅 엔드가 모두 연결이 끊어지면 1분 후 파괴됩니다 데이터 메시지 교환이 없는 상태가 5분 지속되면 파괴됩니다 연결 사용이 1시간을 초과하면 자동으로 파괴됩니다 "
     },
     {
       "language": "ko",
@@ -4645,7 +4813,7 @@
       "route": "/docs/faq#offline-log",
       "parent": "자주 묻는 질문",
       "title": "업로드한 파일 로그가 보이지 않는 이유는 무엇인가요?",
-      "content": "config.json에 storageConfig 매개변수가 설정되지 않은 경우, 업로드된 파일 로그는 로컬에서 관리됩니다: 업로드된 파일 로그는 기본적으로 최신 10GB까지, 그리고 30일 동안 보관되며, 설정을 통해 사용자 정의할 수 있습니다. 업로드 로그는 실행 디렉토리의 log 디렉토리에 저장됩니다. docker로 실행하는 경우 docker가 삭제되면 로그도 함께 삭제됩니다. -v ./log:/app/log -v ./data:/app/data 디렉토리 매핑을 사용하여 영구 저장할 수 있습니다. "
+      "content": "config.json에 storageConfig 매개변수가 설정되지 않은 경우, 업로드된 파일 로그는 로컬에서 관리됩니다: 업로드된 파일 로그는 기본적으로 최신 10GB 및 30일 동안 저장되며, 구성을 통해 사용자 정의 가능 업로드 로그는 실행 디렉토리의 log 디렉토리에 저장됩니다. Docker로 실행하는 경우 컨테이너가 삭제되면 로그도 함께 삭제됩니다. -v ./log:/app/log -v ./data:/app/data 디렉토리 매핑을 사용하여 영구 저장할 수 있습니다 "
     },
     {
       "language": "ko",
@@ -4653,6 +4821,13 @@
       "parent": "하모니 앱",
       "title": "하모니 앱",
       "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "ko",
+      "route": "/docs/harmony#start-using",
+      "parent": "하모니 앱",
+      "title": "시작하기",
+      "content": ""
     },
     {
       "language": "ko",
@@ -4666,7 +4841,7 @@
       "route": "/docs/harmony#step-2",
       "parent": "하모니 앱",
       "title": "2단계",
-      "content": "적절한 위치에서 SDK를 가져오고 초기화합니다. 여기서는 EntryAbility를 예시로 들겠습니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 선택적 설정 옵션을 제공합니다:import { PageSpy } from '@huolala/page-spy-harmony'; import axiosInstance from 'path/to/your/axios-instance'; export default class EntryAbility extends UIAbility {   onWindowStageCreate(windowStage: window.WindowStage) {     new PageSpy({       context: this.context,       api: \"{deployPath}\",       enableSSL: true,       axios: axiosInstance     })   } } 이상이 HarmonyOS 앱 프로젝트에 PageSpy를 연동하는 전체 과정입니다. 연동이 완료된 후 상단 메뉴의 디버그 시작을 클릭하여 사용하세요!"
+      "content": "적절한 위치에서 SDK를 가져오고 초기화합니다. 여기서는 EntryAbility를 예시로 들겠습니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 선택적 설정 옵션을 제공합니다:import { PageSpy } from '@huolala/page-spy-harmony'; import axiosInstance from 'path/to/your/axios-instance'; export default class EntryAbility extends UIAbility {   onWindowStageCreate(windowStage: window.WindowStage) {     new PageSpy({       context: this.context,       api: \"{deployPath}\",       enableSSL: {enableSSL},       axios: axiosInstance     })   } } 이상이 HarmonyOS 앱 프로젝트에 PageSpy를 연동하는 전체 과정입니다. 연동이 완료된 후 상단 메뉴의 디버그 시작을 클릭하여 사용하세요!"
     },
     {
       "language": "ko",
@@ -4680,7 +4855,7 @@
       "route": "/docs/introduction#what-is-page-spy",
       "parent": "소개",
       "title": "Page Spy란 무엇인가요?",
-      "content": "PageSpy는 웹 / 미니프로그램 / React Native / HarmonyOS 앱 등의 플랫폼 프로젝트와 호환되는 오픈소스 디버깅 플랫폼입니다. 네이티브 API의 래퍼를 기반으로, 네이티브 메소드 호출 시의 매개변수를 필터링하고 변환하여 디버그 측이 소비할 수 있는 특정 형식의 메시지로 정리합니다. 디버그 측은 메시지 데이터를 수신한 후 로컬 콘솔과 유사한 기능 인터페이스로 데이터를 표시합니다."
+      "content": "PageSpy는 웹, 미니프로그램, React Native, Harmony OS 앱 등 여러 플랫폼과 호환되는 오픈소스 원격 디버깅 도구입니다.네이티브 API를 캡슐화하여 네이티브 메서드 호출 시 매개변수를 필터링하고 변환하여 표준 형식으로 디버깅 클라이언트에 전송합니다. 디버깅 클라이언트는 로컬 콘솔과 유사한 인터페이스를 통해 데이터를 직관적으로 표시합니다."
     },
     {
       "language": "ko",
@@ -4694,7 +4869,7 @@
       "route": "/docs/introduction#when-to-use",
       "parent": "소개",
       "title": "언제 사용하나요?",
-      "content": "로컬에서 콘솔 디버깅을 할 수 없는 모든 상황이 PageSpy가 빛을 발할 수 있는 때입니다! 다음과 같은 시나리오 사례들을 살펴보겠습니다: H5, Webview 애플리케이션의 로컬 디버깅: 기존에는 H5에서 정보를 확인할 수 있는 패널을 제공하는 제품들이 있었지만, 모바일 단말기의 화면이 너무 작아 조작이 불편하고, 표시가 불친절하며, 정보가 잘리는 등의 문제가 있었습니다. 원격 근무, 지역 간 협업: 이메일, 전화, 화상회의 등 전통적인 소통 방식은 소통 효율이 낮고, 장애 정보가 불완전하며, 오해와 오판이 생기기 쉽습니다. 사용자 단말기에서 발생하는 화면 멈춤 문제: 전통적인 문제 파악 방식에는 데이터 모니터링, 로그 분석 등이 있지만, 이러한 방식은 문제 해결 담당자가 비즈니스 요구사항 시나리오와 기술 구현을 이해해야 합니다. PageSpy의 목표는 위와 같은 상황에 처한 사람들을 돕는 것입니다."
+      "content": "로컬에서 콘솔 디버깅을 할 수 없는 모든 상황이 PageSpy가 빛을 발할 수 있는 때입니다! 다음과 같은 시나리오 사례들을 살펴보겠습니다: H5, Webview 애플리케이션의 로컬 디버깅: 모바일 화면이 너무 작아 기존 디버깅 패널은 조작이 불편하고 표시가 좋지 않으며 정보 잘림이 발생하기 쉽습니다. 원격 근무, 지역 간 협업: 전통적인 소통 방식(이메일, 전화, 화상회의)은 효율이 낮고 장애 정보가 불완전하며 오해와 오판이 발생하기 쉽습니다. 사용자 단말기 화면 멈춤 문제 해결: 데이터 모니터링, 로그 분석 등 전통적인 방법은 문제 해결팀의 비즈니스 및 기술에 대한 깊은 이해에 의존하여 위치 파악 효율이 낮습니다. PageSpy의 목표는 위와 같은 상황에 처한 사람들을 돕는 것입니다."
     },
     {
       "language": "ko",
@@ -4722,7 +4897,14 @@
       "route": "/docs/miniprogram#miniprogram",
       "parent": "미니프로그램",
       "title": "미니프로그램",
-      "content": "import { Tooltip } from 'antd' import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'"
+      "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "ko",
+      "route": "/docs/miniprogram#start-using",
+      "parent": "미니프로그램",
+      "title": "시작하기",
+      "content": "import mpPanelImg from '@/assets/image/screenshot/mp-panel.png'"
     },
     {
       "language": "ko",
@@ -4736,14 +4918,14 @@
       "route": "/docs/miniprogram#step-2",
       "parent": "미니프로그램",
       "title": "2단계",
-      "content": "PageSpy 서비스 도메인을 미니프로그램의 http, websocket 요청 화이트리스트에 추가합니다. 개발 환경을 제외하고 미니프로그램은 https와 wss 프로토콜 사용을 강제한다는 점에 주의하세요:https://<your-pagespy-host> wss://<your-pagespy-host> "
+      "content": "PageSpy 서비스 도메인을 미니프로그램의 HTTP, WebSocket 요청 화이트리스트에 추가합니다. 참고: 개발 환경을 제외하고 미니프로그램은 HTTPS 및 WSS 프로토콜 사용이 필수입니다:https://<your-pagespy-host> wss://<your-pagespy-host> "
     },
     {
       "language": "ko",
       "route": "/docs/miniprogram#step-3",
       "parent": "미니프로그램",
       "title": "3단계",
-      "content": "진입점 파일에서 SDK를 가져오고 인스턴스화합니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 선택적 설정 옵션을 제공합니다:"
+      "content": "진입점 파일에서 SDK를 가져오고 인스턴스화합니다. 설정 옵션을 통해 SDK 동작을 사용자 정의할 수 있습니다:"
     },
     {
       "language": "ko",
@@ -4757,27 +4939,27 @@
       "route": "/docs/offline-log#offline-log",
       "parent": "오프라인 로그",
       "title": "오프라인 로그",
-      "content": "import modalImg from '@/assets/image/screenshot/modal.png'; import replayImg from '@/assets/image/screenshot/replay-page.png'; import replayGif from '@/assets/image/screenshot/replay-page.gif'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';로그 재생이란 말 그대로 이전에 생성된 로그를 다시 재생하는 것입니다. 그렇다면 왜 이전 로그를 재생해야 할까요? 이전 로그는 어디서 오는 걸까요? 어떻게 재생할 수 있을까요? 하나씩 살펴보겠습니다."
+      "content": "import modalImg from '@/assets/image/screenshot/modal.png'; import replayImg from '@/assets/image/screenshot/replay-page.png'; import replayGif from '@/assets/image/screenshot/replay-page.gif'; import mpDataHarborImg from '@/assets/image/screenshot/mp-data-harbor.png';"
+    },
+    {
+      "language": "ko",
+      "route": "/docs/offline-log#what",
+      "parent": "오프라인 로그",
+      "title": "개요",
+      "content": "로그 재생은 오프라인 디버깅 기능으로, 문제 발생 후 당시의 런타임 데이터를 확인하고 분석할 수 있습니다. 기록 로그를 재생하여 비디오처럼 문제 시나리오를 재현할 수 있으며, 실시간으로 디버깅 엔드에 연결할 필요가 없습니다."
     },
     {
       "language": "ko",
       "route": "/docs/offline-log#why",
       "parent": "오프라인 로그",
       "title": "왜 필요한가",
-      "content": "그동안 PageSpy의 온라인 디버깅은 많은 까다로운 문제를 해결했지만, PageSpy를 사용하기 위해서는 전제 조건이 있었습니다: \"클라이언트와 디버그 측이 동시에 온라인 상태여야 한다\". 이 전제 조건은 PageSpy의 사용 시나리오를 제한했습니다. 예를 들면: 하나의 문제를 해결하기 위해 개발자와 테스터 두 명의 인력이 동시에 투입되어야 함 디버깅 중에 클라이언트가 백그라운드로 전환되어 연결이 끊어짐 동시에 PageSpy 자체에도 제약을 가져왔습니다. 예를 들면: 수집하는 데이터의 용량, 네트워크 전송의 부하를 고려해야 함 이러한 문제들을 해결하고 더 큰 자유도를 얻기 위해, PageSpy는 1.7.3 버전에서 로그 재생 기능을 제공하게 되었습니다!"
+      "content": "PageSpy의 온라인 디버깅 기능은 강력하지만 클라이언트와 디버깅 엔드포인트가 동시에 온라인 상태여야 합니다. 이는 다음과 같은 제한을 가져옵니다: 높은 인력 비용: 단일 문제 디버깅을 위해 개발자와 테스터가 동시에 온라인 상태여야 함 불안정한 연결: 클라이언트가 백그라운드로 전환되거나 네트워크 변동으로 연결이 끊어질 수 있음 실시간 전송 압력: 데이터 볼륨과 네트워크 전송 성능을 고려해야 함 이러한 문제를 해결하기 위해 PageSpy는 1.7.3 버전에서 로그 재생 기능을 도입하여 디버깅을 더욱 유연하고 자유롭게 만들었습니다."
     },
     {
       "language": "ko",
-      "route": "/docs/offline-log#where",
+      "route": "/docs/offline-log#start-using",
       "parent": "오프라인 로그",
-      "title": "로그는 어디서 오는가",
-      "content": "PageSpy의 SDK가 플러그인 등록을 지원하게 된 후, 개발팀은 즉시 DataHarborPlugin 플러그인의 개발을 추진했습니다. Data Harbor, 데이터 항구. 멘탈 모델: PageSpy가 생성하는 데이터는 끊임없이 \"데이터 항구\"로 전송되며, 데이터의 정리, 패키징, 압축 후에 \"데이터 항구\"는 데이터를 \"컨테이너\"(메모리 또는 로컬 임시 파일)에 저장하고 다음 지시를 기다립니다. 내부적으로 \"public-data\" 이벤트(\"public-data\" 이벤트란?)를 모니터링하여 오프라인 데이터 캐시 기능을 구현하고, SDK가 렌더링하는 컨트롤에서 데이터 업로드 및 다운로드 기능을 제공합니다. 클라이언트에서 문제가 발견되면 테스터는 직접 데이터를 업로드하거나 다운로드할 수 있습니다. 이러한 혁신으로 기존의 \"클라이언트와 디버그 측이 동시에 온라인 상태여야 한다\"는 전제 조건이 해소되었습니다."
-    },
-    {
-      "language": "ko",
-      "route": "/docs/offline-log#how-to-use",
-      "parent": "오프라인 로그",
-      "title": "사용 방법",
+      "title": "개시사용",
       "content": ""
     },
     {
@@ -4785,14 +4967,14 @@
       "route": "/docs/offline-log#browser",
       "parent": "오프라인 로그",
       "title": "브라우저에서 사용",
-      "content": " PageSpy의 오프라인 로그 재생 기능만 필요한 경우, 더 쉽게 통합할 수 있는 O-Spy의 사용을 추천합니다. "
+      "content": "온라인 디버깅과 오프라인 재생을 포함한 PageSpy의 전체 기능이 필요한 경우 다음과 같이 통합하세요:"
     },
     {
       "language": "ko",
       "route": "/docs/offline-log#step-1",
       "parent": "오프라인 로그",
-      "title": "1단계: 클라이언트에 SDK와 플러그인 도입",
-      "content": "<html>   <head>     <!-- 1. PageSpy 로드 -->     <script src=\"{deployUrl}/page-spy/index.min.js\"></script>     <!-- 2. DataHarbor 플러그인 로드: 오프라인 로그 데이터 캐시, 다운로드/업로드 기능 제공 -->     <script src=\"{deployUrl}/plugin/data-harbor/index.min.js\"></script>     <!-- 3. RRWeb 플러그인도 로드하여 사용자 조작 궤적을 오프라인 로그에 기록 가능 -->     <script src=\"{deployUrl}/plugin/rrweb/index.min.js\"></script>     <script>       // 4. 플러그인 등록, config 정보는 다음 참조: https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor       PageSpy.registerPlugin(new DataHarborPlugin(config));       PageSpy.registerPlugin(new RRWebPlugin());       // 5. PageSpy 인스턴스화       window.$pageSpy = new PageSpy({         // SDK와 디버그 측이 실시간 연결을 설정하지 않으려면 오프라인 모드를 활성화할 수 있습니다         // offline: true       });     </script>   </head> </html> 정상적으로 도입되면 페이지 우측 하단에 PageSpy의 플로팅 볼이 나타나며, 플로팅 볼을 클릭하면 표시되는 대화상자에 업로드와 다운로드 버튼이 포함되어 있어야 합니다.이 버튼을 클릭하면 오프라인 로그의 업로드와 다운로드가 트리거되고, 그 후 로그를 재생할 수 있습니다."
+      "title": "1단계: SDK 및 플러그인 통합",
+      "content": "<html>   <head>     <!-- 1. PageSpy 로드 -->     <script src=\"{deployUrl}/page-spy/index.min.js\"></script>     <!-- 2. DataHarbor 플러그인 로드: 오프라인 로그 데이터 캐시, 업로드/다운로드 기능 제공 -->     <script src=\"{deployUrl}/plugin/data-harbor/index.min.js\"></script>     <!-- 3. RRWeb 플러그인 로드: 사용자 작업 기록(선택 사항) -->     <script src=\"{deployUrl}/plugin/rrweb/index.min.js\"></script>     <script>       // 4. 플러그인 등록, config 정보는 다음 참조: https://github.com/HuolalaTech/page-spy/blob/main/packages/page-spy-plugin-data-harbor       PageSpy.registerPlugin(new DataHarborPlugin(config));       PageSpy.registerPlugin(new RRWebPlugin());       // 5. PageSpy 인스턴스화       window.$pageSpy = new PageSpy({         // SDK와 디버그 측이 실시간 연결을 설정하지 않으려면 오프라인 모드를 활성화할 수 있습니다         // offline: true       });     </script>   </head> </html> 통합이 성공하면 페이지 오른쪽 하단에 PageSpy 플로팅 볼이 나타납니다. 플로팅 볼을 클릭하면 팝업에 업로드 및 다운로드 버튼이 포함됩니다.업로드 또는 다운로드 버튼을 클릭하여 오프라인 로그 데이터를 저장하세요."
     },
     {
       "language": "ko",
@@ -4805,15 +4987,15 @@
       "language": "ko",
       "route": "/docs/offline-log#plugins",
       "parent": "오프라인 로그",
-      "title": "다른 플러그인과 함께 사용",
-      "content": "DataHarborPlugin은 데이터 수집과 데이터 처리 기능만을 제공합니다. PageSpy는 추가로 다음과 같은 플러그인을 제공합니다: RRWebPlugin: rrweb를 사용하여 DOM 업데이트를 기록하고, 디버그 측의 \"로그 재생\" 패널 좌측에서 사용자의 조작 궤적을 확인할 수 있습니다. "
+      "title": "플러그인 설명",
+      "content": " DataHarborPlugin: 오프라인 로그 데이터를 수집 및 저장하고, 업로드/다운로드 기능 제공 RRWebPlugin(선택 사항): rrweb를 사용하여 DOM 업데이트 및 사용자 작업을 기록합니다. 디버깅 클라이언트의 \"로그 재생\" 패널 왼쪽에서 페이지 작업 녹화를 볼 수 있습니다 "
     },
     {
       "language": "ko",
       "route": "/docs/offline-log#use-ospy",
       "parent": "오프라인 로그",
       "title": "O-Spy 사용하기",
-      "content": "O-Spy의 SDK는 플러그 앤 플레이 방식으로, 별도의 배포가 필요 없습니다. PageSpy / DataHarborPlugin / RRWebPlugin이 패키지로 포함되어 있으며, 오프라인 상태에서의 PageSpy 최적 설정이 내장되어 있습니다. 또한 사용자 정의 테마도 지원하여 매우 간단하게 사용할 수 있습니다.프레임워크와 무관하게 프로젝트에 도입하는 방법을 자유롭게 선택할 수 있습니다.import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';정상적으로 도입되면 우측 하단에 \"문제 피드백\" 드래그 가능한 컴포넌트가 나타납니다."
+      "content": "오프라인 로그 재생 기능만 필요한 경우 O-Spy 사용을 권장합니다. 서버 배포가 필요 없는 플러그 앤 플레이 SDK로, PageSpy, DataHarborPlugin, RRWebPlugin의 모범 사례 구성이 내장되어 있습니다.프레임워크에 구애받지 않으며 어떤 방법으로든 통합할 수 있습니다:import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';정상적으로 도입되면 우측 하단에 \"문제 피드백\" 드래그 가능한 컴포넌트가 나타납니다."
     },
     {
       "language": "ko",
@@ -4848,21 +5030,56 @@
       "route": "/docs/offline-log#mp-step-3",
       "parent": "오프라인 로그",
       "title": "3단계: 오프라인 로그 업로드",
-      "content": "오프라인 로그를 업로드하는 방법에는 두 가지가 있습니다: 플러그인 인스턴스의 upload() 메서드 호출: $dataHarborPlugin.upload().then(() => {   console.log('업로드 성공'); })  미니프로그램 DataHarbor 플러그인을 등록하면 PageSpy의 디버그 메뉴에 \"오프라인 로그 업로드\" 버튼이 나타납니다. 이 버튼을 클릭하면 오프라인 로그를 업로드할 수 있습니다: "
+      "content": "오프라인 로그를 업로드하는 방법에는 두 가지가 있습니다:방법 1: 코드 호출$dataHarborPlugin.upload().then(() => {   console.log('업로드 성공'); }) 방법 2: 디버깅 메뉴 사용미니프로그램 DataHarbor 플러그인을 등록하면 PageSpy 디버깅 메뉴에 \"오프라인 로그 업로드\" 버튼이 나타납니다. 클릭하여 업로드하세요:"
     },
     {
       "language": "ko",
-      "route": "/docs/offline-log#diff",
+      "route": "/docs/offline-log#read-more",
       "parent": "오프라인 로그",
-      "title": "차이점",
-      "content": " 미니프로그램 환경에서는 화면 녹화를 지원하지 않으며, 관련된 RRWebPlugin도 없습니다. 미니프로그램 환경의 오프라인 로그는 업로드만 지원하고 다운로드는 지원하지 않습니다. "
+      "title": "연伸阅读",
+      "content": ""
+    },
+    {
+      "language": "ko",
+      "route": "/docs/offline-log#how-it-works",
+      "parent": "오프라인 로그",
+      "title": "작동 원리",
+      "content": "로그 재생은 DataHarborPlugin 플러그인을 기반으로 구현됩니다. 이 플러그인은 PageSpy 내부의 \"public-data\" 이벤트를 리슨하여 런타임에 생성되는 모든 데이터를 자동으로 수집합니다."
+    },
+    {
+      "language": "ko",
+      "route": "/docs/offline-log#platform-differences",
+      "parent": "오프라인 로그",
+      "title": "플랫폼 차이",
+      "content": "로그 재생 기능에서 플랫폼마다 다음과 같은 차이가 있습니다: 기능 브라우저 미니프로그램 데이터 업로드 ✅ 지원 ✅ 지원 데이터 다운로드 ✅ 지원 ❌ 미지원 UI 녹화(RRWebPlugin) ✅ 지원 ❌ 미지원 "
     },
     {
       "language": "ko",
       "route": "/docs/offline-log#faq",
       "parent": "오프라인 로그",
       "title": "FAQ",
-      "content": " 로그를 수동으로 업로드/다운로드하는 방법은 무엇인가요? 여기를 참조하세요. 오프라인 로그는 어디에 저장되나요? DataHarborPlugin이 데이터를 수신하면 먼저 메모리의 배열에 저장됩니다. 배열에 저장된 데이터의 크기가 임계값에 도달하면 데이터는 임시 파일에 기록됩니다. 이 임계값은 기본적으로 10MB입니다. 다음과 같이 직접 설정할 수도 있습니다:new DataHarborPlugin({   maximum: 1 * 1024 * 1024, // 메모리의 데이터 기록이 1MB에 도달하면 임시 파일에 기록 }) "
+      "content": ""
+    },
+    {
+      "language": "ko",
+      "route": "/docs/offline-log#1--수동으로-로그를-업로드다운로드하는-방법은",
+      "parent": "오프라인 로그",
+      "title": "1. 수동으로 로그를 업로드/다운로드하는 방법은?",
+      "content": "자세한 설명은 DataHarborPlugin API 문서를 참조하세요."
+    },
+    {
+      "language": "ko",
+      "route": "/docs/offline-log#2--오프라인-로그-데이터는-어디에-저장되나요",
+      "parent": "오프라인 로그",
+      "title": "2. 오프라인 로그 데이터는 어디에 저장되나요?",
+      "content": "DataHarborPlugin이 데이터를 수신한 후의 처리 흐름: 데이터는 먼저 메모리 배열에 저장됨 메모리의 데이터가 임계값(기본 10MB)에 도달하면 자동으로 임시 파일에 기록됨 사용자는 언제든지 데이터를 서버에 업로드하거나 로컬에 저장하여 다운로드할 수 있음 메모리 임계값을 사용자 정의할 수 있습니다:new DataHarborPlugin({   maximum: 1 * 1024 * 1024, // 메모리의 데이터가 1MB에 도달하면 임시 파일에 기록 }) "
+    },
+    {
+      "language": "ko",
+      "route": "/docs/offline-log#3--오프라인-로그가-애플리케이션-성능에-영향을-주나요",
+      "parent": "오프라인 로그",
+      "title": "3. 오프라인 로그가 애플리케이션 성능에 영향을 주나요?",
+      "content": "DataHarborPlugin은 성능 최적화가 되어 있습니다: 비동기 처리를 사용하여 메인 스레드를 차단하지 않음 메모리 사용을 자동으로 제어하여 메모리 오버플로 방지 저장 전 데이터를 압축하여 공간 사용 감소 "
     },
     {
       "language": "ko",
@@ -4882,7 +5099,7 @@
       "language": "ko",
       "route": "/docs/pagespy#constructor",
       "parent": "Pagespy",
-      "title": "constructor()",
+      "title": "constructor(config)",
       "content": "PageSpy 인스턴스를 생성합니다. 타입 declare class PageSpy {   constructor(config: InitConfig) } 상세 정보 생성자는 초기화 매개변수로 config 객체를 받습니다. "
     },
     {
@@ -5100,7 +5317,7 @@
       "route": "/docs/plugins#usage",
       "parent": "플러그인 시스템",
       "title": "플러그인 사용 방법",
-      "content": "<!-- SDK 불러오기 --> <script src=\"https://<your-pagespy-host>/page-spy/index.min.js\"></script> <!-- 플러그인 불러오기 --> <script src=\"https://<your-pagespy-host>/plugin/xxx/index.min.js\"></script> <!-- 플러그인 등록 --> <script>   PageSpy.registerPlugin(new XXXPlugin());   window.$pageSpy = new PageSpy(); </script> "
+      "content": "<!-- SDK 불러오기 --> <script src=\"{deployUrl}/page-spy/index.min.js\"></script> <!-- 플러그인 불러오기 --> <script src=\"{deployUrl}/plugin/xxx/index.min.js\"></script> <!-- 플러그인 등록 --> <script>   PageSpy.registerPlugin(new XXXPlugin());   window.$pageSpy = new PageSpy(); </script> "
     },
     {
       "language": "ko",
@@ -5108,6 +5325,13 @@
       "parent": "React Native",
       "title": "React Native",
       "content": "import { Tooltip } from 'antd'"
+    },
+    {
+      "language": "ko",
+      "route": "/docs/react-native#start-using",
+      "parent": "React Native",
+      "title": "시작하기",
+      "content": ""
     },
     {
       "language": "ko",
@@ -5121,7 +5345,7 @@
       "route": "/docs/react-native#step-2",
       "parent": "React Native",
       "title": "2단계",
-      "content": "진입점 파일에서 SDK를 가져오고 인스턴스화합니다. 초기화 매개변수는 SDK의 동작을 사용자 정의하기 위한 선택적 설정 옵션을 제공합니다:import PageSpy from '@huolala-tech/page-spy-react-native'; new PageSpy({   api: \"{deployPath}\", }) @react-native-async-storage/async-storage를 사용하는 경우, 독립된 플러그인을 제공합니다:import PageSpy from '@huolala-tech/page-spy-react-native'; import RNAsyncStoragePlugin from '@huolala-tech/page-spy-plugin-rn-async-storage'; PageSpy.registerPlugin(new RNAsyncStoragePlugin()) new PageSpy({   api: \"{deployPath}\", }) 이상이 React Native 프로젝트에 PageSpy를 연동하는 전체 과정입니다. 연동이 완료된 후 상단 메뉴의 디버그 시작을 클릭하여 사용하세요!"
+      "content": "진입점 파일에서 SDK를 가져오고 인스턴스화합니다. 설정 옵션을 통해 SDK 동작을 사용자 정의할 수 있습니다:import PageSpy from '@huolala-tech/page-spy-react-native'; new PageSpy({   api: \"{deployPath}\",   enableSSL: {enableSSL}, }) @react-native-async-storage/async-storage를 사용하는 경우, 독립된 플러그인을 제공합니다:import PageSpy from '@huolala-tech/page-spy-react-native'; import RNAsyncStoragePlugin from '@huolala-tech/page-spy-plugin-rn-async-storage'; PageSpy.registerPlugin(new RNAsyncStoragePlugin()) new PageSpy({   api: \"{deployPath}\",   enableSSL: {enableSSL}, }) 이상이 React Native 프로젝트에 PageSpy를 연동하는 전체 과정입니다. 연동이 완료된 후 상단 메뉴의 디버그 시작을 클릭하여 사용하세요!"
     },
     {
       "language": "ko",
@@ -5142,7 +5366,7 @@
       "route": "/docs/server-configuration#server-configuration",
       "parent": "서버 설정",
       "title": "서버 설정",
-      "content": "PageSpy 서버는 현재 실행 디렉토리에 있는 config.json 설정 파일 을 자동으로 읽습니다. 처음 실행할 때 이 파일이 존재하지 않습니다. 필요에 따라 이 파일을 생성하거나 수정하여 서버 동작을 사용자 정의할 수 있습니다.설정 파일은 다음과 같은 기능을 지원합니다: 실행 포트, 멀티 인스턴스 배포, 크로스 도메인 설정, 로그 데이터 설정, 데이터베이스 설정 등. 각 설정 필드의 기능에 대해 자세히 설명합니다.{   // 서버 포트   \"port\": \"6752\",   // 최대 로그 파일 크기 (MB)   \"maxLogFileSizeOfMB\": 10240,   // 최대 로그 파일 저장 시간 (시간)   \"maxLogLifeTimeOfHour\": 720,   // 사용자가 인터페이스에서 로그를 삭제할 수 있는지 여부   \"notAllowedDeleteLog\": false,   // 최대 방 수   \"maxRoomNumber\": 500,   // 크로스 도메인 설정   \"corsConfig\": {     // 허용된 도메인     \"allowOrigins\": [\"*\"],     // 허용된 요청 헤더     \"allowHeaders\": [       \"Origin\",       \"Authorization\",       \"Content-Length\",       \"X-Request-Id\",       \"Content-Type\",       \"Referer\",       \"User-Agent\",       \"Host\"     ],     // 허용된 요청 메서드     \"allowMethods\": [       \"HEAD\",       \"POST\",       \"GET\",       \"OPTIONS\",       \"PUT\",       \"DELETE\",       \"UPDATE\"     ],     // Exposed request headers     \"exposeHeaders\": [\"X-Request-Id\"]   },   // S3 호환 스토리지 설정   \"storageConfig\": {     \"baseDir\": \"\",     \"keyId\": \"\",     \"secret\": \"\",     \"bucket\": \"\",     \"region\": \"\",     \"endpoint\": \"\",     // s3ForcePathStyle=false 표현하다 virtual-hosted–style api(기본)     // s3ForcePathStyle=true  표현하다 path-style api     \"s3ForcePathStyle\": false   },   // 인증 설정   \"authConfig\": {     // 인증 비밀번호     \"password\": \"\",     // JWT 시크릿     \"jwtSecret\": \"\",     // 토큰 만료 시간 (시간)     \"tokenExpiration\": 720   },   // 여러 인스턴스를 배포하는 경우 컨테이너의 현재 머신 IP 또는 DNS 이름으로 구성하세요.   \"selfRpcAddress\": {     \"ip\": \"\", // 머신 IP 또는 컨테이너 내 DNS 이름     \"port\": \"\" // 서버 포트   },   // 멀티 인스턴스 배포 설정   \"rpcAddress\": [     {       \"ip\": \"\", // 머신 IP 또는 컨테이너 내 DNS 이름       \"port\": \"\" // 서버 포트     },     {       \"ip\": \"\",       \"port\": \"\"     },     ...   ],   // MySQL 데이터베이스 주소를 설정합니다. 기본적으로 sqlite를 사용합니다.   \"databaseConfig\": {     \"mysqlUrl\": \"user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local\"   }, } "
+      "content": "PageSpy 서버는 실행 시 현재 실행 디렉토리의 config.json 설정 파일을 자동으로 읽습니다. 이 파일은 처음 실행할 때 존재하지 않습니다. 필요에 따라 이 파일을 생성하거나 수정하여 서버 동작을 사용자 정의할 수 있습니다.설정 파일에서 다음 내용을 구성할 수 있습니다: 실행 포트, 멀티 인스턴스 배포, 크로스 도메인 설정, 로그 데이터 설정, 데이터베이스 설정 등. 아래에서 각 설정 필드의 역할을 설명합니다.{   // 서버 포트   \"port\": \"6752\",   // 로그 재생 파일 최대 크기(MB)   \"maxLogFileSizeOfMB\": 10240,   // 로그 재생 파일 최장 보관 시간(시간)   \"maxLogLifeTimeOfHour\": 720,   // 사용자가 인터페이스에서 로그를 삭제할 수 있는지 여부   \"notAllowedDeleteLog\": false,   // 최대 방 수   \"maxRoomNumber\": 500,   // 크로스 도메인 설정   \"corsConfig\": {     // 허용된 도메인     \"allowOrigins\": [\"*\"],     // 허용된 요청 헤더     \"allowHeaders\": [       \"Origin\",       \"Authorization\",       \"Content-Length\",       \"X-Request-Id\",       \"Content-Type\",       \"Referer\",       \"User-Agent\",       \"Host\"     ],     // 허용된 요청 메서드     \"allowMethods\": [       \"HEAD\",       \"POST\",       \"GET\",       \"OPTIONS\",       \"PUT\",       \"DELETE\",       \"UPDATE\"     ],     // Exposed request headers     \"exposeHeaders\": [\"X-Request-Id\"]   },   // S3 호환 스토리지 설정   \"storageConfig\": {     \"baseDir\": \"\",     \"keyId\": \"\",     \"secret\": \"\",     \"bucket\": \"\",     \"region\": \"\",     \"endpoint\": \"\",     // s3ForcePathStyle=false 표현하다 virtual-hosted–style api(기본)     // s3ForcePathStyle=true  표현하다 path-style api     \"s3ForcePathStyle\": false   },   // 인증 설정   \"authConfig\": {     // 인증 비밀번호     \"password\": \"\",     // JWT 시크릿     \"jwtSecret\": \"\",     // 토큰 만료 시간(시간)     \"tokenExpiration\": 720   },   // 멀티 인스턴스 배포 시 현재 머신 IP 또는 컨테이너 내 DNS name으로 구성   \"selfRpcAddress\": {     \"ip\": \"\", // 머신 IP 또는 컨테이너 내 DNS name     \"port\": \"\" // 서버 포트   },   // 멀티 인스턴스 배포 설정   \"rpcAddress\": [     {       \"ip\": \"\", // 머신 IP 또는 컨테이너 내 DNS name       \"port\": \"\" // 서버 포트     },     {       \"ip\": \"\",       \"port\": \"\"     },     ...   ],   // MySQL 데이터베이스 주소 구성, 기본값은 SQLite 사용   \"databaseConfig\": {     \"mysqlUrl\": \"user:pass@tcp(127.0.0.1:3306)/dbname?charset=utf8mb4&parseTime=True&loc=Local\"   }, } "
     },
     {
       "language": "ko",

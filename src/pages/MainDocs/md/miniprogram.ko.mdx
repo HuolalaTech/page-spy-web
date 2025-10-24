@@ -47,7 +47,8 @@ wss://<your-pagespy-host>
 import PageSpy from '@huolala-tech/page-spy-wechat';
 
 const $pageSpy = new PageSpy({
-  api: "<your-pagespy-host>",
+  api: "{deployPath}",
+  enableSSL: {enableSSL},
 })
 ```
 
@@ -55,7 +56,8 @@ const $pageSpy = new PageSpy({
 import PageSpy from '@huolala-tech/page-spy-alipay';
 
 const $pageSpy = new PageSpy({
-  api: "<your-pagespy-host>",
+  api: "{deployPath}",
+  enableSSL: {enableSSL},
 })
 ```
 
@@ -63,7 +65,8 @@ const $pageSpy = new PageSpy({
 import PageSpy from '@huolala-tech/page-spy-uniapp';
 
 const $pageSpy = new PageSpy({
-  api: "<your-pagespy-host>",
+  api: "{deployPath}",
+  enableSSL: {enableSSL},
 })
 ```
 
@@ -72,8 +75,9 @@ import PageSpy from '@huolala-tech/page-spy-taro';
 import Taro from '@tarojs/taro';
 
 const $pageSpy = new PageSpy({
-  api: "<your-pagespy-host>",
   taro: Taro,
+  api: "{deployPath}",
+  enableSSL: {enableSSL},
 })
 ```
 
