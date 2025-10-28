@@ -20,11 +20,18 @@ import { Link } from 'react-router-dom';
   [![license][license-img]][license-url]
 </div>
 
-## What is O-Spy? #what-is-ospy
+## What is O-Spy?#what-is-ospy
 
-O-Spy (pronounced /əʊ spaɪ/, similar to **"Oh-Spy"**) is a debugging tool for **offline recording program runtime data** in web projects. The recorded data can be replayed using the O-Spy platform. [Click to see the demo](/o-spy?url=demo).
+O-Spy (pronounced /əʊ spaɪ/, similar to **"Oh-Spy"**) is a lightweight web debugging tool focused on **offline recording** of program runtime data. No server deployment required, all data is stored locally, with full replay debugging support. [Click to see the demo](/o-spy?url=demo).
 
-The workflow is shown in the image below:
+Core Features:
+
+- 🚀 **Zero Deployment**: No server setup required, ready to use
+- 📦 **Local Storage**: Data stays local, privacy protected
+- 🎬 **Complete Replay**: Reproduce issues like watching a recording
+- 🎨 **Customizable**: Themes and button styles configurable
+
+Workflow:
 
 <a href={workflow} target="_blank">
   <img src={workflow} style={{width: '100%'}} />
@@ -32,30 +39,45 @@ The workflow is shown in the image below:
 
 ## Quick Start#quick-start
 
-#### Step 1: Import O-Spy #step-1
+Just three steps to experience the power of O-Spy.
 
-O-Spy is framework-agnostic, and you can integrate it into your project in any way you prefer.
+### Step 1: Import O-Spy#step-1
+
+O-Spy is framework-agnostic and supports multiple import methods. Choose the one you prefer:
 
 import { ImportGuide } from '@/pages/OSpy/components/ImportGuide';
 
 <ImportGuide showConfig={false} />
 
-Once successfully imported, you will see a draggable "O-Spy" widget at the bottom right of the screen. Try opening it :)
+Once successfully imported, a draggable "O-Spy" button will appear in the bottom right corner. Click and try it :)
 
 import { CallOSpy } from '../md-components/CallOSPy';
 
 <CallOSpy />
 
-#### Step 2: Export Data #step-2
+### Step 2: Generate and Export Data#step-2
 
-This page already integrates O-Spy. Imagine it as your web page and let’s generate some data. Feel free to click the button below:
+To demonstrate the functionality, this page already has O-Spy integrated. Let's simulate some real-world scenarios and generate debugging data:
 
 import { MakeData } from '../md-components/MakeData'
 
 <MakeData />
 
-Then click the floating O-Spy button to open the popup and click "Export Log" to download a JSON file.
+After clicking the buttons above to generate some data, follow these steps to export:
 
-#### Step 3: Replay #step-3
+1. Click the O-Spy floating button in the bottom right corner to open the panel
+2. Click the **"Export Log"** button
+3. The browser will automatically download a `.json` log file
 
-Go to <Link to="/o-spy?url=" target='_blank'>the replay page</Link>, click the "Select Log" button at the top left, choose the JSON file we just exported, and start the replay!
+> 💡 **Tip**: The exported JSON file contains all page runtime data, including console logs, network requests, page interactions, etc.
+
+### Step 3: Replay and Debug#step-3
+
+Now let's replay the exported data:
+
+1. Go to the <Link to="/o-spy?url=" target='_blank'>replay page</Link>
+2. Click the **"Select Log"** button in the top left corner
+3. Select the JSON file you just exported
+4. Start the replay and see the complete runtime process!
+
+Congratulations! You've mastered the basics of O-Spy 🎉

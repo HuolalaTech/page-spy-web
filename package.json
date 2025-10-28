@@ -59,6 +59,7 @@
     "yorkie": "^2.0.0"
   },
   "dependencies": {
+    "@ant-design/happy-work-theme": "^1.0.1",
     "@ant-design/icons": "^4.7.0",
     "@huolala-tech/page-spy-browser": "^2.2.8",
     "@huolala-tech/page-spy-plugin-data-harbor": "^2.2.8",
