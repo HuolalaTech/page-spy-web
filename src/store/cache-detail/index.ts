@@ -1,4 +1,4 @@
-import { produce } from 'immer';
+import { immer } from 'zustand/middleware/immer';
 import { create } from 'zustand';
 
 interface DetailInfo {
@@ -6,13 +6,13 @@ interface DetailInfo {
   setCurrentDetail: (data: any) => void;
 }
 
-export const useCacheDetailStore = create<DetailInfo>((set) => ({
-  currentDetail: null,
-  setCurrentDetail: (data) => {
-    set(
-      produce<DetailInfo>((state) => {
+export const useCacheDetailStore = create<DetailInfo>()(
+  immer((set) => ({
+    currentDetail: null,
+    setCurrentDetail: (data) => {
+      set((state) => {
         state.currentDetail = data;
-      }),
-    );
-  },
-}));
+      });
+    },
+  })),
+);
