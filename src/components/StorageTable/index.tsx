@@ -131,7 +131,7 @@ export const StorageTable = ({
       const widthInitedColumns = [...allCols].map((i) => {
         return {
           ...i,
-          width: value[i.title] || i.width,
+          width: value[i.title as string] || i.width,
         };
       });
       setColumns(widthInitedColumns);
