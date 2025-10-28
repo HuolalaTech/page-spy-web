@@ -1,4 +1,5 @@
-import { Button, Flex } from 'antd';
+import { HappyProvider } from '@ant-design/happy-work-theme';
+import { Button, ConfigProvider, Flex } from 'antd';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -56,30 +57,32 @@ export const MakeData = () => {
   const { t } = useTranslation('translation', { keyPrefix: 'oSpy' });
   const index = useRef(0);
   return (
-    <Flex gap={24} justify="center" style={{ marginBlock: 24 }}>
-      <Button
-        onClick={() => {
-          console.log(asciiCode[index.current++ % asciiCode.length]);
-        }}
-      >
-        {t('console-output')}
-      </Button>
-      <Button
-        onClick={() => {
-          fetch(
-            'https://registry.npmjs.org/@huolala-tech/page-spy-plugin-ospy',
-          );
-        }}
-      >
-        {t('network-request')}
-      </Button>
-      <Button
-        onClick={() => {
-          sessionStorage.setItem('O-Spy', 'Change storage demo');
-        }}
-      >
-        {t('modify-storage')}
-      </Button>
-    </Flex>
+    <HappyProvider>
+      <Flex gap={24} justify="center" style={{ marginBlock: 24 }}>
+        <Button
+          onClick={() => {
+            console.log(asciiCode[index.current++ % asciiCode.length]);
+          }}
+        >
+          {t('console-output')}
+        </Button>
+        <Button
+          onClick={() => {
+            fetch(
+              'https://registry.npmjs.org/@huolala-tech/page-spy-plugin-ospy',
+            );
+          }}
+        >
+          {t('network-request')}
+        </Button>
+        <Button
+          onClick={() => {
+            sessionStorage.setItem('O-Spy', 'Change storage demo');
+          }}
+        >
+          {t('modify-storage')}
+        </Button>
+      </Flex>
+    </HappyProvider>
   );
 };
