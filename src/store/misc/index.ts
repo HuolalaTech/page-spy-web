@@ -1,4 +1,4 @@
-import { produce } from 'immer';
+import { immer } from 'zustand/middleware/immer';
 import { create } from 'zustand';
 
 interface MiscInfo {
@@ -6,13 +6,13 @@ interface MiscInfo {
   setIsAutoScroll: (data: boolean) => void;
 }
 
-export const useMiscStore = create<MiscInfo>((set) => ({
-  isAutoScroll: false,
-  setIsAutoScroll: (data: boolean) => {
-    set(
-      produce<MiscInfo>((state) => {
+export const useMiscStore = create<MiscInfo>()(
+  immer((set) => ({
+    isAutoScroll: false,
+    setIsAutoScroll: (data: boolean) => {
+      set((state) => {
         state.isAutoScroll = data;
-      }),
-    );
-  },
-}));
+      });
+    },
+  })),
+);
