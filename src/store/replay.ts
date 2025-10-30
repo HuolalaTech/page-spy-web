@@ -15,6 +15,7 @@ import { parseClientInfo, ParsedClientInfo } from '@/utils/brand';
 import { DataType } from '@huolala-tech/page-spy-plugin-data-harbor/dist/types/harbor/base';
 import { debug } from '@/utils/debug';
 import { isRRWebClickEvent } from '@/utils/rrweb-event';
+import { NetworkType } from '@/components/NetworkTable/TypeFilter';
 
 const isCaredActivity = (activity: HarborDataItem) => {
   const { type, data } = activity;
@@ -102,6 +103,12 @@ export interface ReplayStore {
   setTimeMode: (mode: TIME_MODE) => void;
   autoScroll: boolean;
   setAutoScroll: (value: boolean) => void;
+
+  // network panel
+  networkKeyword: string;
+  setNetworkKeyword: (keyword: string) => void;
+  networkType: NetworkType;
+  setNetworkType: (type: NetworkType) => void;
 }
 
 export const fixProgress = (progress: number) => {
@@ -449,6 +456,18 @@ export const useReplayStore = create<ReplayStore>()(
     setAutoScroll(value) {
       set((state) => {
         state.autoScroll = value;
+      });
+    },
+    networkKeyword: '',
+    setNetworkKeyword(keyword) {
+      set((state) => {
+        state.networkKeyword = keyword;
+      });
+    },
+    networkType: 'All',
+    setNetworkType(type) {
+      set((state) => {
+        state.networkType = type;
       });
     },
   })),

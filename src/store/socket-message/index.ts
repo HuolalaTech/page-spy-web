@@ -18,6 +18,7 @@ import { isEqual, omit } from 'lodash-es';
 import { parseClientInfo, ParsedClientInfo } from '@/utils/brand';
 import { StorageType } from '../platform-config';
 import type { RequestItem } from '@huolala-tech/page-spy-base';
+import { NetworkType } from '@/components/NetworkTable/TypeFilter';
 
 const USER_ID = 'Debugger';
 
@@ -28,6 +29,8 @@ interface SocketMessage {
   consoleMsgTypeFilter: string[];
   consoleMsgKeywordFilter: string;
   networkMsg: ResolvedNetworkInfo[];
+  networkKeyword: string;
+  networkType: NetworkType;
   systemMsg: SpySystem.DataItem[];
   connectMsg: string[];
   pageMsg: {
@@ -43,6 +46,8 @@ interface SocketMessage {
   initSocket: (args: Record<string, string>) => void;
   setConsoleMsgTypeFilter: (typeList: string[]) => void;
   setConsoleMsgKeywordFilter: (keyword: string) => void;
+  setNetworkKeyword: (keyword: string) => void;
+  setNetworkType: (type: NetworkType) => void;
   clearRecord: (key: string) => void;
   refresh: (key: string) => void;
 }
@@ -55,6 +60,8 @@ export const useSocketMessageStore = create<SocketMessage>()(
     consoleMsgTypeFilter: [],
     consoleMsgKeywordFilter: '',
     networkMsg: [],
+    networkKeyword: '',
+    networkType: 'All',
     systemMsg: [],
     connectMsg: [],
     pageMsg: {
@@ -295,6 +302,12 @@ export const useSocketMessageStore = create<SocketMessage>()(
     },
     setConsoleMsgKeywordFilter(keyword: string) {
       set({ consoleMsgKeywordFilter: keyword });
+    },
+    setNetworkKeyword(keyword: string) {
+      set({ networkKeyword: keyword });
+    },
+    setNetworkType(type: NetworkType) {
+      set({ networkType: type });
     },
     clearRecord: (key: string) => {
       switch (key) {
