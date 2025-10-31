@@ -6,8 +6,8 @@ import {
   SpySystem,
 } from '@huolala-tech/page-spy-types';
 import { create } from 'zustand';
+import { immer } from 'zustand/middleware/immer';
 import { eventWithTime } from '@rrweb/types';
-import { produce } from 'immer';
 import { isEqual, omit } from 'lodash-es';
 import { REPLAY_STATUS_CHANGE } from '@/components/LogReplayer/events';
 import { ResolvedNetworkInfo, resolveUrlInfo } from '@/utils';
@@ -15,6 +15,7 @@ import { parseClientInfo, ParsedClientInfo } from '@/utils/brand';
 import { DataType } from '@huolala-tech/page-spy-plugin-data-harbor/dist/types/harbor/base';
 import { debug } from '@/utils/debug';
 import { isRRWebClickEvent } from '@/utils/rrweb-event';
+import { NetworkType } from '@/components/NetworkTable/TypeFilter';
 
 const isCaredActivity = (activity: HarborDataItem) => {
   const { type, data } = activity;
@@ -25,7 +26,7 @@ const isCaredActivity = (activity: HarborDataItem) => {
 
 // 决定 activity point 是否聚合
 // 两个 activity point 的时间差和回放时长正相关；
-// 或者说，时长越短、越要减少聚合；
+// 换句话说，时长越短、越要减少聚合；
 const getActivityPointTimeDiff = (duration: number) => {
   const second = 1000;
   const minute = 60 * second;
@@ -102,6 +103,12 @@ export interface ReplayStore {
   setTimeMode: (mode: TIME_MODE) => void;
   autoScroll: boolean;
   setAutoScroll: (value: boolean) => void;
+
+  // network panel
+  networkKeyword: string;
+  setNetworkKeyword: (keyword: string) => void;
+  networkType: NetworkType;
+  setNetworkType: (type: NetworkType) => void;
 }
 
 export const fixProgress = (progress: number) => {
@@ -113,154 +120,148 @@ export const fixProgress = (progress: number) => {
       : progress;
 };
 
-export const useReplayStore = create<ReplayStore>((set, get) => ({
-  rrwebStartTime: 0,
-  setRRWebStartTime: (t) => {
-    set(
-      produce((state) => {
+export const useReplayStore = create<ReplayStore>()(
+  immer((set, get) => ({
+    rrwebStartTime: 0,
+    setRRWebStartTime: (t) => {
+      set((state) => {
         state.rrwebStartTime = t;
-      }),
-    );
-  },
-  activity: [],
-  clientInfo: null,
-  allConsoleMsg: [],
-  allNetworkMsg: [],
-  allRRwebEvent: [],
-  allStorageMsg: [],
-  allSystemMsg: [],
-  startTime: 0,
-  endTime: 0,
-  duration: 0,
-  consoleMsg: [],
-  networkMsg: [],
-  storageMsg: {
-    localStorage: [],
-    sessionStorage: [],
-    cookie: [],
-    // following 'storage' is just for type correct at now
-    mpStorage: [],
-    asyncStorage: [],
-  },
-  metaMsg: null,
-  setAllData(data) {
-    if (!data?.length) return;
-    get().resetState();
+      });
+    },
+    activity: [],
+    clientInfo: null,
+    allConsoleMsg: [],
+    allNetworkMsg: [],
+    allRRwebEvent: [],
+    allStorageMsg: [],
+    allSystemMsg: [],
+    startTime: 0,
+    endTime: 0,
+    duration: 0,
+    consoleMsg: [],
+    networkMsg: [],
+    storageMsg: {
+      localStorage: [],
+      sessionStorage: [],
+      cookie: [],
+      // following 'storage' is just for type correct at now
+      mpStorage: [],
+      asyncStorage: [],
+    },
+    metaMsg: null,
+    setAllData(data) {
+      if (!data?.length) return;
+      get().resetState();
 
-    let start = data[0].timestamp;
-    let end = data[data.length - 1].timestamp;
+      let start = data[0].timestamp;
+      let end = data[data.length - 1].timestamp;
 
-    const lastData = data[data.length - 1];
+      const lastData = data[data.length - 1];
 
-    if (isMetaInfo(lastData)) {
-      set(
-        produce((state) => {
+      if (isMetaInfo(lastData)) {
+        set((state) => {
           state.metaMsg = lastData.data;
-        }),
-      );
-      const { data } = lastData;
-      if (data.startTime && data.endTime) {
-        data.startTime && (start = data.startTime);
-        data.endTime && (end = data.endTime);
-      }
-      if (data.ua) {
-        set(
-          produce((state) => {
-            state.clientInfo = parseClientInfo(data);
-          }),
-        );
-      }
-    }
-
-    const duration = end - start;
-    const activityPointTimeDiff = getActivityPointTimeDiff(duration);
-
-    const result: Pick<
-      ReplayStore,
-      | 'activity'
-      | 'allConsoleMsg'
-      | 'allNetworkMsg'
-      | 'allRRwebEvent'
-      | 'allStorageMsg'
-      | 'allSystemMsg'
-    > = {
-      activity: [],
-      allConsoleMsg: [],
-      allNetworkMsg: [],
-      allRRwebEvent: [],
-      allStorageMsg: [],
-      allSystemMsg: [],
-    };
-    const {
-      activity,
-      allConsoleMsg,
-      allNetworkMsg,
-      allRRwebEvent,
-      allSystemMsg,
-      allStorageMsg,
-    } = data.reduce((acc, cur) => {
-      const { type, data, timestamp } = cur;
-      if (timestamp < start) {
-        if (type === 'rrweb-event') {
-          acc.allRRwebEvent.push(data);
+        });
+        const { data } = lastData;
+        if (data.startTime && data.endTime) {
+          data.startTime && (start = data.startTime);
+          data.endTime && (end = data.endTime);
         }
-        return acc;
+        if (data.ua) {
+          set((state) => {
+            state.clientInfo = parseClientInfo(data);
+          });
+        }
       }
 
-      if (isCaredActivity(cur)) {
-        if (!acc.activity.length) {
-          acc.activity.push([{ type, timestamp }]);
-        } else {
-          const lastFrame = acc.activity[acc.activity.length - 1];
-          const lastItemInLastFrame = lastFrame[lastFrame.length - 1];
-          if (
-            lastItemInLastFrame.type === type &&
-            timestamp - lastItemInLastFrame.timestamp < activityPointTimeDiff
-          ) {
-            lastFrame.push({ type, timestamp });
-          } else {
+      const duration = end - start;
+      const activityPointTimeDiff = getActivityPointTimeDiff(duration);
+
+      const result: Pick<
+        ReplayStore,
+        | 'activity'
+        | 'allConsoleMsg'
+        | 'allNetworkMsg'
+        | 'allRRwebEvent'
+        | 'allStorageMsg'
+        | 'allSystemMsg'
+      > = {
+        activity: [],
+        allConsoleMsg: [],
+        allNetworkMsg: [],
+        allRRwebEvent: [],
+        allStorageMsg: [],
+        allSystemMsg: [],
+      };
+      const {
+        activity,
+        allConsoleMsg,
+        allNetworkMsg,
+        allRRwebEvent,
+        allSystemMsg,
+        allStorageMsg,
+      } = data.reduce((acc, cur) => {
+        const { type, data, timestamp } = cur;
+        if (timestamp < start) {
+          if (type === 'rrweb-event') {
+            acc.allRRwebEvent.push(data);
+          }
+          return acc;
+        }
+
+        if (isCaredActivity(cur)) {
+          if (!acc.activity.length) {
             acc.activity.push([{ type, timestamp }]);
+          } else {
+            const lastFrame = acc.activity[acc.activity.length - 1];
+            const lastItemInLastFrame = lastFrame[lastFrame.length - 1];
+            if (
+              lastItemInLastFrame.type === type &&
+              timestamp - lastItemInLastFrame.timestamp < activityPointTimeDiff
+            ) {
+              lastFrame.push({ type, timestamp });
+            } else {
+              acc.activity.push([{ type, timestamp }]);
+            }
           }
         }
-      }
-      switch (type) {
-        case 'console':
-          acc.allConsoleMsg.push(cur);
-          break;
-        case 'network':
-          acc.allNetworkMsg.push({
-            type,
-            timestamp,
-            data: {
-              ...data,
-              ...resolveUrlInfo(data.url),
-            },
-          });
-          break;
-        case 'rrweb-event':
-          acc.allRRwebEvent.push(data);
-          break;
-        case 'storage':
-          acc.allStorageMsg.push(cur);
-          break;
-        case 'system':
-          acc.allSystemMsg.push(data);
-          break;
-      }
-      return acc;
-    }, result);
-    debug.log({
-      rrweb: allRRwebEvent,
-      console: allConsoleMsg,
-      network: allNetworkMsg,
-      storage: allStorageMsg,
-      system: allSystemMsg,
-      startTime: start,
-      endTime: end,
-      duration,
-    });
-    set(
-      produce((state) => {
+        switch (type) {
+          case 'console':
+            acc.allConsoleMsg.push(cur);
+            break;
+          case 'network':
+            acc.allNetworkMsg.push({
+              type,
+              timestamp,
+              data: {
+                ...data,
+                ...resolveUrlInfo(data.url),
+              },
+            });
+            break;
+          case 'rrweb-event':
+            acc.allRRwebEvent.push(data);
+            break;
+          case 'storage':
+            acc.allStorageMsg.push(cur);
+            break;
+          case 'system':
+            acc.allSystemMsg.push(data);
+            break;
+        }
+        return acc;
+      }, result);
+      debug.log({
+        rrweb: allRRwebEvent,
+        console: allConsoleMsg,
+        network: allNetworkMsg,
+        storage: allStorageMsg,
+        system: allSystemMsg,
+        startTime: start,
+        endTime: end,
+        duration,
+      });
+      set((state) => {
         state.activity = activity;
         state.allConsoleMsg = allConsoleMsg;
         state.allNetworkMsg = allNetworkMsg;
@@ -270,32 +271,26 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
         state.startTime = start;
         state.endTime = end;
         state.duration = duration;
-      }),
-    );
-  },
-  resetState() {
-    set(
-      produce((state) => {
-        Object.assign(state, useReplayStore.getInitialState());
-      }),
-    );
-  },
-  flushActiveData() {
-    const {
-      allConsoleMsg,
-      progress,
-      duration,
-      startTime,
-      endTime,
-      updateConsoleMsg,
-      updateNetworkMsg,
-      updateStorageMsg,
-    } = get();
+      });
+    },
+    resetState() {
+      set(useReplayStore.getInitialState());
+    },
+    flushActiveData() {
+      const {
+        allConsoleMsg,
+        progress,
+        duration,
+        startTime,
+        endTime,
+        updateConsoleMsg,
+        updateNetworkMsg,
+        updateStorageMsg,
+      } = get();
 
-    const currentTime = startTime + progress * duration;
-    if (currentTime <= startTime) {
-      set(
-        produce<ReplayStore>((state) => {
+      const currentTime = startTime + progress * duration;
+      if (currentTime <= startTime) {
+        set((state) => {
           state.consoleMsg = [];
           state.networkMsg = [];
           state.storageMsg = {
@@ -305,105 +300,97 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
             mpStorage: [],
             asyncStorage: [],
           };
-        }),
-      );
-      return;
-    }
-    if (currentTime >= endTime) {
-      set(
-        produce((state) => {
+        });
+        return;
+      }
+      if (currentTime >= endTime) {
+        set((state) => {
           state.consoleMsg = allConsoleMsg.map((i) => i.data);
           updateNetworkMsg(currentTime);
           updateStorageMsg(currentTime);
-        }),
-      );
-      return;
-    }
-    updateConsoleMsg(currentTime);
-    updateNetworkMsg(currentTime);
-    updateStorageMsg(currentTime);
-  },
-  updateConsoleMsg(currentTime) {
-    const { allConsoleMsg, consoleMsg } = get();
-
-    let consoleIndex = 0;
-    const showedConsoleMsg: SpyConsole.DataItem[] = [];
-    while (
-      consoleIndex < allConsoleMsg.length &&
-      allConsoleMsg[consoleIndex].timestamp <= currentTime
-    ) {
-      showedConsoleMsg.push(allConsoleMsg[consoleIndex].data);
-      consoleIndex += 1;
-    }
-
-    if (showedConsoleMsg.length !== consoleMsg.length) {
-      set(
-        produce((state) => {
-          state.consoleMsg = showedConsoleMsg;
-        }),
-      );
-    }
-  },
-  updateNetworkMsg(currentTime) {
-    const { allNetworkMsg, networkMsg } = get();
-
-    let networkIndex = 0;
-    const showedNetworkMsg: Map<string, ResolvedNetworkInfo> = new Map();
-    while (
-      networkIndex < allNetworkMsg.length &&
-      allNetworkMsg[networkIndex].timestamp <= currentTime
-    ) {
-      const { data } = allNetworkMsg[networkIndex];
-      const { id, requestType, endTime, response, lastEventId } = data;
-
-      if (['eventsource', 'websocket'].includes(requestType)) {
-        if (!showedNetworkMsg.has(id)) {
-          const result = {
-            ...data,
-            response: [{ id: lastEventId, timestamp: endTime, data: response }],
-          };
-          showedNetworkMsg.set(id, result);
-        } else {
-          showedNetworkMsg.get(id)!.response.push({
-            id: lastEventId,
-            timestamp: endTime,
-            data: response,
-          });
-        }
-      } else {
-        showedNetworkMsg.set(id, data);
+        });
+        return;
       }
-      networkIndex += 1;
-    }
+      updateConsoleMsg(currentTime);
+      updateNetworkMsg(currentTime);
+      updateStorageMsg(currentTime);
+    },
+    updateConsoleMsg(currentTime) {
+      const { allConsoleMsg, consoleMsg } = get();
 
-    set(
-      produce((state) => {
+      let consoleIndex = 0;
+      const showedConsoleMsg: SpyConsole.DataItem[] = [];
+      while (
+        consoleIndex < allConsoleMsg.length &&
+        allConsoleMsg[consoleIndex].timestamp <= currentTime
+      ) {
+        showedConsoleMsg.push(allConsoleMsg[consoleIndex].data);
+        consoleIndex += 1;
+      }
+
+      if (showedConsoleMsg.length !== consoleMsg.length) {
+        set((state) => {
+          state.consoleMsg = showedConsoleMsg;
+        });
+      }
+    },
+    updateNetworkMsg(currentTime) {
+      const { allNetworkMsg } = get();
+
+      let networkIndex = 0;
+      const showedNetworkMsg: Map<string, ResolvedNetworkInfo> = new Map();
+      while (
+        networkIndex < allNetworkMsg.length &&
+        allNetworkMsg[networkIndex].timestamp <= currentTime
+      ) {
+        const { data } = allNetworkMsg[networkIndex];
+        const { id, requestType, endTime, response, lastEventId } = data;
+
+        if (['eventsource', 'websocket'].includes(requestType)) {
+          if (!showedNetworkMsg.has(id)) {
+            const result = {
+              ...data,
+              response: [
+                { id: lastEventId, timestamp: endTime, data: response },
+              ],
+            };
+            showedNetworkMsg.set(id, result);
+          } else {
+            showedNetworkMsg.get(id)!.response.push({
+              id: lastEventId,
+              timestamp: endTime,
+              data: response,
+            });
+          }
+        } else {
+          showedNetworkMsg.set(id, data);
+        }
+        networkIndex += 1;
+      }
+
+      set((state) => {
         state.networkMsg = [...showedNetworkMsg.values()];
-      }),
-    );
-  },
-  updateStorageMsg(currentTime) {
-    const { allStorageMsg } = get();
+      });
+    },
+    updateStorageMsg(currentTime) {
+      const { allStorageMsg } = get();
 
-    let storageIndex = 0;
-    while (
-      storageIndex < allStorageMsg.length &&
-      allStorageMsg[storageIndex].timestamp <= currentTime
-    ) {
-      const { data } = allStorageMsg[storageIndex];
-      const { type, action } = data;
-      switch (action) {
-        case 'get':
-          set(
-            produce<ReplayStore>((state) => {
+      let storageIndex = 0;
+      while (
+        storageIndex < allStorageMsg.length &&
+        allStorageMsg[storageIndex].timestamp <= currentTime
+      ) {
+        const { data } = allStorageMsg[storageIndex];
+        const { type, action } = data;
+        switch (action) {
+          case 'get':
+            set((state) => {
               state.storageMsg[type] = data.data;
-            }),
-          );
-          break;
-        case 'set':
-          if (data.name) {
-            set(
-              produce<ReplayStore>((state) => {
+            });
+            break;
+          case 'set':
+            if (data.name) {
+              set((state) => {
                 const result = omit(data, 'id', 'type', 'action');
                 const cacheData = state.storageMsg[type];
 
@@ -417,71 +404,71 @@ export const useReplayStore = create<ReplayStore>((set, get) => ({
                 const skipUpdate = isEqual(cacheData[index], result);
                 if (skipUpdate) return;
                 cacheData[index] = result;
-              }),
-            );
-          }
-          break;
-        case 'clear':
-          set(
-            produce<ReplayStore>((state) => {
+              });
+            }
+            break;
+          case 'clear':
+            set((state) => {
               state.storageMsg[type] = [];
-            }),
-          );
-          break;
-        case 'remove':
-          set(
-            produce<ReplayStore>((state) => {
+            });
+            break;
+          case 'remove':
+            set((state) => {
               state.storageMsg[type] = state.storageMsg[type].filter(
                 (i) => i.name !== data.name,
               );
-            }),
-          );
-          break;
-        default:
-          break;
+            });
+            break;
+          default:
+            break;
+        }
+        storageIndex += 1;
       }
-      storageIndex += 1;
-    }
-  },
-  isExpand: false,
-  setIsExpand(expand) {
-    set({ isExpand: expand });
-  },
-  speed: 1,
-  setSpeed(speed) {
-    set({ speed });
-  },
-  progress: 0,
-  setProgress(progress) {
-    set(
-      produce((state) => {
+    },
+    isExpand: false,
+    setIsExpand(expand) {
+      set({ isExpand: expand });
+    },
+    speed: 1,
+    setSpeed(speed) {
+      set({ speed });
+    },
+    progress: 0,
+    setProgress(progress) {
+      set((state) => {
         state.progress = fixProgress(progress);
-      }),
-    );
-  },
-  isPlaying: false,
-  setIsPlaying(value) {
-    set(
-      produce((state) => {
+      });
+    },
+    isPlaying: false,
+    setIsPlaying(value) {
+      set((state) => {
         state.isPlaying = value;
-      }),
-    );
-    window.dispatchEvent(new CustomEvent(REPLAY_STATUS_CHANGE));
-  },
-  timeMode: TIME_MODE.RELATED,
-  setTimeMode(mode) {
-    set(
-      produce((state) => {
+      });
+      window.dispatchEvent(new CustomEvent(REPLAY_STATUS_CHANGE));
+    },
+    timeMode: TIME_MODE.RELATED,
+    setTimeMode(mode) {
+      set((state) => {
         state.timeMode = mode;
-      }),
-    );
-  },
-  autoScroll: false,
-  setAutoScroll(value) {
-    set(
-      produce((state) => {
+      });
+    },
+    autoScroll: false,
+    setAutoScroll(value) {
+      set((state) => {
         state.autoScroll = value;
-      }),
-    );
-  },
-}));
+      });
+    },
+    networkKeyword: '',
+    setNetworkKeyword(keyword) {
+      set((state) => {
+        state.networkKeyword = keyword;
+      });
+    },
+    networkType: 'All',
+    setNetworkType(type) {
+      set((state) => {
+        state.networkType = type;
+      });
+    },
+  })),
+);

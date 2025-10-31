@@ -68,12 +68,29 @@ export const NetworkTable = ({
   const [sortDirection, setSortDirection] = useState<
     SortDirectionType | undefined
   >(undefined);
+
+  // See: https://github.com/HuolalaTech/page-spy-web/issues/382
+  const removeDuplicatedData = useMemo(() => {
+    const isSuspiciousResource = (item: ResolvedNetworkInfo) =>
+      !item.requestType && item.responseType === 'resource';
+
+    const normalUrls = new Set<string>(
+      originData
+        .filter((item) => !isSuspiciousResource(item))
+        .map((item) => item.url),
+    );
+
+    return originData.filter((item) => {
+      return !isSuspiciousResource(item) || !normalUrls.has(item.url);
+    });
+  }, [originData]);
+
   const data = useMemo(() => {
     const keyword = filterKeyword.trim().toLocaleLowerCase();
     if (!keyword && filterType === 'All' && !sortBy && !sortDirection) {
-      return originData;
+      return removeDuplicatedData;
     }
-    const filteredData = originData.filter(
+    const filteredData = removeDuplicatedData.filter(
       (msg) =>
         RESOURCE_TYPE.get(filterType)?.(msg.requestType) &&
         msg.url.toLocaleLowerCase().includes(keyword),
@@ -86,7 +103,7 @@ export const NetworkTable = ({
       });
     }
     return filteredData;
-  }, [filterKeyword, filterType, originData, sortBy, sortDirection]);
+  }, [filterKeyword, filterType, removeDuplicatedData, sortBy, sortDirection]);
 
   // Update the active row real-time
   useEffect(() => {
