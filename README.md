@@ -35,7 +35,7 @@
 <div align="center">
   <img src="./logo.svg" height="100" />
 
-  <h1>Page Spy</h1>
+  <h1>PageSpy</h1>
 
 [![Release][release-img]][release-url]
 [![license][license-img]][license-url]
