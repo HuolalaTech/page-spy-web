@@ -35,7 +35,7 @@
 <div align="center">
   <img src="./logo.svg" height="100" />
 
-  <h1>Page Spy</h1>
+  <h1>PageSpy</h1>
 
 [![Release][release-img]][release-url]
 [![license][license-img]][license-url]
@@ -61,7 +61,7 @@
 
 ## Intro
 
-PageSpy は、Web / Miniprogram / 鸿蒙（Harmony）OS APP プロジェクトなどのプラットフォームのデバッグに使用されるツールです。
+PageSpy は、Web / ReactNative / Miniprogram / 鸿蒙（Harmony）OS APP プロジェクトなどのプラットフォームのデバッグに使用されるツールです。
 
 ネイティブ API のラッパーを基にして、ネイティブメソッドの呼び出し時のパラメータをフィルタリング・変換し、標準形式に整えてデバッグクライアントに送信します。デバッグクライアントは、ローカルコンソールのようなインターフェースを通じてデータを直感的に表示します。
 

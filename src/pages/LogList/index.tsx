@@ -153,31 +153,7 @@ const LogList = () => {
     <Layout style={{ height: '100%' }} className="log-list">
       <Sider theme="light" width={350} style={{ padding: 24 }}>
         <Title level={3} style={{ marginBottom: 32 }}>
-          <Space>
-            {t('replay.list-title')}
-            <Tooltip
-              title={
-                <Trans i18nKey="replay.intro">
-                  <span>{`What's `}</span>
-                  <a
-                    href={
-                      isCN()
-                        ? import.meta.env.VITE_WIKI_REPLAY_LOG_ZH
-                        : import.meta.env.VITE_WIKI_REPLAY_LOG
-                    }
-                    target="_blank"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                  >
-                    {t('replay.title')}
-                  </a>
-                </Trans>
-              }
-            >
-              <QuestionCircleOutlined />
-            </Tooltip>
-          </Space>
+          {t('replay.list-title')}
         </Title>
         <Form
           layout="vertical"

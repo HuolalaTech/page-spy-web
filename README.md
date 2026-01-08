@@ -35,7 +35,7 @@
 <div align="center">
   <img src="./logo.svg" height="100" />
 
-  <h1>Page Spy</h1>
+  <h1>PageSpy</h1>
 
 [![Release][release-img]][release-url]
 [![license][license-img]][license-url]
@@ -61,7 +61,7 @@ English | [中文](./README_ZH.md) | [日本語](./README_JA.md)
 
 ## Intro
 
-**PageSpy** is a tool used for debugging projects on platforms such as Web, Mini Programs, and HarmonyOS apps.
+**PageSpy** is a tool used for debugging projects on platforms such as Web, ReactNative, Mini Programs, and HarmonyOS apps.
 
 It encapsulates native APIs, filtering and transforming the parameters when native methods are invoked, and organizes them into a standard format for transmission to the debugging client. The debugging client then presents the data intuitively through an interface similar to the local console.
 

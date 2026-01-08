@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "2.4.4",
+  "version": "2.4.5",
   "description": "All-In-One Remote Debugging Tool",
   "homepage": "https://pagespy.org",
   "repository": {
@@ -61,11 +61,11 @@
   "dependencies": {
     "@ant-design/happy-work-theme": "^1.0.1",
     "@ant-design/icons": "^4.7.0",
-    "@huolala-tech/page-spy-browser": "^2.2.8",
-    "@huolala-tech/page-spy-plugin-data-harbor": "^2.2.8",
-    "@huolala-tech/page-spy-plugin-ospy": "^2.2.8",
-    "@huolala-tech/page-spy-plugin-rrweb": "^2.2.3",
-    "@huolala-tech/page-spy-types": "^2.2.3",
+    "@huolala-tech/page-spy-browser": "^2.2.10",
+    "@huolala-tech/page-spy-plugin-data-harbor": "^2.2.10",
+    "@huolala-tech/page-spy-plugin-ospy": "^2.2.10",
+    "@huolala-tech/page-spy-plugin-rrweb": "^2.2.4",
+    "@huolala-tech/page-spy-types": "^2.2.4",
     "@huolala-tech/react-json-view": "^1.2.5",
     "@huolala-tech/request": "^1.1.2",
     "@types/react-window": "^1.8.8",
@@ -123,7 +123,7 @@
     "last 2 safari version"
   ],
   "optionalDependencies": {
-    "@huolala-tech/page-spy-api": "^2.4.2"
+    "@huolala-tech/page-spy-api": "^2.4.4"
   },
   "packageManager": "yarn@1.22.19"
 }

@@ -35,7 +35,7 @@
 <div align="center">
   <img src="./logo.svg" height="100" />
 
-  <h1>Page Spy</h1>
+  <h1>PageSpy</h1>
 
 [![Release][release-img]][release-url]
 [![license][license-img]][license-url]
@@ -61,7 +61,7 @@
 
 ## 介绍
 
-**PageSpy** 是一款用来调试 Web / 小程序 / 鸿蒙 APP 等平台项目的工具。
+**PageSpy** 是一款用来调试 Web / ReactNative / 小程序 / 鸿蒙 APP 等平台项目的工具。
 
 它基于对原生 API 的封装，将调用原生方法时的参数进行过滤、转化，整理成标准格式传输给调试端；调试端收到数据后，通过类似本地控制台的界面直观呈现出来。
 

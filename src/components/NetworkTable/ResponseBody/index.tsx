@@ -8,6 +8,7 @@ import { useMemo } from 'react';
 import { EventsourceTable } from './MessageTable/EventsourceTable';
 import { WebsocketTable } from './MessageTable/WebsocketTable';
 import { isPlainObject } from 'lodash-es';
+import { PLACEHOLDER_RESPONSE } from '@/utils/constants';
 
 const FilenameModal = withPopup<void, string | false>(
   ({ visible, resolve }) => {
@@ -129,7 +130,7 @@ export const ResponseBody = ({ data }: ResponseBodyProps) => {
     // response ==> DataURL
     const { response, responseType, responseReason, requestType } = data;
 
-    if (!response)
+    if (!response || response === PLACEHOLDER_RESPONSE)
       return (
         <Empty
           image={Empty.PRESENTED_IMAGE_SIMPLE}
