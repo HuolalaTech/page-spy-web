@@ -321,3 +321,11 @@ If you do not configure the `storageConfig` parameter in `config.json`, the uplo
 
 - Uploaded file logs are saved for up to the latest 10GB and 30 days by default, customizable via configuration
 - Uploaded logs are saved in the `log` directory under the runtime directory. In Docker runtime, if the container is destroyed, logs will also be lost. Use directory mapping `-v ./log:/app/log -v ./data:/app/data` for persistence
+
+### How to handle large logs?#large-log
+
+PageSpy collects logs including but not limited to user operations, interface changes, console, and network requests, etc. For large logs, we provide solutions from different dimensions.
+
+- Disable some plugins, click to view: [config.disabledPlugins](./pagespy#config-disabledPlugins)
+- Filter out useless data, click to view: [config.dataProcessor](./pagespy#config-dataProcessor)
+- Periodically regenerate logs, click to view: [manual operation logs](./data-harbor#manual)
