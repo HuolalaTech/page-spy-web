@@ -98,6 +98,15 @@ PageSpyサービスのスキームを手動で指定します。
 PageSpyの組み込みプラグインはすべてすぐに使用できますが、手動で特定のプラグインを無効にすることができます。
 
 - 型：`string[]`
+- デフォルト値：`[]`
+- 詳細情報：コンソールで `PageSpy.pluginsWithOrder.map(i => i.name)` を印刷してすべてのプラグイン名を表示します。
+- 例：
+
+  ```ts
+  new PageSpy({
+    disabledPlugins: ['ConsolePlugin', 'NetworkPlugin']
+  })
+  ```
 
 ### config.serializeData
 

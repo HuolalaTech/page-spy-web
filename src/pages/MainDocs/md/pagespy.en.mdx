@@ -96,9 +96,18 @@ Manually specify the scheme for the PageSpy service.
 
 ### config.disabledPlugins
 
-PageSpy comes with built-in plugins ready to use. You can manually specify which plugins to disable.
+PageSpy comes with built-in plugins ready to use. You can manually specify which plugins to disable by plugin name.
 
 - Type: `string[]`
+- Default: `[]`
+- Details: Print `PageSpy.pluginsWithOrder.map(i => i.name)` in the console to view all plugin names.
+- Example:
+
+  ```ts
+  new PageSpy({
+    disabledPlugins: ['ConsolePlugin', 'NetworkPlugin']
+  })
+  ```
 
 ### config.serializeData
 
