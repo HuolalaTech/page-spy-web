@@ -98,6 +98,15 @@ PageSpy 서비스의 scheme을 수동으로 지정합니다.
 PageSpy의 내장 플러그인은 모두 즉시 사용 가능하며, 수동으로 비활성화할 플러그인을 지정할 수 있습니다.
 
 - 타입：`string[]`
+- 기본값：`[]`
+- 상세 정보：콘솔에서 `PageSpy.pluginsWithOrder.map(i => i.name)`을 출력하여 모든 플러그인 이름을 확인할 수 있습니다.
+- 예시：
+
+  ```ts
+  new PageSpy({
+    disabledPlugins: ['ConsolePlugin', 'NetworkPlugin']
+  })
+  ```
 
 ### config.serializeData
 
