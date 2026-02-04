@@ -1,6 +1,6 @@
 {
   "private": true,
-  "version": "2.4.5",
+  "version": "2.4.6",
   "description": "All-In-One Remote Debugging Tool",
   "homepage": "https://pagespy.org",
   "repository": {
@@ -25,7 +25,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",
     "@mdx-js/rollup": "^3.1.0",
-    "@rrweb/types": "^2.0.0-alpha.11",
+    "@rrweb/types": "^2.0.0-alpha.20",
     "@types/lodash-es": "^4.17.7",
     "@types/mdx": "^2.0.4",
     "@types/node": "^17.0.16",
@@ -63,8 +63,8 @@
     "@ant-design/icons": "^4.7.0",
     "@huolala-tech/page-spy-browser": "^2.2.10",
     "@huolala-tech/page-spy-plugin-data-harbor": "^2.2.10",
-    "@huolala-tech/page-spy-plugin-ospy": "^2.2.10",
-    "@huolala-tech/page-spy-plugin-rrweb": "^2.2.4",
+    "@huolala-tech/page-spy-plugin-ospy": "^2.2.11",
+    "@huolala-tech/page-spy-plugin-rrweb": "^2.2.5",
     "@huolala-tech/page-spy-types": "^2.2.4",
     "@huolala-tech/react-json-view": "^1.2.5",
     "@huolala-tech/request": "^1.1.2",
@@ -96,7 +96,7 @@
     "rehype-stringify": "^10.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.1",
-    "rrweb-player": "^1.0.0-alpha.4",
+    "rrweb-player": "^2.0.0-alpha.20",
     "shiki": "^0.14.3",
     "source-map": "^0.7.4",
     "unified": "^11.0.5",
@@ -123,7 +123,7 @@
     "last 2 safari version"
   ],
   "optionalDependencies": {
-    "@huolala-tech/page-spy-api": "^2.4.4"
+    "@huolala-tech/page-spy-api": "^2.4.5"
   },
   "packageManager": "yarn@1.22.19"
 }

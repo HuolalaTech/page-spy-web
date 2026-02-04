@@ -34,7 +34,7 @@ export const RRWebPlayer = memo(() => {
 
   const events = useMemo(() => {
     if (!allRRwebEvent.length) return [];
-    return JSON.parse(JSON.stringify(allRRwebEvent));
+    return structuredClone(allRRwebEvent);
   }, [allRRwebEvent]);
 
   const onGoto = useCallback(() => {
