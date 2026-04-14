@@ -52,42 +52,42 @@
 [![Deploy with Baota][bt-deploy]][bt-deploy-url]
 
 <a href="https://trendshift.io/repositories/5407" target="_blank"><img src="https://trendshift.io/api/badge/repositories/5407" alt="HuolalaTech%2Fpage-spy-web | Trendshift" height="40"/></a>
-<a href="https://www.producthunt.com/posts/pagespy?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pagespy" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=429852&theme=light" alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Product Hunt" height="40" /></a>
+<a href="https://www.producthunt.com/posts/pagespy?utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-pagespy" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=429852&theme=light" alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Product Hunt" height="40" /></a>
 <a href="https://news.ycombinator.com/item?id=38679798" target="_blank"><img src="https://hackernews-badge.vercel.app/api?id=38679798" alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Hacker News" height="40" /></a>
 
 [English](./README.md) | [中文](./README_ZH.md) | 日本語
 
 </div>
 
-## Intro
+## はじめに
 
-PageSpy は、Web / ReactNative / Miniprogram / 鸿蒙（Harmony）OS APP プロジェクトなどのプラットフォームのデバッグに使用されるツールです。
+**PageSpy** は、Web、React Native、ミニプログラム、HarmonyOS アプリなど、複数プラットフォーム上のプロジェクトをデバッグするためのツールです。
 
-ネイティブ API のラッパーを基にして、ネイティブメソッドの呼び出し時のパラメータをフィルタリング・変換し、標準形式に整えてデバッグクライアントに送信します。デバッグクライアントは、ローカルコンソールのようなインターフェースを通じてデータを直感的に表示します。
+ネイティブ API をラップし、メソッド実行時の引数をフィルタ・変換したうえで標準形式にシリアライズし、デバッグ用クライアントへ送ります。クライアント側では、ローカルの開発者ツールのコンソールに近い UI でデータを直感的に表示します。
 
 ![Home](./.github/assets/dashboard-en.png)
 
-## なぜ PageSpy なのか?
+## PageSpy を選ぶ理由
 
 > 百聞は一見にしかず。
 
-![Why is PageSpy](./.github/assets/why-is-pagespy-en.png)
+![PageSpy を選ぶ理由](./.github/assets/why-is-pagespy-en.png)
 
-## いつ使用するか？
+## 使用する場面
 
-_ローカルでコンソールデバッグができないシーンは、すべて**PageSpy**が活躍できる場面です！_ 以下のようなシーンケースを見てみましょう：
+_ローカルのコンソールではデバッグできない場面こそ、**PageSpy** が力を発揮します！_ 代表的な例をいくつか挙げます。
 
-- **H5、Webview アプリケーションのローカルデバッグ**：モバイル端末の画面が小さすぎ、従来のデバッグパネルは操作が不便で、表示が悪く、情報の切り捨てが発生しやすいです。
-- **リモートワーク、地域間協力**：従来のコミュニケーション方法（メール、電話、ビデオ会議）は効率が低く、障害情報が不完全で、誤解や誤判断が起こりやすいです。
-- **ユーザー端末での白画面問題のトラブルシューティング**：データモニタリング、ログ分析などの従来の方法は、トラブルシューティングチームがビジネスと技術を深く理解することに依存しており、特定効率が低くなります。
+- **H5 / WebView アプリのローカルデバッグ**：画面が小さく、従来のデバッグパネルは操作しづらく表示も窮屈で、ログが途中で切れやすい。
+- **リモートワークや越境の共同作業**：メール・電話・会議の往復は遅く、エラー情報が欠けて誤解や誤判断につながりやすい。
+- **ユーザー端末での白画面などの調査**：ダッシュボードやログ基盤は業務とスタックへの理解が求められ、ユーザーの端末上で原因を絞り込むのに時間がかかりがち。
 
-PageSpy の目標は、上記のようなシーンに関わる人々をサポートすることです。
+上記のような状況にあるチームのために PageSpy を提供しています。
 
-## 使用方法は？
+## 使い方
 
-データのセキュリティを確保し、利用を容易にするために、私たちは包括的な、すぐに使えるデプロイソリューションを提供しています。開発者は、それぞれの状況に応じて、どのようなデプロイ方法を選択することもできます。
+データを自社で保持しつつセルフホストを簡単にするため、すぐ使える複数のデプロイ手段を用意しています。環境に合わせて選んでください。
 
-### オプション 1: node によるデプロイ 👍
+### オプション 1: Node.js でデプロイ
 
 > ビデオチュートリアル:
 >
@@ -101,9 +101,9 @@ yarn global add @huolala-tech/page-spy-api@latest
 npm install -g @huolala-tech/page-spy-api@latest
 ```
 
-ダウンロードが完了したら、コマンドラインで `page-spy-api` を直接実行してサービスを開始することができます。起動完了後、ブラウザで `http://localhost:6752` にアクセスし、ローカルテストが完了したらサーバーにデプロイすることができます。
+インストール後、ターミナルで `page-spy-api` を実行してサービスを起動します。起動できたらブラウザで `http://localhost:6752` を開きます。ローカルで確認したら、同じ構成をサーバーへデプロイできます。
 
-### オプション 2: docker によるデプロイ
+### オプション 2: Docker でデプロイ
 
 > ビデオチュートリアル:
 >
@@ -113,20 +113,12 @@ npm install -g @huolala-tech/page-spy-api@latest
 docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
 ```
 
-起動完了後、ブラウザで `http://localhost:6752` にアクセスし、ローカルテストが完了したらサーバーにデプロイすることができます。
+コンテナが動いたらブラウザで `http://localhost:6752` を開きます。ローカルで確認したら、同じ構成をサーバーへデプロイできます。
 
-## コントリビュートするには？
+## コントリビューション
 
-クリックして [Contributing](./CONTRIBUTING.md) をご覧ください。
+詳しくは [Contributing](./CONTRIBUTING.md) を参照してください。
 
 ## FAQ
 
-クリックして [FAQ](https://www.pagespy.org/#/docs/faq) をご覧ください。
-
-## コミュニティ
-
-[公式 Discord サーバー](https://discord.gg/ERPpNZkX)に参加してください！
-
-## ロードマップ
-
-クリックして [Roadmap](https://github.com/orgs/HuolalaTech/projects/1) をご覧ください。
+[FAQ](https://www.pagespy.org/#/docs/faq) を参照してください。

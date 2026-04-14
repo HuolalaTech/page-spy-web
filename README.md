@@ -52,7 +52,7 @@
 [![Deploy with Baota][bt-deploy]][bt-deploy-url]
 
 <a href="https://trendshift.io/repositories/5407" target="_blank"><img src="https://trendshift.io/api/badge/repositories/5407" alt="HuolalaTech%2Fpage-spy-web | Trendshift" height="40"/></a>
-<a href="https://www.producthunt.com/posts/pagespy?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pagespy" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=429852&theme=light" alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Product Hunt" height="40" /></a>
+<a href="https://www.producthunt.com/posts/pagespy?utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-pagespy" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=429852&theme=light" alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Product Hunt" height="40" /></a>
 <a href="https://news.ycombinator.com/item?id=38679798" target="_blank"><img src="https://hackernews-badge.vercel.app/api?id=38679798" alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Hacker News" height="40" /></a>
 
 English | [中文](./README_ZH.md) | [日本語](./README_JA.md)
@@ -61,35 +61,35 @@ English | [中文](./README_ZH.md) | [日本語](./README_JA.md)
 
 ## Intro
 
-**PageSpy** is a tool used for debugging projects on platforms such as Web, ReactNative, Mini Programs, and HarmonyOS apps.
+**PageSpy** is a tool for debugging projects on platforms such as Web, React Native, Mini Programs, and HarmonyOS apps.
 
-It encapsulates native APIs, filtering and transforming the parameters when native methods are invoked, and organizes them into a standard format for transmission to the debugging client. The debugging client then presents the data intuitively through an interface similar to the local console.
+It wraps native APIs: when those methods run, it filters and transforms the arguments, serializes them in a standard format, and sends them to the debugging client. The client renders the data in an interface similar to your local devtools console.
 
 ![Home](./.github/assets/dashboard-en.png)
 
-## Why is PageSpy?
+## Why PageSpy?
 
 > A picture is worth a thousand words.
 
-![Why is PageSpy](./.github/assets/why-is-pagespy-en.png)
+![Why PageSpy](./.github/assets/why-is-pagespy-en.png)
 
-## When to Use?
+## When to use
 
 _PageSpy shines in any scenario where local console debugging is not possible!_ Let's explore some use cases:
 
-- **Local Debugging of H5 and Webview Applications**: Mobile screens are too small, traditional debugging panels are inconvenient to operate, display poorly, and prone to information truncation.
+- **Local Debugging of H5 and Webview Applications**: Mobile screens are small, traditional debugging panels are awkward to use, render poorly, and often truncate logs.
 
-- **Remote Work and Cross-Region Collaboration**: Traditional communication methods (email, phone, video conferencing) are inefficient, fault information is incomplete, and misunderstandings and misjudgments easily occur.
+- **Remote Work and Cross-Region Collaboration**: Email, phone, and video calls are slow; error details get lost, which leads to misunderstandings and wrong conclusions.
 
-- **Troubleshooting White Screen Issues on User Terminals**: Data monitoring, log analysis and other traditional methods rely on the troubleshooting team's deep understanding of business and technology, resulting in low localization efficiency.
+- **Troubleshooting White Screen Issues on User Terminals**: Dashboards and log pipelines need strong business and stack knowledge, so pinpointing the issue on a user's device is slow.
 
-Yep, the goal of PageSpy is can help the people which in like above cases.
+PageSpy is built for teams in situations like these.
 
-## How to use?
+## How to use
 
-In order to ensure data security and facilitate your usage, we offer comprehensive, out-of-the-box deployment solutions. Developers can choose any deployment method according to their own situations.
+To keep your data under your control and make self-hosting straightforward, we ship ready-made deployment options. Pick whichever fits your environment.
 
-### Option 1: deploy by node
+### Option 1: Deploy with Node.js
 
 > Video tutorial:
 >
@@ -103,9 +103,9 @@ yarn global add @huolala-tech/page-spy-api@latest
 npm install -g @huolala-tech/page-spy-api@latest
 ```
 
-After the download is complete, you can directly execute `page-spy-api` in the command line to start the service. After the startup is complete, visit `http://localhost:6752` on the browser. Once local testing is complete, you can deploy it to the server.
+After installation, run `page-spy-api` in the terminal to start the service. When it is up, open `http://localhost:6752` in your browser. After local testing, deploy the same setup to your server.
 
-### Option 2: deploy by docker
+### Option 2: Deploy with Docker
 
 > Video tutorial:
 >
@@ -115,20 +115,12 @@ After the download is complete, you can directly execute `page-spy-api` in the c
 docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
 ```
 
-After the startup is complete, visit `http://localhost:6752` on the browser. Once local testing is complete, you can deploy it to the server.
+When the container is running, open `http://localhost:6752` in your browser. After local testing, deploy the same setup to your server.
 
-## How to contribute?
+## Contributing
 
-Click to see the [Contributing](./CONTRIBUTING.md).
+See [Contributing](./CONTRIBUTING.md).
 
 ## FAQ
 
-Click to see the [FAQ](https://www.pagespy.org/#/docs/faq).
-
-## Community
-
-Join us on our [Official Discord Server](https://discord.gg/ERPpNZkX)!
-
-## Roadmap
-
-Click to see the [Roadmap](https://github.com/orgs/HuolalaTech/projects/1).
+See the [FAQ](https://www.pagespy.org/#/docs/faq).

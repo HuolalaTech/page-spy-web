@@ -52,7 +52,7 @@
 [![Deploy with Baota][bt-deploy]][bt-deploy-url]
 
 <a href="https://trendshift.io/repositories/5407" target="_blank"><img src="https://trendshift.io/api/badge/repositories/5407" alt="HuolalaTech%2Fpage-spy-web | Trendshift" height="40"/></a>
-<a href="https://www.producthunt.com/posts/pagespy?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pagespy" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=429852&theme=light" alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Product Hunt" height="40" /></a>
+<a href="https://www.producthunt.com/posts/pagespy?utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-pagespy" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=429852&theme=light" alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Product Hunt" height="40" /></a>
 <a href="https://news.ycombinator.com/item?id=38679798" target="_blank"><img src="https://hackernews-badge.vercel.app/api?id=38679798" alt="PageSpy - Remote&#0032;debugging&#0032;as&#0032;seamless&#0032;as&#0032;local&#0032;debugging&#0046; | Hacker News" height="40" /></a>
 
 [English](./README.md) | 中文 | [日本語](./README_JA.md)
@@ -61,33 +61,33 @@
 
 ## 介绍
 
-**PageSpy** 是一款用来调试 Web / ReactNative / 小程序 / 鸿蒙 APP 等平台项目的工具。
+**PageSpy** 是一款用于调试 Web、React Native、小程序、HarmonyOS 应用等平台项目的工具。
 
-它基于对原生 API 的封装，将调用原生方法时的参数进行过滤、转化，整理成标准格式传输给调试端；调试端收到数据后，通过类似本地控制台的界面直观呈现出来。
+它对原生 API 做了一层封装：在这些方法实际执行时，对入参进行过滤与转换，再按统一格式序列化后发给调试端；调试端以接近本地开发者工具控制台的界面呈现数据。
 
 ![主页](./.github/assets/dashboard.png)
 
-## 为什么是 PageSpy ？
+## 为何使用 PageSpy？
 
 > 一图胜千言。
 
-![Why is PageSpy](./.github/assets/why-is-pagespy-zh.png)
+![为何使用 PageSpy](./.github/assets/why-is-pagespy-zh.png)
 
-## 何时使用？
+## 何时使用
 
-_任何无法在本地使用控制台调试的场景，都是 **PageSpy** 可以大显身手的时候！_ 一起来看下面的几个场景案例：
+_凡是无法在本地用控制台调试的场景，都是 **PageSpy** 能派上用场的时候！_ 下面举几类典型场景：
 
-- **本地调试 H5、Webview 应用**：移动端屏幕太小，传统调试面板操作不便、显示不友好，且容易出现信息截断；
-- **远程办公、跨地区协同**：传统沟通方式（邮件、电话、视频会议）效率低，故障信息不完整，容易误解误判；
-- **用户终端白屏问题排查**：数据监控、日志分析等传统方式依赖排障人员对业务和技术的深入理解，定位效率低；
+- **本地调试 H5、WebView 应用**：手机屏幕小，传统调试面板难操作、展示差，日志还常被截断；
+- **远程办公与跨地域协作**：邮件、电话、会议来回效率低，错误细节容易丢失，进而产生误解或误判；
+- **用户侧白屏等问题排查**：看板、日志链路往往要求排障同学既懂业务又懂技术栈，要在用户设备上把原因收窄，通常很慢。
 
-PageSpy 的目标，就是为包括以上场景的人员提供帮助。
+PageSpy 面向遇到上述问题的团队而打造。
 
-## 如何使用？
+## 如何使用
 
-为了数据安全和方便您的使用，我们提供完整的、开箱即用的多种部署方案，各位开发者可以根据自己的情况选择任意一种部署方式。
+为了让数据掌握在你自己手中，并降低自建部署的门槛，我们提供多种开箱即用的部署方式，可按运行环境任选其一。
 
-### 第一种：使用 Node 部署 👍
+### 方案一：使用 Node.js 部署
 
 > 视频教程：
 >
@@ -101,9 +101,9 @@ yarn global add @huolala-tech/page-spy-api@latest
 npm install -g @huolala-tech/page-spy-api@latest
 ```
 
-安装完成之后你可以在命令行中直接执行 `page-spy-api` 启动服务。启动完成后，打开浏览器访问 `http://localhost:6752` 体验，本地测试完成后即可部署到服务器上。
+安装完成后，在终端执行 `page-spy-api` 启动服务。服务就绪后，在浏览器中打开 `http://localhost:6752`。本地验证通过后，可将同一套部署推到你的服务器。
 
-### 第二种：使用 Docker 部署
+### 方案二：使用 Docker 部署
 
 > 视频教程：
 >
@@ -113,24 +113,20 @@ npm install -g @huolala-tech/page-spy-api@latest
 docker run -d --restart=always -v ./log:/app/log -v ./data:/app/data -p 6752:6752 --name="pageSpy" ghcr.io/huolalatech/page-spy-web:latest
 ```
 
-启动完成后，打开浏览器访问 `http://localhost:6752` 体验，本地测试完成后即可部署到服务器上。
+容器运行后，在浏览器中打开 `http://localhost:6752`。本地验证通过后，可将同一套部署推到你的服务器。
+
+## 参与贡献
+
+请参阅 [Contributing](./CONTRIBUTING_ZH.md)。
+
+## 常见问题
+
+请参阅 [常见问题解答](https://www.pagespy.org/#/docs/faq)。
 
 ## 技术支持
 
-有问题可以使用微信扫码进群。
+有问题可以微信扫码进群交流。
 
 <div style="display: flex; gap: 8px; flex-wrap: nowrap; overflow: auto">
-  <img src="https://public-assets-v.huolala.cn/images/page-spy-wechat-group.svg" alt="支持群二维码" width="180" />
+  <img src="https://public-assets-v.huolala.cn/images/page-spy-wechat-group.svg" alt="技术支持群二维码" width="180" />
 </div>
-
-## Roadmap
-
-点击查看 [Roadmap](https://github.com/orgs/HuolalaTech/projects/1)。
-
-## 如何贡献代码？
-
-点击查看 [Contributing](./CONTRIBUTING_ZH.md)。
-
-## FAQ
-
-点击查看 [常见问题解答](https://www.pagespy.org/#/docs/faq)。
