@@ -154,6 +154,12 @@
       "fix-suggestion-1": "<0>1. 파일이 존재하는지 확인하십시오. 각 오류 스택은 소스 코드를 확인하기 위해 2 개의 파일 (압축 파일 및 소스 맵 파일)을 요청합니다. 소스 맵 파일 가져오기 규칙은 압축 파일 내</0><1>//# sourceMappingURL=*</1><2>에 지정된 주소를 기준으로합니다.</2>",
       "fix-suggestion-2": "2. 네트워크 문제 제외: 원본 파일이있는 서버에 액세스 제한이있는 경우 리소스 가져오기 실패가 발생할 수 있으므로 네트워크 요청이 정상적인지 확인하려면 콘솔을 열 수 있습니다."
     },
+    "export": "내보내기",
+    "export-json": "JSON 내보내기",
+    "export-md": "Markdown 내보내기",
+    "export-empty": "내보낼 콘솔 로그가 없습니다",
+    "export-success": "콘솔 로그를 내보냈습니다",
+    "export-preview-warning": "일부 객체 로그는 미리보기입니다. 전체 객체 스냅샷을 내보내려면 SDK consoleExportMode: 'complete'를 설정하세요.",
     "non-serializable": "<non-serializable>"
   },
   "network": {
