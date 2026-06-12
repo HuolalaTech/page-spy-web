@@ -19,8 +19,12 @@ import ReactJsonView from '@huolala-tech/react-json-view';
 import { useTranslation } from 'react-i18next';
 import { useSize } from 'ahooks';
 
+type ExtendedDataItem = Omit<SpyConsole.DataItem, 'logType'> & {
+  logType: SpyConsole.DataType | 'group' | 'groupCollapsed' | 'groupEnd';
+};
+
 interface Props {
-  data: SpyConsole.DataItem;
+  data: ExtendedDataItem;
   onHeightChange: (height: number) => void;
 }
 
@@ -30,17 +34,22 @@ export const ConsoleItem = ({ data, onHeightChange }: Props) => {
   const height = useRef(0);
   const size = useSize(ref);
   useEffect(() => {
+    if (data.logType === 'groupEnd') {
+      onHeightChange(1);
+      return;
+    }
     const latestHeight = size?.height ?? 0;
     if (latestHeight && latestHeight !== height.current) {
       height.current = latestHeight;
       onHeightChange(latestHeight);
     }
-  }, [size, onHeightChange]);
+  }, [size, onHeightChange, data.logType]);
   const content = useMemo(() => {
-    if (isPlaceholderNode(data)) {
+    const baseData = data as SpyConsole.DataItem;
+    if (isPlaceholderNode(baseData)) {
       return <PlaceholderNode data={data.logs} />;
     }
-    const framesOfErrorTrace = getStackFramesIfErrorTrace(data);
+    const framesOfErrorTrace = getStackFramesIfErrorTrace(baseData);
     if (framesOfErrorTrace) {
       return <ErrorTraceNode data={framesOfErrorTrace} />;
     }
@@ -62,10 +71,14 @@ export const ConsoleItem = ({ data, onHeightChange }: Props) => {
       return <ConsoleNode data={log} key={log.id} />;
     });
   }, [data, t]);
+  if (data.logType === 'groupEnd') {
+    return null;
+  }
+
   return (
     <div className={`console-item ${data.logType}`} ref={ref}>
       <div className="console-item__title">
-        <LogType type={data.logType} />
+        <LogType type={data.logType as any} />
       </div>
       <div className="console-item__content">
         <Row gutter={12} wrap={false}>
