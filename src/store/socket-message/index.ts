@@ -19,6 +19,7 @@ import { parseClientInfo, ParsedClientInfo } from '@/utils/brand';
 import { StorageType } from '../platform-config';
 import type { RequestItem } from '@huolala-tech/page-spy-base';
 import { NetworkType } from '@/components/NetworkTable/TypeFilter';
+import { PLACEHOLDER_RESPONSE } from '@/utils/constants';
 
 const USER_ID = 'Debugger';
 
@@ -151,6 +152,11 @@ export const useSocketMessageStore = create<SocketMessage>()(
                 data: response,
               },
             ];
+          } else if (
+            requestType === 'eventsource' ||
+            requestType === 'websocket'
+          ) {
+            newData.response = cache[index].response;
           }
 
           set((state) => {
@@ -160,15 +166,16 @@ export const useSocketMessageStore = create<SocketMessage>()(
           const { requestType, response } = newData;
           if (requestType === 'websocket' || requestType === 'eventsource') {
             // websocket 和 eventsource 需要合并 response
-            newData.response = response
-              ? [
-                  {
-                    id: lastEventId,
-                    timestamp: endTime,
-                    data: response,
-                  },
-                ]
-              : [];
+            newData.response =
+              response && response !== PLACEHOLDER_RESPONSE
+                ? [
+                    {
+                      id: lastEventId,
+                      timestamp: endTime,
+                      data: response,
+                    },
+                  ]
+                : [];
           }
           set((state) => {
             state.networkMsg = [...state.networkMsg, newData].sort(

@@ -1,5 +1,5 @@
 export const DOMESTIC_OSPY_URL =
-  'https://public-assets-v.huolala.cn/ospy/2.2.13/index.min.js';
+  'https://public-assets-v.huolala.cn/ospy/2.3.0/index.min.js';
 export const OSPY_DOMESTIC = {
   bg: '#24292e',
   code: `<script src="${DOMESTIC_OSPY_URL}" crossorigin="anonymous"></script>

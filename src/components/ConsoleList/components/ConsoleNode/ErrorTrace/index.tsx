@@ -56,9 +56,11 @@ export const getStackFramesIfErrorConsole = (
           frames,
         };
     }
-  } catch {
-    return false;
+  } catch (e) {
+    console.error('Error occurred while parsing error stack', log, e);
   }
+
+  return false;
 };
 
 interface Props {
