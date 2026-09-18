@@ -151,6 +151,11 @@ export const useSocketMessageStore = create<SocketMessage>()(
                 data: response,
               },
             ];
+          } else if (
+            requestType === 'eventsource' ||
+            requestType === 'websocket'
+          ) {
+            newData.response = cache[index].response;
           }
 
           set((state) => {
