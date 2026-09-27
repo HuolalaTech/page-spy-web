@@ -1,6 +1,17 @@
 import { useSocketMessageStore } from '@/store/socket-message';
-import { ClearOutlined } from '@ant-design/icons';
-import { Row, Col, Tooltip, Button, Input, Select, Space } from 'antd';
+import { ClearOutlined, DownloadOutlined } from '@ant-design/icons';
+import {
+  Row,
+  Col,
+  Tooltip,
+  Button,
+  Input,
+  Select,
+  Space,
+  Dropdown,
+  message,
+} from 'antd';
+import type { MenuProps } from 'antd';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SpyConsole } from '@huolala-tech/page-spy-types';
@@ -12,6 +23,8 @@ import DebugSvg from '@/assets/image/debug.svg?react';
 import './index.less';
 import { debounce } from 'lodash-es';
 import { useShallow } from 'zustand/react/shallow';
+import { downloadConsoleExport, formatConsoleExport } from '../../utils/export';
+import type { ConsoleExportFormat } from '../../utils/export';
 export const HeaderActions = () => {
   const { t } = useTranslation();
   const [clearRecord, changeConsoleMsgFilter, setConsoleMsgKeywordFilter] =
@@ -74,9 +87,39 @@ export const HeaderActions = () => {
     },
   ];
 
+  const exportItems: MenuProps['items'] = [
+    {
+      key: 'json',
+      label: t('console.export-json'),
+    },
+    {
+      key: 'md',
+      label: t('console.export-md'),
+    },
+  ];
+
   const clear = useCallback(() => {
     clearRecord('console');
   }, [clearRecord]);
+
+  const exportConsole = useCallback(
+    (format: ConsoleExportFormat) => {
+      const snapshot = [...useSocketMessageStore.getState().consoleMsg];
+      if (!snapshot.length) {
+        message.info(t('console.export-empty'));
+        return;
+      }
+
+      const result = formatConsoleExport(snapshot, format, t);
+      downloadConsoleExport(result.content, format);
+      if (result.hasPreviewOnlyLog) {
+        message.warning(t('console.export-preview-warning'));
+        return;
+      }
+      message.success(t('console.export-success'));
+    },
+    [t],
+  );
 
   const debounceKeywordFilter = useCallback(
     debounce((e) => {
@@ -104,6 +147,17 @@ export const HeaderActions = () => {
             allowClear={true}
             style={{ width: 200 }}
           />
+          <Dropdown
+            menu={{
+              items: exportItems,
+              onClick: ({ key }) => exportConsole(key as ConsoleExportFormat),
+            }}
+          >
+            <Button>
+              <DownloadOutlined />
+              {t('console.export')}
+            </Button>
+          </Dropdown>
           <Tooltip title={t('common.clear')}>
             <Button onClick={clear}>
               <ClearOutlined />

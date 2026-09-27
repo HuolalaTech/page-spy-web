@@ -83,7 +83,6 @@
       "init-sdk": "<0>Import and initialize the SDK at the appropriate location. Check the</0> <1>configuration options</1>:",
       "storage-plugin": "<0>If you use the official recommended storage library @react-native-async-storage/async-storage, we provide an independent plugin for you:</0> <1>Async Storage plugin</1>"
     },
-
     "end": "That's ALL.",
     "start-debug": "Start debugging by clicking the <1>Connections</1> menu at the top!"
   },
@@ -155,6 +154,12 @@
       "fix-suggestion-1": "<0>1. Ensure file existence: When locating the source code for each error stack, two files need to be requested - the compressed file and the sourcemap file. The rule for obtaining the sourcemap file is based on the address indicated by</0> <1>//# sourceMappingURL=*</1> <2>in the contents of the compressed file;</2>",
       "fix-suggestion-2": "2. Troubleshoot network issues: If there are access restrictions on the server where your source files are located, it may lead to failed requests when trying to access the resources. You can open the devtool to check if the network is working properly."
     },
+    "export": "Export",
+    "export-json": "Export JSON",
+    "export-md": "Export Markdown",
+    "export-empty": "No console logs to export",
+    "export-success": "Console logs exported",
+    "export-preview-warning": "Some object logs are previews. Set SDK consoleExportMode: 'complete' to export full object snapshots.",
     "non-serializable": "<non-serializable>"
   },
   "network": {
