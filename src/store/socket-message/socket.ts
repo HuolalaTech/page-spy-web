@@ -21,6 +21,18 @@ export const CUSTOM_EVENT = {
   DatabaseStoreUpdated: 'database-store-updated',
 };
 
+/**
+ * Message types contributed by third-party plugins.
+ *
+ * The built-in types live in `./message-type`; this lets plugin authors tunnel their
+ * own without editing that module. Register with `registerCustomMessageType()`.
+ */
+const customMessageTypes = new Set<string>();
+
+export function registerCustomMessageType(type: string): void {
+  if (type) customMessageTypes.add(type);
+}
+
 export class SocketStore extends EventTarget {
   socket: WebSocket | null = null;
   socketUrl: string = '';
@@ -256,7 +268,12 @@ export class SocketStore extends EventTarget {
     if (!data.role || data.role !== 'client') return;
 
     const typeList = Object.values(MESSAGE_TYPE) as string[];
-    if (!typeList.includes(type) && /^atom-.*$/.test(type) === false) return;
+    if (
+      !typeList.includes(type) &&
+      !customMessageTypes.has(type) &&
+      /^atom-.*$/.test(type) === false
+    )
+      return;
 
     if (typeList.includes(type)) {
       window.dispatchEvent(

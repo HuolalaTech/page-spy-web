@@ -114,6 +114,8 @@
     "version": "版本",
     "eval-plugin-required": "若需在小程序环境动态执行代码，请在客户端安装 @huolala-tech/page-spy-plugin-mp-eval",
     "mp-warning": "小程序提交审核时请务必删除代码中的 plugin-mp-eval，否则会导致审核失败。",
+    "plugin-load-failed": "插件面板「{{title}}」加载失败",
+    "plugin-load-failed-from": "由客户端插件 {{name}} 上报。",
     "menu": {
       "Console": "输出",
       "Network": "网络",

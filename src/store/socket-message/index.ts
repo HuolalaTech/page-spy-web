@@ -1,7 +1,11 @@
 /* eslint-disable no-case-declarations */
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-import { CUSTOM_EVENT, SocketStore } from './socket';
+import {
+  CUSTOM_EVENT,
+  registerCustomMessageType,
+  SocketStore,
+} from './socket';
 import {
   SpyConsole,
   SpySystem,
@@ -20,6 +24,7 @@ import { StorageType } from '../platform-config';
 import type { RequestItem } from '@huolala-tech/page-spy-base';
 import { NetworkType } from '@/components/NetworkTable/TypeFilter';
 import { PLACEHOLDER_RESPONSE } from '@/utils/constants';
+import { extractPluginInterfaces } from './plugin-interface';
 
 const USER_ID = 'Debugger';
 
@@ -96,6 +101,16 @@ export const useSocketMessageStore = create<SocketMessage>()(
       const socket = new SocketStore(url);
       set({ socket });
       socket.addListener('client-info', (data: SpyClient.DataItem) => {
+        // Register any message types the client's plugins declared. Done here, where
+        // the interface arrives, so a plugin's frames are accepted from the start
+        // rather than from whenever something happens to render. Idempotent, because
+        // `registerCustomMessageType` writes into a Set and the client re-sends
+        // `client-info` on every debugger JOIN.
+        for (const pluginInterface of extractPluginInterfaces(data.plugins)) {
+          for (const type of pluginInterface.messageTypes ?? []) {
+            registerCustomMessageType(type);
+          }
+        }
         set((state) => {
           state.clientInfo = parseClientInfo(data);
         });

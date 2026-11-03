@@ -115,6 +115,8 @@
     "version": "Version",
     "eval-plugin-required": "If you need to dynamically execute code in mini program, please use @huolala-tech/page-spy-plugin-mp-eval in client SDK.",
     "mp-warning": "When submitting the mini program for review, DO REMEMBER to delete the plugin-mp-eval in the code, otherwise the review will fail.",
+    "plugin-load-failed": "Plugin panel \"{{title}}\" failed to load",
+    "plugin-load-failed-from": "Reported by the client plugin {{name}}.",
     "menu": {
       "Console": "Console",
       "Network": "Network",
