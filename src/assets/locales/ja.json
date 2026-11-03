@@ -114,6 +114,8 @@
     "version": "バージョン",
     "eval-plugin-required": "小プログラム環境で動的にコードを実行する必要がある場合、クライアント側で SDK プラグイン @huolala-tech/page-spy-plugin-mp-eval を使用してください",
     "mp-warning": "レビューのためにミニ プログラムを送信するときは、必ずコード内の plugin-mp-eval を削除してください。削除しないと、レビューが失敗します。",
+    "plugin-load-failed": "プラグインパネル「{{title}}」を読み込めませんでした",
+    "plugin-load-failed-from": "クライアントプラグイン {{name}} からの報告です。",
     "menu": {
       "Console": "コンソール",
       "Network": "ネットワーク",
